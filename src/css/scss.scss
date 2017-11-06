@@ -1,0 +1,11 @@
+.page-box{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  .flex-auto{
+    flex: auto;
+  }
+  .flex-none{
+    flex: none;
+  }
+}
