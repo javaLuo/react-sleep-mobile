@@ -1,0 +1,128 @@
+.my-main{
+  .head{
+    height: 2.3rem;
+    background-color: #fff;
+    align-items: center;
+    .picture{
+      .pic-box{
+        width: 1.3rem;
+        height: 1.3rem;
+        padding:0 .4rem 0 .46rem;
+        border-radius: 1.3rem;
+        overflow:hidden;
+        background-image: url(../../../../assets/yimaoquan@3x.png);
+        background-position: center;
+        background-size: .8rem .8rem;
+        background-repeat: no-repeat;
+      }
+    }
+    .info{
+      overflow: hidden;
+      &>div{
+        max-width: 100%;
+      }
+      .name{
+        font-size: .36rem;
+        font-weight: bold;
+        color: #222328;
+      }
+      .phone{
+        margin-top: .34rem;
+        font-size: .28rem;
+        color: #89888e;
+      }
+    }
+    .arrow{
+      padding: 0 .28rem;
+      img{
+        width: .14rem;
+        height: auto;
+      }
+    }
+  }
+  .bar{
+    height: 1.64rem;
+    align-items: center;
+    background-color: #fff;
+    margin-top: .28rem;
+    .bar-item{
+      flex: auto;
+      a{
+        color: #222328;
+      }
+      .bar-icon{
+        position: relative;
+        height: .48rem;
+        width: .48rem;
+        margin: 0 auto;
+        background-position: center;
+        background-size: auto .48rem;
+        background-repeat: no-repeat;
+
+        &.icon1{
+          background-image:url(./assets/qinyou@3x.png);
+        }
+        &.icon2{
+          background-image:url(./assets/xiaoxi@3x.png);
+        }
+        &.icon3{
+          background-image:url(./assets/dingdan@3x.png);
+        }
+        .dot{
+          position: absolute;
+          top:-.1rem;
+          left: .3rem;
+          height: .3rem;
+          min-width: .3rem;
+          padding: 0 .01rem;
+          text-align: center;
+          background-color:#FB6668;
+          font-size: .12rem;
+          border-radius: 1rem;
+          color: #fff;
+        }
+      }
+      .title{
+        font-size: .24rem;
+        text-align: center;
+        margin-top: .3rem;
+      }
+    }
+  }
+  .bar-list{
+    padding: .28rem 0;
+    .item{
+      height:.98rem;
+      align-items: center;
+      background-color: #fff;
+      .icon{
+        padding: 0 .3rem;
+        img{
+          width: auto;
+          height: .32rem;
+        }
+      }
+      .title{
+        flex:auto;
+        font-size: .28rem;
+        letter-spacing: 1px;
+      }
+      .info{
+        flex: auto;
+        font-size: .28rem;
+        color: #89888e;
+        text-align: right;
+      }
+      .arrow{
+        padding: 0 .28rem;
+        img{
+          width: .14rem;
+          height: auto;
+        }
+      }
+      &.mt{
+        margin-top: .28rem;
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ body{
     touch-action: manipulation;					/* 允许触摸驱动的平移和拖拽缩放 */
     -webkit-text-size-adjust:100%;				/* 关闭IOS横屏时，自动调整字体大小的功能 */
     font-family: "Segoe UI","Lucida Grande",'Microsoft YaHei', sans-serif;
-    font-size:14px;
+    font-size:.32rem;
     color: #222222;
 }
 ul,li{position:relative;display:block;}			/* 全部默认相对定位 */
@@ -61,3 +61,5 @@ sub{bottom: -.25em;}
 .all_b{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}	/* 内框模式 */
 .all_clear:after{content:".";height:0;overflow:hidden;visibility:hidden;display:block;clear:both;} /* 清楚浮动 */
 .all_trans{transition:all 200ms;-webkit-transition:all 200ms;}/* 过渡效果 */
+.all_active{transition: all 200ms;-webkit-transition:all 200ms;}
+.all_active:active{background-color: #eee !important;}

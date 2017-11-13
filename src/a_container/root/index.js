@@ -5,45 +5,51 @@ import P from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createHistory from 'history/createHashHistory';
-import initReactFastclick from 'react-fastclick';
+import $ from 'jquery';
 import './index.scss';
 /* 下面是代码分割异步加载的例子 */
 import Bundle from '../../a_component/bundle';
 import lazeHome from 'bundle-loader?lazy!../home';
-import lazeFeatures from 'bundle-loader?lazy!../features';
-import lazeTest from 'bundle-loader?lazy!../test';
+import lazeIntel from 'bundle-loader?lazy!../intel';
+import lazeHealthy from 'bundle-loader?lazy!../healthy';
+import lazeMy from 'bundle-loader?lazy!../my';
 import lazeNotFound from 'bundle-loader?lazy!../notfound';
+import lazeLogin from 'bundle-loader?lazy!../login';
+
 const Home = (props) => (
   <Bundle load={lazeHome}>
     {(Home) => <Home {...props} />}
   </Bundle>
 );
-const Features = (props) => (
-  <Bundle load={lazeFeatures}>
-    {(Features) => <Features {...props} />}
+const Intel = (props) => (
+  <Bundle load={lazeIntel}>
+    {(Intel) => <Intel {...props} />}
   </Bundle>
 );
-const Test = (props) => (
-  <Bundle load={lazeTest}>
-    {(Test) => <Test {...props} />}
+const Healthy = (props) => (
+  <Bundle load={lazeHealthy}>
+    {(Healthy) => <Healthy {...props} />}
   </Bundle>
 );
+const My = (props) => (
+  <Bundle load={lazeMy}>
+    {(My) => <My {...props} />}
+  </Bundle>
+);
+
+const Login = (props) => (
+    <Bundle load={lazeLogin}>
+        {(Login) => <Login {...props} />}
+    </Bundle>
+);
+
 const NotFound = (props) => (
-  <Bundle load={lazeNotFound}>
-    {(NotFound) => <NotFound {...props} />}
-  </Bundle>
+    <Bundle load={lazeNotFound}>
+        {(NotFound) => <NotFound {...props} />}
+    </Bundle>
 );
 /* 上面是代码分割异步加载的例子 */
 
-/* 下面是代码不分割的用法 */
-// import Home from '../home';
-// import Features from '../features';
-// import Test from '../test';
-// import NotFound from '../notfound';
-
-import Footer from '../../a_component/footer';
-
-initReactFastclick();
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -51,17 +57,33 @@ class RootContainer extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+      $(window).on("resize",function(){
+          //自适应字体大小设置
+          const windowWidth = $(window).width();
+          const htmlSize = windowWidth / 7.5;
+
+          if(windowWidth<=750){
+              $("html").css("font-size",htmlSize+"px");
+          }else{
+              $("html").css("font-size","100px");
+          }
+      }).resize();
+  }
+
   render() {
     return ([
       <Router history={history} key="history">
         <Route render={(props) => {
           return (
-            <div className="boss page-box">
+            <div className="boss">
                 <Switch>
                   <Redirect exact from='/' to='/home' />
                   <Route path="/home" component={Home} />
-                  <Route path="/features" component={Features} />
-                  <Route path="/test" component={Test} />
+                  <Route path="/intel" component={Intel} />
+                  <Route path="/healthy" component={Healthy} />
+                  <Route path="/my" component={My} />
+                  <Route path="/login" component={Login} />
                   <Route component={NotFound} />
                 </Switch>
             </div>

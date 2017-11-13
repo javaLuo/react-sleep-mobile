@@ -1,35 +1,68 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import P from 'prop-types';
+import { TabBar } from 'antd-mobile';
+import './index.scss';
 
+const TabItem = TabBar.Item;
 class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 5,
+            pathNow: '',
         };
     }
 
     // 组件初始化完毕时触发
     componentDidMount() {
+        this.setChecked();
+    }
+
+    // 设置哪一个该被选中
+    setChecked() {
+        console.log('MENU:', this.props.location);
+        const path = this.props.location.pathname.split('/')[1];
+        this.setState({
+            pathNow: path,
+        });
     }
 
     render() {
-        return (
-            <div className="menu">
-                <NavLink to="/home">首页</NavLink>|
-                <NavLink to="/features">构建与特性</NavLink>|
-                <NavLink to={{ pathname: '/test', search: '?a=123&b=abc', state: { c: '456', d: 'ABC'} }}>测试页面</NavLink>|
-                <a href="https://github.com/javaLuo/react-luo" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </div>
-        );
+        return ([
+            <div className="menu" key="0">
+                <div className={this.state.pathNow === 'home' ? "menu-item check" : 'menu-item'}>
+                    <Link to="/home">
+                        <div className="menu-icon icon1" />
+                        <div className="title">首页</div>
+                    </Link>
+                </div>
+                <div className={this.state.pathNow === 'intel' ? "menu-item check" : 'menu-item'}>
+                    <Link to="/intel">
+                        <div className="menu-icon icon2" />
+                        <div className="title">智能物联</div>
+                    </Link>
+                </div>
+                <div className={this.state.pathNow === 'healthy' ? "menu-item check" : 'menu-item'}>
+                    <Link to="/healthy">
+                        <div className="menu-icon icon3" />
+                        <div className="title">健康管理</div>
+                    </Link>
+                </div>
+                <div className={this.state.pathNow === 'my' ? "menu-item check" : 'menu-item'}>
+                    <Link to="/my">
+                        <div className="menu-icon icon4" />
+                        <div className="title">我的e家</div>
+                    </Link>
+                </div>
+            </div>,
+            <div className="menu-zw" key="1"/>
+        ]);
     }
 }
 
 Menu.propTypes = {
-    value: P.number,
-    onClick: P.func,
-    fetchValue: P.array,
+    history: P.any,
+    location: P.any,
 };
 
 export default Menu;

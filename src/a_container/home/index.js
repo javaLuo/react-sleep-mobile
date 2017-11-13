@@ -14,7 +14,7 @@ import './index.scss';
 // ==================
 
 import { NavBar, Icon, SearchBar, WingBlank } from 'antd-mobile';
-
+import Menu from '../../a_component/menu';
 // ==================
 // 本页面所需action
 // ==================
@@ -46,6 +46,7 @@ class HomePageContainer extends React.Component {
             <SearchBar placeholder="Search" maxLength={8} />
           </WingBlank>
           <div className="flex-auto">2</div>
+          <Menu history={this.props.history} location={this.props.location}/>
       </div>
     );
   }
