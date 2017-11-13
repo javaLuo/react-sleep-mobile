@@ -50,11 +50,14 @@ const NotFound = (props) => (
 );
 /* 上面是代码分割异步加载的例子 */
 
+import Menu from '../../a_component/menu';
 
 const history = createHistory();
 class RootContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+    };
   }
 
   componentWillMount() {
@@ -71,6 +74,17 @@ class RootContainer extends React.Component {
       }).resize();
   }
 
+
+    /* 权限控制 */
+    onEnter(Component, props) {
+        // 如果没有登陆，直接跳转至login页
+        if (!sessionStorage.getItem('adminUser')) {
+            return <Component {...props} />;
+        } else {
+            return <Redirect to='/login' />;
+        }
+    }
+
   render() {
     return ([
       <Router history={history} key="history">
@@ -79,13 +93,14 @@ class RootContainer extends React.Component {
             <div className="boss">
                 <Switch>
                   <Redirect exact from='/' to='/home' />
-                  <Route path="/home" component={Home} />
-                  <Route path="/intel" component={Intel} />
-                  <Route path="/healthy" component={Healthy} />
-                  <Route path="/my" component={My} />
+                  <Route path="/home" render={(props) => this.onEnter(Home, props)} />
+                  <Route path="/intel" render={(props) => this.onEnter(Intel, props)} />
+                  <Route path="/healthy" render={(props) => this.onEnter(Healthy, props)} />
+                  <Route path="/my" render={(props) => this.onEnter(My, props)} />
                   <Route path="/login" component={Login} />
                   <Route component={NotFound} />
                 </Switch>
+                <Menu location={props.location} history={props.history}/>
             </div>
           );
         }}/>
@@ -101,6 +116,7 @@ class RootContainer extends React.Component {
 RootContainer.propTypes = {
   dispatch: P.func,
   children: P.any,
+  location: P.any,
 };
 
 // ==================

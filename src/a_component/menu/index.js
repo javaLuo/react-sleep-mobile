@@ -1,34 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import P from 'prop-types';
-import { TabBar } from 'antd-mobile';
 import './index.scss';
+import { urls } from '../../util/data';
 
-const TabItem = TabBar.Item;
 class Menu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             pathNow: '',
+            show: true,
         };
     }
 
     // 组件初始化完毕时触发
     componentDidMount() {
-        this.setChecked();
+        this.setChecked(this.props.location);
+    }
+
+    componentWillReceiveProps(nextP) {
+        if (nextP.location !== this.props.location) {
+            this.setChecked(nextP.location);
+        }
     }
 
     // 设置哪一个该被选中
-    setChecked() {
-        console.log('MENU:', this.props.location);
-        const path = this.props.location.pathname.split('/')[1];
+    setChecked(location) {
+        const path = location.pathname.split('/')[1];
+        console.log('当前PATH：', path);
+        document.title = (path && urls[path]) ? urls[path].name : '翼猫科技';
         this.setState({
             pathNow: path,
+            show: ['login'].indexOf(path) < 0,  // 某些页面不需要显示菜单
         });
     }
 
     render() {
-        return ([
+        return ( this.state.show ? [
             <div className="menu" key="0">
                 <div className={this.state.pathNow === 'home' ? "menu-item check" : 'menu-item'}>
                     <Link to="/home">
@@ -56,7 +64,7 @@ class Menu extends React.Component {
                 </div>
             </div>,
             <div className="menu-zw" key="1"/>
-        ]);
+        ] : null);
     }
 }
 

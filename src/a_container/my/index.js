@@ -37,7 +37,7 @@ class My extends React.Component {
           <Switch>
               <Route exact path={`${this.props.match.url}/`} component={Main} />
           </Switch>
-          <Menu history={this.props.history} location={this.props.location}/>
+
       </div>
     );
   }

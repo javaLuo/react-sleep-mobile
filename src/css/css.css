@@ -2,6 +2,7 @@
 *{
     -webkit-overflow-scrolling: touch;			/* 允许独立滚动区域，解决IOS上的非body元素滚动条滚动时卡顿 */
     -webkit-tap-highlight-color: transparent;	/* 覆盖IOS上用户点击连接时的默认高亮颜色 */
+    user-select: none;
     outline: none;
 }
 
@@ -23,6 +24,7 @@ ul{margin:0;padding:0;}								/* ul相当于div */
 li{list-style:none;margin:0;padding:0;}				/* li相当于div */
 img{border:0;}
 input{line-height:normal;}
+input,textarea{-webkit-user-select:text;user-select:text;}/* 表单元素的文本可以被选择 */
 img,a:focus,a:hover,a:active{outline:none;}
 label{cursor:pointer;}
 sub,sup{font-size:75%;line-height: 0;position: relative;vertical-align: baseline;} /* 重新定义上标和下标的表现 */
