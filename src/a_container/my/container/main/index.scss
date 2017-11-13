@@ -94,6 +94,7 @@
       height:.98rem;
       align-items: center;
       background-color: #fff;
+      position: relative;
       .icon{
         padding: 0 .3rem;
         img{
@@ -118,6 +119,14 @@
           width: .14rem;
           height: auto;
         }
+      }
+      .line{
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        width: 94%;
+        left: 3%;
+        background-color: #f7f7f7;
       }
       &.mt{
         margin-top: .28rem;

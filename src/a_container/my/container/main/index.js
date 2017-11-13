@@ -84,6 +84,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="title">翼猫圈</div>
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
@@ -92,6 +93,7 @@ class HomePageContainer extends React.Component {
                   <div className="title">我在翼猫</div>
                   <div className="info">体验版</div>
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
@@ -100,6 +102,7 @@ class HomePageContainer extends React.Component {
                   <div className="title">健康大使</div>
                   <div className="info">翼猫科技</div>
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
@@ -122,6 +125,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="title">我的收藏</div>
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
@@ -129,6 +133,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="title">设置</div>
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
