@@ -22,7 +22,7 @@ body{
 ul,li{position:relative;display:block;}			/* 全部默认相对定位 */
 ul{margin:0;padding:0;}								/* ul相当于div */
 li{list-style:none;margin:0;padding:0;}				/* li相当于div */
-img{border:0;}
+img,a{border:0;text-decoration: none;}
 input{line-height:normal;}
 input,textarea{-webkit-user-select:text;user-select:text;}/* 表单元素的文本可以被选择 */
 img,a:focus,a:hover,a:active{outline:none;}

@@ -1,22 +1,8 @@
-.page-login{
+.page-register{
   background-size: 100% auto;
   background-position: bottom center;
   background-repeat: no-repeat;
   background-color: #fff;
-  min-height: 100vh;
-  .head{
-    height: .88rem;
-    line-height: .88rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    .btn{
-      flex: none;
-      padding: 0 .3rem;
-      color: #4285f4;
-      text-align: center;
-    }
-  }
   .login-box{
     padding-top: 1.02rem;
     .logo{
@@ -63,17 +49,52 @@
           }
         }
       }
+      &>.btn-box{
+        flex: none;
+        .btn{
+          height: .54rem;
+          padding: 0 .2rem;
+          font-size: .24rem;
+          color: #fff;
+          border-radius: .44rem;
+          background-color: #4285f4;
+          margin: 0 auto;
+          border: none;
+          letter-spacing: 1px;
+          &:active{
+            background-color:#0D62F0;
+          }
+        }
+      }
     }
     .input-box2{
       width: 6.6rem;
       height: .88rem;
       line-height: .88rem;
-      margin: 0 auto;
+      margin: 0 auto .6rem auto;
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
       .btn{
         color: #222328;
+      }
+      .agree-item{
+        color: #222328;
+        a{
+          color: #4285f4;
+        }
+        .am-checkbox-agree-label{
+          font-size: .28rem;
+          color: #222328;
+          line-height: .88rem;
+        }
+        &.am-checkbox-agree{
+          padding: 0 !important;
+          margin-left: .25rem;
+          .am-checkbox-inner{
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
       }
     }
     .line{

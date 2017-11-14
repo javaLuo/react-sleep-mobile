@@ -1,12 +1,16 @@
 .page-box{
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - .98rem);
 }
 
 .page-flex-row{
   display: flex;
   flex-direction: row;
+}
+.page-flex-col{
+  display: flex;
+  flex-direction: column;
 }
 .flex-auto{
   flex: auto;
