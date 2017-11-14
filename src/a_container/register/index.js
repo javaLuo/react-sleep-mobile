@@ -96,14 +96,16 @@ class Register extends React.Component {
         <Modal
           visible={this.state.modalShow}
           title="服务条款"
+          className="all_modal"
           transparent
           closable
           onClose={()=> this.onModalClose()}
-          footer={[{ text: '确定', onPress: () => this.onModalClose() }]}
-
         >
           <div>
-            <p>协议协协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议议</p>
+            <p style={{ padding: "0 15px 15px" }}>协议协协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议协议议</p>
+              <div className="modal-footer">
+                  <div onClick={() => this.onModalClose()}>确定</div>
+              </div>
           </div>
         </Modal>
       </div>

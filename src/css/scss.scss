@@ -18,3 +18,23 @@
 .flex-none{
   flex: none;
 }
+
+/* 自定义的antd-mobile modal footer */
+.all_modal{
+  width: 80% !important;
+  max-width: 520px;
+  .am-modal-body{
+    padding: 0 !important;
+  }
+  .modal-footer{
+    border-top: solid 1px #f7f7f7;
+    height: .88rem;
+    line-height: .88rem;
+    display: flex;
+    &>div{
+      flex: auto;
+      text-align: center;
+      color: #4285f4;
+    }
+  }
+}
