@@ -46,6 +46,12 @@ const allobj = {
         return str.replace(reg, '');
     },
 
+    // 验证是否是正确的手机号
+    checkPhone(str) {
+        const reg = /^[1][3578][0-9]{9}$/g;
+        return reg.test(str);
+    },
+
     // 给字符串打马赛克
     addMosaic(str) {
         if (!str && str !== 0) {

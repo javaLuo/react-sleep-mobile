@@ -85,7 +85,7 @@ class RootContainer extends React.Component {
     /* 权限控制 */
     onEnter(Component, props) {
         // 如果没有登陆，直接跳转至login页,注册页不用跳
-        if (!sessionStorage.getItem('adminUser')) {
+        if (localStorage.getItem('userinfo')) {
             return <Component {...props} />;
         } else {
             return <Redirect to='/login' />;
@@ -104,8 +104,8 @@ class RootContainer extends React.Component {
                   <Route path="/intel" render={(props) => this.onEnter(Intel, props)} />
                   <Route path="/healthy" render={(props) => this.onEnter(Healthy, props)} />
                   <Route path="/my" render={(props) => this.onEnter(My, props)} />
-                  <Route path="/register" render={(props) => this.onEnter(Register, props)} />
-                  <Route path="/login" component={Login} />
+                  <Route exact path="/register" render={Register} />
+                  <Route exact path="/login" component={Login} />
                   <Route component={NotFound} />
                 </Switch>
                 <Menu location={props.location} history={props.history}/>

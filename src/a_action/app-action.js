@@ -2,47 +2,58 @@ import _ from 'lodash';
 import Fetchapi from '../util/fetch-api';
 import { message } from 'antd';
 
-
-export function onTestAdd(num) {
-  return {
-    type: 'TEST::add',
-    payload: num + 1,
-  };
-}
-
-// Fetchapi 异步请求测试
-export function fetchApi(params) {
-  return (dispatch) => {
-      return Fetchapi.newPost(
-        'url', params
-      ).then(
-          msg => {
-            console.log('返回数据', msg);
-            dispatch({
-              type: 'TEST::testFetch',
-              payload: msg,
-            });
-            return msg;
-          }
-        ).catch(() => {
-          message.error('网络错误，请重试');
+// 检测手机号是否被注册
+export const checkMobile = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('user/checkMobile', params);
+        dispatch({
+            type: 'APP::checkMobile',
+            payload: res,
         });
-    };
-}
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
 
-// promise测试
-export function testPromise(params) {
-  return (dispatch) => {
-      return new Promise((resolve, reject) => {
-        if (params === 1) {
-          resolve('success');
-          dispatch({
-              type: 'TEST::add',
-              payload: 10000,
-            });
-        } else {
-          reject('error');
-        }
-      });
-    };
-}
+// 登录
+export const login = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('user/login', params, 'post', true);
+        dispatch({
+            type: 'APP::login',
+            payload: res,
+        });
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 注册时获取二维码
+export const getVerifyCode = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('sms/getVerifyCode', params);
+        dispatch({
+            type: 'APP::getVerifyCode',
+            payload: res,
+        });
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 注册
+export const register = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('user/register', params, 'post', true);
+        dispatch({
+            type: 'APP::register',
+            payload: res,
+        });
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};

@@ -8,7 +8,7 @@ const webpackConfig = require('./webpack.dev.config.js');			// webpack配置文�
 
 const app = express();	// 实例化express服务
 const DIST_DIR = webpackConfig.output.path;	// webpack配置中设置的文件输出路径，所有文件存放在内存中
-const PORT = 8888;	// 服务启动端口号
+const PORT = 80;	// 服务启动端口号
 const compiler = webpack(webpackConfig);	// 实例化webpack
 
 app.use(webpackDevMiddleware(compiler, {	// 挂载webpack小型服务器
