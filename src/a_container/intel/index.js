@@ -31,8 +31,8 @@ class Intel extends React.Component {
 
   render() {
     return (
-      <div className="flex-auto page-box">
-          <Menu history={this.props.history} location={this.props.location}/>
+      <div className="flex-auto page-box page-flex-col intel-page">
+        <div>请下载APP</div>
       </div>
     );
   }

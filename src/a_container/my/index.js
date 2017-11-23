@@ -14,7 +14,6 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import Menu from '../../a_component/menu';
 import Main from './container/main';
 // ==================
 // 本页面所需action

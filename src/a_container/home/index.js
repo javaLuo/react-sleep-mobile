@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
@@ -13,8 +14,11 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { NavBar, Icon, SearchBar, WingBlank } from 'antd-mobile';
-import Menu from '../../a_component/menu';
+import { Carousel, Icon } from 'antd-mobile';
+import Img1 from '../../assets/test/test1.jpg';
+import Img2 from '../../assets/test/test2.jpg';
+import Img3 from '../../assets/test/test3.jpg';
+import ImgIcon1 from '../../assets/yanzheng@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -32,21 +36,156 @@ class HomePageContainer extends React.Component {
 
   render() {
     return (
-      <div className="flex-auto page-box">
-        <NavBar
-            mode="light"
-            icon={<Icon type="left" />}
-            onLeftClick={() => console.log('onLeftClick')}
-            rightContent={[
-              <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-              <Icon key="1" type="ellipsis" />,
-            ]}
-        >NavBar</NavBar>
-          <WingBlank size="sm" className="flex-auto">
-            <SearchBar placeholder="Search" maxLength={8} />
-          </WingBlank>
-          <div className="flex-auto">2</div>
-          <Menu history={this.props.history} location={this.props.location}/>
+      <div className="flex-auto page-box home-page">
+          {/* 顶部轮播 */}
+          <Carousel
+            className="my-carousel"
+            autoplay
+            infinite
+            swipeSpeed={35}
+          >
+            <img src={Img1} />
+            <img src={Img2} />
+            <img src={Img3} />
+          </Carousel>
+          {/* bar */}
+          <div className="home-bar page-flex-row">
+              <div className="flex-auto">
+                  <Link to="/"><div>翼猫商城</div></Link>
+              </div>
+              <div className="flex-auto">
+                  <Link to="/"><div>翼猫直播</div></Link>
+              </div>
+              <div className="flex-auto">
+                  <Link to="/"><div>健康资讯</div></Link>
+              </div>
+              <div className="flex-auto">
+                  <Link to="/"><div>翼猫线下服务体验店</div></Link>
+              </div>
+          </div>
+          {/* 最新直播 */}
+          <div className="the-list">
+              <div className="title page-flex-row">
+                  <div className="flex-auto">最新直播</div>
+                  <div className="flex-none"><Link to="/">更多 &gt;</Link></div>
+              </div>
+              <ul className="list">
+                  <li>
+                      <Link to="/">
+                          <div className="pic flex-none"><img src={Img1} /></div>
+                          <div className="detail flex-auto page-flex-col">
+                              <div className="t flex-none">经营智慧</div>
+                              <div className="i flex-auto">
+                                  <div>主讲人：刘军老师</div>
+                                  <div>2017-09-09 14:20:00</div>
+                              </div>
+                              <div className="k page-flex-row flex-none">
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                              </div>
+                          </div>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link to="/">
+                          <div className="pic flex-none"><img src={Img1} /></div>
+                          <div className="detail flex-auto page-flex-col">
+                              <div className="t flex-none">经营智慧</div>
+                              <div className="i flex-auto">
+                                  <div>主讲人：刘军老师</div>
+                                  <div>2017-09-09 14:20:00</div>
+                              </div>
+                              <div className="k page-flex-row flex-none">
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                              </div>
+                          </div>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link to="/">
+                          <div className="pic flex-none"><img src={Img1} /></div>
+                          <div className="detail flex-auto page-flex-col">
+                              <div className="t flex-none">经营智慧</div>
+                              <div className="i flex-auto">
+                                  <div>主讲人：刘军老师</div>
+                                  <div>2017-09-09 14:20:00</div>
+                              </div>
+                              <div className="k page-flex-row flex-none">
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                              </div>
+                          </div>
+                      </Link>
+                  </li>
+              </ul>
+          </div>
+          {/* 最新资讯 */}
+          <div className="the-list" style={{marginTop: '10px'}}>
+              <div className="title page-flex-row">
+                  <div className="flex-auto">最新资讯</div>
+                  <div className="flex-none"><Link to="/">更多 &gt;</Link></div>
+              </div>
+              <ul className="list">
+                  <li>
+                      <Link to="/">
+                          <div className="pic flex-none"><img src={Img1} /></div>
+                          <div className="detail flex-auto page-flex-col">
+                              <div className="t flex-none all_nowarp">健康与你只不过是一杯水的距离</div>
+                              <div className="i flex-auto">
+                                  <div className="all_nowarp2">简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
+                              </div>
+                              <div className="k page-flex-row flex-none">
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                              </div>
+                          </div>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link to="/">
+                          <div className="pic flex-none"><img src={Img1} /></div>
+                          <div className="detail flex-auto page-flex-col">
+                              <div className="t flex-none all_nowarp">健康与你的距离</div>
+                              <div className="i flex-auto">
+                                  <div className="all_nowarp2">简介简介简介简介</div>
+                              </div>
+                              <div className="k page-flex-row flex-none">
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                              </div>
+                          </div>
+                      </Link>
+                  </li>
+                  <li>
+                      <Link to="/">
+                          <div className="pic flex-none"><img src={Img1} /></div>
+                          <div className="detail flex-auto page-flex-col">
+                              <div className="t flex-none all_nowarp">健康与水的距离</div>
+                              <div className="i flex-auto">
+                                  <div className="all_nowarp2">简介简介简介介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
+                              </div>
+                              <div className="k page-flex-row flex-none">
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                                  <span><img src={ImgIcon1}/>222</span>
+                              </div>
+                          </div>
+                      </Link>
+                  </li>
+              </ul>
+          </div>
       </div>
     );
   }

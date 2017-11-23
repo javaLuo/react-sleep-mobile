@@ -1,0 +1,51 @@
+.healthy-main{
+  .bar-list{
+    padding: 0 0 .28rem 0;
+    .item{
+      height:.98rem;
+      align-items: center;
+      background-color: #fff;
+      position: relative;
+      .icon{
+        padding: 0 .3rem;
+        img{
+          width: auto;
+          height: .32rem;
+        }
+      }
+      .title{
+        flex:auto;
+        font-size: .28rem;
+        letter-spacing: 1px;
+        .i{
+          font-size: .24rem;
+          color: #89888e;
+        }
+      }
+      .info{
+        flex: auto;
+        font-size: .28rem;
+        color: #89888e;
+        text-align: right;
+      }
+      .arrow{
+        padding: 0 .28rem;
+        img{
+          width: .14rem;
+          height: auto;
+        }
+      }
+      .line{
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        width: 94%;
+        left: 3%;
+        background-color: #f7f7f7;
+      }
+      &.mt{
+        margin-top: .28rem;
+      }
+    }
+  }
+}

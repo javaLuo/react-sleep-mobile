@@ -1,0 +1,111 @@
+.home-page{
+  .my-carousel{
+    height: 200px !important;
+    img{
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+  .home-bar{
+    padding: 10px 0;
+    height: 1.875rem;
+    max-height: 150px;
+    box-sizing: border-box;
+    justify-content: space-around;
+    &>div{
+      margin-right: 10px;
+      max-width: 150px;
+      width: 25%;
+      height: 100%;
+      &:first-child{
+        margin-left: 10px;
+      }
+      a{
+        display: flex;
+        box-sizing: border-box;
+        padding: 5px;
+        height: 100%;
+        border: solid 1px #e0e0e0;
+        text-align: center;
+        font-size: .2rem;
+        color: #222328;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+      }
+    }
+  }
+  .the-list{
+    .title{
+      height: .4rem;
+      line-height: .4rem;
+      font-size: .25rem;
+      padding:5px 10px;
+      border-top: solid 1px #e0e0e0;
+      a{
+        display: block;
+        height: 100%;
+        color: #222;
+        span{
+          vertical-align: middle;
+        }
+        svg{
+          float: right;
+        }
+      }
+    }
+    .list{
+      border-top: solid 1px #e0e0e0;
+      border-bottom: solid 1px #e0e0e0;
+      &>li{
+        &>a{
+          color: #222;
+          display: flex;
+          height: 2rem;
+          max-height: 250px;
+          padding:10px;
+          .pic{
+            width: 35%;
+            height: 100%;
+            max-width: 200px;
+            img{
+              width: 100%;
+              height: 100%;
+              display: block;
+              object-fit: cover;
+              border-radius: 4px;
+            }
+          }
+          .detail{
+            margin-left: 10px;
+            overflow: hidden;
+            .t{
+              font-size: .32rem;
+            }
+            .i{
+              font-size: .25rem;
+              color: #888;
+              margin-top: .2rem;
+              .all_nowarp2{
+                height: .6rem;
+                line-height: .31rem;
+              }
+            }
+            .k{
+              justify-content: space-between;
+              img{
+                width: 18px;
+                margin-right: 3px;
+                vertical-align: middle;
+                transform: translateY(-2px);
+              }
+              span{
+                font-size: .18rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

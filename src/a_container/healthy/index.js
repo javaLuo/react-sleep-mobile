@@ -13,7 +13,9 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import Menu from '../../a_component/menu';
+import { Switch, Route } from 'react-router-dom';
+import Main from './container/main';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -31,9 +33,11 @@ class Healthy extends React.Component {
 
   render() {
     return (
-      <div className="flex-auto page-box">
-          <Menu history={this.props.history} location={this.props.location}/>
-      </div>
+        <div>
+          <Switch>
+            <Route exact path={`${this.props.match.url}/`} component={Main} />
+          </Switch>
+        </div>
     );
   }
 }
@@ -45,6 +49,7 @@ class Healthy extends React.Component {
 Healthy.propTypes = {
   location: P.any,
   history: P.any,
+    match: P.any,
 };
 
 // ==================
