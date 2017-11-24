@@ -5,6 +5,7 @@
 const initState = {
   num: 0,           // 初始值0
   fetchvalue: [],
+    userinfo: null, // 通过getUserInfo接口获取的用户信息
 };
 
 // ============================================
@@ -19,12 +20,18 @@ const testAdd = (state, action) => {
   });
 };
 
-
 const testFetch = (state, action) => {
   const { payload } = action;
   return Object.assign({}, state, {
     fetchvalue: payload,
   });
+};
+
+const getUserInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        userinfo: payload,
+    });
 };
 // ============================================
 // reducer function
@@ -36,6 +43,8 @@ const reducerFn = (state = initState, action) => {
     return testAdd(state, action);
   case 'TEST::testFetch':
     return testFetch(state, action);
+  case 'APP::getUserInfo':
+    return getUserInfo(state, action);
   default:
     return actDefault(state, action);
   }

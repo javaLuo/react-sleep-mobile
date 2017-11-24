@@ -31,7 +31,7 @@ class Menu extends React.Component {
         document.title = (path && urls[path]) ? urls[path].name : '翼猫科技';
         this.setState({
             pathNow: path,
-            show: ['login', 'register'].indexOf(path) < 0,  // 某些页面不需要显示菜单
+            show: ['home', 'intel', 'healthy', 'my'].indexOf(path) >= 0,  // 只有主页几个页面需要显示底部菜单
         });
     }
 

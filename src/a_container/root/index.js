@@ -16,6 +16,8 @@ import lazeMy from 'bundle-loader?lazy!../my';
 import lazeNotFound from 'bundle-loader?lazy!../notfound';
 import lazeLogin from 'bundle-loader?lazy!../login';
 import lazeRegister from 'bundle-loader?lazy!../register';
+import lazeShop from 'bundle-loader?lazy!../shop';
+import lazeNews from 'bundle-loader?lazy!../news';
 
 const Home = (props) => (
   <Bundle load={lazeHome}>
@@ -37,19 +39,26 @@ const My = (props) => (
     {(My) => <My {...props} />}
   </Bundle>
 );
-
 const Login = (props) => (
     <Bundle load={lazeLogin}>
         {(Login) => <Login {...props} />}
     </Bundle>
 );
-
+const Shop = (props) => (
+    <Bundle load={lazeShop}>
+        {(Shop) => <Shop {...props} />}
+    </Bundle>
+);
+const News = (props) => (
+    <Bundle load={lazeNews}>
+        {(News) => <News {...props} />}
+    </Bundle>
+);
 const Register = (props) => (
     <Bundle load={lazeRegister}>
         {(Register) => <Register {...props} />}
     </Bundle>
 );
-
 const NotFound = (props) => (
     <Bundle load={lazeNotFound}>
         {(NotFound) => <NotFound {...props} />}
@@ -85,7 +94,7 @@ class RootContainer extends React.Component {
     /* 权限控制 */
     onEnter(Component, props) {
         // 如果没有登陆，直接跳转至login页,注册页不用跳
-        if (localStorage.getItem('userinfo')) {
+        if (sessionStorage.getItem('userinfo')) {
             return <Component {...props} />;
         } else {
             return <Redirect to='/login' />;
@@ -104,6 +113,8 @@ class RootContainer extends React.Component {
                   <Route path="/intel" render={(props) => this.onEnter(Intel, props)} />
                   <Route path="/healthy" render={(props) => this.onEnter(Healthy, props)} />
                   <Route path="/my" render={(props) => this.onEnter(My, props)} />
+                  <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
+                  <Route path="/news" render={(props) => this.onEnter(News, props)} />
                   <Route exact path="/register" render={Register} />
                   <Route exact path="/login" component={Login} />
                   <Route component={NotFound} />

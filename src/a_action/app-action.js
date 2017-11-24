@@ -57,3 +57,47 @@ export const register = (params = {}) => async(dispatch) => {
         message.error('网络错误，请重试');
     }
 };
+
+// 获取用户信息
+export const getUserInfo = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('userInfo/get', params, 'post', true);
+        if(res.status === 200) {
+            dispatch({
+                type: 'APP::getUserInfo',
+                payload: res.data,
+            });
+        }
+
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 修改用户信息
+export const updateUserInfo = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('userInfo/update', params, 'post', true);
+        if(res.status === 200) {
+            dispatch({
+                type: 'APP::getUserInfo',
+                payload: res.data,
+            });
+        }
+
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 上传图片接口
+export const upLoadImg = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('common/upload/image', params, 'post', true);
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};

@@ -2,18 +2,22 @@
   .head{
     height: 2.3rem;
     background-color: #fff;
-    align-items: center;
+    &>a{
+      align-items: center;
+    }
     .picture{
       .pic-box{
         width: 1.3rem;
         height: 1.3rem;
-        padding:0 .4rem 0 .46rem;
+        margin:0 .4rem 0 .46rem;
         border-radius: 1.3rem;
         overflow:hidden;
-        background-image: url(../../../../assets/yimaoquan@3x.png);
-        background-position: center;
-        background-size: .8rem .8rem;
-        background-repeat: no-repeat;
+        background-color: #4285f4;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
     .info{

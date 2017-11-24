@@ -21,6 +21,13 @@
 	      "libraryName": "antd-mobile",
 	      "style": "css"
       }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": "css"
+      }
     ]
   ]
 }

@@ -51,13 +51,13 @@ class HomePageContainer extends React.Component {
           {/* bar */}
           <div className="home-bar page-flex-row">
               <div className="flex-auto">
-                  <Link to="/"><div>翼猫商城</div></Link>
+                  <Link to="/shop"><div>翼猫商城</div></Link>
               </div>
               <div className="flex-auto">
                   <Link to="/"><div>翼猫直播</div></Link>
               </div>
               <div className="flex-auto">
-                  <Link to="/"><div>健康资讯</div></Link>
+                  <Link to="/news"><div>健康资讯</div></Link>
               </div>
               <div className="flex-auto">
                   <Link to="/"><div>翼猫线下服务体验店</div></Link>
@@ -127,9 +127,9 @@ class HomePageContainer extends React.Component {
               </ul>
           </div>
           {/* 最新资讯 */}
-          <div className="the-list" style={{marginTop: '10px'}}>
+          <div className="the-list">
               <div className="title page-flex-row">
-                  <div className="flex-auto">最新资讯</div>
+                  <div className="flex-auto">最新直播</div>
                   <div className="flex-none"><Link to="/">更多 &gt;</Link></div>
               </div>
               <ul className="list">
@@ -137,7 +137,7 @@ class HomePageContainer extends React.Component {
                       <Link to="/">
                           <div className="pic flex-none"><img src={Img1} /></div>
                           <div className="detail flex-auto page-flex-col">
-                              <div className="t flex-none all_nowarp">健康与你只不过是一杯水的距离</div>
+                              <div className="t flex-none all_nowarp">经营智慧经营智慧经营智慧经营智慧</div>
                               <div className="i flex-auto">
                                   <div className="all_nowarp2">简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
                               </div>
@@ -154,9 +154,10 @@ class HomePageContainer extends React.Component {
                       <Link to="/">
                           <div className="pic flex-none"><img src={Img1} /></div>
                           <div className="detail flex-auto page-flex-col">
-                              <div className="t flex-none all_nowarp">健康与你的距离</div>
+                              <div className="t flex-none">经营智慧</div>
                               <div className="i flex-auto">
-                                  <div className="all_nowarp2">简介简介简介简介</div>
+                                  <div>主讲人：刘军老师</div>
+                                  <div>2017-09-09 14:20:00</div>
                               </div>
                               <div className="k page-flex-row flex-none">
                                   <span><img src={ImgIcon1}/>222</span>
@@ -171,9 +172,10 @@ class HomePageContainer extends React.Component {
                       <Link to="/">
                           <div className="pic flex-none"><img src={Img1} /></div>
                           <div className="detail flex-auto page-flex-col">
-                              <div className="t flex-none all_nowarp">健康与水的距离</div>
+                              <div className="t flex-none">经营智慧</div>
                               <div className="i flex-auto">
-                                  <div className="all_nowarp2">简介简介简介介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介</div>
+                                  <div>主讲人：刘军老师</div>
+                                  <div>2017-09-09 14:20:00</div>
                               </div>
                               <div className="k page-flex-row flex-none">
                                   <span><img src={ImgIcon1}/>222</span>

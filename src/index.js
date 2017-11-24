@@ -15,7 +15,7 @@ import './css/scss.scss';
 import FastClick from 'fastclick';
 const rootDom = document.getElementById('app-root');
 
-initReactFastclick();
+// initReactFastclick();
 // FastClick.attach(document.body);
 ReactDOM.render(
     <Provider store={store}>

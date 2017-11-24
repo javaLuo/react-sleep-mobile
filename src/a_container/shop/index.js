@@ -1,4 +1,4 @@
-/* 我的e家 */
+/* 商城 */
 
 // ==================
 // 所需的各种插件
@@ -15,8 +15,7 @@ import './index.scss';
 // ==================
 
 import Main from './container/main';
-import UserInfo from './container/userInfo';
-import PerInfo from './container/perInfo';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -25,7 +24,7 @@ import PerInfo from './container/perInfo';
 // ==================
 // Definition
 // ==================
-class My extends React.Component {
+class Shop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,10 +36,7 @@ class My extends React.Component {
       <div>
           <Switch>
               <Route exact path={`${this.props.match.url}/`} component={Main} />
-              <Route exact path={`${this.props.match.url}/userinfo`} component={UserInfo} />
-              <Route exact path={`${this.props.match.url}/perinfo`} component={PerInfo} />
           </Switch>
-
       </div>
     );
   }
@@ -50,7 +46,7 @@ class My extends React.Component {
 // PropTypes
 // ==================
 
-My.propTypes = {
+Shop.propTypes = {
   location: P.any,
   history: P.any,
   match: P.any,
@@ -67,4 +63,4 @@ export default connect(
   (dispatch) => ({
     actions: bindActionCreators({}, dispatch),
   })
-)(My);
+)(Shop);

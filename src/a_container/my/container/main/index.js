@@ -14,7 +14,6 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { Badge } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from './assets/yimaoquan@3x.png';
 import ImgBar2 from './assets/wozai@3x.png';
@@ -28,6 +27,7 @@ import ImgBar8 from './assets/kefu@3x.png';
 // 本页面所需action
 // ==================
 
+import { getUserInfo } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -39,21 +39,37 @@ class HomePageContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+      if (!this.props.userinfo) {
+        this.getUserInfo();
+      }
+  }
+
+  // 获取当前登录用户的相关信息
+  getUserInfo() {
+      this.props.actions.getUserInfo();
+  }
+
   render() {
+      const u = this.props.userinfo;
     return (
       <div className="my-main">
           {/* 顶部 */}
-          <div className="head page-flex-row all_active">
-              <div className="flex-none picture">
-                  <div className="pic-box"/>
-              </div>
-              <div className="flex-auto info">
-                  <div className="name all_nowarp">名字名字名字名字名字名字名字名字字名字名字</div>
-                  <div className="phone all_nowarp">手机号码：13600000000</div>
-              </div>
-              <div className="flex-none arrow">
-                  <img src={ImgRight} />
-              </div>
+          <div className="head all_active">
+              <Link to="/my/userinfo" className="page-flex-row" style={{ width: '100%', height: '100%'}}>
+                  <div className="flex-none picture">
+                      <div className="pic-box">
+                          <img src={u && u.headImg ? u.headImg : ImgBar1} />
+                      </div>
+                  </div>
+                  <div className="flex-auto info">
+                      <div className="name all_nowarp">{ u ? u.userName : ' ' }</div>
+                      <div className="phone all_nowarp">手机号码：{ u ? u.mobile : ' ' }</div>
+                  </div>
+                  <div className="flex-none arrow">
+                      <img src={ImgRight} />
+                  </div>
+              </Link>
           </div>
           {/* 中间横Bar */}
           <div className="bar page-flex-row">
@@ -155,6 +171,8 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+  actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -163,9 +181,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+    userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ getUserInfo }, dispatch),
   })
 )(HomePageContainer);
