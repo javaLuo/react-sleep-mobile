@@ -13,7 +13,6 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from './assets/yimaoquan@3x.png';
 import ImgBar2 from './assets/wozai@3x.png';
@@ -32,6 +31,7 @@ import { getUserInfo } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
+
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);

@@ -15,6 +15,7 @@ import './index.scss';
 // ==================
 
 import Main from './container/main';
+import GoodDetail from './container/goodDetail';
 
 // ==================
 // 本页面所需action
@@ -36,6 +37,7 @@ class Shop extends React.Component {
       <div>
           <Switch>
               <Route exact path={`${this.props.match.url}/`} component={Main} />
+              <Route exact path={`${this.props.match.url}/gooddetail/:id`} component={GoodDetail} />
           </Switch>
       </div>
     );

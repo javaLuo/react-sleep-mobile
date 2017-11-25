@@ -13,7 +13,7 @@ import { routerReducer } from 'react-router-redux';
 // ============================================
 // Import app reducers
 import appReducer from './app-reducer';
-
+import shopReducer from './shop-reducer';
 // ============================================
 // Combine
 const RootReducer = combineReducers({
@@ -21,6 +21,7 @@ const RootReducer = combineReducers({
   routing: routerReducer,
   // Other reducers
   app: appReducer, // 这里的命名，关系到container中取state对应的reducer的名字
+  shop: shopReducer,
 });
 
 export default RootReducer;
