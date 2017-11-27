@@ -21,7 +21,7 @@ import Img1 from '../../../../assets/test/test1.jpg';
 // 本页面所需action
 // ==================
 
-import { productById } from '../../../../a_action/shop-action';
+import { productById, shopStartPreOrder, getAllChargeTypes } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -34,16 +34,20 @@ class HomePageContainer extends React.Component {
     this.state = {
         data: null, // 当前商品数据
         jifeiShow: false,   //  计费选择框是否显示
-        formJifei: 0,   // 当前选择的计费方式，默认0
+        formJifei: null,   // 当前选择的计费方式
         formCount: 0,   // 购买数量
     };
   }
 
   componentDidMount() {
-      console.log('是个啥：', this.props.location);
+      // 通过URL中传来的商品ID获取商品信息
       const id = Number(this.props.location.pathname.split('/').reverse()[0]);
       if(!isNaN(id)) {
           this.getData(id);
+      }
+      // 获取所有收费方式
+      if (!this.props.allChargeTypes.length) {
+          this.getAllChargeTypes();
       }
   }
 
@@ -60,6 +64,11 @@ class HomePageContainer extends React.Component {
     });
   }
 
+  // 获取收费方式
+    getAllChargeTypes() {
+      this.props.actions.getAllChargeTypes();
+  }
+
   // 工具 - 根据Code获取销售方式
   getNameBySaleMode(code) {
       switch(code) {
@@ -69,6 +78,13 @@ class HomePageContainer extends React.Component {
           default: return '';
       }
   }
+
+  // 工具 - 根据收费方式ID查询收费方式名称
+    getNameByChargeID(id) {
+
+      const t = this.props.allChargeTypes.find((item) => item.id === id);
+      return t ? t.dicValue : '';
+    }
 
   // 计费方式选择 弹窗出现 水机专用
   onChoseJiFei() {
@@ -104,7 +120,29 @@ class HomePageContainer extends React.Component {
           });
       }
   }
+
+  // 点击立即下单
+  onSubmit() {
+      const userinfo = localStorage.getItem('userinfo');
+      if (!userinfo) {
+          Toast.info('请先登录');
+          this.props.history.push('/login');
+          return;
+      } else if (!this.state.formCount){
+          Toast.fail('请选择购买数量');
+          return;
+      } else if (!this.state.formJifei) {
+          Toast.fail('请选择收费方式');
+          return;
+      }
+      const params = { count: this.state.formCount, feeType: this.state.formJifei };
+      const nowProduct = this.state.data;
+      this.props.actions.shopStartPreOrder(params, nowProduct);
+      this.props.history.push('/shop/waterxd');
+  }
+
   render() {
+      console.log('有了吗：', this.props.allChargeTypes);
       const d = this.state.data;
     return (
       <div className="flex-auto page-box gooddetail-page">
@@ -136,7 +174,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/* List */}
           <List>
-              {/*<Item extra={"包年计费：￥1500/年"} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>计费方式</Item>*/}
+              <Item extra={this.getNameByChargeID(this.state.formJifei)} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>收费方式</Item>
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={0} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
               <Item >产品参数</Item>
           </List>
@@ -144,7 +182,7 @@ class HomePageContainer extends React.Component {
               {(d && d.detailImg) ? <img src={d.detailImg} /> : <img src={Img1} />}
           </div>
           <div className="play">
-              <Button type="default">立即下单</Button>
+              <Button type="default" onClick={() => this.onSubmit()}>立即下单</Button>
           </div>
           <Modal
               popup
@@ -153,9 +191,9 @@ class HomePageContainer extends React.Component {
               onClose={() => this.onJiFeiClose()}
           >
               <div style={{ padding: '10px' }}>
-                <Button type="primary" onClick={() => this.onJiFeiChose(0)}>包年计费：￥1500/年</Button>
-                  <div style={{marginTop: '10px'}}/>
-                <Button type="primary" onClick={() => this.onJiFeiChose(1)}>流量计费：￥0.38/升 预付￥1500</Button>
+                  {this.props.allChargeTypes.map((item, index) => {
+                     return <Button key={index} className="jifei-btn" type="primary" onClick={() => this.onJiFeiChose(item.id)}>{item.dicValue}</Button>;
+                  })}
               </div>
           </Modal>
       </div>
@@ -171,6 +209,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
     actions: P.any,
+    allChargeTypes: P.array,
 };
 
 // ==================
@@ -179,9 +218,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      allChargeTypes: state.shop.allChargeTypes,    // 所有的收费方式
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById }, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, getAllChargeTypes, }, dispatch),
   })
 )(HomePageContainer);

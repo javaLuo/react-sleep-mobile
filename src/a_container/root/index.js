@@ -94,7 +94,7 @@ class RootContainer extends React.Component {
     /* 权限控制 */
     onEnter(Component, props) {
         // 如果没有登陆，直接跳转至login页,注册页不用跳
-        // if (sessionStorage.getItem('userinfo')) {
+        // if (localStorage.getItem('userinfo')) {
         //     return <Component {...props} />;
         // } else {
         //     return <Redirect to='/login' />;

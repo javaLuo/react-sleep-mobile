@@ -83,7 +83,7 @@ class Login extends React.Component {
       if (res.status === 200) {
         Toast.success('登录成功', 1.2);
         // 将用户信息保存到localStorage
-          sessionStorage.setItem('userinfo', JSON.stringify(res.data));
+          localStorage.setItem('userinfo', JSON.stringify(res.data));
         this.props.history.push('/home');
       } else {
         Toast.fail(res.message || '登录失败', 1.2);

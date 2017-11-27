@@ -1,4 +1,7 @@
 .gooddetail-page{
+  .am-list-item .am-list-line .am-list-extra{
+    flex-basis: auto;
+  }
   .my-carousel{
     height: 200px !important;
     overflow: hidden;
@@ -53,4 +56,7 @@
       border-radius: 0;
     }
   }
+}
+.jifei-btn+.jifei-btn{
+  margin-top: 10px;
 }

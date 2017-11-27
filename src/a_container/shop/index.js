@@ -16,7 +16,9 @@ import './index.scss';
 
 import Main from './container/main';
 import GoodDetail from './container/goodDetail';
-
+import WaterXD from './container/waterXD';
+import ConfirmPay from './container/confirmPay';
+import PayChose from './container/payChose';
 // ==================
 // 本页面所需action
 // ==================
@@ -38,6 +40,9 @@ class Shop extends React.Component {
           <Switch>
               <Route exact path={`${this.props.match.url}/`} component={Main} />
               <Route exact path={`${this.props.match.url}/gooddetail/:id`} component={GoodDetail} />
+              <Route exact path={`${this.props.match.url}/waterxd`} component={WaterXD} />
+              <Route exact path={`${this.props.match.url}/confirmpay`} component={ConfirmPay} />
+              <Route exact path={`${this.props.match.url}/paychose`} component={PayChose} />
           </Switch>
       </div>
     );

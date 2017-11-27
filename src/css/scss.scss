@@ -20,7 +20,14 @@
   flex: none;
 }
 
-/* 自定义的antd-mobile modal footer */
+.flex-jc-center{
+  justify-content: center;
+}
+.flex-ai-center{
+  align-items: center;
+}
+
+  /* 自定义的antd-mobile modal footer */
 .all_modal{
   width: 80% !important;
   max-width: 520px;
