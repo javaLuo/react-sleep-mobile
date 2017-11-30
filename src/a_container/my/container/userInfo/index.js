@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/authentication')}>
                   <div className="title">身份认证</div>
                   <div className="info">{u ? u.userName : ' '}</div>
                   <div className="arrow"><Button type="primary" size="small">已实名</Button></div>
@@ -86,7 +86,7 @@ class HomePageContainer extends React.Component {
                   <div className="info">支付宝</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
-              <div className="item page-flex-row all_active mt">
+              <div className="item page-flex-row all_active mt" onClick={() => this.props.history.push('/my/addr')}>
                   <div className="title">收货地址</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

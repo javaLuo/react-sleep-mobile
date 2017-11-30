@@ -71,14 +71,19 @@ class HomePageContainer extends React.Component {
     onSubmit() {
       const params = {
           count: this.state.formCount,
-          serviceTime: tools.dateformart(this.state.serviceTime),
+          serviceTime: this.state.formServiceTime,
           openAccountFee: 180,
           fee: this.props.orderParams.nowProduct.price * this.state.formCount + 180
       };
       this.props.actions.shopStartPayOrder(params);
 
+      const p = Object.assign({productId: this.props.orderParams.nowProduct.id},this.props.orderParams.params, params);
+      this.props.actions.placeAndOrder(p).then((res) => {
+
+      });
       this.props.history.push('/shop/payChose');
     }
+
   render() {
       const nowData = this.props.orderParams.nowProduct || {}; // 当前商品对象
       const nowParams = this.props.orderParams.params;  // 当前订单的参数

@@ -29,7 +29,8 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        payType: 0, // 支付方式
+        payType: this.props.allPayTypes[0] ? this.props.allPayTypes[0].id : 0, // 支付方式
+        wxReady: false, // 微信支付是否初始化成功
     };
   }
 
@@ -37,7 +38,7 @@ class HomePageContainer extends React.Component {
       // 如果没有选择商品就跳转到商城主页
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
           Toast.fail('您没有选择商品');
-          this.props.history.replace('/shop');
+         // this.props.history.replace('/shop');
       }
   }
   componentDidMount() {
@@ -45,6 +46,7 @@ class HomePageContainer extends React.Component {
       if (!this.props.allPayTypes.length) {
           this.getAllPayTypes();
       }
+      this.initWxConfig();
   }
     // 获取所有的支付方式
     getAllPayTypes() {
@@ -54,6 +56,38 @@ class HomePageContainer extends React.Component {
                   payType: res.data.result[0].id || null,
               });
           }
+      });
+    }
+    // 获取支付所需参数
+    initWeiXinPay() {
+      // 后台需要给个接口，返回appID,timestamp,nonceStr,signature
+    }
+
+    // 初始化微信JS-SDK
+    initWxConfig() {
+      const me = this;
+      if(typeof wx === 'undefined') {
+          console.log('weixin sdk load failed!');
+          return false;
+      }
+      console.log('到这里了');
+      wx.config({
+          debug: false,
+          appID: 'wx57f6ee39cbea7654',
+          timestamp: new Date().getTime(),
+          nonceStr: 'asfasdfsd',
+          signature: 'afdasdf',
+          jsApiList: [
+              'chooseWXPay'
+          ]
+      });
+      wx.ready(() => {
+          me.setState({
+              wxReady: true,
+          });
+      });
+      wx.error((e) => {
+          console.log('微信JS-SDK初始化失败：', e);
       });
     }
 

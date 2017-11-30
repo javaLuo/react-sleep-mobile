@@ -2,11 +2,11 @@ import reqwest from 'reqwest';
 import Config from '../config';
 
 export default class ApiService {
-  static newPost(url, bodyObj = {}, type='post', isJson, port) {
+  static newPost(url, bodyObj = {}, type='post', isJson) {
     console.log('baseURL:', Config.baseURL);
     if (isJson) {
         return reqwest({
-            url:`${Config.baseURL}${port ? Config.ports[port] : Config.ports[0]}/${url}`,
+            url:`${Config.baseURL}/${url}`,
             method: type,
             contentType: 'application/json;charset=UTF-8',
             crossOrigin: true,
@@ -16,7 +16,7 @@ export default class ApiService {
         });
     } else {
         return reqwest({
-            url:`${Config.baseURL}${port ? Config.ports[port] : Config.ports[0]}/${url}`,
+            url:`${Config.baseURL}/${url}`,
             method: type,
             contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
             crossOrigin: true,

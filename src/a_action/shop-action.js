@@ -52,7 +52,7 @@ export const productById = (params) => async(dispatch) => {
 // 获取所有支付方式
 export const getAllPayTypes = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/listDictionaryByDicId', {dicId: 13, pageNum:0, pageSize: 9999}, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/listDictionaryByDicId', {dicId: 'payType', pageNum:0, pageSize: 9999}, 'post', false, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getAllPayTypes',
@@ -68,7 +68,7 @@ export const getAllPayTypes = () => async(dispatch) => {
 // 获取所有收费方式
 export const getAllChargeTypes = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/listDictionaryByDicId', {dicId: 16, pageNum:0, pageSize: 9999}, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/listDictionaryByDicId', {dicId: 'feeType', pageNum:0, pageSize: 9999}, 'post', false, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getAllChargeTypes',
@@ -84,10 +84,26 @@ export const getAllChargeTypes = () => async(dispatch) => {
 // 下单
 export const placeAndOrder = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/placeAndOrder', params, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/placeAndOrder', params, 'post', true, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::placeAndOrder',
+                payload: res.data.result,
+            });
+        }
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 添加收货地址
+export const saveAddrss = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/address/saveAddrss', params, 'post', true, 1);
+        if (res.status === 200) {
+            dispatch({
+                type: 'SHOP::saveAddrss',
                 payload: res.data.result,
             });
         }

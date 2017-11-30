@@ -18,6 +18,8 @@ import lazeLogin from 'bundle-loader?lazy!../login';
 import lazeRegister from 'bundle-loader?lazy!../register';
 import lazeShop from 'bundle-loader?lazy!../shop';
 import lazeNews from 'bundle-loader?lazy!../news';
+import lazeDownLine from 'bundle-loader?lazy!../downline';
+
 
 const Home = (props) => (
   <Bundle load={lazeHome}>
@@ -52,6 +54,11 @@ const Shop = (props) => (
 const News = (props) => (
     <Bundle load={lazeNews}>
         {(News) => <News {...props} />}
+    </Bundle>
+);
+const DownLine = (props) => (
+    <Bundle load={lazeDownLine}>
+        {(DownLine) => <DownLine {...props} />}
     </Bundle>
 );
 const Register = (props) => (
@@ -116,6 +123,7 @@ class RootContainer extends React.Component {
                   <Route path="/my" render={(props) => this.onEnter(My, props)} />
                   <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
                   <Route path="/news" render={(props) => this.onEnter(News, props)} />
+                  <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
                   <Route exact path="/register" render={Register} />
                   <Route exact path="/login" component={Login} />
                   <Route component={NotFound} />

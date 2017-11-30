@@ -26,12 +26,13 @@ class Menu extends React.Component {
 
     // 设置哪一个该被选中
     setChecked(location) {
-        const path = location.pathname.split('/')[1];
+        const p = location.pathname.split('/');
+        const path = p[1];
         console.log('当前PATH：', path);
         document.title = (path && urls[path]) ? urls[path].name : '翼猫科技';
         this.setState({
             pathNow: path,
-            show: ['home', 'intel', 'healthy', 'my'].indexOf(path) >= 0,  // 只有主页几个页面需要显示底部菜单
+            show: ['home', 'intel', 'healthy', 'my'].indexOf(path) >= 0 && p.length<=2,  // 只有主页几个页面需要显示底部菜单
         });
     }
 

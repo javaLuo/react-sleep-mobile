@@ -12,6 +12,18 @@ const allobj = {
         if (d < 10) { d = `0${d}`; }
         return `${date.getFullYear()}-${m}-${d}`;
     },
+    /**
+     * 标准日期转字符串年月日，时分秒
+     * */
+    dateToStr(date) {
+        if (!date) { return ''; }
+        const m = `${date.getMonth() + 1}`.padStart(2,'0');
+        const d = date.getDate().toString().padStart(2,'0');
+        const h = date.getHours().toString().padStart(2,'0');
+        const min = date.getMinutes().toString().padStart(2,'0');
+        const s = date.getSeconds().toString().padStart(2,'0');
+        return `${date.getFullYear()}-${m}-${d} ${h}:${min}:${s}`;
+    },
     // 将数字或字符串*100，保留两位小数点返回,非法返回''
     percent(str) {
         if (!str && str !== 0) { return ''; }
@@ -51,7 +63,11 @@ const allobj = {
         const reg = /^[1][3578][0-9]{9}$/g;
         return reg.test(str);
     },
-
+    // 正则 邮箱验证
+    checkEmail(str) {
+        const rex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        return rex.test(str);
+    },
     // 给字符串打马赛克
     addMosaic(str) {
         if (!str && str !== 0) {

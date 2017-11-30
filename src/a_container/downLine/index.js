@@ -1,27 +1,21 @@
-/* 我的e家 */
+/* 线下体验店 */
 
 // ==================
 // 所需的各种插件
 // ==================
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
+
 // ==================
 // 所需的所有组件
 // ==================
-
 import Main from './container/main';
-import UserInfo from './container/userInfo';
-import PerInfo from './container/perInfo';
-import Set from './container/set';
-import CatZone from './container/catZone';
-import Authentication from './container/authentication';
-import Addr from './container/addr';
-import NewAddr from './container/newaddr';
+import Map from './container/map';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -30,7 +24,7 @@ import NewAddr from './container/newaddr';
 // ==================
 // Definition
 // ==================
-class My extends React.Component {
+class Shop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,13 +36,7 @@ class My extends React.Component {
       <div>
           <Switch>
               <Route exact path={`${this.props.match.url}/`} component={Main} />
-              <Route exact path={`${this.props.match.url}/userinfo`} component={UserInfo} />
-              <Route exact path={`${this.props.match.url}/perinfo`} component={PerInfo} />
-              <Route exact path={`${this.props.match.url}/set`} component={Set} />
-              <Route exact path={`${this.props.match.url}/catzone`} component={CatZone} />
-              <Route exact path={`${this.props.match.url}/authentication`} component={Authentication} />
-              <Route exact path={`${this.props.match.url}/addr`} component={Addr} />
-              <Route exact path={`${this.props.match.url}/newaddr`} component={NewAddr} />
+              <Route exact path={`${this.props.match.url}/map`} component={Map} />
           </Switch>
       </div>
     );
@@ -59,7 +47,7 @@ class My extends React.Component {
 // PropTypes
 // ==================
 
-My.propTypes = {
+Shop.propTypes = {
   location: P.any,
   history: P.any,
   match: P.any,
@@ -76,4 +64,4 @@ export default connect(
   (dispatch) => ({
     actions: bindActionCreators({}, dispatch),
   })
-)(My);
+)(Shop);

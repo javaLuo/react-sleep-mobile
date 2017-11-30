@@ -1,0 +1,39 @@
+.addr-page{
+  .list{
+    &>li{
+      box-sizing: border-box;
+      padding: 10px 0;
+      letter-spacing: 1px;
+      border-bottom: solid 1px #e0e0e0;
+      .name{
+
+      }
+      .addr{
+        margin-top: 10px;
+      }
+      .controls{
+        margin-top: 10px;
+        border-top: solid 1px #e0e0e0;
+        padding: 10px 0 0 0;
+        color: #666;
+        .btns{
+          a{
+            padding: 10px;
+          }
+        }
+      }
+      svg{
+        vertical-align: middle;
+      }
+    }
+  }
+  .page-footer{
+    position: fixed;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    height: 46px;
+    background-color: #fff;
+    z-index: 10;
+  }
+}

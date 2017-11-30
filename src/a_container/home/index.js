@@ -34,6 +34,10 @@ class HomePageContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className="flex-auto page-box home-page">
@@ -60,7 +64,7 @@ class HomePageContainer extends React.Component {
                   <Link to="/news"><div>健康资讯</div></Link>
               </div>
               <div className="flex-auto">
-                  <Link to="/"><div>翼猫线下服务体验店</div></Link>
+                  <Link to="/downline"><div>翼猫线下服务体验店</div></Link>
               </div>
           </div>
           {/* 最新直播 */}

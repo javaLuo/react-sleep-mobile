@@ -94,7 +94,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/catzone')}>
                   <div className="icon">
                       <img src={ImgBar1} />
                   </div>
@@ -143,7 +143,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/set')}>
                   <div className="icon">
                       <img src={ImgBar7} />
                   </div>

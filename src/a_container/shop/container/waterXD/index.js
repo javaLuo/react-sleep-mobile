@@ -39,6 +39,11 @@ class HomePageContainer extends React.Component {
       this.props.history.push('/shop/confirmPay');
   }
 
+  // 立即成为体验版经销商
+  onSubmit2() {
+      this.props.history.push('/shop/becomedealer');
+  }
+
   render() {
     return (
       <div className="flex-auto page-box waterxd">
@@ -51,7 +56,7 @@ class HomePageContainer extends React.Component {
                       <div className="title">超值优惠</div>
                       <div className="info">1.您可以得到3台智能净水设备的赠送权限</div>
                       <div className="info">2.每台设备每次消费的40%将作为您的收益，即时到账</div>
-                      <Button type="primary" style={{width: '100%'}}>立即成为翼猫体验版经销商</Button>
+                      <Button type="primary" style={{width: '100%'}} onClick={() => this.onSubmit2()}>立即成为翼猫体验版经销商</Button>
                   </div>
               </div>
           </WingBlank>
