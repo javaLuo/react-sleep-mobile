@@ -43,25 +43,22 @@ class HomePageContainer extends React.Component {
       <div className="healthy-main">
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <div className="icon">
-                      <img src={ImgBar1} />
+                      <img src={ImgBar4} />
                   </div>
-                  <div className="title">
-                      <div>健康智问</div>
-                      <div className="i">评估您的整体健康状况和疾病风险</div>
-                  </div>
+                  <div className="title">我的体检卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
-                      <img src={ImgBar2} />
+                      <img src={ImgBar5} />
                   </div>
-                  <div className="title">体检报告</div>
-                  <div className="info">1份</div>
+                  <div className="title">
+                      <div>预约体检</div>
+                      <div className="i">共有1000家翼猫体验店已上线智能体检系统</div>
+                  </div>
                   <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
@@ -74,21 +71,12 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active">
                   <div className="icon">
-                      <img src={ImgBar4} />
+                      <img src={ImgBar2} />
                   </div>
-                  <div className="title">我的体检卡</div>
-                  <div className="info">2张未使用</div>
+                  <div className="title">体检报告</div>
+                  <div className="info">1份</div>
                   <div className="arrow"><img src={ImgRight} /></div>
-              </div>
-              <div className="item page-flex-row all_active mt">
-                  <div className="icon">
-                      <img src={ImgBar5} />
-                  </div>
-                  <div className="title">
-                      <div>预约体检</div>
-                      <div className="i">共有1000家翼猫体验店已上线智能体检系统</div>
-                  </div>
-                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
           </div>
       </div>

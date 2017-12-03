@@ -102,8 +102,8 @@
       .icon{
         padding: 0 .3rem;
         img{
-          width: auto;
-          height: .32rem;
+          max-width: .32rem;
+          max-height: .32rem;
         }
       }
       .title{

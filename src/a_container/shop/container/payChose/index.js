@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, List, Radio, Toast } from 'antd-mobile';
+import { Button, List, Radio, Toast, Modal } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
@@ -31,6 +31,7 @@ class HomePageContainer extends React.Component {
     this.state = {
         payType: this.props.allPayTypes[0] ? this.props.allPayTypes[0].id : 0, // 支付方式
         wxReady: false, // 微信支付是否初始化成功
+        modalShow: false,   // 等待用户操作的弹窗是否显示
     };
   }
 
@@ -61,6 +62,7 @@ class HomePageContainer extends React.Component {
     // 获取支付所需参数
     initWeiXinPay() {
       // 后台需要给个接口，返回appID,timestamp,nonceStr,signature
+      // 然后调用initWxConfig()
     }
 
     // 初始化微信JS-SDK
@@ -98,6 +100,33 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    // 支付Modal关闭
+    onModalClose() {
+      this.setState({
+          modalShow: false,
+      });
+    }
+    // 支付
+    onSubmit() {
+      if (!this.state.wxReady) {
+          Toast.loading('正在初始化', 1);
+          //return false;
+      }
+      this.setState({
+          modalShow: true,
+      });
+        wx.chooseWXPay({
+            timestamp: 0, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+            nonceStr: '', // 支付签名随机串，不长于 32 位
+            package: '', // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+            signType: '', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+            paySign: '',  // 支付签名
+            success: function (res) {
+                console.log('支付成功：', res);
+            }
+        });
+    }
+
   render() {
     return (
       <div className="flex-auto page-box confirm-pay">
@@ -107,8 +136,21 @@ class HomePageContainer extends React.Component {
               })}
           </List>
           <div className="thefooter page-flex-row">
-              <div className="flex-none" style={{ textAlign: 'center', width: '100%' }}>确认支付 ￥{this.props.orderParams.params.fee}</div>
+              <div className="flex-none" style={{ textAlign: 'center', width: '100%' }} onClick={() => this.onSubmit()}>确认支付 ￥{this.props.orderParams.params.fee}</div>
           </div>
+          <Modal
+              visible={this.state.modalShow}
+              transparent
+              maskClosable={false}
+              onClose={() => this.onModalClose()}
+              title="是否已成功支付？"
+          >
+              <div style={{ padding: '.2rem' }}>
+                  <Button type="primary">已成功付款</Button>
+                  <br/>
+                  <Button ghost type="warning">付款遇到问题</Button>
+              </div>
+          </Modal>
       </div>
     );
   }

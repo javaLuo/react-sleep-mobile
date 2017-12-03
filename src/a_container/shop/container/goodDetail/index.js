@@ -35,7 +35,7 @@ class HomePageContainer extends React.Component {
         data: null, // 当前商品数据
         jifeiShow: false,   //  计费选择框是否显示
         formJifei: null,   // 当前选择的计费方式
-        formCount: 0,   // 购买数量
+        formCount: 1,   // 购买数量
     };
   }
 
@@ -121,6 +121,11 @@ class HomePageContainer extends React.Component {
       }
   }
 
+  // 查看当前商品适用的体验店
+  onSeeExpreShop() {
+      this.props.history.push('/shop/exprshop');
+  }
+
   // 点击立即下单
   onSubmit() {
       const userinfo = localStorage.getItem('userinfo');
@@ -131,14 +136,12 @@ class HomePageContainer extends React.Component {
       } else if (!this.state.formCount){
           Toast.fail('请选择购买数量');
           return;
-      } else if (!this.state.formJifei) {
-          Toast.fail('请选择收费方式');
-          return;
       }
+
       const params = { count: this.state.formCount, feeType: this.state.formJifei };
       const nowProduct = this.state.data;
       this.props.actions.shopStartPreOrder(params, nowProduct);
-      this.props.history.push('/shop/waterxd');
+      this.props.history.push('/shop/confirmpay');
   }
 
   render() {
@@ -146,43 +149,35 @@ class HomePageContainer extends React.Component {
       const d = this.state.data;
     return (
       <div className="flex-auto page-box gooddetail-page">
-          {/* 顶部轮播 */}
-          {
-              d && d.productImg ?
-              <Carousel
-                  className="my-carousel"
-                  autoplay
-                  infinite
-                  swipeSpeed={35}
-              >
-                  {d.productImg.split(',').map((item, index) => <img key={index} src={item} />) }
-              </Carousel> :
-              <div className="my-carousel"><img src={Img1} /></div>
-          }
+          {/* 顶部图片 */}
+          <div className="title-pic page-flex-row flex-ai-center flex-jc-center">
+              <img src={Img1} />
+          </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">
-              <div className="title">{d && d.name}</div>
+              <div className="title">AAAA{d && d.name}</div>
               <div className="info">
-                  <div>型号：{d && d.typeCode}</div>
-                  <div>销售方式：{d && this.getNameBySaleMode(d.saleMode)}</div>
-                  <div className="cost">￥ {d && d.price}</div>
+                  <div className="cost">￥ <span>1000{d && d.price}</span></div>
               </div>
               <div className="server page-flex-row">
-                  <div>库存：{d && d.amount}</div>
-                  <div>销量：{d && (d.buyCount || 0)}</div>
+                  <div>运费：￥ {(d && d.amount) || 0}</div>
+                  <div>有效期：一年</div>
+                  <div>已售：3234{d && (d.buyCount || 0)}张</div>
               </div>
           </div>
           {/* List */}
           <List>
-              <Item extra={this.getNameByChargeID(this.state.formJifei)} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>收费方式</Item>
-              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={0} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
-              <Item >产品参数</Item>
+              {/*<Item extra={this.getNameByChargeID(this.state.formJifei)} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>收费方式</Item>*/}
+              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>选择数量</Item>
+              <Item extra={this.getNameByChargeID(this.state.formJifei)} onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>查看适用体验店</Item>
+
+              <Item >详情</Item>
           </List>
           <div className="detail-box">
               {(d && d.detailImg) ? <img src={d.detailImg} /> : <img src={Img1} />}
           </div>
           <div className="play">
-              <Button type="default" onClick={() => this.onSubmit()}>立即下单</Button>
+              <Button type="primary" onClick={() => this.onSubmit()}>立即下单</Button>
           </div>
           <Modal
               popup

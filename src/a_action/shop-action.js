@@ -4,7 +4,7 @@ import { message } from 'antd';
 // 查询所有产品
 export const getProDuctList = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/list', { pageNum: 0, pageSize: 9999 }, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/list', { pageNum: 0, pageSize: 9999 });
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getProDuctList',
@@ -20,7 +20,7 @@ export const getProDuctList = () => async(dispatch) => {
 // 查询所有产品类型
 export const listProductType = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/listProductType', { pageNum: 0, pageSize: 9999 }, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/listProductType', { pageNum: 0, pageSize: 9999 });
         if (res.returnCode === '0') {
             dispatch({
                 type: 'SHOP::listProductType',

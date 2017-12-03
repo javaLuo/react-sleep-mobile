@@ -1,0 +1,76 @@
+.page-share{
+  .cardbox{
+    padding: .2rem;
+    box-sizing: border-box;
+    display: block;
+    background-image: -webkit-linear-gradient(left, #4888F3, #70A6FF);
+    border-radius: 4px;
+    .title{
+      .logo{
+        height: .5rem;
+      }
+      .num{
+        color: #fff;
+        font-size: .26rem;
+        letter-spacing: 1px;
+        i{
+          margin-left: .3rem;
+          font-style: normal;
+        }
+      }
+    }
+    .info{
+      padding: .6rem 0;
+      letter-spacing: 2px;
+      .t{
+        color: #fff;
+        text-align: center;
+        .t-big{
+          font-size: .36rem;
+        }
+        .t-sm{
+          font-size: .26rem;
+        }
+      }
+      .r{
+        img{
+          height: .24rem;
+        }
+      }
+    }
+    .info2{
+      color: #fff;
+      font-size: .26rem;
+      letter-spacing: 1px;
+      img{
+        height: .3rem;
+      }
+      &>div+div{
+        margin-top: .1rem;
+      }
+    }
+  }
+  .weixin{
+    text-align: center;
+    background-color: #fff;
+    padding: .6rem;
+    img{
+      width: 2.4rem;
+      height: 2.4rem;
+      background-color: #ccc;
+    }
+    &>div{
+      font-size: .32rem;
+      margin-top: .3rem;
+    }
+  }
+  .weixin-info{
+    padding: .2rem;
+    background-color: #fff;
+    &>div{
+      font-size: .32rem;
+      color: #89888e;
+      line-height: .56rem;
+    }
+  }
+}

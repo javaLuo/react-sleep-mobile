@@ -15,7 +15,7 @@ import './index.scss';
 
 import { Switch, Route } from 'react-router-dom';
 import Main from './container/main';
-
+import MyCard from './container/myCard';
 // ==================
 // 本页面所需action
 // ==================
@@ -36,6 +36,7 @@ class Healthy extends React.Component {
         <div>
           <Switch>
             <Route exact path={`${this.props.match.url}/`} component={Main} />
+            <Route exact path={`${this.props.match.url}/mycard`} component={MyCard} />
           </Switch>
         </div>
     );
@@ -59,7 +60,7 @@ Healthy.propTypes = {
 export default connect(
   (state) => ({
 
-  }), 
+  }),
   (dispatch) => ({
     actions: bindActionCreators({}, dispatch),
   })

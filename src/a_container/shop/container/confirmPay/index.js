@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
       // 如果没有选择商品就跳转到商城主页
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
           Toast.fail('您没有选择商品');
-          this.props.history.replace('/shop');
+          // this.props.history.replace('/shop');
       }
   }
 
@@ -92,48 +92,47 @@ class HomePageContainer extends React.Component {
     return (
       <div className="flex-auto page-box confirm-pay">
           <List>
+              {/*<Item*/}
+                {/*arrow="horizontal"*/}
+                {/*multipleLine*/}
+              {/*>*/}
+                  {/*<Brief>收货人：123<br/>联系方式:23423434<br/>地址：AAAAAAAAA</Brief>*/}
+              {/*</Item>*/}
               <Item
-                arrow="horizontal"
-                multipleLine
-              >
-                  <Brief>收货人：123<br/>联系方式:23423434<br/>地址：AAAAAAAAA</Brief>
-              </Item>
-              <Item
-                arrow="horizontal"
                 thumb="#"
                 multipleLine
               >
-                  {nowData.name}<Brief>型号：{nowData.typeCode}<br/>计费方式：{this.getNameByChargeID(nowParams.feeType)}</Brief>
+                  消费卡消费卡{nowData.name}<Brief>型号：{nowData.typeCode}<br/>计费方式：{this.getNameByChargeID(nowParams.feeType)}</Brief>
               </Item>
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
-              <DatePicker
-                  value={this.state.formServiceTime}
-                  onChange={date => this.setState({ formServiceTime: date })}
-                  minDate={d}
-                  maxDate={new Date(d.getFullYear(), d.getMonth() + 3, d.getDay())}
-              >
-                  <List.Item>配送时间</List.Item>
-              </DatePicker>
-              <Item
-                  arrow="horizontal"
-                  extra={'系统派单'}
-              >
-                  安装人员
-              </Item>
-              <Item
-                  extra={`180.00 元`}
-              >
-                  开户费
-              </Item>
-              <Item
-                  extra={`小计：${(nowData.price * this.state.formCount + 180).toFixed(2)}元`}
-              >
-                  {''}
-              </Item>
+              {/*<DatePicker*/}
+                  {/*value={this.state.formServiceTime}*/}
+                  {/*onChange={date => this.setState({ formServiceTime: date })}*/}
+                  {/*minDate={d}*/}
+                  {/*maxDate={new Date(d.getFullYear(), d.getMonth() + 3, d.getDay())}*/}
+              {/*>*/}
+                  {/*<List.Item>配送时间</List.Item>*/}
+              {/*</DatePicker>*/}
+              {/*<Item*/}
+                  {/*arrow="horizontal"*/}
+                  {/*extra={'系统派单'}*/}
+              {/*>*/}
+                  {/*安装人员*/}
+              {/*</Item>*/}
+              {/*<Item*/}
+                  {/*extra={`180.00 元`}*/}
+              {/*>*/}
+                  {/*开户费*/}
+              {/*</Item>*/}
+              {/*<Item*/}
+                  {/*extra={`小计：${(nowData.price * this.state.formCount + 180).toFixed(2)}元`}*/}
+              {/*>*/}
+                  {/*{''}*/}
+              {/*</Item>*/}
           </List>
           <div className="thefooter page-flex-row">
-              <div className="flex-auto" style={{ padding: '0 .2rem' }}>总计：{(nowData.price * this.state.formCount + 180).toFixed(2)}元</div>
-              <div className="flex-none" style={{ padding: '0 .3rem', borderLeft: 'solid 1px #e0e0e0' }} onClick={() => this.onSubmit()}>立即支付</div>
+              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(nowData.price * this.state.formCount).toFixed(2)}</div>
+              <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>确认支付</div>
           </div>
       </div>
     );

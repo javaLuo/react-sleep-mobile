@@ -45,12 +45,12 @@ class Menu extends React.Component {
                         <div className="title">首页</div>
                     </Link>
                 </div>
-                <div className={this.state.pathNow === 'intel' ? "menu-item check" : 'menu-item'}>
-                    <Link to="/intel">
-                        <div className="menu-icon icon2" />
-                        <div className="title">智能物联</div>
-                    </Link>
-                </div>
+                {/*<div className={this.state.pathNow === 'intel' ? "menu-item check" : 'menu-item'}>*/}
+                    {/*<Link to="/intel">*/}
+                        {/*<div className="menu-icon icon2" />*/}
+                        {/*<div className="title">智能物联</div>*/}
+                    {/*</Link>*/}
+                {/*</div>*/}
                 <div className={this.state.pathNow === 'healthy' ? "menu-item check" : 'menu-item'}>
                     <Link to="/healthy">
                         <div className="menu-icon icon3" />

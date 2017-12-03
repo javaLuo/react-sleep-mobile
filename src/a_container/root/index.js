@@ -8,72 +8,89 @@ import createHistory from 'history/createHashHistory';
 import $ from 'jquery';
 import './index.scss';
 /* 下面是代码分割异步加载的例子 */
-import Bundle from '../../a_component/bundle';
-import lazeHome from 'bundle-loader?lazy!../home';
-import lazeIntel from 'bundle-loader?lazy!../intel';
-import lazeHealthy from 'bundle-loader?lazy!../healthy';
-import lazeMy from 'bundle-loader?lazy!../my';
-import lazeNotFound from 'bundle-loader?lazy!../notfound';
-import lazeLogin from 'bundle-loader?lazy!../login';
-import lazeRegister from 'bundle-loader?lazy!../register';
-import lazeShop from 'bundle-loader?lazy!../shop';
-import lazeNews from 'bundle-loader?lazy!../news';
-import lazeDownLine from 'bundle-loader?lazy!../downline';
+// import Bundle from '../../a_component/bundle';
+// import lazeHome from 'bundle-loader?lazy!../home/index';
+// import lazeIntel from 'bundle-loader?lazy!../intel';
+// import lazeHealthy from 'bundle-loader?lazy!../healthy';
+// import lazeMy from 'bundle-loader?lazy!../my';
+// import lazeNotFound from 'bundle-loader?lazy!../notfound';
+// import lazeLogin from 'bundle-loader?lazy!../login';
+// import lazeRegister from 'bundle-loader?lazy!../register';
+// import lazeShop from 'bundle-loader?lazy!../shop';
+// import lazeNews from 'bundle-loader?lazy!../news';
+// import lazeDownLine from 'bundle-loader?lazy!../downline';
+// import lazePhy from 'bundle-loader?lazy!../phy';
 
-
-const Home = (props) => (
-  <Bundle load={lazeHome}>
-    {(Home) => <Home {...props} />}
-  </Bundle>
-);
-const Intel = (props) => (
-  <Bundle load={lazeIntel}>
-    {(Intel) => <Intel {...props} />}
-  </Bundle>
-);
-const Healthy = (props) => (
-  <Bundle load={lazeHealthy}>
-    {(Healthy) => <Healthy {...props} />}
-  </Bundle>
-);
-const My = (props) => (
-  <Bundle load={lazeMy}>
-    {(My) => <My {...props} />}
-  </Bundle>
-);
-const Login = (props) => (
-    <Bundle load={lazeLogin}>
-        {(Login) => <Login {...props} />}
-    </Bundle>
-);
-const Shop = (props) => (
-    <Bundle load={lazeShop}>
-        {(Shop) => <Shop {...props} />}
-    </Bundle>
-);
-const News = (props) => (
-    <Bundle load={lazeNews}>
-        {(News) => <News {...props} />}
-    </Bundle>
-);
-const DownLine = (props) => (
-    <Bundle load={lazeDownLine}>
-        {(DownLine) => <DownLine {...props} />}
-    </Bundle>
-);
-const Register = (props) => (
-    <Bundle load={lazeRegister}>
-        {(Register) => <Register {...props} />}
-    </Bundle>
-);
-const NotFound = (props) => (
-    <Bundle load={lazeNotFound}>
-        {(NotFound) => <NotFound {...props} />}
-    </Bundle>
-);
+// const Home = (props) => (
+//   <Bundle load={lazeHome}>
+//     {(Home) => <Home {...props} />}
+//   </Bundle>
+// );
+// const Intel = (props) => (
+//   <Bundle load={lazeIntel}>
+//     {(Intel) => <Intel {...props} />}
+//   </Bundle>
+// );
+// const Healthy = (props) => (
+//   <Bundle load={lazeHealthy}>
+//     {(Healthy) => <Healthy {...props} />}
+//   </Bundle>
+// );
+// const My = (props) => (
+//   <Bundle load={lazeMy}>
+//     {(My) => <My {...props} />}
+//   </Bundle>
+// );
+// const Login = (props) => (
+//     <Bundle load={lazeLogin}>
+//         {(Login) => <Login {...props} />}
+//     </Bundle>
+// );
+// const Shop = (props) => (
+//     <Bundle load={lazeShop}>
+//         {(Shop) => <Shop {...props} />}
+//     </Bundle>
+// );
+// const News = (props) => (
+//     <Bundle load={lazeNews}>
+//         {(News) => <News {...props} />}
+//     </Bundle>
+// );
+// const DownLine = (props) => (
+//     <Bundle load={lazeDownLine}>
+//         {(DownLine) => <DownLine {...props} />}
+//     </Bundle>
+// );
+// const Phy = (props) => (
+//     <Bundle load={lazePhy}>
+//         {(Phy) => <Phy {...props} />}
+//     </Bundle>
+// );
+// const Register = (props) => (
+//     <Bundle load={lazeRegister}>
+//         {(Register) => <Register {...props} />}
+//     </Bundle>
+// );
+// const NotFound = (props) => (
+//     <Bundle load={lazeNotFound}>
+//         {(NotFound) => <NotFound {...props} />}
+//     </Bundle>
+// );
 /* 上面是代码分割异步加载的例子 */
-
+import Home from '../home/index';
+import Intel from '../intel';
+import Healthy from '../healthy';
+import My from '../My';
+import Login from '../login';
+import Shop from '../shop';
+import News from '../news';
+import DownLine from '../downLine';
+import Register from '../register';
+import Binding from '../register/binding';
+import NotFound from '../notfound';
 import Menu from '../../a_component/menu';
+import Phy from '../phy';
+import Share from '../share';
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -100,12 +117,6 @@ class RootContainer extends React.Component {
 
     /* 权限控制 */
     onEnter(Component, props) {
-        // 如果没有登陆，直接跳转至login页,注册页不用跳
-        // if (localStorage.getItem('userinfo')) {
-        //     return <Component {...props} />;
-        // } else {
-        //     return <Redirect to='/login' />;
-        // }
         return <Component {...props} />;
     }
 
@@ -124,7 +135,10 @@ class RootContainer extends React.Component {
                   <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
                   <Route path="/news" render={(props) => this.onEnter(News, props)} />
                   <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
-                  <Route exact path="/register" render={Register} />
+                  <Route path="/phy" render={(props) => this.onEnter(Phy, props)} />
+                  <Route path="/share/:id" render={(props) => this.onEnter(Share, props)} />
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/binding" component={Binding} />
                   <Route exact path="/login" component={Login} />
                   <Route component={NotFound} />
                 </Switch>

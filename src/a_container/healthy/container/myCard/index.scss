@@ -1,0 +1,59 @@
+.page-mycard{
+  &>ul{
+    padding: .2rem;
+    box-sizing: border-box;
+    &>li+li {
+      margin-top: .2rem;
+    }
+    .cardbox{
+      padding: .2rem;
+      box-sizing: border-box;
+      display: block;
+      background-image: -webkit-linear-gradient(left, #4888F3, #538FF2);
+      border-radius: 4px;
+      .title{
+        .logo{
+          height: .5rem;
+        }
+        .num{
+          color: #fff;
+          font-size: .26rem;
+          letter-spacing: 1px;
+          i{
+            margin-left: .3rem;
+            font-style: normal;
+          }
+        }
+      }
+      .info{
+        padding: .4rem 0;
+        letter-spacing: 2px;
+        .t{
+          color: #fff;
+          text-align: center;
+          .t-big{
+            font-size: .4rem;
+          }
+          .t-sm{
+            margin-top: .2rem;
+            font-size: .26rem;
+          }
+        }
+        .r{
+          img{
+            height: .24rem;
+          }
+        }
+      }
+      .info2{
+        color: #fff;
+        font-size: .26rem;
+        letter-spacing: 1px;
+        img{
+          height: .3rem;
+        }
+      }
+    }
+  }
+
+}

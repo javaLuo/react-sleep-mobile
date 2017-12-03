@@ -75,26 +75,6 @@ class HomePageContainer extends React.Component {
                   <div className="info">上海 嘉定</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
-              <div className="item page-flex-row all_active mt">
-                  <div className="title">微信号</div>
-                  <div className="info">微信账号</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item page-flex-row all_active">
-                  <div className="title">支付宝</div>
-                  <div className="info">支付宝</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-              </div>
-              <div className="item page-flex-row all_active mt" onClick={() => this.props.history.push('/my/addr')}>
-                  <div className="title">收货地址</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item page-flex-row all_active">
-                  <div className="title">我的二维码</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-              </div>
           </div>
       </div>
     );

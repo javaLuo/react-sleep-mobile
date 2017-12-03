@@ -1,7 +1,4 @@
 .confirm-pay{
-  .am-list-item .am-list-line .am-list-extra{
-    flex-basis: 50%;
-  }
   .thefooter{
     position: fixed;
     bottom: 0;
@@ -12,5 +9,11 @@
     border-top: solid 1px #e0e0e0;
     background-color: #fff;
     z-index: 10;
+    .submit-btn{
+      padding: 0 .4rem;
+      border-left: solid 1px #e0e0e0;
+      background-color: #4285f4;
+      color: #fff;
+    }
   }
 }

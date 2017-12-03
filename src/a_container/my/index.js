@@ -17,11 +17,14 @@ import './index.scss';
 import Main from './container/main';
 import UserInfo from './container/userInfo';
 import PerInfo from './container/perInfo';
-import Set from './container/set';
-import CatZone from './container/catZone';
+// import Set from './container/set';
+// import CatZone from './container/catZone';
 import Authentication from './container/authentication';
-import Addr from './container/addr';
-import NewAddr from './container/newaddr';
+// import Addr from './container/addr';
+// import NewAddr from './container/newaddr';
+import Order from './container/order';
+import OrderDetail from './container/orderdetail';
+import PaySuccess from './container/paySuccess';
 // ==================
 // 本页面所需action
 // ==================
@@ -44,11 +47,10 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/`} component={Main} />
               <Route exact path={`${this.props.match.url}/userinfo`} component={UserInfo} />
               <Route exact path={`${this.props.match.url}/perinfo`} component={PerInfo} />
-              <Route exact path={`${this.props.match.url}/set`} component={Set} />
-              <Route exact path={`${this.props.match.url}/catzone`} component={CatZone} />
               <Route exact path={`${this.props.match.url}/authentication`} component={Authentication} />
-              <Route exact path={`${this.props.match.url}/addr`} component={Addr} />
-              <Route exact path={`${this.props.match.url}/newaddr`} component={NewAddr} />
+              <Route exact path={`${this.props.match.url}/order`} component={Order} />
+              <Route exact path={`${this.props.match.url}/orderdetail/:id`} component={OrderDetail} />
+              <Route exact path={`${this.props.match.url}/paysuccess/:id`} component={PaySuccess} />
           </Switch>
       </div>
     );
