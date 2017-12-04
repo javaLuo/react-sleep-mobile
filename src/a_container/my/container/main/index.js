@@ -97,17 +97,13 @@ class HomePageContainer extends React.Component {
           {/* 下方各横块 */}
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/order')}>
-                  <div className="icon">
-                      <img src={ImgDingDan} />
-                  </div>
+                  <img src={ImgDingDan} className="icon"/>
                   <div className="title">我的订单</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
-                  <div className="icon">
-                      <img src={ImgTiJian} />
-                  </div>
+                  <img src={ImgTiJian} className="icon"/>
                   <div className="title">我的体检卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

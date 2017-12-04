@@ -101,3 +101,11 @@ export const upLoadImg = (params = {}) => async(dispatch) => {
         message.error('网络错误，请重试');
     }
 };
+
+// 微信网页授权 - 保存code
+export function saveWxCode(code) {
+    return {
+        type: 'APP::saveWxCode',
+        payload: code,
+    };
+}

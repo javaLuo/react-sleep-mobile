@@ -101,10 +101,8 @@
       position: relative;
       .icon{
         padding: 0 .3rem;
-        img{
-          max-width: .32rem;
-          max-height: .32rem;
-        }
+        width: .32rem;
+        height: auto;
       }
       .title{
         flex:auto;

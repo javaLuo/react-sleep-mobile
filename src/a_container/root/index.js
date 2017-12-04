@@ -91,6 +91,7 @@ import NotFound from '../notfound';
 import Menu from '../../a_component/menu';
 import Phy from '../phy';
 import Share from '../share';
+import Jump from '../jump';
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -112,6 +113,12 @@ class RootContainer extends React.Component {
               $("html").css("font-size","100px");
           }
       }).resize();
+
+      // 处理是否是微信网页授权回调
+      console.log('ROOT-LOCATION:', window.location);
+      if (window.location.hash === '#/') { // 第1次进入主页，如果此时带参数，表示是微信回跳
+
+      }
   }
 
 
@@ -136,6 +143,7 @@ class RootContainer extends React.Component {
                   <Route path="/news" render={(props) => this.onEnter(News, props)} />
                   <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
                   <Route path="/phy" render={(props) => this.onEnter(Phy, props)} />
+                  <Route path="/jump" render={(props) => this.onEnter(Jump, props)} />
                   <Route path="/share/:id" render={(props) => this.onEnter(Share, props)} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/binding" component={Binding} />

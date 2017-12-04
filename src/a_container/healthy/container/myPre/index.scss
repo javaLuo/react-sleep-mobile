@@ -1,0 +1,65 @@
+.page-my-pre{
+  .one-box{
+    &+.one-box{
+      margin-top: .2rem;
+    }
+    .pre-box{
+      padding: .2rem;
+      background-color: #fff;
+      .l{
+        div{
+          font-size: .28rem;
+          &+div{
+            margin-top: .2rem;
+          }
+        }
+      }
+      .r{
+        .down{
+          color: #4788f4;
+          font-size: .28rem;
+        }
+        .look{
+          color: #fff;
+          background-color: #4285f4;
+          font-size: .26rem;
+          padding: .1rem .2rem;
+          border-radius: .6rem;
+        }
+      }
+    }
+
+    .card-box{
+      padding: .2rem;
+      background-color: #fff;
+      .l{
+        .title{
+          color: #222328;
+          font-size: .32rem;
+          letter-spacing: 1px;
+        }
+        .info{
+          margin-top: .2rem;
+          font-size: .28rem;
+          color: #89888e;
+          img{
+            width: .28rem;
+            margin-right: .2rem;
+          }
+        }
+      }
+      .r{
+        .addr{
+          text-align: center;
+          color: #4788f5;
+          font-size: .26rem;
+          letter-spacing: 1px;
+          img{
+            height: .8rem;
+            margin-bottom: .1rem;
+          }
+        }
+      }
+    }
+  }
+}

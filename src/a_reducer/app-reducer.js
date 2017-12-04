@@ -6,6 +6,7 @@ const initState = {
   num: 0,           // 初始值0
   fetchvalue: [],
     userinfo: null, // 通过getUserInfo接口获取的用户信息
+    wxCode: '', // 微信网页授权 - code
 };
 
 // ============================================
@@ -33,6 +34,13 @@ const getUserInfo = (state, action) => {
         userinfo: payload,
     });
 };
+
+const saveWxCode = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        wxCode: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -45,6 +53,8 @@ const reducerFn = (state = initState, action) => {
     return testFetch(state, action);
   case 'APP::getUserInfo':
     return getUserInfo(state, action);
+  case 'APP::saveWxCode':
+    return saveWxCode(state, action);
   default:
     return actDefault(state, action);
   }

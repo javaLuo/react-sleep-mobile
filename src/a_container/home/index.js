@@ -32,6 +32,10 @@ class HomePageContainer extends React.Component {
     };
   }
 
+  componentWillMount(){
+
+  }
+
   componentDidMount() {
     if(!this.props.allProducts || this.props.allProducts.length === 0) {
       this.props.actions.getProDuctList();

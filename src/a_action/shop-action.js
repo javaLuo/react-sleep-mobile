@@ -4,7 +4,7 @@ import { message } from 'antd';
 // 查询所有产品
 export const getProDuctList = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/list', { pageNum: 0, pageSize: 9999 });
+        const res = await Fetchapi.newPost('mall/order/list', { pageNum: 0, pageSize: 9999 });
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getProDuctList',
@@ -20,7 +20,7 @@ export const getProDuctList = () => async(dispatch) => {
 // 查询所有产品类型
 export const listProductType = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/listProductType', { pageNum: 0, pageSize: 9999 });
+        const res = await Fetchapi.newPost('mall/order/listProductType', { pageNum: 0, pageSize: 9999 });
         if (res.returnCode === '0') {
             dispatch({
                 type: 'SHOP::listProductType',
@@ -36,7 +36,7 @@ export const listProductType = () => async(dispatch) => {
 // 根据ID查产品详情
 export const productById = (params) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/productById', params, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/order/productById', params, 'post', false, 1);
         if (res.returnCode === '0') {
             dispatch({
                 type: 'SHOP::productById',
@@ -52,7 +52,7 @@ export const productById = (params) => async(dispatch) => {
 // 获取所有支付方式
 export const getAllPayTypes = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/listDictionaryByDicId', {dicId: 'payType', pageNum:0, pageSize: 9999}, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/order/listDictionaryByDicId', {dicId: 'payType', pageNum:0, pageSize: 9999}, 'post', false, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getAllPayTypes',
@@ -68,7 +68,7 @@ export const getAllPayTypes = () => async(dispatch) => {
 // 获取所有收费方式
 export const getAllChargeTypes = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/listDictionaryByDicId', {dicId: 'feeType', pageNum:0, pageSize: 9999}, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/order/listDictionaryByDicId', {dicId: 'feeType', pageNum:0, pageSize: 9999}, 'post', false, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getAllChargeTypes',
@@ -84,7 +84,7 @@ export const getAllChargeTypes = () => async(dispatch) => {
 // 下单
 export const placeAndOrder = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/placeAndOrder', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/order/placeAndOrder', params, 'post', true, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::placeAndOrder',
@@ -107,6 +107,26 @@ export const saveAddrss = (params = {}) => async(dispatch) => {
                 payload: res.data.result,
             });
         }
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 微信支付
+export const wxPay = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('wx/pay/unifiedorder', params, 'post', true, 1);
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 微信初始化 - 获取appID,签名，随机串，时间戳
+export const wxInit = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('wx/pay/init', params, 'post', true, 1);
         return res;
     } catch(err) {
         message.error('网络错误，请重试');

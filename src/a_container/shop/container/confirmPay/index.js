@@ -73,7 +73,7 @@ class HomePageContainer extends React.Component {
           count: this.state.formCount,
           serviceTime: this.state.formServiceTime,
           openAccountFee: 180,
-          fee: this.props.orderParams.nowProduct.price * this.state.formCount + 180
+          fee: this.props.orderParams.nowProduct.price * this.state.formCount
       };
       this.props.actions.shopStartPayOrder(params);
 
@@ -82,6 +82,7 @@ class HomePageContainer extends React.Component {
 
       });
       this.props.history.push('/shop/payChose');
+
     }
 
   render() {
