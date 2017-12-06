@@ -122,6 +122,11 @@ const allobj = {
         console.log('解谜：', code, c);
         return c;
     },
+    /* 判断是否是微信浏览器 */
+    isWx() {
+        const ua = navigator.userAgent.toLowerCase();
+        return ua.match(/MicroMessenger/i) === "micromessenger";
+    },
 };
 
 export default allobj;

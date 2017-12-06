@@ -19,6 +19,8 @@ import MyCard from './container/myCard';
 import PreCheck from './container/precheck';
 import PreInfo from './container/preInfo';
 import MyPre from './container/myPre';
+import MyReport from './container/myreport';
+import AddReport from './container/addreport';
 // ==================
 // 本页面所需action
 // ==================
@@ -43,6 +45,8 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/precheck`} component={PreCheck} />
             <Route exact path={`${this.props.match.url}/preinfo`} component={PreInfo} />
             <Route exact path={`${this.props.match.url}/mypre`} component={MyPre} />
+            <Route exact path={`${this.props.match.url}/myreport`} component={MyReport} />
+            <Route exact path={`${this.props.match.url}/addreport`} component={AddReport} />
           </Switch>
         </div>
     );

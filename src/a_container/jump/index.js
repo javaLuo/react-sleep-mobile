@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
+import Config from '../../config';
 
 // ==================
 // 所需的所有组件
@@ -36,19 +37,20 @@ class Jump extends React.Component {
       let temp = search.replace(/^\?/, '').split('&');
       const t = temp.find((item) => item.indexOf('code')>=0);
       if (!t){
-          me.props.history.push('/');
+          me.props.history.replace('/');
           return;
       }
       const code = t.split('=')[1];
-      console.log('保存code:', code);
-      me.props.actions.saveWxCode(code); // 页面授权完成，开始初始化JS-SDK
+      //console.log('保存code:', code);
+      //me.props.actions.saveWxCode(code); // 页面授权完成，开始初始化JS-SDK
+      sessionStorage.setItem('wx_code', code);
       setTimeout(() => {
-          me.props.history.replace('/shop/paychose');
-      }, 3000);
+          location.href = `${Config.baseURL}#/shop/pay`;
+      }, 16);
   }
   render() {
     return (
-      <div>请稍后...</div>
+      <div/>
     );
   }
 }

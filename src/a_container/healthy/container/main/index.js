@@ -61,7 +61,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/myreport')}>
                   <img className="icon" src={ImgBar4} />
                   <div className="title">体检报告</div>
                   <div className="info">1份</div>

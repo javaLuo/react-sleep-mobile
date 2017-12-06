@@ -130,9 +130,9 @@ class HomePageContainer extends React.Component {
   onSubmit() {
       const userinfo = localStorage.getItem('userinfo');
       if (!userinfo) {
-          Toast.info('请先登录');
-          this.props.history.push('/login');
-          return;
+         // Toast.info('请先登录');
+         // this.props.history.push('/login');
+         // return;
       } else if (!this.state.formCount){
           Toast.fail('请选择购买数量');
           return;
