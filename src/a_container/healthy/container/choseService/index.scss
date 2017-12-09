@@ -21,16 +21,40 @@
           color: #89888e;
         }
       }
+      .title2{
+        flex:none;
+        font-size: .28rem;
+        letter-spacing: 1px;
+        padding-left: .2rem;
+        width: 2rem;
+        .i{
+          font-size: .24rem;
+          color: #89888e;
+        }
+      }
       .info{
         flex: auto;
         font-size: .28rem;
         color: #89888e;
         text-align: right;
       }
+      .info2{
+        flex: auto;
+        font-size: .28rem;
+        color: #89888e;
+        text-align: left;
+      }
       .arrow{
         padding: 0 .28rem;
         img{
           width: .14rem;
+          height: auto;
+        }
+      }
+      .arrow2{
+        padding: 0 .28rem;
+        img{
+          width: .34rem;
           height: auto;
         }
       }

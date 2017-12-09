@@ -155,16 +155,18 @@ class HomePageContainer extends React.Component {
           {/* 顶部图片 */}
           <div className="title-pic">
               {/* 顶部轮播 */}
-              <Carousel
-                  className="my-carousel"
-                  autoplay
-                  infinite
-                  swipeSpeed={35}
-              >
-                  {(d && d.productImg) ? d.productImg.split(',').map((item, index) => {
-                      return <img key={index} src={item} />;
-                  }) : null}
-              </Carousel>
+              {
+                  d && d.productImg ? <Carousel
+                      className="my-carousel"
+                      autoplay
+                      infinite
+                      swipeSpeed={35}
+                  >
+                      {d.productImg.split(',').map((item, index) => {
+                          return <img key={index} src={item} />;
+                      })}
+                  </Carousel> : null
+              }
           </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">

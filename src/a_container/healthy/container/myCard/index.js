@@ -159,7 +159,7 @@ class HomePageContainer extends React.Component {
           <ul>
               {
                   this.state.data.map((item, index) => {
-                      return <li className="cardbox">
+                      return <li  key={index} className="cardbox">
                           <div className="title page-flex-row flex-jc-sb flex-ai-center">
                               <img className="logo" src={ImgLogo} />
                               <span className="num">共5张<i>已使用0张</i></span>
@@ -177,7 +177,7 @@ class HomePageContainer extends React.Component {
                               <span>有效期：2017-08-29</span>
                               <span onClick={() => this.onShare()}><img src={ImgShare} /></span>
                           </div>
-                      </li>
+                      </li>;
                   })
               }
           </ul>

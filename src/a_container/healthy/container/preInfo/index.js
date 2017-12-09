@@ -16,7 +16,7 @@ import tools from '../../../../util/all';
 // ==================
 import { DatePicker, Button, Modal, Toast, Picker } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
-import ImgCard from '../../../../assets/xuanzeka@3x.png';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -92,12 +92,6 @@ class HomePageContainer extends React.Component {
       <div className="page-pre-info">
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active">
-                  <div className="title2">体检卡号：</div>
-                  <div className="info2">90807327422533</div>
-                  <div className="arrow2"><img src={ImgCard} /></div>
-                  <div className="line"/>
-              </div>
               <div className="item page-flex-row all_active" onClick={() => this.setName()}>
                   <div className="title2">体检人姓名：</div>
                   <div className="info2">{this.state.formName}</div>
