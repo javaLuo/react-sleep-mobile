@@ -23,6 +23,7 @@ import ImgPhone from '../../../../assets/dizhi@3x.png';
 // 本页面所需action
 // ==================
 
+import { mecReserveList } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -34,6 +35,17 @@ class HomePageContainer extends React.Component {
     this.state = {
 
     };
+  }
+
+  componentDidMount() {
+      this.getData();
+  }
+
+  // 获取本页面所需数据
+  getData() {
+      this.props.actions.mecReserveList({ pageNum: 0, pageSize: 9999 }).then(() => {
+
+      });
   }
 
   render() {
@@ -105,6 +117,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+  actions: P.any,
 };
 
 // ==================
@@ -116,6 +129,6 @@ export default connect(
 
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ mecReserveList }, dispatch),
   })
 )(HomePageContainer);

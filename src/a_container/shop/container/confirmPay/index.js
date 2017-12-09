@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
       // 如果没有选择商品就跳转到商城主页
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
           Toast.fail('您没有选择商品');
-          // this.props.history.replace('/shop');
+          this.props.history.replace('/');
       }
   }
 
@@ -63,6 +63,16 @@ class HomePageContainer extends React.Component {
 
     // form 购买数量被改变
     onCountChange(v) {
+        // const nowData = this.props.orderParams.nowProduct || {}; // 当前商品对象
+        // if (!nowData || !nowData.amount) {
+        //     Toast.fail('该商品暂时无货');
+        //     return;
+        // }
+        // if (v <= nowData.amount) {
+        //     this.setState({
+        //         formCount: v,
+        //     });
+        // }
       this.setState({
           formCount: v,
       });
@@ -71,7 +81,8 @@ class HomePageContainer extends React.Component {
     onSubmit() {
       const params = {
           count: this.state.formCount,
-          serviceTime: this.state.formServiceTime,
+          serviceTime: tools.dateToStr(this.state.formServiceTime),
+          orderType: 1,
           openAccountFee: 180,
           fee: this.props.orderParams.nowProduct.price * this.state.formCount
       };
@@ -79,10 +90,9 @@ class HomePageContainer extends React.Component {
 
       const p = Object.assign({productId: this.props.orderParams.nowProduct.id},this.props.orderParams.params, params);
       this.props.actions.placeAndOrder(p).then((res) => {
-
+          Toast.loading('正在创建订单');
+          this.props.history.push('/shop/payChose');
       });
-      this.props.history.push('/shop/payChose');
-
     }
 
   render() {
@@ -100,10 +110,10 @@ class HomePageContainer extends React.Component {
                   {/*<Brief>收货人：123<br/>联系方式:23423434<br/>地址：AAAAAAAAA</Brief>*/}
               {/*</Item>*/}
               <Item
-                thumb="#"
+                thumb={nowData.productImg ? <img src={nowData.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  消费卡消费卡{nowData.name}<Brief>型号：{nowData.typeCode}<br/>计费方式：{this.getNameByChargeID(nowParams.feeType)}</Brief>
+                  {nowData.name}<Brief>型号：{nowData.typeCode}<br/>计费方式：{this.getNameByChargeID(nowParams.feeType)}</Brief>
               </Item>
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
               {/*<DatePicker*/}

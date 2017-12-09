@@ -25,7 +25,7 @@ import { ActionSheet, Toast } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-
+import { mallCardList } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -33,8 +33,24 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: [],
         wxReady: false, // 微信是否已初始化
     };
+  }
+
+  componentDidMount() {
+      this.getData();
+  }
+
+  // 获取体检卡列表
+  getData() {
+      this.props.actions.mallCardList({ pageNum: 0, pageSize: 9999 }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    data: res.data.result,
+                });
+            }
+      });
   }
 
     // 获取微信初始化所需参数
@@ -141,63 +157,29 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-mycard">
           <ul>
-              <li className="cardbox">
-                  <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                      <img className="logo" src={ImgLogo} />
-                      <span className="num">共5张<i>已使用0张</i></span>
-                  </div>
-                  <div className="info page-flex-row">
-                      <div className="t flex-auto">
-                          <div className="t-big">健康风险评估卡</div>
-                          <div className="t-sm">专注疾病早起筛查</div>
-                      </div>
-                      <div className="r flex-none page-flex-col flex-jc-center">
-                          <img src={ImgRight} />
-                      </div>
-                  </div>
-                  <div className="info2 page-flex-row flex-jc-sb">
-                      <span>有效期：2017-08-29</span>
-                      <span onClick={() => this.onShare()}><img src={ImgShare} /></span>
-                  </div>
-              </li>
-              <li className="cardbox">
-                  <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                      <img className="logo" src={ImgLogo} />
-                      <span className="num">共5张<i>已使用0张</i></span>
-                  </div>
-                  <div className="info page-flex-row">
-                      <div className="t flex-auto">
-                          <div className="t-big">健康风险评估卡</div>
-                          <div className="t-sm">专注疾病早起筛查</div>
-                      </div>
-                      <div className="r flex-none page-flex-col flex-jc-center">
-                          <img src={ImgRight} />
-                      </div>
-                  </div>
-                  <div className="info2 page-flex-row flex-jc-sb">
-                      <span>有效期：2017-08-29</span>
-                      <span><img src={ImgShare} /></span>
-                  </div>
-              </li>
-              <li className="cardbox">
-                  <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                      <img className="logo" src={ImgLogo} />
-                      <span className="num">共5张<i>已使用0张</i></span>
-                  </div>
-                  <div className="info page-flex-row">
-                      <div className="t flex-auto">
-                          <div className="t-big">健康风险评估卡</div>
-                          <div className="t-sm">专注疾病早起筛查</div>
-                      </div>
-                      <div className="r flex-none page-flex-col flex-jc-center">
-                          <img src={ImgRight} />
-                      </div>
-                  </div>
-                  <div className="info2 page-flex-row flex-jc-sb">
-                      <span>有效期：2017-08-29</span>
-                      <span><img src={ImgShare} /></span>
-                  </div>
-              </li>
+              {
+                  this.state.data.map((item, index) => {
+                      return <li className="cardbox">
+                          <div className="title page-flex-row flex-jc-sb flex-ai-center">
+                              <img className="logo" src={ImgLogo} />
+                              <span className="num">共5张<i>已使用0张</i></span>
+                          </div> 
+                          <div className="info page-flex-row">
+                              <div className="t flex-auto">
+                                  <div className="t-big">健康风险评估卡</div>
+                                  <div className="t-sm">专注疾病早起筛查</div>
+                              </div>
+                              <div className="r flex-none page-flex-col flex-jc-center">
+                                  <img src={ImgRight} />
+                              </div>
+                          </div>
+                          <div className="info2 page-flex-row flex-jc-sb">
+                              <span>有效期：2017-08-29</span>
+                              <span onClick={() => this.onShare()}><img src={ImgShare} /></span>
+                          </div>
+                      </li>
+                  })
+              }
           </ul>
       </div>
     );
@@ -211,6 +193,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+    actions: P.any,
 };
 
 // ==================
@@ -222,6 +205,6 @@ export default connect(
 
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ mallCardList }, dispatch),
   })
 )(HomePageContainer);

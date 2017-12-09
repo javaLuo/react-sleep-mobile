@@ -127,6 +127,19 @@ const allobj = {
         const ua = navigator.userAgent.toLowerCase();
         return ua.match(/MicroMessenger/i) === "micromessenger";
     },
+    /**
+     * 清楚一个对象中那些属性为空值的属性
+     * 0 算有效值
+     * **/
+    clearNull(obj) {
+        const temp = {};
+        Object.keys(obj).forEach((item) => {
+            if (obj[item] === 0 || !!obj[item]) {
+                temp[item] = obj[item];
+            }
+        });
+        return temp;
+    },
 };
 
 export default allobj;

@@ -42,7 +42,8 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      if (!this.props.userinfo) {
+      const user = sessionStorage.getItem('userinfo');
+      if (user && !this.props.userinfo) {
         this.getUserInfo();
       }
   }
@@ -53,21 +54,24 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
+      const user = sessionStorage.getItem('userinfo');
       const u = this.props.userinfo;
     return (
       <div className="my-main">
           {/* 顶部 */}
           <div className="head all_active">
-              <Link to="/my/userinfo" className="page-flex-row" style={{ width: '100%', height: '100%'}}>
+              <Link to={user ? '/my/userinfo' : '/login'} className="page-flex-row" style={{ width: '100%', height: '100%'}}>
                   <div className="flex-none picture">
                       <div className="pic-box">
                           <img src={u && u.headImg ? u.headImg : ImgBar1} />
                       </div>
                   </div>
-                  <div className="flex-auto info">
-                      <div className="name all_nowarp">{ u ? u.userName : ' ' }</div>
-                      <div className="phone all_nowarp">手机号码：{ u ? u.mobile : ' ' }</div>
-                  </div>
+                  {
+                      user ? <div className="flex-auto info">
+                          <div className="name all_nowarp">{ u ? u.userName : ' ' }</div>
+                          <div className="phone all_nowarp">手机号码：{ u ? u.mobile : ' ' }</div>
+                      </div> : <div className="flex-auto info">点击登录</div>
+                  }
                   <div className="flex-none arrow">
                       <img src={ImgRight} />
                   </div>
@@ -96,13 +100,13 @@ class HomePageContainer extends React.Component {
           {/*</div>*/}
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/order')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/my/order' : '/login')}>
                   <img src={ImgDingDan} className="icon"/>
                   <div className="title">我的订单</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/mycard' : '/login')}>
                   <img src={ImgTiJian} className="icon"/>
                   <div className="title">我的体检卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>

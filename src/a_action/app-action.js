@@ -5,7 +5,7 @@ import { message } from 'antd';
 // 检测手机号是否被注册
 export const checkMobile = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('user/checkMobile', params);
+        const res = await Fetchapi.newPost2('user/checkMobile', params);
         dispatch({
             type: 'APP::checkMobile',
             payload: res,
@@ -19,7 +19,7 @@ export const checkMobile = (params = {}) => async(dispatch) => {
 // 登录
 export const login = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('user/login', params, 'post', true);
+        const res = await Fetchapi.newPost2('user/login', params, 'post', true);
         dispatch({
             type: 'APP::login',
             payload: res,
@@ -33,7 +33,7 @@ export const login = (params = {}) => async(dispatch) => {
 // 注册时获取二维码
 export const getVerifyCode = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('sms/getVerifyCode', params);
+        const res = await Fetchapi.newPost2('sms/getVerifyCode', params);
         dispatch({
             type: 'APP::getVerifyCode',
             payload: res,
@@ -47,7 +47,7 @@ export const getVerifyCode = (params = {}) => async(dispatch) => {
 // 注册
 export const register = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('user/register', params, 'post', true);
+        const res = await Fetchapi.newPost2('user/register', params, 'post', true);
         dispatch({
             type: 'APP::register',
             payload: res,
@@ -61,7 +61,7 @@ export const register = (params = {}) => async(dispatch) => {
 // 获取用户信息
 export const getUserInfo = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('userInfo/get', params, 'post', true);
+        const res = await Fetchapi.newPost2('userInfo/get', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -78,7 +78,7 @@ export const getUserInfo = (params = {}) => async(dispatch) => {
 // 修改用户信息
 export const updateUserInfo = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('userInfo/update', params, 'post', true);
+        const res = await Fetchapi.newPost2('userInfo/update', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -95,7 +95,7 @@ export const updateUserInfo = (params = {}) => async(dispatch) => {
 // 上传图片接口
 export const upLoadImg = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('common/upload/image', params, 'post', true);
+        const res = await Fetchapi.newPost2('common/upload/image', params, 'post', true);
         return res;
     } catch(err) {
         message.error('网络错误，请重试');

@@ -4,7 +4,7 @@ import { message } from 'antd';
 // 查询所有产品
 export const getProDuctList = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/list', { pageNum: 0, pageSize: 9999 });
+        const res = await Fetchapi.newPost('mall/product/listByType', { pageNum: 0, pageSize: 9999, typeId: 1 });
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getProDuctList',
@@ -36,7 +36,7 @@ export const listProductType = () => async(dispatch) => {
 // 根据ID查产品详情
 export const productById = (params) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/productById', params, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/product/productById', params, 'post', false, 1);
         if (res.returnCode === '0') {
             dispatch({
                 type: 'SHOP::productById',
@@ -68,7 +68,7 @@ export const getAllPayTypes = () => async(dispatch) => {
 // 获取所有收费方式
 export const getAllChargeTypes = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/listDictionaryByDicId', {dicId: 'feeType', pageNum:0, pageSize: 9999}, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/dictionary/listByDicId', {dicType: 'payType', pageNum:0, pageSize: 9999});
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getAllChargeTypes',
@@ -84,7 +84,7 @@ export const getAllChargeTypes = () => async(dispatch) => {
 // 下单
 export const placeAndOrder = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/placeAndOrder', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/order/create', params, 'post', true, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::placeAndOrder',
@@ -150,3 +150,39 @@ export function shopStartPayOrder(params) {
         params,
     };
 }
+
+// 首页轮播图
+export const mallApList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/ap/list', params);
+        if (res.status === 200) {
+            dispatch({
+                type: 'HOME::mallApList',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 查询我的预约
+export const mecReserveList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/reserve/list', params);
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};
+
+// 查询我的体检卡
+export const mallCardList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/card/list', params);
+        return res;
+    } catch(err) {
+        message.error('网络错误，请重试');
+    }
+};

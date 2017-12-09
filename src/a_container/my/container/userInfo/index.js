@@ -45,6 +45,12 @@ class HomePageContainer extends React.Component {
       this.props.actions.getUserInfo();
   }
 
+  // 退出登录
+  onLogOut() {
+      sessionStorage.removeItem('userinfo');
+      this.props.history.replace('/');
+  }
+
   render() {
       const u = this.props.userinfo;
     return (
@@ -75,6 +81,9 @@ class HomePageContainer extends React.Component {
                   <div className="info">上海 嘉定</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
+          </div>
+          <div className="thefooter">
+              <Button type="warning" onClick={() => this.onLogOut()}>退出登录</Button>
           </div>
       </div>
     );

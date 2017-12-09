@@ -21,6 +21,7 @@ import PreInfo from './container/preInfo';
 import MyPre from './container/myPre';
 import MyReport from './container/myreport';
 import AddReport from './container/addreport';
+import ChoseService from './container/choseservice';
 // ==================
 // 本页面所需action
 // ==================
@@ -47,6 +48,7 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/mypre`} component={MyPre} />
             <Route exact path={`${this.props.match.url}/myreport`} component={MyReport} />
             <Route exact path={`${this.props.match.url}/addreport`} component={AddReport} />
+            <Route exact path={`${this.props.match.url}/choseservice`} component={ChoseService} />
           </Switch>
         </div>
     );

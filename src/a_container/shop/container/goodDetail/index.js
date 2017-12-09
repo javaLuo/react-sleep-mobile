@@ -110,15 +110,18 @@ class HomePageContainer extends React.Component {
 
   // 购买数量改变时触发
   onCountChange(v) {
-      if (!this.state.data || !this.state.data.amount) {
-          Toast.fail('该商品暂时无货');
-          return;
-      }
-      if (v <= this.state.data.amount) {
-          this.setState({
-              formCount: v,
-          });
-      }
+      // if (!this.state.data || !this.state.data.amount) {
+      //     Toast.fail('该商品暂时无货');
+      //     return;
+      // }
+      // if (v <= this.state.data.amount) {
+      //     this.setState({
+      //         formCount: v,
+      //     });
+      // }
+      this.setState({
+          formCount: v,
+      });
   }
 
   // 查看当前商品适用的体验店
@@ -128,11 +131,11 @@ class HomePageContainer extends React.Component {
 
   // 点击立即下单
   onSubmit() {
-      const userinfo = localStorage.getItem('userinfo');
+      const userinfo = sessionStorage.getItem('userinfo');
       if (!userinfo) {
-         // Toast.info('请先登录');
-         // this.props.history.push('/login');
-         // return;
+         Toast.info('请先登录');
+         this.props.history.push('/login');
+         return;
       } else if (!this.state.formCount){
           Toast.fail('请选择购买数量');
           return;
@@ -140,7 +143,7 @@ class HomePageContainer extends React.Component {
 
       const params = { count: this.state.formCount, feeType: this.state.formJifei };
       const nowProduct = this.state.data;
-      this.props.actions.shopStartPreOrder(params, nowProduct);
+      this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
       this.props.history.push('/shop/confirmpay');
   }
 
@@ -150,19 +153,29 @@ class HomePageContainer extends React.Component {
     return (
       <div className="flex-auto page-box gooddetail-page">
           {/* 顶部图片 */}
-          <div className="title-pic page-flex-row flex-ai-center flex-jc-center">
-              <img src={Img1} />
+          <div className="title-pic">
+              {/* 顶部轮播 */}
+              <Carousel
+                  className="my-carousel"
+                  autoplay
+                  infinite
+                  swipeSpeed={35}
+              >
+                  {(d && d.productImg) ? d.productImg.split(',').map((item, index) => {
+                      return <img key={index} src={item} />;
+                  }) : null}
+              </Carousel>
           </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">
-              <div className="title">AAAA{d && d.name}</div>
+              <div className="title">{d && d.name}</div>
               <div className="info">
-                  <div className="cost">￥ <span>1000{d && d.price}</span></div>
+                  <div className="cost">￥ <span>{d && d.price}</span></div>
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥ {(d && d.amount) || 0}</div>
-                  <div>有效期：一年</div>
-                  <div>已售：3234{d && (d.buyCount || 0)}张</div>
+                  <div>有效期：</div>
+                  <div>已售：{d && (d.buyCount || 0)}张</div>
               </div>
           </div>
           {/* List */}
@@ -174,7 +187,7 @@ class HomePageContainer extends React.Component {
               <Item >详情</Item>
           </List>
           <div className="detail-box">
-              {(d && d.detailImg) ? <img src={d.detailImg} /> : <img src={Img1} />}
+              {(d && d.detailImg) ? <img src={d.detailImg} /> : null}
           </div>
           <div className="play">
               <Button type="primary" onClick={() => this.onSubmit()}>立即下单</Button>

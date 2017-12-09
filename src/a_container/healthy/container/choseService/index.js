@@ -1,4 +1,4 @@
-/* 健康管理 - 体检预约 */
+/* 健康管理 - 选择体检服务中心 */
 
 // ==================
 // 所需的各种插件
@@ -47,7 +47,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/choseservice')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <div className="title">选择体检服务中心</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

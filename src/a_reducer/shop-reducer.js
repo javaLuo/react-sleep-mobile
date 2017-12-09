@@ -20,6 +20,7 @@ const initState = {
     },
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
+    homePics: [],   // 首页轮播图
 };
 
 // ============================================
@@ -76,6 +77,13 @@ const getAllChargeTypes = (state, action) => {
     });
 };
 
+const mallApList = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        homePics: payload,
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -93,6 +101,8 @@ const reducerFn = (state = initState, action) => {
             return getAllChargeTypes(state, action);
         case 'SHOP::shopStartPayOrder':
             return shopStartPayOrder(state, action);
+        case 'HOME::mallApList':
+            return mallApList(state, action);
         default:
             return actDefault(state, action);
     }
