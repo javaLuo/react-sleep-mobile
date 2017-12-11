@@ -13,21 +13,20 @@
     ]
   ],
   "plugins": [
-	  "transform-runtime",
+	"transform-runtime",
     "transform-decorators-legacy",
     [
       "import",
-      {
-	      "libraryName": "antd-mobile",
-	      "style": "css"
-      }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": "css"
-      }
+      [
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        },
+        {
+          "libraryName": "antd",
+          "style": "css"
+        }
+      ]
     ]
   ]
 }

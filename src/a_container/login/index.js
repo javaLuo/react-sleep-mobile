@@ -38,6 +38,9 @@ class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+      console.log('LOCATION=', this.props.location);
+  }
   // 输入用户名
   onUserNameInput(e) {
     const v = tools.trim(e.target.value);
@@ -72,7 +75,7 @@ class Login extends React.Component {
       loginName: this.state.username,
       password: this.state.password,
         mobile: this.state.username,
-      loginIp: '',
+      loginIp: returnCitySN["cip"] || '',
       appType: 1,
       appVersion: 'web'
     };
@@ -84,8 +87,14 @@ class Login extends React.Component {
       if (res.status === 200) {
         Toast.success('登录成功', 1.2);
         // 将用户信息保存到localStorage
-          sessionStorage.setItem('userinfo', JSON.stringify(res.data));
-        this.props.history.push('/my');
+        sessionStorage.setItem('userinfo', JSON.stringify(res.data));
+        // 登录成功后，如果设置了会跳地址，就跳转到回跳地址
+        const back = tools.makeSearch(this.props.location.search).back;
+        if (back) {
+            this.props.history.push(back);
+        } else {
+            this.props.history.push('/my');
+        }
       } else {
         Toast.fail(res.message || '登录失败', 1.2);
       }

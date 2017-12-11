@@ -1,4 +1,10 @@
 .boss{
   background-color: #f7f7f7;
   min-height: 100vh;
+  .am-list-item .am-list-line .am-list-content{
+    font-size: .28rem;
+  }
+  .am-list-item .am-list-line .am-list-extra{
+    font-size: .28rem;
+  }
 }

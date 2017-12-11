@@ -21,7 +21,21 @@ const initState = {
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
     homePics: [],   // 首页轮播图
-    preInfo: {},    // 预约体检，用户输入的信息
+    preInfo: {      // 预约体检，用户输入的信息，最终接口所需数据
+        name: undefined, // 名字 必填
+        mobile: undefined,   // 手机号 必填
+        stationId: 1,    // 服务站ID 必填
+        stationName: '测试-服务站名称',  // 服务站名称 必填
+        reserveTime: '2017-12-11 12:12:12',  // 预约时间 必填
+        arriveTime: undefined,   // 体检时间
+        sex: 1, // 性别，1男0女 必填
+        code: '123123214214', // 体检卡编号 必填
+        height: undefined,   // 身高
+        weight: undefined,  // 体重
+        userSource: 2,  // 用户来源 1APP， 2公众号，3后台添加
+        conditions: 0,  // 状态 0预约成功，1已完成体检，-1失败，-2过期
+    },
+
 };
 
 // ============================================
@@ -85,6 +99,14 @@ const mallApList = (state, action) => {
     });
 };
 
+const savePreInfo = (state, action) => {
+    const { payload } = action;
+    console.log('这尼玛是什么：', Object.assign({}, state.preInfo, payload));
+    return Object.assign({}, state, {
+        preInfo: Object.assign({}, state.preInfo, payload),
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -104,6 +126,8 @@ const reducerFn = (state = initState, action) => {
             return shopStartPayOrder(state, action);
         case 'HOME::mallApList':
             return mallApList(state, action);
+        case 'PRE::savePreInfo':
+            return savePreInfo(state, action);
         default:
             return actDefault(state, action);
     }

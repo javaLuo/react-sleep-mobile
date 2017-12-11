@@ -19,7 +19,7 @@ import ImgRight from '../../assets/xiangyou@3x.png';
 // 本页面所需action
 // ==================
 
-
+import { saveWxCode } from '../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -90,6 +90,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({}, dispatch),
+        actions: bindActionCreators({ saveWxCode }, dispatch),
     })
 )(HomePageContainer);

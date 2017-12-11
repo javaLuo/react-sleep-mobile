@@ -89,9 +89,16 @@ class HomePageContainer extends React.Component {
       this.props.actions.shopStartPayOrder(params);
 
       const p = Object.assign({productId: this.props.orderParams.nowProduct.id},this.props.orderParams.params, params);
+        Toast.loading('正在创建订单');
       this.props.actions.placeAndOrder(p).then((res) => {
-          Toast.loading('正在创建订单');
-          this.props.history.push('/shop/payChose');
+          if (res.status === 200) {
+              Toast.hide();
+              this.props.history.push('/shop/payChose');
+          } else {
+              Toast.fail(res.message || '订单创建失败');
+          }
+      }).catch(() => {
+          Toast.fail(res.message || '订单创建失败');
       });
     }
 

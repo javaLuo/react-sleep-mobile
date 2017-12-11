@@ -7,91 +7,52 @@ import { bindActionCreators } from 'redux';
 import createHistory from 'history/createHashHistory';
 import $ from 'jquery';
 import './index.scss';
-/* 下面是代码分割异步加载的例子 */
-// import Bundle from '../../a_component/bundle';
-// import lazeHome from 'bundle-loader?lazy!../home/index';
-// import lazeIntel from 'bundle-loader?lazy!../intel';
-// import lazeHealthy from 'bundle-loader?lazy!../healthy';
-// import lazeMy from 'bundle-loader?lazy!../my';
-// import lazeNotFound from 'bundle-loader?lazy!../notfound';
-// import lazeLogin from 'bundle-loader?lazy!../login';
-// import lazeRegister from 'bundle-loader?lazy!../register';
-// import lazeShop from 'bundle-loader?lazy!../shop';
+/** 下面是代码分割异步加载的例子 */
+import Bundle from '../../a_component/bundle';
+import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
+import lazeHealthy from 'bundle-loader?lazy&name=healthy!../healthy';
+import lazeMy from 'bundle-loader?lazy&name=my!../my';
+import lazeNotFound from 'bundle-loader?lazy&name=notfound!../notfound';
+import lazeLogin from 'bundle-loader?lazy&name=login!../login';
+import lazeRegister from 'bundle-loader?lazy&name=register!../register';
+import lazeShare from 'bundle-loader?lazy&name=share!../share';
+import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
+import lazeShop from 'bundle-loader?lazy&name=shop!../shop';
 // import lazeNews from 'bundle-loader?lazy!../news';
 // import lazeDownLine from 'bundle-loader?lazy!../downline';
-// import lazePhy from 'bundle-loader?lazy!../phy';
 
-// const Home = (props) => (
-//   <Bundle load={lazeHome}>
-//     {(Home) => <Home {...props} />}
-//   </Bundle>
-// );
-// const Intel = (props) => (
-//   <Bundle load={lazeIntel}>
-//     {(Intel) => <Intel {...props} />}
-//   </Bundle>
-// );
-// const Healthy = (props) => (
-//   <Bundle load={lazeHealthy}>
-//     {(Healthy) => <Healthy {...props} />}
-//   </Bundle>
-// );
-// const My = (props) => (
-//   <Bundle load={lazeMy}>
-//     {(My) => <My {...props} />}
-//   </Bundle>
-// );
-// const Login = (props) => (
-//     <Bundle load={lazeLogin}>
-//         {(Login) => <Login {...props} />}
-//     </Bundle>
-// );
-// const Shop = (props) => (
-//     <Bundle load={lazeShop}>
-//         {(Shop) => <Shop {...props} />}
-//     </Bundle>
-// );
-// const News = (props) => (
-//     <Bundle load={lazeNews}>
-//         {(News) => <News {...props} />}
-//     </Bundle>
-// );
-// const DownLine = (props) => (
-//     <Bundle load={lazeDownLine}>
-//         {(DownLine) => <DownLine {...props} />}
-//     </Bundle>
-// );
-// const Phy = (props) => (
-//     <Bundle load={lazePhy}>
-//         {(Phy) => <Phy {...props} />}
-//     </Bundle>
-// );
-// const Register = (props) => (
-//     <Bundle load={lazeRegister}>
-//         {(Register) => <Register {...props} />}
-//     </Bundle>
-// );
-// const NotFound = (props) => (
-//     <Bundle load={lazeNotFound}>
-//         {(NotFound) => <NotFound {...props} />}
-//     </Bundle>
-// );
-/* 上面是代码分割异步加载的例子 */
-import Home from '../home/index';
-import Intel from '../intel';
-import Healthy from '../healthy';
-import My from '../My';
-import Login from '../login';
-import Shop from '../shop';
-import News from '../news';
-import DownLine from '../downLine';
-import Register from '../register';
-import Binding from '../register/binding';
-import NotFound from '../notfound';
+const Home = (props) => (<Bundle load={lazeHome}>{(Home) => <Home {...props} />}</Bundle>);                     // 首页
+const Healthy = (props) => (<Bundle load={lazeHealthy}>{(Healthy) => <Healthy {...props} />}</Bundle>);         // 健康管理模块
+const My = (props) => (<Bundle load={lazeMy}>{(My) => <My {...props} />}</Bundle>);                             // 我的e家模块
+const Login = (props) => (<Bundle load={lazeLogin}>{(Login) => <Login {...props} />}</Bundle>);                 // 登录页
+// const News = (props) => (<Bundle load={lazeNews}>{(News) => <News {...props} />}</Bundle>);                  // 最新资讯（暂时没用）
+// const DownLine = (props) => (<Bundle load={lazeDownLine}>{(DownLine) => <DownLine {...props} />}</Bundle>);  // 线下体验店（暂时没用）
+const Register = (props) => (<Bundle load={lazeRegister}>{(Register) => <Register {...props} />}</Bundle>);     // 注册页
+const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props} />}</Bundle>);                 // 分享出去展现的页面
+const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
+const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Share {...props} />}</Bundle>);                    // 微信支付跳转页
+const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFound {...props} />}</Bundle>);     // 404页
+
+/** 下面是代码不分割的页面加载方式 */
+
+// import Home from '../home/index';
+// import Healthy from '../healthy';
+// import My from '../My';
+// import Login from '../login';
+// import Shop from '../shop';
+// import News from '../news';
+// import DownLine from '../downLine';
+// import Register from '../register';
+// import Binding from '../register/binding';
+// import NotFound from '../notfound';
+// import Share from '../share';
+// import Jump from '../jump';
+
+/**
+ * 普通组件
+ * */
 import Menu from '../../a_component/menu';
-import Phy from '../phy';
-import Share from '../share';
-import Jump from '../jump';
+
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -113,12 +74,6 @@ class RootContainer extends React.Component {
               $("html").css("font-size","100px");
           }
       }).resize();
-
-      // 处理是否是微信网页授权回调
-      console.log('ROOT-LOCATION:', window.location);
-      if (window.location.hash === '#/') { // 第1次进入主页，如果此时带参数，表示是微信回跳
-
-      }
   }
 
 
@@ -136,17 +91,12 @@ class RootContainer extends React.Component {
                 <Switch>
                   <Redirect exact from='/' to='/home' />
                   <Route path="/home" render={(props) => this.onEnter(Home, props)} />
-                  <Route path="/intel" render={(props) => this.onEnter(Intel, props)} />
                   <Route path="/healthy" render={(props) => this.onEnter(Healthy, props)} />
                   <Route path="/my" render={(props) => this.onEnter(My, props)} />
-                  <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
-                  <Route path="/news" render={(props) => this.onEnter(News, props)} />
-                  <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
-                  <Route path="/phy" render={(props) => this.onEnter(Phy, props)} />
                   <Route path="/jump" render={(props) => this.onEnter(Jump, props)} />
+                  <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
                   <Route path="/share/:id" render={(props) => this.onEnter(Share, props)} />
                   <Route exact path="/register" component={Register} />
-                  <Route exact path="/binding" component={Binding} />
                   <Route exact path="/login" component={Login} />
                   <Route component={NotFound} />
                 </Switch>

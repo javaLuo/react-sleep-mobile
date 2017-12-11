@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
       // 如果没有选择商品就跳转到商城主页
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
           Toast.fail('您没有选择商品');
-         // this.props.history.replace('/shop');
+         this.props.history.replace('/');
       }
   }
   componentDidMount() {

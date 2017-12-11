@@ -22,7 +22,7 @@ import defaultPic from '../../../../assets/logo@3x.png';
 // 本页面所需action
 // ==================
 
-import { getUserInfo, upLoadImg } from '../../../../a_action/app-action';
+import { getUserInfo, upLoadImg, logout } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -47,8 +47,11 @@ class HomePageContainer extends React.Component {
 
   // 退出登录
   onLogOut() {
+      this.props.actions.logout();
       sessionStorage.removeItem('userinfo');
-      this.props.history.replace('/');
+      setTimeout(() => {
+          this.props.history.replace('/');
+      });
   }
 
   render() {
@@ -110,6 +113,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo, upLoadImg }, dispatch),
+    actions: bindActionCreators({ getUserInfo, upLoadImg, logout }, dispatch),
   })
 )(HomePageContainer);

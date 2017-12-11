@@ -42,14 +42,16 @@ class HomePageContainer extends React.Component {
   }
   componentDidMount() {
       Toast.loading('请稍后');
-      const result = this.startPay();
-      if (!result) {
-          Toast.fail('支付失败');
-          this.props.history.push('/my/order');
-      } else {
-          Toast.success('支付成功');
-          this.props.history.push('/my/order');
-      }
+      this.startPay().then((res) => {
+          if (!res) {
+              Toast.fail('支付失败');
+              this.props.history.push('/my/order');
+          } else {
+              // 支付成功后需要更新当前订单的状态：支付方式，状态位已支付
+              Toast.success('支付成功');
+              this.props.history.push('/my/order');
+          }
+      });
   }
 
    componentWillUnmount() {

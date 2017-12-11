@@ -15,7 +15,7 @@ import './index.scss';
 // ==================
 
 import { Carousel, List, Stepper, Modal, Button, Toast } from 'antd-mobile';
-import Img1 from '../../../../assets/test/test1.jpg';
+import imgDefault from '../../../../assets/logo-img.png';
 
 // ==================
 // 本页面所需action
@@ -40,6 +40,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      console.log('locationAAA:', this.props.location);
       // 通过URL中传来的商品ID获取商品信息
       const id = Number(this.props.location.pathname.split('/').reverse()[0]);
       if(!isNaN(id)) {
@@ -79,6 +80,16 @@ class HomePageContainer extends React.Component {
       }
   }
 
+  // 工具 - 根据有效期类型ID获取名称
+    getNameByTimeLimitType(id) {
+        switch(String(id)) {
+            case '0': return '长期有效';
+            case '1': return '天';
+            case '2': return '月';
+            case '3': return '年';
+            default: return '';
+        }
+    }
   // 工具 - 根据收费方式ID查询收费方式名称
     getNameByChargeID(id) {
 
@@ -134,7 +145,7 @@ class HomePageContainer extends React.Component {
       const userinfo = sessionStorage.getItem('userinfo');
       if (!userinfo) {
          Toast.info('请先登录');
-         this.props.history.push('/login');
+         this.props.history.push(`/login?back=${this.props.location.pathname}`);
          return;
       } else if (!this.state.formCount){
           Toast.fail('请选择购买数量');
@@ -165,7 +176,7 @@ class HomePageContainer extends React.Component {
                       {d.productImg.split(',').map((item, index) => {
                           return <img key={index} src={item} />;
                       })}
-                  </Carousel> : null
+                  </Carousel> : <img className="default" src={imgDefault} />
               }
           </div>
           {/* 商品信息说明 */}
@@ -176,7 +187,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥ {(d && d.amount) || 0}</div>
-                  <div>有效期：</div>
+                  <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
                   <div>已售：{d && (d.buyCount || 0)}张</div>
               </div>
           </div>

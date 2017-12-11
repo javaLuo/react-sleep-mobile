@@ -13,9 +13,7 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Carousel, Icon } from 'antd-mobile';
-import Img1 from '../../assets/test/test1.jpg';
-import Img2 from '../../assets/test/test2.jpg';
-import Img3 from '../../assets/test/test3.jpg';
+import imgDefalut from '../../assets/logo-img.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -77,31 +75,37 @@ class HomePageContainer extends React.Component {
               ))}
           </Carousel>
           {/* 最新资讯 */}
-        <div className="the-list">
-          <div className="title page-flex-row">
-            <div className="flex-auto">健康体检</div>
-          </div>
-          <ul className="list">
-              { this.props.allProducts.filter((item) => item.onShelf).map((item, index) => {
-                return (
-                    <li key={index}>
-                      <Link to={`/shop/gooddetail/${item.id}`}>
-                        <div className="pic flex-none">{ item.detailImg ? <img src={item.detailImg} /> : null}</div>
-                        <div className="detail flex-auto page-flex-col">
-                          <div className="t flex-none all_nowarp">{item.name}</div>
-                          <div className="i flex-auto">
-                            <div className="all_nowarp2" />
-                          </div>
-                          <div className="k page-flex-row flex-jc-end flex-none">
-                            <span>￥ <i>{item.price}</i></span>
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                );
-              })}
-          </ul>
-        </div>
+          {
+            this.props.allProducts.map((theType, i) => {
+              return (
+                  <div key={i} className="the-list">
+                    <div className="title page-flex-row">
+                      <div className="flex-auto">{ theType.name }</div>
+                    </div>
+                    <ul className="list">
+                        { theType.productList.filter((item) => item.onShelf).map((item, index) => {
+                            return (
+                                <li key={index}>
+                                  <Link to={`/shop/gooddetail/${item.id}`}>
+                                    <div className="pic flex-none page-flex-row flex-jc-center flex-ai-center">{ item.detailImg ? <img src={item.detailImg} /> : <img className='default' src={imgDefalut}/>}</div>
+                                    <div className="detail flex-auto page-flex-col">
+                                      <div className="t flex-none all_nowarp">{item.name}</div>
+                                      <div className="i flex-auto">
+                                        <div className="all_nowarp2" />
+                                      </div>
+                                      <div className="k page-flex-row flex-jc-end flex-none">
+                                        <span>￥ <i>{item.price}</i></span>
+                                      </div>
+                                    </div>
+                                  </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                  </div>
+              );
+            })
+          }
       </div>
     );
   }

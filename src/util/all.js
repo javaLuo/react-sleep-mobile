@@ -140,6 +140,22 @@ const allobj = {
         });
         return temp;
     },
+
+    /**
+     * 解析URL的search部分
+     * */
+    makeSearch(str) {
+        const result = {};
+        if (!str){
+            return result;
+        }
+        const temp = str.replace(/^\?/, '').split('&');
+        temp.forEach((item, index) => {
+            const temp = item.split('=');
+            result[temp[0]] = temp[1];
+        });
+        return result;
+    }
 };
 
 export default allobj;

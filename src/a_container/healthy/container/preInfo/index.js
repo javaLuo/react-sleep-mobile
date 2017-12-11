@@ -1,4 +1,4 @@
-/* 健康管理 - 体检人信息 */
+/* 健康管理 - 填写体检人信息 */
 
 // ==================
 // 所需的各种插件
@@ -21,6 +21,7 @@ import ImgRight from '../../../../assets/xiangyou@3x.png';
 // 本页面所需action
 // ==================
 
+import { savePreInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -37,6 +38,31 @@ class HomePageContainer extends React.Component {
         formTall: '',           // 身高
         formWeight: '',         // 体重
     };
+  }
+
+  componentDidMount() {
+      const p = this.props.preInfo;
+      console.log('是什么：', p);
+      this.setState({
+          formName: p.name,
+          formPhone: p.mobile,
+          formSex: String(p.sex),
+          formTall: p.height,
+          formWeight: p.weight,
+      });
+  }
+
+  componentWillReceiveProps(nextP) {
+      if (nextP.preInfo !== this.props.preInfo) {
+          const p = nextP.preInfo;
+          this.setState({
+              formName: p.name,
+              formPhone: p.mobile,
+              formSex: String(p.sex),
+              formTall: p.height,
+              formWeight: p.weight,
+          });
+      }
   }
 
   // 设置体检人姓名
@@ -87,6 +113,28 @@ class HomePageContainer extends React.Component {
             }},
         ]);
     }
+
+    // 保存
+    savePreInfo() {
+      if (!this.state.formName) {
+          Toast.fail('请输入体检人姓名');
+          return;
+      } else if (!tools.checkPhone(this.state.formPhone)) {
+          Toast.fail('请输入正确的手机号');
+          return;
+      }
+      this.props.actions.savePreInfo({
+          name: this.state.formName,
+          mobile: this.state.formPhone,
+          sex: Number(this.state.formSex),
+          height: Number(this.state.formTall),
+          weight: Number(this.state.formWeight),
+      });
+      setTimeout(() => {
+          this.props.history.push('/healthy/precheck');
+      }, 16);
+    }
+
   render() {
     return (
       <div className="page-pre-info">
@@ -94,29 +142,30 @@ class HomePageContainer extends React.Component {
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.setName()}>
                   <div className="title2">体检人姓名：</div>
-                  <div className="info2">{this.state.formName}</div>
+                  <div className="info">{this.state.formName}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.setPhone()}>
                   <div className="title2">手机号：</div>
-                  <div className="info2">{this.state.formPhone}</div>
+                  <div className="info">{this.state.formPhone}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <DatePicker
-                  mode="date"
-                  value={this.state.date}
-                  minDate={new Date('1900-01-01')}
-                  onChange={date => this.setState({ formDate: date })}
-              >
-                  <div className="item page-flex-row all_active mt" >
-                      <div className="title">出生日期</div>
-                      <div className="info">{tools.dateformart(this.state.formDate)}</div>
-                      <div className="arrow"><img src={ImgRight} /></div>
-                      <div className="line"/>
-                  </div>
-              </DatePicker>
+              {/* 接口无此字段 */}
+              {/*<DatePicker*/}
+                  {/*mode="date"*/}
+                  {/*value={this.state.date}*/}
+                  {/*minDate={new Date('1900-01-01')}*/}
+                  {/*onChange={date => this.setState({ formDate: date })}*/}
+              {/*>*/}
+                  {/*<div className="item page-flex-row all_active mt" >*/}
+                      {/*<div className="title">出生日期</div>*/}
+                      {/*<div className="info">{tools.dateformart(this.state.formDate)}</div>*/}
+                      {/*<div className="arrow"><img src={ImgRight} /></div>*/}
+                      {/*<div className="line"/>*/}
+                  {/*</div>*/}
+              {/*</DatePicker>*/}
               <Picker
                 data={[
                     { value: '1', label: '男' },
@@ -146,7 +195,7 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           <div className="thefooter">
-              <Button type="primary">保存</Button>
+              <Button type="primary" onClick={() => this.savePreInfo()}>保存</Button>
           </div>
       </div>
     );
@@ -160,6 +209,8 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+  actions: P.any,
+  preInfo: P.any,
 };
 
 // ==================
@@ -168,9 +219,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      preInfo: state.shop.preInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ savePreInfo }, dispatch),
   })
 )(HomePageContainer);
