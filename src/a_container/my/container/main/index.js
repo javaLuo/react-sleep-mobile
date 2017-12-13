@@ -14,7 +14,7 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import ImgRight from '../../../../assets/xiangyou@3x.png';
-import ImgBar1 from './assets/yimaoquan@3x.png';
+import ImgBar1 from '../../../../assets/default-head.jpg';
 // import ImgBar2 from './assets/wozai@3x.png';
 // import ImgBar3 from './assets/jiankang@3x.png';
 // import ImgBar4 from './assets/erweima@3x.png';
@@ -77,27 +77,6 @@ class HomePageContainer extends React.Component {
                   </div>
               </Link>
           </div>
-          {/* 中间横Bar */}
-          {/*<div className="bar page-flex-row">*/}
-              {/*<div className='bar-item all_active'>*/}
-                  {/*<div className="bar-icon icon1" />*/}
-                  {/*<div className="title">亲友圈</div>*/}
-              {/*</div>*/}
-              {/*<div className='bar-item  all_active'>*/}
-                  {/*<Link to="/">*/}
-                      {/*<div className="bar-icon icon2" >*/}
-                          {/*<div className="dot">99</div>*/}
-                      {/*</div>*/}
-                      {/*<div className="title">我的消息</div>*/}
-                  {/*</Link>*/}
-              {/*</div>*/}
-              {/*<div className='bar-item  all_active'>*/}
-                  {/*<Link to="/">*/}
-                      {/*<div className="bar-icon icon3" />*/}
-                      {/*<div className="title">我的订单</div>*/}
-                  {/*</Link>*/}
-              {/*</div>*/}
-          {/*</div>*/}
           {/* 下方各横块 */}
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/my/order' : '/login')}>

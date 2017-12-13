@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import reqwest from 'reqwest';
 import Config from '../../../../config';
 import './index.scss';
 // ==================
@@ -31,6 +30,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        payTypes: [],   // 所有的支付方式
         payType: 'wxpay', // 支付方式
     };
   }
@@ -44,6 +44,7 @@ class HomePageContainer extends React.Component {
   }
   componentDidMount() {
       // 如果没有获取过支付方式，就重新获取
+      console.log('回跳地址是什么；', Config.redirect_uri);
       if (!this.props.allPayTypes.length) {
           this.getAllPayTypes();
       }
@@ -58,7 +59,7 @@ class HomePageContainer extends React.Component {
       this.props.actions.getAllPayTypes().then((res) => {
           if (res.status === 200) {
               this.setState({
-                  payType: res.data.result[0].id || null,
+                  payTypes: res.data.result[0],
               });
           }
       });

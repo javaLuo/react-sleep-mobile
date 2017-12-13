@@ -52,8 +52,10 @@ class HomePageContainer extends React.Component {
   // 上传头像状态
   onUploadChange(obj) {
       if (obj.file.status === 'done') {
-          // 上传成功后调用修改用户信息的接口，更新用户信息
-          this.updateUserInfo({headImg: obj.file.response.data.imageUrl});
+          // 上传成功后更新用户信息
+          // this.updateUserInfo({headImg: obj.file.response.data.imageUrl});
+          Toast.loading('上传成功', 1);
+          this.getUserInfo();
       } else if (obj.file.status === 'uploading') {
           Toast.loading('上传中...', 0);
       } else {
@@ -116,7 +118,8 @@ class HomePageContainer extends React.Component {
                   name="image"
                   withCredentials
                   showUploadList={false}
-                  action={`${Config.baseURL}common/upload/image`}
+                  action={`${Config.baseURL}/app/upload/headImg`}
+                  style={{ width: '100vw', display: 'block' }}
                   beforeUpload={(file, fileList) => {
                       console.log('都有些什么：', file, fileList);
                   }}

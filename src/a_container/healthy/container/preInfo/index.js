@@ -141,7 +141,7 @@ class HomePageContainer extends React.Component {
           {/* 下方各横块 */}
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.setName()}>
-                  <div className="title2">体检人姓名：</div>
+                  <div className="title2">姓名：</div>
                   <div className="info">{this.state.formName}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

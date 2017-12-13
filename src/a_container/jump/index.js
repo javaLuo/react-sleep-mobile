@@ -32,12 +32,13 @@ class Jump extends React.Component {
 
   componentDidMount(){
       const me = this;
-      console.log('PAY:LOCATION', me.props.location);
+      console.log('为什么你会被触发：');
+      const payInfo = sessionStorage.getItem('pay-info');   // 订单信息，如果缓存中没有，就跳转到我的订单页
       const search = window.location.search || '';
       let temp = search.replace(/^\?/, '').split('&');
       const t = temp.find((item) => item.indexOf('code')>=0);
-      if (!t){
-          me.props.history.replace('/');
+      if (!t || !payInfo){   // 如果URL没有code, 表示是直接访问该地址。或缓存中没有订单信息，表示是支付完成后按后退按钮到此，直接进入我的订单页
+          me.props.history.replace('/my/order');
           return;
       }
       const code = t.split('=')[1];
@@ -45,7 +46,7 @@ class Jump extends React.Component {
       //me.props.actions.saveWxCode(code); // 页面授权完成，开始初始化JS-SDK
       sessionStorage.setItem('wx_code', code);
       setTimeout(() => {
-          location.href = `${Config.baseURL}#/shop/pay`;
+          location.href = `${Config.baseURL}/gzh/?#/shop/pay`;
       }, 16);
   }
   render() {

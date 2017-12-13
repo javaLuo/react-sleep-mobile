@@ -147,7 +147,7 @@ class Login extends React.Component {
             </div>
           </div>
           <div className="input-box2">
-            <div className="btn">忘记密码?</div>
+            <div className="btn"><Link to="/forgot">忘记密码?</Link></div>
           </div>
           <Button
               type="primary"

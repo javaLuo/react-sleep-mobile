@@ -171,7 +171,7 @@ class Register extends React.Component {
                   password: this.state.password,
                   countryCode: '86',
                   verifyCode: this.state.vcode,
-                  loginIp: '',
+                  loginIp: returnCitySN["cip"] || '',
               };
               const res2 = await this.props.actions.register(params);
               if (res2.status === 200) {

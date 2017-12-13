@@ -13,16 +13,19 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Toast } from 'antd-mobile';
+import { Toast, Carousel, List, Button } from 'antd-mobile';
+import Config from '../../../../config';
+import imgDefault from '../../../../assets/logo-img.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { wxPay, wxInit } from '../../../../a_action/shop-action';
+import { wxPay, wxInit, mallCardCreate, payResultNeed } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
 // ==================
+const Item = List.Item;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -30,55 +33,72 @@ class HomePageContainer extends React.Component {
         wxReady: false, // 微信支付是否初始化成功
         modalShow: false,   // 等待用户操作的弹窗是否显示
         wx_code: '',    // 网页授权第一步获取到的code
+        pay_info: {}, // 订单信息
     };
   }
 
   componentWillMount() {
+      this.getPayInfo();
       // 如果没有选择商品就跳转到商城主页
-      if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-          Toast.fail('您没有选择商品');
-         // this.props.history.replace('/shop');
-      }
+      // if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
+      //     Toast.fail('您没有选择商品');
+      //    this.props.history.replace('/shop');
+      // }
   }
   componentDidMount() {
-      Toast.loading('请稍后');
-      this.startPay().then((res) => {
-          if (!res) {
-              Toast.fail('支付失败');
-              this.props.history.push('/my/order');
-          } else {
-              // 支付成功后需要更新当前订单的状态：支付方式，状态位已支付
-              Toast.success('支付成功');
-              this.props.history.push('/my/order');
-          }
-      });
+      Toast.loading('请稍后……');
+      setTimeout(() => {
+          this.onSubmit();
+      }, 16);
   }
 
    componentWillUnmount() {
-      sessionStorage.removeItem('wx_code');
+       sessionStorage.removeItem('wx_code');
+       sessionStorage.removeItem('pay-info');
   }
 
   async startPay() {
       try {
-          const s1 = await this.props.actions.wxInit(); // 向后台获取timestamp,nonceStr,signature等微信JS-SDK初始化所需参数
+          const s1 = await this.props.actions.wxInit();             // 向后台获取timestamp,nonceStr,signature等微信JS-SDK初始化所需参数
+          console.log('第1：获取wxInit：', s1);
           if(s1.status !== 200) { return false; }
-          const s2 = await this.initWxConfig(s1.data);  // 初始化js-sdk
+          const s2 = await this.initWxConfig(s1.data);              // 初始化js-sdk
+          console.log('第2：初始化js-sdk：', s2);
           if (!s2) { return false; }
-          const s3 = this.props.actions.wxPay({         // 向后台发起统一下单请求
-              body: 'yimaokeji-card',                       // 商品描述
-              total_fee: 1,                                 // 总价格（分）
-              spbill_create_ip: returnCitySN["cip"],        // 用户终端IP，通过腾讯服务拿的
-              out_trade_no: `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
-              code: sessionStorage.getItem('wx_code'),       // 授权code, 后台为了拿openid
+          const s3 = await this.props.actions.wxPay({               // 向后台发起统一下单请求
+              body: 'yimaokeji-card',                                 // 商品描述
+              total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
+              spbill_create_ip: returnCitySN["cip"],                  // 用户终端IP，通过腾讯服务拿的
+              out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
+              code: sessionStorage.getItem('wx_code'),                // 授权code, 后台为了拿openid
+              trade_type: 'JSAPI',
           });
+          console.log('第3：统一下单返回：', s3);
           if(s3.status !== 200) { return false; }
           Toast.hide();
-          const s4 = this.onPay(s3.data);                   // 调起微信支付控件
+          const s4 = await this.onPay(s3.data);                   // 调起微信支付控件
+          console.log('第4：调起微信支付控件：', s4);
           return s4;
       }catch(e) {
           return false;
       }
   }
+
+  // 获取订单信息
+    getPayInfo() {
+        // 获取订单信息
+        let pay = sessionStorage.getItem('pay-info');
+        if (!pay) {
+            Toast.fail('未获取到订单信息');
+            this.props.history.replace('/');
+        } else {
+            pay = JSON.parse(pay);
+            console.log('当前订单信息：', pay);
+            this.setState({
+                pay_info: pay,
+            });
+        }
+    }
 
     // 初始化微信JS-SDK
     initWxConfig(data) {
@@ -88,8 +108,8 @@ class HomePageContainer extends React.Component {
               res(false);
           }
           wx.config({
-              debug: true,
-              appId: this.state.appID,
+              debug: false,
+              appId: Config.appId,
               timestamp: data.timestamp,
               nonceStr: data.noncestr,
               signature: data.signature,
@@ -98,7 +118,6 @@ class HomePageContainer extends React.Component {
               ]
           });
           wx.ready(() => {
-              Toast.success('初始化完毕');
               console.log('微信JS-SDK初始化成功');
               res(true);
           });
@@ -107,19 +126,17 @@ class HomePageContainer extends React.Component {
 
     // 真正的开始支付
     onPay(data) {
-        const me = this;
-        this.setState({
-            modalShow: true,
-        });
         return new Promise((res, rej) => {
             wx.chooseWXPay({
+                appId: Config.appId,
                 timestamp: data.timeStamp || data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
                 nonceStr: data.nonceStr || data.noncestr, // 支付签名随机串，不长于 32 位
-                package: data.packageName || data.packagename, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
                 signType: data.signType || data.signtype, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                 paySign: data.paySign || data.paysign,  // 支付签名
                 success: function (msg) {
                     console.log('支付流程完结：', msg);
+                    document.getElementById('testdiv').innerText = JSON.stringify(msg);
                     res(msg);
                 }
             });
@@ -127,17 +144,73 @@ class HomePageContainer extends React.Component {
 
     }
 
-    // 支付Modal关闭
-    onModalClose() {
-      this.setState({
-          modalShow: false,
-      });
+   // 支付取消后可以重新开始支付
+    onSubmit() {
+        this.startPay().then((res) => {
+            console.log('你有返回什么吗：', res);
+            const msg = JSON.parse(JSON.stringify(res));
+            if (!res) {
+                Toast.fail('支付失败');
+            } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
+                // 支付成功后在后台添加对应数量的体检卡
+                this.makeCards();
+                Toast.success('支付成功');
+            } else {  // 支付遇到错误
+                Toast.error('支付失败');
+                this.returnPage();
+            }
+        }).catch(() => {
+            this.returnPage();
+        });
+    }
+
+    // 离开页面时销毁授权code,订单信息
+    returnPage() {
+        sessionStorage.removeItem('wx_code');
+        sessionStorage.removeItem('pay-info');
+        this.props.history.push('/my/order');
+    }
+
+    // 成功跳转
+    successReturn() {
+        sessionStorage.removeItem('wx_code');
+        sessionStorage.removeItem('pay-info');
+        this.props.history.push('/shop/payresult');
+    }
+
+    // 支付成功后生成体检卡
+    makeCards() {
+        this.props.actions.mallCardCreate({ orderId: this.state.pay_info.id }).then((res) => {
+            if (res.status === 200) {
+                this.props.actions.payResultNeed(res.data, this.state.pay_info);
+                setTimeout(() => {
+                    this.successReturn();
+                }, 16);
+            } else {
+                Toast.error('生成卡片失败，请联系客服');
+                this.returnPage();
+            }
+        });
     }
 
   render() {
+      const d = this.state.pay_info;
+      console.log('当前订单是什么:', d);
     return (
-      <div className="flex-auto page-box confirm-pay">
-          <span>5分钟内支付有效</span>
+      <div className="flex-auto page-box gooddetail-page">
+          {/* List */}
+          <List>
+              <Item extra={d.id}>订单号</Item>
+              <Item extra={d.count}>购买数量</Item>
+              <Item extra={`￥ ${d.fee}`}>合计</Item>
+          </List>
+          <div className="detail-box">
+              {(d && d.detailImg) ? <img src={d.detailImg} /> : null}
+          </div>
+          <div id="testdiv" />
+          <div className="play">
+              <Button type="primary" onClick={() => this.onSubmit()}>支付</Button>
+          </div>
       </div>
     );
   }
@@ -151,8 +224,6 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-  orderParams: P.any,
-  allPayTypes: P.array,
 };
 
 // ==================
@@ -161,10 +232,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-      allPayTypes: state.shop.allPayTypes,
-      orderParams: state.shop.orderParams,
+
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getAllPayTypes, wxPay, wxInit }, dispatch),
+    actions: bindActionCreators({ wxPay, wxInit, mallCardCreate, payResultNeed }, dispatch),
   })
 )(HomePageContainer);

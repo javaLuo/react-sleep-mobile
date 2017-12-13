@@ -102,10 +102,10 @@ export const updateUserInfo = (params = {}) => async(dispatch) => {
     }
 };
 
-// 上传图片接口
-export const upLoadImg = (params = {}) => async(dispatch) => {
+// 重置密码
+export const resetPwd = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/upload/ headImg', params, 'post', true);
+        const res = await Fetchapi.newPost2('app/user/resetPwd', params, 'post', true);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');

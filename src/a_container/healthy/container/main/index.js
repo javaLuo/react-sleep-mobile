@@ -35,36 +35,37 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
+    const user = sessionStorage.getItem('userinfo');
     return (
       <div className="healthy-main">
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push( user ? '/healthy/mycard' : '/login')}>
                   <img className="icon" src={ImgBar1} />
                   <div className="title">我的体检卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/precheck')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/precheck': '/login')}>
                   <img className="icon" src={ImgBar2} />
                   <div className="title">
                       <div>预约体检</div>
-                      <div className="i">共有1000家翼猫体验店已上线智能体检系统</div>
+                      <div className="i">共有1000家翼猫体验店已上线</div>
                   </div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mypre')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/mypre': '/login')}>
                   <img className="icon" src={ImgBar3} />
                   <div className="title">我的预约</div>
-                  <div className="info">1次</div>
+                  {/*<div className="info">1次</div>*/}
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/myreport')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/myreport': '/login')}>
                   <img className="icon" src={ImgBar4} />
                   <div className="title">体检报告</div>
-                  <div className="info">1份</div>
+                  {/*<div className="info">1份</div>*/}
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

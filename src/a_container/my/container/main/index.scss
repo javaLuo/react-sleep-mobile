@@ -32,7 +32,7 @@
       }
       .phone{
         margin-top: .34rem;
-        font-size: .28rem;
+        font-size: .32rem;;
         color: #89888e;
       }
     }
@@ -86,7 +86,7 @@
         }
       }
       .title{
-        font-size: .24rem;
+        font-size: .28rem;;
         text-align: center;
         margin-top: .3rem;
       }
@@ -103,15 +103,16 @@
         padding: 0 .3rem;
         width: .32rem;
         height: auto;
+        box-sizing: initial;
       }
       .title{
         flex:auto;
-        font-size: .28rem;
+        font-size: .32rem;;
         letter-spacing: 1px;
       }
       .info{
         flex: auto;
-        font-size: .28rem;
+        font-size: .32rem;;
         color: #89888e;
         text-align: right;
       }

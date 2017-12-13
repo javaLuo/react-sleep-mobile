@@ -46,10 +46,10 @@ class HomePageContainer extends React.Component {
       if(!isNaN(id)) {
           this.getData(id);
       }
-      // 获取所有收费方式
-      if (!this.props.allChargeTypes.length) {
-          this.getAllChargeTypes();
-      }
+      // 获取所有收费方式 暂时没有收费方式
+      // if (!this.props.allChargeTypes.length) {
+      //     this.getAllChargeTypes();
+      // }
   }
 
   // 获取原始数据

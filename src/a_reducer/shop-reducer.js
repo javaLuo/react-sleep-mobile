@@ -35,7 +35,10 @@ const initState = {
         userSource: 2,  // 用户来源 1APP， 2公众号，3后台添加
         conditions: 0,  // 状态 0预约成功，1已完成体检，-1失败，-2过期
     },
-
+    payResultInfo: {    // 支付成功，支付成功页面需要订单信息、生成的卡片信息
+        cards: [],
+        payInfo: {},
+    }
 };
 
 // ============================================
@@ -107,6 +110,13 @@ const savePreInfo = (state, action) => {
     });
 };
 
+const payResultNeed = (state, action) => {
+    const { cardData, payData } = action;
+    return Object.assign({}, state, {
+        payResultInfo: { cardData, payData },
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -128,6 +138,8 @@ const reducerFn = (state = initState, action) => {
             return mallApList(state, action);
         case 'PRE::savePreInfo':
             return savePreInfo(state, action);
+        case 'PAY::payResultNeed':
+            return payResultNeed(state, action);
         default:
             return actDefault(state, action);
     }

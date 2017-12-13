@@ -1,4 +1,4 @@
-/* 主页 */
+/* APP的主页 */
 
 // ==================
 // 所需的各种插件
@@ -12,17 +12,18 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Carousel, Icon } from 'antd-mobile';
+import { Carousel, Icon, List, Toast } from 'antd-mobile';
 import imgDefalut from '../../assets/logo-img.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { getProDuctList, mallApList, mallCardCreate } from '../../a_action/shop-action';
+import { getProDuctList } from '../../a_action/shop-action';
 
 // ==================
 // Definition
 // ==================
+const Item = List.Item;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -39,55 +40,28 @@ class HomePageContainer extends React.Component {
     if(!this.props.allProducts || this.props.allProducts.length === 0) {
       this.props.actions.getProDuctList();
     }
-    if (!this.props.homePics || this.props.homePics.length === 0) {
-      this.props.actions.mallApList({ typeCode: 'slideshow' });
+    this.getUserInfo();
+  }
+
+  // 安卓
+  getUserInfo() {
+    if(typeof AndroidDataJs !== 'undefined') {
+        const id = AndroidDataJs.getAppString('id');
+        Toast.info('获取到的ID：'+ id);
+    } else {
+      Toast.info('没有找到AndroidDataJs对象');
     }
-    this.test();
   }
 
-  test() {
-      this.props.actions.mallCardCreate({ orderId: 1645634534 }).then((res) => {
-
-      });
-  }
   render() {
-    console.log('图片：', this.props.homePics);
+      const user = sessionStorage.getItem('userinfo');
     return (
-      <div className="flex-auto page-box home-page">
-          {/* 顶部轮播 */}
-          <Carousel
-            className="my-carousel"
-            autoplay
-            infinite
-            swipeSpeed={35}
-          >
-              {this.props.homePics.map((item, index) => (
-                  <a
-                      key={index}
-                      href={item.url}
-                      style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                      target="_blank"
-                  >
-                    <img
-                        src={item.adImg}
-                        style={{ width: '100%', verticalAlign: 'top' }}
-                        onLoad={() => {
-                            // fire window resize event to change height
-                            window.dispatchEvent(new Event('resize'));
-                            this.setState({ imgHeight: 'auto' });
-                        }}
-                    />
-                  </a>
-              ))}
-          </Carousel>
-          {/* 最新资讯 */}
+      <div className="flex-auto page-box apphome-page">
+          {/* 产品列表 */}
           {
             this.props.allProducts.map((theType, i) => {
               return (
                   <div key={i} className="the-list">
-                    <div className="title page-flex-row">
-                      <div className="flex-auto">{ theType.name }</div>
-                    </div>
                     <ul className="list">
                         { theType.productList.filter((item) => item.onShelf).map((item, index) => {
                             return (
@@ -99,8 +73,9 @@ class HomePageContainer extends React.Component {
                                       <div className="i flex-auto">
                                         <div className="all_nowarp2" />
                                       </div>
-                                      <div className="k page-flex-row flex-jc-end flex-none">
+                                      <div className="k page-flex-row flex-jc-sb flex-none">
                                         <span>￥ <i>{item.price}</i></span>
+                                        <span className="btn">立即购买</span>
                                       </div>
                                     </div>
                                   </Link>
@@ -112,6 +87,11 @@ class HomePageContainer extends React.Component {
               );
             })
           }
+        <List>
+          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(user ? '/my/order' : '/login')}>我的订单</Item>
+          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(user ? '/healthy/mycard' : '/login')}>我的体检卡</Item>
+          <Item arrow="horizontal" multipleLine extra={'翼猫健康e家'}>微信公众号</Item>
+        </List>
       </div>
     );
   }
@@ -126,7 +106,6 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   allProducts: P.array, // 所有的产品
-    homePics: P.array,  // 首页顶部轮播图
 };
 
 // ==================
@@ -136,9 +115,8 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       allProducts: state.shop.allProducts,  // 所有的产品  数组
-      homePics: state.shop.homePics,  // 首页顶部轮播图
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getProDuctList, mallApList, mallCardCreate }, dispatch),
+    actions: bindActionCreators({ getProDuctList }, dispatch),
   })
 )(HomePageContainer);

@@ -22,7 +22,7 @@ import defaultPic from '../../../../assets/logo@3x.png';
 // 本页面所需action
 // ==================
 
-import { getUserInfo, upLoadImg, logout } from '../../../../a_action/app-action';
+import { getUserInfo, logout } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -113,6 +113,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo, upLoadImg, logout }, dispatch),
+    actions: bindActionCreators({ getUserInfo, logout }, dispatch),
   })
 )(HomePageContainer);

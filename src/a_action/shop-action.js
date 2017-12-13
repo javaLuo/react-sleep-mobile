@@ -116,7 +116,7 @@ export const saveAddrss = (params = {}) => async(dispatch) => {
 // 微信支付
 export const wxPay = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('wx/pay/unifiedorder', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/wxpay/unifiedorder', params, 'post', true, 1);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -126,7 +126,7 @@ export const wxPay = (params = {}) => async(dispatch) => {
 // 微信初始化 - 获取appID,签名，随机串，时间戳
 export const wxInit = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('wx/pay/init', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/wxpay/init', params, 'post', true, 1);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -177,6 +177,16 @@ export const mecReserveList = (params = {}) => async(dispatch) => {
     }
 };
 
+// 生成体检卡 支付成功后调用
+export const mallCardCreate = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/hracard/create', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
 // 查询我的体检卡
 export const mallCardList = (params = {}) => async(dispatch) => {
     try {
@@ -215,3 +225,12 @@ export const mallReserveSave = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试');
     }
 };
+
+// 保存支付结果页所需数据
+export function payResultNeed(cardData, payData) {
+    return {
+        type: 'PAY::payResultNeed',
+        cardData,
+        payData
+    };
+}

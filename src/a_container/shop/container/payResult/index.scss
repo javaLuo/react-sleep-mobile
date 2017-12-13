@@ -1,0 +1,42 @@
+.page-pay-result{
+  .head{
+    padding: .3rem;
+    background-color: #fff;
+    text-align: center;
+    font-size: .36rem;
+    img{
+      width: .68rem;
+      height: auto;
+      margin-bottom: .2rem
+    }
+  }
+  .cards{
+    background-color: #fff;
+    margin-top: .2rem;
+    font-size: .32rem;
+    color: #222328;
+    .title{
+      padding: 10px 15px;
+
+      .i{
+        color: #ccc;
+      }
+    }
+    .list-btn{
+      padding: .1rem .15rem;
+      font-size: .26rem;
+      color: #fff;
+      background-color: #4285f4;
+      border-radius: 50px;
+    }
+  }
+  .pay-info{
+    padding: 15px;
+    margin-top: .2rem;
+    margin-bottom: .2rem;
+    color: #aaa;
+    font-size: .32rem;
+    line-height:.6rem;
+    background-color: #fff;
+  }
+}

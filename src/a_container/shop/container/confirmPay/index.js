@@ -44,10 +44,10 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      // 获取所有收费方式
-      if (!this.props.allChargeTypes.length) {
-          this.getAllChargeTypes();
-      }
+      // 获取所有收费方式 暂时没有收费方式
+      // if (!this.props.allChargeTypes.length) {
+      //     this.getAllChargeTypes();
+      // }
   }
 
     // 获取收费方式
@@ -83,7 +83,7 @@ class HomePageContainer extends React.Component {
           count: this.state.formCount,
           serviceTime: tools.dateToStr(this.state.formServiceTime),
           orderType: 1,
-          openAccountFee: 180,
+          openAccountFee: 0,
           fee: this.props.orderParams.nowProduct.price * this.state.formCount
       };
       this.props.actions.shopStartPayOrder(params);
@@ -93,6 +93,8 @@ class HomePageContainer extends React.Component {
       this.props.actions.placeAndOrder(p).then((res) => {
           if (res.status === 200) {
               Toast.hide();
+              // 将返回的订单信息存入sessionStorage
+              sessionStorage.setItem('pay-info', JSON.stringify(res.data));
               this.props.history.push('/shop/payChose');
           } else {
               Toast.fail(res.message || '订单创建失败');
@@ -120,7 +122,7 @@ class HomePageContainer extends React.Component {
                 thumb={nowData.productImg ? <img src={nowData.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  {nowData.name}<Brief>型号：{nowData.typeCode}<br/>计费方式：{this.getNameByChargeID(nowParams.feeType)}</Brief>
+                  {nowData.name}<Brief>型号：{nowData && nowData.typeModel ? nowData.typeModel.name : '--'}</Brief>
               </Item>
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
               {/*<DatePicker*/}

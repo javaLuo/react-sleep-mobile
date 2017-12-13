@@ -10,27 +10,36 @@ import './index.scss';
 /** 下面是代码分割异步加载的例子 */
 import Bundle from '../../a_component/bundle';
 import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
+import lazeAppHome from 'bundle-loader?lazy&name=apphome!../apphome/index';
 import lazeHealthy from 'bundle-loader?lazy&name=healthy!../healthy';
 import lazeMy from 'bundle-loader?lazy&name=my!../my';
 import lazeNotFound from 'bundle-loader?lazy&name=notfound!../notfound';
 import lazeLogin from 'bundle-loader?lazy&name=login!../login';
 import lazeRegister from 'bundle-loader?lazy&name=register!../register';
 import lazeShare from 'bundle-loader?lazy&name=share!../share';
+import lazeWxShare from 'bundle-loader?lazy&name=wxshare!../share/wxShare';
 import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
 import lazeShop from 'bundle-loader?lazy&name=shop!../shop';
+import lazeForgot from 'bundle-loader?lazy&name=forgot!../register/forgot';
+
 // import lazeNews from 'bundle-loader?lazy!../news';
 // import lazeDownLine from 'bundle-loader?lazy!../downline';
 
 const Home = (props) => (<Bundle load={lazeHome}>{(Home) => <Home {...props} />}</Bundle>);                     // 首页
+const AppHome = (props) => (<Bundle load={lazeAppHome}>{(AppHome) => <AppHome {...props} />}</Bundle>);         // App首页
+
 const Healthy = (props) => (<Bundle load={lazeHealthy}>{(Healthy) => <Healthy {...props} />}</Bundle>);         // 健康管理模块
 const My = (props) => (<Bundle load={lazeMy}>{(My) => <My {...props} />}</Bundle>);                             // 我的e家模块
 const Login = (props) => (<Bundle load={lazeLogin}>{(Login) => <Login {...props} />}</Bundle>);                 // 登录页
 // const News = (props) => (<Bundle load={lazeNews}>{(News) => <News {...props} />}</Bundle>);                  // 最新资讯（暂时没用）
 // const DownLine = (props) => (<Bundle load={lazeDownLine}>{(DownLine) => <DownLine {...props} />}</Bundle>);  // 线下体验店（暂时没用）
 const Register = (props) => (<Bundle load={lazeRegister}>{(Register) => <Register {...props} />}</Bundle>);     // 注册页
+const Forgot = (props) => (<Bundle load={lazeForgot}>{(Forgot) => <Forgot {...props} />}</Bundle>);           // 忘记密码页
 const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props} />}</Bundle>);                 // 分享出去展现的页面
+const WxShare = (props) => (<Bundle load={lazeWxShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);                 // 分享出去展现的页面
 const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
-const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Share {...props} />}</Bundle>);                    // 微信支付跳转页
+const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Jump {...props} />}</Bundle>);                    // 微信支付跳转页
+
 const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFound {...props} />}</Bundle>);     // 404页
 
 /** 下面是代码不分割的页面加载方式 */
@@ -91,12 +100,15 @@ class RootContainer extends React.Component {
                 <Switch>
                   <Redirect exact from='/' to='/home' />
                   <Route path="/home" render={(props) => this.onEnter(Home, props)} />
+                  <Route path="/apphome" render={(props) => this.onEnter(AppHome, props)} />
                   <Route path="/healthy" render={(props) => this.onEnter(Healthy, props)} />
                   <Route path="/my" render={(props) => this.onEnter(My, props)} />
                   <Route path="/jump" render={(props) => this.onEnter(Jump, props)} />
                   <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
                   <Route path="/share/:id" render={(props) => this.onEnter(Share, props)} />
+                  <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route exact path="/register" component={Register} />
+                  <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />
                   <Route component={NotFound} />
                 </Switch>

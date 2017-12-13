@@ -13,8 +13,12 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import ImgLogo from '../../assets/logo@3x.png';
-import ImgRight from '../../assets/xiangyou@3x.png';
+import ImgLogo from '../../assets/logo@3x.png';     // 翼猫LOGO，卡上的图标
+import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
+import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
+import ImgChaXun from '../../assets/share/chaxun@3x.png';    // 查询图标
+import ImgYuYue from '../../assets/share/yuyue@3x.png';    // 预约图标
+import ImgBaoGao from '../../assets/share/baogao@3x.png';    // 报告图标
 // ==================
 // 本页面所需action
 // ==================
@@ -56,16 +60,30 @@ class HomePageContainer extends React.Component {
                     </div>
                 </div>
                 <div className="weixin">
-                    <img src="#" />
                     <div>翼猫健康e家公众号</div>
-                    <div>关注公众号，享受更多服务</div>
+                    <div className="page-flex-row flex-jc-sb"><img src={ImgQrCode}/><img src={ImgZhiWen} /></div>
+                    <div>长按二维码 “识别” 关注</div>
                 </div>
                 <div className="weixin-info">
-                    <div>关注方式：</div>
-                    <div>保存二维码到手机相册</div>
-                    <div>打开微信扫一扫</div>
-                    <div>打开右上角的相册</div>
-                    <div>选择刚才保存的二维码识别后关注</div>
+                    <div className="page-flex-row flex-ai-center">
+                        <div className="line flex-auto"/>
+                        <div className="t flex-none">关注公众号，享受更多服务</div>
+                        <div className="line flex-auto"/>
+                    </div>
+                    <div className="icons-box page-flex-row flex-jc-sb">
+                        <div>
+                            <img src={ImgChaXun} />
+                            <div>查询<br/>体检服务中心</div>
+                        </div>
+                        <div>
+                            <img src={ImgYuYue} />
+                            <div>预约体检</div>
+                        </div>
+                        <div>
+                            <img src={ImgBaoGao} />
+                            <div>查看<br/>体检报告</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

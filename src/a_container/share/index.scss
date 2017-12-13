@@ -4,14 +4,14 @@
     box-sizing: border-box;
     display: block;
     background-image: -webkit-linear-gradient(left, #4888F3, #70A6FF);
-    border-radius: 4px;
+    border-radius: 8px;
     .title{
       .logo{
         height: .5rem;
       }
       .num{
         color: #fff;
-        font-size: .26rem;
+        font-size: .28rem;;
         letter-spacing: 1px;
         i{
           margin-left: .3rem;
@@ -29,7 +29,7 @@
           font-size: .36rem;
         }
         .t-sm{
-          font-size: .26rem;
+          font-size: .28rem;;
         }
       }
       .r{
@@ -40,7 +40,7 @@
     }
     .info2{
       color: #fff;
-      font-size: .26rem;
+      font-size: .28rem;;
       letter-spacing: 1px;
       img{
         height: .3rem;
@@ -55,22 +55,49 @@
     background-color: #fff;
     padding: .6rem;
     img{
-      width: 2.4rem;
+      width: auto;
       height: 2.4rem;
-      background-color: #ccc;
     }
     &>div{
       font-size: .32rem;
-      margin-top: .3rem;
+      width: 80%;
+      margin: .3rem auto 0 auto;
+    }
+    .more{
+      &>div{
+        border: solid 1px #f0f0f0;
+        border-radius: 2rem;
+        font-size: .28rem;
+        height: 2rem;
+        width: 2rem;
+      }
     }
   }
   .weixin-info{
     padding: .2rem;
     background-color: #fff;
+    color: #222328;
+    .line{
+      height: 1px;
+      background-color: #222328;
+    }
+    .t{
+      padding: 0 .2rem;
+    }
     &>div{
       font-size: .32rem;
-      color: #89888e;
       line-height: .56rem;
+    }
+    .icons-box{
+      font-size: .28rem;
+      text-align: center;
+      line-height: normal;
+      width: 80%;
+      margin: .4rem auto .4rem auto;
+      img{
+        width: 1.1rem;
+        height: auto;
+      }
     }
   }
 }

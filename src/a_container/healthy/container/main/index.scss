@@ -10,19 +10,20 @@
         padding: 0 .3rem;
         width: .32rem;
         height: auto;
+        box-sizing: initial;
       }
       .title{
         flex:auto;
-        font-size: .28rem;
+        font-size: .32rem;;
         letter-spacing: 1px;
         .i{
-          font-size: .24rem;
+          font-size: .28rem;;
           color: #89888e;
         }
       }
       .info{
         flex: auto;
-        font-size: .28rem;
+        font-size: .32rem;;
         color: #89888e;
         text-align: right;
       }

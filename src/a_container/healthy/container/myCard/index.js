@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
+import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
@@ -20,12 +21,15 @@ import ImgLogo from '../../../../assets/logo@3x.png';
 import ImgShare1 from '../../../../assets/share-wx.png';
 import ImgShare2 from '../../../../assets/share-friends.png';
 import ImgShare3 from '../../../../assets/share-qq.png';
+import ImgShareArr from '../../../../assets/share-arr.png';
 import { ActionSheet, Toast } from 'antd-mobile';
+import Config from '../../../../config';
+
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallCardList } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -34,63 +38,117 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: [],
-        wxReady: false, // 微信是否已初始化
+        wxReady: true, // 微信是否已初始化
+        shareShow: false,   // 分享提示框是否显示
     };
   }
 
   componentDidMount() {
       this.getData();
+      this.initWeiXinPay();
   }
 
+  // 工具 - 获取已使用了多少张卡
+    getHowManyByTicket(list) {
+      if (!list){ return 0; }
+      return list.filter((item) => item.ticketStatus !== 1).length;
+    }
   // 获取体检卡列表
   getData() {
       this.props.actions.mallCardList({ pageNum: 0, pageSize: 9999 }).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    data: res.data.result,
+                    data: res.data ? res.data.result : [],
                 });
             }
       });
   }
 
+  // 失败
+    onFail() {
+        this.setState({
+            wxReady: false,
+        });
+    }
     // 获取微信初始化所需参数
     initWeiXinPay() {
         // 后台需要给个接口，返回appID,timestamp,nonceStr,signature
-        // 然后调用initWxConfig()
+        this.props.actions.wxInit().then((res) => {
+            console.log('返回的是什么：', res);
+            if (res.status === 200) {
+                console.log('走这里：', res);
+                this.initWxConfig(res.data);
+            } else {
+                this.onFail();
+            }
+        }).catch(() => {
+            this.onFail();
+        });
     }
 
     // 初始化微信JS-SDK
-    initWxConfig() {
+    initWxConfig(data) {
         const me = this;
         if(typeof wx === 'undefined') {
             console.log('weixin sdk load failed!');
+            this.onFail();
             return false;
         }
-        console.log('到这里了');
+        console.log('到这里了', data);
         wx.config({
             debug: false,
-            appID: 'wx57f6ee39cbea7654',
-            timestamp: new Date().getTime(),
-            nonceStr: 'asfasdfsd',
-            signature: 'afdasdf',
+            appId: Config.appId,
+            timestamp: data.timestamp,
+            nonceStr: data.noncestr,
+            signature: data.signature,
             jsApiList: [
-                'onMenuShareTimeline',   // 分享到朋友圈
+                'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
-                'onMenuShareQQ'             // 分享到QQ
+                'onMenuShareQQ',             // 分享到QQ
+                'shareTimeline'
             ]
         });
         wx.ready(() => {
-            me.setState({
-                wxReady: true,
+            console.log('微信JS-SDK初始化成功');
+            wx.onMenuShareAppMessage({
+                title: '健康风险评估卡',
+                desc: '健康风险评估卡',
+                link: `${Config.baseURL}/gzh/#/share/${id}`,
+                imgUrl: '#',
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功');
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: '健康风险评估卡',
+                link: `${Config.baseURL}/gzh/#/share/${id}`,
+                imgUrl: '#',
+                success: () => {
+                    Toast.info('分享成功');
+                }
+            });
+
+            wx.onMenuShareQQ({
+                title: '健康风险评估卡',
+                desc: '健康风险评估卡',
+                link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
+                imgUrl: '#',
+                success: () => {
+                    Toast.info('分享成功');
+                }
             });
         });
         wx.error((e) => {
+            Toast.success('初始化失败');
             console.log('微信JS-SDK初始化失败：', e);
+            this.onFail();
         });
     }
 
   // 分享框出现
-    onShare() {
+    onShare(id) {
         ActionSheet.showShareActionSheetWithOptions({
             options: [
                 { icon: <img src={ImgShare1} style={{ width: 36 }}/>, title: '微信好友' },
@@ -103,23 +161,25 @@ class HomePageContainer extends React.Component {
         },
         (index) => {
             console.log("选的那一个", index);
-            if(index === 0) {   // 分享到微信
-                this.shareToFritend();
+            if(!this.state.wxReady){    // 微信初始化失败
+                Toast.fail('微信SDK初始化失败');
+            } else if(index === 0) {   // 分享到微信
+                this.shareToFritend(id);
             } else if(index === 1) {    // 分享到朋友圈
-                this.shareToTimeLine();
+                this.shareToTimeLine(id);
             } else if(index === 2) {    // 分享到QQ
-                this.shareToQQ();
+                this.shareToQQ(id);
             }
             return false;
         });
     }
 
     // 分享给好友
-    shareToFritend() {
+    shareToFritend(id) {
       wx.onMenuShareAppMessage({
           title: '健康风险评估卡',
           desc: '健康风险评估卡',
-          link: 'http://hdr.yimaokeji.com/#/share/1',
+          link: `${Config.baseURL}/gzh/#/share/${id}`,
           imgUrl: '#',
           type: 'link',
           success: () => {
@@ -132,7 +192,7 @@ class HomePageContainer extends React.Component {
     shareToTimeLine() {
         wx.onMenuShareTimeline({
             title: '健康风险评估卡',
-            link: 'http://hdr.yimaokeji.com/#/share/1',
+            link: `${Config.baseURL}/gzh/#/share/${id}`,
             imgUrl: '#',
             success: () => {
                 Toast.info('分享成功');
@@ -145,7 +205,7 @@ class HomePageContainer extends React.Component {
         wx.onMenuShareQQ({
             title: '健康风险评估卡',
             desc: '健康风险评估卡',
-            link: 'http://hdr.yimaokeji.com/#/share/1',
+            link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
             imgUrl: '#',
             success: () => {
                 Toast.info('分享成功');
@@ -162,7 +222,7 @@ class HomePageContainer extends React.Component {
                       return <li  key={index} className="cardbox">
                           <div className="title page-flex-row flex-jc-sb flex-ai-center">
                               <img className="logo" src={ImgLogo} />
-                              <span className="num">共5张<i>已使用0张</i></span>
+                              <span className="num">共{item.ticketNum}张<i>已使用{this.getHowManyByTicket(item.ticketList)}张</i></span>
                           </div> 
                           <div className="info page-flex-row">
                               <div className="t flex-auto">
@@ -174,13 +234,17 @@ class HomePageContainer extends React.Component {
                               </div>
                           </div>
                           <div className="info2 page-flex-row flex-jc-sb">
-                              <span>有效期：2017-08-29</span>
-                              <span onClick={() => this.onShare()}><img src={ImgShare} /></span>
+                              <span>有效期：{tools.dateToStr(new Date(item.validTime))}</span>
+                              <span onClick={() => this.setState({ shareShow: true })}><img src={ImgShare} /></span>
                           </div>
                       </li>;
                   })
               }
           </ul>
+          <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
+              <img className="share" src={ImgShareArr} />
+              <div className="title">点击右上角进行分享</div>
+          </div>
       </div>
     );
   }
@@ -205,6 +269,6 @@ export default connect(
 
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit }, dispatch),
   })
 )(HomePageContainer);

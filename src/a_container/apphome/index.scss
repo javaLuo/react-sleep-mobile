@@ -1,6 +1,5 @@
-.home-page{
+.apphome-page{
   .my-carousel{
-    background-color: #f0f0f0;
     img{
       object-fit: cover;
       height: 200px;
@@ -36,7 +35,6 @@
     }
   }
   .the-list{
-    margin-top: .2rem;
     .title{
       height: .88rem;
       line-height: .88rem;
@@ -106,10 +104,16 @@
               span{
                 font-size: .22rem;
                 color: #fc4800;
+                vertical-align: middle;;
                 i{
                   font-style: normal;
                   font-size: .36rem;
                 }
+              }
+              .btn{
+                padding: 0 10px;
+                font-size: .32rem;
+                box-sizing: initial;
               }
             }
           }
