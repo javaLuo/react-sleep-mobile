@@ -16,8 +16,8 @@ import './index.scss';
 
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/tijianka@3x.png';
-import ImgBar2 from '../../../../assets/yuyue@3x.png';
-import ImgBar3 from '../../../../assets/wode@3x.png';
+import ImgBar2 from '../../../../assets/dingwei@3x.png';
+import ImgBar3 from '../../../../assets/yuyue@3x.png';
 import ImgBar4 from '../../../../assets/baogao@3x.png';
 // ==================
 // 本页面所需action

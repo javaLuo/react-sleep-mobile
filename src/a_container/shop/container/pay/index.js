@@ -136,7 +136,6 @@ class HomePageContainer extends React.Component {
                 paySign: data.paySign || data.paysign,  // 支付签名
                 success: function (msg) {
                     console.log('支付流程完结：', msg);
-                    document.getElementById('testdiv').innerText = JSON.stringify(msg);
                     res(msg);
                 }
             });
@@ -187,7 +186,7 @@ class HomePageContainer extends React.Component {
                     this.successReturn();
                 }, 16);
             } else {
-                Toast.error('生成卡片失败，请联系客服');
+                Toast.fail('生成卡片失败，请联系客服');
                 this.returnPage();
             }
         });

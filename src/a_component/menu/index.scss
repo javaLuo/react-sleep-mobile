@@ -17,20 +17,17 @@
     }
     &.check, &:active{
       a{
-        color: #4285f4;
+        color: #1AAD19;
       }
       .menu-icon{
         &.icon1{
-          background-image:url(./assets/shouye_two@3x.png);
-        }
-        &.icon2{
-          background-image:url(./assets/wulian_two@3x.png);
+          background-image:url(../../assets/shouye_two@3x.png);
         }
         &.icon3{
-          background-image:url(./assets/jiankang_two@3x.png);
+          background-image:url(../../assets/jiankang_two@3x.png);
         }
         &.icon4{
-          background-image:url(./assets/wode_two@3x.png);
+          background-image:url(../../assets/wode_two@3x.png);
         }
       }
     }

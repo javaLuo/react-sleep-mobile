@@ -197,10 +197,10 @@ export const mallCardList = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询当前服务站可预约的时间
+// 搜索服务站
 export const mallStationList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/station/list', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/station/list', params );
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
