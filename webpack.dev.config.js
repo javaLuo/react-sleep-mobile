@@ -48,7 +48,6 @@ module.exports = {
             },
             {   // 文件解析
                 test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
-                include: path.resolve(__dirname, "src"),
                 loader: 'file-loader?name=assets/[name].[ext]'
             },
             {   // 图片解析

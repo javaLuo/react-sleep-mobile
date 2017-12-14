@@ -155,6 +155,21 @@ const allobj = {
             result[temp[0]] = temp[1];
         });
         return result;
+    },
+
+    /**
+     * 如果是原生系统，直接从原生获取用户信息
+     * 返回用户相关信息
+     * **/
+    getUserInfoByNative() {
+        if(typeof AndroidDataJs !== 'undefined') {  // 是安卓
+            const mobile = AndroidDataJs.getAppString('mobile');
+            const password = AndroidDataJs.getAppString('password');
+            return { mobile, password};
+        } else {
+            console.log('是H5');
+            return null;
+        }
     }
 };
 

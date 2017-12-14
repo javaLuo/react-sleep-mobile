@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import createHistory from 'history/createHashHistory';
 import $ from 'jquery';
 import './index.scss';
+
 /** 下面是代码分割异步加载的例子 */
 import Bundle from '../../a_component/bundle';
 import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
@@ -61,7 +62,12 @@ const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFoun
  * 普通组件
  * */
 import Menu from '../../a_component/menu';
+import tools from '../../util/all';
 
+/**
+ * 所需action
+ * **/
+import { login } from '../../a_action/app-action';
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -85,7 +91,26 @@ class RootContainer extends React.Component {
       }).resize();
   }
 
-
+  componentDidMount() {
+      // 如果是原生系统，就从原生系统登录
+      const userinfo = tools.getUserInfoByNative();
+      if (userinfo) {
+          const params = {
+              loginName: userinfo.mobile,
+              password: userinfo.password,
+              mobile: userinfo.mobile,
+              loginIp: returnCitySN["cip"] || '',
+              appType: 1,
+              appVersion: 'web'
+          };
+          this.props.actions.login(params).then((res) => {
+              if (res.status === 200) {
+                  // 将用户信息保存到localStorage
+                  sessionStorage.setItem('userinfo', JSON.stringify(res.data));
+              }
+          });
+      }
+  }
     /* 权限控制 */
     onEnter(Component, props) {
         return <Component {...props} />;
@@ -129,6 +154,7 @@ RootContainer.propTypes = {
   dispatch: P.func,
   children: P.any,
   location: P.any,
+    actions: P.any,
 };
 
 // ==================
@@ -139,6 +165,6 @@ export default connect(
   (state) => ({
   }), 
   (dispatch) => ({
-      actions: bindActionCreators({}, dispatch),
+      actions: bindActionCreators({ login }, dispatch),
   })
 )(RootContainer);

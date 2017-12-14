@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { DatePicker, Button, Toast } from 'antd-mobile';
+import { DatePicker, Button, Toast, Picker } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgDh from '../../../../assets/daohang@3x.png';
 import ImgRen from '../../../../assets/ren@3x.png';
@@ -26,7 +26,7 @@ import ImgCard from '../../../../assets/xuanzeka@3x.png';
 // 本页面所需action
 // ==================
 
-import { mallReserveSave } from '../../../../a_action/shop-action';
+import { mallReserveSave, savePreInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -35,7 +35,6 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        formDate: new Date(),   // 预约体检时间
     };
   }
 
@@ -43,17 +42,40 @@ class HomePageContainer extends React.Component {
 
   }
 
+  // 日期选择
+    onDateChange(date) {
+        this.props.actions.savePreInfo({
+            reserveTime: `${tools.dateformart(date)} ${this.props.preInfo.reserveTime_Time}`,
+            reserveTime_Date: date,
+        });
+    }
+
+    // 时间选择
+    onTimeChange(time) {
+      this.props.actions.savePreInfo({
+          reserveTime: `${tools.dateformart(this.props.preInfo.reserveTime_Date)} ${time[0]}`,
+          reserveTime_Time: time[0],
+      });
+    }
 
    onSubmit() {
-      const p = this.props.preInfo;
+      const p = _.cloneDeep(this.props.preInfo);
       // 检查各必要的信息
-       if(!p.name || !p.mobile) {
+       if (!p.ticketNo) {
+           Toast.fail('请选择体检卡');
+           return false;
+       } else if(!p.userName || !p.phone) {
            Toast.fail('请填写体检人信息');
            return false;
        } else if (!p.stationId) {
            Toast.fail('请选择体检服务中心');
-           // return false;
+           return false;
+       } else if (!p.reserveTime_Time || !p.reserveTime_Date) {
+           Toast.fail('请选择体检日期和时间');
+           return false;
        }
+       delete p.reserveTime_Date;
+       delete p.reserveTime_Time;
       // 调用预约接口
         this.props.actions.mallReserveSave(tools.clearNull(p)).then((res) => {
             if(res.returnCode === '0') {
@@ -76,13 +98,13 @@ class HomePageContainer extends React.Component {
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard')}>
                   <div className="title2">体检卡号：</div>
-                  <div className="info2">{this.props.preInfo.code || ''}</div>
+                  <div className="info2">{this.props.preInfo.ticketNo || ''}</div>
                   <div className="arrow2"><img src={ImgCard} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/preinfo')}>
                   <div className="title">体检人信息</div>
-                  <div className="info">{this.props.preInfo.name || ''}</div>
+                  <div className="info">{this.props.preInfo.userName || ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
@@ -93,29 +115,60 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           <ul className="card-ul">
-              <li className="card-box page-flex-row">
-                  <div className="l flex-auto">
-                      <div className="title">上海市嘉定区翼猫体验服务中心</div>
-                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>姓名</span></div>
-                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>13600000000</span></div>
-                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>上海市嘉定区南翔镇众人路399号B座1楼</span></div>
-                  </div>
-              </li>
+              {
+                  this.props.stationInfo.id ? (
+                      <li className="card-box page-flex-row">
+                          <div className="l flex-auto">
+                              <div className="title">{this.props.stationInfo.name}</div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.contactPerson}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.contactPhone}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.address}</span></div>
+                          </div>
+                      </li>
+                  ) : null
+              }
           </ul>
           <div className="bar-list">
-              <DatePicker
-                  mode="datetime"
-                  value={this.state.date}
-                  minDate={new Date()}
-                  onChange={date => this.setState({ formDate: date })}
-              >
-                  <div className="item page-flex-row all_active" >
-                      <div className="title">选择体检时间</div>
-                      <div className="info">{tools.dateToStrMin(this.state.formDate)}</div>
-                      <div className="arrow"><img src={ImgRight} /></div>
-                      <div className="line"/>
-                  </div>
-              </DatePicker>
+              {
+                  this.props.stationInfo.id ? (
+                      <DatePicker
+                          mode="date"
+                          title="体检日期"
+                          extra="Optional"
+                          value={this.props.preInfo.reserveTime_Date}
+                          minDate={new Date()}
+                          onChange={date => this.onDateChange(date)}
+                      >
+                          <div className="item page-flex-row all_active" >
+                              <div className="title">选择体检日期</div>
+                              <div className="info">{tools.dateformart(this.props.preInfo.reserveTime_Date)}</div>
+                              <div className="arrow"><img src={ImgRight} /></div>
+                              <div className="line"/>
+                          </div>
+                      </DatePicker>
+                  ) : null
+              }
+          </div>
+          <div className="bar-list">
+              {
+                  this.props.stationInfo.id ? (
+                      <Picker
+                          data={this.props.stationInfo.reserveTime ? this.props.stationInfo.reserveTime.map((item, index) => {
+                              return { label: item, value: item };
+                          }) : []}
+                          value={[this.props.preInfo.reserveTime_Time]}
+                          cols={1}
+                          onChange={time => this.onTimeChange(time)}
+                      >
+                          <div className="item page-flex-row all_active" >
+                              <div className="title">选择体检时间</div>
+                              <div className="info">{this.props.preInfo.reserveTime_Time}</div>
+                              <div className="arrow"><img src={ImgRight} /></div>
+                              <div className="line"/>
+                          </div>
+                      </Picker>
+                  ) : null
+              }
           </div>
           <div className="thefooter">
               <Button type="primary" onClick={() => this.onSubmit()}>立即预约</Button>
@@ -134,6 +187,7 @@ HomePageContainer.propTypes = {
   history: P.any,
     actions: P.any,
     preInfo: P.any,
+    stationInfo: P.any,
 };
 
 // ==================
@@ -143,8 +197,9 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
     preInfo: state.shop.preInfo,
+    stationInfo: state.shop.stationInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallReserveSave }, dispatch),
+    actions: bindActionCreators({ mallReserveSave, savePreInfo }, dispatch),
   })
 )(HomePageContainer);

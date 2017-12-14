@@ -20,7 +20,7 @@ import { Tabs, Button } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import { getUserInfo } from '../../../../a_action/app-action';
+import { mallOrderList } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -34,14 +34,14 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      if (!this.props.userinfo) {
-        this.getUserInfo();
-      }
+    this.getData();
   }
 
   // 获取当前登录用户的相关信息
-  getUserInfo() {
-      this.props.actions.getUserInfo();
+  getData() {
+      this.props.actions.mallOrderList({ pageNum:0, pageSize: 999 }).then((res) => {
+
+      });
   }
 
   render() {
@@ -166,6 +166,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo }, dispatch),
+    actions: bindActionCreators({ mallOrderList }, dispatch),
   })
 )(HomePageContainer);

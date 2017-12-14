@@ -141,10 +141,20 @@ class HomePageContainer extends React.Component {
             });
         });
         wx.error((e) => {
-            Toast.success('初始化失败');
             console.log('微信JS-SDK初始化失败：', e);
             this.onFail();
         });
+    }
+
+    // 点击分享按钮，需判断是否是原生系统
+    onStartShare(id) {
+      if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
+          this.onShare(id);
+      } else { // H5就显示引导框
+          this.setState({
+              shareShow: true,
+          });
+      }
     }
 
   // 分享框出现
@@ -152,8 +162,7 @@ class HomePageContainer extends React.Component {
         ActionSheet.showShareActionSheetWithOptions({
             options: [
                 { icon: <img src={ImgShare1} style={{ width: 36 }}/>, title: '微信好友' },
-                { icon: <img src={ImgShare2} style={{ width: 36 }}/>, title: '朋友圈' },
-                { icon: <img src={ImgShare3} style={{ width: 36 }}/>, title: 'QQ' },
+                { icon: <img src={ImgShare2} style={{ width: 36 }}/>, title: '朋友圈' }
             ],
             // title: 'title',
             maskClosable: true,
@@ -161,14 +170,10 @@ class HomePageContainer extends React.Component {
         },
         (index) => {
             console.log("选的那一个", index);
-            if(!this.state.wxReady){    // 微信初始化失败
-                Toast.fail('微信SDK初始化失败');
-            } else if(index === 0) {   // 分享到微信
+            if(index === 0) {   // 分享到微信
                 this.shareToFritend(id);
             } else if(index === 1) {    // 分享到朋友圈
                 this.shareToTimeLine(id);
-            } else if(index === 2) {    // 分享到QQ
-                this.shareToQQ(id);
             }
             return false;
         });
@@ -176,41 +181,30 @@ class HomePageContainer extends React.Component {
 
     // 分享给好友
     shareToFritend(id) {
-      wx.onMenuShareAppMessage({
-          title: '健康风险评估卡',
-          desc: '健康风险评估卡',
-          link: `${Config.baseURL}/gzh/#/share/${id}`,
-          imgUrl: '#',
-          type: 'link',
-          success: () => {
-              Toast.info('分享成功');
-          }
-      });
+      if(typeof AndroidDataJs !== 'undefined') {
+          const params = [
+              `${Config.baseURL}/gzh/#/share/${id}`,
+              '健康风险评估卡',
+              '翼猫科技 - 健康风险评估卡',
+              '#',
+              true,
+          ];
+          AndroidDataJs.shareToWeChat(...params);
+      }
     }
 
     // 分享到朋友圈
-    shareToTimeLine() {
-        wx.onMenuShareTimeline({
-            title: '健康风险评估卡',
-            link: `${Config.baseURL}/gzh/#/share/${id}`,
-            imgUrl: '#',
-            success: () => {
-                Toast.info('分享成功');
-            }
-        });
-    }
-
-    // 分享到QQ
-    shareToQQ() {
-        wx.onMenuShareQQ({
-            title: '健康风险评估卡',
-            desc: '健康风险评估卡',
-            link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
-            imgUrl: '#',
-            success: () => {
-                Toast.info('分享成功');
-            }
-        });
+    shareToTimeLine(id) {
+        if(typeof AndroidDataJs !== 'undefined') {
+            const params = [
+                `${Config.baseURL}/gzh/#/share/${id}`,
+                '健康风险评估卡',
+                '翼猫科技 - 健康风险评估卡',
+                '#',
+                false,
+            ];
+            AndroidDataJs.shareToWeChat(...params);
+        }
     }
 
   render() {
@@ -235,7 +229,7 @@ class HomePageContainer extends React.Component {
                           </div>
                           <div className="info2 page-flex-row flex-jc-sb">
                               <span>有效期：{tools.dateToStr(new Date(item.validTime))}</span>
-                              <span onClick={() => this.setState({ shareShow: true })}><img src={ImgShare} /></span>
+                              <span onClick={() => this.onStartShare(item.id)}><img src={ImgShare} /></span>
                           </div>
                       </li>;
                   })

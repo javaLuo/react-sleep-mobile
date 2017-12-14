@@ -27,7 +27,7 @@ import ImgCard from '../../../../assets/xuanzeka@3x.png';
 // 本页面所需action
 // ==================
 
-import { mallStationList } from '../../../../a_action/shop-action';
+import { mallStationList, saveServiceInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -38,7 +38,7 @@ class HomePageContainer extends React.Component {
     this.state = {
         data: [],   // 所有数据
         loading: false, // 搜索中
-        pageNum: 1,
+        pageNum: 0,
         pageSize: 10,
         search: '',
         refreshing: false, // 加载更多搜索中
@@ -49,7 +49,7 @@ class HomePageContainer extends React.Component {
       this.getData(this.state.pageNum, this.state.pageSize, this.state.search);
   }
 
-  getData(pageNum, pageSize, search) {
+  getData(pageNum, pageSize, search, flash = false) {
       const me = this;
     const params = {
         pageNum,
@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
           console.log('得到了什么：', res);
             if (res.status === 200) {
                 me.setState({
-                    data: [...this.state.data, ...res.data.result],
+                    data: flash ? res.data.result : [...this.state.data, ...res.data.result],
                     pageNum,
                     pageSize,
                     search,
@@ -86,17 +86,14 @@ class HomePageContainer extends React.Component {
 
     // 开始搜索
     onSearch(e) {
-      this.getData(this.state.pageNum, this.state.pageSize, e);
+      this.getData(0, this.state.pageSize, e, true);
     }
 
-    // 加载更多
-    onDown() {
-
-    }
-
-    // 刷新
-    onUp() {
-
+    // 选择
+    onChose(item) {
+      console.log('选择了：', item);
+      this.props.actions.saveServiceInfo(item);
+      setTimeout(() => this.props.history.push('/healthy/precheck'), 16);
     }
 
   render() {
@@ -111,31 +108,28 @@ class HomePageContainer extends React.Component {
               }}
           />
           <div className="iscroll-box">
-              <IscrollLuo
-                id="luo1"
-                onPullDownRefresh={() => this.onDown()}
-                onPullUpLoadMore={() => this.onUp()}
-                iscrollOptions={{
-                    preventDefault: true,
-                }}
+              <PullToRefresh
+                style={{ height: 'calc(100vh - 44px)', overflow: 'auto' }}
+                indicator={{ deactivate: '上拉加载更多' }}
+                direction={'up'}
+                refreshing={this.state.refreshing}
+                onRefresh={() => this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search)}
               >
-                  <ul className="card-ul">
-                      {
-                          this.state.data.length ? this.state.data.map((item, index) => {
-                              return (
-                                  <li key={index} className="card-box page-flex-row">
-                                      <div className="l flex-auto">
-                                          <div className="title">{item.name}</div>
-                                          <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.contactPerson}</span></div>
-                                          <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.contactPhone}</span></div>
-                                          <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
-                                      </div>
-                                  </li>
-                              );
-                          }) : <li style={{ textAlign: 'center', padding: '.2rem' }}>搜索到0个结果</li>
-                      }
-                  </ul>
-              </IscrollLuo>
+                  {
+                      this.state.data.length ? this.state.data.map((item, index) => {
+                          return (
+                              <div key={index} className="card-box page-flex-row" onClick={() => this.onChose(item)}>
+                                  <div className="l flex-auto">
+                                      <div className="title">{item.name}</div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.contactPerson}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.contactPhone}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
+                                  </div>
+                              </div>
+                          );
+                      }) : <div style={{ textAlign: 'center', padding: '.2rem' }}>搜索到0个结果</div>
+                  }
+              </PullToRefresh>
           </div>
       </div>
     );
@@ -161,6 +155,6 @@ export default connect(
 
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallStationList }, dispatch),
+    actions: bindActionCreators({ mallStationList, saveServiceInfo }, dispatch),
   })
 )(HomePageContainer);

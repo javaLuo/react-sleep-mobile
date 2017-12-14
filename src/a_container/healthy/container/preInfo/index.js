@@ -124,8 +124,8 @@ class HomePageContainer extends React.Component {
           return;
       }
       this.props.actions.savePreInfo({
-          name: this.state.formName,
-          mobile: this.state.formPhone,
+          userName: this.state.formName,
+          phone: this.state.formPhone,
           sex: Number(this.state.formSex),
           height: Number(this.state.formTall),
           weight: Number(this.state.formWeight),

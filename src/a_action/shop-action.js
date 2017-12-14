@@ -170,7 +170,17 @@ export const mallApList = (params = {}) => async(dispatch) => {
 // 查询我的预约
 export const mecReserveList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/reserve/list', params);
+        const res = await Fetchapi.newPost('mall/ticket/list', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 查询我的订单
+export const mallOrderList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/list', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -232,5 +242,13 @@ export function payResultNeed(cardData, payData) {
         type: 'PAY::payResultNeed',
         cardData,
         payData
+    };
+}
+
+// 保存当前选中的服务站信息（用于体检预约里面）
+export function saveServiceInfo(payload = {}) {
+    return {
+        type: 'PRE::saveServiceInfo',
+        payload,
     };
 }

@@ -40,17 +40,6 @@ class HomePageContainer extends React.Component {
     if(!this.props.allProducts || this.props.allProducts.length === 0) {
       this.props.actions.getProDuctList();
     }
-    this.getUserInfo();
-  }
-
-  // 安卓
-  getUserInfo() {
-    if(typeof AndroidDataJs !== 'undefined') {
-        const id = AndroidDataJs.getAppString('id');
-        Toast.info('获取到的ID：'+ id);
-    } else {
-      Toast.info('没有找到AndroidDataJs对象');
-    }
   }
 
   render() {

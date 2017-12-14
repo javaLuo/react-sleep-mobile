@@ -22,23 +22,24 @@ const initState = {
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
     homePics: [],   // 首页轮播图
     preInfo: {      // 预约体检，用户输入的信息，最终接口所需数据
-        name: undefined, // 名字 必填
-        mobile: undefined,   // 手机号 必填
-        stationId: 1,    // 服务站ID 必填
-        stationName: '测试-服务站名称',  // 服务站名称 必填
-        reserveTime: '2017-12-11 12:12:12',  // 预约时间 必填
-        arriveTime: undefined,   // 体检时间
-        sex: 1, // 性别，1男0女 必填
-        code: '123123214214', // 体检卡编号 必填
+        userName: undefined,    // 名字 必填
+        phone: undefined,       // 手机号 必填
+        stationId: undefined,    // 服务站ID 必填
+        stationName: '',    // 服务站名称 必填
+        reserveTime: '',    // 预约时间 必填
+        sex: 1,             // 性别，1男0女 必填
+        ticketNo: '',       // 体检卡编号 必填
         height: undefined,   // 身高
         weight: undefined,  // 体重
-        userSource: 2,  // 用户来源 1APP， 2公众号，3后台添加
-        conditions: 0,  // 状态 0预约成功，1已完成体检，-1失败，-2过期
+        reserveFrom: 2,     // 用户来源 1APP， 2公众号，3后台添加
+        reserveTime_Date: undefined,    // 临时 - 日期
+        reserveTime_Time: undefined,    // 临时 - 时间
     },
     payResultInfo: {    // 支付成功，支付成功页面需要订单信息、生成的卡片信息
         cards: [],
         payInfo: {},
-    }
+    },
+    stationInfo: {},    // 当前所选服务站信息（用于体检预约）
 };
 
 // ============================================
@@ -117,6 +118,20 @@ const payResultNeed = (state, action) => {
     });
 };
 
+const saveServiceInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        stationInfo: payload,
+        preInfo: Object.assign({}, state.preInfo, {
+            stationId: payload.id,
+            stationName: payload.name,
+            reserveTime: '',
+            reserveTime_Time: undefined,
+            reserveTime_Date: undefined,
+        })
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -140,6 +155,8 @@ const reducerFn = (state = initState, action) => {
             return savePreInfo(state, action);
         case 'PAY::payResultNeed':
             return payResultNeed(state, action);
+        case 'PRE::saveServiceInfo':
+            return saveServiceInfo(state, action);
         default:
             return actDefault(state, action);
     }
