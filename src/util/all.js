@@ -178,6 +178,20 @@ const allobj = {
     isWeixin() {
         const ua = window.navigator.userAgent.toLowerCase();
         return ua.indexOf('micromessenger') !== -1;
+    },
+
+    /**
+     * 判断是否是原生
+     * **/
+    isNative() {
+        const ua = window.navigator.userAgent.toLowerCase();
+        if(ua.indexOf('micromessenger') !== -1) {   // 微信客户端或浏览器
+            return 'weixin';
+        }else if(typeof AndroidDataJs !== 'undefined') {  // 安卓APP
+            return 'android';
+        } else {    // 普通浏览器
+            return 'web';
+        }
     }
 };
 

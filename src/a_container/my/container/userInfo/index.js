@@ -81,13 +81,17 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active">
                   <div className="title">地区</div>
-                  <div className="info">上海 嘉定</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
           </div>
-          <div className="thefooter">
-              <Button type="warning" onClick={() => this.onLogOut()}>退出登录</Button>
-          </div>
+          {
+            ['weixin', 'web'].indexOf(tools.isNative()) !== -1 ? (
+                <div className="thefooter">
+                    <Button type="warning" onClick={() => this.onLogOut()}>退出登录</Button>
+                </div>
+            ) : null
+          }
       </div>
     );
   }
