@@ -74,7 +74,7 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/authentication')}>
-                  <div className="title">身份认证</div>
+                  <div className="title">实名认证</div>
                   <div className="info">{u ? u.userName : ' '}</div>
                   <div className="arrow"><Button type="primary" size="small">已实名</Button></div>
                   <div className="line"/>

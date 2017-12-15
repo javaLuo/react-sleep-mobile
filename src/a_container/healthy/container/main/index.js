@@ -48,10 +48,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/precheck': '/login')}>
                   <img className="icon" src={ImgBar2} />
-                  <div className="title">
-                      <div>预约体检</div>
-                      <div className="i">共有1000家翼猫体验店已上线</div>
-                  </div>
+                  <div className="title">预约体检</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

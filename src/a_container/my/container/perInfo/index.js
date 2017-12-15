@@ -15,7 +15,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, Toast, Modal } from 'antd-mobile';
+import { Button, Toast, Modal, Picker } from 'antd-mobile';
 import { Upload } from 'antd';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import defaultPic from '../../../../assets/logo@3x.png';
@@ -76,12 +76,8 @@ class HomePageContainer extends React.Component {
   }
 
   // 修改性别
-    onUpSex() {
-        alert('选择性别','', [
-            { text: '男', onPress: () => this.updateUserInfo({ sex: '1'}) },
-            { text: '女', onPress: () => this.updateUserInfo({ sex: '2'}) },
-            { text: '取消', onPress: () => {} }
-        ]);
+    onUpSex(v) {
+        this.updateUserInfo({ sex: String(v)});
     }
 
   // 修改用户信息
@@ -137,11 +133,18 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.onUpSex()}>
-                  <div className="title">性别</div>
-                  <div className="info">{(u && u.sex) ? (u.sex === 1 ? '男' : '女') : ' '}</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-              </div>
+              <Picker
+                  data={[{label: '男', value: '1'}, {label: '女', value: '0'}]}
+                  cols={1}
+                  onOk={(v) => this.onUpSex(v)}
+              >
+                  <div className="item page-flex-row all_active">
+                      <div className="title">性别</div>
+                      <div className="info">{u ? (String(u.sex) === '1' ? '男' : '女') : ' '}</div>
+                      <div className="arrow"><img src={ImgRight} /></div>
+                  </div>
+              </Picker>
+
               <div className="item page-flex-row all_active mt">
                   <div className="title">身高</div>
                   <div className="arrow"><img src={ImgRight} /></div>

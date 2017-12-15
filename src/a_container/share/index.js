@@ -23,7 +23,7 @@ import ImgBaoGao from '../../assets/share/baogao@3x.png';    // 报告图标
 // 本页面所需action
 // ==================
 
-import { saveWxCode } from '../../a_action/app-action';
+import { productById } from '../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -31,11 +31,23 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: {},
         };
     }
 
     componentDidMount() {
+        this.getData();
+    }
 
+    getData() {
+        const ids = this.props.location.pathname.split('/');
+        const id = Number(ids[ids.length - 1]);
+        if (!id) {
+            return;
+        }
+        this.props.actions.productById({productId: id}).then(() => {
+
+        });
     }
 
     render() {
@@ -97,6 +109,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
     location: P.any,
     history: P.any,
+    actions: P.any,
 };
 
 // ==================
@@ -108,6 +121,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ saveWxCode }, dispatch),
+        actions: bindActionCreators({ productById }, dispatch),
     })
 )(HomePageContainer);

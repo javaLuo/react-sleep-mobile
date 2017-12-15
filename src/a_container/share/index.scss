@@ -57,6 +57,10 @@
     img{
       width: auto;
       height: 2.4rem;
+      &:last-child{
+        height: 2.2rem;
+        margin-top: .1rem;
+      }
     }
     &>div{
       font-size: .32rem;
@@ -94,6 +98,13 @@
       line-height: normal;
       width: 80%;
       margin: .4rem auto .4rem auto;
+      &>div{
+        flex: 1;
+        line-height: .36rem;
+        &:nth-child(2){
+          line-height: .56rem;
+        }
+      }
       img{
         width: 1.1rem;
         height: auto;

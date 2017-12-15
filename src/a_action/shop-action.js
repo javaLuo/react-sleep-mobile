@@ -36,7 +36,7 @@ export const listProductType = () => async(dispatch) => {
 // 根据ID查产品详情
 export const productById = (params) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/product/productById', params, 'post', false, 1);
+        const res = await Fetchapi.newPost('mall/product/productById', params, 'post');
         if (res.returnCode === '0') {
             dispatch({
                 type: 'SHOP::productById',
@@ -170,7 +170,7 @@ export const mallApList = (params = {}) => async(dispatch) => {
 // 查询我的预约
 export const mecReserveList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/ticket/list', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/ticket/list', params,);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -181,6 +181,16 @@ export const mecReserveList = (params = {}) => async(dispatch) => {
 export const mallOrderList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/order/list', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 取消一个订单
+export const mallOrderDel = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/delete', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');

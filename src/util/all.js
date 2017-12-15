@@ -170,6 +170,14 @@ const allobj = {
             console.log('是H5');
             return null;
         }
+    },
+
+    /**
+     * 判断是否是微信浏览器
+     * **/
+    isWeixin() {
+        const ua = window.navigator.userAgent.toLowerCase();
+        return ua.indexOf('micromessenger') !== -1;
     }
 };
 

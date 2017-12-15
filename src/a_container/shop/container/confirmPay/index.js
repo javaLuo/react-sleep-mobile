@@ -77,12 +77,13 @@ class HomePageContainer extends React.Component {
           formCount: v,
       });
     }
-  // 立即支付被点击
+  // 确认支付被点击，生成订单
     onSubmit() {
+      console.log('什么万一：', this.props.orderParams);
       const params = {
           count: this.state.formCount,
           serviceTime: tools.dateToStr(this.state.formServiceTime),
-          orderType: 1,
+          orderCode: this.props.orderParams.nowProduct.typeCode,
           openAccountFee: 0,
           fee: this.props.orderParams.nowProduct.price * this.state.formCount
       };
@@ -124,7 +125,7 @@ class HomePageContainer extends React.Component {
               >
                   {nowData.name}<Brief>型号：{nowData && nowData.typeModel ? nowData.typeModel.name : '--'}</Brief>
               </Item>
-              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
+              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
               {/*<DatePicker*/}
                   {/*value={this.state.formServiceTime}*/}
                   {/*onChange={date => this.setState({ formServiceTime: date })}*/}

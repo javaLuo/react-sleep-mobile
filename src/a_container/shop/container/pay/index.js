@@ -14,6 +14,7 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Toast, Carousel, List, Button } from 'antd-mobile';
+import tools from '../../../../util/all';
 import Config from '../../../../config';
 import imgDefault from '../../../../assets/logo-img.png';
 // ==================
@@ -35,6 +36,7 @@ class HomePageContainer extends React.Component {
         wx_code: '',    // 网页授权第一步获取到的code
         pay_info: {}, // 订单信息
     };
+    this.s3data = {};   // 统一下单请求返回的数据
   }
 
   componentWillMount() {
@@ -53,8 +55,7 @@ class HomePageContainer extends React.Component {
   }
 
    componentWillUnmount() {
-       sessionStorage.removeItem('wx_code');
-       sessionStorage.removeItem('pay-info');
+
   }
 
   async startPay() {
@@ -62,23 +63,29 @@ class HomePageContainer extends React.Component {
           const s1 = await this.props.actions.wxInit();             // 向后台获取timestamp,nonceStr,signature等微信JS-SDK初始化所需参数
           console.log('第1：获取wxInit：', s1);
           if(s1.status !== 200) { return false; }
-          const s2 = await this.initWxConfig(s1.data);              // 初始化js-sdk
-          console.log('第2：初始化js-sdk：', s2);
-          if (!s2) { return false; }
+          if (tools.isWeixin()) {   // 是微信端才初始化微信SDK
+              const s2 = await this.initWxConfig(s1.data);              // 初始化js-sdk
+              console.log('第2：初始化js-sdk：', s2);
+              if (!s2) { return false; }
+          }
           const s3 = await this.props.actions.wxPay({               // 向后台发起统一下单请求
               body: 'yimaokeji-card',                                 // 商品描述
               total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
               spbill_create_ip: returnCitySN["cip"],                  // 用户终端IP，通过腾讯服务拿的
               out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
-              code: sessionStorage.getItem('wx_code'),                // 授权code, 后台为了拿openid
-              trade_type: 'JSAPI',
+              code: tools.isWeixin() ? sessionStorage.getItem('wx_code') : null,                // 授权code, 后台为了拿openid
+              trade_type: tools.isWeixin() ? 'JSAPI' : 'MWEB',
           });
           console.log('第3：统一下单返回：', s3);
           if(s3.status !== 200) { return false; }
           Toast.hide();
-          const s4 = await this.onPay(s3.data);                   // 调起微信支付控件
-          console.log('第4：调起微信支付控件：', s4);
-          return s4;
+          this.s3data = s3.data;
+          if (tools.isWeixin()) {   // 是微信端才初始化微信SDK
+              const s4 = await this.onPay(s3.data);                   // 调起微信支付控件
+              console.log('第4：调起微信支付控件：', s4);
+              return s4;
+          }
+          return true;
       }catch(e) {
           return false;
       }
@@ -140,7 +147,6 @@ class HomePageContainer extends React.Component {
                 }
             });
         });
-
     }
 
    // 支付取消后可以重新开始支付
@@ -174,13 +180,26 @@ class HomePageContainer extends React.Component {
     successReturn() {
         sessionStorage.removeItem('wx_code');
         sessionStorage.removeItem('pay-info');
-        this.props.history.push('/shop/payresult');
+        setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
+    }
+
+    // 重新发起支付
+    onReturn() {
+      if (!this.s3data) {
+          Toast.fail('下单失败，请重试');
+          setTimeout(() => {
+              this.returnPage();
+          }, 800);
+      }
+      console.log('重新 发起支付：', this.s3data);
+      this.onPay(this.s3data);
     }
 
     // 支付成功后生成体检卡
     makeCards() {
         this.props.actions.mallCardCreate({ orderId: this.state.pay_info.id }).then((res) => {
             if (res.status === 200) {
+                // 支付成功展示页所需信息保存
                 this.props.actions.payResultNeed(res.data, this.state.pay_info);
                 setTimeout(() => {
                     this.successReturn();
@@ -208,7 +227,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div id="testdiv" />
           <div className="play">
-              <Button type="primary" onClick={() => this.onSubmit()}>支付</Button>
+              <Button type="primary" onClick={() => this.onReturn()}>支付</Button>
           </div>
       </div>
     );

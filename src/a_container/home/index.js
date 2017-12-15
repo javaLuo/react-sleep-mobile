@@ -93,7 +93,7 @@ class HomePageContainer extends React.Component {
                             return (
                                 <li key={index}>
                                   <Link to={`/shop/gooddetail/${item.id}`}>
-                                    <div className="pic flex-none page-flex-row flex-jc-center flex-ai-center">{ item.detailImg ? <img src={item.detailImg} /> : <img className='default' src={imgDefalut}/>}</div>
+                                    <div className="pic flex-none page-flex-row flex-jc-center flex-ai-center">{ item.productImg ? <img src={item.productImg.split(',')[0]} /> : <img className='default' src={imgDefalut}/>}</div>
                                     <div className="detail flex-auto page-flex-col">
                                       <div className="t flex-none all_nowarp">{item.name}</div>
                                       <div className="i flex-auto">

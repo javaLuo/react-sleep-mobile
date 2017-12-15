@@ -110,35 +110,16 @@ class HomePageContainer extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
-            wx.onMenuShareAppMessage({
-                title: '健康风险评估卡',
-                desc: '健康风险评估卡',
-                link: `${Config.baseURL}/gzh/#/share/${id}`,
-                imgUrl: '#',
-                type: 'link',
-                success: () => {
-                    Toast.info('分享成功');
-                }
-            });
 
-            wx.onMenuShareTimeline({
-                title: '健康风险评估卡',
-                link: `${Config.baseURL}/gzh/#/share/${id}`,
-                imgUrl: '#',
-                success: () => {
-                    Toast.info('分享成功');
-                }
-            });
-
-            wx.onMenuShareQQ({
-                title: '健康风险评估卡',
-                desc: '健康风险评估卡',
-                link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
-                imgUrl: '#',
-                success: () => {
-                    Toast.info('分享成功');
-                }
-            });
+            // wx.onMenuShareQQ({
+            //     title: '健康风险评估卡',
+            //     desc: '健康风险评估卡',
+            //     link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
+            //     imgUrl: '#',
+            //     success: () => {
+            //         Toast.info('分享成功');
+            //     }
+            // });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);
@@ -151,6 +132,26 @@ class HomePageContainer extends React.Component {
       if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
           this.onShare(id);
       } else { // H5就显示引导框
+          wx.onMenuShareAppMessage({
+              title: '健康风险评估卡',
+              desc: '健康风险评估卡',
+              link: `${Config.baseURL}/gzh/#/share/${id}`,
+              imgUrl: '#',
+              type: 'link',
+              success: () => {
+                  Toast.info('分享成功');
+              }
+          });
+
+          wx.onMenuShareTimeline({
+              title: '健康风险评估卡',
+              link: `${Config.baseURL}/gzh/#/share/${id}`,
+              imgUrl: '#',
+              success: () => {
+                  Toast.info('分享成功');
+              }
+          });
+
           this.setState({
               shareShow: true,
           });

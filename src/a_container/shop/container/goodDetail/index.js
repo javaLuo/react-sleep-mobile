@@ -144,7 +144,7 @@ class HomePageContainer extends React.Component {
   onSubmit() {
       const userinfo = sessionStorage.getItem('userinfo');
       if (!userinfo) {
-         Toast.info('请先登录');
+         Toast.info('请先登录', 1);
          this.props.history.push(`/login?back=${this.props.location.pathname}`);
          return;
       } else if (!this.state.formCount){
@@ -194,7 +194,7 @@ class HomePageContainer extends React.Component {
           {/* List */}
           <List>
               {/*<Item extra={this.getNameByChargeID(this.state.formJifei)} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>收费方式</Item>*/}
-              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={99} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>选择数量</Item>
+              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>选择数量</Item>
               <Item extra={this.getNameByChargeID(this.state.formJifei)} onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>查看适用体验店</Item>
 
               <Item >详情</Item>

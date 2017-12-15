@@ -109,7 +109,7 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/choseservice')}>
-                  <div className="title">选择体检服务中心</div>
+                  <div className="title">选择翼猫体检服务中心</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

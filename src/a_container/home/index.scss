@@ -3,7 +3,7 @@
     background-color: #f0f0f0;
     img{
       object-fit: cover;
-      height: 200px;
+      height: calc(100vw * 0.43);
     }
   }
   .home-bar{

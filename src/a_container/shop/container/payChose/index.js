@@ -14,6 +14,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
+import tools from '../../../../util/all';
 import { Button, List, Radio, Toast, Modal } from 'antd-mobile';
 // ==================
 // 本页面所需action
@@ -82,7 +83,11 @@ class HomePageContainer extends React.Component {
     // 支付
     onSubmit() {
         if(this.state.payType === 'wxpay') {    // 选择的微信支付
-            location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Config.appId}&redirect_uri=${Config.redirect_uri}&response_type=code&scope=snsapi_base&state=0#wechat_redirect `;
+            if (tools.isWeixin()) { // 是微信浏览器中打开的，执行公众号支付
+                location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Config.appId}&redirect_uri=${Config.redirect_uri}&response_type=code&scope=snsapi_base&state=0#wechat_redirect `;
+            } else { // 其他浏览器打开的，不需要获取网页授权
+                this.props.history.push('/shop/pay');
+            }
         } else if(this.state.payType === 'alipay'){ // 支付宝支付
             Toast.info('暂未开放');
         }
