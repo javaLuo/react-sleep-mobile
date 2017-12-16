@@ -105,7 +105,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-    userinfo: P.any,
+  userinfo: P.any,
 };
 
 // ==================
