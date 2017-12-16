@@ -40,6 +40,8 @@ const initState = {
         payInfo: {},
     },
     stationInfo: {},    // 当前所选服务站信息（用于体检预约）
+    orderInfo: {},     // 当前所选订单信息（从我的订单点击进入订单详情时所需）
+    cardInfo: {},       // 当前选中的卡信息（从我的体检卡点击，进入体检券页所需，卡片信息中包含了所有体检券信息）
 };
 
 // ============================================
@@ -132,6 +134,20 @@ const saveServiceInfo = (state, action) => {
     });
 };
 
+const saveOrderInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        orderInfo: payload,
+    });
+};
+
+const saveCardInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        cardInfo: payload,
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -157,6 +173,10 @@ const reducerFn = (state = initState, action) => {
             return payResultNeed(state, action);
         case 'PRE::saveServiceInfo':
             return saveServiceInfo(state, action);
+        case 'PRE::saveOrderInfo':
+            return saveOrderInfo(state, action);
+        case 'PRE::saveCardInfo':
+            return saveCardInfo(state, action);
         default:
             return actDefault(state, action);
     }

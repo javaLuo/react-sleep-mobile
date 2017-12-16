@@ -1,0 +1,86 @@
+.page-mycard{
+  &>ul{
+    padding: .2rem;
+    box-sizing: border-box;
+    &>li+li {
+      margin-top: .2rem;
+    }
+    .cardbox{
+      padding: .2rem;
+      box-sizing: border-box;
+      display: block;
+      background-image: -webkit-linear-gradient(left, #4888F3, #538FF2);
+      border-radius: 4px;
+      .title{
+        .logo{
+          height: .5rem;
+        }
+        .num{
+          color: #fff;
+          font-size: .28rem;;
+          letter-spacing: 1px;
+          i{
+            margin-left: .3rem;
+            font-style: normal;
+          }
+        }
+      }
+      .info{
+        padding: .4rem 0;
+        letter-spacing: 2px;
+        .t{
+          color: #fff;
+          text-align: center;
+          .t-big{
+            font-size: .4rem;
+          }
+          .t-sm{
+            margin-top: .2rem;
+            font-size: .28rem;;
+          }
+        }
+        .r{
+          img{
+            height: .24rem;
+          }
+        }
+      }
+      .info2{
+        color: #fff;
+        font-size: .28rem;;
+        letter-spacing: 1px;
+        img{
+          height: .3rem;
+        }
+      }
+    }
+  }
+  .share-modal{
+    position: fixed;
+    z-index: 99;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.5);
+    &.hide{
+      display: none;
+    }
+    .share{
+      position: absolute;
+      top: .15rem;
+      right: .15rem;
+      width: 1rem;
+      height: auto;
+    }
+    .title{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #fff;
+      font-size: .32rem;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

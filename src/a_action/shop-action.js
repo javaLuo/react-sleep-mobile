@@ -177,10 +177,20 @@ export const mecReserveList = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询我的订单
+// 查询我的订单列表
 export const mallOrderList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/order/list', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 查询一个订单详情
+export const mallOrderHraCard = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/hraCard', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -259,6 +269,22 @@ export function payResultNeed(cardData, payData) {
 export function saveServiceInfo(payload = {}) {
     return {
         type: 'PRE::saveServiceInfo',
+        payload,
+    };
+}
+
+// 由订单点击进入订单详情，保存订单信息，因为查订单详情的接口没有返回商品的信息
+export function saveOrderInfo(payload = {}) {
+    return {
+        type: 'PRE::saveOrderInfo',
+        payload,
+    };
+}
+
+// 由我的体检卡点击一张卡片，进入体检券也，保存当前体检卡信息
+export function saveCardInfo(payload = {}) {
+    return {
+        type: 'PRE::saveCardInfo',
         payload,
     };
 }

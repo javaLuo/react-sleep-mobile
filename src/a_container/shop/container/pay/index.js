@@ -200,6 +200,7 @@ class HomePageContainer extends React.Component {
         this.props.actions.mallCardCreate({ orderId: this.state.pay_info.id }).then((res) => {
             if (res.status === 200) {
                 // 支付成功展示页所需信息保存
+                console.log('保存支付结果页所需信息：', res.data, this.state.pay_info);
                 this.props.actions.payResultNeed(res.data, this.state.pay_info);
                 setTimeout(() => {
                     this.successReturn();

@@ -14,13 +14,12 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, List } from 'antd-mobile';
-import Img1 from '../../../../assets/test/test1.jpg';
+import { Toast, List } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/app-action';
+import { mallOrderHraCard } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -30,18 +29,29 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: [],
     };
   }
 
   componentDidMount() {
-
+      this.getData();
+      console.log('订单：', this.props.orderInfo);
   }
 
-  //
-   onLogOut(){
-      localStorage.removeItem('userinfo');
-      this.props.history.replace('/login');
-   }
+  getData() {
+      if (!this.props.orderInfo.id) {
+          return false;
+      }
+      this.props.actions.mallOrderHraCard({ orderId: this.props.orderInfo.id, pageNum:0, pageSize: 10 }).then((res) => {
+        if(res.status === 200 && res.data && res.data.result) {
+            this.setState({
+                data: res.data.result || [],
+            });
+        } else {
+            Toast.fail('获取订单详情失败');
+        }
+      });
+  }
 
   render() {
     return (
@@ -50,22 +60,25 @@ class HomePageContainer extends React.Component {
               <div className="info page-flex-row">
                   <div className="pic flex-none"></div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
-                      <div className="t">精准健康筛查体检卡</div>
-                      <div className="i">￥<span>1000</span></div>
+                      <div className="t">{ this.props.orderInfo.product ? this.props.orderInfo.product.name : '' }</div>
+                      <div className="i">￥<span>{this.props.orderInfo.fee || ''}</span></div>
                   </div>
               </div>
           </div>
           <List>
-              <Item className="long" extra="有效期至：2018-12-22">体检卡</Item>
-              <Item className="long" arrow="horizontal">体检卡1: 共5张体检券</Item>
-              <Item className="long" arrow="horizontal">体检卡2: 共5张体检券</Item>
+              <Item className="long" extra={`有效期至：${this.state.data[0] ? this.state.data[0].validTime : ''}`}>体检卡</Item>
+              {
+                  this.state.data.map((item, index) => {
+                      return <Item key={index} className="long" arrow="horizontal">体检卡{index + 1}：共{item.ticketNum}张体检券</Item>;
+                  })
+              }
           </List>
           <div className="order-info">
-              <div>订单号：123234234999999</div>
-              <div>下单时间：2017-07-08 16：30：00</div>
-              <div>付款时间：2017-07-08 16：30：00</div>
-              <div>数量：2</div>
-              <div>实付款：￥2000.00</div>
+              <div>订单号：{this.props.orderInfo.id || ''}</div>
+              <div>下单时间：{this.props.orderInfo.createTime || ''}</div>
+              <div>付款时间：{this.props.orderInfo.payTime || '--'}</div>
+              <div>数量：{this.props.orderInfo.count || ''}</div>
+              <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
           </div>
           <List>
               <Item arrow="horizontal">使用须知</Item>
@@ -83,6 +96,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
+  orderInfo: P.any,
 };
 
 // ==================
@@ -91,9 +105,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      orderInfo: state.shop.orderInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ }, dispatch),
+    actions: bindActionCreators({ mallOrderHraCard }, dispatch),
   })
 )(HomePageContainer);

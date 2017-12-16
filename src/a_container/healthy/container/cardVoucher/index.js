@@ -1,4 +1,4 @@
-/* 健康管理 - 我的体检卡 */
+/* 健康管理 - 体检卡 - 体检券页 */
 
 // ==================
 // 所需的各种插件
@@ -29,7 +29,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit, saveCardInfo } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -129,7 +129,6 @@ class HomePageContainer extends React.Component {
 
     // 点击分享按钮，需判断是否是原生系统
     onStartShare(obj) {
-      console.log('要分享的信息：', obj);
       if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
           this.onShare(obj);
       } else { // H5就显示引导框
@@ -209,35 +208,29 @@ class HomePageContainer extends React.Component {
         }
     }
 
-    // 点击卡片进入体检券页
-    onClickCard(obj) {
-        this.props.actions.saveCardInfo(obj);
-        setTimeout(() => this.props.history.push('/healthy/cardvoucher'), 16);
-    }
-
   render() {
+      const ticket = this.props.cardInfo.ticketList || [];
     return (
       <div className="page-mycard">
           <ul>
               {
-                  this.state.data.map((item, index) => {
+                  ticket.map((item, index) => {
                       return <li  key={index} className="cardbox">
                           <div className="title page-flex-row flex-jc-sb flex-ai-center">
                               <img className="logo" src={ImgLogo} />
-                              <span className="num">共{item.ticketNum}张<i>已使用{this.getHowManyByTicket(item.ticketList)}张</i></span>
                           </div> 
-                          <div className="info page-flex-row" onClick={() => this.onClickCard(item)}>
+                          <div className="info page-flex-row">
                               <div className="t flex-auto">
                                   <div className="t-big">健康风险评估卡</div>
-                                  <div className="t-sm">专注疾病早起筛查</div>
-                              </div>
-                              <div className="r flex-none page-flex-col flex-jc-center">
-                                  <img src={ImgRight} />
+                                  <div className="t-sm">体检券</div>
                               </div>
                           </div>
                           <div className="info2 page-flex-row flex-jc-sb">
-                              <span>有效期：{tools.dateToStr(new Date(item.validTime))}</span>
-                              <span onClick={() => this.onStartShare(item)}><img src={ImgShare} /></span>
+                              <span>卡号：{item.ticketNo}</span>
+                          </div>
+                          <div className="info2 page-flex-row flex-jc-sb">
+                              <span>有效期：{item.validEndTime}</span>
+                              <span onClick={() => this.onStartShare(this.props.cardInfo)}><img src={ImgShare} /></span>
                           </div>
                       </li>;
                   })
@@ -260,6 +253,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
     actions: P.any,
+    cardInfo: P.any,
 };
 
 // ==================
@@ -268,9 +262,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      cardInfo: state.shop.cardInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit }, dispatch),
   })
 )(HomePageContainer);

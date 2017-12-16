@@ -143,13 +143,13 @@ class HomePageContainer extends React.Component {
               <div className="item page-flex-row all_active" onClick={() => this.setName()}>
                   <div className="title2">姓名</div>
                   <div className="info">{this.state.formName}</div>
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
+                  <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.setPhone()}>
                   <div className="title2">手机号</div>
                   <div className="info">{this.state.formPhone}</div>
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
+                  <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               {/* 接口无此字段 */}

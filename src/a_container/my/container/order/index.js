@@ -20,7 +20,7 @@ import { Tabs, Button, Modal, Toast } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import { mallOrderList, mallOrderDel, shopStartPayOrder } from '../../../../a_action/shop-action';
+import { mallOrderList, mallOrderDel, shopStartPayOrder, mallOrderHraCard, saveOrderInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -94,6 +94,12 @@ class HomePageContainer extends React.Component {
       this.props.history.push('/shop/payChose');
     }
 
+    // 查看订单详情
+    onSeeDetail(obj) {
+      this.props.actions.saveOrderInfo(obj);
+      this.props.history.push(`/my/orderdetail`);
+    }
+
   render() {
     return (
       <div className="page-order" style={{ minHeight: '100vh' }}>
@@ -114,7 +120,7 @@ class HomePageContainer extends React.Component {
                                           <span className="num">订单号：{item.id}</span>
                                           <span className="type">{this.getNameByConditions(item.conditions)}</span>
                                       </div>
-                                      <div className="info page-flex-row">
+                                      <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
                                                   (item.product && item.product.productImg) ?
@@ -159,7 +165,7 @@ class HomePageContainer extends React.Component {
                                           <span className="num">订单号：{item.id}</span>
                                           <span className="type">{this.getNameByConditions(item.conditions)}</span>
                                       </div>
-                                      <div className="info page-flex-row">
+                                      <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
                                                   (item.product && item.product.productImg) ?
@@ -204,7 +210,7 @@ class HomePageContainer extends React.Component {
                                           <span className="num">订单号：{item.id}</span>
                                           <span className="type">{this.getNameByConditions(item.conditions)}</span>
                                       </div>
-                                      <div className="info page-flex-row">
+                                      <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
                                                   (item.product && item.product.productImg) ?
@@ -265,6 +271,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallOrderList, mallOrderDel, shopStartPayOrder }, dispatch),
+    actions: bindActionCreators({ mallOrderList, mallOrderDel, shopStartPayOrder, mallOrderHraCard, saveOrderInfo }, dispatch),
   })
 )(HomePageContainer);

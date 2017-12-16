@@ -49,7 +49,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/perinfo`} component={PerInfo} />
               <Route exact path={`${this.props.match.url}/authentication`} component={Authentication} />
               <Route exact path={`${this.props.match.url}/order`} component={Order} />
-              <Route exact path={`${this.props.match.url}/orderdetail/:id`} component={OrderDetail} />
+              <Route exact path={`${this.props.match.url}/orderdetail`} component={OrderDetail} />
               <Route exact path={`${this.props.match.url}/paysuccess/:id`} component={PaySuccess} />
           </Switch>
       </div>

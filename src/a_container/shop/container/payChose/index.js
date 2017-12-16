@@ -38,9 +38,13 @@ class HomePageContainer extends React.Component {
 
   componentWillMount() {
       // 如果没有选择商品就跳转到商城主页
-      if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-          Toast.fail('您没有选择商品');
-         this.props.history.replace('/');
+      // if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
+      //     Toast.fail('您没有选择商品');
+      //    this.props.history.replace('/');
+      // }
+      if (!this.getPayInfo()){
+          Toast.fail('未获取到订单信息!');
+          this.props.history.go(-1);
       }
   }
   componentDidMount() {
@@ -80,6 +84,19 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    getPayInfo() {
+        // 获取订单信息
+        let pay = sessionStorage.getItem('pay-info');
+        if (!pay) {
+            Toast.fail('未获取到订单信息');
+            return false;
+        } else {
+            pay = JSON.parse(pay);
+            console.log('当前订单信息：', pay);
+            return pay;
+        }
+    }
+
     // 支付
     onSubmit() {
         if(this.state.payType === 'wxpay') {    // 选择的微信支付
@@ -89,7 +106,20 @@ class HomePageContainer extends React.Component {
                 this.props.history.push('/shop/pay');
             }
         } else if(this.state.payType === 'alipay'){ // 支付宝支付
-            Toast.info('暂未开放');
+
+            const payInfo = this.getPayInfo();
+            if (!payInfo) {
+                Toast.fail('未获取到订单信息,请重试');
+                return false;
+            }
+            console.log('订单是什么：', payInfo);
+            /**
+             * 说明
+             * 有两种付款的途径
+             * 1.正常选择商品直接付款，程序收集了商品相关信息，订单信息不带商品信息
+             * 2.从我的订单跳转付款，程序没有商品相关信息，订单信息中带有商品信息
+             * **/
+            location.href = `http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`;
         }
     }
 
@@ -98,7 +128,9 @@ class HomePageContainer extends React.Component {
       <div className="flex-auto page-box confirm-pay">
           <List>
               <RadioItem key="wxpay" checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>
-              <RadioItem key="alipay" checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>
+              {
+                  tools.isWeixin() ? null : <RadioItem key="alipay" checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>
+              }
           </List>
           <div className="thefooter page-flex-row">
               <div className="flex-none" style={{ textAlign: 'center', width: '100%' }} onClick={() => this.onSubmit()}>确认支付 ￥{this.props.orderParams.params.fee}</div>

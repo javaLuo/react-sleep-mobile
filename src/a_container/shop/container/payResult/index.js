@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, List, Radio } from 'antd-mobile';
+import { List } from 'antd-mobile';
 import ImgIcon from '../../../../assets/1@3x.png';
 // ==================
 // 本页面所需action
@@ -25,23 +25,23 @@ import { } from '../../../../a_action/shop-action';
 // Definition
 // ==================
 const Item = List.Item;
-const RadioItem = Radio.RadioItem;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        payTypes: [],   // 所有的支付方式
-        payType: 'wxpay', // 支付方式
+
     };
   }
 
   componentWillMount() {
-
+      console.log('付款成功的回调页面', this.props.payResultInfo);
   }
   componentDidMount() {
+
   }
 
-   componentWillUnmount() {
+  componentWillUnmount() {
+
   }
 
   render() {
@@ -59,17 +59,17 @@ class HomePageContainer extends React.Component {
               <List>
                   {
                       this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData.map((item, index) => {
-                          return <Item key={index} extra={<a className="list-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>}>体检卡{index}：共{item.ticketList.length}张体检券</Item>;
+                          return <Item key={index} extra={<a className="list-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>}>体检卡{index + 1}：共{item.ticketList.length}张体检券</Item>;
                       }) : null
                   }
               </List>
           </div>
           <div className="pay-info">
-              <div>订单号：{this.props.payResultInfo.payInfo.id || ''}</div>
-              <div>下单时间：{this.props.payResultInfo.payInfo.createTime || ''}</div>
+              <div>订单号：{this.props.payResultInfo.payData.id || ''}</div>
+              <div>下单时间：{this.props.payResultInfo.payData.createTime || ''}</div>
               {/*<div>付款时间：</div>*/}
-              <div>数量：{this.props.payResultInfo.payInfo.count}</div>
-              <div>实付款：{this.props.payResultInfo.payInfo.fee ? `￥ ${this.props.payResultInfo.payInfo.fee}` : ''}</div>
+              <div>数量：{this.props.payResultInfo.payData.count}</div>
+              <div>实付款：{this.props.payResultInfo.payData.fee ? `￥ ${this.props.payResultInfo.payData.fee}` : ''}</div>
           </div>
           <List>
               <Item arrow="horizontal">使用须知</Item>
@@ -87,7 +87,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-    payResultInfo: P.any,
+  payResultInfo: P.any,
 };
 
 // ==================
