@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
+import tools from '../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
@@ -32,7 +33,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillMount(){
-
+    this.getOpenId();
   }
 
   componentDidMount() {
@@ -42,14 +43,20 @@ class HomePageContainer extends React.Component {
     if (!this.props.homePics || this.props.homePics.length === 0) {
       this.props.actions.mallApList({ typeCode: 'slideshow' });
     }
-    this.test();
   }
 
-  test() {
-      this.props.actions.mallCardCreate({ orderId: 1645634534 }).then((res) => {
-
-      });
+  /**
+   * 获取openID
+   * 进入此页面时，后台会在URL中加入openId参数
+   * openId在登录和微信支付时需要
+   * **/
+  getOpenId() {
+    const params = tools.makeSearch(this.props.location.search);
+    if (params.openid) {
+      localStorage.setItem('openId', params.openid);
+    }
   }
+
   render() {
     console.log('图片：', this.props.homePics);
     return (

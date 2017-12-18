@@ -1,0 +1,23 @@
+.page-use-of-know{
+  .title{
+    margin-top: .4rem;
+    span{
+      display: inline-block;
+      padding: .2rem .4rem;
+      background-color: #4285f4;
+      font-size: .32rem;
+      color: #fff;
+      border-bottom-right-radius: 1rem;
+      border-top-right-radius:1rem;
+    }
+  }
+  .info{
+    padding: .2rem;
+    .blue{
+      color: #4285f4;
+    }
+    span{
+      color: #aaa;
+    }
+  }
+}

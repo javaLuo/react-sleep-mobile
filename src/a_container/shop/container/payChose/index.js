@@ -31,17 +31,15 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        payTypes: [],   // 所有的支付方式
-        payType: 'wxpay', // 支付方式
+        payTypes: [],        // 所有的支付方式
+        payType: 'wxpay',    // 支付方式
+        wxReady: true,      // 默认微信JS-SDK是OK的，因为无论对错，wx.ready都会被触发
+        pay_info: {},       // 订单信息
     };
+    this.s3data = null;      // 统一下单请求返回的数据
   }
 
   componentWillMount() {
-      // 如果没有选择商品就跳转到商城主页
-      // if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-      //     Toast.fail('您没有选择商品');
-      //    this.props.history.replace('/');
-      // }
       if (!this.getPayInfo()){
           Toast.fail('未获取到订单信息!');
           this.props.history.go(-1);
@@ -49,26 +47,26 @@ class HomePageContainer extends React.Component {
   }
   componentDidMount() {
       // 如果没有获取过支付方式，就重新获取
-      console.log('回跳地址是什么；', Config.redirect_uri);
-      if (!this.props.allPayTypes.length) {
-          this.getAllPayTypes();
-      }
+      // console.log('回跳地址是什么；', Config.redirect_uri);
+      // if (!this.props.allPayTypes.length) {
+      //     this.getAllPayTypes();
+      // }
   }
 
    componentWillUnmount() {
-      sessionStorage.removeItem('wx_code');
+      // sessionStorage.removeItem('wx_code');
   }
 
     // 获取所有的支付方式
-    getAllPayTypes() {
-      this.props.actions.getAllPayTypes().then((res) => {
-          if (res.status === 200) {
-              this.setState({
-                  payTypes: res.data.result[0],
-              });
-          }
-      });
-    }
+    // getAllPayTypes() {
+    //   this.props.actions.getAllPayTypes().then((res) => {
+    //       if (res.status === 200) {
+    //           this.setState({
+    //               payTypes: res.data.result[0],
+    //           });
+    //       }
+    //   });
+    // }
 
     // 选择支付方式时触发
     onChange(type) {
@@ -77,13 +75,11 @@ class HomePageContainer extends React.Component {
       });
     }
 
-    // 支付Modal关闭
-    onModalClose() {
-      this.setState({
-          modalShow: false,
-      });
-    }
-
+    /**
+     * 工具 - 获取订单信息
+     * 1.由产品选取、下单接口返回的数据而来
+     * 2.由我的订单页面，点击付款，将订单数据保存到sessionStorage而来
+     * **/
     getPayInfo() {
         // 获取订单信息
         let pay = sessionStorage.getItem('pay-info');
@@ -92,27 +88,174 @@ class HomePageContainer extends React.Component {
             return false;
         } else {
             pay = JSON.parse(pay);
+            this.setState({
+                pay_info: pay,
+            });
             console.log('当前订单信息：', pay);
             return pay;
         }
     }
 
-    // 支付
-    onSubmit() {
-        if(this.state.payType === 'wxpay') {    // 选择的微信支付
-            if (tools.isWeixin()) { // 是微信浏览器中打开的，执行公众号支付
-                location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Config.appId}&redirect_uri=${Config.redirect_uri}&response_type=code&scope=snsapi_base&state=0#wechat_redirect `;
-            } else { // 其他浏览器打开的，不需要获取网页授权
-                this.props.history.push('/shop/pay');
+    /**
+     * 初始化微信JS-SDK
+     * 用于微信公众号支付 和 微信H5支付
+     * **/
+    initWxConfig(data) {
+        const me = this;
+        console.log('DATA是个啥2', data);
+        return new Promise((res, rej) => {
+            if(typeof wx === 'undefined') {
+                res(false);
             }
-        } else if(this.state.payType === 'alipay'){ // 支付宝支付
+            wx.config({
+                debug: false,
+                appId: Config.appId,
+                timestamp: data.timestamp,
+                nonceStr: data.noncestr,
+                signature: data.signature,
+                jsApiList: [
+                    'chooseWXPay'
+                ]
+            });
+            wx.ready(() => {
+                console.log('微信JS-SDK初始化成功');
+                res(true);
+            });
+            wx.error(() => {    // js-sdk初始化失败
+                me.setState({
+                    wxReady: false,
+                });
+            });
+        });
+    }
 
-            const payInfo = this.getPayInfo();
-            if (!payInfo) {
-                Toast.fail('未获取到订单信息,请重试');
-                return false;
+    /**
+     * （公众号支付专用）微信公众号支付 前导准备工作
+     * 1. 向后台获取用于JS-SDK初始化的参数
+     * 2. 初始化JS-SDK
+     * 3. 向后台发起统一下单请求
+     * 4. 将统一下单获取的数据存入this.s3data
+     * **/
+    async startPay() {
+        try {
+            const s1 = await this.props.actions.wxInit();             // 1. 向后台获取timestamp,nonceStr,signature等微信JS-SDK初始化所需参数
+            console.log('第1：获取wxInit：', s1);
+            if(s1.status !== 200) { return false; }
+            const s2 = await this.initWxConfig(s1.data);              // 2. 初始化js-sdk
+            console.log('第2：初始化js-sdk：', s2);
+            if (!s2) { return false; }
+
+            const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
+                body: 'yimaokeji-card',                                 // 商品描述
+                total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
+                spbill_create_ip: returnCitySN["cip"],                  // 用户终端IP，通过腾讯服务拿的
+                out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
+                code: null,                                             // 授权code, 后台为了拿openid
+                trade_type: 'JSAPI',
+            });
+            console.log('第3：统一下单返回：', s3);
+            if(s3.status !== 200) { return false; }
+            Toast.hide();
+            this.s3data = s3.data;
+            return true;
+        }catch(e) {
+            return false;
+        }
+    }
+
+    /**
+     * (公众号支付专用) 真正的调起微信支付原生控件，等待用户操作
+     * **/
+    onWxPay(data) {
+        return new Promise((res, rej) => {
+            try{
+                wx.chooseWXPay({
+                    appId: Config.appId,
+                    timestamp: data.timeStamp || data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                    nonceStr: data.nonceStr || data.noncestr, // 支付签名随机串，不长于 32 位
+                    package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                    signType: data.signType || data.signtype, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                    paySign: data.paySign || data.paysign,  // 支付签名
+                    success: function (msg) {
+                        console.log('支付流程完结：', msg);
+                        res(msg);
+                    }
+                });
+            } catch(err) {
+                rej(err);
             }
-            console.log('订单是什么：', payInfo);
+        });
+    }
+
+    /**
+     * 微信H5支付专用
+     * 1.直接发起统一下单请求
+     * 2.后台会收到微信返回的信息，其中带有MWEB_URL （H5支付中间页），需要跳转到这个页面（前端跳）
+     * 3.用户在中间页进行操作支付，微信会返回给后台最终结果
+     * **/
+    wxH5Pay() {
+        this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
+            body: 'yimaokeji-card',                                 // 商品描述
+            total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
+            spbill_create_ip: returnCitySN["cip"],                  // 用户终端IP，通过腾讯服务拿的
+            out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
+            code: null,                                             // 授权code, 后台为了拿openid
+            trade_type: 'MWEB',
+        }).then((res) => {
+            /**
+             * 返回的数据中，应该有一个mweb_url，跳转至此地址，需要设置回跳地址，保存个参数表示是H5回跳的
+             * **/
+            console.log('H5支付统一下单返回值：', res);
+        }).catch(() => {
+            Toast.fail('支付失败，请重试');
+        });
+    }
+
+    /**
+     * 支付按钮被点击
+     * 微信公众号支付 - 现在页面中能获取到openID, 不需要跳转授权，直接在这个页面进行微信支付，进行支付无页面跳转
+     * H5支付 - 不需要openID, 直接在这个页面支付，进行支付时会有页面跳转
+     * 支付宝支付 - 直接跳转页面
+     *
+     * 支付所需的参数均存放在sessionStorage中
+     * **/
+    onSubmit() {
+        const payInfo = this.state.pay_info;
+        if (!payInfo) {
+            Toast.fail('未获取到订单信息,请重试');
+            return false;
+        }
+
+        if(this.state.payType === 'wxpay') {    /** 选择的微信支付 **/
+            if (tools.isWeixin()) {             /** 是微信浏览器中打开的，执行公众号支付 **/
+                if (this.s3data) {              // 已经获取过统一下单了，直接调起支付就行 （即用户取消支付、支付失败后，重新点击支付）
+                    this.onWxPay(this.s3data).then((payres) => {
+                        this.payResult(payres);
+                    }).catch(() => {
+                        Toast.fail('支付遇到错误，请重试');
+                        this.returnPage();
+                    });
+                } else {                        // 没有发起过统一下单，需重头开始，初始化JS-SDK什么的
+                    this.startPay().then((res) => {
+                        if (res) {
+                            this.onWxPay(this.s3data).then((payres) => {
+                                this.payResult(payres);
+                            });
+                        } else {
+                            Toast.fail('支付遇到错误，请重试.');
+                            this.returnPage();
+                        }
+                    }).catch(() => {
+                        Toast.fail('支付遇到错误，请重试..');
+                        this.returnPage();
+                    });
+                }
+                // location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Config.appId}&redirect_uri=${Config.redirect_uri}&response_type=code&scope=snsapi_base&state=0#wechat_redirect `;
+            } else {                            /** 普通浏览器、原生APP中发起支付， 使用微信H5支付 **/
+                // this.props.history.push('/shop/pay');
+                this.wxH5Pay();
+            }
+        } else if(this.state.payType === 'alipay'){ /** 选择的支付宝支付 **/
             /**
              * 说明
              * 有两种付款的途径
@@ -121,6 +264,43 @@ class HomePageContainer extends React.Component {
              * **/
             location.href = `http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`;
         }
+    }
+
+    /**
+     * (公众号支付专用)
+     * 支付结果处理
+     * **/
+    payResult(payres) {
+        if (!payres) {
+            Toast.fail('支付失败, 请重试');
+        } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
+            // 支付成功后在后台添加对应数量的体检卡 (现在由后台自动生成)
+            // this.makeCards();
+            Toast.success('支付成功');
+            this.successReturn();
+        } else {  // 支付遇到错误
+            Toast.error('支付失败, 请重试');
+            this.returnPage();
+        }
+    }
+
+    /**
+     * 支付失败或出错时，自动离开此页
+     * **/
+    returnPage() {
+        sessionStorage.removeItem('wx_code');
+        sessionStorage.removeItem('pay-info');
+        this.props.history.push('/my/order');
+    }
+
+    /**
+     * 支付成功时，跳转到成功页
+     * **/
+    successReturn() {
+        sessionStorage.removeItem('wx_code');
+        sessionStorage.removeItem('pay-info');
+        this.props.actions.payResultNeed({}, this.state.pay_info);
+        setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
     }
 
   render() {

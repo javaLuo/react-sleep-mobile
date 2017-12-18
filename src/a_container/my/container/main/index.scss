@@ -44,56 +44,16 @@
       }
     }
   }
-  .bar{
-    height: 1.64rem;
-    background-color: #fff;
-    margin-top: .28rem;
-    .bar-item{
-      flex: auto;
-      a{
-        color: #222328;
-      }
-      .bar-icon{
-        position: relative;
-        height: .48rem;
-        width: .48rem;
-        margin: .34rem auto 0 auto;
-        background-position: center;
-        background-size: auto .48rem;
-        background-repeat: no-repeat;
-
-        &.icon1{
-          background-image:url(./assets/qinyou@3x.png);
-        }
-        &.icon2{
-          background-image:url(./assets/xiaoxi@3x.png);
-        }
-        &.icon3{
-          background-image:url(./assets/dingdan@3x.png);
-        }
-        .dot{
-          position: absolute;
-          top:-.1rem;
-          left: .3rem;
-          height: .3rem;
-          min-width: .3rem;
-          padding: 0 .01rem;
-          text-align: center;
-          background-color:#FB6668;
-          font-size: .2rem;
-          border-radius: 1rem;
-          color: #fff;
-        }
-      }
-      .title{
-        font-size: .28rem;;
-        text-align: center;
-        margin-top: .3rem;
-      }
-    }
-  }
   .bar-list{
     padding: .28rem 0;
+    .big-title{
+      height:.98rem;
+      line-height: .98rem;
+      background-color: #fff;
+      position: relative;
+      padding: 0 .3rem;
+      font-size: .32rem;;
+    }
     .item{
       height:.98rem;
       align-items: center;
@@ -131,9 +91,9 @@
         left: 3%;
         background-color: #f7f7f7;
       }
-      &.mt{
-        margin-top: .28rem;
-      }
     }
+  }
+  .mt{
+    margin-top: .28rem;
   }
 }

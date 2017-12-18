@@ -66,7 +66,7 @@ class HomePageContainer extends React.Component {
 
     // 删除订单
     onDelOrder(id) {
-        alert('删除订单', '确定删除吗？', [
+        alert('确认删除订单？', '删除之后将无法再查看订单', [
             { text: '取消', onPress: () => console.log('cancel') },
             {
                 text: '确定',
@@ -141,7 +141,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0">查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -186,7 +186,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0">查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -231,7 +231,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0">查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;

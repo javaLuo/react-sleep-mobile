@@ -48,7 +48,8 @@ class HomePageContainer extends React.Component {
   // 退出登录
   onLogOut() {
       this.props.actions.logout();
-      sessionStorage.removeItem('userinfo');
+      sessionStorage.removeItem('userinfo');    // 清楚用户信息
+      localStorage.removeItem('userlogininfo'); // 清楚缓存的用户帐号和密码
       setTimeout(() => {
           this.props.history.replace('/');
       });

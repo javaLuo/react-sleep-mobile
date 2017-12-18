@@ -135,7 +135,7 @@ class HomePageContainer extends React.Component {
       } else { // H5就显示引导框
           wx.onMenuShareAppMessage({
               title: '健康风险评估卡',
-              desc: obj.productModel.modelDetail,
+              desc: obj.productModel.modelDetail || '专注疾病早起筛查',
               link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
               imgUrl: '#',
               type: 'link',
@@ -146,6 +146,7 @@ class HomePageContainer extends React.Component {
 
           wx.onMenuShareTimeline({
               title: '健康风险评估卡',
+              desc: obj.productModel.modelDetail || '专注疾病早起筛查',
               link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
               imgUrl: '#',
               success: () => {
@@ -187,7 +188,7 @@ class HomePageContainer extends React.Component {
           const params = [
               `${Config.baseURL}/gzh/#/share/${obj.id}`,
               '健康风险评估卡',
-              obj.productModel.modelDetail || '',
+              obj.productModel.modelDetail || '专注疾病早起筛查',
               '#',
               true,
           ];
@@ -201,7 +202,7 @@ class HomePageContainer extends React.Component {
             const params = [
                 `${Config.baseURL}/gzh/#/share/${obj.id}`,
                 '健康风险评估卡',
-                obj.productModel.modelDetail || '',
+                obj.productModel.modelDetail || '专注疾病早起筛查',
                 '#',
                 false,
             ];

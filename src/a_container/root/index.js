@@ -92,6 +92,15 @@ class RootContainer extends React.Component {
   }
 
   componentDidMount() {
+      this.autoLogin(); // 自动登录
+  }
+
+  /**
+   * 如果具备自动登录的条件，就直接登录
+   * 每次登入程序都得重新登录
+   * 因为后台会过期
+   * **/
+  autoLogin() {
       // 如果是原生系统，就从原生系统登录
       const userinfo = tools.getUserInfoByNative();
       if (userinfo) {
@@ -105,12 +114,15 @@ class RootContainer extends React.Component {
           };
           this.props.actions.login(params).then((res) => {
               if (res.status === 200) {
-                  // 将用户信息保存到localStorage
+                  // 将用户信息保存到sessionStorage
                   sessionStorage.setItem('userinfo', JSON.stringify(res.data));
+                  // 将登录信息保存到localStorage，以便以后自动登录
+                  localStorage.setItem('userlogininfo', JSON.stringify(userinfo));
               }
           });
       }
   }
+
     /* 权限控制 */
     onEnter(Component, props) {
         return <Component {...props} />;

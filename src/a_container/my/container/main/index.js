@@ -15,15 +15,13 @@ import './index.scss';
 // ==================
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/default-head.jpg';
-// import ImgBar2 from './assets/wozai@3x.png';
-// import ImgBar3 from './assets/jiankang@3x.png';
-// import ImgBar4 from './assets/erweima@3x.png';
-// import ImgBar5 from './assets/qianbao@3x.png';
-// import ImgBar6 from './assets/shoucang@3x.png';
-// import ImgBar7 from './assets/shezhi@3x.png';
-// import ImgBar8 from './assets/kefu@3x.png';
+import ImgBar2 from '../../../../assets/wozai@3x.png';
+import ImgBar3 from '../../../../assets/jianakangdashi@3x.png';
+import ImgBar4 from '../../../../assets/kehu@3x.png';
+import ImgBar5 from '../../../../assets/daiyanka@3x.png';
+import ImgBar6 from '../../../../assets/shouyi@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
-import ImgTiJian from '../../../../assets/tijianka@3x.png';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -69,7 +67,7 @@ class HomePageContainer extends React.Component {
                   {
                       user ? <div className="flex-auto info">
                           <div className="name all_nowarp">{ u ? u.userName : ' ' }</div>
-                          <div className="phone all_nowarp">手机号码：{ u ? u.mobile : ' ' }</div>
+                          <div className="phone all_nowarp">e家号：{ u ? u.mobile : ' ' }</div>
                       </div> : <div className="flex-auto info">点击登录</div>
                   }
                   <div className="flex-none arrow">
@@ -85,45 +83,38 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              {/*<div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/mycard' : '/login')}>*/}
-                  {/*<img src={ImgTiJian} className="icon"/>*/}
-                  {/*<div className="title">我的体检卡</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
-              {/*<div className="item page-flex-row all_active">*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar2} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">我在翼猫</div>*/}
-                  {/*<div className="info">体验版</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
-              {/*<div className="item page-flex-row all_active">*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar3} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">健康大使</div>*/}
-                  {/*<div className="info">翼猫科技</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
-              {/*<div className="item page-flex-row all_active">*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar4} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">推广二维码</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-              {/*</div>*/}
-              {/*<div className="item page-flex-row all_active mt">*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar5} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">收益管理</div>*/}
-                  {/*<div className="info">400.00</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-              {/*</div>*/}
+              <div className="big-title mt">翼猫圈</div>
+              <div className="item page-flex-row all_active">
+                  <img src={ImgBar2} className="icon"/>
+                  <div className="title">我在翼猫</div>
+                  <div className="info">用户版青铜卡</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active">
+                  <img src={ImgBar3} className="icon" />
+                  <div className="title">健康大使</div>
+                  <div className="info">翼猫科技</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active">
+                  <img src={ImgBar4} className="icon"/>
+                  <div className="title">我的客户</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active">
+                  <img src={ImgBar5} className="icon"/>
+                  <div className="title">我的代言卡</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active">
+                  <img src={ImgBar6} className="icon"/>
+                  <div className="title">收益管理</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+              </div>
               {/*<div className="item page-flex-row all_active mt">*/}
                   {/*<div className="icon">*/}
                       {/*<img src={ImgBar6} />*/}

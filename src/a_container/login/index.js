@@ -7,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Toast, Button } from 'antd-mobile';
+import { Toast, Button, List, InputItem } from 'antd-mobile';
 import tools from '../../util/all';
 import P from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import ImgLogo from '../../assets/logo@3x.png';
+import ImgLogo from '../../assets/logo2@3x.png';
 import ImgPhone from '../../assets/phone@3x.png';
 import ImgMima from '../../assets/mima@3x.png';
 // import ImgWx from './assets/weixin@3x.png';
@@ -110,45 +110,31 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="flex-auto page-box page-login">
-        <div className="head">
-          <div className="btn"><Link to="/register">注册</Link></div>
-        </div>
+      <div className="flex-auto page-box page-login" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
         <div className="login-box">
           <img className="logo" src={ImgLogo} />
           <div className="input-box">
-            <div className="t">
-              <img src={ImgPhone} />
-              <span>+86</span>
-            </div>
-            <div className="line" />
-            <div className="i">
-              <input
-                  placeholder="请输入手机号码"
-                  type="tel"
+            <List className="this-list">
+              <InputItem
+                  clear
+                  placeholder="经销商账号/手机号/e家号"
+                  maxLength={11}
                   value={this.state.username}
                   onInput={(e) => this.onUserNameInput(e)}
-              />
-            </div>
-          </div>
-          <div className="input-box">
-            <div className="t">
-              <img src={ImgMima} />
-            </div>
-            <div className="line2" />
-            <div className="i">
-              <input
-                  placeholder="请输入您的密码"
+              >账号</InputItem>
+              <InputItem
+                  clear
+                  placeholder="输入您的登录密码"
+                  maxLength={20}
                   type="password"
-                  maxLength="20"
                   value={this.state.password}
                   onInput={(e) => this.onPasswordInput(e)}
-              />
-            </div>
+              >密码</InputItem>
+            </List>
           </div>
-          <div className="input-box2">
-            <div className="btn"><Link to="/forgot">忘记密码?</Link></div>
-          </div>
+          {/*<div className="input-box2">*/}
+            {/*<div className="btn"><Link to="/forgot">忘记密码?</Link></div>*/}
+          {/*</div>*/}
           <Button
               type="primary"
               className="this-btn"

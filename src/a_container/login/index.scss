@@ -25,43 +25,27 @@
       width: 1.2rem;
       height: auto;
       display: block;
-      margin: 0 auto 1.5rem auto;
+      margin: 0 auto 1rem auto;
     }
     .input-box{
       width: 6.6rem;
-      height: .88rem;
       margin: .2rem auto 0 auto;
-      background-color: #f7f7f7;
-      border-radius: .44rem;
       padding: 0 .3rem;
       box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      &>.t{
-        line-height: .88rem;
-        text-align: center;
-        flex: none;
-        img{
-          vertical-align: middle;
-          width: .32rem;
-          transform: translateY(-2px);
-        }
-        span{
-          margin-left: .2rem;
-        }
-      }
-      &>.i{
-        flex: 1;
-        input{
-          display: block;
-          width: 100%;
-          // height: 100%;
-          line-height: .7rem;
-          font-size: .32rem;
-          background-color: transparent;
-          border: none;
-          &::-webkit-input-placeholder {
-            color: #89888e;
+      .this-list{
+        .am-list-body{
+          border-top: none;
+          &:before{
+            background-color: transparent;
+          }
+          .am-list-item{
+            .am-input-label.am-input-label-5{
+              width: 50px;
+              font-size: 15px;
+            }
+            .am-input-control input{
+              font-size: 15px;
+            }
           }
         }
       }
@@ -97,19 +81,16 @@
   }
   .this-btn{
     display: block;
-    width: 6.6rem;
+    width: 5.2rem;
     height: .88rem;
     line-height: .88rem;
     border-radius: .44rem;
-    background-color: #4285f4;
+    background-image:-webkit-linear-gradient(left, #82C2FF, #307AF4);
     color: #fff;
     font-size: .32rem;
-    margin: 0 auto;
+    margin: 1rem auto 0 auto;
     border: none;
     letter-spacing: 1px;
-    &:active{
-      background-color:#0D62F0;
-    }
   }
   .other-login{
     text-align: center;

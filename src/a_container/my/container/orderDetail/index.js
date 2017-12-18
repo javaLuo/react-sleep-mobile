@@ -53,11 +53,16 @@ class HomePageContainer extends React.Component {
       });
   }
 
+  // 点击跳转到商品详情页
+  onGotoProduct(id) {
+      this.props.history.push(`/shop/gooddetail/${id}`);
+  }
+
   render() {
     return (
       <div className="page-order-detail">
           <div className="card-box">
-              <div className="info page-flex-row">
+              <div className="info page-flex-row" onClick={() => this.onGotoProduct(this.props.orderInfo.product.id)}>
                   <div className="pic flex-none"></div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
                       <div className="t">{ this.props.orderInfo.product ? this.props.orderInfo.product.name : '' }</div>
@@ -66,10 +71,10 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           <List>
-              <Item className="long" extra={`有效期至：${this.state.data[0] ? this.state.data[0].validTime : ''}`}>体检卡</Item>
+              <Item className="long" extra={`有效期至：${(this.state.data[0] && this.state.data[0].validTime) ? this.state.data[0].validTime.split(' ')[0] : ''}`}>体检卡</Item>
               {
                   this.state.data.map((item, index) => {
-                      return <Item key={index} className="long" arrow="horizontal">体检卡{index + 1}：共{item.ticketNum}张体检券</Item>;
+                      return <Item key={index} className="long" arrow="horizontal">体检卡{this.state.data.length > 1 ? index + 1 : null}：共{item.ticketNum}张</Item>;
                   })
               }
           </List>
@@ -81,7 +86,7 @@ class HomePageContainer extends React.Component {
               <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
           </div>
           <List>
-              <Item arrow="horizontal">使用须知</Item>
+              <Item arrow="horizontal" onClick={() => this.props.history.push('/my/useofknow')}>使用须知</Item>
           </List>
       </div>
     );

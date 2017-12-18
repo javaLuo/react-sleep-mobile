@@ -62,12 +62,12 @@ class HomePageContainer extends React.Component {
                         <div className="info">
                             <div className="t page-flex-row flex-jc-sb flex-ai-center">
                                 <div className="t-big">健康风险评估卡</div>
-                                <div className="t-sm">有效期：2017-08-29</div>
+                                <div className="t-sm">有效期：（need interface）</div>
                             </div>
                         </div>
                         <div className="info2">
                             <div>注疾病早起筛查</div>
-                            <div>NO.2353454354354</div>
+                            <div>NO.-- （need interface）</div>
                         </div>
                     </div>
                 </div>
