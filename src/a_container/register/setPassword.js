@@ -1,4 +1,4 @@
-/* 绑定手机号页 */
+/* 设置密码页 */
 
 // ==================
 // 所需的各种插件
@@ -33,11 +33,11 @@ class Register extends React.Component {
         this.state = {
             formChecked: false, // 表单：协议checkbox是否选中
             modalShow: false, // 模态框是否选中
-            phone: '', // 表单phone
             vcode: '', // 表单验证码值
             verifyCode: false,   // 获取验证码按钮是否正在冷却
             verifyCodeInfo: '获取验证码', // 获取验证码按钮显示的内容
-            password: '', // 表单password
+            password1: '', // 表单password
+            password2: '', // 表单确认password
             modalCodeShow: false,   // 验证码Modal是否显示
             myVcode: '',    // 后台传来的验证码信息
         };
@@ -47,29 +47,6 @@ class Register extends React.Component {
     componentWillUnmount() {
         clearInterval(this.timer);
     }
-
-    // 协议checkbox被点击
-    onFormChecked(e) {
-        setTimeout(() => {
-            this.setState({
-                formChecked: e.target.checked,
-            });
-        }, 16);
-    }
-
-    // 协议被点击，模态框出现
-    onModalShow() {
-        this.setState({
-            modalShow: true,
-        });
-    }
-
-    // 协议模态框关闭
-    onModalClose() {
-        this.setState({
-            modalShow: false,
-        });
-    };
 
     // 验证码模态框关闭
     onModalCodeClose() {
@@ -147,16 +124,35 @@ class Register extends React.Component {
         });
     }
 
+    // 密码输入框改变
+    onPassword1Change(e) {
+        this.setState({
+            password1: e.target.value,
+        });
+    }
+
+    // 密码输入框2改变
+    onPassword2Change(e) {
+        this.setState({
+            password2: e.target.value,
+        });
+    }
+
     // 提交
     onSubmit() {
-        if(!tools.checkPhone(this.state.phone)){
-            Toast.fail('请输入正确的手机号', 1);
+        if(this.state.password1.length < 6){
+            Toast.fail('密码不能少于6位', 1);
             return;
         }
-        // 验证码由后台验证
+        if (this.state.password1 !== this.state.password2){
+            Toast.fail('两次密码不一致', 1);
+            return;
+        }
+        /** 验证码由后台验证 **/
+
         this.submiting().then((res) => {
             if (res) {
-                Toast.success('绑定成功', 1);
+                Toast.success('设置密码成功', 1);
                 this.props.history.go(-1);
             }
         });
@@ -196,85 +192,51 @@ class Register extends React.Component {
     render() {
         return (
             <div className="flex-auto page-box page-binding" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
-                {/*<div className="login-box">*/}
-                    {/*<div className="input-box">*/}
-                        {/*<div className="t">*/}
-                            {/*<img src={ImgPhone} />*/}
-                            {/*<span>+86</span>*/}
-                        {/*</div>*/}
-                        {/*<div className="line" />*/}
-                        {/*<div className="i">*/}
-                            {/*<input*/}
-                                {/*placeholder="请输入手机号码"*/}
-                                {/*type="tel"*/}
-                                {/*value={this.state.phone}*/}
-                                {/*onInput={(e) => this.onPhoneInput(e)}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="input-box">*/}
-                        {/*<div className="t">*/}
-                            {/*<img src={ImgYZ} />*/}
-                        {/*</div>*/}
-                        {/*<div className="line2" />*/}
-                        {/*<div className="i">*/}
-                            {/*<input*/}
-                                {/*placeholder="请输入您的验证码"*/}
-                                {/*type="text"*/}
-                                {/*pattern="[0-9]*"*/}
-                                {/*value={this.state.vcode}*/}
-                                {/*onInput={(e) => this.onVcodeInput(e)}*/}
-                            {/*/>*/}
-                        {/*</div>*/}
-                        {/*<div className="btn-box">*/}
-                            {/*<Button*/}
-                                {/*type="primary"*/}
-                                {/*disabled={this.state.verifyCode || !tools.checkPhone(this.state.phone)}*/}
-                                {/*className="btn"*/}
-                                {/*onClick={() => this.getVerifyCode()}*/}
-                            {/*>*/}
-                                {/*{this.state.verifyCodeInfo}*/}
-                            {/*</Button>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*<button className="this-btn binding-submit all_trans" onClick={() => this.onSubmit()}>确认</button>*/}
-                {/*</div>*/}
-                    <div className="login-box">
-                        <img className="logo" src={ImgLogo} />
-                        <div className="logo-info">
-                            绑定会让您的账号更加安全<br/>绑定后，您还可以通过手机号登录健康e家
-                        </div>
-                        <div className="input-box">
-                            <List className="this-list">
-                                <InputItem
-                                    clear
-                                    placeholder="请输入您的手机号"
-                                    maxLength={11}
-                                    value={this.state.phone}
-                                    onInput={(e) => this.onPhoneInput(e)}
-                                />
-                                <InputItem
-                                    clear
-                                    placeholder="输入您的验证码"
-                                    maxLength={8}
-                                    value={this.state.vcode}
-                                    extra={<span
-                                        className="btn"
-                                        onClick={() => this.getVerifyCode()}
-                                    >
+                <div className="login-box">
+                    <div className="logo-info">
+                        <span>为了帐号安全，需要验证当前手机有效性</span><br/>
+                        <span>当前绑定手机号：（到时候从userinfo中取）</span>
+                    </div>
+                    <div className="input-box">
+                        <List className="this-list">
+                            <InputItem
+                                clear
+                                placeholder="请输入验证码"
+                                maxLength={8}
+                                value={this.state.vcode}
+                                extra={<span
+                                    className="btn"
+                                    onClick={() => this.getVerifyCode()}
+                                >
                                         {this.state.verifyCodeInfo}
                                     </span>}
-                                    onInput={(e) => this.onVcodeInput(e)}
-                                />
-                            </List>
-                        </div>
-                        <Button
-                            type="primary"
-                            className="this-btn"
-                            disabled={this.state.loading}
-                            onClick={() => this.onSubmit()}
-                        >立即绑定</Button>
+                                onInput={(e) => this.onVcodeInput(e)}
+                            />
+                            <InputItem
+                                clear
+                                placeholder="请输入您的密码"
+                                type="password"
+                                maxLength={18}
+                                value={this.state.password1}
+                                onInput={(e) => this.onPassword1Change(e)}
+                            />
+                            <InputItem
+                                clear
+                                placeholder="再次输入您的密码"
+                                type="password"
+                                maxLength={18}
+                                value={this.state.password2}
+                                onInput={(e) => this.onPassword2Change(e)}
+                            />
+                        </List>
                     </div>
+                    <Button
+                        type="primary"
+                        className="this-btn"
+                        disabled={this.state.loading}
+                        onClick={() => this.onSubmit()}
+                    >确认</Button>
+                </div>
                 <Modal
                     visible={this.state.modalCodeShow}
                     title="验证码"

@@ -1,0 +1,61 @@
+.page-at-cat{
+  .iscroll-box{
+    position: relative;
+    width: 100%;
+    padding: .2rem 0 0 0;
+    overflow: hidden;
+    .scroll{
+      width: 6.5rem;
+      margin: 0 auto;
+      overflow: visible;
+      .scroll-ul{
+        &>li{
+          display: inline-block;
+          box-sizing: border-box;
+          width: 6.5rem;
+          height: 3.2rem;
+          padding: .2rem;
+          &>div{
+            width: 100%;
+            height: 100%;
+            background-size: 100% 100%;
+            box-sizing: border-box;
+            padding: .2rem;
+            color: #fff;
+            font-size: .34rem;
+            .t{
+            }
+            .u{
+              .name{
+                font-size: .3rem;
+              }
+              span{
+                font-size: .3rem;
+              }
+            }
+            .foot{
+              font-size: .26rem;
+              opacity: .5;
+            }
+          }
+        }
+      }
+    }
+  }
+  .scroll-btns{
+    &>div{
+      width: .8rem;
+      height: 8px;
+      background-color: #ccc;
+      margin: 0 .1rem;
+      border-radius: 8px;
+      &.check{
+        background-color: #6a6a6a;
+      }
+    }
+  }
+  .info-box{
+    background-color: #fff;
+
+  }
+}

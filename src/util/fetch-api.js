@@ -1,9 +1,14 @@
 import reqwest from 'reqwest';
 import Config from '../config';
 import { Toast } from 'antd-mobile';
+import _ from 'lodash';
 export default class ApiService {
   static newPost(url, bodyObj = {}, type='post', isJson) {
-        console.log('baseURL:', Config.baseURL);
+        /** 获取openid,所有接口都要传参数openId **/
+        const openId = localStorage.getItem('openId') || null;
+        const params = _.cloneDeep(bodyObj);
+        params.openId = openId;
+
         if (isJson) {
             return reqwest({
                 url:`${Config.baseURL}/${url}`,
@@ -11,11 +16,12 @@ export default class ApiService {
                 contentType: 'application/json;charset=UTF-8',
                 crossOrigin: true,
                 withCredentials: true,
-                data: JSON.stringify(bodyObj),
+                data: JSON.stringify(params),
                 type: 'json',
             }).then((res) => {
-                if(res.message.indexOf('过期')>=0){
+                if(res.message.indexOf('过期')>=0 || res.status === 401){
                     sessionStorage.clear();
+                    window.theHistory.replace('/login');
                     Toast.info(res.message);
                 }
                 return res;
@@ -27,10 +33,11 @@ export default class ApiService {
                 contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                 crossOrigin: true,
                 withCredentials: true,
-                data: bodyObj,
+                data: params,
             }).then((res) => {
-                if(res.message.indexOf('过期')>=0){
+                if(res.message.indexOf('过期')>=0 || res.status === 401){
                     sessionStorage.clear();
+                    window.theHistory.replace('/login');
                     Toast.info(res.message);
                 }
                 return res;
@@ -39,7 +46,11 @@ export default class ApiService {
     }
 
     static newPost2(url, bodyObj = {}, type='post', isJson) {
-        console.log('baseURL:', Config.baseURL2);
+        /** 获取openid,所有接口都要传参数openId **/
+        const openId = localStorage.getItem('openId') || null;
+        const params = _.cloneDeep(bodyObj);
+        params.openId = openId;
+
         if (isJson) {
             return reqwest({
                 url:`${Config.baseURL2}/${url}`,
@@ -47,11 +58,12 @@ export default class ApiService {
                 contentType: 'application/json;charset=UTF-8',
                 crossOrigin: true,
                 withCredentials: true,
-                data: JSON.stringify(bodyObj),
+                data: JSON.stringify(params),
                 type: 'json',
             }).then((res) => {
-                if(res.message.indexOf('过期')>=0){
+                if(res.message.indexOf('过期')>=0 || res.status === 401){
                     sessionStorage.clear();
+                    window.theHistory.replace('/login');
                     Toast.info(res.message);
                 }
                 return res;
@@ -63,10 +75,11 @@ export default class ApiService {
                 contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                 crossOrigin: true,
                 withCredentials: true,
-                data: bodyObj,
+                data: params,
             }).then((res) => {
-                if(res.message.indexOf('过期')>=0){
+                if(res.message.indexOf('过期')>=0 || res.status === 401){
                     sessionStorage.clear();
+                    window.theHistory.replace('/login');
                     Toast.info(res.message);
                 }
                 return res;

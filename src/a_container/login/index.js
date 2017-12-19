@@ -77,7 +77,7 @@ class Login extends React.Component {
         mobile: this.state.username,
       loginIp: returnCitySN["cip"] || '',
       appType: 1,
-      appVersion: 'web'
+      appVersion: 'web',
     };
 
     this.setState({

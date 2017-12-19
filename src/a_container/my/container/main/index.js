@@ -84,7 +84,7 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="big-title mt">翼猫圈</div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/atcat')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
                   <div className="info">用户版青铜卡</div>

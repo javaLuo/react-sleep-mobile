@@ -37,9 +37,9 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.allProducts || this.props.allProducts.length === 0) {
-      this.props.actions.getProDuctList();
-    }
+    // if(!this.props.allProducts || this.props.allProducts.length === 0) {
+    //   this.props.actions.getProDuctList();
+    // }
   }
 
   render() {

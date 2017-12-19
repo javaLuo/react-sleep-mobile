@@ -17,7 +17,7 @@ import './index.scss';
 import { Button } from 'antd-mobile';
 
 import ImgRight from '../../../../assets/xiangyou@3x.png';
-import defaultPic from '../../../../assets/logo@3x.png';
+import defaultPic from '../../../../assets/default-head.jpg';
 // ==================
 // 本页面所需action
 // ==================
@@ -48,8 +48,9 @@ class HomePageContainer extends React.Component {
   // 退出登录
   onLogOut() {
       this.props.actions.logout();
-      sessionStorage.removeItem('userinfo');    // 清楚用户信息
-      localStorage.removeItem('userlogininfo'); // 清楚缓存的用户帐号和密码
+      sessionStorage.removeItem('userinfo');    // 清除用户信息
+      localStorage.removeItem('userlogininfo'); // 清除缓存的用户帐号和密码
+      localStorage.removeItem('openId');        // 清除保存的openId
       setTimeout(() => {
           this.props.history.replace('/');
       });
@@ -68,28 +69,46 @@ class HomePageContainer extends React.Component {
                       <div className="line"/>
                   </Link>
               </div>
+              <div className="item page-flex-row all_active mt">
+                  <div className="title">e家号</div>
+                  <div className="info">what_fuck</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
               <div className="item page-flex-row all_active">
-                  <div className="title">手机号</div>
+                  <div className="title">绑定经销商账户</div>
+                  <div className="info">what_fuck_this</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active">
+                  <div className="title">绑定手机号</div>
                   <div className="info">{u ? tools.addMosaic(u.mobile) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/authentication')}>
-                  <div className="title">实名认证</div>
-                  <div className="info">{u ? u.userName : ' '}</div>
-                  <div className="arrow"><Button type="primary" size="small">已实名</Button></div>
+              <div className="item page-flex-row all_active">
+                  <div className="title">设置密码</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
-                  <div className="title">地区</div>
-                  <div className="info" />
+              <div className="item page-flex-row all_active mt">
+                  <div className="title">解绑微信</div>
+                  <div className="info">松妹子</div>
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
+              {/*<div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/authentication')}>*/}
+                  {/*<div className="title">实名认证</div>*/}
+                  {/*<div className="info">{u ? u.userName : ' '}</div>*/}
+                  {/*<div className="arrow"><Button type="primary" size="small">已实名</Button></div>*/}
+                  {/*<div className="line"/>*/}
+              {/*</div>*/}
           </div>
           {
             ['weixin', 'web'].indexOf(tools.isNative()) !== -1 ? (
                 <div className="thefooter">
-                    <Button type="warning" onClick={() => this.onLogOut()}>退出登录</Button>
+                    <Button type="default" onClick={() => this.onLogOut()}>退出登录</Button>
                 </div>
             ) : null
           }

@@ -73,13 +73,14 @@ class HomePageContainer extends React.Component {
   render() {
     return (
       <div className="authent-page">
-          <div className="title">! <span>请填写真实有效的身份信息，认证通过后不能修改</span></div>
           <List>
-              <InputItem clear placeholder="请输入姓名" value={this.state.formName} onChange={(v) => this.onNameChange(v)}/>
-              <InputItem clear type="number" placeholder="请输入身份证" value={this.state.formID} onChange={(v) => this.onIDChange(v)}/>
+              <InputItem clear placeholder="请输入姓名" value={this.state.formName} onChange={(v) => this.onNameChange(v)}>姓&#12288;&#12288;名:</InputItem>
+              <InputItem clear type="number" placeholder="请输入身份证" value={this.state.formID} onChange={(v) => this.onIDChange(v)}>身份证号:</InputItem>
           </List>
-          <WingBlank><div className="info">实名认证成功后，身份信息不可修改。若非本人，请联系客服解决</div></WingBlank>
-          <WingBlank><Button type="primary" onClick={() => this.onSubmit()}>确定</Button></WingBlank>
+          <WingBlank><div className="info">实名认证成功后，身份信息不可修改。如非本人，请联系客服解决</div></WingBlank>
+          <div className="thefooter">
+              <Button type="primary" onClick={() => this.onSubmit()}>完成</Button>
+          </div>
       </div>
     );
   }

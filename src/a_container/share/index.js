@@ -13,7 +13,8 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import ImgLogo from '../../assets/logo@3x.png';     // 翼猫LOGO，卡上的图标
+import ImgRight from '../../assets/xiangyou2@3x.png';    // 右箭头
+import ImgShare from '../../assets/fenxiang@3x.png';    // 分享箭头
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
 import ImgChaXun from '../../assets/share/chaxun@3x.png';    // 查询图标
@@ -54,25 +55,24 @@ class HomePageContainer extends React.Component {
         return (
             <div className="flex-auto page-box page-share">
                 <div style={{ padding: '.2rem' }}>
-                    <div className="cardbox">
-                        <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                            <img className="logo" src={ImgLogo} />
-                            <span className="num">共5张<i>已使用0张</i></span>
-                        </div>
-                        <div className="info">
-                            <div className="t page-flex-row flex-jc-sb flex-ai-center">
-                                <div className="t-big">健康风险评估卡</div>
-                                <div className="t-sm">有效期：（need interface）</div>
+                    <div className="cardbox page-flex-col flex-jc-sb">
+                        <div className="row1 flex-none page-flex-row flex-jc-sb">
+                            <div>
+                                <div className="t">健康风险评估卡</div>
+                                <div className="i">专注疾病早起筛查</div>
                             </div>
+                            <div className="flex-none"><img src={ImgRight} /></div>
                         </div>
-                        <div className="info2">
-                            <div>注疾病早起筛查</div>
-                            <div>NO.-- （need interface）</div>
+                        <div className="row2 flex-none">
+                            <div>
+                                <div className="t">共5张<span>已使用0张</span></div>
+                                <div className="i">有效期：2020-01-01</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="weixin">
-                    <div>翼猫健康e家公众号</div>
+                    <div className="t">翼猫健康e家公众号</div>
                     <div className="page-flex-row flex-jc-sb"><img src={ImgQrCode}/><img src={ImgZhiWen} /></div>
                     <div>长按二维码 “识别” 关注</div>
                 </div>

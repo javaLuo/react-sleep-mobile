@@ -18,7 +18,7 @@ import './index.scss';
 import { Button, Toast, Modal, Picker } from 'antd-mobile';
 import { Upload } from 'antd';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
-import defaultPic from '../../../../assets/logo@3x.png';
+import defaultPic from '../../../../assets/default-head.jpg';
 // ==================
 // 本页面所需action
 // ==================
@@ -144,16 +144,6 @@ class HomePageContainer extends React.Component {
                       <div className="arrow"><img src={ImgRight} /></div>
                   </div>
               </Picker>
-
-              <div className="item page-flex-row all_active mt">
-                  <div className="title">身高</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item page-flex-row all_active">
-                  <div className="title">体重</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-              </div>
           </div>
       </div>
     );

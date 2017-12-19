@@ -1,0 +1,45 @@
+.profit-main{
+  .charts-box{
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+    background-color: #fff;
+    .echarts{
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .data-ul{
+    background-color: #fff;
+    margin: 0 .1rem .2rem 0;
+    align-content: stretch;
+    flex-wrap: wrap;
+    &>li{
+      position: relative;
+      flex: 1;
+      min-width: 50%;
+      float: left;
+      white-space:nowrap;
+      padding: 0 0 0 14px;
+      font-size: .3rem;
+      color: #222328;
+      margin-bottom: .1rem;
+      i{
+        position: absolute;
+        display: inline;
+        width: 8px;
+        height: 8px;
+        top: 50%;
+        left: 2px;
+        margin-top: -4px;
+        border-radius: 8px;
+      }
+    }
+  }
+  .dit{
+    float: left;
+    font-size: 48px;
+  }
+}

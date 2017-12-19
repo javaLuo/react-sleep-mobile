@@ -22,6 +22,9 @@ import lazeWxShare from 'bundle-loader?lazy&name=wxshare!../share/wxShare';
 import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
 import lazeShop from 'bundle-loader?lazy&name=shop!../shop';
 import lazeForgot from 'bundle-loader?lazy&name=forgot!../register/forgot';
+import lazeBinding from 'bundle-loader?lazy&name=binding!../register/binding';
+import lazeSetPassword from 'bundle-loader?lazy&name=setpassword!../register/setpassword';
+import lazeProfit from 'bundle-loader?lazy&name=profit!../profit';
 
 // import lazeNews from 'bundle-loader?lazy!../news';
 // import lazeDownLine from 'bundle-loader?lazy!../downline';
@@ -40,8 +43,10 @@ const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props}
 const WxShare = (props) => (<Bundle load={lazeWxShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);                 // 分享出去展现的页面
 const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
 const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Jump {...props} />}</Bundle>);                    // 微信支付跳转页
-
+const Binding = (props) => (<Bundle load={lazeBinding}>{(Binding) => <Binding {...props} />}</Bundle>);        // 绑定手机页
 const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFound {...props} />}</Bundle>);     // 404页
+const SetPassword = (props) => (<Bundle load={lazeSetPassword}>{(SetPassword) => <SetPassword {...props} />}</Bundle>);     // 设置密码页
+const Profit = (props) => (<Bundle load={lazeProfit}>{(Profit) => <Profit {...props} />}</Bundle>);     // 收益管理模块
 
 /** 下面是代码不分割的页面加载方式 */
 
@@ -92,7 +97,8 @@ class RootContainer extends React.Component {
   }
 
   componentDidMount() {
-      this.autoLogin(); // 自动登录
+      window.theHistory = history;  // 将history存入全局，fetch-api中要用
+      // this.autoLogin(); // 自动登录(暂时不自动登，登录逻辑大改)
   }
 
   /**
@@ -144,9 +150,12 @@ class RootContainer extends React.Component {
                   <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
                   <Route path="/share/:id" render={(props) => this.onEnter(Share, props)} />
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
+                  <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route exact path="/register" component={Register} />
+                  <Route exact path="/binding" component={Binding} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />
+                  <Route exact path="/setpassword" component={SetPassword} />
                   <Route component={NotFound} />
                 </Switch>
                 <Menu location={props.location} history={props.history}/>

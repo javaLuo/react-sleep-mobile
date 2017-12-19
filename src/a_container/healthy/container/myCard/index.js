@@ -128,7 +128,8 @@ class HomePageContainer extends React.Component {
     }
 
     // 点击分享按钮，需判断是否是原生系统
-    onStartShare(obj) {
+    onStartShare(obj, e) {
+      e.stopPropagation();
       console.log('要分享的信息：', obj);
       if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
           this.onShare(obj);
@@ -223,22 +224,21 @@ class HomePageContainer extends React.Component {
               {
                   this.state.data.map((item, index) => {
                       return <li  key={index} className="cardbox">
-                          <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                              <img className="logo" src={ImgLogo} />
-                              <span className="num">共{item.ticketNum}张<i>已使用{this.getHowManyByTicket(item.ticketList)}张</i></span>
-                          </div> 
-                          <div className="info page-flex-row" onClick={() => this.onClickCard(item)}>
-                              <div className="t flex-auto">
-                                  <div className="t-big">健康风险评估卡</div>
-                                  <div className="t-sm">专注疾病早起筛查</div>
+                          <div className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
+                              <div className="row1 flex-none page-flex-row flex-jc-sb">
+                                  <div>
+                                      <div className="t">健康风险评估卡</div>
+                                      <div className="i">专注疾病早起筛查</div>
+                                  </div>
+                                  <div className="flex-none"><img src={ImgRight} /></div>
                               </div>
-                              <div className="r flex-none page-flex-col flex-jc-center">
-                                  <img src={ImgRight} />
+                              <div className="row2 flex-none">
+                                  <div>
+                                      <div className="t">共{item.ticketNum}张<span>已使用{this.getHowManyByTicket(item.ticketList)}张</span></div>
+                                      <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
+                                  </div>
+                                  <div className="flex-none" onClick={(e) => this.onStartShare(item, e)}><img src={ImgShare} /></div>
                               </div>
-                          </div>
-                          <div className="info2 page-flex-row flex-jc-sb">
-                              <span>有效期：{tools.dateToStr(new Date(item.validTime))}</span>
-                              <span onClick={() => this.onStartShare(item)}><img src={ImgShare} /></span>
                           </div>
                       </li>;
                   })

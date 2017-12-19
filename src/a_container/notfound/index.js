@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
-
+import Img404 from '../../assets/not-found.png';
 
 class HomePageContainer extends React.Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-notfound">
           <div className="box">
-              404 not found
+            <img src={Img404}/>
+            <div>亲，这里什么都没有哦~</div>
           </div>
       </div>
     );
