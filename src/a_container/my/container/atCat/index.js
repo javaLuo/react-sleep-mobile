@@ -20,6 +20,17 @@ import ImgBlue from '../../../../assets/yimaoka_one@3x.png';
 import ImgRed from '../../../../assets/yimaoka_two@3x.png';
 import ImgYellow from '../../../../assets/yimaoka_three@3x.png';
 import ImgBlack from '../../../../assets/yimaoka_four@3x.png';
+
+import ImgA1 from '../../../../assets/one_yikatong@3x.png';
+import ImgA2 from '../../../../assets/two_yikatong@3x.png';
+import ImgB1 from '../../../../assets/one_jingshui@3x.png';
+import ImgB2 from '../../../../assets/two_jingshui@3x.png';
+import ImgC1 from '../../../../assets/one_shipin@3x.png';
+import ImgC2 from '../../../../assets/two_shipin@3x.png';
+import ImgD1 from '../../../../assets/one_liliao@3x.png';
+import ImgD2 from '../../../../assets/two_liliao@3x.png';
+import ImgE1 from '../../../../assets/one_pingguka@3x.png';
+import ImgE2 from '../../../../assets/two_pingguka@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -77,10 +88,7 @@ class HomePageContainer extends React.Component {
               <li>
                 <div style={{ backgroundImage: `url(${ImgBlue})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">用户版翼猫卡</div>
-                  <div className="u">
-                    <div className="name">姓名</div>
-                    <div>9900 2345 2345 2354 3454</div>
-                  </div>
+                  <div className="u"><span>e家号：</span>990028</div>
                   <div className="foot">全国翼猫体验店通用</div>
                 </div>
               </li>
@@ -94,16 +102,13 @@ class HomePageContainer extends React.Component {
               <li>
                 <div style={{ backgroundImage: `url(${ImgYellow})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">微创版黄金卡</div>
-                  <div className="u">
-                    <div className="name">姓名</div>
-                    <div>9900 2345 2345 2354 3454</div>
-                  </div>
+                  <div className="u"><span>e家号：</span>990028</div>
                   <div className="foot">全国翼猫体验店通用</div>
                 </div>
               </li>
               <li>
                 <div style={{ backgroundImage: `url(${ImgBlack})` }} className="page-flex-col flex-jc-sb">
-                  <div className="t">个人版砖石卡</div>
+                  <div className="t">个人版钻石卡</div>
                   <div className="u"><span>e家号：</span>990028</div>
                   <div className="foot">全国翼猫体验店通用</div>
                 </div>
@@ -118,9 +123,44 @@ class HomePageContainer extends React.Component {
           <div className={this.state.page === 3 ? 'check' : ''} onClick={() => this.onScrollPageTo(3)}/>
         </div>
         <div className="info-box">
-          <div>
-
-          </div>
+            <ul>
+                <li className="page-flex-row flex-ai-center">
+                    <div className="pic flex-none"><img src={ImgA1} /></div>
+                    <div className="info-box flex-auto">
+                        <div className="t">翼猫一卡通，千店共享</div>
+                        <div className="i">全国体验店免费服务，进店体验，休闲娱乐</div>
+                    </div>
+                </li>
+                <li className="page-flex-row flex-ai-center">
+                    <div className="pic flex-none"><img src={ImgB1} /></div>
+                    <div className="info-box flex-auto">
+                        <div className="t">智能净水设备经销权(300台)</div>
+                        <div className="i">每台设备每年收益</div>
+                    </div>
+                    <div className="info2 flex-none">收益：40%</div>
+                </li>
+                <li className="page-flex-row flex-ai-center">
+                    <div className="pic flex-none"><img src={ImgC1} /></div>
+                    <div className="info-box flex-auto">
+                        <div className="t">健康食品经销权</div>
+                    </div>
+                    <div className="info2 flex-none">收益：30%</div>
+                </li>
+                <li className="page-flex-row flex-ai-center">
+                    <div className="pic flex-none"><img src={ImgD1} /></div>
+                    <div className="info-box flex-auto">
+                        <div className="t">生物理疗经销权</div>
+                    </div>
+                    <div className="info2 flex-none">收益：30%</div>
+                </li>
+                <li className="page-flex-row flex-ai-center">
+                    <div className="pic flex-none"><img src={ImgE1} /></div>
+                    <div className="info-box flex-auto">
+                        <div className="t">健康风险评估卡经销权</div>
+                    </div>
+                    <div className="info2 flex-none">收益：30%</div>
+                </li>
+            </ul>
         </div>
       </div>
     );

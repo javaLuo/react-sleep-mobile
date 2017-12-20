@@ -40,34 +40,48 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      const user = sessionStorage.getItem('userinfo');
-      if (user && !this.props.userinfo) {
+      if (!this.props.userinfo) {
         this.getUserInfo();
       }
   }
 
+  // 工具 - 通过用户类型type获取对应的称号
+    getNameByUserType(type) {
+      switch(String(type)){
+          case '0': return '体验版经销商';
+          case '1': return '微创版经销商';
+          case '2': return '个人版经销商';
+          case '3': return '分享用户';
+          case '4': return '普通用户';
+          default: return '';
+      }
+    }
+
   // 获取当前登录用户的相关信息
   getUserInfo() {
-      this.props.actions.getUserInfo();
+      const openId = localStorage.getItem('openId');
+      if (openId) {
+          this.props.actions.getUserInfo({ openId });
+      }
   }
 
   render() {
-      const user = sessionStorage.getItem('userinfo');
-      const u = this.props.userinfo;
+    const u = this.props.userinfo;
+    console.log('U是什么：', u);
     return (
       <div className="my-main">
           {/* 顶部 */}
           <div className="head all_active">
-              <Link to={user ? '/my/userinfo' : '/login'} className="page-flex-row" style={{ width: '100%', height: '100%'}}>
+              <Link to={u ? '/my/userinfo' : '/login'} className="page-flex-row" style={{ width: '100%', height: '100%'}}>
                   <div className="flex-none picture">
                       <div className="pic-box">
                           <img src={u && u.headImg ? u.headImg : ImgBar1} />
                       </div>
                   </div>
                   {
-                      user ? <div className="flex-auto info">
-                          <div className="name all_nowarp">{ u ? u.userName : ' ' }</div>
-                          <div className="phone all_nowarp">e家号：{ u ? u.mobile : ' ' }</div>
+                      u ? <div className="flex-auto info">
+                          <div className="name all_nowarp">{ u ? u.nickName : '已登录' }</div>
+                          <div className="phone all_nowarp">e家号：{ u ? u.id : ' ' }</div>
                       </div> : <div className="flex-auto info">点击登录</div>
                   }
                   <div className="flex-none arrow">
@@ -77,7 +91,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/my/order' : '/login')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>
                   <img src={ImgDingDan} className="icon"/>
                   <div className="title">我的订单</div>
                   <div className="arrow"><img src={ImgRight} /></div>
@@ -87,57 +101,34 @@ class HomePageContainer extends React.Component {
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/atcat')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
-                  <div className="info">用户版青铜卡</div>
+                  <div className="info">{u ? this.getNameByUserType(u.userType) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/healthyamb')}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
                   <div className="info">翼猫科技</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/mycustomer')}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的客户</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/mydaiyan')}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的代言卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/profit')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
-              {/*<div className="item page-flex-row all_active mt">*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar6} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">我的收藏</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
-              {/*<div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/set')}>*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar7} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">设置</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
-              {/*<div className="item page-flex-row all_active">*/}
-                  {/*<div className="icon">*/}
-                      {/*<img src={ImgBar8} />*/}
-                  {/*</div>*/}
-                  {/*<div className="title">客服中心</div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-              {/*</div>*/}
           </div>
       </div>
     );

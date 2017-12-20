@@ -41,21 +41,7 @@ class Healthy extends React.Component {
   }
 
     componentWillMount(){
-        this.getOpenId();
-    }
 
-    /**
-     * 获取openID
-     * 进入此页面时，后台会在URL中加入openId参数
-     * openId在登录和微信支付时需要
-     * **/
-    getOpenId() {
-        console.log('location:', this.props.location);
-        const params = tools.makeSearch(this.props.location.search);
-        console.log('解析之后:', params);
-        if (params.openid) {
-            localStorage.setItem('openId', params.openid);
-        }
     }
 
   render() {

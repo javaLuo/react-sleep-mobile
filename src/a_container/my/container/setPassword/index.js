@@ -8,19 +8,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import tools from '../../util/all';
-import './binding.scss';
+import tools from '../../../../util/all';
+import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
 import { Checkbox, Modal, Button, Toast, List, InputItem } from 'antd-mobile';
-import ImgLogo from '../../assets/dunpai@3x.png';
+import ImgLogo from '../../../../assets/dunpai@3x.png';
 
 // ==================
 // 本页面所需action
 // ==================
 
-import { getVerifyCode, checkMobile, register } from '../../a_action/app-action';
+import { getVerifyCode, setPwd } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -57,7 +57,7 @@ class Register extends React.Component {
 
     // 表单phone输入时
     onPhoneInput(e) {
-        const v = tools.trim(e.target.value);
+        const v = tools.trim(e);
         if (v.length <= 11) {
             this.setState({
                 phone: v,
@@ -67,7 +67,7 @@ class Register extends React.Component {
 
     // 表单vcode输入时
     onVcodeInput(e) {
-        const v = tools.trim(e.target.value);
+        const v = tools.trim(e);
         if (v.length <= 6) {
             this.setState({
                 vcode: v,
@@ -77,7 +77,7 @@ class Register extends React.Component {
 
     // 表单password
     onPasswordInput(e) {
-        const v = tools.trim(e.target.value);
+        const v = tools.trim(e);
         if (v.length <= 20) {
             this.setState({
                 password: v,
@@ -92,8 +92,8 @@ class Register extends React.Component {
         if (this.state.verifyCode) {
             return;
         }
-        if (!tools.checkPhone(this.state.phone)) {
-            Toast.fail('请输入正确的手机号', 1);
+        if (!tools.checkPhone(this.props.userinfo.mobile)) {
+            Toast.fail('您没有绑定手机号', 1);
             return;
         }
         me.setState({
@@ -112,7 +112,7 @@ class Register extends React.Component {
             }
         }, 1000);
 
-        me.props.actions.getVerifyCode({ mobile: this.state.phone, countryCode: '86' }).then((res) => {
+        me.props.actions.getVerifyCode({ mobile: this.props.userinfo.mobile, countryCode: '86' }).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     modalCodeShow: true,
@@ -127,19 +127,24 @@ class Register extends React.Component {
     // 密码输入框改变
     onPassword1Change(e) {
         this.setState({
-            password1: e.target.value,
+            password1: e,
         });
     }
 
     // 密码输入框2改变
     onPassword2Change(e) {
         this.setState({
-            password2: e.target.value,
+            password2: e,
         });
     }
 
     // 提交
     onSubmit() {
+        const u = this.props.userinfo;
+        if(!u || !u.mobile) {
+            Toast.fail('您没有绑定手机号');
+            return;
+        }
         if(this.state.password1.length < 6){
             Toast.fail('密码不能少于6位', 1);
             return;
@@ -148,45 +153,25 @@ class Register extends React.Component {
             Toast.fail('两次密码不一致', 1);
             return;
         }
-        /** 验证码由后台验证 **/
+        if (!this.state.vcode) {
+            Toast.fail('请填写验证码', 1);
+            return;
+        }
 
-        this.submiting().then((res) => {
-            if (res) {
+        const params = {
+            mobile: u.mobile,
+            countryCode: '86',
+            verifyCode: this.state.vcode,
+            password: this.state.password2,
+        };
+        this.props.actions.setPwd(params).then((res) => {
+            if (res.status === 200) {
                 Toast.success('设置密码成功', 1);
                 this.props.history.go(-1);
+            } else {
+                Toast.fail(res.message || '设置失败',1);
             }
         });
-    }
-
-    async submiting() {
-        Toast.fail('缺少接口');
-        return false;
-        // const res1 = await this.props.actions.checkMobile({ mobile: this.state.phone });
-        // console.log('第1阶段返回：', res1);
-        // if (res1.status === 200) {
-        //     if (!res1.data.register) {
-        //         const params = {
-        //             mobile: this.state.phone,
-        //             password: this.state.password,
-        //             countryCode: '86',
-        //             verifyCode: this.state.vcode,
-        //             loginIp: '',
-        //         };
-        //         const res2 = await this.props.actions.register(params);
-        //         if (res2.status === 200) {
-        //             return true;
-        //         } else {
-        //             Toast.fail(res2.message || '注册失败');
-        //             return false;
-        //         }
-        //     } else {
-        //         Toast.fail('该手机已注册');
-        //         return false;
-        //     }
-        // } else {
-        //     Toast.fail(res1.message || '手机校验失败');
-        //     return false;
-        // }
     }
 
     render() {
@@ -194,8 +179,8 @@ class Register extends React.Component {
             <div className="flex-auto page-box page-binding" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                 <div className="login-box">
                     <div className="logo-info">
-                        <span>为了帐号安全，需要验证当前手机有效性</span><br/>
-                        <span>当前绑定手机号：（到时候从userinfo中取）</span>
+                        <span className="small">为了帐号安全，需要验证当前手机有效性</span><br/>
+                        <span>当前绑定手机号：{tools.addMosaic(this.props.userinfo.mobile)}</span>
                     </div>
                     <div className="input-box">
                         <List className="this-list">
@@ -210,7 +195,7 @@ class Register extends React.Component {
                                 >
                                         {this.state.verifyCodeInfo}
                                     </span>}
-                                onInput={(e) => this.onVcodeInput(e)}
+                                onChange={(e) => this.onVcodeInput(e)}
                             />
                             <InputItem
                                 clear
@@ -218,7 +203,7 @@ class Register extends React.Component {
                                 type="password"
                                 maxLength={18}
                                 value={this.state.password1}
-                                onInput={(e) => this.onPassword1Change(e)}
+                                onChange={(e) => this.onPassword1Change(e)}
                             />
                             <InputItem
                                 clear
@@ -226,7 +211,7 @@ class Register extends React.Component {
                                 type="password"
                                 maxLength={18}
                                 value={this.state.password2}
-                                onInput={(e) => this.onPassword2Change(e)}
+                                onChange={(e) => this.onPassword2Change(e)}
                             />
                         </List>
                     </div>
@@ -265,6 +250,7 @@ Register.propTypes = {
     location: P.any,
     history: P.any,
     actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -273,9 +259,9 @@ Register.propTypes = {
 
 export default connect(
     (state) => ({
-
+        userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getVerifyCode, checkMobile, register }, dispatch),
+        actions: bindActionCreators({ getVerifyCode, setPwd }, dispatch),
     })
 )(Register);

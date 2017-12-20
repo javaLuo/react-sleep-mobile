@@ -14,7 +14,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import defaultPic from '../../../../assets/default-head.jpg';
@@ -36,13 +36,16 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       if (!this.props.userinfo) {
-        this.getUserInfo();
+          this.getUserInfo();
       }
   }
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
-      this.props.actions.getUserInfo();
+      const openId = localStorage.getItem('openId');
+      if (openId) {
+          this.props.actions.getUserInfo({ openId });
+      }
   }
 
   // 退出登录
@@ -56,8 +59,37 @@ class HomePageContainer extends React.Component {
       });
   }
 
+  // 点击绑定经销商按钮
+    onBindDealear() {
+        const u = this.props.userinfo;
+        if (!u){
+            Toast.fail('请先登录');
+            this.props.history.replace('/login');
+        }
+        if (u.disUser){ // 已绑定经销商
+            Toast.info('您已是经销商用户');
+        } else {    // 不是经销商就跳转到经销商绑定页
+            this.props.history.push('/my/binddealer');
+        }
+    }
+
+    // 点击设置密码按钮
+    onSetPassword() {
+        const u = this.props.userinfo;
+        if (!u){
+            Toast.fail('请先登录');
+            this.props.history.replace('/login');
+        }
+        if (u.disUser || u.password) {  // 如果是经销商用户或已设置或密码的普通用户，就不能进入
+            return false;
+        } else{
+            this.props.history.push('/my/setpassword');
+        }
+    }
+
   render() {
       const u = this.props.userinfo;
+      console.log('u是什么：', u);
     return (
       <div className="userinfo-main">
           {/* 下方各横块 */}
@@ -71,47 +103,41 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active mt">
                   <div className="title">e家号</div>
-                  <div className="info">what_fuck</div>
+                  <div className="info">{u ? u.id : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.onBindDealear()}>
                   <div className="title">绑定经销商账户</div>
-                  <div className="info">what_fuck_this</div>
+                  <div className="info">{(u && u.disUser) ? u.userName : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.replace('/my/bindphone')}>
                   <div className="title">绑定手机号</div>
                   <div className="info">{u ? tools.addMosaic(u.mobile) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active">
-                  <div className="title">设置密码</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
+              {
+                  (u.disUser || u.password) ? null : (
+                      <div className="item page-flex-row all_active" onClick={() => this.onSetPassword()}>
+                          <div className="title">设置密码</div>
+                          <div className="arrow"><img src={ImgRight} /></div>
+                          <div className="line"/>
+                      </div>
+                  )
+              }
               <div className="item page-flex-row all_active mt">
                   <div className="title">解绑微信</div>
-                  <div className="info">松妹子</div>
+                  <div className="info"></div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              {/*<div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/authentication')}>*/}
-                  {/*<div className="title">实名认证</div>*/}
-                  {/*<div className="info">{u ? u.userName : ' '}</div>*/}
-                  {/*<div className="arrow"><Button type="primary" size="small">已实名</Button></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
           </div>
-          {
-            ['weixin', 'web'].indexOf(tools.isNative()) !== -1 ? (
-                <div className="thefooter">
-                    <Button type="default" onClick={() => this.onLogOut()}>退出登录</Button>
-                </div>
-            ) : null
-          }
+          <div className="thefooter">
+              <Button type="default" onClick={() => this.onLogOut()}>退出登录</Button>
+          </div>
       </div>
     );
   }

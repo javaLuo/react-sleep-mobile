@@ -158,22 +158,14 @@ const allobj = {
     },
 
     /**
-     * 尽可能的获取用户名和密码
-     * 如果是原生系统，直接从原生获取用户信息
-     * 如果是web，从localStorage获取
-     * 返回用户相关信息
+     * 原生系统，从JS对象获取用户名和密码，然后调用登录接口，获取用户信息
      * **/
     getUserInfoByNative() {
         if(typeof AndroidDataJs !== 'undefined') {  // 是安卓
             const mobile = AndroidDataJs.getAppString('mobile');
             const password = AndroidDataJs.getAppString('password');
+            alert(`Android:${mobile},${password}`);
             return { mobile, password};
-        } else {    // 是H5
-            let userinfo = localStorage.getItem('userlogininfo');
-            if (userinfo) {
-                userinfo = JSON.parse(userinfo);
-                return { mobile: userinfo.mobile, password: allobj.uncompile(userinfo.password) };
-            }
         }
         return null;
     },

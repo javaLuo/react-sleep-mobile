@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import createHistory from 'history/createHashHistory';
 import $ from 'jquery';
 import './index.scss';
-
+import { Toast } from 'antd-mobile';
 /** 下面是代码分割异步加载的例子 */
 import Bundle from '../../a_component/bundle';
 import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
@@ -22,8 +22,6 @@ import lazeWxShare from 'bundle-loader?lazy&name=wxshare!../share/wxShare';
 import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
 import lazeShop from 'bundle-loader?lazy&name=shop!../shop';
 import lazeForgot from 'bundle-loader?lazy&name=forgot!../register/forgot';
-import lazeBinding from 'bundle-loader?lazy&name=binding!../register/binding';
-import lazeSetPassword from 'bundle-loader?lazy&name=setpassword!../register/setpassword';
 import lazeProfit from 'bundle-loader?lazy&name=profit!../profit';
 
 // import lazeNews from 'bundle-loader?lazy!../news';
@@ -43,25 +41,8 @@ const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props}
 const WxShare = (props) => (<Bundle load={lazeWxShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);                 // 分享出去展现的页面
 const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
 const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Jump {...props} />}</Bundle>);                    // 微信支付跳转页
-const Binding = (props) => (<Bundle load={lazeBinding}>{(Binding) => <Binding {...props} />}</Bundle>);        // 绑定手机页
 const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFound {...props} />}</Bundle>);     // 404页
-const SetPassword = (props) => (<Bundle load={lazeSetPassword}>{(SetPassword) => <SetPassword {...props} />}</Bundle>);     // 设置密码页
 const Profit = (props) => (<Bundle load={lazeProfit}>{(Profit) => <Profit {...props} />}</Bundle>);     // 收益管理模块
-
-/** 下面是代码不分割的页面加载方式 */
-
-// import Home from '../home/index';
-// import Healthy from '../healthy';
-// import My from '../My';
-// import Login from '../login';
-// import Shop from '../shop';
-// import News from '../news';
-// import DownLine from '../downLine';
-// import Register from '../register';
-// import Binding from '../register/binding';
-// import NotFound from '../notfound';
-// import Share from '../share';
-// import Jump from '../jump';
 
 /**
  * 普通组件
@@ -72,7 +53,7 @@ import tools from '../../util/all';
 /**
  * 所需action
  * **/
-import { login } from '../../a_action/app-action';
+import { login, getUserInfo } from '../../a_action/app-action';
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -98,36 +79,44 @@ class RootContainer extends React.Component {
 
   componentDidMount() {
       window.theHistory = history;  // 将history存入全局，fetch-api中要用
-      // this.autoLogin(); // 自动登录(暂时不自动登，登录逻辑大改)
+      this.getOpenId();     // 获取openId
+      this.getUserInfo();   // 获取用户信息
   }
 
-  /**
-   * 如果具备自动登录的条件，就直接登录
-   * 每次登入程序都得重新登录
-   * 因为后台会过期
-   * **/
-  autoLogin() {
-      // 如果是原生系统，就从原生系统登录
-      const userinfo = tools.getUserInfoByNative();
-      if (userinfo) {
-          const params = {
-              loginName: userinfo.mobile,
-              password: userinfo.password,
-              mobile: userinfo.mobile,
-              loginIp: returnCitySN["cip"] || '',
-              appType: 1,
-              appVersion: 'web'
-          };
-          this.props.actions.login(params).then((res) => {
-              if (res.status === 200) {
-                  // 将用户信息保存到sessionStorage
-                  sessionStorage.setItem('userinfo', JSON.stringify(res.data));
-                  // 将登录信息保存到localStorage，以便以后自动登录
-                  localStorage.setItem('userlogininfo', JSON.stringify(userinfo));
-              }
-          });
-      }
-  }
+    /**
+     * 获取openID(公众号会有，其他方式没有)
+     * 进入此页面时，后台会在URL中加入openId参数
+     * openId在登录和微信支付时需要
+     * **/
+    getOpenId() {
+        const params = tools.makeSearch(window.location.href.split('?')[1]);
+        if (params.openid) {
+            localStorage.setItem('openId', params.openid);
+        }
+    }
+
+    /**
+     * 获取用户信息
+     * 公众号可以用openId获取
+     * 其他方式需要传给我用户名和密码，然后调用登录接口进行自动登录（返回用户信息）
+     * **/
+    getUserInfo() {
+        if (tools.isWeixin()) { // 是微信浏览器，用openID直接获取用户信息
+            const openId = localStorage.getItem('openId');
+            if (openId) {
+                this.props.actions.getUserInfo({ openId });
+            } else {
+                console.log('未获取到openId');
+            }
+        } else {    // 不是微信浏览器，表示是APP内嵌网页或普通网页打开
+            const loginInfo = tools.getUserInfoByNative();
+            if (loginInfo) {
+                this.props.actions.login({ loginName: loginInfo.mobile, password: loginInfo.password });
+            } else {
+                console.log('未获取到用户登录所需信息');
+            }
+        }
+    }
 
     /* 权限控制 */
     onEnter(Component, props) {
@@ -152,10 +141,8 @@ class RootContainer extends React.Component {
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route exact path="/register" component={Register} />
-                  <Route exact path="/binding" component={Binding} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />
-                  <Route exact path="/setpassword" component={SetPassword} />
                   <Route component={NotFound} />
                 </Switch>
                 <Menu location={props.location} history={props.history}/>
@@ -186,6 +173,6 @@ export default connect(
   (state) => ({
   }), 
   (dispatch) => ({
-      actions: bindActionCreators({ login }, dispatch),
+      actions: bindActionCreators({ login, getUserInfo }, dispatch),
   })
 )(RootContainer);

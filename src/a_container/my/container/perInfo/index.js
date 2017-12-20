@@ -46,7 +46,10 @@ class HomePageContainer extends React.Component {
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
-      this.props.actions.getUserInfo();
+      const openId = localStorage.getItem('openId');
+      if (openId) {
+          this.props.actions.getUserInfo({ openId });
+      }
   }
 
   // 上传头像状态
@@ -70,30 +73,26 @@ class HomePageContainer extends React.Component {
           { text: '确定', onPress: value => {
               const v = tools.trim(value);
               if(!v){Toast.info('昵称不能为空');return false;}
-              this.updateUserInfo({userName: v});
+              this.updateUserInfo({nickName: v});
           }},
       ]);
   }
 
   // 修改性别
     onUpSex(v) {
-        this.updateUserInfo({ sex: String(v)});
+        this.updateUserInfo({ sex: Number(v)});
     }
 
   // 修改用户信息
   updateUserInfo(obj) {
     const u = this.props.userinfo;
+    if (!u){
+        Toast.fail('未获取到用户信息');
+        return false;
+    }
+
     Toast.loading('修改中...', 0);
-    const params = Object.assign({
-        id: u.id,
-        userName: u.userName,
-        birthday: u.birthday,
-        email: u.email,
-        headImg: u.headImg,
-        sex: u.sex,
-        mobile: u.mobile,
-        identityNumber: u.identityNumber,
-    }, obj);
+    const params = Object.assign({}, u, obj);
     this.props.actions.updateUserInfo(params).then((res) => {
         Toast.info('修改成功', 1);
         if (res.status === 200) {
@@ -106,6 +105,7 @@ class HomePageContainer extends React.Component {
 
   render() {
       const u = this.props.userinfo;
+      const openId = localStorage.getItem('openId');
     return (
       <div className="userinfo-main">
           {/* 下方各横块 */}
@@ -114,6 +114,7 @@ class HomePageContainer extends React.Component {
                   name="image"
                   withCredentials
                   showUploadList={false}
+                  data={openId ? { openId } : null}
                   action={`${Config.baseURL}/app/upload/headImg`}
                   style={{ width: '100vw', display: 'block' }}
                   beforeUpload={(file, fileList) => {
@@ -129,7 +130,7 @@ class HomePageContainer extends React.Component {
               </Upload>
               <div className="item page-flex-row all_active" onClick={() => this.onUpName()}>
                   <div className="title">昵称</div>
-                  <div className="info">{u ? u.userName : ' '}</div>
+                  <div className="info">{u ? u.nickName : ' '}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

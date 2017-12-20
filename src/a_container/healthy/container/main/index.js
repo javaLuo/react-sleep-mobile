@@ -40,26 +40,26 @@ class HomePageContainer extends React.Component {
       <div className="healthy-main">
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push( user ? '/healthy/mycard' : '/login')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <img className="icon" src={ImgBar1} />
                   <div className="title">我的体检卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/precheck': '/login')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/precheck')}>
                   <img className="icon" src={ImgBar2} />
                   <div className="title">预约体检</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active mt" onClick={() => this.props.history.push(user ? '/healthy/mypre': '/login')}>
+              <div className="item page-flex-row all_active mt" onClick={() => this.props.history.push('/healthy/mypre')}>
                   <img className="icon" src={ImgBar3} />
                   <div className="title">我的预约</div>
                   {/*<div className="info">1次</div>*/}
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(user ? '/healthy/myreport': '/login')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/myreport')}>
                   <img className="icon" src={ImgBar4} />
                   <div className="title">体检报告</div>
                   {/*<div className="info">1份</div>*/}

@@ -142,12 +142,17 @@ class HomePageContainer extends React.Component {
 
   // 点击立即下单
   onSubmit() {
-      const userinfo = sessionStorage.getItem('userinfo');
-      if (!userinfo) {
+      const u = this.props.userinfo;
+      console.log('用户信息：', u);
+      if (!u) {
          Toast.info('请先登录', 1);
          this.props.history.push(`/login?back=${this.props.location.pathname}`);
          return;
-      } else if (!this.state.formCount){
+      } else if (!u.mobile){
+          Toast.info('请先绑定手机号', 1);
+          this.props.history.replace(`/my/bindphone`);
+          return;
+      }else if (!this.state.formCount){
           Toast.fail('请选择购买数量');
           return;
       }
@@ -229,8 +234,9 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
-    actions: P.any,
-    allChargeTypes: P.array,
+  actions: P.any,
+  allChargeTypes: P.array,
+  userinfo: P.any,
 };
 
 // ==================
@@ -240,6 +246,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       allChargeTypes: state.shop.allChargeTypes,    // 所有的收费方式
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ productById, shopStartPreOrder, getAllChargeTypes, }, dispatch),

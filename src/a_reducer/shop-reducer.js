@@ -16,6 +16,7 @@ const initState = {
             fee: 0,             // 总价
             payType: null,      // 支付方式ID
             isPay: false,        // 是否支付
+            orderFrom: 2,       // 来源： 1:App, 2:微信，3：经销商
         },
     },
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的

@@ -43,7 +43,7 @@ class Login extends React.Component {
   }
   // 输入用户名
   onUserNameInput(e) {
-    const v = tools.trim(e.target.value);
+    const v = tools.trim(e);
     if (v.length <= 11) {
       this.setState({
           username: v,
@@ -53,7 +53,7 @@ class Login extends React.Component {
 
   // 输入用户名
   onPasswordInput(e) {
-    const v = tools.trim(e.target.value);
+    const v = tools.trim(e);
     if (v.length <= 20) {
       this.setState({
           password: v,
@@ -86,9 +86,9 @@ class Login extends React.Component {
     this.props.actions.login(params).then((res) => {
       if (res.status === 200) {
         Toast.success('登录成功', 1.2);
-        // 将用户信息保存到localStorage
-        sessionStorage.setItem('userinfo', JSON.stringify(res.data));
-        // 登录成功后，如果设置了会跳地址，就跳转到回跳地址
+        // 将用户信息保存到localStorage (不用存了，现在都直接存在store中，因为安全性)
+        // sessionStorage.setItem('userinfo', JSON.stringify(res.data));
+        // 登录成功后，如果设置了回跳地址，就跳转到回跳地址
         const back = tools.makeSearch(this.props.location.search).back;
         if (back) {
             this.props.history.replace(back);
@@ -120,7 +120,7 @@ class Login extends React.Component {
                   placeholder="经销商账号/手机号/e家号"
                   maxLength={11}
                   value={this.state.username}
-                  onInput={(e) => this.onUserNameInput(e)}
+                  onChange={(e) => this.onUserNameInput(e)}
               >账号</InputItem>
               <InputItem
                   clear
@@ -128,7 +128,7 @@ class Login extends React.Component {
                   maxLength={20}
                   type="password"
                   value={this.state.password}
-                  onInput={(e) => this.onPasswordInput(e)}
+                  onChange={(e) => this.onPasswordInput(e)}
               >密码</InputItem>
             </List>
           </div>

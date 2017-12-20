@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
                     color: ['#ffb937', '#5c99ff', '#9942f9', '#ff4e83'],
                     label: {
                         normal: {
-                            show: true,
+                            show: false,
                             position: 'center',
                             color: '#333',
                             fontSize: 22,
@@ -97,6 +97,10 @@ class HomePageContainer extends React.Component {
       <div className="profit-main">
         <div className="charts-box">
           <div id="echarts-1" className="echarts" />
+          <div className="center-label">
+              <div className="t">￥999999.00</div>
+              <div className="label">累计收益</div>
+          </div>
         </div>
           <ul className="data-ul all_clear">
               <li><i style={{ backgroundColor: '#ffb937' }}/>净水设备：￥9999.00</li>

@@ -16,6 +16,8 @@ import tools from '../../util/all';
 
 import { Switch, Route } from 'react-router-dom';
 import Main from './container/main';
+import ProDetail from './container/proDetail';
+import ProDetails from './container/proDetails';
 
 // ==================
 // 本页面所需action
@@ -42,6 +44,8 @@ class Healthy extends React.Component {
         <div>
           <Switch>
             <Route exact path={`${this.props.match.url}/`} component={Main} />
+            <Route exact path={`${this.props.match.url}/prodetail`} component={ProDetail} />
+            <Route exact path={`${this.props.match.url}/prodetails/:id`} component={ProDetails} />
           </Switch>
         </div>
     );

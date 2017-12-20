@@ -13,20 +13,19 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Checkbox, Modal, Button, Toast, List, InputItem } from 'antd-mobile';
-import ImgLogo from '../../../../assets/dunpai@3x.png';
+import { List } from 'antd-mobile';
+import ImgDefault from '../../../../assets/default-head.jpg';
 
 // ==================
 // 本页面所需action
 // ==================
 
-import { getVerifyCode, checkMobile, register } from '../../../../a_action/app-action';
+import { } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
 // ==================
-const AgreeItem = Checkbox.AgreeItem;
-const operation = Modal.operation;
+
 const Item = List.Item;
 class Register extends React.Component {
     constructor(props) {
@@ -40,15 +39,16 @@ class Register extends React.Component {
     }
 
     render() {
+        const u = this.props.userinfo;
         return (
             <div className="flex-auto page-box page-amb" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                     <div className="login-box">
-                        <div  className="logo"><img src={ImgLogo} /></div>
-                        <div className="logo-info">username</div>
+                        <div  className="logo"><img src={u.headImg || ImgDefault} /></div>
+                        <div className="logo-info">{ u.nickName || u.userName }</div>
                         <List className="this-list">
-                            <Item extra={'what?什么是e家号'}>e家号</Item>
-                            <Item extra={<a href={`tel:13900000000`} target="_blank">13900000000</a>}>手机号</Item>
-                            <Item extra={'上海市嘉定区翼猫体验中心'} arrow="horizontal">体验店</Item>
+                            <Item extra={u.userName || ''}>e家号</Item>
+                            <Item extra={<a href={`tel:${u.mobile || ''}`} target="_blank">{u.mobile}</a>}>手机号</Item>
+                            <Item extra={''} arrow="horizontal">体验店</Item>
                         </List>
                     </div>
             </div>
@@ -64,6 +64,7 @@ Register.propTypes = {
     location: P.any,
     history: P.any,
     actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -72,9 +73,9 @@ Register.propTypes = {
 
 export default connect(
     (state) => ({
-
+        userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getVerifyCode, checkMobile, register }, dispatch),
+        actions: bindActionCreators({ }, dispatch),
     })
 )(Register);
