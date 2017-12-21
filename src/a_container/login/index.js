@@ -86,8 +86,11 @@ class Login extends React.Component {
     this.props.actions.login(params).then((res) => {
       if (res.status === 200) {
         Toast.success('登录成功', 1.2);
-        // 将用户信息保存到localStorage (不用存了，现在都直接存在store中，因为安全性)
-        // sessionStorage.setItem('userinfo', JSON.stringify(res.data));
+        // 如果用户信息中有openId,就把这个openId存入localStorage
+          if(res.data.openid) {
+            localStorage.setItem('openId', res.data.openid);
+          }
+
         // 登录成功后，如果设置了回跳地址，就跳转到回跳地址
         const back = tools.makeSearch(this.props.location.search).back;
         if (back) {

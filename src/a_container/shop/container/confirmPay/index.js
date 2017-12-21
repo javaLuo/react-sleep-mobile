@@ -110,21 +110,14 @@ class HomePageContainer extends React.Component {
       const nowData = this.props.orderParams.nowProduct || {}; // 当前商品对象
       const nowParams = this.props.orderParams.params;  // 当前订单的参数
       console.log(nowData, nowParams);
-      const d = new Date(); // 当前时间，设置选择时间的最小值和最大值有用
     return (
       <div className="flex-auto page-box confirm-pay">
           <List>
-              {/*<Item*/}
-                {/*arrow="horizontal"*/}
-                {/*multipleLine*/}
-              {/*>*/}
-                  {/*<Brief>收货人：123<br/>联系方式:23423434<br/>地址：AAAAAAAAA</Brief>*/}
-              {/*</Item>*/}
               <Item
                 thumb={nowData.productImg ? <img src={nowData.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  {nowData.name}<Brief>型号：{nowData && nowData.typeModel ? nowData.typeModel.name : '--'}</Brief>
+                  {nowData.name}<Brief>&#12288;</Brief>
               </Item>
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
           </List>

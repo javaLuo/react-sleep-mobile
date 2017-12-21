@@ -2,19 +2,19 @@
   .bar-list{
     padding: 0 0 .28rem 0;
     .item{
-      height:.98rem;
+      padding: .3rem 0;
       align-items: center;
       background-color: #fff;
       position: relative;
       .icon{
         padding: 0 .3rem;
-        width: .32rem;
+        width: .38rem;
         height: auto;
         box-sizing: initial;
       }
       .title{
         flex:auto;
-        font-size: .32rem;;
+        font-size: .36rem;;
         letter-spacing: 1px;
         .i{
           font-size: .28rem;;

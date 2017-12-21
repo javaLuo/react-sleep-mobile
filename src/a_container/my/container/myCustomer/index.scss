@@ -1,7 +1,9 @@
 .page-customer{
+  background-color: #f7f7f7;
   .data-list{
     display: block;
     &>li{
+      background-color: #fff;
       box-sizing: border-box;
       padding: .3rem;
       .photo{

@@ -50,12 +50,12 @@ class HomePageContainer extends React.Component {
 
   // 退出登录
   onLogOut() {
-      this.props.actions.logout();
+      this.props.actions.logout({userId: this.props.userinfo.id});
       sessionStorage.removeItem('userinfo');    // 清除用户信息
       localStorage.removeItem('userlogininfo'); // 清除缓存的用户帐号和密码
       localStorage.removeItem('openId');        // 清除保存的openId
       setTimeout(() => {
-          this.props.history.replace('/');
+          this.props.history.replace('/login');
       });
   }
 
@@ -113,7 +113,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.replace('/my/bindphone')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/bindphone')}>
                   <div className="title">绑定手机号</div>
                   <div className="info">{u ? tools.addMosaic(u.mobile) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>

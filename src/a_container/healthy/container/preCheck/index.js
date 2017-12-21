@@ -97,8 +97,8 @@ class HomePageContainer extends React.Component {
           {/* 下方各横块 */}
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard')}>
-                  <div className="title2">体检卡号：</div>
-                  <div className="info2">{this.props.preInfo.ticketNo || ''}</div>
+                  <div className="title">体检卡号</div>
+                  <div className="info">{this.props.preInfo.ticketNo || ''}</div>
                   <div className="arrow2"><img src={ImgCard} /></div>
                   <div className="line"/>
               </div>

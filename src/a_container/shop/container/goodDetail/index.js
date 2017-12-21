@@ -21,7 +21,7 @@ import imgDefault from '../../../../assets/logo-img.png';
 // 本页面所需action
 // ==================
 
-import { productById, shopStartPreOrder, getAllChargeTypes } from '../../../../a_action/shop-action';
+import { productById, shopStartPreOrder, getAllChargeTypes, appUserCheckBuy } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
         jifeiShow: false,   //  计费选择框是否显示
         formJifei: null,   // 当前选择的计费方式
         formCount: 1,   // 购买数量
+        loading: false, // 是否正在异步请求中
     };
   }
 
@@ -143,7 +144,7 @@ class HomePageContainer extends React.Component {
   // 点击立即下单
   onSubmit() {
       const u = this.props.userinfo;
-      console.log('用户信息：', u);
+      console.log('用户信息：', u, this.state.data);
       if (!u) {
          Toast.info('请先登录', 1);
          this.props.history.push(`/login?back=${this.props.location.pathname}`);
@@ -157,10 +158,17 @@ class HomePageContainer extends React.Component {
           return;
       }
 
-      const params = { count: this.state.formCount, feeType: this.state.formJifei };
-      const nowProduct = this.state.data;
-      this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
-      this.props.history.push('/shop/confirmpay');
+      // 检查当前用户是否有权限购买当前物品
+      this.props.actions.appUserCheckBuy({ productType: String(this.state.data.typeName.code) }).then((res) => {
+            if (res.status === 200) { // 有权限
+                const params = { count: this.state.formCount, feeType: this.state.formJifei };
+                const nowProduct = this.state.data;
+                this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
+                this.props.history.push('/shop/confirmpay');
+            } else {
+                Toast.fail(res.message || '您当前没有购买权限');
+            }
+      });
   }
 
   render() {
@@ -191,7 +199,7 @@ class HomePageContainer extends React.Component {
                   <div className="cost">￥ <span>{d && d.price}</span></div>
               </div>
               <div className="server page-flex-row">
-                  <div>运费：￥ {(d && d.amount) || 0}</div>
+                  <div>运费：￥0</div>
                   <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
                   <div>已售：{d && (d.buyCount || 0)}张</div>
               </div>
@@ -249,6 +257,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById, shopStartPreOrder, getAllChargeTypes, }, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, getAllChargeTypes, appUserCheckBuy}, dispatch),
   })
 )(HomePageContainer);

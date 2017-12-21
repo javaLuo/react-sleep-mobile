@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { List } from 'antd-mobile';
+import { List, Button } from 'antd-mobile';
 import ImgIcon from '../../../../assets/1@3x.png';
 // ==================
 // 本页面所需action
@@ -34,7 +34,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillMount() {
-      console.log('付款成功的回调页面', this.props.payResultInfo);
+
   }
   componentDidMount() {
 
@@ -51,19 +51,6 @@ class HomePageContainer extends React.Component {
               <img src={ImgIcon} />
               <div>购买成功</div>
           </div>
-          <div className="cards">
-              <div className="title page-flex-row flex-jc-sb">
-                  <div className="t">体检卡</div>
-                  <div className="i">有效期至：{this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData[0].validTime : ''}</div>
-              </div>
-              <List>
-                  {
-                      this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData.map((item, index) => {
-                          return <Item key={index} extra={<a className="list-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>}>体检卡{index + 1}：共{item.ticketList.length}张体检券</Item>;
-                      }) : null
-                  }
-              </List>
-          </div>
           <div className="pay-info">
               <div>订单号：{this.props.payResultInfo.payData.id || ''}</div>
               <div>下单时间：{this.props.payResultInfo.payData.createTime || ''}</div>
@@ -71,9 +58,22 @@ class HomePageContainer extends React.Component {
               <div>数量：{this.props.payResultInfo.payData.count}</div>
               <div>实付款：{this.props.payResultInfo.payData.fee ? `￥ ${this.props.payResultInfo.payData.fee}` : ''}</div>
           </div>
-          <List>
-              <Item arrow="horizontal">使用须知</Item>
-          </List>
+          {/*<div className="cards">*/}
+              {/*<div className="title page-flex-row flex-jc-sb">*/}
+                  {/*<div className="t">体检卡</div>*/}
+                  {/*<div className="i">有效期至：{this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData[0].validTime : ''}</div>*/}
+              {/*</div>*/}
+              {/*<List>*/}
+                  {/*{*/}
+                      {/*this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData.map((item, index) => {*/}
+                          {/*return <Item key={index} extra={<a className="list-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>}>体检卡{index + 1}：共{item.ticketList.length}张体检券</Item>;*/}
+                      {/*}) : null*/}
+                  {/*}*/}
+              {/*</List>*/}
+          {/*</div>*/}
+          <div className="thefooter">
+              <Button type="primary" onClick={() => this.props.history.replace('/')}>返回首页</Button>
+          </div>
       </div>
     );
   }

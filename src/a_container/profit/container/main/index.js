@@ -109,7 +109,7 @@ class HomePageContainer extends React.Component {
               <li><i style={{ backgroundColor: '#ff4e83' }}/>健康体检：￥9999.00</li>
           </ul>
           <List>
-              <Item arrow="horizontal">收益明细</Item>
+              <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/prodetail')}>收益明细</Item>
           </List>
       </div>
     );

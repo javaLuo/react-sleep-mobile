@@ -2,7 +2,7 @@
   .bar-list{
     padding: 0 0 .28rem 0;
     .item{
-      height:.98rem;
+      padding: .3rem 0;
       align-items: center;
       background-color: #fff;
       position: relative;
@@ -20,7 +20,7 @@
       }
       .title{
         flex:auto;
-        font-size: .32rem;;
+        font-size: .36rem;
         letter-spacing: 1px;
         padding-left: .28rem;
       }
@@ -40,10 +40,10 @@
       .photo{
         padding: 0 .28rem;
         img{
-          height: .6rem;
-          width: .6rem;
+          height: .65rem;
+          width: .65rem;
           object-fit: cover;
-          border-radius: .6rem;
+          border-radius: .65rem;
         }
       }
       .line{

@@ -20,7 +20,7 @@ import { Button, List, Radio, Toast, Modal } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import { getAllPayTypes, wxPay, wxInit } from '../../../../a_action/shop-action';
+import { getAllPayTypes, wxPay, wxInit, payResultNeed } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -43,6 +43,10 @@ class HomePageContainer extends React.Component {
       if (!this.getPayInfo()){
           Toast.fail('未获取到订单信息!');
           this.props.history.go(-1);
+      }
+      console.log('locationnow:', location, this.props.location);
+      if (location.href.indexOf('?') < 0) {
+          location.href = location.href.replace('#', '?#');
       }
   }
   componentDidMount() {
@@ -147,7 +151,7 @@ class HomePageContainer extends React.Component {
 
             const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
                 body: 'yimaokeji-card',                                 // 商品描述
-                total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
+                total_fee: Number(this.state.pay_info.fee * 100) || 0 , // 总价格（分）
                 spbill_create_ip: returnCitySN["cip"],                  // 用户终端IP，通过腾讯服务拿的
                 out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
                 code: null,                                             // 授权code, 后台为了拿openid
@@ -176,8 +180,16 @@ class HomePageContainer extends React.Component {
                     package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
                     signType: data.signType || data.signtype, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                     paySign: data.paySign || data.paysign,  // 支付签名
-                    success: function (msg) {
+                    success: (msg) => {
                         console.log('支付流程完结：', msg);
+                        res(msg);
+                    },
+                    cancel: (msg) => {
+                        console.log('支付流程取消：', msg);
+                        res(msg);
+                    },
+                    error:(msg) => {
+                        console.log('支付流程错误：', msg);
                         res(msg);
                     }
                 });
@@ -229,17 +241,14 @@ class HomePageContainer extends React.Component {
         if(this.state.payType === 'wxpay') {    /** 选择的微信支付 **/
             if (tools.isWeixin()) {             /** 是微信浏览器中打开的，执行公众号支付 **/
                 if (this.s3data) {              // 已经获取过统一下单了，直接调起支付就行 （即用户取消支付、支付失败后，重新点击支付）
-                    this.onWxPay(this.s3data).then((payres) => {
-                        this.payResult(payres);
-                    }).catch(() => {
-                        Toast.fail('支付遇到错误，请重试');
-                        this.returnPage();
+                    this.onWxPay(this.s3data).then((msg) => {
+                        this.payResult(msg);
                     });
                 } else {                        // 没有发起过统一下单，需重头开始，初始化JS-SDK什么的
                     this.startPay().then((res) => {
                         if (res) {
-                            this.onWxPay(this.s3data).then((payres) => {
-                                this.payResult(payres);
+                            this.onWxPay(this.s3data).then((msg) => {
+                                this.payResult(msg);
                             });
                         } else {
                             Toast.fail('支付遇到错误，请重试.');
@@ -270,14 +279,17 @@ class HomePageContainer extends React.Component {
      * (公众号支付专用)
      * 支付结果处理
      * **/
-    payResult(payres) {
-        if (!payres) {
+    payResult(msg) {
+        console.log('那运行这里啊===', msg);
+        if (!msg) {
             Toast.fail('支付失败, 请重试');
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
             // 支付成功后在后台添加对应数量的体检卡 (现在由后台自动生成)
             // this.makeCards();
             Toast.success('支付成功');
             this.successReturn();
+        } else if (msg.errMsg === 'chooseWXPay:cancel'){
+            // 支付被取消
         } else {  // 支付遇到错误
             Toast.error('支付失败, 请重试');
             this.returnPage();
@@ -313,7 +325,7 @@ class HomePageContainer extends React.Component {
               }
           </List>
           <div className="thefooter page-flex-row">
-              <div className="flex-none" style={{ textAlign: 'center', width: '100%' }} onClick={() => this.onSubmit()}>确认支付 ￥{this.props.orderParams.params.fee}</div>
+              <div className="flex-none" style={{ textAlign: 'center', width: '100%' }} onClick={() => this.onSubmit()}>确认支付 ￥{this.state.pay_info.fee}</div>
           </div>
       </div>
     );
@@ -342,6 +354,6 @@ export default connect(
       orderParams: state.shop.orderParams,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getAllPayTypes, wxPay, wxInit }, dispatch),
+    actions: bindActionCreators({ getAllPayTypes, wxPay, wxInit, payResultNeed }, dispatch),
   })
 )(HomePageContainer);

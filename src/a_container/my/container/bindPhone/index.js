@@ -119,9 +119,19 @@ class Register extends React.Component {
             Toast.fail('请输入正确的手机号', 1);
             return;
         }
+        if (!this.state.vcode) {
+            Toast.fail('请输入验证码', 1);
+            return;
+        }
         // 验证码由后台验证
         const u = this.props.userinfo;
-        this.props.actions.bindPhone({ userId: String(u.id), mobile: this.state.phone }).then((res) => {
+        const params = {
+            userId: String(u.id),
+            mobile: this.state.phone,
+            countryCode: '86',
+            verifyCode: this.state.vcode,
+        };
+        this.props.actions.bindPhone(params).then((res) => {
             if(res.status === 200) {
                 if (res.data.disUser && [3,4].indexOf(res.data.userType>=0)) { // 是经销商但没有检验过密码
                     this.props.history.replace('/my/checkpwd');

@@ -48,7 +48,7 @@ class HomePageContainer extends React.Component {
         this.props.actions.mallCardList({ pageNum: 0, pageSize: 9999 }).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    data: res.data.result,
+                    data: (res.data && res.data.result) ? res.data.result : [],
                 });
             }
         });

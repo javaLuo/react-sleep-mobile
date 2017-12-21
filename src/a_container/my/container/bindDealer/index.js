@@ -20,7 +20,7 @@ import ImgLogo from '../../../../assets/dunpai@3x.png';
 // 本页面所需action
 // ==================
 
-import { login } from '../../../../a_action/app-action';
+import { bindDistributor } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -85,7 +85,7 @@ class Register extends React.Component {
             loginName: this.state.userName,
             password: this.state.password,
         };
-        this.props.actions.login(params).then((res) => {
+        this.props.actions.bindDistributor(params).then((res) => {
             if(res.status === 200) {
                 Toast.success('绑定成功');
                 setTimeout(() => {
@@ -164,6 +164,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ login }, dispatch),
+        actions: bindActionCreators({ bindDistributor }, dispatch),
     })
 )(Register);

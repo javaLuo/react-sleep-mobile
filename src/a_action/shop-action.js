@@ -237,6 +237,26 @@ export const mallStationList = (params = {}) => async(dispatch) => {
     }
 };
 
+// 检查当前账号是否有权限购买该商品
+export const appUserCheckBuy = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/checkBuy', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 绑定经销商
+export const bindDistributor = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/bind/distributor', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
 
 // 体检预约 - 保存用户输入的基本信息
 export function savePreInfo(payload = {}) {

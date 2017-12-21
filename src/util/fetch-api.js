@@ -49,7 +49,7 @@ export default class ApiService {
         /** 获取openid,所有接口都要传参数openId **/
         const openId = localStorage.getItem('openId') || null;
         const params = _.cloneDeep(bodyObj);
-        params.openId = openId;
+            params.openId = openId;
 
         if (isJson) {
             return reqwest({

@@ -60,6 +60,7 @@ class HomePageContainer extends React.Component {
   // 获取当前登录用户的相关信息
   getUserInfo() {
       const openId = localStorage.getItem('openId');
+      console.log('删除了啊：', openId);
       if (openId) {
           this.props.actions.getUserInfo({ openId });
       }
@@ -98,33 +99,33 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="big-title mt">翼猫圈</div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/atcat')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
                   <div className="info">{u ? this.getNameByUserType(u.userType) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/healthyamb')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/healthyamb': '/login')}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
                   <div className="info">翼猫科技</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/mycustomer')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mycustomer': '/login')}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的客户</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/my/mydaiyan')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mydaiyan' : '/login')}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的代言卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/profit')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
                   <div className="arrow"><img src={ImgRight} /></div>

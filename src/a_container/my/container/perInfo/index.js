@@ -107,7 +107,7 @@ class HomePageContainer extends React.Component {
       const u = this.props.userinfo;
       const openId = localStorage.getItem('openId');
     return (
-      <div className="userinfo-main">
+      <div className="page-per-info">
           {/* 下方各横块 */}
           <div className="bar-list">
               <Upload

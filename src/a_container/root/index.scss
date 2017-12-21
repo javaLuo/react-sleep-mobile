@@ -1,14 +1,20 @@
 .boss{
   background-color: #f7f7f7;
+  background-image: url(../../assets/loading.gif);
+  background-position: center 5%;
+  background-repeat: no-repeat;
   min-height: 100vh;
+  &>div{
+    background-color: #f7f7f7;
+  }
   .am-list-item .am-list-line{
     padding-left: 15px;
   }
   .am-list-item .am-list-line .am-list-content{
-    font-size: .32rem;
+    font-size: .36rem;
   }
   .am-list-item .am-list-line .am-list-extra{
-    font-size: .32rem;
+    font-size: .36rem;
     flex-basis: auto;
   }
   .am-list-item{

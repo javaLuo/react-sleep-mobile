@@ -105,7 +105,6 @@ class HomePageContainer extends React.Component {
                 'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
                 'onMenuShareQQ',             // 分享到QQ
-                'shareTimeline'
             ]
         });
         wx.ready(() => {
@@ -132,13 +131,13 @@ class HomePageContainer extends React.Component {
       e.stopPropagation();
       console.log('要分享的信息：', obj);
       if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
-          this.onShare(obj);
+          // this.onShare(obj);
       } else { // H5就显示引导框
           wx.onMenuShareAppMessage({
-              title: '健康风险评估卡',
-              desc: obj.productModel.modelDetail || '专注疾病早起筛查',
+              title: 'HRA健康风险评估卡',
+              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
               link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
-              imgUrl: '#',
+              imgUrl: 'http://isluo.com/work/logo/share_card.png',
               type: 'link',
               success: () => {
                   Toast.info('分享成功');
@@ -146,10 +145,10 @@ class HomePageContainer extends React.Component {
           });
 
           wx.onMenuShareTimeline({
-              title: '健康风险评估卡',
-              desc: obj.productModel.modelDetail || '专注疾病早起筛查',
+              title: 'HRA健康风险评估卡',
+              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
               link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
-              imgUrl: '#',
+              imgUrl: 'http://isluo.com/work/logo/share_card.png',
               success: () => {
                   Toast.info('分享成功');
               }
@@ -190,7 +189,7 @@ class HomePageContainer extends React.Component {
               `${Config.baseURL}/gzh/#/share/${obj.id}`,
               '健康风险评估卡',
               obj.productModel.modelDetail || '专注疾病早起筛查',
-              '#',
+              'http://isluo.com/work/logo/share_card.png',
               true,
           ];
           AndroidDataJs.shareToWeChat(...params);
@@ -204,7 +203,7 @@ class HomePageContainer extends React.Component {
                 `${Config.baseURL}/gzh/#/share/${obj.id}`,
                 '健康风险评估卡',
                 obj.productModel.modelDetail || '专注疾病早起筛查',
-                '#',
+                'http://isluo.com/work/logo/share_card.png',
                 false,
             ];
             AndroidDataJs.shareToWeChat(...params);
@@ -222,7 +221,7 @@ class HomePageContainer extends React.Component {
       <div className="page-mycard">
           <ul>
               {
-                  this.state.data.map((item, index) => {
+                  this.state.data.length ? this.state.data.map((item, index) => {
                       return <li  key={index} className="cardbox">
                           <div className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
                               <div className="row1 flex-none page-flex-row flex-jc-sb">
@@ -241,7 +240,7 @@ class HomePageContainer extends React.Component {
                               </div>
                           </div>
                       </li>;
-                  })
+                  }) : <li key={0} className="nodata">您没有体检卡<br/><Link to="/">前往购买</Link></li>
               }
           </ul>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>

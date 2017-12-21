@@ -98,7 +98,7 @@ class HomePageContainer extends React.Component {
 
   render() {
     return (
-      <div className="page-pre-check">
+      <div className="page-chose-service">
           <SearchBar
               placeholder="输入省/市/区/服务站名称"
               maxLength={25}

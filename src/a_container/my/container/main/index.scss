@@ -47,27 +47,26 @@
   .bar-list{
     padding: .28rem 0;
     .big-title{
-      height:.98rem;
-      line-height: .98rem;
       background-color: #fff;
       position: relative;
-      padding: 0 .3rem;
-      font-size: .32rem;;
+      padding: .3rem;
+      font-size: .36rem;
+      border-bottom: solid 1px #f0f0f0;
     }
     .item{
-      height:.98rem;
+      padding: .3rem 0;
       align-items: center;
       background-color: #fff;
       position: relative;
       .icon{
         padding: 0 .3rem;
-        width: .32rem;
+        width: .38rem;
         height: auto;
         box-sizing: initial;
       }
       .title{
         flex:auto;
-        font-size: .32rem;;
+        font-size: .36rem;;
         letter-spacing: 1px;
       }
       .info{
@@ -95,5 +94,11 @@
   }
   .mt{
     margin-top: .28rem;
+  }
+  .am-list-line-multiple{
+    padding-left: 0 !important;
+    .am-list-content{
+      color: rgba(0,0,0,.65) !important;
+    }
   }
 }
