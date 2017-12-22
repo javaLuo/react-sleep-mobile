@@ -142,17 +142,17 @@ class Register extends React.Component {
     onSubmit() {
         const u = this.props.userinfo;
         if(!u || !u.mobile) {
-            Toast.fail('您没有绑定手机号');
+            Toast.fail('请先绑定手机号');
             return;
         }
         if(this.state.password1.length < 6){
             Toast.fail('密码不能少于6位', 1);
             return;
         }
-        if (this.state.password1 !== this.state.password2){
-            Toast.fail('两次密码不一致', 1);
-            return;
-        }
+        // if (this.state.password1 !== this.state.password2){
+        //     Toast.fail('两次密码不一致', 1);
+        //     return;
+        // }
         if (!this.state.vcode) {
             Toast.fail('请填写验证码', 1);
             return;
@@ -162,7 +162,7 @@ class Register extends React.Component {
             mobile: u.mobile,
             countryCode: '86',
             verifyCode: this.state.vcode,
-            password: this.state.password2,
+            password: this.state.password1,
         };
         this.props.actions.setPwd(params).then((res) => {
             if (res.status === 200) {
@@ -205,14 +205,14 @@ class Register extends React.Component {
                                 value={this.state.password1}
                                 onChange={(e) => this.onPassword1Change(e)}
                             />
-                            <InputItem
-                                clear
-                                placeholder="再次输入您的密码"
-                                type="password"
-                                maxLength={18}
-                                value={this.state.password2}
-                                onChange={(e) => this.onPassword2Change(e)}
-                            />
+                            {/*<InputItem*/}
+                                {/*clear*/}
+                                {/*placeholder="再次输入您的密码"*/}
+                                {/*type="password"*/}
+                                {/*maxLength={18}*/}
+                                {/*value={this.state.password2}*/}
+                                {/*onChange={(e) => this.onPassword2Change(e)}*/}
+                            {/*/>*/}
                         </List>
                     </div>
                     <Button

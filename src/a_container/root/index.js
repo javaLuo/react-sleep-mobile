@@ -49,7 +49,7 @@ const Profit = (props) => (<Bundle load={lazeProfit}>{(Profit) => <Profit {...pr
  * */
 import Menu from '../../a_component/menu';
 import tools from '../../util/all';
-
+import Test from '../test';
 /**
  * 所需action
  * **/
@@ -150,7 +150,9 @@ class RootContainer extends React.Component {
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />
+                    <Route path="/test" component={Test} />
                   <Route component={NotFound} />
+
                 </Switch>
                 <Menu location={props.location} history={props.history}/>
             </div>

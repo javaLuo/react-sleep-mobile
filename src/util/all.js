@@ -68,7 +68,15 @@ const allobj = {
         const reg = /^\s*|\s*$/g;
         return str.replace(reg, '');
     },
+    // 验证字符串 只能输入汉字、字母、下划线、数字
+    checkStr(str){
+        if (!str) {
+            return true;
+        }
+        const rex = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
 
+        return rex.test(str);
+    },
     // 验证是否是正确的手机号
     checkPhone(str) {
         const reg = /^[1][3578][0-9]{9}$/g;
@@ -77,6 +85,11 @@ const allobj = {
     // 正则 邮箱验证
     checkEmail(str) {
         const rex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        return rex.test(str);
+    },
+    // 正则 邮箱验证
+    checkID(str) {
+        const rex=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
         return rex.test(str);
     },
     // 给字符串打马赛克

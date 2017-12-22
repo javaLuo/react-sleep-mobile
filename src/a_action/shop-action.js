@@ -250,7 +250,13 @@ export const appUserCheckBuy = (params = {}) => async(dispatch) => {
 // 绑定经销商
 export const bindDistributor = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('app/user/bind/distributor', params );
+        const res = await Fetchapi.newPost('app/user/bind/distributor', params, 'post', true );
+        if(res.status === 200) {
+            dispatch({
+                type: 'APP::getUserInfo',
+                payload: res.data,
+            });
+        }
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');

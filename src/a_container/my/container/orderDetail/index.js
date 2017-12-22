@@ -86,7 +86,7 @@ class HomePageContainer extends React.Component {
               <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
           </div>
           <List>
-              <Item arrow="horizontal" onClick={() => this.props.history.push('/my/useofknow')}>使用须知</Item>
+              <Item arrow="horizontal" onClick={() => this.props.history.push('/my/useofknow')}>常见问题</Item>
           </List>
       </div>
     );

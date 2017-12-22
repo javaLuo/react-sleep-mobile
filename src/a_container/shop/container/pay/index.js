@@ -71,7 +71,7 @@ class HomePageContainer extends React.Component {
           const s3 = await this.props.actions.wxPay({               // 向后台发起统一下单请求
               body: 'yimaokeji-card',                                 // 商品描述
               total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
-              spbill_create_ip: returnCitySN["cip"],                  // 用户终端IP，通过腾讯服务拿的
+              spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
               out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
               code: tools.isWeixin() ? sessionStorage.getItem('wx_code') : null,                // 授权code, 后台为了拿openid
               trade_type: tools.isWeixin() ? 'JSAPI' : 'MWEB',

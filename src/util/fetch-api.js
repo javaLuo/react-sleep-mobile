@@ -67,6 +67,8 @@ export default class ApiService {
                     Toast.info(res.message);
                 }
                 return res;
+            }).catch((err) => {
+                alert(JSON.stringify(err));
             });
         } else {
             return reqwest({

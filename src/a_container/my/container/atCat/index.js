@@ -15,7 +15,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { } from 'antd-mobile';
+import { Button } from 'antd-mobile';
 import ImgBlue from '../../../../assets/yimaoka_one@3x.png';
 import ImgRed from '../../../../assets/yimaoka_two@3x.png';
 import ImgYellow from '../../../../assets/yimaoka_three@3x.png';
@@ -63,20 +63,36 @@ class HomePageContainer extends React.Component {
                 page: this.scrollDom.currentPage.pageX,
             });
         });
+        this.init();
     }, 16);
   }
 
   componentWillUnmount() {
       this.scrollDom.destroy();
       this.scrollDom = null;
+      console.log('USERINFO:', this.props.userinfo);
+  }
+
+  /** 进入页面初始化 **/
+  init() {
+      const u = this.props.userinfo;
+      let page = 0;
+      if (u.userType === 0) { // 体验版经销商
+          page = 1;
+      } else if (u.userType === 1) { // 微创版经销商
+          page = 2;
+      } else if (u.userType === 2) { // 个人版经销商
+          page = 3;
+      }
+      this.onScrollPageTo(page, 0);
   }
 
   // 点击iscroll下方的按钮，跳转到指定的页
-    onScrollPageTo(page) {
+    onScrollPageTo(page, time = 300) {
       this.setState({
           page,
       });
-      this.scrollDom && this.scrollDom.goToPage(page, 1, 300);
+      this.scrollDom && this.scrollDom.goToPage(page, 1, time);
     }
 
   render() {
@@ -122,46 +138,96 @@ class HomePageContainer extends React.Component {
           <div className={this.state.page === 2 ? 'check' : ''} onClick={() => this.onScrollPageTo(2)}/>
           <div className={this.state.page === 3 ? 'check' : ''} onClick={() => this.onScrollPageTo(3)}/>
         </div>
-        <div className="info-box">
-            <ul>
-                <li className="page-flex-row flex-ai-center">
-                    <div className="pic flex-none"><img src={ImgA1} /></div>
-                    <div className="info-box flex-auto">
-                        <div className="t">翼猫一卡通，千店共享</div>
-                        <div className="i">全国体验店免费服务，进店体验，休闲娱乐</div>
-                    </div>
-                </li>
-                <li className="page-flex-row flex-ai-center">
-                    <div className="pic flex-none"><img src={ImgB1} /></div>
-                    <div className="info-box flex-auto">
-                        <div className="t">智能净水设备经销权(300台)</div>
-                        <div className="i">每台设备每年收益</div>
-                    </div>
-                    <div className="info2 flex-none">收益：40%</div>
-                </li>
-                <li className="page-flex-row flex-ai-center">
-                    <div className="pic flex-none"><img src={ImgC1} /></div>
-                    <div className="info-box flex-auto">
-                        <div className="t">健康食品经销权</div>
-                    </div>
-                    <div className="info2 flex-none">收益：30%</div>
-                </li>
-                <li className="page-flex-row flex-ai-center">
-                    <div className="pic flex-none"><img src={ImgD1} /></div>
-                    <div className="info-box flex-auto">
-                        <div className="t">生物理疗经销权</div>
-                    </div>
-                    <div className="info2 flex-none">收益：30%</div>
-                </li>
-                <li className="page-flex-row flex-ai-center">
-                    <div className="pic flex-none"><img src={ImgE1} /></div>
-                    <div className="info-box flex-auto">
-                        <div className="t">健康风险评估卡经销权</div>
-                    </div>
-                    <div className="info2 flex-none">收益：30%</div>
-                </li>
-            </ul>
+        <div className="info-all-box">
+            {(() => {
+                const u = this.props.userinfo;
+                if (this.state.page !== 0) {
+                    return (
+                        <ul>
+                            <li className="page-flex-row flex-ai-center">
+                                <div className="pic flex-none"><img src={ImgA1} /></div>
+                                <div className="info-box flex-auto">
+                                    <div className="t">翼猫一卡通，千店共享</div>
+                                    <div className="i">全国体验店免费服务，进店体验，休闲娱乐</div>
+                                </div>
+                            </li>
+                            <li className="page-flex-row flex-ai-center">
+                                <div className="pic flex-none"><img src={ImgB1} /></div>
+                                <div className="info-box flex-auto">
+                                    <div className="t">智能净水设备经销权({(() => {
+                                        console.log('这个时候：', u);
+                                        switch (this.state.page) {
+                                            case 1: return '3';
+                                            case 2: return '20';
+                                            case 3: return '300';
+                                            default: return '-';
+                                        }
+                                    })()}台)</div>
+                                    <div className="i">每台设备每年收益</div>
+                                </div>
+                                <div className="info2 flex-none">收益：40%</div>
+                            </li>
+                            <li className="page-flex-row flex-ai-center">
+                                <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgC1 : ImgC2} /></div>
+                                <div className="info-box flex-auto">
+                                    <div className="t">健康食品经销权</div>
+                                </div>
+                                <div className="info2 flex-none">收益：30%</div>
+                            </li>
+                            <li className="page-flex-row flex-ai-center">
+                                <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgD1 : ImgD2} /></div>
+                                <div className="info-box flex-auto">
+                                    <div className="t">生物理疗经销权</div>
+                                </div>
+                                <div className="info2 flex-none">收益：30%</div>
+                            </li>
+                            <li className="page-flex-row flex-ai-center">
+                                <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgE1 : ImgE2} /></div>
+                                <div className="info-box flex-auto">
+                                    <div className="t">健康风险评估卡经销权</div>
+                                </div>
+                                <div className="info2 flex-none">收益：30%</div>
+                            </li>
+                        </ul>
+                    );
+                } else {
+                    return (
+                        <div className="card1">
+                            <div className="title"><span>产品购买权</span></div>
+                            <ul className="ul page-flex-row">
+                                <li>
+                                    <img src={ImgA2} />
+                                    <div>智能净水</div>
+                                </li>
+                                <li>
+                                    <img src={ImgB2} />
+                                    <div>健康食品</div>
+                                </li>
+                                <li>
+                                    <img src={ImgC2} />
+                                    <div>生物理疗</div>
+                                </li>
+                                <li>
+                                    <img src={ImgD2} />
+                                    <div>健康风险评估卡</div>
+                                </li>
+                            </ul>
+                            <div className="title"><span>温馨提示</span></div>
+                            <div className="info">1.拥有健康大使的用户，可以购买您的健康大使拥有经销权的产品，暂不支持在线购买其他产品。</div>
+                            <div className="info">2.还没有健康大使的用户，我们不建议您在线直接购买，请您到附近的体验服务站现场体验购买</div>
+                        </div>
+                    );
+                }
+            })()}
         </div>
+          {
+              this.state.page === 0 ? (
+                  <div className="thefooter">
+                      <Button type="primary" onClick={() => this.props.history.push('/shop/exprshop')}>查看翼猫体验服务中心</Button>
+                  </div>
+              ) : null
+          }
+
       </div>
     );
   }
@@ -175,6 +241,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
+  userinfo: P.any,
 };
 
 // ==================
@@ -183,7 +250,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+    userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ }, dispatch),

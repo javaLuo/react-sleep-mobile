@@ -164,7 +164,7 @@ class Register extends React.Component {
             password: this.state.password,
             countryCode: '86',
             verifyCode: this.state.vcode,
-            loginIp: returnCitySN["cip"] || '',
+            loginIp: typeof returnCitySN !== 'undefined' ? returnCitySN["cip"] : '',
         };
         const res2 = await this.props.actions.resetPwd(params);
         if (res2.status === 200) {

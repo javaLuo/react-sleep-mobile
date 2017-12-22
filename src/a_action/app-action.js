@@ -13,8 +13,10 @@ export const checkMobile = (params = {}) => async(dispatch) => {
 
 // 登录
 export const login = (params = {}) => async(dispatch) => {
+    alert('开始请求：'+ JSON.stringify(params));
     try {
         const res = await Fetchapi.newPost2('app/user/login', params, 'post', true);
+        alert('请求返回了：'+ JSON.stringify(res));
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',

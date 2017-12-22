@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { DatePicker, Button, Modal, Toast, Picker } from 'antd-mobile';
+import { DatePicker, Button, Modal, Toast, Picker, List } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 
 // ==================
@@ -27,16 +27,18 @@ import { savePreInfo } from '../../../../a_action/shop-action';
 // Definition
 // ==================
 const prompt = Modal.prompt;
+const Item = List.Item;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        formDate: undefined,   // 出生日期
+        formDate: undefined,    // 出生日期
         formName: '',           // 体检人姓名
         formPhone: '',          // 设置手机号
         formSex: '1',           // 性别
         formTall: '',           // 身高
         formWeight: '',         // 体重
+        formID: '',             // 身份证号
     };
   }
 
@@ -102,6 +104,18 @@ class HomePageContainer extends React.Component {
         ]);
     }
 
+    // 设置身份证
+    setID() {
+        prompt('输入身份证', '', [
+            { text: '取消' },
+            { text: '确定', onPress: value => {
+                const v = tools.trim(value);
+                if(!tools.checkID(v)){Toast.info('请输入有效身份证号',1);return false;}
+                this.setState({formID: v});
+            }},
+        ]);
+    }
+
     // 设置体重
     setWeight() {
         prompt('输入体重(kg)', '', [
@@ -127,6 +141,8 @@ class HomePageContainer extends React.Component {
           userName: this.state.formName,
           phone: this.state.formPhone,
           sex: Number(this.state.formSex),
+          date: tools.dateformart(this.state.formDate),
+          idCard: this.state.formID,
           height: Number(this.state.formTall),
           weight: Number(this.state.formWeight),
       });
@@ -139,61 +155,35 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-pre-info">
           {/* 下方各横块 */}
-          <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.setName()}>
-                  <div className="title2">姓名</div>
-                  <div className="info">{this.state.formName}</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item page-flex-row all_active" onClick={() => this.setPhone()}>
-                  <div className="title2">手机号</div>
-                  <div className="info">{this.state.formPhone}</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              {/* 接口无此字段 */}
-              {/*<DatePicker*/}
-                  {/*mode="date"*/}
-                  {/*value={this.state.date}*/}
-                  {/*minDate={new Date('1900-01-01')}*/}
-                  {/*onChange={date => this.setState({ formDate: date })}*/}
-              {/*>*/}
-                  {/*<div className="item page-flex-row all_active mt" >*/}
-                      {/*<div className="title">出生日期</div>*/}
-                      {/*<div className="info">{tools.dateformart(this.state.formDate)}</div>*/}
-                      {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                      {/*<div className="line"/>*/}
-                  {/*</div>*/}
-              {/*</DatePicker>*/}
-              <Picker
-                data={[
-                    { value: '1', label: '男' },
-                    { value: '0', label: '女' },
-                ]}
-                cols={1}
-                onOk={v => this.setState({ formSex: v })}
+          <List>
+              <Item arrow="horizontal" extra={this.state.formName} onClick={() => this.setName()}>体检人姓名</Item>
+              <Item arrow="horizontal" extra={this.state.formID} onClick={() => this.setID()}>身份证号</Item>
+              <Item arrow="horizontal" extra={this.state.formPhone} onClick={() => this.setPhone()}>手机号码</Item>
+          </List>
+          <List className="mt">
+              <DatePicker
+                  mode="date"
+                  value={this.state.formDate}
+                  minDate={new Date('1900-01-01')}
+                  onChange={date => this.setState({ formDate: date })}
               >
-                  <div className="item page-flex-row all_active">
-                      <div className="title">性别</div>
-                      <div className="info">{this.state.formSex === '1' ? '男' : '女'}</div>
-                      <div className="arrow"><img src={ImgRight} /></div>
-                      <div className="line"/>
-                  </div>
+                  <Item arrow="horizontal">出生日期</Item>
+              </DatePicker>
+              <Picker
+                  title="请选择性别"
+                  extra={this.state.formSex[0] === '1' ? '男' : '女'}
+                  data={[
+                      { value: '1', label: '男' },
+                      { value: '0', label: '女' },
+                  ]}
+                  onOk={(v) => this.setState({ formSex: v })}
+                  cols={1}
+              >
+                  <Item arrow="horizontal" >性别</Item>
               </Picker>
-              <div className="item page-flex-row all_active" onClick={() => this.setTall()}>
-                  <div className="title">身高</div>
-                  <div className="info">{this.state.formTall ? `${this.state.formTall}cm` : null}</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item page-flex-row all_active" onClick={() => this.setWeight()}>
-                  <div className="title">体重</div>
-                  <div className="info">{this.state.formWeight ? `${this.state.formWeight}kg` : null}</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-          </div>
+              <Item arrow="horizontal" extra={this.state.formTall ? `${this.state.formTall}cm` : null} onClick={() => this.setTall()}>身高</Item>
+              <Item arrow="horizontal" extra={this.state.formWeight ? `${this.state.formWeight}kg` : null} onClick={() => this.setWeight()}>体重</Item>
+          </List>
           <div className="thefooter">
               <Button type="primary" onClick={() => this.savePreInfo()}>保存</Button>
           </div>

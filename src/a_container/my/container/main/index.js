@@ -81,7 +81,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   {
                       u ? <div className="flex-auto info">
-                          <div className="name all_nowarp">{ u ? u.nickName : '已登录' }</div>
+                          <div className="name all_nowarp">{ (u && u.nickName) ? u.nickName : '未设置昵称' }</div>
                           <div className="phone all_nowarp">e家号：{ u ? u.id : ' ' }</div>
                       </div> : <div className="flex-auto info">点击登录</div>
                   }
@@ -115,13 +115,13 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mycustomer': '/login')}>
                   <img src={ImgBar4} className="icon"/>
-                  <div className="title">我的客户</div>
+                  <div className="title">我的推广客户</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mydaiyan' : '/login')}>
                   <img src={ImgBar5} className="icon"/>
-                  <div className="title">我的代言卡</div>
+                  <div className="title">我的产品代言卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

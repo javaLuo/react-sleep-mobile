@@ -82,6 +82,7 @@ class Register extends React.Component {
         });
 
         const params = {
+            userId: u.id,
             loginName: this.state.userName,
             password: this.state.password,
         };

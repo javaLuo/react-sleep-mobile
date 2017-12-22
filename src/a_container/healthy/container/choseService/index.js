@@ -14,13 +14,13 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { Picker, Button, List, SearchBar, Toast, PullToRefresh } from 'antd-mobile';
-import IscrollLuo from 'iscroll-luo';
+import { SearchBar, PullToRefresh } from 'antd-mobile';
+
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgDh from '../../../../assets/daohang@3x.png';
 import ImgRen from '../../../../assets/ren@3x.png';
-import ImgAddr from '../../../../assets/dianhua@3x.png';
-import ImgPhone from '../../../../assets/dizhi@3x.png';
+import ImgAddr from '../../../../assets/dizhi@3x.png';
+import ImgPhone from '../../../../assets/dianhua@3x.png';
 import ImgCard from '../../../../assets/xuanzeka@3x.png';
 
 // ==================

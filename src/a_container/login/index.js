@@ -75,7 +75,7 @@ class Login extends React.Component {
       loginName: this.state.username,
       password: this.state.password,
         mobile: this.state.username,
-      loginIp: returnCitySN["cip"] || '',
+      loginIp: typeof returnCitySN !== 'undefined' ? returnCitySN["cip"] : '',
       appType: 1,
       appVersion: 'web',
     };
@@ -83,7 +83,9 @@ class Login extends React.Component {
     this.setState({
         loading: true
     });
+    alert('到此'+JSON.stringify(params));
     this.props.actions.login(params).then((res) => {
+      alert('返回了没有：'+ JSON.stringify(res));
       if (res.status === 200) {
         Toast.success('登录成功', 1.2);
         // 如果用户信息中有openId,就把这个openId存入localStorage
