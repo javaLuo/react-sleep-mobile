@@ -6,7 +6,9 @@ const initState = {
   num: 0,           // 测试 - 初始值0
   fetchvalue: [],   // 测试 -
     userinfo: null, // 全局用户信息
+    ambassador: null, // 当前用户的健康大使信息
     wxCode: '',     // 微信网页授权 - code
+
 };
 
 // ============================================
@@ -28,6 +30,13 @@ const saveWxCode = (state, action) => {
         wxCode: payload,
     });
 };
+
+const getMyAmbassador = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        ambassador: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -38,6 +47,8 @@ const reducerFn = (state = initState, action) => {
     return getUserInfo(state, action);
   case 'APP::saveWxCode':
     return saveWxCode(state, action);
+  case 'APP::getMyAmbassador':
+    return getMyAmbassador(state, action);
   default:
     return actDefault(state, action);
   }

@@ -1,4 +1,4 @@
-/* 微信公众号分享页 */
+/* 用于经销商APP页面微信公众号连接 微信公众号分享页 */
 
 // ==================
 // 所需的各种插件
@@ -9,12 +9,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import './index.scss';
+import './wxShare.scss';
 // ==================
 // 所需的所有组件
 // ==================
 import ImgLogo from '../../assets/logo@3x.png';
 import ImgRight from '../../assets/xiangyou@3x.png';
+import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 // ==================
 // 本页面所需action
 // ==================
@@ -36,9 +37,9 @@ class HomePageContainer extends React.Component {
 
     render() {
         return (
-            <div className="flex-auto page-box page-share">
+            <div className="flex-auto page-box page-wx-share">
                 <div className="weixin">
-                    <img src="#" />
+                    <img src={ImgQrCode} />
                     <div>翼猫健康e家公众号</div>
                     <div>关注公众号，享受更多服务</div>
                     <div className="more page-flex-row flex-jc-sb">

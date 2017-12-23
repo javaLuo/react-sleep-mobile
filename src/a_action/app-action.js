@@ -4,7 +4,7 @@ import { Toast } from 'antd-mobile';
 // 检测手机号是否被注册
 export const checkMobile = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/checkMobile', params);
+        const res = await Fetchapi.newPost('app/user/checkMobile', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -13,10 +13,8 @@ export const checkMobile = (params = {}) => async(dispatch) => {
 
 // 登录
 export const login = (params = {}) => async(dispatch) => {
-    alert('开始请求：'+ JSON.stringify(params));
     try {
-        const res = await Fetchapi.newPost2('app/user/login', params, 'post', true);
-        alert('请求返回了：'+ JSON.stringify(res));
+        const res = await Fetchapi.newPost('app/user/login', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -32,7 +30,7 @@ export const login = (params = {}) => async(dispatch) => {
 // 退出登录
 export const logout = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/logout', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/logout', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -48,7 +46,7 @@ export const logout = (params = {}) => async(dispatch) => {
 // 注册时获取验证码
 export const getVerifyCode = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/sms/getVerifyCode', params);
+        const res = await Fetchapi.newPost('app/sms/getVerifyCode', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -58,7 +56,7 @@ export const getVerifyCode = (params = {}) => async(dispatch) => {
 // 注册
 export const register = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/register', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/register', params, 'post', true);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -68,7 +66,7 @@ export const register = (params = {}) => async(dispatch) => {
 // 获取用户信息
 export const getUserInfo = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/get', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/get', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -84,7 +82,7 @@ export const getUserInfo = (params = {}) => async(dispatch) => {
 // 修改用户信息
 export const updateUserInfo = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/update', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/update', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -100,7 +98,7 @@ export const updateUserInfo = (params = {}) => async(dispatch) => {
 // 重置密码
 export const resetPwd = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/resetPwd', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/resetPwd', params, 'post', true);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -110,7 +108,7 @@ export const resetPwd = (params = {}) => async(dispatch) => {
 // 设置密码（未设置过密码的用户可以设置密码）
 export const setPwd = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/setPwd', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/setPwd', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -126,7 +124,7 @@ export const setPwd = (params = {}) => async(dispatch) => {
 // 验证经销商密码
 export const bindPhonePwd = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/bind/phone/pwd', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/bind/phone/pwd', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
@@ -142,10 +140,53 @@ export const bindPhonePwd = (params = {}) => async(dispatch) => {
 // 绑定手机号
 export const bindPhone = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost2('app/user/bind/phone', params, 'post', true);
+        const res = await Fetchapi.newPost('app/user/bind/phone', params, 'post', true);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::getUserInfo',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 解除绑定微信
+export const unBindWx = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/unbind/wx', params, 'post', true);
+        if(res.status === 200) {
+            dispatch({
+                type: 'APP::getUserInfo',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 获取分享链接中二维码地址和体检券
+export const shareBuild = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/share/build', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+
+// 我的 - 查询我的健康大使信息
+export const myAmbassador = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/my/ambassador', params);
+        if(res.status === 200) {
+            dispatch({
+                type: 'APP::getMyAmbassador',
                 payload: res.data,
             });
         }

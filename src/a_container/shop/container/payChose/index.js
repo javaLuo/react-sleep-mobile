@@ -44,12 +44,13 @@ class HomePageContainer extends React.Component {
           Toast.fail('未获取到订单信息!');
           this.props.history.go(-1);
       }
-      console.log('locationnow:', location, this.props.location);
-      if (location.href.indexOf('?') < 0) {
-          location.href = location.href.replace('#', '?#');
-      }
+      console.log('HISOTORY:', window.history);
+      // if (location.href.indexOf('?') < 0) {
+      //     location.href = location.href.replace('#', '?#');
+      // }
   }
   componentDidMount() {
+
       // 如果没有获取过支付方式，就重新获取
       // console.log('回跳地址是什么；', Config.redirect_uri);
       // if (!this.props.allPayTypes.length) {
@@ -271,7 +272,7 @@ class HomePageContainer extends React.Component {
              * 1.正常选择商品直接付款，程序收集了商品相关信息，订单信息不带商品信息
              * 2.从我的订单跳转付款，程序没有商品相关信息，订单信息中带有商品信息
              * **/
-            location.href = `http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`;
+            location.replace(`http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`);
         }
     }
 
@@ -283,6 +284,7 @@ class HomePageContainer extends React.Component {
         console.log('那运行这里啊===', msg);
         if (!msg) {
             Toast.fail('支付失败, 请重试');
+            this.returnPage();
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
             // 支付成功后在后台添加对应数量的体检卡 (现在由后台自动生成)
             // this.makeCards();
@@ -290,6 +292,7 @@ class HomePageContainer extends React.Component {
             this.successReturn();
         } else if (msg.errMsg === 'chooseWXPay:cancel'){
             // 支付被取消
+            this.returnPage();
         } else {  // 支付遇到错误
             Toast.error('支付失败, 请重试');
             this.returnPage();
@@ -302,7 +305,7 @@ class HomePageContainer extends React.Component {
     returnPage() {
         sessionStorage.removeItem('wx_code');
         sessionStorage.removeItem('pay-info');
-        this.props.history.push('/my/order');
+        this.props.history.replace('/my/order');
     }
 
     /**

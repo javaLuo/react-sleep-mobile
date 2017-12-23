@@ -147,15 +147,15 @@ class HomePageContainer extends React.Component {
       console.log('用户信息：', u, this.state.data);
       if (!u) {
          Toast.info('请先登录', 1);
-         this.props.history.push(`/login?back=${this.props.location.pathname}`);
-         return;
+         this.props.history.push(`/login`);
+         return true;
       } else if (!u.mobile){
           Toast.info('请先绑定手机号', 1);
           this.props.history.replace(`/my/bindphone`);
-          return;
+          return true;
       }else if (!this.state.formCount){
           Toast.fail('请选择购买数量');
-          return;
+          return true;
       }
 
       // 检查当前用户是否有权限购买当前物品
@@ -169,6 +169,7 @@ class HomePageContainer extends React.Component {
                 Toast.fail(res.message || '您当前没有购买权限');
             }
       });
+      return true;
   }
 
   render() {
@@ -209,8 +210,6 @@ class HomePageContainer extends React.Component {
               {/*<Item extra={this.getNameByChargeID(this.state.formJifei)} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>收费方式</Item>*/}
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>选择数量</Item>
               <Item extra={this.getNameByChargeID(this.state.formJifei)} onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>查看适用体验店</Item>
-
-              <Item >详情</Item>
           </List>
           <div className="detail-box">
               {(d && d.detailImg) ? <img src={d.detailImg} /> : null}

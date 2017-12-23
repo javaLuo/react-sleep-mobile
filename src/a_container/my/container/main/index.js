@@ -26,8 +26,7 @@ import ImgDingDan from '../../../../assets/dingdan@3x.png';
 // 本页面所需action
 // ==================
 
-import { getUserInfo } from '../../../../a_action/app-action';
-
+import { getUserInfo, myAmbassador } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -40,9 +39,11 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      console.log('location:', this.props.location);
       if (!this.props.userinfo) {
         this.getUserInfo();
       }
+      this.getMyAmbassador();
   }
 
   // 工具 - 通过用户类型type获取对应的称号
@@ -65,6 +66,14 @@ class HomePageContainer extends React.Component {
           this.props.actions.getUserInfo({ openId });
       }
   }
+
+  // 获取健康大使信息
+    getMyAmbassador() {
+      const u = this.props.userinfo;
+      if (u) {
+          this.props.actions.myAmbassador({ userId: u.id });
+      }
+    }
 
   render() {
     const u = this.props.userinfo;
@@ -156,6 +165,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo }, dispatch),
+    actions: bindActionCreators({ getUserInfo, myAmbassador }, dispatch),
   })
 )(HomePageContainer);

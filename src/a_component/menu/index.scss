@@ -8,7 +8,7 @@
   box-sizing: border-box;
   display: flex;
   border-top: solid 1px #efefef;
-  background-color: #fff;
+  background-color: #fff !important;
   z-index: 99;
   .menu-item{
     flex: 1;

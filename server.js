@@ -26,12 +26,12 @@ app.get("*", (req, res, next) =>{ 			// 所有请求都返回index.html
     // 由于index.html是由html-webpack-plugin生成到内存中的，所以使用下面的方式获取
     compiler.outputFileSystem.readFile(filename, (err, result) =>{
         if(err){
-            return(next(err))
+            return(next(err));
         }
         res.set('content-type', 'text/html');
         res.send(result);
         res.end();
-    })
+    });
 });
 
 app.listen(PORT, function(){

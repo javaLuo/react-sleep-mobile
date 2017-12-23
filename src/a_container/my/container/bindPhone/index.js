@@ -137,7 +137,12 @@ class Register extends React.Component {
                     this.props.history.replace('/my/checkpwd');
                 } else {
                     Toast.success('绑定成功', 1);
-                    this.props.history.go(-1);
+                    const pathName = this.props.location.pathname.split('/');
+                    if (pathName[pathName.length - 1] === 'password') {
+                        this.props.history.replace('/my/setpassword');
+                    } else {
+                        this.props.history.go(-1);
+                    }
                 }
             } else {
                 Toast.fail(res.message || '绑定失败', 1);

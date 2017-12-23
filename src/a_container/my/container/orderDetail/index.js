@@ -34,7 +34,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      this.getData();
+      // this.getData(); // 不需要获取订单详情了
       console.log('订单：', this.props.orderInfo);
   }
 
@@ -70,18 +70,17 @@ class HomePageContainer extends React.Component {
                   </div>
               </div>
           </div>
-          <List>
-              <Item className="long" extra={`有效期至：${(this.state.data[0] && this.state.data[0].validTime) ? this.state.data[0].validTime.split(' ')[0] : ''}`}>体检卡</Item>
-              {
-                  this.state.data.map((item, index) => {
-                      return <Item key={index} className="long" arrow="horizontal">体检卡{this.state.data.length > 1 ? index + 1 : null}：共{item.ticketNum}张</Item>;
-                  })
-              }
-          </List>
+          {/*<List>*/}
+              {/*<Item className="long" extra={`有效期至：${(this.state.data[0] && this.state.data[0].validTime) ? this.state.data[0].validTime.split(' ')[0] : ''}`}>体检卡</Item>*/}
+              {/*{*/}
+                  {/*this.state.data.map((item, index) => {*/}
+                      {/*return <Item key={index} className="long" arrow="horizontal">体检卡{this.state.data.length > 1 ? index + 1 : null}：共{item.ticketNum}张</Item>;*/}
+                  {/*})*/}
+              {/*}*/}
+          {/*</List>*/}
           <div className="order-info">
               <div>订单号：{this.props.orderInfo.id || ''}</div>
               <div>下单时间：{this.props.orderInfo.createTime || ''}</div>
-              <div>付款时间：{this.props.orderInfo.payTime || '--'}</div>
               <div>数量：{this.props.orderInfo.count || ''}</div>
               <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
           </div>

@@ -36,6 +36,10 @@ const initState = {
         reserveTime_Date: undefined,    // 临时 - 日期
         reserveTime_Time: undefined,    // 临时 - 时间
     },
+    reportInfo: {       // 健康管理 - 体检报告 -添加体检报告所选取的各数据
+        ticketNo: '',   // 体检卡号
+        phone: '',      // 手机号
+    },
     payResultInfo: {    // 支付成功，支付成功页面需要订单信息、生成的卡片信息
         cards: [],
         payInfo: {},
@@ -149,6 +153,13 @@ const saveCardInfo = (state, action) => {
     });
 };
 
+const saveReportInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        reportInfo: Object.assign({}, state.reportInfo, payload),
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -178,6 +189,8 @@ const reducerFn = (state = initState, action) => {
             return saveOrderInfo(state, action);
         case 'PRE::saveCardInfo':
             return saveCardInfo(state, action);
+        case 'PRE::saveReportInfo':
+            return saveReportInfo(state, action);
         default:
             return actDefault(state, action);
     }

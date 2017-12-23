@@ -16,17 +16,12 @@ import tools from '../../../../util/all';
 // ==================
 
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
-import ImgShare from '../../../../assets/fenxiang@3x.png';
-import ImgLogo from '../../../../assets/logo@3x.png';
-import ImgShare1 from '../../../../assets/share-wx.png';
-import ImgShare2 from '../../../../assets/share-friends.png';
-import ImgShare3 from '../../../../assets/share-qq.png';
-import { ActionSheet, Toast } from 'antd-mobile';
+import { } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallCardList, savePreInfo } from '../../../../a_action/shop-action';
+import { mallCardList, savePreInfo, saveReportInfo } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -56,10 +51,14 @@ class HomePageContainer extends React.Component {
 
     // 选择某一张卡，将卡信息保存到store的体检预约信息中
     onCardClick(data) {
-        // 然后返回体检预约页
-        this.props.actions.savePreInfo({ ticketNo: String(data.orderId) });
-        setTimeout(() => this.props.history.push('/healthy/precheck'), 16);
-
+        const path = tools.makePathname(this.props.location.pathname);
+        if (path === 'addreport') { // 来自添加报告选择
+            this.props.actions.saveReportInfo({ ticketNo: String(data.orderId) });
+            setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
+        } else if(path === 'precheck'){ // 来自体检预约选择体检卡
+            this.props.actions.savePreInfo({ ticketNo: String(data.orderId) });
+            setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
+        }
     }
 
     // 工具 - 获取已使用了多少张卡
@@ -80,22 +79,19 @@ class HomePageContainer extends React.Component {
                             map.push(<li key={0} className="nodata">您没有体检卡<br/><Link to="/">前往购买</Link></li>);
                         } else {
                             map = this.state.data.map((item, index) => {
-                                return <li  key={index} className="cardbox" onClick={() => this.onCardClick(item)}>
-                                    <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                                        <img className="logo" src={ImgLogo} />
-                                        <span className="num">共{item.ticketNum}张<i>已使用{this.getHowManyByTicket(item.ticketList)}张</i></span>
-                                    </div>
-                                    <div className="info page-flex-row">
-                                        <div className="t flex-auto">
-                                            <div className="t-big">健康风险评估卡</div>
-                                            <div className="t-sm">专注疾病早起筛查</div>
+                                return <li  key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onCardClick(item)}>
+                                    <div className="row1 flex-none page-flex-row flex-jc-sb">
+                                        <div>
+                                            <div className="t">健康风险评估卡</div>
+                                            <div className="i">专注疾病早起筛查</div>
                                         </div>
-                                        <div className="r flex-none page-flex-col flex-jc-center">
-                                            <img src={ImgRight} />
-                                        </div>
+                                        <div className="flex-none"><img src={ImgRight} /></div>
                                     </div>
-                                    <div className="info2 page-flex-row flex-jc-sb">
-                                        <span>有效期：{tools.dateToStr(new Date(item.validTime))}</span>
+                                    <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                                        <div>
+                                            <div className="t">共{item.ticketNum}张<span>已使用{this.getHowManyByTicket(item.ticketList)}张</span></div>
+                                            <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
+                                        </div>
                                     </div>
                                 </li>;
                             });
@@ -127,6 +123,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallCardList, savePreInfo }, dispatch),
+        actions: bindActionCreators({ mallCardList, savePreInfo, saveReportInfo }, dispatch),
     })
 )(HomePageContainer);

@@ -14,9 +14,10 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 import Img from '../../../../assets/daiyanka.jpg';
 import ImgShareArr from '../../../../assets/share-arr.png';
+import ImgQrCode from '../../../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 // ==================
 // 本页面所需action
 // ==================
@@ -82,23 +83,10 @@ class Register extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
-        });
-        wx.error((e) => {
-            console.log('微信JS-SDK初始化失败：', e);
-            this.onFail();
-        });
-    }
-
-    // 点击分享按钮，需判断是否是原生系统
-    onStartShare(e) {
-        e.stopPropagation();
-        if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
-            // this.onShare(obj);
-        } else { // H5就显示引导框
             wx.onMenuShareAppMessage({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
-                link: `${Config.baseURL}/gzh/#/sharedy/${this.props.userinfo.id}`,
+                link: `${Config.baseURL}/gzh/#/daiyanshare/${this.props.userinfo.id}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
                 type: 'link',
                 success: () => {
@@ -109,17 +97,25 @@ class Register extends React.Component {
             wx.onMenuShareTimeline({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
-                link: `${Config.baseURL}/gzh/#/sharedy/${this.props.userinfo.id}`,
+                link: `${Config.baseURL}/gzh/#/daiyanshare/${this.props.userinfo.id}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
                 success: () => {
                     Toast.info('分享成功');
                 }
             });
+        });
+        wx.error((e) => {
+            console.log('微信JS-SDK初始化失败：', e);
+            this.onFail();
+        });
+    }
 
+    // 点击分享按钮，需判断是否是原生系统
+    onStartShare(e) {
+        e.stopPropagation();
             this.setState({
                 shareShow: true,
             });
-        }
     }
 
     // 微信初始化失败
@@ -132,7 +128,10 @@ class Register extends React.Component {
     render() {
         return (
             <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh' }}>
-                <img className="img" src={Img} />
+                <div className="img-box">
+                    <img className="img" src={Img} />
+                    <img className="code" src={ImgQrCode}/>
+                </div>
                 <div className="thefooter">
                     <Button type="primary" onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
                 </div>

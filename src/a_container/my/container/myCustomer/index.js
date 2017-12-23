@@ -20,7 +20,7 @@ import ImgDefault from '../../../../assets/default-head.jpg';
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/app-action';
+import { getMyCustomers } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -30,38 +30,40 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: [],
     };
   }
 
   componentDidMount() {
-
+      this.getData();
   }
 
-  //
-   onLogOut(){
-      localStorage.removeItem('userinfo');
-      this.props.history.replace('/login');
-   }
+  getData() {
+      const u = this.props.userinfo;
+      this.props.actions.getMyCustomers({ userId: u.id }).then((res) => {
+          if (res.status === 200) {
+              if (res.data) {
+                  this.setState({
+                      data: res.data,
+                  });
+              }
+          }
+      });
+  }
 
   render() {
     return (
       <div className="page-customer">
           <ul className="data-list">
-              <li className="page-flex-row flex-ai-center">
-                  <div className="photo flex-none"><img src={ImgDefault} /></div>
-                  <div className="name flex-auto">姓名</div>
-                  <div className="num flex-none">emall_8888</div>
-              </li>
-              <li className="page-flex-row flex-ai-center">
-                  <div className="photo flex-none"><img src={ImgDefault} /></div>
-                  <div className="name flex-auto">姓名</div>
-                  <div className="num flex-none">emall_8888</div>
-              </li>
-              <li className="page-flex-row flex-ai-center">
-                  <div className="photo flex-none"><img src={ImgDefault} /></div>
-                  <div className="name flex-auto">姓名</div>
-                  <div className="num flex-none">emall_8888</div>
-              </li>
+              {
+                  this.state.data.length ? this.state.data.map((item, index) => {
+                      return <li key={index} className="page-flex-row flex-ai-center">
+                          <div className="photo flex-none"><img src={ImgDefault} /></div>
+                          <div className="name flex-auto">姓名</div>
+                          <div className="num flex-none">emall_8888</div>
+                      </li>;
+                  }) : <li key="1" className="nothing"><div>暂无数据</div></li>
+              }
           </ul>
       </div>
     );
@@ -76,6 +78,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -84,9 +87,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ }, dispatch),
+    actions: bindActionCreators({ getMyCustomers }, dispatch),
   })
 )(HomePageContainer);

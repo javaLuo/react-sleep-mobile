@@ -25,6 +25,7 @@ import ImgBaoGao from '../../assets/share/baogao@3x.png';    // 报告图标
 // ==================
 
 import { productById } from '../../a_action/shop-action';
+import { shareBuild } from '../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -33,6 +34,8 @@ class HomePageContainer extends React.Component {
         super(props);
         this.state = {
             data: {},
+            productData: {}, // 分享的卡片信息
+            imgCode: '',  // 分享的二维码、
         };
     }
 
@@ -42,12 +45,21 @@ class HomePageContainer extends React.Component {
 
     getData() {
         const ids = this.props.location.pathname.split('/');
-        const id = Number(ids[ids.length - 1]);
-        if (!id) {
+        const cardId_userId = ids[ids.length - 1].split('_');
+
+
+        if (!cardId_userId || cardId_userId.length<2) {
             return;
         }
-        this.props.actions.productById({productId: id}).then(() => {
+        this.props.actions.productById({productId: cardId_userId[0]}).then((res) => {
 
+        });
+        this.props.actions.shareBuild({ userId: Number(cardId_userId[1]) }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    imgCode: res.data,
+                });
+            }
         });
     }
 
@@ -65,15 +77,15 @@ class HomePageContainer extends React.Component {
                         </div>
                         <div className="row2 flex-none">
                             <div>
-                                <div className="t">共5张<span>已使用0张</span></div>
-                                <div className="i">有效期：2020-01-01</div>
+                                <div className="t">共{this.state.data.count || "--" }张<span>已使用0张</span></div>
+                                <div className="i">有效期：--</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="weixin">
                     <div className="t">翼猫健康e家公众号</div>
-                    <div className="page-flex-row flex-jc-sb"><img src={ImgQrCode}/><img src={ImgZhiWen} /></div>
+                    <div className="page-flex-row flex-jc-sb"><img src={this.state.imgCode || ImgQrCode}/><img src={ImgZhiWen} /></div>
                     <div>长按二维码 “识别” 关注</div>
                 </div>
                 <div className="weixin-info">
@@ -121,6 +133,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ productById }, dispatch),
+        actions: bindActionCreators({ productById, shareBuild }, dispatch),
     })
 )(HomePageContainer);

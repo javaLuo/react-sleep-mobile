@@ -22,6 +22,7 @@ import ImgShare1 from '../../../../assets/share-wx.png';
 import ImgShare2 from '../../../../assets/share-friends.png';
 import ImgShare3 from '../../../../assets/share-qq.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
+import ImgFenXiang from '../../../../assets/fenxiang@3x.png';
 import { ActionSheet, Toast } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -212,26 +213,24 @@ class HomePageContainer extends React.Component {
   render() {
       const ticket = this.props.cardInfo.ticketList || [];
     return (
-      <div className="page-mycard">
+      <div className="page-card-voucher">
           <ul>
               {
                   ticket.map((item, index) => {
-                      return <li  key={index} className="cardbox">
-                          <div className="title page-flex-row flex-jc-sb flex-ai-center">
-                              <img className="logo" src={ImgLogo} />
-                          </div> 
-                          <div className="info page-flex-row">
-                              <div className="t flex-auto">
-                                  <div className="t-big">健康风险评估卡</div>
-                                  <div className="t-sm">体检券</div>
+                      return <li  key={index} className="cardbox page-flex-col flex-jc-sb">
+                          <div className="row1 flex-none page-flex-row flex-jc-sb">
+                              <div>
+                                  <div className="t">健康风险评估卡</div>
+                                  <div className="i">体检券</div>
                               </div>
+                              <div className="flex-none"><img src={ImgRight} /></div>
                           </div>
-                          <div className="info2 page-flex-row flex-jc-sb">
-                              <span>卡号：{item.ticketNo}</span>
-                          </div>
-                          <div className="info2 page-flex-row flex-jc-sb">
-                              <span>有效期：{item.validEndTime}</span>
-                              <span onClick={() => this.onStartShare(this.props.cardInfo)}><img src={ImgShare} /></span>
+                          <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                              <div>
+                                  <div className="t">卡号<span>{item.ticketNo}</span></div>
+                                  <div className="i">有效期：{item.validEndTime}</div>
+                              </div>
+                              <div className="flex-none share-btn" onClick={() => this.onStartShare(this.props.cardInfo)}><img src={ImgFenXiang} /></div>
                           </div>
                       </li>;
                   })

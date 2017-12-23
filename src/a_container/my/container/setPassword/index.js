@@ -88,7 +88,7 @@ class Register extends React.Component {
     // 点击获取验证码按钮
     getVerifyCode() {
         const me = this;
-        let time = 30;
+        let time = 60;
         if (this.state.verifyCode) {
             return;
         }
@@ -205,14 +205,6 @@ class Register extends React.Component {
                                 value={this.state.password1}
                                 onChange={(e) => this.onPassword1Change(e)}
                             />
-                            {/*<InputItem*/}
-                                {/*clear*/}
-                                {/*placeholder="再次输入您的密码"*/}
-                                {/*type="password"*/}
-                                {/*maxLength={18}*/}
-                                {/*value={this.state.password2}*/}
-                                {/*onChange={(e) => this.onPassword2Change(e)}*/}
-                            {/*/>*/}
                         </List>
                     </div>
                     <Button
@@ -222,21 +214,6 @@ class Register extends React.Component {
                         onClick={() => this.onSubmit()}
                     >确认</Button>
                 </div>
-                <Modal
-                    visible={this.state.modalCodeShow}
-                    title="验证码"
-                    className="all_modal"
-                    transparent
-                    closable
-                    onClose={()=> this.onModalCodeClose()}
-                >
-                    <div>
-                        <p style={{ padding: "0 15px 15px" }}>{this.state.myVcode}</p>
-                        <div className="modal-footer">
-                            <div onClick={() => this.onModalCodeClose()}>确定</div>
-                        </div>
-                    </div>
-                </Modal>
             </div>
         );
     }

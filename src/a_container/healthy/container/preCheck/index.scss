@@ -27,6 +27,17 @@
         color: #89888e;
         text-align: right;
       }
+      .info2{
+        flex: auto;
+        font-size: .32rem;;
+        color: #89888e;
+        text-align: left;
+        input{
+          width: 100%;
+          height: 100%;
+          border: none;
+        }
+      }
       .arrow{
         padding: 0 .28rem;
         img{

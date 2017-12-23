@@ -67,7 +67,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/atCat`} component={AtCat} />
               <Route exact path={`${this.props.match.url}/mydaiyan`} component={MyDaiYan} />
               <Route exact path={`${this.props.match.url}/binddealer`} component={BindDealer} />
-              <Route exact path={`${this.props.match.url}/bindphone`} component={BindPhone} />
+              <Route path={`${this.props.match.url}/bindphone`} component={BindPhone} />
               <Route exact path={`${this.props.match.url}/setpassword`} component={SetPassword} />
               <Route exact path={`${this.props.match.url}/checkpwd`} component={CheckPwd} />
               <Route exact path={`${this.props.match.url}/mycustomer`} component={MyCustomer} />

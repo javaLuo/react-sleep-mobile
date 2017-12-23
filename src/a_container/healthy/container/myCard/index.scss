@@ -28,9 +28,6 @@
         }
       }
       .row2{
-        div{
-          position: relative;
-        }
         .t{
           font-size: .32rem;
           span{
@@ -43,9 +40,12 @@
         color: #9394a4;
         margin-top: .2rem;
       }
-      img{
-        position: absolute;
-        bottom: 0;
+      .share-btn{
+        position: relative;
+        img{
+          width: .3rem;
+          bottom: 0;
+        }
       }
     }
   }

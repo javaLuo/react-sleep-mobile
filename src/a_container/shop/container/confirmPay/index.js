@@ -38,7 +38,7 @@ class HomePageContainer extends React.Component {
   componentWillMount() {
       // 如果没有选择商品就跳转到商城主页
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-          Toast.fail('您没有选择商品');
+         // Toast.fail('您没有选择商品');
           this.props.history.replace('/');
       }
   }
@@ -63,23 +63,13 @@ class HomePageContainer extends React.Component {
 
     // form 购买数量被改变
     onCountChange(v) {
-        // const nowData = this.props.orderParams.nowProduct || {}; // 当前商品对象
-        // if (!nowData || !nowData.amount) {
-        //     Toast.fail('该商品暂时无货');
-        //     return;
-        // }
-        // if (v <= nowData.amount) {
-        //     this.setState({
-        //         formCount: v,
-        //     });
-        // }
       this.setState({
           formCount: v,
       });
     }
   // 确认支付被点击，生成订单
     onSubmit() {
-      console.log('什么万一：', this.props.orderParams);
+      console.log('收集的信息：', this.props.orderParams);
       const params = {
           count: this.state.formCount,
           serviceTime: tools.dateToStr(this.state.formServiceTime),

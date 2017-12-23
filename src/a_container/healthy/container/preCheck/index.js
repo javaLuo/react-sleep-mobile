@@ -96,10 +96,10 @@ class HomePageContainer extends React.Component {
       <div className="page-pre-check">
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard/precheck')}>
                   <div className="title">体检卡号</div>
-                  <div className="info">{this.props.preInfo.ticketNo || ''}</div>
-                  <div className="arrow2"><img src={ImgCard} /></div>
+                  <div className="info2">{this.props.preInfo.ticketNo}</div>
+                  <div className="arrow2" ><img src={ImgCard} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/preinfo')}>
@@ -109,7 +109,7 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/choseservice')}>
-                  <div className="title">选择翼猫体检服务中心</div>
+                  <div className="title">选择翼猫体验服务中心</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

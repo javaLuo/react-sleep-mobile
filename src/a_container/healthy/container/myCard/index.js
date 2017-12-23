@@ -22,6 +22,7 @@ import ImgShare1 from '../../../../assets/share-wx.png';
 import ImgShare2 from '../../../../assets/share-friends.png';
 import ImgShare3 from '../../../../assets/share-qq.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
+import ImgFenXiang from '../../../../assets/fenxiang@3x.png';
 import { ActionSheet, Toast } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -109,16 +110,27 @@ class HomePageContainer extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
+            // 在这里设置是因为用户可能直接点击右上角微信分享按钮，没有选择具体哪张卡
+            wx.onMenuShareAppMessage({
+                title: 'HRA健康风险评估卡',
+                desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                link: `${Config.baseURL}/gzh/#/share/0_${this.props.userinfo.id}`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功');
+                }
+            });
 
-            // wx.onMenuShareQQ({
-            //     title: '健康风险评估卡',
-            //     desc: '健康风险评估卡',
-            //     link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
-            //     imgUrl: '#',
-            //     success: () => {
-            //         Toast.info('分享成功');
-            //     }
-            // });
+            wx.onMenuShareTimeline({
+                title: 'HRA健康风险评估卡',
+                desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                link: `${Config.baseURL}/gzh/#/share/0_${this.props.userinfo.id}`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                success: () => {
+                    Toast.info('分享成功');
+                }
+            });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);
@@ -136,7 +148,7 @@ class HomePageContainer extends React.Component {
           wx.onMenuShareAppMessage({
               title: 'HRA健康风险评估卡',
               desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-              link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
+              link: `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
               imgUrl: 'http://isluo.com/work/logo/share_card.png',
               type: 'link',
               success: () => {
@@ -147,7 +159,7 @@ class HomePageContainer extends React.Component {
           wx.onMenuShareTimeline({
               title: 'HRA健康风险评估卡',
               desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-              link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
+              link: `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
               imgUrl: 'http://isluo.com/work/logo/share_card.png',
               success: () => {
                   Toast.info('分享成功');
@@ -186,8 +198,8 @@ class HomePageContainer extends React.Component {
     shareToFritend(obj) {
       if(typeof AndroidDataJs !== 'undefined') {
           const params = [
-              `${Config.baseURL}/gzh/#/share/${obj.id}`,
-              '健康风险评估卡',
+              `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
+              'HRA健康风险评估卡',
               obj.productModel.modelDetail || '专注疾病早起筛查',
               'http://isluo.com/work/logo/share_card.png',
               true,
@@ -200,8 +212,8 @@ class HomePageContainer extends React.Component {
     shareToTimeLine(obj) {
         if(typeof AndroidDataJs !== 'undefined') {
             const params = [
-                `${Config.baseURL}/gzh/#/share/${obj.id}`,
-                '健康风险评估卡',
+                `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
+                'HRA健康风险评估卡',
                 obj.productModel.modelDetail || '专注疾病早起筛查',
                 'http://isluo.com/work/logo/share_card.png',
                 false,
@@ -222,22 +234,20 @@ class HomePageContainer extends React.Component {
           <ul>
               {
                   this.state.data.length ? this.state.data.map((item, index) => {
-                      return <li  key={index} className="cardbox">
-                          <div className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
-                              <div className="row1 flex-none page-flex-row flex-jc-sb">
-                                  <div>
-                                      <div className="t">健康风险评估卡</div>
-                                      <div className="i">专注疾病早起筛查</div>
-                                  </div>
-                                  <div className="flex-none"><img src={ImgRight} /></div>
+                      return <li  key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
+                          <div className="row1 flex-none page-flex-row flex-jc-sb">
+                              <div>
+                                  <div className="t">健康风险评估卡</div>
+                                  <div className="i">专注疾病早起筛查</div>
                               </div>
-                              <div className="row2 flex-none">
-                                  <div>
-                                      <div className="t">共{item.ticketNum}张<span>已使用{this.getHowManyByTicket(item.ticketList)}张</span></div>
-                                      <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
-                                  </div>
-                                  <div className="flex-none" onClick={(e) => this.onStartShare(item, e)}><img src={ImgShare} /></div>
+                              <div className="flex-none"><img src={ImgRight} /></div>
+                          </div>
+                          <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                              <div>
+                                  <div className="t">共5张<span>已使用0张</span></div>
+                                  <div className="i">有效期：2020-01-01</div>
                               </div>
+                              <div className="flex-none share-btn" onClick={(e) => this.onStartShare(item, e)}><img src={ImgFenXiang} /></div>
                           </div>
                       </li>;
                   }) : <li key={0} className="nodata">您没有体检卡<br/><Link to="/">前往购买</Link></li>
@@ -260,6 +270,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
     actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -268,7 +279,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+    userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo }, dispatch),

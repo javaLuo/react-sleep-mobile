@@ -4,6 +4,9 @@
   background-position: center 5%;
   background-repeat: no-repeat;
   min-height: 100vh;
+  &.hide{
+    opacity: 0;
+  }
   &>div{
     background-color: #f7f7f7;
   }

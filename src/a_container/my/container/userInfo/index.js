@@ -22,7 +22,7 @@ import defaultPic from '../../../../assets/default-head.jpg';
 // 本页面所需action
 // ==================
 
-import { getUserInfo, logout } from '../../../../a_action/app-action';
+import { getUserInfo, logout, unBindWx } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -83,8 +83,10 @@ class HomePageContainer extends React.Component {
             return false;
         }
         if (!u.mobile) {
-            Toast.info('请先设置手机号', 1);
-            this.props.history.push('/my/bindphone');
+            Toast.info('请先绑定手机号', 1);
+
+            this.props.history.push('/my/bindphone/password');
+            return false;
         }
         if (u.disUser) {  // 如果是经销商用户或已设置过密码的普通用户，就不能进入
             Toast.info('您是经销商，无需设置密码');
@@ -108,6 +110,23 @@ class HomePageContainer extends React.Component {
           this.props.history.push('/my/bindphone');
       }
     }
+
+    // 解除绑定微信
+    onUnBdingWx() {
+      const u = this.props.userinfo;
+        if (!u && !u.openid) {
+            Toast.fail('未获取到您的微信信息',1);
+            return false;
+        }
+      this.props.actions.unBindWx({ userId: u.id }).then((res) => {
+          if (res.status === 200) {
+              Toast.success('解绑成功');
+          } else {
+              Toast.fail(res.message);
+          }
+      });
+    }
+
   render() {
       const u = this.props.userinfo;
       console.log('u是什么：', u);
@@ -145,12 +164,16 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              {/*<div className="item page-flex-row all_active mt">*/}
-                  {/*<div className="title">解绑微信</div>*/}
-                  {/*<div className="info"></div>*/}
-                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
-                  {/*<div className="line"/>*/}
-              {/*</div>*/}
+              {
+                  u && u.openid ? (
+                      <div className="item page-flex-row all_active mt" onClick={() => this.onUnBdingWx()}>
+                          <div className="title">解绑微信</div>
+                          <div className="info"></div>
+                          <div className="arrow"><img src={ImgRight} /></div>
+                          <div className="line"/>
+                      </div>
+                  ) : null
+              }
           </div>
           {
               tools.isWeixin() ? (
@@ -185,6 +208,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo, logout }, dispatch),
+    actions: bindActionCreators({ getUserInfo, logout, unBindWx }, dispatch),
   })
 )(HomePageContainer);

@@ -157,7 +157,7 @@ class HomePageContainer extends React.Component {
           {/* 下方各横块 */}
           <List>
               <Item arrow="horizontal" extra={this.state.formName} onClick={() => this.setName()}>体检人姓名</Item>
-              <Item arrow="horizontal" extra={this.state.formID} onClick={() => this.setID()}>身份证号</Item>
+              <Item arrow="horizontal" extra={this.state.formID || '非必填'} onClick={() => this.setID()}>身份证号</Item>
               <Item arrow="horizontal" extra={this.state.formPhone} onClick={() => this.setPhone()}>手机号码</Item>
           </List>
           <List className="mt">

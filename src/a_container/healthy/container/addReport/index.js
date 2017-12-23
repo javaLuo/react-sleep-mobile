@@ -30,17 +30,33 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            phone: this.props.reportInfo.phone,
         };
+    }
+
+    // phone改变时触发
+    onPhoneInput(e) {
+        const v = tools.trim(e.target.value);
+        if (v.length <= 11) {
+            this.setState({
+                phone: e.target.value,
+            });
+        }
     }
 
     render() {
         return (
             <div className="page-add-report">
                 <div className="bar-list">
-                    <div className="item page-flex-row all_active">
+                    <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard/addreport')}>
                         <div className="title2">体检卡号:</div>
-                        <div className="info2">460456840568</div>
+                        <div className="info2">{this.props.reportInfo}</div>
                         <div className="arrow2"><img src={ImgCard} /></div>
+                        <div className="line"/>
+                    </div>
+                    <div className="item page-flex-row all_active">
+                        <div className="title2">手机号:</div>
+                        <div className="info2"><input maxLength="11" type="tel" value={this.state.phone} onInput={() => this.onPhoneInput()}/></div>
                         <div className="line"/>
                     </div>
                 </div>
@@ -59,6 +75,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
     location: P.any,
     history: P.any,
+    reportInfo: P.any,
 };
 
 // ==================
@@ -67,7 +84,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
     (state) => ({
-
+        reportInfo: state.shop.reportInfo,
     }),
     (dispatch) => ({
         actions: bindActionCreators({}, dispatch),

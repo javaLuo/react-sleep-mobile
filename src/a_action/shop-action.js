@@ -1,6 +1,6 @@
 import Fetchapi from '../util/fetch-api';
 import { Toast } from 'antd-mobile';
-
+import Config from '../config';
 // 查询所有产品
 export const getProDuctList = () => async(dispatch) => {
     try {
@@ -126,7 +126,7 @@ export const wxPay = (params = {}) => async(dispatch) => {
 // 微信初始化 - 获取appID,签名，随机串，时间戳
 export const wxInit = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/wxpay/init', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/wxpay/init', { url: `${Config.baseURL}/gzh/?` });
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');
@@ -247,6 +247,16 @@ export const appUserCheckBuy = (params = {}) => async(dispatch) => {
     }
 };
 
+// 获取我的推广用户列表
+export const getMyCustomers = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/my/customers', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
 // 绑定经销商
 export const bindDistributor = (params = {}) => async(dispatch) => {
     try {
@@ -268,6 +278,14 @@ export const bindDistributor = (params = {}) => async(dispatch) => {
 export function savePreInfo(payload = {}) {
     return {
         type: 'PRE::savePreInfo',
+        payload,
+    };
+}
+
+// 体检预约 - 添加体检报告 - 保存所选择的信息
+export function saveReportInfo(payload = {}) {
+    return {
+        type: 'PRE::saveReportInfo',
         payload,
     };
 }

@@ -171,13 +171,22 @@ const allobj = {
     },
 
     /**
+     * 解析URLpathname部分，返回pathname最后一节
+     * **/
+    makePathname(str) {
+        if (!str){
+            return '';
+        }
+        const temp = str.split('/');
+        return temp[temp.length - 1];
+    },
+    /**
      * 原生系统，从JS对象获取用户名和密码，然后调用登录接口，获取用户信息
      * **/
     getUserInfoByNative() {
-        if(typeof AndroidDataJs !== 'undefined') {  // 是安卓
-            const mobile = AndroidDataJs.getAppString('mobile');
-            const password = AndroidDataJs.getAppString('password');
-            alert(`Android:${mobile},${password}`);
+        if(typeof AndroidDataJs !== 'undefined') {      // 是安卓
+            const mobile = AndroidDataJs.getAccount();
+            const password = AndroidDataJs.getPassword();
             return { mobile, password};
         }
         return null;
@@ -190,20 +199,6 @@ const allobj = {
         const ua = window.navigator.userAgent.toLowerCase();
         return ua.indexOf('micromessenger') !== -1;
     },
-
-    /**
-     * 判断是否是原生
-     * **/
-    isNative() {
-        const ua = window.navigator.userAgent.toLowerCase();
-        if(ua.indexOf('micromessenger') !== -1) {   // 微信客户端或浏览器
-            return 'weixin';
-        }else if(typeof AndroidDataJs !== 'undefined') {  // 安卓APP
-            return 'android';
-        } else {    // 普通浏览器
-            return 'web';
-        }
-    }
 };
 
 export default allobj;

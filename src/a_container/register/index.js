@@ -341,21 +341,21 @@ class Register extends React.Component {
               </div>
           </div>
         </Modal>
-      <Modal
-          visible={this.state.modalCodeShow}
-          title="验证码"
-          className="all_modal"
-          transparent
-          closable
-          onClose={()=> this.onModalCodeClose()}
-      >
-          <div>
-              <p style={{ padding: "0 15px 15px" }}>{this.state.myVcode}</p>
-              <div className="modal-footer">
-                  <div onClick={() => this.onModalCodeClose()}>确定</div>
-              </div>
-          </div>
-      </Modal>
+      {/*<Modal*/}
+          {/*visible={this.state.modalCodeShow}*/}
+          {/*title="验证码"*/}
+          {/*className="all_modal"*/}
+          {/*transparent*/}
+          {/*closable*/}
+          {/*onClose={()=> this.onModalCodeClose()}*/}
+      {/*>*/}
+          {/*<div>*/}
+              {/*<p style={{ padding: "0 15px 15px" }}>{this.state.myVcode}</p>*/}
+              {/*<div className="modal-footer">*/}
+                  {/*<div onClick={() => this.onModalCodeClose()}>确定</div>*/}
+              {/*</div>*/}
+          {/*</div>*/}
+      {/*</Modal>*/}
       </div>
     );
   }
