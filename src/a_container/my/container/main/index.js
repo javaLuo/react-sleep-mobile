@@ -77,7 +77,6 @@ class HomePageContainer extends React.Component {
 
   render() {
     const u = this.props.userinfo;
-    console.log('U是什么：', u);
     return (
       <div className="my-main">
           {/* 顶部 */}

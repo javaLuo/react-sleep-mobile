@@ -50,7 +50,7 @@ class HomePageContainer extends React.Component {
                 <div className="bar-list">
                     <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard/addreport')}>
                         <div className="title2">体检卡号:</div>
-                        <div className="info2">{this.props.reportInfo}</div>
+                        <div className="info2">{this.props.reportInfo.ticketNo}</div>
                         <div className="arrow2"><img src={ImgCard} /></div>
                         <div className="line"/>
                     </div>

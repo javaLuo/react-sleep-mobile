@@ -36,18 +36,16 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillMount() {
-      // 如果没有选择商品就跳转到商城主页
+      // 如果没有选择商品就跳转到我的订单
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-         // Toast.fail('您没有选择商品');
-          this.props.history.replace('/');
+         this.props.history.replace('/my/order');
       }
   }
 
   componentDidMount() {
-      // 获取所有收费方式 暂时没有收费方式
-      // if (!this.props.allChargeTypes.length) {
-      //     this.getAllChargeTypes();
-      // }
+      // sessionStorage.removeItem('pay-obj');
+      // sessionStorage.removeItem('pay-info');
+      sessionStorage.removeItem('pay-start');
   }
 
     // 获取收费方式
@@ -85,15 +83,16 @@ class HomePageContainer extends React.Component {
       this.props.actions.placeAndOrder(p).then((res) => {
           if (res.status === 200) {
               Toast.hide();
-              // 将返回的订单信息存入sessionStorage
-              sessionStorage.setItem('pay-info', JSON.stringify(res.data));
-              this.props.history.push('/shop/payChose');
+              sessionStorage.setItem('pay-info', JSON.stringify(res.data)); // 将返回的订单信息存入sessionStorage
+              sessionStorage.setItem('pay-obj', JSON.stringify(this.props.orderParams));    // 将当前所选择的商品信息存入session
+              this.props.history.replace('/shop/payChose');
           } else {
               Toast.fail(res.message || '订单创建失败');
           }
       }).catch(() => {
           Toast.fail(res.message || '订单创建失败');
       });
+      return true;
     }
 
   render() {

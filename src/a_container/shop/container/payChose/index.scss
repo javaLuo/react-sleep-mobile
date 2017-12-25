@@ -1,4 +1,4 @@
-.confirm-pay{
+.pay-chose{
   //.am-list-item .am-list-line .am-list-extra{
   //  flex-basis: 50%;
   //}
@@ -12,5 +12,23 @@
     border-top: solid 1px #e0e0e0;
     background-color: #fff;
     z-index: 10;
+  }
+  .am-list-item .am-list-thumb:first-child{
+    margin-right: 0 !important;
+  }
+  .product-list{
+    .am-list-item img{
+      width: auto;
+      height: auto;
+      max-height: 60px;
+      border-radius: 4px;
+    }
+  }
+}
+.pay-modal{
+  .box{
+    a+a{
+      margin-top: 15px;
+    }
   }
 }

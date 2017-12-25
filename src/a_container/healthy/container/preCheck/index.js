@@ -18,8 +18,8 @@ import { DatePicker, Button, Toast, Picker } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgDh from '../../../../assets/daohang@3x.png';
 import ImgRen from '../../../../assets/ren@3x.png';
-import ImgAddr from '../../../../assets/dingwei@3x.png';
-import ImgPhone from '../../../../assets/dizhi@3x.png';
+import ImgAddr from '../../../../assets/dizhi@3x.png';
+import ImgPhone from '../../../../assets/dianhua@3x.png';
 import ImgCard from '../../../../assets/xuanzeka@3x.png';
 
 // ==================
@@ -98,7 +98,7 @@ class HomePageContainer extends React.Component {
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard/precheck')}>
                   <div className="title">体检卡号</div>
-                  <div className="info2">{this.props.preInfo.ticketNo}</div>
+                  <div className="info">{this.props.preInfo.ticketNo}</div>
                   <div className="arrow2" ><img src={ImgCard} /></div>
                   <div className="line"/>
               </div>

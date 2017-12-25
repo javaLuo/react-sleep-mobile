@@ -158,6 +158,12 @@ class HomePageContainer extends React.Component {
           return true;
       }
 
+      const params = { count: this.state.formCount, feeType: this.state.formJifei };
+      const nowProduct = this.state.data;
+      this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
+      this.props.history.push('/shop/confirmpay');
+      return;
+
       // 检查当前用户是否有权限购买当前物品
       this.props.actions.appUserCheckBuy({ productType: String(this.state.data.typeName.code) }).then((res) => {
             if (res.status === 200) { // 有权限

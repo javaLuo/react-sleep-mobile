@@ -15,11 +15,12 @@ import './index.scss';
 // ==================
 import { List, Button } from 'antd-mobile';
 import ImgIcon from '../../../../assets/1@3x.png';
+import ImgFail from '../../../../assets/quxiao@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/shop-action';
+import { mallOrderHraCard, mallOrderQuery } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -29,7 +30,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+        orderData: {},
     };
   }
 
@@ -37,19 +38,45 @@ class HomePageContainer extends React.Component {
 
   }
   componentDidMount() {
-
+      this.getOrderData();
   }
 
   componentWillUnmount() {
 
   }
 
+  /** 获取当前订单最新信息 **/
+  getOrderData(){
+      this.props.actions.mallOrderQuery({ orderId: this.props.payResultInfo.payData.id }).then((res) => {
+          if (res.status === 200) {
+              this.setState({
+                  orderData: res.data,
+              });
+          }
+      });
+  };
+
   render() {
     return (
       <div className="flex-auto page-box page-pay-result">
           <div className="head">
-              <img src={ImgIcon} />
-              <div>购买成功</div>
+
+              {
+                  this.state.orderData.conditions === 4 ? <img src={ImgIcon} /> : <img src={ImgFail} />
+              }
+              <div>{(() => {
+                  switch(String(this.state.orderData.conditions)){
+                      case '0': return '付款失败';
+                      case '1': return '等待受理';
+                      case '2': return '已受理';
+                      case '3': return '处理中';
+                      case '4': return '购买成功';
+                      case '-1': return '审核成功';
+                      case '-2': return '未通过';
+                      case '-3': return '已取消';
+                      default: return '--';
+                  }
+              })()}</div>
           </div>
           <div className="pay-info">
               <div>订单号：{this.props.payResultInfo.payData.id || ''}</div>
@@ -72,7 +99,7 @@ class HomePageContainer extends React.Component {
               {/*</List>*/}
           {/*</div>*/}
           <div className="thefooter">
-              <Button type="primary" onClick={() => this.props.history.replace('/')}>返回首页</Button>
+              <Button type="primary" onClick={() => this.props.history.replace('/my/order')}>返回我的订单</Button>
           </div>
       </div>
     );
@@ -99,6 +126,6 @@ export default connect(
       payResultInfo: state.shop.payResultInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ }, dispatch),
+    actions: bindActionCreators({ mallOrderHraCard, mallOrderQuery }, dispatch),
   })
 )(HomePageContainer);

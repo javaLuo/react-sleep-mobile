@@ -187,10 +187,20 @@ export const mallOrderList = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询一个订单详情
+// 查询一个订单详情 (柳号的接口， orderId,pageNum,pageSize)
 export const mallOrderHraCard = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/order/hraCard', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试');
+    }
+};
+
+// 查询一个订单详情 (张波的接口， orderId)
+export const mallOrderQuery = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/query', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试');

@@ -184,10 +184,14 @@ const allobj = {
      * 原生系统，从JS对象获取用户名和密码，然后调用登录接口，获取用户信息
      * **/
     getUserInfoByNative() {
+        let ios_login_info = sessionStorage.getItem('ios_login_info');
         if(typeof AndroidDataJs !== 'undefined') {      // 是安卓
             const mobile = AndroidDataJs.getAccount();
             const password = AndroidDataJs.getPassword();
             return { mobile, password};
+        } else if (ios_login_info) { // 是IOS
+            ios_login_info = JSON.parse(ios_login_info);
+            return { mobile: ios_login_info.Account, password: ios_login_info.password };
         }
         return null;
     },

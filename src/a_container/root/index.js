@@ -78,7 +78,7 @@ class RootContainer extends React.Component {
 
   componentDidMount() {
       window.theHistory = history;  // 将history存入全局，fetch-api中要用
-      this.getUserInfo();   // 获取用户信息
+      setTimeout(() => this.getUserInfo(), 16);
   }
 
     /**

@@ -20,7 +20,7 @@ import ImgBlue from '../../../../assets/yimaoka_one@3x.png';
 import ImgRed from '../../../../assets/yimaoka_two@3x.png';
 import ImgYellow from '../../../../assets/yimaoka_three@3x.png';
 import ImgBlack from '../../../../assets/yimaoka_four@3x.png';
-
+import ImgDuiGou from '../../../../assets/duigou@3x.png';
 import ImgA1 from '../../../../assets/one_yikatong@3x.png';
 import ImgA2 from '../../../../assets/two_yikatong@3x.png';
 import ImgB1 from '../../../../assets/one_jingshui@3x.png';
@@ -96,6 +96,7 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
+    const u = this.props.userinfo;
     return (
       <div className="page-at-cat">
         <div className="iscroll-box">
@@ -104,29 +105,29 @@ class HomePageContainer extends React.Component {
               <li>
                 <div style={{ backgroundImage: `url(${ImgBlue})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">用户版翼猫卡</div>
-                  <div className="u"><span>e家号：</span>990028</div>
-                  <div className="foot">全国翼猫体验店通用</div>
+                    {[3,4].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>全国翼猫体验店通用</span>{[3,4].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
               <li>
                 <div style={{ backgroundImage: `url(${ImgRed})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">体验版翼猫卡</div>
-                  <div className="u"><span>e家号：</span>990028</div>
-                  <div className="foot">全国翼猫体验店通用</div>
+                    {[0].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>全国翼猫体验店通用</span>{[0].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
               <li>
                 <div style={{ backgroundImage: `url(${ImgYellow})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">微创版黄金卡</div>
-                  <div className="u"><span>e家号：</span>990028</div>
-                  <div className="foot">全国翼猫体验店通用</div>
+                    {[1].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>全国翼猫体验店通用</span>{[1].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
               <li>
                 <div style={{ backgroundImage: `url(${ImgBlack})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">个人版钻石卡</div>
-                  <div className="u"><span>e家号：</span>990028</div>
-                  <div className="foot">全国翼猫体验店通用</div>
+                    {[2].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>全国翼猫体验店通用</span>{[2].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
             </ul>
@@ -163,30 +164,30 @@ class HomePageContainer extends React.Component {
                                             default: return '-';
                                         }
                                     })()}台)</div>
-                                    <div className="i">每台设备每年收益</div>
+                                    {/*<div className="i">每台设备每年收益</div>*/}
                                 </div>
-                                <div className="info2 flex-none">收益：40%</div>
+                                {/*<div className="info2 flex-none">收益：40%</div>*/}
                             </li>
                             <li className="page-flex-row flex-ai-center">
                                 <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgC1 : ImgC2} /></div>
                                 <div className="info-box flex-auto">
                                     <div className="t">健康食品经销权</div>
                                 </div>
-                                <div className="info2 flex-none">收益：30%</div>
+                                {/*<div className="info2 flex-none">收益：30%</div>*/}
                             </li>
                             <li className="page-flex-row flex-ai-center">
                                 <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgD1 : ImgD2} /></div>
                                 <div className="info-box flex-auto">
                                     <div className="t">生物理疗经销权</div>
                                 </div>
-                                <div className="info2 flex-none">收益：30%</div>
+                                {/*<div className="info2 flex-none">收益：30%</div>*/}
                             </li>
                             <li className="page-flex-row flex-ai-center">
                                 <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgE1 : ImgE2} /></div>
                                 <div className="info-box flex-auto">
                                     <div className="t">健康风险评估卡经销权</div>
                                 </div>
-                                <div className="info2 flex-none">收益：30%</div>
+                                {/*<div className="info2 flex-none">收益：30%</div>*/}
                             </li>
                         </ul>
                     );

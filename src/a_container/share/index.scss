@@ -48,7 +48,10 @@
       }
     }
     .t{
-      font-size: .32rem;
+      font-size: .36rem;
+    }
+    .little{
+      color: #aaa;
     }
     &>div{
       font-size: .28rem;
@@ -68,10 +71,10 @@
   .weixin-info{
     padding: .2rem;
     background-color: #fff;
-    color: #222328;
+    color: #5B9EFE;
     .line{
       height: 1px;
-      background-color: #222328;
+      background-color: #5B9EFE;
     }
     .t{
       padding: 0 .2rem;
@@ -86,6 +89,7 @@
       line-height: normal;
       width: 80%;
       margin: .4rem auto .4rem auto;
+      color: #5B9EFE;
       &>div{
         flex: 1;
         line-height: .36rem;
@@ -94,9 +98,22 @@
           line-height: .56rem;
         }
       }
-      img{
-        width: 1.1rem;
-        height: auto;
+      .img-box{
+        width: 1.2rem;
+        height: 1.2rem;
+        margin: 0 auto;
+        position: relative;
+        img{
+          max-width: 1rem;
+          max-height: 1rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+         transform: translate(-50%, -50%);
+        }
+      }
+      .info{
+        margin-top: .1rem;
       }
     }
   }

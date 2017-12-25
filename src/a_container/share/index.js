@@ -17,9 +17,9 @@ import ImgRight from '../../assets/xiangyou2@3x.png';    // 右箭头
 import ImgShare from '../../assets/fenxiang@3x.png';    // 分享箭头
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
-import ImgChaXun from '../../assets/share/chaxun@3x.png';    // 查询图标
-import ImgYuYue from '../../assets/share/yuyue@3x.png';    // 预约图标
-import ImgBaoGao from '../../assets/share/baogao@3x.png';    // 报告图标
+import ImgChaXun from '../../assets/fenxiang_one@3x.png';    // 查询图标
+import ImgYuYue from '../../assets/fenxiang_two@3x.png';    // 预约图标
+import ImgBaoGao from '../../assets/fenxiang_three@3x.png'; // 报告图标
 // ==================
 // 本页面所需action
 // ==================
@@ -86,7 +86,7 @@ class HomePageContainer extends React.Component {
                 <div className="weixin">
                     <div className="t">翼猫健康e家公众号</div>
                     <div className="page-flex-row flex-jc-sb"><img src={this.state.imgCode || ImgQrCode}/><img src={ImgZhiWen} /></div>
-                    <div>长按二维码 “识别” 关注</div>
+                    <div className="little">长按二维码 “识别” 关注</div>
                 </div>
                 <div className="weixin-info">
                     <div className="page-flex-row flex-ai-center">
@@ -96,16 +96,16 @@ class HomePageContainer extends React.Component {
                     </div>
                     <div className="icons-box page-flex-row flex-jc-sb">
                         <div>
-                            <img src={ImgChaXun} />
-                            <div>查询<br/>体检服务中心</div>
+                            <div className="img-box"><img src={ImgChaXun} /></div>
+                            <div className="info">查询<br/>体检服务中心</div>
                         </div>
                         <div>
-                            <img src={ImgYuYue} />
-                            <div>预约体检</div>
+                            <div className="img-box"><img src={ImgYuYue} /></div>
+                            <div className="info">预约体检</div>
                         </div>
                         <div>
-                            <img src={ImgBaoGao} />
-                            <div>查看<br/>体检报告</div>
+                            <div className="img-box"><img src={ImgBaoGao} /></div>
+                            <div className="info">查看<br/>体检报告</div>
                         </div>
                     </div>
                 </div>

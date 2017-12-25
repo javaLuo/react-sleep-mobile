@@ -17,8 +17,8 @@ import tools from '../../../../util/all';
 import { Button } from 'antd-mobile';
 import ImgDh from '../../../../assets/daohang@3x.png';
 import ImgRen from '../../../../assets/ren@3x.png';
-import ImgAddr from '../../../../assets/dianhua@3x.png';
-import ImgPhone from '../../../../assets/dizhi@3x.png';
+import ImgAddr from '../../../../assets/dizhi@3x.png';
+import ImgPhone from '../../../../assets/dianhua@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -67,41 +67,15 @@ class HomePageContainer extends React.Component {
                       <div className="l flex-auto">
                           <div className="title">上海市嘉定区翼猫体验服务中心</div>
                           <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>姓名</span></div>
-                          <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>13600000000</span></div>
+                          <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><a href={`tel:13600000000`}>13600000000</a></div>
                           <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>上海市嘉定区南翔镇众人路399号B座1楼</span></div>
                       </div>
-                      <div className="r flex-none page-flex-col flex-jc-center">
-                          <div className="addr">
-                              <img src={ImgDh} />
-                              <div>导航</div>
-                          </div>
-                      </div>
-                  </div>
-              </li>
-              <li className="one-box">
-                  <div className="pre-box page-flex-row">
-                      <div className="l flex-auto">
-                          <div>体检人：张三</div>
-                          <div>体检卡号：249723950238759025</div>
-                          <div>预约时间：2017-08-09 14:00:00</div>
-                      </div>
-                      <div className="r flex-none">
-                          <a className="look">查看报告</a>
-                      </div>
-                  </div>
-                  <div className="card-box page-flex-row">
-                      <div className="l flex-auto">
-                          <div className="title">上海市嘉定区翼猫体验服务中心</div>
-                          <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>姓名</span></div>
-                          <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>13600000000</span></div>
-                          <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>上海市嘉定区南翔镇众人路399号B座1楼</span></div>
-                      </div>
-                      <div className="r flex-none page-flex-col flex-jc-center">
-                          <div className="addr">
-                              <img src={ImgDh} />
-                              <div>导航</div>
-                          </div>
-                      </div>
+                      {/*<div className="r flex-none page-flex-col flex-jc-center">*/}
+                          {/*<div className="addr">*/}
+                              {/*<img src={ImgDh} />*/}
+                              {/*<div>导航</div>*/}
+                          {/*</div>*/}
+                      {/*</div>*/}
                   </div>
               </li>
           </ul>

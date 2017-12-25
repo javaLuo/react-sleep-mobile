@@ -63,7 +63,13 @@ class HomePageContainer extends React.Component {
       <div className="page-order-detail">
           <div className="card-box">
               <div className="info page-flex-row" onClick={() => this.onGotoProduct(this.props.orderInfo.product.id)}>
-                  <div className="pic flex-none"></div>
+                  <div className="pic flex-none">
+                      {
+                          (this.props.orderInfo.product && this.props.orderInfo.product.productImg) ? (
+                              <img src={this.props.orderInfo.product.productImg.split(',')[0]} />
+                          ) : null
+                      }
+                  </div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
                       <div className="t">{ this.props.orderInfo.product ? this.props.orderInfo.product.name : '' }</div>
                       <div className="i">￥<span>{this.props.orderInfo.fee || ''}</span></div>

@@ -164,25 +164,24 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              {
-                  u && u.openid ? (
-                      <div className="item page-flex-row all_active mt" onClick={() => this.onUnBdingWx()}>
-                          <div className="title">解绑微信</div>
-                          <div className="info"></div>
-                          <div className="arrow"><img src={ImgRight} /></div>
-                          <div className="line"/>
-                      </div>
-                  ) : null
-              }
+              {/*{*/}
+                  {/*u && u.openid ? (*/}
+                      {/*<div className="item page-flex-row all_active mt" onClick={() => this.onUnBdingWx()}>*/}
+                          {/*<div className="title">解绑微信</div>*/}
+                          {/*<div className="info"></div>*/}
+                          {/*<div className="arrow"><img src={ImgRight} /></div>*/}
+                          {/*<div className="line"/>*/}
+                      {/*</div>*/}
+                  {/*) : null*/}
+              {/*}*/}
           </div>
-          {
-              tools.isWeixin() ? (
-                  <div className="thefooter">
-                      <Button type="default" onClick={() => this.onLogOut()}>退出登录</Button>
-                  </div>
-              ) : null
-          }
-
+          {/*{*/}
+              {/*tools.isWeixin() ? (*/}
+                  {/*<div className="thefooter">*/}
+                      {/*<Button type="default" onClick={() => this.onLogOut()}>退出登录</Button>*/}
+                  {/*</div>*/}
+              {/*) : null*/}
+          {/*}*/}
       </div>
     );
   }

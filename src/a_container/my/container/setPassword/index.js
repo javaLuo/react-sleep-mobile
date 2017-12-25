@@ -92,6 +92,10 @@ class Register extends React.Component {
         if (this.state.verifyCode) {
             return;
         }
+        if (!this.props.userinfo) {
+            Toast.fail('请先登录', 1);
+            return;
+        }
         if (!tools.checkPhone(this.props.userinfo.mobile)) {
             Toast.fail('您没有绑定手机号', 1);
             return;
@@ -176,11 +180,11 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div className="flex-auto page-box page-binding" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+            <div className="flex-auto page-box page-setpassword">
                 <div className="login-box">
                     <div className="logo-info">
                         <span className="small">为了帐号安全，需要验证当前手机有效性</span><br/>
-                        <span>当前绑定手机号：{tools.addMosaic(this.props.userinfo.mobile)}</span>
+                        <span>当前绑定手机号：{this.props.userinfo ? tools.addMosaic(this.props.userinfo.mobile) : ''}</span>
                     </div>
                     <div className="input-box">
                         <List className="this-list">

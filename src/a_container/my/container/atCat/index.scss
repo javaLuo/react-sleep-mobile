@@ -16,6 +16,7 @@
           height: 3.2rem;
           padding: .2rem;
           &>div{
+            position:relative;
             width: 100%;
             height: 100%;
             background-size: 100% 100%;
@@ -35,7 +36,15 @@
             }
             .foot{
               font-size: .26rem;
-              opacity: .5;
+              span{
+                opacity: .5;
+              }
+              img{
+                position: absolute;
+                right: .2rem;
+                bottom: .2rem;
+                height: .5rem;
+              }
             }
           }
         }

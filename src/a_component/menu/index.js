@@ -28,8 +28,8 @@ class Menu extends React.Component {
     setChecked(location) {
         const p = location.pathname.split('/');
         const path = p[1];
-        console.log('当前PATH：', path);
-        document.title = (path && urls[path]) ? urls[path].name : '翼猫科技';
+        console.log('当前PATH：', path, p);
+
         this.setState({
             pathNow: path,
             show: ['home', 'intel', 'healthy', 'my'].indexOf(path) >= 0 && p.length<=2,  // 只有主页几个页面需要显示底部菜单
@@ -45,12 +45,6 @@ class Menu extends React.Component {
                         <div className="title">首页</div>
                     </Link>
                 </div>
-                {/*<div className={this.state.pathNow === 'intel' ? "menu-item check" : 'menu-item'}>*/}
-                    {/*<Link to="/intel">*/}
-                        {/*<div className="menu-icon icon2" />*/}
-                        {/*<div className="title">智能物联</div>*/}
-                    {/*</Link>*/}
-                {/*</div>*/}
                 <div className={this.state.pathNow === 'healthy' ? "menu-item check" : 'menu-item'}>
                     <Link to="/healthy">
                         <div className="menu-icon icon3" />

@@ -61,6 +61,7 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     data: res.data ? res.data.result : [],
                 });
+                console.log('我的体检卡：', res.data.result);
             }
       });
   }
@@ -228,6 +229,20 @@ class HomePageContainer extends React.Component {
         setTimeout(() => this.props.history.push('/healthy/cardvoucher'), 16);
     }
 
+    // 工具 - 计算使用了多少张体检券
+    useNum(list) {
+      let num = 0;
+      if (!list) {
+          return num;
+      }
+      list.forEach((item) => {
+          if (item.ticketStatus !== 1) {
+              num++;
+          }
+      });
+      return num;
+    }
+
   render() {
     return (
       <div className="page-mycard">
@@ -244,8 +259,8 @@ class HomePageContainer extends React.Component {
                           </div>
                           <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                               <div>
-                                  <div className="t">共5张<span>已使用0张</span></div>
-                                  <div className="i">有效期：2020-01-01</div>
+                                  <div className="t">共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
+                                  <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
                               </div>
                               <div className="flex-none share-btn" onClick={(e) => this.onStartShare(item, e)}><img src={ImgFenXiang} /></div>
                           </div>

@@ -35,6 +35,9 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      sessionStorage.removeItem('pay-obj');
+      sessionStorage.removeItem('pay-info');
+      sessionStorage.removeItem('pay-start');
     this.getData();
   }
 
@@ -45,6 +48,7 @@ class HomePageContainer extends React.Component {
               this.setState({
                   data: res.data.result,
               });
+              console.log('订单信息：', res.data.result);
           }
       });
   }
@@ -91,6 +95,7 @@ class HomePageContainer extends React.Component {
     // 待付款的订单点击付款
     onPay(obj) {
       sessionStorage.setItem('pay-info', JSON.stringify(obj));
+      sessionStorage.setItem('pay-obj', JSON.stringify(obj.product));
       this.props.history.push('/shop/payChose');
     }
 
@@ -182,7 +187,7 @@ class HomePageContainer extends React.Component {
                                       <div className="controls page-flex-row flex-jc-end">
                                           {(() => {
                                               switch(String(item.conditions)){
-                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue">付款</a>];
+                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
@@ -227,7 +232,7 @@ class HomePageContainer extends React.Component {
                                       <div className="controls page-flex-row flex-jc-end">
                                           {(() => {
                                               switch(String(item.conditions)){
-                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue">付款</a>];
+                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;

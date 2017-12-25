@@ -16,6 +16,8 @@ import './index.scss';
 // ==================
 import tools from '../../../../util/all';
 import { Button, List, Radio, Toast, Modal } from 'antd-mobile';
+import ImgWeiXin from '../../../../assets/weixin@3x.png';
+import ImgZhiFuBao from '../../../../assets/zhifubao@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -26,15 +28,17 @@ import { getAllPayTypes, wxPay, wxInit, payResultNeed } from '../../../../a_acti
 // Definition
 // ==================
 const Item = List.Item;
+const Brief = Item.Brief;
 const RadioItem = Radio.RadioItem;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        payTypes: [],        // 所有的支付方式
-        payType: 'wxpay',    // 支付方式
+        payType: 'wxpay',    // 支付方式 wxpay微信支付（公众号或H5）、alipay支付宝网页支付
         wxReady: true,      // 默认微信JS-SDK是OK的，因为无论对错，wx.ready都会被触发
         pay_info: {},       // 订单信息
+        pay_obj: {},        // 商品信息
+        modalShow: false,   // 是否显示操作提示框
     };
     this.s3data = null;      // 统一下单请求返回的数据
   }
@@ -42,36 +46,23 @@ class HomePageContainer extends React.Component {
   componentWillMount() {
       if (!this.getPayInfo()){
           Toast.fail('未获取到订单信息!');
-          this.props.history.go(-1);
+          //this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
       }
-      console.log('HISOTORY:', window.history);
-      // if (location.href.indexOf('?') < 0) {
-      //     location.href = location.href.replace('#', '?#');
-      // }
+      this.getObjInfo();
   }
+
   componentDidMount() {
-
-      // 如果没有获取过支付方式，就重新获取
-      // console.log('回跳地址是什么；', Config.redirect_uri);
-      // if (!this.props.allPayTypes.length) {
-      //     this.getAllPayTypes();
-      // }
+      const pageStart = sessionStorage.getItem('pay-start');
+      if (pageStart) {  // 支付回跳标识，说明是支付宝或微信H5支付流程回跳到此页面
+          this.setState({
+              modalShow: true,
+          });
+      }
   }
 
-   componentWillUnmount() {
-      // sessionStorage.removeItem('wx_code');
-  }
+  componentWillUnmount() {
 
-    // 获取所有的支付方式
-    // getAllPayTypes() {
-    //   this.props.actions.getAllPayTypes().then((res) => {
-    //       if (res.status === 200) {
-    //           this.setState({
-    //               payTypes: res.data.result[0],
-    //           });
-    //       }
-    //   });
-    // }
+  }
 
     // 选择支付方式时触发
     onChange(type) {
@@ -86,7 +77,6 @@ class HomePageContainer extends React.Component {
      * 2.由我的订单页面，点击付款，将订单数据保存到sessionStorage而来
      * **/
     getPayInfo() {
-        // 获取订单信息
         let pay = sessionStorage.getItem('pay-info');
         if (!pay) {
             Toast.fail('未获取到订单信息');
@@ -98,6 +88,23 @@ class HomePageContainer extends React.Component {
             });
             console.log('当前订单信息：', pay);
             return pay;
+        }
+    }
+
+    /**
+     * 工具 - 获取商品信息
+     * **/
+    getObjInfo() {
+        let obj = sessionStorage.getItem('pay-obj');
+        if (!obj) {
+            return false;
+        } else {
+            obj = JSON.parse(obj);
+            this.setState({
+                pay_obj: obj,
+            });
+            console.log('当前商品信息：', obj);
+            return obj;
         }
     }
 
@@ -207,6 +214,7 @@ class HomePageContainer extends React.Component {
      * 3.用户在中间页进行操作支付，微信会返回给后台最终结果
      * **/
     wxH5Pay() {
+        sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
         this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
             body: 'yimaokeji-card',                                 // 商品描述
             total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
@@ -215,7 +223,7 @@ class HomePageContainer extends React.Component {
             code: null,                                             // 授权code, 后台为了拿openid
             trade_type: 'MWEB',
         }).then((res) => {
-            /**
+            /**                                                                                                                                                                                                                                                                                          /
              * 返回的数据中，应该有一个mweb_url，跳转至此地址，需要设置回跳地址，保存个参数表示是H5回跳的
              * **/
             console.log('H5支付统一下单返回值：', res);
@@ -272,7 +280,8 @@ class HomePageContainer extends React.Component {
              * 1.正常选择商品直接付款，程序收集了商品相关信息，订单信息不带商品信息
              * 2.从我的订单跳转付款，程序没有商品相关信息，订单信息中带有商品信息
              * **/
-            location.replace(`http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`);
+            sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
+            location.assign(`http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`);
         }
     }
 
@@ -281,7 +290,6 @@ class HomePageContainer extends React.Component {
      * 支付结果处理
      * **/
     payResult(msg) {
-        console.log('那运行这里啊===', msg);
         if (!msg) {
             Toast.fail('支付失败, 请重试');
             this.returnPage();
@@ -303,8 +311,9 @@ class HomePageContainer extends React.Component {
      * 支付失败或出错时，自动离开此页
      * **/
     returnPage() {
-        sessionStorage.removeItem('wx_code');
+        sessionStorage.removeItem('pay-obj');
         sessionStorage.removeItem('pay-info');
+        sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
         this.props.history.replace('/my/order');
     }
 
@@ -312,24 +321,51 @@ class HomePageContainer extends React.Component {
      * 支付成功时，跳转到成功页
      * **/
     successReturn() {
-        sessionStorage.removeItem('wx_code');
+        sessionStorage.removeItem('pay-obj');
         sessionStorage.removeItem('pay-info');
+        sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
+        /**
+         * 支付流程完成，跳转到结果页
+         * 参数1：成功后生成的卡片信息，现在由后台生成，获取不到
+         * 参数2：当前的订单信息
+         * **/
         this.props.actions.payResultNeed({}, this.state.pay_info);
         setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
     }
 
   render() {
+        console.log('pay_obj是什么：', this.state.pay_obj);
     return (
-      <div className="flex-auto page-box confirm-pay">
-          <List>
-              <RadioItem key="wxpay" checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>
+      <div className="flex-auto page-box pay-chose">
+          <List className="product-list">
+              <Item
+                  thumb={(this.state.pay_obj.nowProduct && this.state.pay_obj.nowProduct.productImg) ? <img src={this.state.pay_obj.nowProduct.productImg.split(',')[0]} /> : null}
+                  multipleLine
+              >
+                  {this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.name : '--'}<Brief>数量：{this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.buyCount : '--'}</Brief>
+              </Item>
+          </List>
+          <List style={{ marginTop: '.2rem' }}>
+              <RadioItem key="wxpay" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>
               {
-                  tools.isWeixin() ? null : <RadioItem key="alipay" checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>
+                  tools.isWeixin() ? null : <RadioItem key="alipay" thumb={<img  src={ImgZhiFuBao} />} checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>
               }
           </List>
           <div className="thefooter page-flex-row">
               <div className="flex-none" style={{ textAlign: 'center', width: '100%' }} onClick={() => this.onSubmit()}>确认支付 ￥{this.state.pay_info.fee}</div>
           </div>
+          <Modal
+              visible={this.state.modalShow}
+              transparent
+              className="pay-modal"
+              maskClosable={false}
+              title="支付结果"
+          >
+              <div className="box">
+                  <Button type="primary" onClick={() => this.successReturn()}>已完成支付</Button>
+                  <Button type="warning" onClick={() => this.returnPage()}>支付遇到问题</Button>
+              </div>
+          </Modal>
       </div>
     );
   }

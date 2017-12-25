@@ -43,7 +43,7 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
-      const user = sessionStorage.getItem('userinfo');
+      const u = this.props.userinfo;
     return (
       <div className="flex-auto page-box apphome-page">
           {/* 产品列表 */}
@@ -77,8 +77,8 @@ class HomePageContainer extends React.Component {
             })
           }
         <List>
-          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(user ? '/my/order' : '/login')}>我的订单</Item>
-          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(user ? '/healthy/mycard' : '/login')}>我的体检卡</Item>
+          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>我的订单</Item>
+          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(u ? '/healthy/mycard' : '/login')}>我的体检卡</Item>
           <Item arrow="horizontal" multipleLine extra={'翼猫健康e家'} onClick={() => this.props.history.push('/wxshare')}>微信公众号</Item>
         </List>
       </div>
@@ -95,6 +95,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   allProducts: P.array, // 所有的产品
+    userinfo: P.any,
 };
 
 // ==================
@@ -104,6 +105,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       allProducts: state.shop.allProducts,  // 所有的产品  数组
+      userinfo: state.app.userinfo, // 用户信息
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ getProDuctList }, dispatch),
