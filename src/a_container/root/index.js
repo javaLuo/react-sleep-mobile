@@ -18,6 +18,8 @@ import lazeNotFound from 'bundle-loader?lazy&name=notfound!../notfound';
 import lazeLogin from 'bundle-loader?lazy&name=login!../login';
 import lazeRegister from 'bundle-loader?lazy&name=register!../register';
 import lazeShare from 'bundle-loader?lazy&name=share!../share';
+import lazeShareTicketList from 'bundle-loader?lazy&name=shareticketlist!../share/shareTicketList';
+import lazeShareTicket from 'bundle-loader?lazy&name=shareticket!../share/shareTicket';
 import lazeWxShare from 'bundle-loader?lazy&name=wxshare!../share/wxShare';
 import lazeDaiYanShare from 'bundle-loader?lazy&name=daiyanshare!../share/daiyanShare';
 import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
@@ -32,11 +34,11 @@ const AppHome = (props) => (<Bundle load={lazeAppHome}>{(AppHome) => <AppHome {.
 const Healthy = (props) => (<Bundle load={lazeHealthy}>{(Healthy) => <Healthy {...props} />}</Bundle>);         // 健康管理模块
 const My = (props) => (<Bundle load={lazeMy}>{(My) => <My {...props} />}</Bundle>);                             // 我的e家模块
 const Login = (props) => (<Bundle load={lazeLogin}>{(Login) => <Login {...props} />}</Bundle>);                 // 登录页
-// const News = (props) => (<Bundle load={lazeNews}>{(News) => <News {...props} />}</Bundle>);                  // 最新资讯（暂时没用）
-// const DownLine = (props) => (<Bundle load={lazeDownLine}>{(DownLine) => <DownLine {...props} />}</Bundle>);  // 线下体验店（暂时没用）
 const Register = (props) => (<Bundle load={lazeRegister}>{(Register) => <Register {...props} />}</Bundle>);     // 注册页
 const Forgot = (props) => (<Bundle load={lazeForgot}>{(Forgot) => <Forgot {...props} />}</Bundle>);            // 忘记密码页
 const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props} />}</Bundle>);                 // 分享出去展现的页面
+const ShareTicketList = (props) => (<Bundle load={lazeShareTicketList}>{(ShareTicketList) => <ShareTicketList {...props} />}</Bundle>);    // 卡片分享点击进入查看5张体检券
+const ShareTicket = (props) => (<Bundle load={lazeShareTicket}>{(ShareTicket) => <ShareTicket {...props} />}</Bundle>);    // 体检券直接分享
 const WxShare = (props) => (<Bundle load={lazeWxShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);         // 分享出去展现的页面
 const DaiYanShare = (props) => (<Bundle load={lazeDaiYanShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);         // 分享出去展现的页面
 const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
@@ -173,6 +175,8 @@ class RootContainer extends React.Component {
                   <Route path="/jump" render={(props) => this.onEnter(Jump, props)} />
                   <Route path="/shop" render={(props) => this.onEnter(Shop, props)} />
                   <Route path="/share/:id" render={(props) => this.onEnter(Share, props)} />
+                  <Route path="/shareticketlist/:id" render={(props) => this.onEnter(ShareTicketList, props)} />
+                  <Route path="/shareticket/:id" render={(props) => this.onEnter(ShareTicket, props)} />
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route path="/daiyanshare/:id" render={(props) => this.onEnter(DaiYanShare, props)} />

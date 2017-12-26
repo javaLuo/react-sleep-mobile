@@ -18,7 +18,7 @@
     "url": "git+https://github.com/javaLuo/react-luo.git"
   },
   "dependencies": {
-    "antd": "^3.0.2",
+    "antd": "^3.0.3",
     "antd-mobile": "^2.1.2",
     "babel-polyfill": "^6.26.0",
     "bundle-loader": "^0.5.5",
@@ -27,7 +27,7 @@
     "fastclick": "^1.0.6",
     "history": "^4.7.2",
     "iscroll": "^5.2.0",
-    "iscroll-luo": "^1.0.15",
+    "iscroll-luo": "^1.0.17",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.3",
+    "babel-eslint": "^8.1.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.6.3",
     "babel-plugin-transform-decorators": "^6.24.1",
@@ -56,7 +56,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "css-loader": "^0.28.7",
-    "eslint": "^4.13.1",
+    "eslint": "^4.14.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^7.5.1",
     "express": "^4.16.2",
@@ -73,7 +73,7 @@
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^2.0.2",
+    "webpack-dev-middleware": "^2.0.3",
     "webpack-hot-middleware": "^2.21.0"
   }
 }

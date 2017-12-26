@@ -95,7 +95,8 @@ class HomePageContainer extends React.Component {
     // 待付款的订单点击付款
     onPay(obj) {
       sessionStorage.setItem('pay-info', JSON.stringify(obj));
-      sessionStorage.setItem('pay-obj', JSON.stringify(obj.product));
+      console.log('代入的obj', obj.product);
+      sessionStorage.setItem('pay-obj', JSON.stringify({ nowProduct: obj.product}));
       this.props.history.push('/shop/payChose');
     }
 

@@ -45,8 +45,7 @@ class HomePageContainer extends React.Component {
 
   componentWillMount() {
       if (!this.getPayInfo()){
-          Toast.fail('未获取到订单信息!');
-          //this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
+          this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
       }
       this.getObjInfo();
   }
@@ -227,6 +226,9 @@ class HomePageContainer extends React.Component {
              * 返回的数据中，应该有一个mweb_url，跳转至此地址，需要设置回跳地址，保存个参数表示是H5回跳的
              * **/
             console.log('H5支付统一下单返回值：', res);
+            if (res.status === 200) {
+                location.assign(`${res.data}&redirect_url=${encodeURIComponent(Config.baseURL + '/gzh/#/my/order')}`);
+            }
         }).catch(() => {
             Toast.fail('支付失败，请重试');
         });
@@ -342,7 +344,7 @@ class HomePageContainer extends React.Component {
                   thumb={(this.state.pay_obj.nowProduct && this.state.pay_obj.nowProduct.productImg) ? <img src={this.state.pay_obj.nowProduct.productImg.split(',')[0]} /> : null}
                   multipleLine
               >
-                  {this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.name : '--'}<Brief>数量：{this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.buyCount : '--'}</Brief>
+                  {this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.name : '--'}<Brief>数量：{this.state.pay_obj.nowProduct ? this.state.pay_info.count : '--'}</Brief>
               </Item>
           </List>
           <List style={{ marginTop: '.2rem' }}>

@@ -14,7 +14,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Toast, List } from 'antd-mobile';
+import { Toast, List, Button } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
@@ -58,6 +58,19 @@ class HomePageContainer extends React.Component {
       this.props.history.push(`/shop/gooddetail/${id}`);
   }
 
+    // 待付款的订单点击付款
+    onPay() {
+        const obj = this.props.orderInfo;
+        if (!obj) {
+            Toast.fail('获取订单信息失败');
+            return true;
+        }
+        sessionStorage.setItem('pay-info', JSON.stringify(obj));
+        console.log('代入的obj', obj.product);
+        sessionStorage.setItem('pay-obj', JSON.stringify({ nowProduct: obj.product}));
+        this.props.history.push('/shop/payChose');
+    }
+
   render() {
     return (
       <div className="page-order-detail">
@@ -87,12 +100,20 @@ class HomePageContainer extends React.Component {
           <div className="order-info">
               <div>订单号：{this.props.orderInfo.id || ''}</div>
               <div>下单时间：{this.props.orderInfo.createTime || ''}</div>
+              {this.props.orderInfo.conditions === 4 ? <div>付款时间：{this.props.orderInfo.payTime || '--'}</div> : null}
               <div>数量：{this.props.orderInfo.count || ''}</div>
               <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
           </div>
           <List>
               <Item arrow="horizontal" onClick={() => this.props.history.push('/my/useofknow')}>常见问题</Item>
           </List>
+          {
+              this.props.orderInfo.conditions === 0 ? (
+                  <div className="thefooter">
+                      <Button type="default" onClick={() => this.onPay()}>立即支付</Button>
+                  </div>
+              ) : null
+          }
       </div>
     );
   }

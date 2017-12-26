@@ -1,6 +1,5 @@
-.page-mycard{
-  height: 100vh;
-  .the-ul{
+.page-shareticketlist{
+  &>ul{
     padding: .2rem;
     box-sizing: border-box;
     &>li+li {
@@ -9,7 +8,7 @@
     .cardbox{
       padding: .2rem;
       box-sizing: border-box;
-      background-image: url(../../../../assets/kapian@3x.png);
+      background-image: url(../../assets/kapian@3x.png);
       background-size: 100% 100%;
       border-radius: 8px;
       width: 7.1rem;
@@ -43,10 +42,6 @@
       }
       .share-btn{
         position: relative;
-        padding: .2rem 0 0 .3rem;
-        &.check{
-          color: #40a9ff;
-        }
         img{
           width: .3rem;
           bottom: 0;
@@ -80,16 +75,6 @@
       color: #fff;
       font-size: .32rem;
       transform: translate(-50%, -50%);
-    }
-  }
-  .nodata{
-    text-align: center;
-    font-size: .34rem;
-    line-height: .6rem;
-    padding: .2rem;
-    color: #888;
-    a{
-      color: #4285f4;
     }
   }
 }

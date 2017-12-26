@@ -1,4 +1,4 @@
-/* 分享页 */
+/* 分享页 - 体检券的分享页 */
 
 // ==================
 // 所需的各种插件
@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import './index.scss';
+import './shareTicket.scss';
 // ==================
 // 所需的所有组件
 // ==================
@@ -43,15 +43,14 @@ class HomePageContainer extends React.Component {
     }
 
     getData() {
-        const p = this.props.location.pathname.split('_');
-
+        const path = this.props.location.pathname.split('/');
+        let p = path[path.length - 1].split('_');
         this.setState({
             data: {
                 userId: p[0],
-                num: p[1],
-                used: p[2],
-                date: p[3],
-                list: p[4],
+                no: p[1],
+                date: p[2],
+                used: p[3],
             }
         });
 
@@ -64,27 +63,24 @@ class HomePageContainer extends React.Component {
         });
     }
 
-    // 进入体检券页查看体检券
-    onSeeMore() {
-        this.props.history.push(`/shareticketlist/${this.state.data.date}_${this.state.data.list}`);
-    }
 
     render() {
+        const d = this.state.data;
         return (
-            <div className="flex-auto page-box page-share">
+            <div className="flex-auto page-box page-share-ticket">
                 <div style={{ padding: '.2rem' }}>
-                    <div className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onSeeMore()}>
+                    <div className="cardbox page-flex-col flex-jc-sb" >
                         <div className="row1 flex-none page-flex-row flex-jc-sb">
                             <div>
                                 <div className="t">健康风险评估卡</div>
-                                <div className="i">专注疾病早起筛查</div>
+                                <div className="i">体检券</div>
                             </div>
-                            <div className="flex-none"><img src={ImgRight} /></div>
+                            <div className="flex-none">{String(d.used) === '1' ? '未使用' : '已使用'}</div>
                         </div>
                         <div className="row2 flex-none">
                             <div>
-                                <div className="t">共{this.state.data.num || "--" }张<span>已使用{this.state.data.used || 0}张</span></div>
-                                <div className="i">有效期：{this.state.data.date}</div>
+                                <div className="t">卡号<span>{d.no}</span></div>
+                                <div className="i">有效期：{d.date}</div>
                             </div>
                         </div>
                     </div>

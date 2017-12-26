@@ -38,6 +38,9 @@ class HomePageContainer extends React.Component {
 
   }
   componentDidMount() {
+      sessionStorage.removeItem('pay-obj');
+      sessionStorage.removeItem('pay-info');
+      sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
       this.getOrderData();
   }
 
@@ -81,7 +84,7 @@ class HomePageContainer extends React.Component {
           <div className="pay-info">
               <div>订单号：{this.props.payResultInfo.payData.id || ''}</div>
               <div>下单时间：{this.props.payResultInfo.payData.createTime || ''}</div>
-              {/*<div>付款时间：</div>*/}
+              <div>付款时间：{this.state.orderData.payTime || ''}</div>
               <div>数量：{this.props.payResultInfo.payData.count}</div>
               <div>实付款：{this.props.payResultInfo.payData.fee ? `￥ ${this.props.payResultInfo.payData.fee}` : ''}</div>
           </div>

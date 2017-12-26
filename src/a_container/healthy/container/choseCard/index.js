@@ -74,7 +74,7 @@ class HomePageContainer extends React.Component {
                     {(() => {
                         let map = [];
                         if(!this.state.data) {
-                            map.push(<li key={0} className="nodata">正在加载您的体检卡…</li>);
+                            map.push(<li key={0} className="nodata">正在加载...</li>);
                         } else if (this.state.data.length <= 0) {
                             map.push(<li key={0} className="nodata">您没有体检卡<br/><Link to="/">前往购买</Link></li>);
                         } else {

@@ -42,6 +42,9 @@
       }
       .share-btn{
         position: relative;
+        &.check{
+          color: #40a9ff;
+        }
         img{
           width: .3rem;
           bottom: 0;

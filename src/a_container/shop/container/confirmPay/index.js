@@ -74,7 +74,7 @@ class HomePageContainer extends React.Component {
           orderCode: this.props.orderParams.nowProduct.typeCode,
           orderFrom: tools.isWeixin() ? 2 : 3,
           openAccountFee: 0,
-          fee: this.props.orderParams.nowProduct.price * this.state.formCount
+          fee: this.props.orderParams.nowProduct.typeModel.price * this.state.formCount
       };
       this.props.actions.shopStartPayOrder(params);
 
@@ -111,7 +111,7 @@ class HomePageContainer extends React.Component {
               <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
           </List>
           <div className="thefooter page-flex-row">
-              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(nowData.price * this.state.formCount).toFixed(2)}</div>
+              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(nowData.typeModel.price * this.state.formCount).toFixed(2)}</div>
               <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>确认支付</div>
           </div>
       </div>

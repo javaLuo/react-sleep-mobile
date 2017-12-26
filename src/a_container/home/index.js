@@ -95,7 +95,7 @@ class HomePageContainer extends React.Component {
                                         <div className="all_nowarp2" />
                                       </div>
                                       <div className="k page-flex-row flex-jc-end flex-none">
-                                        <span>￥ <i>{item.price || '0'}</i></span>
+                                        <span>￥ <i>{item.typeModel.price || '0'}</i></span>
                                       </div>
                                     </div>
                                   </Link>

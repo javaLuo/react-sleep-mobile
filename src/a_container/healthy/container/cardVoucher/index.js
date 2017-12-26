@@ -106,21 +106,11 @@ class HomePageContainer extends React.Component {
                 'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
                 'onMenuShareQQ',             // 分享到QQ
-                'shareTimeline'
             ]
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
 
-            // wx.onMenuShareQQ({
-            //     title: '健康风险评估卡',
-            //     desc: '健康风险评估卡',
-            //     link: 'http://hdr.yimaokeji.com/gzh/#/share/1',
-            //     imgUrl: '#',
-            //     success: () => {
-            //         Toast.info('分享成功');
-            //     }
-            // });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);
@@ -129,15 +119,18 @@ class HomePageContainer extends React.Component {
     }
 
     // 点击分享按钮，需判断是否是原生系统
-    onStartShare(obj) {
-      if(typeof AndroidDataJs !== 'undefined') {    // 安卓系统
-          this.onShare(obj);
-      } else { // H5就显示引导框
+    onStartShare(obj, index) {
+      /**
+       * 拼凑所需数据
+       * userID_体检券号_有效期_是否已使用
+       * **/
+        const str = `${this.props.userinfo.id}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}_${obj.ticketStatus}`;
+      if(tools.isWeixin()) { // 是微信系统才能分享
           wx.onMenuShareAppMessage({
-              title: '健康风险评估卡',
-              desc: obj.productModel.modelDetail || '专注疾病早起筛查',
-              link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
-              imgUrl: '#',
+              title: 'HRA健康风险评估卡',
+              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+              link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
+              imgUrl: 'http://isluo.com/work/logo/share_card.png',
               type: 'link',
               success: () => {
                   Toast.info('分享成功');
@@ -145,10 +138,10 @@ class HomePageContainer extends React.Component {
           });
 
           wx.onMenuShareTimeline({
-              title: '健康风险评估卡',
-              desc: obj.productModel.modelDetail || '专注疾病早起筛查',
-              link: `${Config.baseURL}/gzh/#/share/${obj.id}`,
-              imgUrl: '#',
+              title: 'HRA健康风险评估卡',
+              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+              link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
+              imgUrl: 'http://isluo.com/work/logo/share_card.png',
               success: () => {
                   Toast.info('分享成功');
               }
@@ -156,58 +149,9 @@ class HomePageContainer extends React.Component {
 
           this.setState({
               shareShow: true,
+              which: index,
           });
       }
-    }
-
-  // 分享框出现
-    onShare(obj) {
-        ActionSheet.showShareActionSheetWithOptions({
-            options: [
-                { icon: <img src={ImgShare1} style={{ width: 36 }}/>, title: '微信好友' },
-                { icon: <img src={ImgShare2} style={{ width: 36 }}/>, title: '朋友圈' }
-            ],
-            // title: 'title',
-            maskClosable: true,
-            message: '分享到：',
-        },
-        (index) => {
-            console.log("选的那一个", index);
-            if(index === 0) {   // 分享到微信
-                this.shareToFritend(obj);
-            } else if(index === 1) {    // 分享到朋友圈
-                this.shareToTimeLine(obj);
-            }
-            return false;
-        });
-    }
-
-    // 分享给好友
-    shareToFritend(obj) {
-      if(typeof AndroidDataJs !== 'undefined') {
-          const params = [
-              `${Config.baseURL}/gzh/#/share/${obj.id}`,
-              '健康风险评估卡',
-              obj.productModel.modelDetail || '专注疾病早起筛查',
-              '#',
-              true,
-          ];
-          AndroidDataJs.shareToWeChat(...params);
-      }
-    }
-
-    // 分享到朋友圈
-    shareToTimeLine(obj) {
-        if(typeof AndroidDataJs !== 'undefined') {
-            const params = [
-                `${Config.baseURL}/gzh/#/share/${obj.id}`,
-                '健康风险评估卡',
-                obj.productModel.modelDetail || '专注疾病早起筛查',
-                '#',
-                false,
-            ];
-            AndroidDataJs.shareToWeChat(...params);
-        }
     }
 
   render() {
@@ -223,14 +167,14 @@ class HomePageContainer extends React.Component {
                                   <div className="t">健康风险评估卡</div>
                                   <div className="i">体检券</div>
                               </div>
-                              <div className="flex-none"><img src={ImgRight} /></div>
+                              <div className="flex-none">{String(item.ticketStatus) === '1' ? '未使用' : '已使用'}</div>
                           </div>
-                          <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                          <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
                               <div>
                                   <div className="t">卡号<span>{item.ticketNo}</span></div>
-                                  <div className="i">有效期：{item.validEndTime}</div>
+                                  <div className="i">有效期：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
                               </div>
-                              <div className="flex-none share-btn" onClick={() => this.onStartShare(this.props.cardInfo)}><img src={ImgFenXiang} /></div>
+                              <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>分享</div>
                           </div>
                       </li>;
                   })
@@ -254,6 +198,7 @@ HomePageContainer.propTypes = {
   history: P.any,
     actions: P.any,
     cardInfo: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -263,6 +208,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       cardInfo: state.shop.cardInfo,
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ mallCardList, wxInit }, dispatch),
