@@ -131,10 +131,10 @@ class HomePageContainer extends React.Component {
     // 保存
     savePreInfo() {
       if (!this.state.formName) {
-          Toast.fail('请输入体检人姓名');
+          Toast.fail('请输入体检人姓名',1);
           return;
       } else if (!tools.checkPhone(this.state.formPhone)) {
-          Toast.fail('请输入正确的手机号');
+          Toast.fail('请输入正确的手机号',1);
           return;
       }
       this.props.actions.savePreInfo({

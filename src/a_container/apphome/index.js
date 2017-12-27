@@ -14,6 +14,9 @@ import './index.scss';
 // ==================
 import {  List } from 'antd-mobile';
 import imgDefalut from '../../assets/logo-img.png';
+import ImgDingDan from './assets/dingdan@3x.png';
+import ImgTiJianKa from './assets/tijianka@3x.png';
+import ImgWeiXin from './assets/weixin@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -63,7 +66,7 @@ class HomePageContainer extends React.Component {
                                         <div className="all_nowarp2" />
                                       </div>
                                       <div className="k page-flex-row flex-jc-sb flex-none">
-                                        <span>￥ <i>{item.price}</i></span>
+                                        <span>￥ <i>{item.typeModel.price}</i></span>
                                         <span className="btn">立即购买</span>
                                       </div>
                                     </div>
@@ -76,10 +79,10 @@ class HomePageContainer extends React.Component {
               );
             })
           }
-        <List>
-          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>我的订单</Item>
-          <Item arrow="horizontal" multipleLine onClick={() => this.props.history.push(u ? '/healthy/mycard' : '/login')}>我的体检卡</Item>
-          <Item arrow="horizontal" multipleLine extra={'翼猫健康e家'} onClick={() => this.props.history.push('/wxshare')}>微信公众号</Item>
+        <List className="no-padding-left">
+          <Item arrow="horizontal" thumb={<img src={ImgDingDan} />} multipleLine onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>我的订单</Item>
+          <Item arrow="horizontal" thumb={<img src={ImgTiJianKa} />} multipleLine onClick={() => this.props.history.push(u ? '/healthy/mycard' : '/login')}>我的体检卡</Item>
+          <Item arrow="horizontal" thumb={<img src={ImgWeiXin} />} multipleLine extra={'翼猫健康e家'} onClick={() => this.props.history.push('/wxshare')}>微信公众号</Item>
         </List>
       </div>
     );

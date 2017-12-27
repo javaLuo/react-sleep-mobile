@@ -66,9 +66,9 @@ class Login extends React.Component {
     const reg = /^[1][3578][0-9]{9}$/g; // 正确的手机号码
 
     if (!this.state.username || !reg.test(this.state.username)) {
-      Toast.info('请输入正确的手机号', 1.2);
+      Toast.info('请输入正确的手机号', 1);
     } else if(!this.state.password || this.state.password.length < 6) {
-      Toast.info('请输入6位以上密码', 1.2);
+      Toast.info('请输入6位以上密码', 1);
     }
 
     const params = {

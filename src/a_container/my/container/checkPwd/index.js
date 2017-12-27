@@ -54,7 +54,7 @@ class Register extends React.Component {
     onSubmit() {
         const u = this.props.userinfo;
         if(!u || !u.mobile) {
-            Toast.fail('您没有绑定手机号');
+            Toast.fail('您没有绑定手机号',1);
             return;
         }
         if(!this.state.password1.length){

@@ -115,7 +115,7 @@ export default class ApiService {
                 if(res.status === 401){
                     sessionStorage.clear();
                     //window.theHistory.push('/login');
-                    Toast.info(res.message, 1);
+                    Toast.info(res.message, 0.8);
                 }
                 return res;
             });
@@ -139,7 +139,7 @@ export default class ApiService {
                 if(res.status === 401){
                     sessionStorage.clear();
                     //window.theHistory.replace('/login');
-                    Toast.info(res.message);
+                    Toast.info(res.message,0.8);
                 }
                 return res;
             });

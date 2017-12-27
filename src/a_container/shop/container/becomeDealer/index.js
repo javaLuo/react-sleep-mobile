@@ -78,16 +78,16 @@ class HomePageContainer extends React.Component {
   // 下一步
   onSubmit() {
       if (!this.state.formName) {
-          Toast.fail('请输入姓名');
+          Toast.fail('请输入姓名',1);
           return false;
       } else if(!this.state.formID || this.state.formID.length !== 18) {
-          Toast.fail('请输入正确的身份证');
+          Toast.fail('请输入正确的身份证',1);
           return false;
       } else if (!tools.checkPhone(this.state.formPhone)){
-          Toast.fail('请输入正确的手机号');
+          Toast.fail('请输入正确的手机号',1);
           return false;
       } else if (this.state.formEmail && !tools.checkEmail(this.state.formEmail)) {
-          Toast.fail('请输入正确的邮箱');
+          Toast.fail('请输入正确的邮箱',1);
           return false;
       }
       this.props.history.push(`/shop/confirmPay/${this.props.orderParams.nowProduct.id}`);

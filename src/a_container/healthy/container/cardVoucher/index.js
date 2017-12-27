@@ -15,14 +15,7 @@ import tools from '../../../../util/all';
 // 所需的所有组件
 // ==================
 
-import ImgRight from '../../../../assets/xiangyou2@3x.png';
-import ImgShare from '../../../../assets/fenxiang@3x.png';
-import ImgLogo from '../../../../assets/logo@3x.png';
-import ImgShare1 from '../../../../assets/share-wx.png';
-import ImgShare2 from '../../../../assets/share-friends.png';
-import ImgShare3 from '../../../../assets/share-qq.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
-import ImgFenXiang from '../../../../assets/fenxiang@3x.png';
 import { ActionSheet, Toast } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -122,9 +115,9 @@ class HomePageContainer extends React.Component {
     onStartShare(obj, index) {
       /**
        * 拼凑所需数据
-       * userID_体检券号_有效期_是否已使用
+       * userID_体检券号_有效期_是否已使用_头像
        * **/
-        const str = `${this.props.userinfo.id}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}_${obj.ticketStatus}`;
+        const str = `${this.props.userinfo.id}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}_${obj.ticketStatus}_${encodeURIComponent(this.props.userinfo.headImg)}`;
       if(tools.isWeixin()) { // 是微信系统才能分享
           wx.onMenuShareAppMessage({
               title: 'HRA健康风险评估卡',
@@ -133,7 +126,7 @@ class HomePageContainer extends React.Component {
               imgUrl: 'http://isluo.com/work/logo/share_card.png',
               type: 'link',
               success: () => {
-                  Toast.info('分享成功');
+                  Toast.info('分享成功', 1);
               }
           });
 
@@ -143,7 +136,7 @@ class HomePageContainer extends React.Component {
               link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
               imgUrl: 'http://isluo.com/work/logo/share_card.png',
               success: () => {
-                  Toast.info('分享成功');
+                  Toast.info('分享成功', 1);
               }
           });
 
@@ -164,8 +157,7 @@ class HomePageContainer extends React.Component {
                       return <li  key={index} className="cardbox page-flex-col flex-jc-sb">
                           <div className="row1 flex-none page-flex-row flex-jc-sb">
                               <div>
-                                  <div className="t">健康风险评估卡</div>
-                                  <div className="i">体检券</div>
+                                  <div className="t"> </div>
                               </div>
                               <div className="flex-none">{String(item.ticketStatus) === '1' ? '未使用' : '已使用'}</div>
                           </div>
@@ -174,7 +166,10 @@ class HomePageContainer extends React.Component {
                                   <div className="t">卡号<span>{item.ticketNo}</span></div>
                                   <div className="i">有效期：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
                               </div>
-                              <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>分享</div>
+                              {
+                                  tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>分享</div> : null
+                              }
+
                           </div>
                       </li>;
                   })

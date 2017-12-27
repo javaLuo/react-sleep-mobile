@@ -87,10 +87,10 @@ class HomePageContainer extends React.Component {
               sessionStorage.setItem('pay-obj', JSON.stringify(this.props.orderParams));    // 将当前所选择的商品信息存入session
               this.props.history.replace('/shop/payChose');
           } else {
-              Toast.fail(res.message || '订单创建失败');
+              Toast.fail(res.message || '订单创建失败',1);
           }
       }).catch(() => {
-          Toast.fail(res.message || '订单创建失败');
+          Toast.fail(res.message || '订单创建失败',1);
       });
       return true;
     }

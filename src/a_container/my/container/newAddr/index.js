@@ -49,13 +49,13 @@ class HomePageContainer extends React.Component {
    // 保存
     onSubmit() {
         if (!this.state.formName) {
-            Toast.fail('请输入姓名');
+            Toast.fail('请输入姓名',1);
             return;
         } else if (!tools.checkPhone(this.state.formPhone)) {
-            Toast.fail('请输入正确的手机号');
+            Toast.fail('请输入正确的手机号',1);
             return;
         } else if (!this.state.formAddr) {
-            Toast.fail('请输入详细地址');
+            Toast.fail('请输入详细地址',1);
             return;
         }
         this.props.actions.saveAddrss();

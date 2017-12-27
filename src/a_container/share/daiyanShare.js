@@ -32,6 +32,7 @@ class Register extends React.Component {
         super(props);
         this.state = {
             imgCode: '',
+            head: '',   // 头像
         };
     }
 
@@ -46,11 +47,14 @@ class Register extends React.Component {
     // 获取二维码图片
     getCode() {
         const pathname = this.props.location.pathname.split('/');
-        const userId = pathname[pathname.length - 1];
+        const temp = pathname[pathname.length - 1].split('_');
+
+        const userId = temp[0];
         this.props.actions.shareBuild({ userId }).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     imgCode: res.data,
+                    head: decodeURIComponent(temp[1]),
                 });
             }
         });
@@ -61,7 +65,10 @@ class Register extends React.Component {
             <div className="flex-auto page-box page-daiyanshare" style={{ minHeight: '100vh' }}>
                 <div className="img-box">
                     <img className="img" src={Img} />
-                    <img className="code" src={this.state.imgCode || ImgQrCode}/>
+                    <div className="code" >
+                        <img src={this.state.imgCode || ImgQrCode}/>
+                        <img className="head" src={this.state.head}/>
+                    </div>
                 </div>
             </div>
         );

@@ -78,9 +78,9 @@ class HomePageContainer extends React.Component {
                     this.props.actions.mallOrderDel({ orderId: id }).then((res) => {
                         if (res.status === 200) {
                             this.getData();
-                            Toast.success('订单已取消');
+                            Toast.success('订单已取消',1);
                         } else {
-                            Toast.fail(res.message || '订单取消失败');
+                            Toast.fail(res.message || '订单取消失败',1);
                         }
                         resolve();
                     }).catch(() => {
@@ -135,9 +135,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">￥{item.product ? item.product.price : ''}</div>
+                                              <div className="i">￥{item.product ? item.product.typeModel.price : ''}</div>
                                               <div className="i">*{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.price * item.count) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
@@ -147,7 +147,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -180,9 +180,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">￥{item.product ? item.product.price : ''}</div>
+                                              <div className="i">￥{item.product ? item.product.typeModel.price : ''}</div>
                                               <div className="i">*{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.price * item.count) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
@@ -192,7 +192,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -225,9 +225,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">￥{item.product ? item.product.price : ''}</div>
+                                              <div className="i">￥{item.product ? item.product.typeModel.price : ''}</div>
                                               <div className="i">*{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.price * item.count) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
@@ -237,7 +237,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;

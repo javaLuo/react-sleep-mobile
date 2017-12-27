@@ -7,7 +7,7 @@ export const checkMobile = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/user/checkMobile', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -23,7 +23,7 @@ export const login = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -39,7 +39,7 @@ export const logout = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -49,7 +49,7 @@ export const getVerifyCode = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/sms/getVerifyCode', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -59,7 +59,7 @@ export const register = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/user/register', params, 'post', true);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -75,7 +75,7 @@ export const getUserInfo = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -91,7 +91,7 @@ export const updateUserInfo = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -101,7 +101,7 @@ export const resetPwd = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/user/resetPwd', params, 'post', true);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -117,7 +117,7 @@ export const setPwd = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -133,7 +133,7 @@ export const bindPhonePwd = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -149,7 +149,7 @@ export const bindPhone = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -165,7 +165,7 @@ export const unBindWx = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -175,7 +175,7 @@ export const shareBuild = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/user/share/build', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -192,7 +192,7 @@ export const myAmbassador = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 

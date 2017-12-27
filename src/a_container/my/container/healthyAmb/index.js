@@ -20,7 +20,7 @@ import ImgDefault from '../../../../assets/default-head.jpg';
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/app-action';
+import { myAmbassador } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -38,19 +38,31 @@ class Register extends React.Component {
         clearInterval(this.timer);
     }
 
+    componentDidMount() {
+        if (!this.props.ambassador) {
+            this.getData();
+        }
+    }
+
+    // 获取健康大使相关信息
+    getData() {
+        this.props.actions.myAmbassador({ userId: this.props.userinfo.id });
+    }
+
     render() {
         const u = this.props.userinfo;
+        const a = this.props.ambassador;
         return (
             <div className="flex-auto page-box page-amb" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
-                    <div className="login-box">
-                        <div  className="logo"><img src={u.headImg || ImgDefault} /></div>
-                        <div className="logo-info">{ u.nickName || u.userName }</div>
-                        <List className="this-list">
-                            <Item extra={u.id || ''}>e家号</Item>
-                            <Item extra={<a href={`tel:${u.mobile || ''}`} target="_blank">{u.mobile}</a>}>手机号</Item>
-                            <Item extra={''} arrow="horizontal">体验店</Item>
-                        </List>
-                    </div>
+                <div className="login-box">
+                    <div  className="logo"><img src={a.headImg || ImgDefault} /></div>
+                    <div className="logo-info">{ a.nickName || a.userName }</div>
+                    <List className="this-list">
+                        <Item extra={a.id || ''}>e家号</Item>
+                        <Item extra={<a href={`tel:${a.mobile || ''}`} target="_blank">{a.mobile}</a>}>手机号</Item>
+                        <Item extra={a.stationName}>体验店</Item>
+                    </List>
+                </div>
             </div>
         );
     }
@@ -65,6 +77,7 @@ Register.propTypes = {
     history: P.any,
     actions: P.any,
     userinfo: P.any,
+    ambassador: P.any,
 };
 
 // ==================
@@ -74,8 +87,9 @@ Register.propTypes = {
 export default connect(
     (state) => ({
         userinfo: state.app.userinfo,
+        ambassador: state.app.ambassador,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ }, dispatch),
+        actions: bindActionCreators({ myAmbassador }, dispatch),
     })
 )(Register);

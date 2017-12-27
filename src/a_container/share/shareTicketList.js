@@ -64,16 +64,11 @@ class HomePageContainer extends React.Component {
                         ticket.map((item, index) => {
                             return <li  key={index} className="cardbox page-flex-col flex-jc-sb">
                                 <div className="row1 flex-none page-flex-row flex-jc-sb">
-                                    <div>
-                                        <div className="t">健康风险评估卡</div>
-                                        <div className="i">体检券</div>
-                                    </div>
-                                    <div className="flex-none">{String(item[1]) === '1' ? '未使用' : '已使用'}</div>
                                 </div>
                                 <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                     <div>
                                         <div className="t">卡号<span>{item[0]}</span></div>
-                                        <div className="i">有效期：{this.state.date}</div>
+                                        <div className="i">有效期至：{this.state.date}</div>
                                     </div>
                                 </div>
                             </li>;

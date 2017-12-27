@@ -13,7 +13,7 @@ export const getProDuctList = () => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -29,7 +29,7 @@ export const listProductType = () => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -45,7 +45,7 @@ export const productById = (params) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -61,7 +61,7 @@ export const getAllPayTypes = () => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -77,7 +77,7 @@ export const getAllChargeTypes = () => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -93,7 +93,7 @@ export const placeAndOrder = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -109,7 +109,7 @@ export const saveAddrss = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -119,7 +119,7 @@ export const wxPay = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/wxpay/unifiedorder', params, 'post', true, 1);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -129,7 +129,7 @@ export const wxInit = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/wxpay/init', { url: `${Config.baseURL}/gzh/?` });
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -163,7 +163,7 @@ export const mallApList = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -173,7 +173,7 @@ export const mecReserveList = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/ticket/list', params,);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -183,7 +183,7 @@ export const mallOrderList = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/order/list', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -193,7 +193,7 @@ export const mallOrderHraCard = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/order/hraCard', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -203,7 +203,7 @@ export const mallOrderQuery = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/order/query', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -213,7 +213,7 @@ export const mallOrderDel = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/order/delete', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -223,7 +223,7 @@ export const mallCardCreate = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/hracard/create', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -233,7 +233,7 @@ export const mallCardList = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/hracard/list', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -243,7 +243,7 @@ export const mallStationList = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/station/list', params );
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -253,7 +253,7 @@ export const appUserCheckBuy = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/user/checkBuy', params );
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -263,7 +263,7 @@ export const getMyCustomers = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('app/user/my/customers', params );
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -279,10 +279,9 @@ export const bindDistributor = (params = {}) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
-
 
 // 体检预约 - 保存用户输入的基本信息
 export function savePreInfo(payload = {}) {
@@ -306,7 +305,7 @@ export const mallReserveSave = (params = {}) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/reserve/save', params, 'post', true);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试');
+        Toast.fail('网络错误，请重试',1);
     }
 };
 
@@ -324,6 +323,16 @@ export function saveServiceInfo(payload = {}) {
     return {
         type: 'PRE::saveServiceInfo',
         payload,
+    };
+}
+
+// 保存当前查询的体检卡信息（上拉加载下拉刷新用的）
+export function saveMyCardInfo(data = {}, pageNum, pageSize) {
+    return {
+        type: 'PRE::saveMyCardInfo',
+        data,
+        pageNum,
+        pageSize,
     };
 }
 

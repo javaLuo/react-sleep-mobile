@@ -61,6 +61,14 @@
               color: #fff;
             }
           }
+          &.blue-btn{
+            border: none;
+            color: #fff;
+            background-color: #4285f4;
+            &:active{
+              background-color: #0e80d2;
+            }
+          }
           &:active{
             border: solid 1px #4285f4;
             color: #4285f4;

@@ -47,6 +47,11 @@ const initState = {
     stationInfo: {},    // 当前所选服务站信息（用于体检预约）
     orderInfo: {},     // 当前所选订单信息（从我的订单点击进入订单详情时所需）
     cardInfo: {},       // 当前选中的卡信息（从我的体检卡点击，进入体检券页所需，卡片信息中包含了所有体检券信息）
+    myCard: {           // 我的体检卡数据 保存分页的数据，各个地方都可以用
+        data: null,
+        pageNum: 1,
+        pageSize: 10,
+    },
 };
 
 // ============================================
@@ -160,6 +165,17 @@ const saveReportInfo = (state, action) => {
     });
 };
 
+const saveMyCardInfo = (state, action) => {
+    const { data, pageNum, pageSize } = action;
+    return Object.assign({}, state, {
+        myCard: {
+            data,
+            pageNum,
+            pageSize,
+        },
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -191,6 +207,8 @@ const reducerFn = (state = initState, action) => {
             return saveCardInfo(state, action);
         case 'PRE::saveReportInfo':
             return saveReportInfo(state, action);
+        case 'PRE::saveMyCardInfo':
+            return saveMyCardInfo(state, action);
         default:
             return actDefault(state, action);
     }

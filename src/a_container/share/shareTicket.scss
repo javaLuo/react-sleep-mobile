@@ -2,7 +2,7 @@
   .cardbox{
     padding: .2rem;
     box-sizing: border-box;
-    background-image: url(../../assets/kapian@3x.png);
+    background-image: url(../../assets/pingguka@3x.png);
     background-size: 100% 100%;
     border-radius: 8px;
     width: 7.1rem;
@@ -31,7 +31,7 @@
     }
     .i{
       font-size: .28rem;
-      color: #9394a4;
+      color: #fefefe;
       margin-top: .2rem;
     }
   }
@@ -39,6 +39,20 @@
     text-align: center;
     background-color: #fff;
     padding: .6rem;
+    .code-box{
+      position: relative;
+      .head{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: .5rem;
+        height: .5rem;
+        margin-top: -.25rem;
+        margin-left: -.25rem;
+        z-index: 2;
+        border-radius: 3px;
+      }
+    }
     img{
       width: auto;
       height: 2.4rem;

@@ -73,7 +73,7 @@ class Register extends React.Component {
         }
         const u = this.props.userinfo;
         if (u && [0,1,2].indexOf(u.userType)>=0) {
-            Toast.info('您已绑定过经销商账号');
+            Toast.info('您已绑定过经销商账号', 1);
             return;
         }
 
@@ -88,18 +88,18 @@ class Register extends React.Component {
         };
         this.props.actions.bindDistributor(params).then((res) => {
             if(res.status === 200) {
-                Toast.success('绑定成功');
+                Toast.success('绑定成功',1);
                 setTimeout(() => {
                     this.props.history.go(-1);
                 });
             } else {
-                Toast.fail('绑定失败');
+                Toast.fail('绑定失败',1);
             }
             this.setState({
                 loading: false,
             });
         }).catch(() => {
-            Toast.fail('绑定失败');
+            Toast.fail('绑定失败',1);
             this.setState({
                 loading: false,
             });

@@ -51,6 +51,7 @@ class HomePageContainer extends React.Component {
                 no: p[1],
                 date: p[2],
                 used: p[3],
+                head: p[4],
             }
         });
 
@@ -71,23 +72,24 @@ class HomePageContainer extends React.Component {
                 <div style={{ padding: '.2rem' }}>
                     <div className="cardbox page-flex-col flex-jc-sb" >
                         <div className="row1 flex-none page-flex-row flex-jc-sb">
-                            <div>
-                                <div className="t">健康风险评估卡</div>
-                                <div className="i">体检券</div>
-                            </div>
-                            <div className="flex-none">{String(d.used) === '1' ? '未使用' : '已使用'}</div>
                         </div>
                         <div className="row2 flex-none">
                             <div>
                                 <div className="t">卡号<span>{d.no}</span></div>
-                                <div className="i">有效期：{d.date}</div>
+                                <div className="i">有效期至：{d.date}</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="weixin">
                     <div className="t">翼猫健康e家公众号</div>
-                    <div className="page-flex-row flex-jc-sb"><img src={this.state.imgCode || ImgQrCode}/><img src={ImgZhiWen} /></div>
+                    <div className="page-flex-row flex-jc-sb">
+                        <div className="code-box">
+                            <img src={this.state.imgCode || ImgQrCode}/>
+                            <img className="head" src={decodeURIComponent(this.state.data.head)}/>
+                        </div>
+                        <img src={ImgZhiWen} />
+                    </div>
                     <div className="little">长按二维码 “识别” 关注</div>
                 </div>
                 <div className="weixin-info">
@@ -99,7 +101,7 @@ class HomePageContainer extends React.Component {
                     <div className="icons-box page-flex-row flex-jc-sb">
                         <div>
                             <div className="img-box"><img src={ImgChaXun} /></div>
-                            <div className="info">查询<br/>体检服务中心</div>
+                            <div className="info">查询<br/>体验服务中心</div>
                         </div>
                         <div>
                             <div className="img-box"><img src={ImgYuYue} /></div>

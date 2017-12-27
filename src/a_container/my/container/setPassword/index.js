@@ -123,7 +123,7 @@ class Register extends React.Component {
                     myVcode: res.data.text,
                 });
             } else {
-                Toast.fail(res.message || '验证码获取失败');
+                Toast.fail(res.message || '验证码获取失败',1);
             }
         });
     }
@@ -146,7 +146,7 @@ class Register extends React.Component {
     onSubmit() {
         const u = this.props.userinfo;
         if(!u || !u.mobile) {
-            Toast.fail('请先绑定手机号');
+            Toast.fail('请先绑定手机号',1);
             return;
         }
         if(this.state.password1.length < 6){
@@ -180,7 +180,7 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div className="flex-auto page-box page-setpassword">
+            <div className="flex-auto page-box page-setpassword" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                 <div className="login-box">
                     <div className="logo-info">
                         <span className="small">为了帐号安全，需要验证当前手机有效性</span><br/>

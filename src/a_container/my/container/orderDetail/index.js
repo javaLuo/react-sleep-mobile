@@ -48,7 +48,7 @@ class HomePageContainer extends React.Component {
                 data: res.data.result || [],
             });
         } else {
-            Toast.fail('获取订单详情失败');
+            Toast.fail('获取订单详情失败',1);
         }
       });
   }
@@ -62,7 +62,7 @@ class HomePageContainer extends React.Component {
     onPay() {
         const obj = this.props.orderInfo;
         if (!obj) {
-            Toast.fail('获取订单信息失败');
+            Toast.fail('获取订单信息失败',1);
             return true;
         }
         sessionStorage.setItem('pay-info', JSON.stringify(obj));
@@ -85,7 +85,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
                       <div className="t">{ this.props.orderInfo.product ? this.props.orderInfo.product.name : '' }</div>
-                      <div className="i">￥<span>{this.props.orderInfo.fee || ''}</span></div>
+                      <div className="i">￥<span>{this.props.orderInfo.product.typeModel.price || ''}</span></div>
                   </div>
               </div>
           </div>

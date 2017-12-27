@@ -72,9 +72,9 @@ class HomePageContainer extends React.Component {
           { text: '取消' },
           { text: '确定', onPress: value => {
               const v = tools.trim(value);
-              if(!v){Toast.info('昵称不能为空');return false;}
+              if(!v){Toast.info('昵称不能为空', 1);return false;}
               if(!tools.checkStr(v)){
-                  Toast.info('只能输入汉字/字母/数字');return false;
+                  Toast.info('只能输入汉字/字母/数字', 1);return false;
               }
               this.updateUserInfo({nickName: v});
           }},

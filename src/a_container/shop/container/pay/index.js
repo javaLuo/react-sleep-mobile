@@ -96,7 +96,7 @@ class HomePageContainer extends React.Component {
         // 获取订单信息
         let pay = sessionStorage.getItem('pay-info');
         if (!pay) {
-            Toast.fail('未获取到订单信息');
+            Toast.fail('未获取到订单信息',1);
             this.props.history.replace('/');
         } else {
             pay = JSON.parse(pay);
@@ -155,13 +155,13 @@ class HomePageContainer extends React.Component {
             console.log('你有返回什么吗：', res);
             const msg = JSON.parse(JSON.stringify(res));
             if (!res) {
-                Toast.fail('支付失败');
+                Toast.fail('支付失败',1);
             } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
                 // 支付成功后在后台添加对应数量的体检卡
                 this.makeCards();
-                Toast.success('支付成功');
+                Toast.success('支付成功',1);
             } else {  // 支付遇到错误
-                Toast.error('支付失败');
+                Toast.fail('支付失败',1);
                 this.returnPage();
             }
         }).catch(() => {
@@ -186,7 +186,7 @@ class HomePageContainer extends React.Component {
     // 重新发起支付
     onReturn() {
       if (!this.s3data) {
-          Toast.fail('下单失败，请重试');
+          Toast.fail('下单失败，请重试',1);
           setTimeout(() => {
               this.returnPage();
           }, 800);
@@ -206,7 +206,7 @@ class HomePageContainer extends React.Component {
                     this.successReturn();
                 }, 16);
             } else {
-                Toast.fail('生成卡片失败，请联系客服');
+                Toast.fail('生成卡片失败，请联系客服',1);
                 this.returnPage();
             }
         });

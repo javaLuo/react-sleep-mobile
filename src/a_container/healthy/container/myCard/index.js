@@ -30,7 +30,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit, saveCardInfo } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -38,17 +38,17 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        data: null,
         wxReady: true, // 微信是否已初始化
         shareShow: false,   // 分享提示框是否显示
         which: -1,  // 当前选中哪一个进行分享
-        pageSize: 10,
-        pageNum: 0,
     };
   }
 
   componentDidMount() {
-      this.getData();
+      if ((!this.props.myCard.data) || (!this.props.myCard.data.length)) {
+          console.log('你还是执行了这里：', this.props.myCard.data);
+          this.getData();
+      }
       this.initWeiXinPay();
   }
 
@@ -57,28 +57,23 @@ class HomePageContainer extends React.Component {
       if (!list){ return 0; }
       return list.filter((item) => item.ticketStatus !== 1).length;
     }
+
   /**
    * 获取体检卡列表
    * type=falsh 刷新
    * type=update 累加
    * **/
-  getData(pageNum = 0, pageSize = 10, type) {
+  getData(pageNum = 1, pageSize = 10, type) {
       this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 console.log('我的体检卡：', res.data.result);
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
                     Toast.info('没有更多数据了', 1);
                 }
-                this.setState({
-                    data: res.data ? ( type === 'update' ? [...this.state.data, ...res.data.result] : res.data.result ) : [],
-                    pageNum,
-                    pageSize,
-                });
+                this.props.actions.saveMyCardInfo(res.data ? ( type === 'update' ? [...(this.props.myCard.data || []), ...res.data.result] : res.data.result ) : [], pageNum, pageSize);
             } else {
                 Toast.info(res.message || '数据加载失败', 1);
-                this.setState({
-                    data: this.state.data,
-                });
+                this.props.actions.saveMyCardInfo([], this.props.myCard.pageNum, this.props.myCard.pageSize);
             }
       });
   }
@@ -142,10 +137,9 @@ class HomePageContainer extends React.Component {
       if(tools.isWeixin()) { // 是微信中才能分享
           /**
            * 拼凑要带过去的数据
-           * 共几张_已使用几张_有效期_5张卡号
+           * 用户ID_共几张_价格_有效期_5张卡号_头像
            * **/
-          // ${obj.ticketList.map((item, index) => `${item.ticketNo}@${item.ticketStatus}`).join('+')}
-          const str = `${this.props.userinfo.id}_${obj.ticketNum}_${this.getHowManyByTicket(obj.ticketList)}_${tools.dateformart(new Date(obj.validTime))}_${obj.ticketList.map((item, index) => `${item.ticketNo}@${item.ticketStatus}`).join('+')}`;
+          const str = `${this.props.userinfo.id}_${obj.ticketNum}_${obj.productModel.price}_${tools.dateformart(new Date(obj.validTime))}_${obj.ticketList.map((item, index) => `${item.ticketNo}@${item.ticketStatus}`).join('+')}_${encodeURIComponent(this.props.userinfo.headImg)}`;
           console.log('走到这里了没有：', str);
           wx.onMenuShareAppMessage({
               title: 'HRA健康风险评估卡',
@@ -154,7 +148,7 @@ class HomePageContainer extends React.Component {
               imgUrl: 'http://isluo.com/work/logo/share_card.png',
               type: 'link',
               success: () => {
-                  Toast.info('分享成功');
+                  Toast.info('分享成功', 1);
               }
           });
 
@@ -164,7 +158,7 @@ class HomePageContainer extends React.Component {
               link: `${Config.baseURL}/gzh/#/share/${str}`,
               imgUrl: 'http://isluo.com/work/logo/share_card.png',
               success: () => {
-                  Toast.info('分享成功');
+                  Toast.info('分享成功', 1);
               }
           });
 
@@ -247,11 +241,11 @@ class HomePageContainer extends React.Component {
 
     // 下拉刷新
     onDown() {
-        this.getData(0, this.state.pageSize, 'flash');
+        this.getData(1, this.props.myCard.pageSize, 'flash');
     }
     // 上拉加载
     onUp() {
-      this.getData(this.state.pageNum + 1, this.state.pageSize, 'update');
+      this.getData(this.props.myCard.pageNum + 1, this.props.myCard.pageSize, 'update');
     }
 
   render() {
@@ -268,12 +262,12 @@ class HomePageContainer extends React.Component {
               <ul className="the-ul">
                   {
                       (() => {
-                          if (!this.state.data) {
+                          if (!this.props.myCard.data) {
                               return <li key={0} className="nodata">加载中...</li>;
-                          } else if (this.state.data.length === 0) {
-                              return <li key={0} className="nodata">您没有体检卡</li>;
+                          } else if (this.props.myCard.data.length === 0) {
+                              return <li key={0} className="nodata">暂无数据</li>;
                           } else {
-                              return this.state.data.map((item, index) => {
+                              return this.props.myCard.data.map((item, index) => {
                                   return <li key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
                                       <div className="row1 flex-none page-flex-row flex-jc-sb" >
                                           <div>
@@ -286,9 +280,11 @@ class HomePageContainer extends React.Component {
                                           <div>
                                               <div className="t">
                                                   共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
-                                              <div className="i">有效期：{tools.dateformart(new Date(item.validTime))}</div>
+                                              <div className="i">有效期至：{tools.dateformart(new Date(item.validTime))}</div>
                                           </div>
-                                          <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >分享</div>
+                                          {
+                                              tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >分享</div> : null
+                                          }
                                       </div>
                                   </li>;
                               });
@@ -315,6 +311,7 @@ HomePageContainer.propTypes = {
   history: P.any,
     actions: P.any,
     userinfo: P.any,
+    myCard: P.any,
 };
 
 // ==================
@@ -324,8 +321,9 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
     userinfo: state.app.userinfo,
+      myCard: state.shop.myCard,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, saveMyCardInfo }, dispatch),
   })
 )(HomePageContainer);

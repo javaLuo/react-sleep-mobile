@@ -108,7 +108,7 @@ class Register extends React.Component {
                     myVcode: res.data.text,
                 });
             } else {
-                Toast.fail(res.message || '验证码获取失败');
+                Toast.fail(res.message || '验证码获取失败',1);
             }
         });
     }

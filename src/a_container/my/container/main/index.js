@@ -13,6 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
+import { Toast } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/default-head.jpg';
 import ImgBar2 from '../../../../assets/wozai@3x.png';
@@ -43,7 +44,8 @@ class HomePageContainer extends React.Component {
       if (!this.props.userinfo) {
         this.getUserInfo();
       }
-      this.getMyAmbassador();
+      setTimeout(() => this.getMyAmbassador(), 16);
+
   }
 
   // 工具 - 通过用户类型type获取对应的称号
@@ -75,8 +77,20 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    // 健康大使按钮被点击
+    onDaShiClick() {
+        const u = this.props.userinfo;
+      if (!u) {
+          Toast.info('请先登录', 1);
+      } else if (u.userType === 4) {
+          Toast.info('您还没有健康大使哦', 1);
+      } else {
+          this.props.history.push('/my/healthyamb');
+      }
+    }
+
   render() {
-    const u = this.props.userinfo;
+    const u = this.props.userinfo || {};
     return (
       <div className="my-main">
           {/* 顶部 */}
@@ -114,10 +128,10 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/healthyamb': '/login')}>
+              <div className="item page-flex-row all_active" onClick={() => this.onDaShiClick()}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
-                  <div className="info">翼猫科技</div>
+                  <div className="info">{u.userType !== 4 ? this.getNameByUserType(this.props.ambassador ? this.props.ambassador.userType : '') : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
@@ -153,6 +167,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
     userinfo: P.any,
+    ambassador: P.any,
 };
 
 // ==================
@@ -162,6 +177,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
     userinfo: state.app.userinfo,
+    ambassador: state.app.ambassador,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ getUserInfo, myAmbassador }, dispatch),

@@ -79,7 +79,7 @@ class HomePageContainer extends React.Component {
       // 调用预约接口
         this.props.actions.mallReserveSave(tools.clearNull(p)).then((res) => {
             if(res.returnCode === '0') {
-                Toast.success('预约成功');
+                Toast.success('预约成功',1);
                 setTimeout(() => {
                     this.props.history.push('/healthy/mypre');
                 }, 1000);
@@ -120,8 +120,8 @@ class HomePageContainer extends React.Component {
                       <li className="card-box page-flex-row">
                           <div className="l flex-auto">
                               <div className="title">{this.props.stationInfo.name}</div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.contactPerson}</span></div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.contactPhone}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.person}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.phone}</span></div>
                               <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.address}</span></div>
                           </div>
                       </li>

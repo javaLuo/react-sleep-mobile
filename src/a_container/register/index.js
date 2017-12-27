@@ -136,7 +136,7 @@ class Register extends React.Component {
                 myVcode: res.data.text,
             });
         } else {
-            Toast.fail(res.message || '验证码获取失败');
+            Toast.fail(res.message || '验证码获取失败',1);
         }
       });
    }
@@ -144,18 +144,18 @@ class Register extends React.Component {
    // 提交
    onSubmit() {
       if(!tools.checkPhone(this.state.phone)){
-          Toast.fail('请输入正确的手机号', 1.2);
+          Toast.fail('请输入正确的手机号', 1);
           return;
       } else if (!this.state.password || this.state.password.length < 6) {
-          Toast.fail('请输入6位以上的密码', 1.2);
+          Toast.fail('请输入6位以上的密码', 1);
           return;
       } else if (!this.state.formChecked) {
-          Toast.fail('请勾选翼猫服务条款', 1.2);
+          Toast.fail('请勾选翼猫服务条款', 1);
           return;
       }
       this.submiting().then((res) => {
           if (res) {
-              Toast.success('注册成功', 1.2);
+              Toast.success('注册成功', 1);
               this.props.history.push('/login');
           }
       });
@@ -177,15 +177,15 @@ class Register extends React.Component {
               if (res2.status === 200) {
                   return true;
               } else {
-                  Toast.fail(res2.message || '注册失败');
+                  Toast.fail(res2.message || '注册失败',1);
                   return false;
               }
           } else {
-              Toast.fail('该手机已注册');
+              Toast.fail('该手机已注册',1);
               return false;
           }
       } else {
-          Toast.fail(res1.message || '手机校验失败');
+          Toast.fail(res1.message || '手机校验失败',1);
           return false;
       }
    }

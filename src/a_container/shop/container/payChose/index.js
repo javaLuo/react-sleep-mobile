@@ -78,7 +78,7 @@ class HomePageContainer extends React.Component {
     getPayInfo() {
         let pay = sessionStorage.getItem('pay-info');
         if (!pay) {
-            Toast.fail('未获取到订单信息');
+            Toast.fail('未获取到订单信息',1);
             return false;
         } else {
             pay = JSON.parse(pay);
@@ -230,7 +230,7 @@ class HomePageContainer extends React.Component {
                 location.assign(`${res.data}&redirect_url=${encodeURIComponent(Config.baseURL + '/gzh/#/my/order')}`);
             }
         }).catch(() => {
-            Toast.fail('支付失败，请重试');
+            Toast.fail('支付失败，请重试',1);
         });
     }
 
@@ -245,7 +245,7 @@ class HomePageContainer extends React.Component {
     onSubmit() {
         const payInfo = this.state.pay_info;
         if (!payInfo) {
-            Toast.fail('未获取到订单信息,请重试');
+            Toast.fail('未获取到订单信息,请重试',1);
             return false;
         }
 
@@ -262,11 +262,11 @@ class HomePageContainer extends React.Component {
                                 this.payResult(msg);
                             });
                         } else {
-                            Toast.fail('支付遇到错误，请重试.');
+                            Toast.fail('支付遇到错误，请重试.',1);
                             this.returnPage();
                         }
                     }).catch(() => {
-                        Toast.fail('支付遇到错误，请重试..');
+                        Toast.fail('支付遇到错误，请重试..',1);
                         this.returnPage();
                     });
                 }
@@ -293,18 +293,18 @@ class HomePageContainer extends React.Component {
      * **/
     payResult(msg) {
         if (!msg) {
-            Toast.fail('支付失败, 请重试');
+            Toast.fail('支付失败, 请重试',1);
             this.returnPage();
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
             // 支付成功后在后台添加对应数量的体检卡 (现在由后台自动生成)
             // this.makeCards();
-            Toast.success('支付成功');
+            Toast.success('支付成功',1);
             this.successReturn();
         } else if (msg.errMsg === 'chooseWXPay:cancel'){
             // 支付被取消
             this.returnPage();
         } else {  // 支付遇到错误
-            Toast.error('支付失败, 请重试');
+            Toast.fail('支付失败, 请重试',1);
             this.returnPage();
         }
     }
