@@ -22,16 +22,17 @@
     flex-basis: auto;
   }
   .my-carousel{
-    height: 200px !important;
+    background-color: #f0f0f0;
     overflow: hidden;
     img{
-      height: 200px !important;
-      width: 100%;
       object-fit: cover;
+      height: calc(100vw * 0.43);
     }
   }
   .goodinfo{
     padding: .26rem;
+    background-color: #fff;
+    margin-bottom: .2rem;
     .title{
       font-size: .36rem;
     }

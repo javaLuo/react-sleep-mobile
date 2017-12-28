@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import Luo from 'iscroll-luo';
+
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
 import ImgShare from '../../../../assets/fenxiang@3x.png';
 import ImgLogo from '../../../../assets/logo@3x.png';

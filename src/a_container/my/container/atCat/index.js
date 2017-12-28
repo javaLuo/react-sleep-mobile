@@ -197,19 +197,19 @@ class HomePageContainer extends React.Component {
                             <div className="title"><span>产品购买权</span></div>
                             <ul className="ul page-flex-row">
                                 <li>
-                                    <img src={ImgA2} />
+                                    <img src={ImgB2} />
                                     <div>智能净水</div>
                                 </li>
                                 <li>
-                                    <img src={ImgB2} />
+                                    <img src={ImgC2} />
                                     <div>健康食品</div>
                                 </li>
                                 <li>
-                                    <img src={ImgC2} />
-                                    <div>生物理疗</div>
+                                    <img src={ImgD2} />
+                                    <div>生物理疗产品</div>
                                 </li>
                                 <li>
-                                    <img src={ImgD2} />
+                                    <img src={ImgE2} />
                                     <div>健康风险评估卡</div>
                                 </li>
                             </ul>

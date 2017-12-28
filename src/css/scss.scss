@@ -61,4 +61,23 @@ $fontSize: .32rem;
     }
   }
 }
-.aa{}
+/* 全局暂无数据样式 */
+.data-nothing{
+  padding: .2rem;
+  font-size: .26rem;
+  color: #aaa;
+  text-align: center;
+  img{
+    width: 3rem;
+    margin-bottom: .2rem;
+  }
+}
+
+/* 全局底部站位 */
+.footer-zw{
+  height: 47px;
+  width: 100%;
+}
+.touch-none{
+  touch-action: none;
+}

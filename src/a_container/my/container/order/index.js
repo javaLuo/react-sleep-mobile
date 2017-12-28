@@ -114,9 +114,10 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-order" style={{ minHeight: '100vh' }}>
           <Tabs
+            swipeable={false}
             tabs={[
                 { title: '全部' },
-                { title: '待处理' },
+                { title: '待付款' },
                 { title: '已完成' }
             ]}
           >
@@ -151,7 +152,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -196,7 +197,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -241,7 +242,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;

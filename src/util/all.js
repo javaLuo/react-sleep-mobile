@@ -205,6 +205,22 @@ const allobj = {
     },
 
     /**
+     * 判断是否是Safari浏览器
+     * **/
+    isSafari() {
+        const ua = window.navigator.userAgent.toLowerCase();
+        return ua.indexOf("safari") > -1;
+    },
+
+    /**
+     * 判断是否是安卓系统
+     * 安卓中有AndroidDataJs对象
+     * **/
+    isAndroid() {
+        return typeof AndroidDataJs !== 'undefined';
+    },
+
+    /**
      * 格式化卡号（每4号一个空格）
      * **/
     cardFormart(str) {

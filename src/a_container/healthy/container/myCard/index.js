@@ -16,13 +16,12 @@ import tools from '../../../../util/all';
 // ==================
 import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
-import ImgShare from '../../../../assets/fenxiang@3x.png';
-import ImgLogo from '../../../../assets/logo@3x.png';
 import ImgShare1 from '../../../../assets/share-wx.png';
 import ImgShare2 from '../../../../assets/share-friends.png';
 import ImgShare3 from '../../../../assets/share-qq.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
 import ImgFenXiang from '../../../../assets/fenxiang@3x.png';
+import Img404 from '../../../../assets/not-found.png';
 import { ActionSheet, Toast } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -253,10 +252,13 @@ class HomePageContainer extends React.Component {
       <div className="page-mycard">
           <Luo
             id="luo1"
+            className="touch-none"
             onPullDownRefresh={() => this.onDown()}
             onPullUpLoadMore={() => this.onUp()}
-            options={{
-                click: true,
+            iscrollOptions={{
+                disableMouse: true,
+                disablePointer: true,
+                momentum: false,
             }}
           >
               <ul className="the-ul">
@@ -265,7 +267,10 @@ class HomePageContainer extends React.Component {
                           if (!this.props.myCard.data) {
                               return <li key={0} className="nodata">加载中...</li>;
                           } else if (this.props.myCard.data.length === 0) {
-                              return <li key={0} className="nodata">暂无数据</li>;
+                              return <li key={0} className="data-nothing">
+                                  <img src={Img404}/>
+                                  <div>亲，这里什么也没有哦~</div>
+                              </li>;
                           } else {
                               return this.props.myCard.data.map((item, index) => {
                                   return <li key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>

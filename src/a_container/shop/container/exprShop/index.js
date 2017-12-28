@@ -1,4 +1,4 @@
-/* 健康管理 - 单纯的查看-搜索服务站 */
+/* 健康管理 - 选择体检服务中心 */
 
 // ==================
 // 所需的各种插件
@@ -14,13 +14,12 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { Picker, Button, List, SearchBar, Toast, PullToRefresh } from 'antd-mobile';
-import ImgRight from '../../../../assets/xiangyou@3x.png';
-import ImgDh from '../../../../assets/daohang@3x.png';
+import { SearchBar, PullToRefresh, Toast } from 'antd-mobile';
+import Luo from 'iscroll-luo';
 import ImgRen from '../../../../assets/ren@3x.png';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
 import ImgPhone from '../../../../assets/dianhua@3x.png';
-import ImgCard from '../../../../assets/xuanzeka@3x.png';
+import Img404 from '../../../../assets/not-found.png';
 
 // ==================
 // 本页面所需action
@@ -37,7 +36,7 @@ class HomePageContainer extends React.Component {
         this.state = {
             data: [],   // 所有数据
             loading: false, // 搜索中
-            pageNum: 0,
+            pageNum: 1,
             pageSize: 10,
             search: '',
             refreshing: false, // 加载更多搜索中
@@ -45,54 +44,47 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getData(this.state.pageNum, this.state.pageSize, this.state.search);
+        this.getData(this.state.pageNum, this.state.pageSize, this.state.search, 'flash');
     }
 
-    getData(pageNum, pageSize, search, flash = false) {
+    getData(pageNum, pageSize, search, flash = 'flash') {
         const me = this;
         const params = {
             pageNum,
             pageSize,
             stationName: search,
         };
-        // Toast.loading('搜索中…', 0);
-        this.setState({
-            refreshing: true,
-        });
+        Toast.loading('正在搜索...', 0);
         this.props.actions.mallStationList(params).then((res) => {
             console.log('得到了什么：', res);
             if (res.status === 200) {
                 me.setState({
-                    data: flash ? res.data.result : [...this.state.data, ...res.data.result],
+                    data: flash === 'flash' ? (res.data.result || []) : [...this.state.data, ...(res.data.result || [])],
                     pageNum,
                     pageSize,
                     search,
                 });
-                //Toast.hide();
+                Toast.hide();
             } else {
-                //Toast.fail('查询失败，请重试');
+                Toast.fail('查询失败，请重试',1);
             }
-            this.setState({
-                refreshing: false,
-            });
         }).catch(() => {
-            this.setState({
-                refreshing: false,
-            });
-            //Toast.fail('查询失败，请重试');
+            Toast.fail('查询失败，请重试', 1);
         });
     }
 
     // 开始搜索
     onSearch(e) {
-        this.getData(0, this.state.pageSize, e, true);
+        this.getData(1, this.state.pageSize, e, 'flash');
     }
 
-    // 选择
-    onChose(item) {
-        console.log('选择了：', item);
-        this.props.actions.saveServiceInfo(item);
-        setTimeout(() => this.props.history.push('/healthy/precheck'), 16);
+    // 下拉刷新
+    onDown() {
+        this.getData(1, this.state.pageSize, this.state.search, 'flash');
+    }
+    // 上拉加载
+    onUp() {
+        this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, 'update');
     }
 
     render() {
@@ -103,32 +95,39 @@ class HomePageContainer extends React.Component {
                     maxLength={25}
                     onSubmit={(e) => this.onSearch(e)}
                     iscrollOptions={{
+                        disableMouse: true,
+                        momentum: false,
                         preventDefault: true,
+
                     }}
                 />
                 <div className="iscroll-box">
-                    <PullToRefresh
-                        style={{ height: 'calc(100vh - 44px)', overflow: 'auto' }}
-                        indicator={{ deactivate: '上拉加载更多' }}
-                        direction={'up'}
-                        refreshing={this.state.refreshing}
-                        onRefresh={() => this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search)}
+                    <Luo
+                        id="luo2"
+                        className="touch-none"
+                        onPullDownRefresh={() => this.onDown()}
+                        onPullUpLoadMore={() => this.onUp()}
                     >
-                        {
-                            this.state.data.length ? this.state.data.map((item, index) => {
-                                return (
-                                    <div key={index} className="card-box page-flex-row">
-                                        <div className="l flex-auto">
-                                            <div className="title">{item.name}</div>
-                                            <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.contactPerson}</span></div>
-                                            <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.contactPhone}</span></div>
-                                            <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
-                                        </div>
-                                    </div>
-                                );
-                            }) : <div style={{ textAlign: 'center', padding: '.2rem' }}>搜索到0个结果</div>
-                        }
-                    </PullToRefresh>
+                        <ul>
+                            {
+                                this.state.data.length ? this.state.data.map((item, index) => {
+                                    return (
+                                        <li key={index} className="card-box page-flex-row">
+                                            <div className="l flex-auto">
+                                                <div className="title">{item.name}</div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.phone}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
+                                            </div>
+                                        </li>
+                                    );
+                                }) : <li key={0} className="data-nothing">
+                                    <img src={Img404}/>
+                                    <div>亲，这里什么也没有哦~</div>
+                                </li>
+                            }
+                        </ul>
+                    </Luo>
                 </div>
             </div>
         );

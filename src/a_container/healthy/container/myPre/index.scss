@@ -1,4 +1,6 @@
 .page-my-pre{
+  height: 100vh;
+  background-color: #fff;
   .one-box{
     &+.one-box{
       margin-top: .2rem;
@@ -64,5 +66,11 @@
         }
       }
     }
+  }
+  .nodata{
+    text-align: center;
+    color: #aaa;
+    padding: .2rem;
+    font-size: .28rem;
   }
 }

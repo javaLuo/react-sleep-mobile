@@ -154,6 +154,7 @@ class Register extends React.Component {
                         <img className="head" src={u.headImg}/>
                     </div>
                 </div>
+                <div className="footer-zw"/>
                 <div className="thefooter">
                     <Button type="primary" onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
                 </div>

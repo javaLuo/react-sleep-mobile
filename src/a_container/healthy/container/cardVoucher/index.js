@@ -31,14 +31,12 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        data: [],
         wxReady: true, // 微信是否已初始化
         shareShow: false,   // 分享提示框是否显示
     };
   }
 
   componentDidMount() {
-      this.getData();
       this.initWeiXinPay();
   }
 
@@ -47,16 +45,6 @@ class HomePageContainer extends React.Component {
       if (!list){ return 0; }
       return list.filter((item) => item.ticketStatus !== 1).length;
     }
-  // 获取体检卡列表
-  getData() {
-      this.props.actions.mallCardList({ pageNum: 0, pageSize: 9999 }).then((res) => {
-            if (res.status === 200) {
-                this.setState({
-                    data: res.data ? res.data.result : [],
-                });
-            }
-      });
-  }
 
   // 失败
     onFail() {

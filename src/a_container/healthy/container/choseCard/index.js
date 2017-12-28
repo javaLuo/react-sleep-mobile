@@ -14,8 +14,9 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-
+import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
+import Img404 from '../../../../assets/not-found.png';
 import { } from 'antd-mobile';
 // ==================
 // 本页面所需action
@@ -29,7 +30,7 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null, // 用户拥有的体检卡
+            data: [], // 用户拥有的体检卡
             wxReady: false, // 微信是否已初始化
         };
     }
@@ -39,11 +40,13 @@ class HomePageContainer extends React.Component {
     }
 
     // 获取体检卡列表
-    getData() {
-        this.props.actions.mallCardList({ pageNum: 0, pageSize: 9999 }).then((res) => {
+    getData(pageNum=1, pageSize=10, type='flash') {
+        this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    data: (res.data && res.data.result) ? res.data.result : [],
+                    data: type === 'flash' ? (res.data.result || []) : [...this.state.data, ...(res.data.result || [])],
+                    pageNum,
+                    pageSize,
                 });
             }
         });
@@ -67,38 +70,59 @@ class HomePageContainer extends React.Component {
         return list.filter((item) => item.ticketStatus !== 1).length;
     }
 
+    // 下拉刷新
+    onDown() {
+        this.getData(1, this.state.pageSize, 'flash');
+    }
+    // 上拉加载
+    onUp() {
+        this.getData(this.state.pageNum + 1, this.state.pageSize, 'update');
+    }
+
     render() {
         return (
             <div className="page-chose-card">
-                <ul>
-                    {(() => {
-                        let map = [];
-                        if(!this.state.data) {
-                            map.push(<li key={0} className="nodata">正在加载...</li>);
-                        } else if (this.state.data.length <= 0) {
-                            map.push(<li key={0} className="nodata">您没有体检卡<br/><Link to="/">前往购买</Link></li>);
-                        } else {
-                            map = this.state.data.map((item, index) => {
-                                return <li  key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onCardClick(item)}>
-                                    <div className="row1 flex-none page-flex-row flex-jc-sb">
-                                        <div>
-                                            <div className="t">健康风险评估卡</div>
-                                            <div className="i">专注疾病早起筛查</div>
+                <Luo
+                    id="luo3"
+                    className="touch-none"
+                    onPullDownRefresh={() => this.onDown()}
+                    onPullUpLoadMore={() => this.onUp()}
+                    iscrollOptions={{
+                        disableMouse: true,
+                        momentum: false,
+                    }}
+                >
+                    <ul>
+                        {(() => {
+                            let map = [];
+                            if (this.state.data.length <= 0) {
+                                map.push(<li key={0} className="data-nothing">
+                                    <img src={Img404}/>
+                                    <div>亲，这里什么也没有哦~</div>
+                                </li>);
+                            } else {
+                                map = this.state.data.map((item, index) => {
+                                    return <li  key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onCardClick(item)}>
+                                        <div className="row1 flex-none page-flex-row flex-jc-sb">
+                                            <div>
+                                                <div className="t">健康风险评估卡</div>
+                                                <div className="i">专注疾病早起筛查</div>
+                                            </div>
+                                            <div className="flex-none"><img src={ImgRight} /></div>
                                         </div>
-                                        <div className="flex-none"><img src={ImgRight} /></div>
-                                    </div>
-                                    <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
-                                        <div>
-                                            <div className="t">共{item.ticketNum}张<span>已使用{this.getHowManyByTicket(item.ticketList)}张</span></div>
-                                            <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
+                                        <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                                            <div>
+                                                <div className="t">共{item.ticketNum}张<span>已使用{this.getHowManyByTicket(item.ticketList)}张</span></div>
+                                                <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>;
-                            });
-                        }
-                        return map;
-                    })()}
-                </ul>
+                                    </li>;
+                                });
+                            }
+                            return map;
+                        })()}
+                    </ul>
+                </Luo>
             </div>
         );
     }

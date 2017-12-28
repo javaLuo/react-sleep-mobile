@@ -46,7 +46,17 @@ class HomePageContainer extends React.Component {
 
   componentWillMount() {
       if (!this.getPayInfo()){
-          this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
+          /**
+           * 没有订单信息，可能是支付完成后IOS中自动打开的网页回调
+           * IOS的微信H5支付中，会打开一个新回跳页面，要处理一下
+           * 是safari、不是安卓、不是微信、无回跳标识
+           * **/
+          const pageStart = sessionStorage.getItem('pay-start');
+          if (tools.isSafari() && !tools.isAndroid() && !tools.isWeixin() && !pageStart) {
+              location.href = 'com.myapp://';
+          } else {
+              this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
+          }
       }
       this.getObjInfo();
   }
@@ -227,7 +237,7 @@ class HomePageContainer extends React.Component {
              * **/
             console.log('H5支付统一下单返回值：', res);
             if (res.status === 200) {
-                location.assign(`${res.data}`);
+                location.assign(`${res.data}&redirect_url=${encodeURIComponent(Config.baseURL + '/gzh/#/shop/paychose')}`);
                 // ${encodeURIComponent(Config.baseURL + '/gzh/#/shop/paychose')}
             }
         }).catch(() => {
@@ -360,7 +370,7 @@ class HomePageContainer extends React.Component {
               }
           </List>
           <div className="thefooter page-flex-row">
-              <Button loading={this.state.loading} onClick={() => this.onSubmit()}>{this.state.loading ? <span>支付中 ￥{this.state.pay_info.fee}</span> : <span>确认支付 ￥{this.state.pay_info.fee}</span>}</Button>
+              <Button loading={this.state.loading} type="primary" onClick={() => this.onSubmit()}>{this.state.loading ? <span>支付中 ￥{this.state.pay_info.fee}</span> : <span>确认支付 ￥{this.state.pay_info.fee}</span>}</Button>
 
           </div>
           <Modal

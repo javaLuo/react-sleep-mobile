@@ -216,7 +216,7 @@ class HomePageContainer extends React.Component {
       const d = this.state.pay_info;
       console.log('当前订单是什么:', d);
     return (
-      <div className="flex-auto page-box gooddetail-page">
+      <div className="flex-auto page-box page-pay">
           {/* List */}
           <List>
               <Item extra={d.id}>订单号</Item>

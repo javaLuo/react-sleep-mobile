@@ -19,7 +19,7 @@ class HomePageContainer extends React.Component {
       <div className="page-notfound">
           <div className="box">
             <img src={Img404}/>
-            <div>亲，这里什么都没有哦~</div>
+            <div>404 NotFound</div>
           </div>
       </div>
     );
