@@ -1,4 +1,4 @@
-/* 健康管理 - 我的体检卡 */
+/* 我的订单 - 查看体检卡详情页 */
 
 // ==================
 // 所需的各种插件
@@ -30,7 +30,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit, saveCardInfo, mallOrderHraCard } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -38,6 +38,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: null, // 当前页的数据
         wxReady: true, // 微信是否已初始化
         shareShow: false,   // 分享提示框是否显示
         which: -1,  // 当前选中哪一个进行分享
@@ -45,10 +46,9 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      if ((!this.props.myCard.data) || (!this.props.myCard.data.length)) {
-          console.log('你还是执行了这里：', this.props.myCard.data);
+
           this.getData();
-      }
+
       this.initWeiXinPay();
   }
 
@@ -63,18 +63,21 @@ class HomePageContainer extends React.Component {
    * type=falsh 刷新
    * type=update 累加
    * **/
-  getData(pageNum = 1, pageSize = 10, type) {
-      this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
-            if (res.status === 200) {
-                console.log('我的体检卡：', res.data.result);
-                if (!res.data || !res.data.result || res.data.result.length === 0) {
-                    Toast.info('没有更多数据了', 1);
-                }
-                this.props.actions.saveMyCardInfo((res.data && res.data.result) ? ( type === 'update' ? [...(this.props.myCard.data || []), ...res.data.result] : res.data.result ) : [], pageNum, pageSize);
-            } else {
-                Toast.info(res.message || '数据加载失败', 1);
-                this.props.actions.saveMyCardInfo([], this.props.myCard.pageNum, this.props.myCard.pageSize);
-            }
+  getData() {
+      const pathname = this.props.location.pathname.split('/');
+      const id = pathname[pathname.length - 1];
+      this.props.actions.mallOrderHraCard({ orderId: id, pageNum: 1, pageSize: 99 }).then((res) => {
+          if (res.status === 200) {
+              if (res.data.result) {
+                  this.setState({
+                      data: res.data.result,
+                  });
+              } else {
+                  this.setState({
+                      data: [],
+                  });
+              }
+          }
       });
   }
 
@@ -88,9 +91,7 @@ class HomePageContainer extends React.Component {
     initWeiXinPay() {
         // 后台需要给个接口，返回appID,timestamp,nonceStr,signature
         this.props.actions.wxInit().then((res) => {
-            console.log('返回的是什么：', res);
             if (res.status === 200) {
-                console.log('走这里：', res);
                 this.initWxConfig(res.data);
             } else {
                 this.onFail();
@@ -130,7 +131,7 @@ class HomePageContainer extends React.Component {
         });
     }
 
-    // 点击分享按钮，需判断是否是原生系统
+    // 点击分享按钮，
     onStartShare(obj, index, e) {
       e.stopPropagation();
       console.log('要分享的信息：', obj, tools.isWeixin());
@@ -169,56 +170,6 @@ class HomePageContainer extends React.Component {
       }
     }
 
-  // 分享框出现
-    onShare(obj) {
-        ActionSheet.showShareActionSheetWithOptions({
-            options: [
-                { icon: <img src={ImgShare1} style={{ width: 36 }}/>, title: '微信好友' },
-                { icon: <img src={ImgShare2} style={{ width: 36 }}/>, title: '朋友圈' }
-            ],
-            // title: 'title',
-            maskClosable: true,
-            message: '分享到：',
-        },
-        (index) => {
-            console.log("选的那一个", index);
-            if(index === 0) {   // 分享到微信
-                this.shareToFritend(obj);
-            } else if(index === 1) {    // 分享到朋友圈
-                this.shareToTimeLine(obj);
-            }
-            return false;
-        });
-    }
-
-    // 分享给好友
-    shareToFritend(obj) {
-      if(typeof AndroidDataJs !== 'undefined') {
-          const params = [
-              `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
-              'HRA健康风险评估卡',
-              obj.productModel.modelDetail || '专注疾病早起筛查',
-              'http://isluo.com/work/logo/share_card.png',
-              true,
-          ];
-          AndroidDataJs.shareToWeChat(...params);
-      }
-    }
-
-    // 分享到朋友圈
-    shareToTimeLine(obj) {
-        if(typeof AndroidDataJs !== 'undefined') {
-            const params = [
-                `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
-                'HRA健康风险评估卡',
-                obj.productModel.modelDetail || '专注疾病早起筛查',
-                'http://isluo.com/work/logo/share_card.png',
-                false,
-            ];
-            AndroidDataJs.shareToWeChat(...params);
-        }
-    }
-
     // 点击卡片进入体检券页
     onClickCard(obj) {
         this.props.actions.saveCardInfo(obj);
@@ -239,35 +190,18 @@ class HomePageContainer extends React.Component {
       return num;
     }
 
-    // 下拉刷新
-    onDown() {
-        this.getData(1, this.props.myCard.pageSize, 'flash');
-    }
-    // 上拉加载
-    onUp() {
-      this.getData(this.props.myCard.pageNum + 1, this.props.myCard.pageSize, 'update');
-    }
-
   render() {
     return (
-      <div className="page-mycard">
-          <Luo
-            id="luo1"
-            onPullDownRefresh={() => this.onDown()}
-            onPullUpLoadMore={() => this.onUp()}
-            options={{
-                click: true,
-            }}
-          >
+      <div className="page-ordercarddetail">
               <ul className="the-ul">
                   {
                       (() => {
-                          if (!this.props.myCard.data) {
+                          if (!this.state.data) {
                               return <li key={0} className="nodata">加载中...</li>;
-                          } else if (this.props.myCard.data.length === 0) {
+                          } else if (this.state.data.length === 0) {
                               return <li key={0} className="nodata">暂无数据</li>;
                           } else {
-                              return this.props.myCard.data.map((item, index) => {
+                              return this.state.data.map((item, index) => {
                                   return <li key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
                                       <div className="row1 flex-none page-flex-row flex-jc-sb" >
                                           <div>
@@ -280,7 +214,7 @@ class HomePageContainer extends React.Component {
                                           <div>
                                               <div className="t">
                                                   共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
-                                              <div className="i">有效期至：{tools.dateformart(new Date(item.validTime))}</div>
+                                              <div className="i">有效期至：{tools.dateformart(item.validTime)}</div>
                                           </div>
                                           {
                                               tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >分享</div> : null
@@ -292,7 +226,6 @@ class HomePageContainer extends React.Component {
                       })()
                   }
               </ul>
-          </Luo>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
               <div className="title">点击右上角进行分享</div>
@@ -311,7 +244,6 @@ HomePageContainer.propTypes = {
   history: P.any,
     actions: P.any,
     userinfo: P.any,
-    myCard: P.any,
 };
 
 // ==================
@@ -321,9 +253,8 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
     userinfo: state.app.userinfo,
-      myCard: state.shop.myCard,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, saveMyCardInfo }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, mallOrderHraCard }, dispatch),
   })
 )(HomePageContainer);

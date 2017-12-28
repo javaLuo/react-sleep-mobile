@@ -89,7 +89,6 @@ class HomePageContainer extends React.Component {
                 }),
             },
         ]);
-
     }
 
     // 待付款的订单点击付款
@@ -104,6 +103,11 @@ class HomePageContainer extends React.Component {
     onSeeDetail(obj) {
       this.props.actions.saveOrderInfo(obj);
       this.props.history.push(`/my/orderdetail`);
+    }
+
+    // 查看体检卡详情
+    onLook(id) {
+        this.props.history.push(`/my/ordercarddetail/${id}`);
     }
 
   render() {
@@ -147,7 +151,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -192,7 +196,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -237,7 +241,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue-btn" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;

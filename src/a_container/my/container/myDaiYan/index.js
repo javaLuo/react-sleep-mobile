@@ -23,7 +23,7 @@ import ImgQrCode from '../../../../assets/share/qrcode_for_gh.jpg';   // 二维�
 // ==================
 
 import { wxInit } from '../../../../a_action/shop-action';
-
+import { shareBuild } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -34,6 +34,7 @@ class Register extends React.Component {
         this.state = {
             shareShow: false,   // 分享提示框是否显示
             wxReady: true,  // 微信SDK是否初始化成功
+            imgCode: '',    // 二维码图片
         };
     }
 
@@ -43,7 +44,24 @@ class Register extends React.Component {
 
     componentDidMount() {
         this.initWeiXinPay();
+        this.getCode();
     }
+
+    // 获取二维码图片
+    getCode() {
+        const u = this.props.userinfo;
+        if (!u) {
+            return;
+        }
+        this.props.actions.shareBuild({ userId: Number(u.id) }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    imgCode: res.data,
+                });
+            }
+        });
+    }
+
     // 获取微信初始化所需参数
     initWeiXinPay() {
         // 后台需要给个接口，返回appID,timestamp,nonceStr,signature
@@ -126,11 +144,15 @@ class Register extends React.Component {
     }
 
     render() {
+        const u = this.props.userinfo || {};
         return (
             <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh' }}>
                 <div className="img-box">
                     <img className="img" src={Img} />
-                    <img className="code" src={ImgQrCode}/>
+                    <div className="code" >
+                        <img src={this.state.imgCode || ImgQrCode}/>
+                        <img className="head" src={u.headImg}/>
+                    </div>
                 </div>
                 <div className="thefooter">
                     <Button type="primary" onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
@@ -164,6 +186,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ wxInit }, dispatch),
+        actions: bindActionCreators({ wxInit, shareBuild }, dispatch),
     })
 )(Register);

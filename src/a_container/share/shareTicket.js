@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './shareTicket.scss';
+import tools from '../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
@@ -75,7 +76,7 @@ class HomePageContainer extends React.Component {
                         </div>
                         <div className="row2 flex-none">
                             <div>
-                                <div className="t">卡号<span>{d.no}</span></div>
+                                <div className="t">卡号<span>{tools.cardFormart(d.no)}</span></div>
                                 <div className="i">有效期至：{d.date}</div>
                             </div>
                         </div>

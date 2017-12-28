@@ -163,7 +163,7 @@ class HomePageContainer extends React.Component {
                           </div>
                           <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
                               <div>
-                                  <div className="t">卡号<span>{item.ticketNo}</span></div>
+                                  <div className="t">卡号<span>{tools.cardFormart(item.ticketNo)}</span></div>
                                   <div className="i">有效期：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
                               </div>
                               {

@@ -92,7 +92,12 @@ class Login extends React.Component {
           }
 
         // 登录成功后，如果设置了回跳地址，就跳转到回跳地址
-        this.props.history.go(-1);
+          if (this.props.history.length) {
+              this.props.history.go(-1);
+          } else {
+            this.props.history.replace('/my');
+          }
+
       } else {
         Toast.fail(res.message || '登录失败', 1);
       }

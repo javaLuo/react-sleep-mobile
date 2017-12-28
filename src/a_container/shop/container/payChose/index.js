@@ -39,6 +39,7 @@ class HomePageContainer extends React.Component {
         pay_info: {},       // 订单信息
         pay_obj: {},        // 商品信息
         modalShow: false,   // 是否显示操作提示框
+        loading: false, // 是否正在支付中
     };
     this.s3data = null;      // 统一下单请求返回的数据
   }
@@ -78,7 +79,6 @@ class HomePageContainer extends React.Component {
     getPayInfo() {
         let pay = sessionStorage.getItem('pay-info');
         if (!pay) {
-            Toast.fail('未获取到订单信息',1);
             return false;
         } else {
             pay = JSON.parse(pay);
@@ -227,7 +227,8 @@ class HomePageContainer extends React.Component {
              * **/
             console.log('H5支付统一下单返回值：', res);
             if (res.status === 200) {
-                location.assign(`${res.data}&redirect_url=${encodeURIComponent(Config.baseURL + '/gzh/#/my/order')}`);
+                location.assign(`${res.data}`);
+                // ${encodeURIComponent(Config.baseURL + '/gzh/#/shop/paychose')}
             }
         }).catch(() => {
             Toast.fail('支付失败，请重试',1);
@@ -248,7 +249,12 @@ class HomePageContainer extends React.Component {
             Toast.fail('未获取到订单信息,请重试',1);
             return false;
         }
-
+        if (this.state.loading) {
+            return false;
+        }
+        this.setState({
+            loading: true,
+        });
         if(this.state.payType === 'wxpay') {    /** 选择的微信支付 **/
             if (tools.isWeixin()) {             /** 是微信浏览器中打开的，执行公众号支付 **/
                 if (this.s3data) {              // 已经获取过统一下单了，直接调起支付就行 （即用户取消支付、支付失败后，重新点击支付）
@@ -354,7 +360,8 @@ class HomePageContainer extends React.Component {
               }
           </List>
           <div className="thefooter page-flex-row">
-              <div className="flex-none" style={{ textAlign: 'center', width: '100%' }} onClick={() => this.onSubmit()}>确认支付 ￥{this.state.pay_info.fee}</div>
+              <Button loading={this.state.loading} onClick={() => this.onSubmit()}>{this.state.loading ? <span>支付中 ￥{this.state.pay_info.fee}</span> : <span>确认支付 ￥{this.state.pay_info.fee}</span>}</Button>
+
           </div>
           <Modal
               visible={this.state.modalShow}

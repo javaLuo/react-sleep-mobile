@@ -22,6 +22,7 @@ import PerInfo from './container/perInfo';
 import Authentication from './container/authentication';
 import Order from './container/order';
 import OrderDetail from './container/orderdetail';
+import OrderCardDetail from './container/orderCardDetail';
 import PaySuccess from './container/paySuccess';
 import UseOfKnow from './container/useOfKnow';
 import HealthyAmb from './container/healthyAmb';
@@ -61,6 +62,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/authentication`} component={Authentication} />
               <Route exact path={`${this.props.match.url}/order`} component={Order} />
               <Route exact path={`${this.props.match.url}/orderdetail`} component={OrderDetail} />
+              <Route exact path={`${this.props.match.url}/ordercarddetail/:id`} component={OrderCardDetail} />
               <Route exact path={`${this.props.match.url}/paysuccess/:id`} component={PaySuccess} />
               <Route exact path={`${this.props.match.url}/useofknow`} component={UseOfKnow} />
               <Route exact path={`${this.props.match.url}/healthyamb`} component={HealthyAmb} />

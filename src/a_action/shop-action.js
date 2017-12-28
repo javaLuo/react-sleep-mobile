@@ -187,7 +187,7 @@ export const mallOrderList = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询一个订单详情 (柳号的接口， orderId,pageNum,pageSize)
+// 查询一个订单详情 (柳号的接口， orderId,pageNum,pageSize， 返回订单对应的卡的信息)
 export const mallOrderHraCard = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/order/hraCard', params);
@@ -197,7 +197,7 @@ export const mallOrderHraCard = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询一个订单详情 (张波的接口， orderId)
+// 查询一个订单详情 (张波的接口， orderId, 返回订单的信息)
 export const mallOrderQuery = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/order/query', params);

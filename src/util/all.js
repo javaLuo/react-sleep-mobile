@@ -203,6 +203,26 @@ const allobj = {
         const ua = window.navigator.userAgent.toLowerCase();
         return ua.indexOf('micromessenger') !== -1;
     },
+
+    /**
+     * 格式化卡号（每4号一个空格）
+     * **/
+    cardFormart(str) {
+        if (!str) {
+            return '';
+        }
+        const num = Array.from(str);
+
+        let r = '';
+        num.forEach((item, index) => {
+            if (index && index % 4 === 0) {
+                r = `${r} ${item}`;
+            } else {
+                r = `${r}${item}`;
+            }
+        });
+        return r;
+    }
 };
 
 export default allobj;

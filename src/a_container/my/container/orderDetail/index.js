@@ -14,17 +14,18 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Toast, List, Button } from 'antd-mobile';
+import { Toast, List, Button, Modal } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallOrderHraCard } from '../../../../a_action/shop-action';
+import { mallOrderHraCard, mallOrderDel } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
 // ==================
 const Item = List.Item;
+const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -71,32 +72,63 @@ class HomePageContainer extends React.Component {
         this.props.history.push('/shop/payChose');
     }
 
+    // 删除订单
+    onDel() {
+        const obj = this.props.orderInfo;
+        if (!obj) {
+            Toast.fail('获取订单信息失败',1);
+            return true;
+        }
+        alert('确认删除订单？', '删除之后将无法再查看订单', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            {
+                text: '确定',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.mallOrderDel({ orderId: id }).then((res) => {
+                        if (res.status === 200) {
+                            this.getData();
+                            Toast.success('订单已删除',1);
+                        } else {
+                            Toast.fail(res.message || '订单取消失败',1);
+                        }
+                        resolve();
+                    }).catch(() => {
+                        rej();
+                    });
+                }),
+            },
+        ]);
+    }
+
+    // 查看订单对应的卡的信息
+    onLook() {
+        const obj = this.props.orderInfo;
+        if (!obj) {
+            Toast.fail('获取订单信息失败',1);
+            return true;
+        }
+        this.props.history.push(`/my/ordercarddetail/${obj.id}`);
+    }
+
   render() {
+      const data = this.props.orderInfo.product || {};
     return (
       <div className="page-order-detail">
           <div className="card-box">
-              <div className="info page-flex-row" onClick={() => this.onGotoProduct(this.props.orderInfo.product.id)}>
+              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data.id)}>
                   <div className="pic flex-none">
                       {
-                          (this.props.orderInfo.product && this.props.orderInfo.product.productImg) ? (
-                              <img src={this.props.orderInfo.product.productImg.split(',')[0]} />
+                          (data.productImg) ? (
+                              <img src={data.productImg.split(',')[0]} />
                           ) : null
                       }
                   </div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
-                      <div className="t">{ this.props.orderInfo.product ? this.props.orderInfo.product.name : '' }</div>
-                      <div className="i">￥<span>{this.props.orderInfo.product.typeModel.price || ''}</span></div>
+                      <div className="t">{ data.name || '' }</div>
+                      <div className="i">￥<span>{data.typeModel ? data.typeModel.price : ''}</span></div>
                   </div>
               </div>
           </div>
-          {/*<List>*/}
-              {/*<Item className="long" extra={`有效期至：${(this.state.data[0] && this.state.data[0].validTime) ? this.state.data[0].validTime.split(' ')[0] : ''}`}>体检卡</Item>*/}
-              {/*{*/}
-                  {/*this.state.data.map((item, index) => {*/}
-                      {/*return <Item key={index} className="long" arrow="horizontal">体检卡{this.state.data.length > 1 ? index + 1 : null}：共{item.ticketNum}张</Item>;*/}
-                  {/*})*/}
-              {/*}*/}
-          {/*</List>*/}
           <div className="order-info">
               <div>订单号：{this.props.orderInfo.id || ''}</div>
               <div>下单时间：{this.props.orderInfo.createTime || ''}</div>
@@ -107,13 +139,23 @@ class HomePageContainer extends React.Component {
           <List>
               <Item arrow="horizontal" onClick={() => this.props.history.push('/my/useofknow')}>常见问题</Item>
           </List>
-          {
-              this.props.orderInfo.conditions === 0 ? (
-                  <div className="thefooter">
-                      <Button type="default" onClick={() => this.onPay()}>立即支付</Button>
-                  </div>
-              ) : null
-          }
+          {(() => {
+              switch(this.props.orderInfo.conditions){
+                  case 0: return (
+                      <div className="thefooter page-flex-row">
+                          <Button type="warning" onClick={() => this.onDel()}>删除订单</Button>
+                          <Button type="primary" onClick={() => this.onPay()}>立即支付</Button>
+                      </div>
+                  );
+                  case 4: return (
+                      <div className="thefooter page-flex-row">
+                          <Button type="warning" onClick={() => this.onDel()}>删除订单</Button>
+                          <Button type="primary" onClick={() => this.onLook()}>查看体检卡</Button>
+                      </div>
+                  );
+                  default: return null;
+              }
+          })()}
       </div>
     );
   }
@@ -139,6 +181,6 @@ export default connect(
       orderInfo: state.shop.orderInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallOrderHraCard }, dispatch),
+    actions: bindActionCreators({ mallOrderHraCard, mallOrderDel }, dispatch),
   })
 )(HomePageContainer);

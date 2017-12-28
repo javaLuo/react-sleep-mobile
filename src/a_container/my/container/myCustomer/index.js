@@ -58,9 +58,9 @@ class HomePageContainer extends React.Component {
               {
                   this.state.data.length ? this.state.data.map((item, index) => {
                       return <li key={index} className="page-flex-row flex-ai-center">
-                          <div className="photo flex-none"><img src={ImgDefault} /></div>
-                          <div className="name flex-auto">姓名</div>
-                          <div className="num flex-none">emall_8888</div>
+                          <div className="photo flex-none"><img src={item.headImg || ImgDefault} /></div>
+                          <div className="name flex-auto">{item.nickName}</div>
+                          <div className="num flex-none">{item.id}</div>
                       </li>;
                   }) : <li key="1" className="nothing"><div>暂无数据</div></li>
               }

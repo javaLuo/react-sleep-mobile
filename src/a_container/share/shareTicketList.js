@@ -67,7 +67,7 @@ class HomePageContainer extends React.Component {
                                 </div>
                                 <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                     <div>
-                                        <div className="t">卡号<span>{item[0]}</span></div>
+                                        <div className="t">卡号<span>{tools.cardFormart(item[0])}</span></div>
                                         <div className="i">有效期至：{this.state.date}</div>
                                     </div>
                                 </div>
