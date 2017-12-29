@@ -44,6 +44,9 @@ class Register extends React.Component {
         this.timer = null;  // 获取验证码的tiemr
     }
 
+    componentDidMount(){
+        document.title = '密码设置';
+    }
     componentWillUnmount() {
         clearInterval(this.timer);
     }

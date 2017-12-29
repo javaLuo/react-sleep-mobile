@@ -54,14 +54,29 @@
     height: 47px;
     width: 100%;
     z-index: 10;
+    padding: 0 .2rem;
+    background-color: #fff;
     a{
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      border: none !important;
-      color: #fff;
-      &:before{
-        border: none !important;
+      display: inline-block;
+      width: 2rem;
+      height: 32px;
+      text-align: center;
+      line-height: 32px;
+      border-radius: 50px;
+      border: solid 1px #aaa;
+      margin-left: .2rem;
+      color: #aaa;
+      &:active{
+        background-color: #aaa;
+        color: #fff;
+      }
+      &.blue{
+        border:solid 1px #4285f4;
+        color: #4285f4;
+        &:active{
+          background-color: #4285f4;
+          color: #fff;
+        }
       }
     }
   }

@@ -1,8 +1,8 @@
 .page-card-voucher{
-  &>ul{
+  .the-ul{
     padding: .2rem;
     box-sizing: border-box;
-    &>li+li {
+    &>div+div {
       margin-top: .2rem;
     }
     .cardbox{

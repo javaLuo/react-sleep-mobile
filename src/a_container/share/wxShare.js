@@ -30,7 +30,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-
+        document.title = '微信公众号';
     }
 
     render() {

@@ -32,6 +32,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '收益管理';
       const me = this;
       // setTimeout是因为初次加载时，CSS可能还没加载完毕，导致图表样式有问题
       setTimeout(() => {
@@ -98,15 +99,15 @@ class HomePageContainer extends React.Component {
         <div className="charts-box">
           <div id="echarts-1" className="echarts" />
           <div className="center-label">
-              <div className="t">￥999999.00</div>
+              <div className="t">￥9999.00</div>
               <div className="label">累计收益</div>
           </div>
         </div>
           <ul className="data-ul all_clear">
-              <li><i style={{ backgroundColor: '#ffb937' }}/>净水设备：￥9999.00</li>
-              <li><i style={{ backgroundColor: '#5c99ff' }}/>健康食品：￥9999.00</li>
-              <li><i style={{ backgroundColor: '#9942f9' }}/>生物理疗：￥9999.00</li>
-              <li><i style={{ backgroundColor: '#ff4e83' }}/>健康体检：￥9999.00</li>
+              <li><i style={{ backgroundColor: '#ffb937' }}/>净水设备：0.00</li>
+              <li><i style={{ backgroundColor: '#5c99ff' }}/>健康食品：0.00</li>
+              <li><i style={{ backgroundColor: '#9942f9' }}/>生物理疗：0.00</li>
+              <li><i style={{ backgroundColor: '#ff4e83' }}/>健康风险评估卡：￥9999.00</li>
           </ul>
           <List>
               <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/prodetail')}>收益明细</Item>

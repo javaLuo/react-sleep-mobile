@@ -35,6 +35,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '我的订单';
       sessionStorage.removeItem('pay-obj');
       sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
@@ -127,39 +128,39 @@ class HomePageContainer extends React.Component {
                           this.state.data.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
-                                      <div className="title page-flex-row flex-jc-sb">
-                                          <span className="num">订单号：{item.id}</span>
-                                          <span className="type">{this.getNameByConditions(item.conditions)}</span>
-                                      </div>
-                                      <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
-                                          <div className="pic flex-none">
-                                              {
-                                                  (item.product && item.product.productImg) ?
-                                                      <img src={item.product.productImg.split(',')[0]} /> : null
-                                              }
+                                          <div className="title page-flex-row flex-jc-sb">
+                                              <span className="num">订单号：{item.id}</span>
+                                              <span className="type">{this.getNameByConditions(item.conditions)}</span>
                                           </div>
-                                          <div className="goods flex-auto">
-                                              <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">￥{item.product ? item.product.typeModel.price : ''}</div>
-                                              <div className="i">*{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
+                                          <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
+                                              <div className="pic flex-none">
+                                                  {
+                                                      (item.product && item.product.productImg) ?
+                                                          <img src={item.product.productImg.split(',')[0]} /> : null
+                                                  }
+                                              </div>
+                                              <div className="goods flex-auto">
+                                                  <div className="t">{item.product ? item.product.name : ''}</div>
+                                                  <div className="i">￥{item.product ? item.product.typeModel.price : ''}</div>
+                                                  <div className="i">*{item.count}</div>
+                                                  <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
+                                              </div>
                                           </div>
-                                      </div>
-                                      <div className="controls page-flex-row flex-jc-end">
-                                          {(() => {
-                                              switch(String(item.conditions)){
-                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-                                                  case '1': return <span>未受理</span>;
-                                                  case '2': return <span>已受理</span>;
-                                                  case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
-                                                  case '-1': return <span>审核中</span>;
-                                                  case '-2': return <span>未通过</span>;
-                                                  case '-3': return <span>已取消</span>;
-                                                  default: return <span>未知状态</span>;
-                                              }
-                                          })()}
-                                      </div>
+                                          <div className="controls page-flex-row flex-jc-end">
+                                              {(() => {
+                                                  switch(String(item.conditions)){
+                                                      case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
+                                                      case '1': return <span>未受理</span>;
+                                                      case '2': return <span>已受理</span>;
+                                                      case '3': return <span>处理中</span>;
+                                                      case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                      case '-1': return <span>审核中</span>;
+                                                      case '-2': return <span>未通过</span>;
+                                                      case '-3': return <span>已取消</span>;
+                                                      default: return <span>未知状态</span>;
+                                                  }
+                                              })()}
+                                          </div>
                                   </li>
                               );
                           })

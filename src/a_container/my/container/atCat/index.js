@@ -51,10 +51,11 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+    this.getMyAmbassador();
     setTimeout(() => {
         this.scrollDom = new IScroll('#scroll1', {
             scrollX: true,
-            momentum: false,
+
             snap: true
         });
         // 滚动结束时，判断当前是哪一页
@@ -68,6 +69,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillUnmount() {
+      document.title = '我在翼猫';
       this.scrollDom.destroy();
       this.scrollDom = null;
       console.log('USERINFO:', this.props.userinfo);
@@ -93,6 +95,14 @@ class HomePageContainer extends React.Component {
           page,
       });
       this.scrollDom && this.scrollDom.goToPage(page, 1, time);
+    }
+
+    // 获取健康大使信息
+    getMyAmbassador() {
+        const u = this.props.userinfo;
+        if (u && !this.props.ambassador) {
+            this.props.actions.myAmbassador({ userId: u.id });
+        }
     }
 
   render() {
@@ -205,7 +215,7 @@ class HomePageContainer extends React.Component {
                                     <div>健康食品</div>
                                 </li>
                                 <li>
-                                    <img src={ImgD2} />
+                                    <img src={this.props.ambassador.userType === 2 ? ImgD1 : ImgD2} />
                                     <div>生物理疗产品</div>
                                 </li>
                                 <li>
@@ -243,6 +253,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   userinfo: P.any,
+  ambassador: P.any,
 };
 
 // ==================
@@ -252,6 +263,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
     userinfo: state.app.userinfo,
+    ambassador: state.app.ambassador,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ }, dispatch),

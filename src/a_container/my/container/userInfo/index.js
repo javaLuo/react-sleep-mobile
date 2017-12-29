@@ -35,6 +35,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '个人信息';
       if (!this.props.userinfo) {
           this.getUserInfo();
       }

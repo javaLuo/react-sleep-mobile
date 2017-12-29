@@ -41,6 +41,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
+        document.title = '我的代言卡分享';
         this.getCode();
     }
 

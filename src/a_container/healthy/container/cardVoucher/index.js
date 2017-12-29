@@ -16,7 +16,7 @@ import tools from '../../../../util/all';
 // ==================
 
 import ImgShareArr from '../../../../assets/share-arr.png';
-import { ActionSheet, Toast } from 'antd-mobile';
+import { ActionSheet, Toast, SwipeAction } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================
@@ -37,6 +37,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '体检券';
       this.initWeiXinPay();
   }
 
@@ -135,34 +136,53 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    // 删除体检券
+    onDelete(item) {
+      console.log('删除体检券');
+    }
   render() {
       const ticket = this.props.cardInfo.ticketList || [];
     return (
       <div className="page-card-voucher">
-          <ul>
+          <div className="the-ul">
               {
                   ticket.map((item, index) => {
-                      return <li  key={index} className="cardbox page-flex-col flex-jc-sb">
-                          <div className="row1 flex-none page-flex-row flex-jc-sb">
-                              <div>
-                                  <div className="t"> </div>
-                              </div>
-                              <div className="flex-none">{String(item.ticketStatus) === '1' ? '未使用' : '已使用'}</div>
-                          </div>
-                          <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
-                              <div>
-                                  <div className="t">卡号<span>{tools.cardFormart(item.ticketNo)}</span></div>
-                                  <div className="i">有效期：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
-                              </div>
-                              {
-                                  tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>分享</div> : null
-                              }
+                      return (
+                          <SwipeAction
+                              style={{ backgroundColor: '#F4333C' }}
+                              key={index}
+                              autoClose
+                              right={[
+                                  {
+                                      text: '删除',
+                                      onPress: () => this.onDelete(item),
+                                      style: { backgroundColor: '#F4333C', color: 'white' },
+                                  },
+                              ]}
+                          >
+                              <div  key={index} className="cardbox page-flex-col flex-jc-sb">
+                                  <div className="row1 flex-none page-flex-row flex-jc-sb">
+                                      <div>
+                                          <div className="t"> </div>
+                                      </div>
+                                      <div className="flex-none">{String(item.ticketStatus) === '1' ? '未使用' : '已使用'}</div>
+                                  </div>
+                                  <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
+                                      <div>
+                                          <div className="t">卡号<span>{tools.cardFormart(item.ticketNo)}</span></div>
+                                          <div className="i">有效期：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
+                                      </div>
+                                      {
+                                          tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>分享</div> : null
+                                      }
 
-                          </div>
-                      </li>;
+                                  </div>
+                              </div>
+                          </SwipeAction>
+                      );
                   })
               }
-          </ul>
+          </div>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
               <div className="title">点击右上角进行分享</div>

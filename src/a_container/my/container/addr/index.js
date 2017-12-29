@@ -34,7 +34,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-
+      document.title = '收货地址';
   }
 
   //

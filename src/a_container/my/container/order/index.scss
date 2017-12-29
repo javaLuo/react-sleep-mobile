@@ -47,12 +47,18 @@
         position: relative;
         margin-top: .2rem;
         a{
-          padding: .16rem .35rem;
+          padding: .16rem 0;
+          width: 2rem;
+          text-align: center;
           font-size: .28rem;;
-          border: solid 1px #89888e;
+          border: solid 1px #aaa;
           border-radius: .6rem;
           margin-left: .2rem;
-          color: #89888e;
+          color: #aaa;
+          &:active{
+            background-color: #aaa;
+            color: #fff;
+          }
           &.blue{
             border: solid 1px #4285f4;
             color: #4285f4;

@@ -43,8 +43,8 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '填写体检人信息';
       const p = this.props.preInfo;
-      console.log('是什么：', p);
       this.setState({
           formName: p.name,
           formPhone: p.mobile,

@@ -43,6 +43,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '订单确认';
       // sessionStorage.removeItem('pay-obj');
       // sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');

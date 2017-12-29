@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '收益明细';
   }
 
   // 日期选择变化时触发

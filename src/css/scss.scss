@@ -81,3 +81,19 @@ $fontSize: .32rem;
 .touch-none{
   touch-action: none;
 }
+
+/* 轮播图的点的颜色 */
+.am-carousel-wrap{
+  .am-carousel-wrap-dot{
+    span{
+      color: #888 !important;
+      background-color: #888 !important;
+    }
+  }
+  .am-carousel-wrap-dot-active{
+    span{
+      color: #fff !important;
+      background-color: #fff !important;
+    }
+  }
+}

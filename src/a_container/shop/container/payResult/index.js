@@ -39,6 +39,7 @@ class HomePageContainer extends React.Component {
 
   }
   componentDidMount() {
+      document.title = '支付结果';
       sessionStorage.removeItem('pay-obj');
       sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');   // 清除支付回跳标识

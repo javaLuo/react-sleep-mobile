@@ -34,6 +34,9 @@ class HomePageContainer extends React.Component {
         };
     }
 
+    componentDidMount() {
+        document.title = '添加体检报告';
+    }
     // phone改变时触发
     onPhoneInput(e) {
         const v = tools.trim(e.target.value);

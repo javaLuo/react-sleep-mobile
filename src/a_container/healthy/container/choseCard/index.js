@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
+        document.title = '选择体检卡';
         this.getData();
     }
 
@@ -89,7 +90,7 @@ class HomePageContainer extends React.Component {
                     onPullUpLoadMore={() => this.onUp()}
                     iscrollOptions={{
                         disableMouse: true,
-                        momentum: false,
+
                     }}
                 >
                     <ul>

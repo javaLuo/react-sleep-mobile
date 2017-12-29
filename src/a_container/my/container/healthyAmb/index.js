@@ -39,6 +39,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
+        document.title = '健康大使';
         if (!this.props.ambassador) {
             this.getData();
         }

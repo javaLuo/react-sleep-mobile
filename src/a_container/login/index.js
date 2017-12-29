@@ -39,7 +39,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-      console.log('LOCATION=', this.props.location);
+      document.title = '登录';
   }
   // 输入用户名
   onUserNameInput(e) {

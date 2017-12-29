@@ -36,7 +36,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-
+      document.title = '实名认证';
   }
 
   //onSubmit

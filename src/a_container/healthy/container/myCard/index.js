@@ -22,7 +22,7 @@ import ImgShare3 from '../../../../assets/share-qq.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
 import ImgFenXiang from '../../../../assets/fenxiang@3x.png';
 import Img404 from '../../../../assets/not-found.png';
-import { ActionSheet, Toast } from 'antd-mobile';
+import { ActionSheet, Toast, SwipeAction,List } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================
@@ -33,6 +33,7 @@ import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo } from '../../../../
 // ==================
 // Definition
 // ==================
+const Item = List.Item;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +45,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '我的体检卡';
       if ((!this.props.myCard.data) || (!this.props.myCard.data.length)) {
           console.log('你还是执行了这里：', this.props.myCard.data);
           this.getData();
@@ -247,6 +249,10 @@ class HomePageContainer extends React.Component {
       this.getData(this.props.myCard.pageNum + 1, this.props.myCard.pageSize, 'update');
     }
 
+    // 删除体检卡
+    onDelete(item) {
+      console.log('删除Del');
+    }
   render() {
     return (
       <div className="page-mycard">
@@ -257,46 +263,60 @@ class HomePageContainer extends React.Component {
             onPullUpLoadMore={() => this.onUp()}
             iscrollOptions={{
                 disableMouse: true,
-                disablePointer: true,
-                momentum: false,
+
             }}
           >
-              <ul className="the-ul">
+              <div className="the-ul">
                   {
                       (() => {
                           if (!this.props.myCard.data) {
-                              return <li key={0} className="nodata">加载中...</li>;
+                              return <div key={0} className="nodata">加载中...</div>;
                           } else if (this.props.myCard.data.length === 0) {
-                              return <li key={0} className="data-nothing">
+                              return <div key={0} className="data-nothing">
                                   <img src={Img404}/>
                                   <div>亲，这里什么也没有哦~</div>
-                              </li>;
+                              </div>;
                           } else {
                               return this.props.myCard.data.map((item, index) => {
-                                  return <li key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
-                                      <div className="row1 flex-none page-flex-row flex-jc-sb" >
-                                          <div>
-                                              <div className="t">健康风险评估卡</div>
-                                              <div className="i">专注疾病早起筛查</div>
-                                          </div>
-                                          <div className="flex-none"><img src={ImgRight}/></div>
-                                      </div>
-                                      <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
-                                          <div>
-                                              <div className="t">
-                                                  共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
-                                              <div className="i">有效期至：{tools.dateformart(new Date(item.validTime))}</div>
-                                          </div>
-                                          {
-                                              tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >分享</div> : null
-                                          }
-                                      </div>
-                                  </li>;
+                                  return (
+                                      <SwipeAction
+                                          style={{ backgroundColor: '#F4333C' }}
+                                          key={index}
+                                          autoClose
+                                          right={[
+                                              {
+                                                  text: '删除',
+                                                  onPress: () => this.onDelete(item),
+                                                  style: { backgroundColor: '#F4333C', color: 'white' },
+                                              },
+                                          ]}
+                                      >
+                                          <div className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onClickCard(item)}>
+                                              <div className="row1 flex-none page-flex-row flex-jc-sb" >
+                                                  <div>
+                                                      <div className="t">健康风险评估卡</div>
+                                                      <div className="i">专注疾病早起筛查</div>
+                                                  </div>
+                                                  <div className="flex-none"><img src={ImgRight}/></div>
+                                              </div>
+                                              <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
+                                                  <div>
+                                                      <div className="t">
+                                                          共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
+                                                      <div className="i">有效期至：{tools.dateformart(new Date(item.validTime))}</div>
+                                                  </div>
+                                                  {
+                                                      tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >分享</div> : null
+                                                  }
+                                              </div>
+                                          </div>;
+                                      </SwipeAction>
+                                  );
                               });
                           }
                       })()
                   }
-              </ul>
+              </div>
           </Luo>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />

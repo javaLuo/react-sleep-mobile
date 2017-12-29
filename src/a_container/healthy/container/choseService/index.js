@@ -44,6 +44,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '选择服务站';
       this.getData(this.state.pageNum, this.state.pageSize, this.state.search, 'flash');
   }
 
@@ -103,7 +104,7 @@ class HomePageContainer extends React.Component {
               onSubmit={(e) => this.onSearch(e)}
               iscrollOptions={{
                   disableMouse: true,
-                  momentum: false,
+
               }}
           />
           <div className="iscroll-box">
@@ -114,8 +115,7 @@ class HomePageContainer extends React.Component {
                   onPullUpLoadMore={() => this.onUp()}
                   iscrollOptions={{
                       disableMouse: true,
-                      disablePointer: true,
-                      momentum: false,
+
                   }}
               >
                   <ul>

@@ -34,7 +34,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-
+      document.title = '产品须知';
   }
 
   //

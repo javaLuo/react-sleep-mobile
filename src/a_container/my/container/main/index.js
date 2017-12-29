@@ -40,6 +40,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '我的e家';
       console.log('location:', this.props.location);
       if (!this.props.userinfo) {
         this.getUserInfo();
@@ -62,9 +63,9 @@ class HomePageContainer extends React.Component {
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
+      const u = this.props.userinfo;
       const openId = localStorage.getItem('openId');
-      console.log('删除了啊：', openId);
-      if (openId) {
+      if (!u && openId) {
           this.props.actions.getUserInfo({ openId });
       }
   }
@@ -72,7 +73,7 @@ class HomePageContainer extends React.Component {
   // 获取健康大使信息
     getMyAmbassador() {
       const u = this.props.userinfo;
-      if (u) {
+      if (u && !this.props.ambassador) {
           this.props.actions.myAmbassador({ userId: u.id });
       }
     }
@@ -90,7 +91,7 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
-    const u = this.props.userinfo || {};
+    const u = this.props.userinfo;
     return (
       <div className="my-main">
           {/* 顶部 */}
@@ -131,7 +132,7 @@ class HomePageContainer extends React.Component {
               <div className="item page-flex-row all_active" onClick={() => this.onDaShiClick()}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
-                  <div className="info">{u.userType !== 4 ? this.getNameByUserType(this.props.ambassador ? this.props.ambassador.userType : '') : ''}</div>
+                  <div className="info">{(u && u.userType !== 4) ? this.getNameByUserType(this.props.ambassador ? this.props.ambassador.userType : '') : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

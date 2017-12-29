@@ -35,6 +35,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
+        document.title = '体检券';
         this.getData();
     }
 

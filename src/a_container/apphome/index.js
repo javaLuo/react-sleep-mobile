@@ -40,6 +40,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '翼猫健康e家';
     if(!this.props.allProducts || this.props.allProducts.length === 0) {
       this.props.actions.getProDuctList();
     }

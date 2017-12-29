@@ -39,7 +39,7 @@ class Register extends React.Component {
     }
 
     componentWillUnmount() {
-
+        document.title = '校验经销商密码';
     }
 
 

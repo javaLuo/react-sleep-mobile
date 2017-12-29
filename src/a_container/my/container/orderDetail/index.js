@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       // this.getData(); // 不需要获取订单详情了
+      document.title = '订单详情';
       console.log('订单：', this.props.orderInfo);
   }
 
@@ -86,7 +87,7 @@ class HomePageContainer extends React.Component {
                 onPress: () => new Promise((resolve, rej) => {
                     this.props.actions.mallOrderDel({ orderId: id }).then((res) => {
                         if (res.status === 200) {
-                            this.getData();
+                            this.props.history.go(-1);
                             Toast.success('订单已删除',1);
                         } else {
                             Toast.fail(res.message || '订单取消失败',1);
@@ -142,15 +143,15 @@ class HomePageContainer extends React.Component {
           {(() => {
               switch(this.props.orderInfo.conditions){
                   case 0: return (
-                      <div className="thefooter page-flex-row">
-                          <Button type="warning" onClick={() => this.onDel()}>删除订单</Button>
-                          <Button type="primary" onClick={() => this.onPay()}>立即支付</Button>
+                      <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
+                          <a onClick={() => this.onDel()}>删除订单</a>
+                          <a className="blue" onClick={() => this.onPay()}>立即支付</a>
                       </div>
                   );
                   case 4: return (
-                      <div className="thefooter page-flex-row">
-                          <Button type="warning" onClick={() => this.onDel()}>删除订单</Button>
-                          <Button type="primary" onClick={() => this.onLook()}>查看体检卡</Button>
+                      <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
+                          <a onClick={() => this.onDel()}>删除订单</a>
+                          <a className="blue" onClick={() => this.onLook()}>查看体检卡</a>
                       </div>
                   );
                   default: return null;

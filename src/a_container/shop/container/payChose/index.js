@@ -62,6 +62,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '订单支付';
       const pageStart = sessionStorage.getItem('pay-start');
       if (pageStart) {  // 支付回跳标识，说明是支付宝或微信H5支付流程回跳到此页面
           this.setState({

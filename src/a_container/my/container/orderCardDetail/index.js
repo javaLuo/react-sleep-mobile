@@ -46,9 +46,8 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-
-          this.getData();
-
+      document.title = '体检卡';
+      this.getData();
       this.initWeiXinPay();
   }
 

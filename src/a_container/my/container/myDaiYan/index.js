@@ -43,6 +43,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
+        document.title = '我的代言卡';
         this.initWeiXinPay();
         this.getCode();
     }

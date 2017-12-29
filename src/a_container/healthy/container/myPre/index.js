@@ -40,6 +40,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '我的体检预约';
       this.getData(this.state.pageNum, this.state.pageSize, 'flash');
   }
 
@@ -75,7 +76,7 @@ class HomePageContainer extends React.Component {
               onPullUpLoadMore={() => this.onUp()}
               iscrollOptions={{
                   disableMouse: true,
-                  momentum: false,
+
               }}
           >
           <ul>

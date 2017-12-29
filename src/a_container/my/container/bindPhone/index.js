@@ -47,6 +47,10 @@ class Register extends React.Component {
         clearInterval(this.timer);
     }
 
+    componentDidMount() {
+        document.title = '绑定手机号';
+    }
+
     // 验证码模态框关闭
     onModalCodeClose() {
         this.setState({

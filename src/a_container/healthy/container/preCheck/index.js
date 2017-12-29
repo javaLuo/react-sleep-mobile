@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-
+      document.title = '预约体检';
   }
 
   // 日期选择

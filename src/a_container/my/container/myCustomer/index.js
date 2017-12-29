@@ -35,6 +35,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '我的推广客户';
       this.getData();
   }
 

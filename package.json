@@ -27,7 +27,7 @@
     "fastclick": "^1.0.6",
     "history": "^4.7.2",
     "iscroll": "^5.2.0",
-    "iscroll-luo": "^1.0.17",
+    "iscroll-luo": "^1.0.19",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",

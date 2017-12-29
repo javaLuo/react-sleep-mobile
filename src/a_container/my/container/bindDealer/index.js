@@ -40,7 +40,9 @@ class Register extends React.Component {
 
     }
 
-
+    componentDidMount() {
+        document.title = '绑定经销商账户';
+    }
     // 表单phone输入时
     onUserNameInput(e) {
         const v = tools.trim(e);

@@ -1,4 +1,4 @@
-/* 我的e家 - 主页 */
+/* 健康管理 - 主页 */
 
 // ==================
 // 所需的各种插件
@@ -34,6 +34,9 @@ class HomePageContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+      document.title = '健康管理';
+  }
   render() {
     const user = sessionStorage.getItem('userinfo');
     return (

@@ -14,6 +14,10 @@ class HomePageContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+      document.title = '404';
+  }
+
   render() {
     return (
       <div className="page-notfound">

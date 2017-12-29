@@ -33,6 +33,9 @@ class HomePageContainer extends React.Component {
         };
     }
 
+    componentDidMount() {
+        document.title = '我的体检报告';
+    }
     render() {
         return (
             <div className="page-report">
