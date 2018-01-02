@@ -215,11 +215,11 @@ class HomePageContainer extends React.Component {
                                     <div>健康食品</div>
                                 </li>
                                 <li>
-                                    <img src={this.props.ambassador.userType === 2 ? ImgD1 : ImgD2} />
+                                    <img src={ImgD2} />
                                     <div>生物理疗产品</div>
                                 </li>
                                 <li>
-                                    <img src={ImgE2} />
+                                    <img src={this.props.ambassador.userType === 2 ? ImgE1 : ImgE2} />
                                     <div>健康风险评估卡</div>
                                 </li>
                             </ul>

@@ -48,7 +48,7 @@ const initState = {
     orderInfo: {},     // 当前所选订单信息（从我的订单点击进入订单详情时所需）
     cardInfo: {},       // 当前选中的卡信息（从我的体检卡点击，进入体检券页所需，卡片信息中包含了所有体检券信息）
     myCard: {           // 我的体检卡数据 保存分页的数据，各个地方都可以用
-        data: null,
+        data: [],
         pageNum: 1,
         pageSize: 10,
     },

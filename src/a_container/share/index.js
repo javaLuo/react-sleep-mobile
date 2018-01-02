@@ -54,8 +54,7 @@ class HomePageContainer extends React.Component {
                 num: p[1],
                 price: p[2],
                 date: p[3],
-                list: p[4],
-                head: p[5],
+                head: p[4],
             }
         });
 
@@ -68,20 +67,15 @@ class HomePageContainer extends React.Component {
         });
     }
 
-    // 进入体检券页查看体检券
-    onSeeMore() {
-        this.props.history.push(`/shareticketlist/${this.state.data.date}_${this.state.data.list}`);
-    }
-
     render() {
         return (
             <div className="flex-auto page-box page-share">
                 <div style={{ padding: '.2rem' }}>
-                    <div className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onSeeMore()}>
+                    <div className="cardbox page-flex-col flex-jc-sb">
                         <div className="row1 flex-none page-flex-row flex-jc-sb">
                             <div>
                                 <div className="t">健康风险评估卡</div>
-                                <div className="i">专注疾病早起筛查</div>
+                                <div className="i">专注疾病早期筛查</div>
                             </div>
                             <div className="flex-none"><img src={ImgRight} /></div>
                         </div>

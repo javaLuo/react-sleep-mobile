@@ -1,6 +1,10 @@
 const allobj = {
-    // 将标准格式字符串进行日期格式化
-    dateformart(str) {
+    /**
+     * 将标准格式字符串进行日期格式化
+     * str: 日期对象或日期字符串
+     * x: year只取年，month取年月，不填取年月日
+     * **/
+    dateformart(str, x = null) {
         if (!str) { return ''; }
         let date = str;
         if (!(str instanceof Date)) {
@@ -10,7 +14,15 @@ const allobj = {
         let d = date.getDate();
         if (m < 10) { m = `0${m}`; }
         if (d < 10) { d = `0${d}`; }
-        return `${date.getFullYear()}-${m}-${d}`;
+        let res;
+        if(x === 'year') {
+            res = date.getFullYear();
+        } else if (x === 'month') {
+            res = `${date.getFullYear()}-${m}`;
+        } else {
+            res = `${date.getFullYear()}-${m}-${d}`;
+        }
+        return res;
     },
     /**
      * 标准日期转字符串年月日，时分秒

@@ -230,12 +230,43 @@ export const mallCardCreate = (params = {}) => async(dispatch) => {
 // 查询我的体检卡
 export const mallCardList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/hracard/list', params);
+        const res = await Fetchapi.newPost('mall/hracard/listCard', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 根据体检卡查体检券
+export const mallCardListQuan = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/hracard/listByCardId', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 删除体检卡
+export const mallCardDel = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/hracard/delete', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 删除体检券
+export const mallQuanDel = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/ticket/delete', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 
 // 搜索服务站
 export const mallStationList = (params = {}) => async(dispatch) => {

@@ -57,7 +57,7 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/addreport`} component={AddReport} />
             <Route exact path={`${this.props.match.url}/choseservice`} component={ChoseService} />
             <Route exact path={`${this.props.match.url}/chosecard/:id`} component={ChoseCard} />
-            <Route exact path={`${this.props.match.url}/cardvoucher`} component={CardVoucher} />
+            <Route exact path={`${this.props.match.url}/cardvoucher/:id`} component={CardVoucher} />
           </Switch>
         </div>
     );

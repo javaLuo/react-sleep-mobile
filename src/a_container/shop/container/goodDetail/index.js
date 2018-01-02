@@ -149,14 +149,14 @@ class HomePageContainer extends React.Component {
       if (!u) {
          Toast.info('请先登录', 1);
          this.props.history.push(`/login`);
-         return true;
+         return false;
       } else if (!u.mobile){
           Toast.info('请先绑定手机号', 1);
           this.props.history.replace(`/my/bindphone`);
-          return true;
+          return false;
       }else if (!this.state.formCount){
           Toast.fail('请选择购买数量',1);
-          return true;
+          return false;
       }
 
       // const params = { count: this.state.formCount, feeType: this.state.formJifei };
@@ -176,7 +176,6 @@ class HomePageContainer extends React.Component {
                 Toast.fail(res.message || '您当前没有购买权限',1);
             }
       });
-      return true;
   }
 
   render() {

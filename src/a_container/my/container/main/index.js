@@ -45,8 +45,7 @@ class HomePageContainer extends React.Component {
       if (!this.props.userinfo) {
         this.getUserInfo();
       }
-      setTimeout(() => this.getMyAmbassador(), 16);
-
+      this.getMyAmbassador();
   }
 
   // 工具 - 通过用户类型type获取对应的称号
@@ -66,14 +65,19 @@ class HomePageContainer extends React.Component {
       const u = this.props.userinfo;
       const openId = localStorage.getItem('openId');
       if (!u && openId) {
-          this.props.actions.getUserInfo({ openId });
+          this.props.actions.getUserInfo({ openId }).then((res) => {
+              if (res.status === 200) {
+                  this.getMyAmbassador();
+              }
+          });
       }
   }
 
   // 获取健康大使信息
     getMyAmbassador() {
       const u = this.props.userinfo;
-      if (u && !this.props.ambassador) {
+      console.log('这个时候没有吗？', u);
+      if (u) {
           this.props.actions.myAmbassador({ userId: u.id });
       }
     }
@@ -81,10 +85,13 @@ class HomePageContainer extends React.Component {
     // 健康大使按钮被点击
     onDaShiClick() {
         const u = this.props.userinfo;
+        const a = this.props.ambassador;
       if (!u) {
           Toast.info('请先登录', 1);
       } else if (u.userType === 4) {
           Toast.info('您还没有健康大使哦', 1);
+      } else if (!a) {
+          Toast.info('获取健康大使信息失败', 1);
       } else {
           this.props.history.push('/my/healthyamb');
       }

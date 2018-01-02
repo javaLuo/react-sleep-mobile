@@ -16,21 +16,23 @@ import tools from '../../../../util/all';
 // ==================
 
 import ImgShareArr from '../../../../assets/share-arr.png';
-import { ActionSheet, Toast, SwipeAction } from 'antd-mobile';
+import { Toast, SwipeAction, Modal } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit } from '../../../../a_action/shop-action';
+import { wxInit, mallCardListQuan, mallQuanDel } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
+const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: [],   // 体检券数据
         wxReady: true, // 微信是否已初始化
         shareShow: false,   // 分享提示框是否显示
     };
@@ -38,6 +40,7 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '体检券';
+      this.getData();
       this.initWeiXinPay();
   }
 
@@ -45,6 +48,21 @@ class HomePageContainer extends React.Component {
     getHowManyByTicket(list) {
       if (!list){ return 0; }
       return list.filter((item) => item.ticketStatus !== 1).length;
+    }
+
+    // 获取数据
+    getData() {
+      let id = this.props.location.pathname.split('/');
+      id = id[id.length - 1];
+      this.props.actions.mallCardListQuan({ cardId: id, pageNum: 1, pageSize: 99 }).then((res) => {
+          if (res.status === 200) {
+              this.setState({
+                  data: res.data.result || [],
+              });
+          } else {
+              Toast.fail(res.message || '获取体检券失败，请重试');
+          }
+      });
     }
 
   // 失败
@@ -108,40 +126,65 @@ class HomePageContainer extends React.Component {
        * **/
         const str = `${this.props.userinfo.id}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}_${obj.ticketStatus}_${encodeURIComponent(this.props.userinfo.headImg)}`;
       if(tools.isWeixin()) { // 是微信系统才能分享
-          wx.onMenuShareAppMessage({
-              title: 'HRA健康风险评估卡',
-              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-              link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
-              imgUrl: 'http://isluo.com/work/logo/share_card.png',
-              type: 'link',
-              success: () => {
-                  Toast.info('分享成功', 1);
-              }
-          });
+          alert('确认赠送?','赠送后您的券将转移给对方，您将无法再查看该券', [
+              { text: '取消', onPress: () => console.log('cancel') },
+              { text: '确认', onPress: () => new Promise((resolve, rej) => {
+                  wx.onMenuShareAppMessage({
+                      title: 'HRA健康风险评估卡',
+                      desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                      link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
+                      imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                      type: 'link',
+                      success: () => {
+                          Toast.info('分享成功', 1);
+                      }
+                  });
 
-          wx.onMenuShareTimeline({
-              title: 'HRA健康风险评估卡',
-              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-              link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
-              imgUrl: 'http://isluo.com/work/logo/share_card.png',
-              success: () => {
-                  Toast.info('分享成功', 1);
-              }
-          });
+                  wx.onMenuShareTimeline({
+                      title: 'HRA健康风险评估卡',
+                      desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                      link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
+                      imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                      success: () => {
+                          Toast.info('分享成功', 1);
+                      }
+                  });
 
-          this.setState({
-              shareShow: true,
-              which: index,
-          });
+                  this.setState({
+                      shareShow: true,
+                      which: index,
+                  });
+                  resolve();
+              })},
+          ]);
       }
     }
 
     // 删除体检券
     onDelete(item) {
-      console.log('删除体检券');
+      console.log('删除体检券', item);
+        alert('确认删除体检券?', '删除后将无法再查看该体检券', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            {
+                text: '确认',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.mallQuanDel({ ticketId: item.id }).then((res) =>{
+                        if (res.status === 200) {
+                            Toast.success('删除成功');
+                            this.getData();
+                        } else {
+                            Toast.fail(res.message || '删除失败，请重试');
+                        }
+                        resolve();
+                    }).catch(() => {
+                        rej();
+                    });
+                }),
+            },
+        ]);
     }
   render() {
-      const ticket = this.props.cardInfo.ticketList || [];
+      const ticket = this.state.data;
     return (
       <div className="page-card-voucher">
           <div className="the-ul">
@@ -170,10 +213,10 @@ class HomePageContainer extends React.Component {
                                   <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
                                       <div>
                                           <div className="t">卡号<span>{tools.cardFormart(item.ticketNo)}</span></div>
-                                          <div className="i">有效期：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
+                                          <div className="i">有效期至：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
                                       </div>
                                       {
-                                          tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>分享</div> : null
+                                          tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
                                       }
 
                                   </div>
@@ -185,7 +228,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
-              <div className="title">点击右上角进行分享</div>
+              <div className="title">点击右上角进行赠送</div>
           </div>
       </div>
     );
@@ -200,7 +243,6 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
     actions: P.any,
-    cardInfo: P.any,
     userinfo: P.any,
 };
 
@@ -210,10 +252,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-      cardInfo: state.shop.cardInfo,
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit }, dispatch),
+    actions: bindActionCreators({ wxInit, mallCardListQuan, mallQuanDel }, dispatch),
   })
 )(HomePageContainer);

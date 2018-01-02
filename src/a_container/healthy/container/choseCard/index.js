@@ -93,7 +93,7 @@ class HomePageContainer extends React.Component {
 
                     }}
                 >
-                    <ul>
+                    <ul className="the-ul">
                         {(() => {
                             let map = [];
                             if (this.state.data.length <= 0) {
@@ -107,7 +107,7 @@ class HomePageContainer extends React.Component {
                                         <div className="row1 flex-none page-flex-row flex-jc-sb">
                                             <div>
                                                 <div className="t">健康风险评估卡</div>
-                                                <div className="i">专注疾病早起筛查</div>
+                                                <div className="i">专注疾病早期筛查</div>
                                             </div>
                                             <div className="flex-none"><img src={ImgRight} /></div>
                                         </div>

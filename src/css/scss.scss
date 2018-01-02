@@ -97,3 +97,10 @@ $fontSize: .32rem;
     }
   }
 }
+
+/* 所有蓝色按钮的字都为白色，防止按下不弹起 */
+.am-button-primary{
+  span{
+    color: #fff !important;
+  }
+}

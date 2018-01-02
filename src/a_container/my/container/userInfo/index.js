@@ -178,7 +178,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/*{*/}
               {/*tools.isWeixin() ? (*/}
-                  {/*<div className="thefooter">*/}
+                 {/*<div className="thefooter">*/}
                       {/*<Button type="default" onClick={() => this.onLogOut()}>退出登录</Button>*/}
                   {/*</div>*/}
               {/*) : null*/}

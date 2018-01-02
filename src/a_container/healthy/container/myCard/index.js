@@ -16,24 +16,21 @@ import tools from '../../../../util/all';
 // ==================
 import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
-import ImgShare1 from '../../../../assets/share-wx.png';
-import ImgShare2 from '../../../../assets/share-friends.png';
-import ImgShare3 from '../../../../assets/share-qq.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
-import ImgFenXiang from '../../../../assets/fenxiang@3x.png';
 import Img404 from '../../../../assets/not-found.png';
-import { ActionSheet, Toast, SwipeAction,List } from 'antd-mobile';
+import { Toast, SwipeAction,List,Modal } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo, mallCardDel, mallCardListQuan } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
 const Item = List.Item;
+const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -70,11 +67,13 @@ class HomePageContainer extends React.Component {
                 console.log('我的体检卡：', res.data.result);
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
                     Toast.info('没有更多数据了', 1);
+                    this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize);
+                    return;
                 }
-                this.props.actions.saveMyCardInfo((res.data && res.data.result) ? ( type === 'update' ? [...(this.props.myCard.data || []), ...res.data.result] : res.data.result ) : [], pageNum, pageSize);
+                this.props.actions.saveMyCardInfo(( type === 'update' ? [...this.props.myCard.data, ...res.data.result] : res.data.result ), pageNum, pageSize);
             } else {
                 Toast.info(res.message || '数据加载失败', 1);
-                this.props.actions.saveMyCardInfo([], this.props.myCard.pageNum, this.props.myCard.pageSize);
+                this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize);
             }
       });
   }
@@ -134,96 +133,53 @@ class HomePageContainer extends React.Component {
     // 点击分享按钮，需判断是否是原生系统
     onStartShare(obj, index, e) {
       e.stopPropagation();
-      console.log('要分享的信息：', obj, tools.isWeixin());
+      console.log('要分享的信息：', obj);
       if(tools.isWeixin()) { // 是微信中才能分享
-          /**
-           * 拼凑要带过去的数据
-           * 用户ID_共几张_价格_有效期_5张卡号_头像
-           * **/
-          const str = `${this.props.userinfo.id}_${obj.ticketNum}_${obj.productModel.price}_${tools.dateformart(new Date(obj.validTime))}_${obj.ticketList.map((item, index) => `${item.ticketNo}@${item.ticketStatus}`).join('+')}_${encodeURIComponent(this.props.userinfo.headImg)}`;
-          console.log('走到这里了没有：', str);
-          wx.onMenuShareAppMessage({
-              title: 'HRA健康风险评估卡',
-              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-              link: `${Config.baseURL}/gzh/#/share/${str}`,
-              imgUrl: 'http://isluo.com/work/logo/share_card.png',
-              type: 'link',
-              success: () => {
-                  Toast.info('分享成功', 1);
-              }
-          });
-
-          wx.onMenuShareTimeline({
-              title: 'HRA健康风险评估卡',
-              desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-              link: `${Config.baseURL}/gzh/#/share/${str}`,
-              imgUrl: 'http://isluo.com/work/logo/share_card.png',
-              success: () => {
-                  Toast.info('分享成功', 1);
-              }
-          });
-
-          this.setState({
-              shareShow: true,
-              which: index,
-          });
+          alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡', [
+              { text: '取消', onPress: () => console.log('cancel') },
+              {
+                  text: '确认',
+                  onPress: () => new Promise((resolve, rej) => {
+                      /**
+                       * 拼凑要带过去的数据
+                       * 用户ID_共几张_价格_有效期_头像
+                       * **/
+                      const str = `${this.props.userinfo.id}_${obj.ticketNum}_${obj.productModel ? obj.productModel.price : ''}_${obj.validTime}_${encodeURIComponent(this.props.userinfo.headImg)}`;
+                      wx.onMenuShareAppMessage({
+                          title: 'HRA健康风险评估卡',
+                          desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                          link: `${Config.baseURL}/gzh/#/share/${str}`,
+                          imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                          type: 'link',
+                          success: () => {
+                              Toast.info('分享成功', 1);
+                          }
+                      });
+                      wx.onMenuShareTimeline({
+                          title: 'HRA健康风险评估卡',
+                          desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                          link: `${Config.baseURL}/gzh/#/share/${str}`,
+                          imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                          success: () => {
+                              Toast.info('分享成功', 1);
+                          }
+                      });
+                      this.setState({
+                          shareShow: true,
+                          which: index,
+                      });
+                      resolve();
+                  }),
+              },
+          ]);
       }
-    }
-
-  // 分享框出现
-    onShare(obj) {
-        ActionSheet.showShareActionSheetWithOptions({
-            options: [
-                { icon: <img src={ImgShare1} style={{ width: 36 }}/>, title: '微信好友' },
-                { icon: <img src={ImgShare2} style={{ width: 36 }}/>, title: '朋友圈' }
-            ],
-            // title: 'title',
-            maskClosable: true,
-            message: '分享到：',
-        },
-        (index) => {
-            console.log("选的那一个", index);
-            if(index === 0) {   // 分享到微信
-                this.shareToFritend(obj);
-            } else if(index === 1) {    // 分享到朋友圈
-                this.shareToTimeLine(obj);
-            }
-            return false;
-        });
-    }
-
-    // 分享给好友
-    shareToFritend(obj) {
-      if(typeof AndroidDataJs !== 'undefined') {
-          const params = [
-              `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
-              'HRA健康风险评估卡',
-              obj.productModel.modelDetail || '专注疾病早起筛查',
-              'http://isluo.com/work/logo/share_card.png',
-              true,
-          ];
-          AndroidDataJs.shareToWeChat(...params);
-      }
-    }
-
-    // 分享到朋友圈
-    shareToTimeLine(obj) {
-        if(typeof AndroidDataJs !== 'undefined') {
-            const params = [
-                `${Config.baseURL}/gzh/#/share/${obj.id}_${this.props.userinfo.id}`,
-                'HRA健康风险评估卡',
-                obj.productModel.modelDetail || '专注疾病早起筛查',
-                'http://isluo.com/work/logo/share_card.png',
-                false,
-            ];
-            AndroidDataJs.shareToWeChat(...params);
-        }
     }
 
     // 点击卡片进入体检券页
     onClickCard(obj) {
-        this.props.actions.saveCardInfo(obj);
-        setTimeout(() => this.props.history.push('/healthy/cardvoucher'), 16);
+        // this.props.actions.saveCardInfo(obj);
+        // setTimeout(() => this.props.history.push('/healthy/cardvoucher'), 16);
+        this.props.history.push(`/healthy/cardvoucher/${obj.id}`);
     }
 
     // 工具 - 计算使用了多少张体检券
@@ -251,7 +207,32 @@ class HomePageContainer extends React.Component {
 
     // 删除体检卡
     onDelete(item) {
-      console.log('删除Del');
+      console.log('是什么：', item);
+      if (item.ticketNum - item.useCount > 0) {
+          Toast.info('存在未使用的卡，不可以删除哦');
+          return;
+      }
+        alert('确认删除体检卡?', '删除后将无法再查看该体检卡', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            {
+                text: '确认',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.mallCardDel({
+                        cardId: item.id,
+                    }).then((res) => {
+                        if (res.status === 200) {
+                            Toast.success('删除成功');
+                            this.getData(this.props.myCard.pageNum, this.props.myCard.pageSize, 'flash');
+                        } else{
+                            Toast.fail(res.message || '删除失败，请重试');
+                        }
+                        resolve();
+                    }).catch(() => {
+                        rej();
+                    });
+                }),
+            },
+        ]);
     }
   render() {
     return (
@@ -287,7 +268,7 @@ class HomePageContainer extends React.Component {
                                               {
                                                   text: '删除',
                                                   onPress: () => this.onDelete(item),
-                                                  style: { backgroundColor: '#F4333C', color: 'white' },
+                                                  style: { backgroundColor: '#F4333C', color: 'white'},
                                               },
                                           ]}
                                       >
@@ -295,21 +276,21 @@ class HomePageContainer extends React.Component {
                                               <div className="row1 flex-none page-flex-row flex-jc-sb" >
                                                   <div>
                                                       <div className="t">健康风险评估卡</div>
-                                                      <div className="i">专注疾病早起筛查</div>
+                                                      <div className="i">专注疾病早期筛查</div>
                                                   </div>
                                                   <div className="flex-none"><img src={ImgRight}/></div>
                                               </div>
                                               <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
                                                   <div>
                                                       <div className="t">
-                                                          共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
-                                                      <div className="i">有效期至：{tools.dateformart(new Date(item.validTime))}</div>
+                                                          共{item.ticketNum}张<span>已使用{item.ticketNum - item.useCount}张</span></div>
+                                                      <div className="i">有效期至：{item.validTime}</div>
                                                   </div>
                                                   {
-                                                      tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >分享</div> : null
+                                                      tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
                                                   }
                                               </div>
-                                          </div>;
+                                          </div>
                                       </SwipeAction>
                                   );
                               });
@@ -320,7 +301,7 @@ class HomePageContainer extends React.Component {
           </Luo>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
-              <div className="title">点击右上角进行分享</div>
+              <div className="title">点击右上角进行赠送</div>
           </div>
       </div>
     );
@@ -349,6 +330,6 @@ export default connect(
       myCard: state.shop.myCard,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, saveMyCardInfo }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, saveMyCardInfo, mallCardDel, mallCardListQuan }, dispatch),
   })
 )(HomePageContainer);

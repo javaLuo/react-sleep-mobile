@@ -51,31 +51,36 @@ class HomePageContainer extends React.Component {
     return (
       <div className="flex-auto page-box home-page">
           {/* 顶部轮播 */}
-          <Carousel
-            className="my-carousel"
-            autoplay
-            infinite
-            swipeSpeed={35}
-          >
-              {this.props.homePics.map((item, index) => (
-                  <a
-                      key={index}
-                      href={item.url}
-                      style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                      target="_blank"
+          {
+              (this.props.homePics && this.props.homePics.length) ? (
+                  <Carousel
+                      className="my-carousel"
+                      autoplay={true}
+                      infinite={true}
+                      swipeSpeed={35}
                   >
-                    <img
-                        src={item.adImg}
-                        style={{ width: '100%', verticalAlign: 'top' }}
-                        onLoad={() => {
-                            // fire window resize event to change height
-                            window.dispatchEvent(new Event('resize'));
-                            this.setState({ imgHeight: 'auto' });
-                        }}
-                    />
-                  </a>
-              ))}
-          </Carousel>
+                      {this.props.homePics.map((item, index) => (
+                          <a
+                              key={index}
+                              href={item.url}
+                              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                              target="_blank"
+                          >
+                            <img
+                                src={item.adImg}
+                                style={{ width: '100%', verticalAlign: 'top' }}
+                                onLoad={() => {
+                                    // fire window resize event to change height
+                                    window.dispatchEvent(new Event('resize'));
+                                    this.setState({ imgHeight: 'auto' });
+                                }}
+                            />
+                          </a>
+                      ))}
+                  </Carousel>
+              ) : <div style={{ width: '100%', height: '2rem', backgroundColor: '#f0f0f0' }}/>
+          }
+
           {/* 最新资讯 */}
           {
             this.props.allProducts.map((theType, i) => {

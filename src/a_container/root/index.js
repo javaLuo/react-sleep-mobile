@@ -94,11 +94,9 @@ class RootContainer extends React.Component {
          * 2. 如果localStorage里有，就不再重新获取(因为退出后可以登其他的号，登录其他号时保存其他号的openId)
          * **/
         const openId = localStorage.getItem('openId');
-        if (!openId) {
-            const params = tools.makeSearch(window.location.href.split('?')[1]);
-            if (params.openid) {
-                localStorage.setItem('openId', params.openid);
-            }
+        const params = tools.makeSearch(window.location.href.split('?')[1]);
+        if (params.openid) {
+            localStorage.setItem('openId', params.openid);
         }
     }
 

@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
             onChange={(obj) => this.onDateChange(obj)}
           >
               <div className="head-chose page-flex-row flex-jc-sb">
-                  <div className="date-chose">{tools.dateformart(this.state.date)} <img src={ImgRight} /></div>
+                  <div className="date-chose">{tools.dateformart(this.state.date, 'month')} <img src={ImgRight} /></div>
                   <div>￥1200.00</div>
               </div>
           </DatePicker>

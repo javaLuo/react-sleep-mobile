@@ -62,11 +62,11 @@ class HomePageContainer extends React.Component {
                   <div>2017-12-20 19：24</div>
               </div>
               <div className="page-flex-row flex-jc-sb">
-                  <div>交易单号</div>
+                  <div>交易流水号</div>
                   <div>01654654656546546</div>
               </div>
               <div className="page-flex-row flex-jc-sb">
-                  <div>e家号</div>
+                  <div>下单e家号</div>
                   <div>1000</div>
               </div>
               <div className="page-flex-row flex-jc-sb">

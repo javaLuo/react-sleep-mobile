@@ -57,7 +57,7 @@ class HomePageContainer extends React.Component {
               <span>使用须知</span>
           </div>
           <div className="info">
-              <p className="blue">本体检卡位虚拟商品，不记名、不挂失</p>
+              <p className="blue">本体检卡是虚拟商品，不记名、不挂失</p>
               <p>一张体检卡仅供一人使用一次</p>
               <p>有效期：<span>一年</span></p>
               <p>联系客服：<span>400-151-9999</span></p>
