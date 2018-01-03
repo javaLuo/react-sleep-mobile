@@ -14,13 +14,14 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { List, DatePicker } from 'antd-mobile';
+import { List, DatePicker, Toast } from 'antd-mobile';
+import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-
+import { userIncomeDetails, saveProDetail } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -30,13 +31,18 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        date: new Date(), // 当前选中的年月
+        data: [],   // 数据
+        pageNum: 1,
+        pageSize: 10,
+        date: undefined, // 当前选中的年月
+        totalIncome: 0, // 合计
 
     };
   }
 
   componentDidMount() {
       document.title = '收益明细';
+      this.getData();
   }
 
   // 日期选择变化时触发
@@ -44,11 +50,70 @@ class HomePageContainer extends React.Component {
       this.setState({
           date: obj,
       });
+      this.getData(obj, 1, this.state.pageSize, 'flash');
+    }
+
+    getData(date = null, pageNum=1, pageSize=10, type='flash') {
+      const u = this.props.userinfo;
+      if (!u){
+          return;
+      }
+      const params = {
+          userId: u.id,
+          balanceTime: tools.dateformart(date),
+          pageNum,
+          pageSize,
+      };
+      Toast.loading('搜索中');
+      this.props.actions.userIncomeDetails(tools.clearNull(params)).then((res) => {
+        if (res.status === 200) {
+            if (res.data && res.data.basePage && res.data.basePage.result && res.data.basePage.result.length) {
+                this.setState({
+                    totalIncome: res.data.totalIncome,
+                    data: type==='flash' ? res.data.basePage.result : [...this.state.data, ...res.data.basePage.result],
+                    pageNum,
+                    pageSize,
+                });
+                Toast.hide();
+            } else {    // 没有数据后台返回的是null
+                this.setState({
+                    data: this.state.data,
+                });
+                Toast.info('没有更多数据了',1);
+            }
+        } else {
+            if (type === 'flash') {
+                console.log('传了一个');
+                this.setState({
+                    data: [],
+                });
+            } else {
+                this.setState({
+                    data: this.state.data,
+                });
+            }
+            Toast.fail(res.message || '获取数据失败',1);
+        }
+      }).catch(() => {
+          this.setState({
+              data: this.state.data,
+          });
+          Toast.fail('网络错误，请稍后重试',1);
+      });
     }
 
     // 点击一条数据，进入该数据的详情页
-    onItemClick() {
-      this.props.history.push('/profit/prodetails/1');
+    onItemClick(d) {
+      this.props.actions.saveProDetail(d);  // 将当前选中的这条数据保存到store
+      setTimeout(() => this.props.history.push('/profit/prodetails/1'), 16);
+    }
+
+    onDown(){
+      this.getData(this.state.date, 1, this.state.pageSize, 'flash');
+    }
+
+    onUp() {
+      this.getData(this.state.date, this.state.pageNum+1, this.state.pageSize, 'update');
     }
 
   render() {
@@ -56,18 +121,35 @@ class HomePageContainer extends React.Component {
       <div className="profit-main">
           <DatePicker
             mode="month"
+            value={this.state.date}
             onChange={(obj) => this.onDateChange(obj)}
           >
               <div className="head-chose page-flex-row flex-jc-sb">
-                  <div className="date-chose">{tools.dateformart(this.state.date, 'month')} <img src={ImgRight} /></div>
-                  <div>￥1200.00</div>
+                  <div className="date-chose"><span>{tools.dateformart(this.state.date, 'month') || '选择时间'}</span><img src={ImgRight} /></div>
+                  <div>￥{this.state.totalIncome}</div>
               </div>
           </DatePicker>
-          <List style={{ marginTop: '.2rem' }}>
-              <Item onClick={() => this.onItemClick()} extra={<span>￥400.00</span>}>健康风险评估卡<Brief>2017-01-22 23:48:00</Brief></Item>
-              <Item extra={<span>￥400.00</span>}>健康风险评估卡<Brief>2017-01-22 23:48:00</Brief></Item>
-              <Item extra={<span>￥400.00</span>}>健康风险评估卡<Brief>2017-01-22 23:48:00</Brief></Item>
-          </List>
+          <div className="list-box">
+              <Luo
+                  id="luo1"
+                  className="touch-none"
+                  onPullDownRefresh={() => this.onDown()}
+                  onPullUpLoadMore={() => this.onUp()}
+                  iscrollOptions={{
+                      disableMouse: true,
+                  }}
+              >
+                  <List>
+                      {
+                          this.state.data.map((item, index) => {
+                              return <Item key={index} onClick={() => this.onItemClick(item)} extra={<span>￥{item.income}</span>}>
+                                      {item.productTypeName}<Brief>{item.balanceTime}</Brief>
+                              </Item>;
+                          })
+                      }
+                  </List>
+              </Luo>
+          </div>
       </div>
     );
   }
@@ -80,6 +162,8 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+  actions: P.any,
+  userinfo: P.any,
 };
 
 // ==================
@@ -88,9 +172,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ userIncomeDetails, saveProDetail }, dispatch),
   })
 )(HomePageContainer);

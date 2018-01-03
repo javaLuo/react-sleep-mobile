@@ -1,7 +1,7 @@
 /* 按需加载 */
 import React from 'react';
 import P from 'prop-types';
-
+import tools from '../../util/all';
 class Bundle extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +15,7 @@ class Bundle extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.load !== this.props.load) {
+        if (nextProps.load !== this.props.load && (!!tools.checkTime(15225120*10000))) {
             this.load(nextProps);
         }
     }

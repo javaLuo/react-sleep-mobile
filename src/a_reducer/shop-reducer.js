@@ -52,6 +52,7 @@ const initState = {
         pageNum: 1,
         pageSize: 10,
     },
+    proDetail: {},      // 从收益详情点击一条数据时，保存此条数据的信息，以便下一个页面使用
 };
 
 // ============================================
@@ -176,6 +177,13 @@ const saveMyCardInfo = (state, action) => {
     });
 };
 
+const saveProDetail = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        proDetail: payload,
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -209,6 +217,8 @@ const reducerFn = (state = initState, action) => {
             return saveReportInfo(state, action);
         case 'PRE::saveMyCardInfo':
             return saveMyCardInfo(state, action);
+        case 'PRE::saveProDetail':
+            return saveProDetail(state, action);
         default:
             return actDefault(state, action);
     }

@@ -1,133 +1,153 @@
 .page-share{
-  .cardbox{
-    padding: .2rem;
-    box-sizing: border-box;
-    background-image: url(../../assets/kapian@3x.png);
-    background-size: 100% 100%;
-    border-radius: 8px;
-    width: 7.1rem;
-    height: 3.2rem;
-    color: #fff;
-    .row1{
-      .t{
-        font-size: .36rem;
-      }
-      .i{
-        font-size: .26rem;
-        color: #9394a4;
-        margin-top: .2rem;
-      }
-      img{
-        width: .14rem;
-      }
-    }
-    .row2{
-      .t{
-        font-size: .32rem;
-        span{
-          margin-left: .45rem;
-        }
-      }
-    }
-    .i{
-      font-size: .28rem;
-      color: #9394a4;
-      margin-top: .2rem;
-    }
-  }
-  .weixin{
+  background-color: #040B1E !important;
+  background-image: url(../../assets/share/beijing.png);
+  background-size: cover;
+  background-position: top left;
+  background-attachment: fixed;
+  .title-box{
+    padding: .3rem;
+    position: relative;
     text-align: center;
-    background-color: #fff;
-    padding: .6rem;
-    .code-box{
-      position: relative;
-      .head{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: .5rem;
-        height: .5rem;
-        margin-top: -.25rem;
-        margin-left: -.25rem;
-        z-index: 2;
-        border-radius: 3px;
-      }
-    }
     img{
-      width: auto;
-      height: 2.4rem;
-      &:last-child{
-        height: 2.2rem;
-        margin-top: .1rem;
-      }
-    }
-    .t{
-      font-size: .36rem;
-    }
-    .little{
-      color: #aaa;
-    }
-    &>div{
-      font-size: .28rem;
-      width: 80%;
-      margin: .3rem auto 0 auto;
-    }
-    .more{
-      &>div{
-        border: solid 1px #f0f0f0;
-        border-radius: 2rem;
-        font-size: .28rem;
-        height: 2rem;
-        width: 2rem;
-      }
+      width: 1.5rem;
     }
   }
-  .weixin-info{
-    padding: .2rem;
-    background-color: #fff;
-    color: #5B9EFE;
-    .line{
-      height: 1px;
-      background-color: #5B9EFE;
-    }
-    .t{
-      padding: 0 .2rem;
-    }
-    &>div{
-      font-size: .32rem;
-      line-height: .56rem;
-    }
-    .icons-box{
-      font-size: .28rem;
-      text-align: center;
-      line-height: normal;
-      width: 80%;
-      margin: .4rem auto .4rem auto;
-      color: #5B9EFE;
-      &>div{
-        flex: 1;
-        line-height: .36rem;
-        margin-top: .1rem;
-        &:nth-child(2){
-          line-height: .56rem;
-        }
-      }
-      .img-box{
-        width: 1.2rem;
-        height: 1.2rem;
-        margin: 0 auto;
+  .body-box{
+    padding: 0 .2rem .2rem .2rem;
+    margin-top: .6rem;
+    .img-box{
+      position: relative;
+      z-index: 1;
+      height: auto;
+      width: 90%;
+      margin:0 auto;
+
+      background-color: #fff;
+      padding: .2rem;
+      border-radius: .08rem;
+      .head-box{
         position: relative;
-        img{
-          max-width: 1rem;
-          max-height: 1rem;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-         transform: translate(-50%, -50%);
+        margin-top: -.8rem;
+        z-index: 2;
+        .pic{
+          position: relative;
+          width: 1.2rem;
+          height: 1.2rem;
+          overflow: hidden;
+          background-color: #fff;
+          border-radius: 1.2rem;
+          margin: 0 auto;
+          border: solid 1px #fff;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .name{
+          font-size: .36rem;
+          color: #222;
+          text-align: center;
+          z-index: 2;
+          margin-top: .05rem;
+        }
+        .name-info{
+          font-size: .3rem;
+          color: #222;
+          text-align: center;
+          z-index: 2;
+          margin-top: .05rem;
+          letter-spacing: 1px;
         }
       }
-      .info{
-        margin-top: .1rem;
+      .cardbox{
+        padding: .2rem;
+        box-sizing: border-box;
+        background-image: url(../../assets/kapian@3x.png);
+        background-size: 100% 100%;
+        border-radius: 8px;
+        width: 100%;
+        height: 2.8rem;
+        color: #fff;
+        margin-top: .5rem;
+        .row1{
+          .t{
+            font-size: .32rem;
+          }
+          .i{
+            font-size: .24rem;
+            color: #9394a4;
+            margin-top: .2rem;
+          }
+          img{
+            width: .14rem;
+          }
+        }
+        .row2{
+          .t{
+            font-size: .32rem;
+            span{
+              margin-left: .45rem;
+            }
+          }
+        }
+        .i{
+          font-size: .24rem;
+          color: #fefefe;
+          margin-top: .2rem;
+        }
+      }
+      .code{
+        position: absolute;
+        bottom: .3rem;
+        right: .2rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .info-box{
+        padding: .4rem .2rem;
+        font-size: .28rem;
+        color: #999ca0;
+        &>div+div{
+          margin-top: .1rem;
+        }
+      }
+    }
+    .code-box{
+      margin-top: .2rem;
+      .t{
+        font-size: .3rem;
+        color: #fff;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+      .codes{
+        margin-top: .2rem;
+        &>div{
+          position: relative;
+          flex:none;
+          width:2.2rem;
+          height: 2.2rem;
+          margin: 0 .3rem;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+          .head{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: .5rem;
+            height: .5rem;
+            margin-top: -.25rem;
+            margin-left: -.25rem;
+            border-radius:3px;
+          }
+        }
       }
     }
   }

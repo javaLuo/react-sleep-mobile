@@ -21,6 +21,7 @@ import ImgBar3 from '../../../../assets/jianakangdashi@3x.png';
 import ImgBar4 from '../../../../assets/kehu@3x.png';
 import ImgBar5 from '../../../../assets/daiyanka@3x.png';
 import ImgBar6 from '../../../../assets/shouyi@3x.png';
+import ImgYouHui from '../../../../assets/youhui@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
 
 // ==================
@@ -140,6 +141,12 @@ class HomePageContainer extends React.Component {
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
                   <div className="info">{(u && u.userType !== 4) ? this.getNameByUserType(this.props.ambassador ? this.props.ambassador.userType : '') : ''}</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
+                  <img src={ImgYouHui} className="icon" />
+                  <div className="title">我的优惠卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

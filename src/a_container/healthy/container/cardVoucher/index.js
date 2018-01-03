@@ -16,6 +16,9 @@ import tools from '../../../../util/all';
 // ==================
 
 import ImgShareArr from '../../../../assets/share-arr.png';
+import ImgGuoQi from '../../../../assets/share/yiguoqi@3x.png';
+import ImgShiYong from '../../../../assets/share/yishiyong@3x.png';
+import ImgJinYong from '../../../../assets/share/yijinyong@3x.png';
 import { Toast, SwipeAction, Modal } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -120,6 +123,9 @@ class HomePageContainer extends React.Component {
 
     // 点击分享按钮，需判断是否是原生系统
     onStartShare(obj, index) {
+      if (this.checkType(obj) !== 1) {
+          return;
+      }
       /**
        * 拼凑所需数据
        * userID_体检券号_有效期_是否已使用_头像
@@ -160,6 +166,37 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    // 工具 - 根据状态id返回对应的名字
+    getNameByTicketStatus(item) {
+        if (item.ticketStatus === 1) {
+            return '未使用';
+        } else if (item.ticketStatus === 2) {   // 已使用
+            return <img className="tip" src={ImgShiYong} />;
+        } else if (item.ticketStatus === 3) {   // 已禁用
+            return <img className="tip" src={ImgJinYong} />;
+        } else if (new Date(`${item.validEndTime.split(' ')} 23:59:59`) - new Date() < 0) { // 已过期
+            return <img className="tip" src={ImgGuoQi} />;
+        }
+        return null;
+    }
+
+    /**
+     * 工具 - 判断当前券的状态
+     * 1未使用，2已使用，3已禁用，4已过期
+     * **/
+    checkType(item) {
+      if (item.ticketStatus === 1) {
+          return 1;
+      } else if (item.ticketStatus === 2) {
+          return 2;
+      } else if (item.ticketStatus === 3) {
+          return 3;
+      } else if (new Date(`${item.validEndTime.split(' ')} 23:59:59`) - new Date() < 0) {
+          return 4;
+      }
+      return 1;
+    }
+
     // 删除体检券
     onDelete(item) {
       console.log('删除体检券', item);
@@ -192,33 +229,34 @@ class HomePageContainer extends React.Component {
                   ticket.map((item, index) => {
                       return (
                           <SwipeAction
-                              style={{ backgroundColor: '#F4333C' }}
                               key={index}
                               autoClose
                               right={[
                                   {
                                       text: '删除',
                                       onPress: () => this.onDelete(item),
-                                      style: { backgroundColor: '#F4333C', color: 'white' },
+                                      style: { backgroundColor: '#F4333C', color: 'white', padding: '0 10px' },
                                   },
                               ]}
                           >
-                              <div  key={index} className="cardbox page-flex-col flex-jc-sb">
+                              <div  key={index} className={this.checkType(item) === 1 ? "cardbox page-flex-col flex-jc-sb" : "cardbox abnormal page-flex-col flex-jc-sb"} >
                                   <div className="row1 flex-none page-flex-row flex-jc-sb">
                                       <div>
-                                          <div className="t"> </div>
+                                          <div className="t" />
                                       </div>
-                                      <div className="flex-none">{String(item.ticketStatus) === '1' ? '未使用' : '已使用'}</div>
+                                      <div className="flex-none">{this.getNameByTicketStatus(item)}</div>
                                   </div>
                                   <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
                                       <div>
-                                          <div className="t">卡号<span>{tools.cardFormart(item.ticketNo)}</span></div>
+                                          <div className="t">卡号：{tools.cardFormart(item.ticketNo)}</div>
                                           <div className="i">有效期至：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
                                       </div>
-                                      {
-                                          tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
-                                      }
-
+                                      <div>
+                                          <div className="money">￥{item.ticketPrice}</div>
+                                          {
+                                              tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
+                                          }
+                                      </div>
                                   </div>
                               </div>
                           </SwipeAction>

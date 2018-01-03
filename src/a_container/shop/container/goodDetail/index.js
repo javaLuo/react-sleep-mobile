@@ -183,21 +183,23 @@ class HomePageContainer extends React.Component {
       const d = this.state.data;
     return (
       <div className="flex-auto page-box gooddetail-page">
-          {/*<div className="title-pic">*/}
-              {/*/!* 顶部轮播 *!/*/}
-              {/*{*/}
-                  {/*d && d.productImg ? <Carousel*/}
-                      {/*className="my-carousel"*/}
-                      {/*autoplay*/}
-                      {/*infinite*/}
-                      {/*swipeSpeed={35}*/}
-                  {/*>*/}
-                      {/*{d.productImg.split(',').map((item, index) => {*/}
-                          {/*return <img key={index} src={item} />;*/}
-                      {/*})}*/}
-                  {/*</Carousel> : <img className="default" src={imgDefault} />*/}
-              {/*}*/}
-          {/*</div>*/}
+          <div className="title-pic">
+              {/* 顶部轮播 */}
+              {
+                  d && d.productImg ? <Carousel
+                      className="my-carousel"
+                      autoplay
+                      infinite
+                      swipeSpeed={35}
+                  >
+                      {d.productImg.split(',').map((item, index) => {
+                          return <img key={index} src={item} onLoad={() => {
+                              window.dispatchEvent(new Event('resize'));
+                          }}/>;
+                      })}
+                  </Carousel> : <img className="default" src={imgDefault} />
+              }
+          </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">
               <div className="title">{d && d.name}</div>

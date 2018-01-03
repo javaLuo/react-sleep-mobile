@@ -260,13 +260,12 @@ export const mallCardDel = (params = {}) => async(dispatch) => {
 // 删除体检券
 export const mallQuanDel = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/ticket/delete', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/ticket/delete', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
     }
 };
-
 
 // 搜索服务站
 export const mallStationList = (params = {}) => async(dispatch) => {
@@ -340,6 +339,26 @@ export const mallReserveSave = (params = {}) => async(dispatch) => {
     }
 };
 
+// 收益管理 -
+export const userIncomeMain = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/income/main', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 收益管理 - 收益明细
+export const userIncomeDetails = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/income/details', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 保存支付结果页所需数据
 export function payResultNeed(cardData, payData) {
     return {
@@ -379,6 +398,14 @@ export function saveOrderInfo(payload = {}) {
 export function saveCardInfo(payload = {}) {
     return {
         type: 'PRE::saveCardInfo',
+        payload,
+    };
+}
+
+// 由收益管理 - 收益明细 选择一条数据时，保存该条数据信息，下一个页面要用
+export function saveProDetail(payload = {}) {
+    return {
+        type: 'PRE::saveProDetail',
         payload,
     };
 }

@@ -11,10 +11,11 @@ import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import Echarts from 'echarts';
 import './index.scss';
+import { userIncomeMain } from '../../../../a_action/shop-action';
 // ==================
 // 所需的所有组件
 // ==================
-import { List } from 'antd-mobile';
+import { List, Toast } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
@@ -28,22 +29,54 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: [],       // 图表所需数据
+        totalIncome: 0,  // 总价格
     };
+    this.dom = null;    // 图表实例
+    this.colors = ['#ffb937', '#5c99ff', '#9942f9', '#ff4e83'];
   }
 
   componentDidMount() {
       document.title = '收益管理';
       const me = this;
+      if (!this.props.userinfo) {   // 没有获取到用户信息，直接返回
+        this.props.history.go(-1);
+        return;
+      }
       // setTimeout是因为初次加载时，CSS可能还没加载完毕，导致图表样式有问题
       setTimeout(() => {
-          const dom = Echarts.init(document.getElementById('echarts-1'));
-          dom.setOption(me.makeOption(), true);
-          window.onresize = dom.resize;
+          this.dom = Echarts.init(document.getElementById('echarts-1'));
+          this.getData();
       }, 16);
   }
 
+    componentWillUpdate(nextP, nextS) {
+      if (this.state.data !== nextS.data) {
+          this.dom && this.dom.setOption(this.makeOption(nextS.data), true);
+      }
+    }
+
+    // 获取原始数据
+    getData(){
+      const u = this.props.userinfo;
+      this.props.actions.userIncomeMain({ userId: u.id}).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    data: res.data.incomeList,
+                    totalIncome: res.data.totalIncome,
+                });
+            } else {
+                Toast.fail(res.message || '获取数据失败');
+            }
+      });
+    }
+
     // 处理图表数据
-    makeOption(data = null) {
+    makeOption(data = []) {
+        const list = data.map((item, index) => {
+            return {value: item.income, name: item.productTypeName};
+        });
+
         const option = {
             tooltip: {
                 trigger: 'item',
@@ -51,22 +84,20 @@ class HomePageContainer extends React.Component {
                    return `<span class="dit" style="color:${p.color}">·</span>${p.data.name}：<br/>￥${p.data.value}`;
                 }
             },
+            color: this.colors,
             series: [
                 {
                     name:'累计收益',
                     type:'pie',
                     radius: ['55%', '70%'],
                     avoidLabelOverlap: false,
-                    color: ['#ffb937', '#5c99ff', '#9942f9', '#ff4e83'],
+                    color: this.color,
                     label: {
                         normal: {
                             show: false,
                             position: 'center',
                             color: '#333',
                             fontSize: 22,
-                            formatter: (p) => {
-                                return '￥999999.00\n\r累计收益';
-                            }
                         },
                         emphasis: {
                             show: false,
@@ -81,12 +112,7 @@ class HomePageContainer extends React.Component {
                             show: false
                         }
                     },
-                    data:[
-                        {value:335, name:'净水设备'},
-                        {value:310, name:'健康食品'},
-                        {value:234, name:'生物理疗'},
-                        {value:135, name:'健康体检'},
-                    ]
+                    data: list,
                 }
             ]
         };
@@ -94,20 +120,22 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
+    const d = this.state.data;
     return (
       <div className="profit-main">
         <div className="charts-box">
           <div id="echarts-1" className="echarts" />
           <div className="center-label">
-              <div className="t">￥9999.00</div>
+              <div className="t">￥{this.state.totalIncome || 0}</div>
               <div className="label">累计收益</div>
           </div>
         </div>
           <ul className="data-ul all_clear">
-              <li><i style={{ backgroundColor: '#ffb937' }}/>净水设备：0.00</li>
-              <li><i style={{ backgroundColor: '#5c99ff' }}/>健康食品：0.00</li>
-              <li><i style={{ backgroundColor: '#9942f9' }}/>生物理疗：0.00</li>
-              <li><i style={{ backgroundColor: '#ff4e83' }}/>健康风险评估卡：￥9999.00</li>
+              {
+                  this.state.data.map((item, index) => {
+                      return <li key={index}><i style={{ backgroundColor: this.colors[index>this.colors.length-1 ? this.colors.length -1 : index] }}/>{item.productTypeName}：￥{item.income}</li>;
+                  })
+              }
           </ul>
           <List>
               <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/prodetail')}>收益明细</Item>
@@ -124,6 +152,8 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+    actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -132,9 +162,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ userIncomeMain }, dispatch),
   })
 )(HomePageContainer);

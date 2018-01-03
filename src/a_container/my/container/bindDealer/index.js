@@ -95,13 +95,13 @@ class Register extends React.Component {
                     this.props.history.go(-1);
                 });
             } else {
-                Toast.fail('绑定失败',1);
+                Toast.fail(res.message || '绑定失败',1);
             }
             this.setState({
                 loading: false,
             });
         }).catch(() => {
-            Toast.fail('绑定失败',1);
+            Toast.fail('网络错误，请重试',1);
             this.setState({
                 loading: false,
             });

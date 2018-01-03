@@ -17,7 +17,7 @@ import './index.scss';
 
 import { Tabs } from 'antd-mobile';
 import { StickyContainer, Sticky } from 'react-sticky';
-import ImgIcon1 from '../../assets/test/test1.jpg';
+import ImgIcon1 from '../../assets/fenxiang_three@3x.png';
 // ==================
 // 本页面所需action
 // ==================

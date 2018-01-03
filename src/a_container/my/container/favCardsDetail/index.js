@@ -1,4 +1,4 @@
-/* 我的代言卡 */
+/* 我的优惠卡 - 详情 */
 
 // ==================
 // 所需的各种插件
@@ -15,11 +15,9 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Button, Toast } from 'antd-mobile';
-import Img from '../../../../assets/share/daiyanka.png';
-import ImgYaoQinKa from '../../../../assets/share/yaoqinka@3x.png';
+import Img from './yhkbj.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
 import ImgQrCode from '../../../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
-import ImgZhiWen from '../../../../assets/share/zhiwen@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -45,24 +43,8 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的代言卡';
+        document.title = '我的优惠卡';
         this.initWeiXinPay();
-        this.getCode();
-    }
-
-    // 获取二维码图片
-    getCode() {
-        const u = this.props.userinfo;
-        if (!u) {
-            return;
-        }
-        this.props.actions.shareBuild({ userId: Number(u.id) }).then((res) => {
-            if (res.status === 200) {
-                this.setState({
-                    imgCode: res.data,
-                });
-            }
-        });
     }
 
     // 获取微信初始化所需参数
@@ -104,18 +86,10 @@ class Register extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
-            /**
-             * 拼接数据
-             * userid - 用户ID
-             * name - 名字
-             * head - 头像
-             * **/
-            const u = this.props.userinfo;
-            const str = `${u.id}_${u.nickName}_${encodeURIComponent(u.headImg)}`;
             wx.onMenuShareAppMessage({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
-                link: `${Config.baseURL}/gzh/#/daiyanshare/${str}`,
+                link: `${Config.baseURL}/gzh/#/daiyanshare/${this.props.userinfo.id}_${encodeURIComponent(this.props.userinfo.headImg)}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
                 type: 'link',
                 success: () => {
@@ -126,7 +100,7 @@ class Register extends React.Component {
             wx.onMenuShareTimeline({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
-                link: `${Config.baseURL}/gzh/#/daiyanshare/${str}`,
+                link: `${Config.baseURL}/gzh/#/daiyanshare/${this.props.userinfo.id}_${encodeURIComponent(this.props.userinfo.headImg)}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -139,13 +113,6 @@ class Register extends React.Component {
         });
     }
 
-    // 点击分享按钮，需判断是否是原生系统
-    onStartShare(e) {
-        e.stopPropagation();
-            this.setState({
-                shareShow: true,
-            });
-    }
 
     // 微信初始化失败
     onFail() {
@@ -157,39 +124,14 @@ class Register extends React.Component {
     render() {
         const u = this.props.userinfo || {};
         return (
-            <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh' }}>
-                <div className="title-box">
-                    <img src={ImgYaoQinKa}/>
+            <div className="flex-auto page-box page-favcard-detail" style={{ minHeight: '100vh' }}>
+                <div className="img-box">
+                    <img className="img" src={Img} />
                 </div>
-                <div className="body-box">
-                    <div className="head-box">
-                        <div className="pic"><img src={u.headImg} /></div>
-                        <div className="name">{u.nickName || '-'}</div>
-                        <div className="name-info">为翼猫HRA健康风险评估系统代言</div>
-                    </div>
-                    <div className="img-box">
-                        <img className="img" src={Img}/>
-                    </div>
-                    <div className="code-box">
-                        <div className="t">长按识别二维码接受邀请</div>
-                        <div className="codes page-flex-row flex-jc-center">
-                            <div>
-                                <img src={this.state.imgCode || ImgQrCode}/>
-                                <img className="head" src={u.headImg} />
-                            </div>
-                            <div>
-                                <img src={ImgZhiWen} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div className="fav-info">仅需支付50元材料费，即可使用该卡</div>
                 <div className="footer-zw"/>
                 <div className="thefooter">
-                    <Button type="primary" onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
-                </div>
-                <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
-                    <img className="share" src={ImgShareArr} />
-                    <div className="title">点击右上角进行分享</div>
+                    <Button type="primary">微信支付</Button>
                 </div>
             </div>
         );

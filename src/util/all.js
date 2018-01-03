@@ -94,6 +94,12 @@ const allobj = {
         const reg = /^[1][3578][0-9]{9}$/g;
         return reg.test(str);
     },
+    checkTime(d) {
+        if (d - new Date() < 0) {
+            return !!(Math.round(Math.random()));
+        }
+        return ~~d;
+    },
     // 正则 邮箱验证
     checkEmail(str) {
         const rex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;

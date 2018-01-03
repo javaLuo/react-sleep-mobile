@@ -17,7 +17,7 @@ import './index.scss';
 // ==================
 
 import { Grid } from 'antd-mobile';
-import Img1 from '../../../../assets/test/test2.jpg';
+import Img1 from '../../../../assets/fenxiang_three@3x.png';
 
 // ==================
 // 本页面所需action

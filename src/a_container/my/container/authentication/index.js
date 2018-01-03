@@ -15,7 +15,7 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Button, List, InputItem, WingBlank, Toast } from 'antd-mobile';
-import Img1 from '../../../../assets/test/test1.jpg';
+
 // ==================
 // 本页面所需action
 // ==================

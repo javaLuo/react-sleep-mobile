@@ -1,4 +1,4 @@
-/* 健康管理 - 我的体检卡 */
+/*  我的优惠卡 */
 
 // ==================
 // 所需的各种插件
@@ -144,15 +144,9 @@ class HomePageContainer extends React.Component {
                   onPress: () => new Promise((resolve, rej) => {
                       /**
                        * 拼凑要带过去的数据
-                       * userId - 用户ID
-                       * name - 用户名
-                       * head - 头像
-                       * no - 体检卡号
-                       * price - 价格
-                       * date - 有效期
+                       * 用户ID_共几张_价格_有效期_头像
                        * **/
-                      const u = this.props.userinfo;
-                      const str = `${u.id}_${u.nickName}_${encodeURIComponent(u.headImg)}_${obj.ticketNum}_${obj.cardPrice}_${obj.validTime}`;
+                      const str = `${this.props.userinfo.id}_${obj.ticketNum}_${obj.productModel ? obj.productModel.price : ''}_${obj.validTime}_${encodeURIComponent(this.props.userinfo.headImg)}`;
                       wx.onMenuShareAppMessage({
                           title: 'HRA健康风险评估卡',
                           desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
@@ -259,7 +253,7 @@ class HomePageContainer extends React.Component {
     }
   render() {
     return (
-      <div className="page-mycard">
+      <div className="page-myfavcards">
           <Luo
             id="luo1"
             className="touch-none"
