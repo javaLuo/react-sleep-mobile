@@ -124,10 +124,10 @@ class HomePageContainer extends React.Component {
                           return (
                               <li key={index} className="card-box page-flex-row" onClick={() => this.onChose(item)}>
                                   <div className="l flex-auto">
-                                      <div className="title">{item.name}</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.phone}</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
+                                      <div className="title">{item.stationName}</div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.person : null}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.stationTel}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.stationAddress}</span></div>
                                   </div>
                               </li>
                           );

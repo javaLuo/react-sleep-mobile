@@ -20,6 +20,7 @@
       position: relative;
       z-index: 1;
       height: auto;
+      min-height: 30vh;
       width: 90%;
       margin:0 auto;
 
@@ -64,7 +65,7 @@
       .cardbox{
         padding: .2rem;
         box-sizing: border-box;
-        background-image: url(../../assets/pingguka@3x.png);
+        background-image: url(../../assets/kapian@3x.png);
         background-size: 100% 100%;
         border-radius: 8px;
         width: 100%;

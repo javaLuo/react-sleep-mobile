@@ -152,7 +152,7 @@ class HomePageContainer extends React.Component {
                        * date - 有效期
                        * **/
                       const u = this.props.userinfo;
-                      const str = `${u.id}_${u.nickName}_${encodeURIComponent(u.headImg)}_${obj.ticketNum}_${obj.cardPrice}_${obj.validTime}`;
+                      const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${obj.validTime}`;
                       wx.onMenuShareAppMessage({
                           title: 'HRA健康风险评估卡',
                           desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
@@ -318,7 +318,7 @@ class HomePageContainer extends React.Component {
                                               <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
                                                   <div>
                                                       <div className="t">
-                                                          共{item.ticketNum}张<span>已使用{item.ticketNum - item.useCount}张</span></div>
+                                                          共{item.totalCount}张<span>已使用{item.useCount}张</span></div>
                                                       <div className="i">有效期至：{item.validTime}</div>
                                                   </div>
                                                   {

@@ -68,7 +68,7 @@ class HomePageContainer extends React.Component {
             this.props.history.replace('/login');
             return false;
         }
-        if (u.disUser){ // 已绑定经销商
+        if (u.disUser && [0,1,2].indexOf(u.userType) >= 0){ // 已绑定经销商
             Toast.info('您已是经销商用户', 1);
         } else {    // 不是经销商就跳转到经销商绑定页
             this.props.history.push('/my/binddealer');
@@ -89,7 +89,7 @@ class HomePageContainer extends React.Component {
             this.props.history.push('/my/bindphone/password');
             return false;
         }
-        if (u.disUser) {  // 如果是经销商用户或已设置过密码的普通用户，就不能进入
+        if (u.disUser && [0,1,2].indexOf(u.userType) >= 0) {  // 如果是经销商用户或已设置过密码的普通用户，就不能进入
             Toast.info('您是经销商，无需设置密码', 1);
             return false;
         } else{

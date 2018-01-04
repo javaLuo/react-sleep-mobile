@@ -83,7 +83,7 @@ class Register extends React.Component {
                 <div className="body-box">
                     <div className="head-box">
                         <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
-                        <div className="name">{d.name || '-'}</div>
+                        <div className="name">{decodeURIComponent(d.name) || '-'}</div>
                         <div className="name-info">为翼猫HRA健康风险评估系统代言</div>
                     </div>
                     <div className="img-box">

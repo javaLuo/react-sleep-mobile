@@ -1,4 +1,4 @@
-/* 健康管理 - 我的体检卡 */
+/* 健康管理 - 体检预约- 选择未使用过的体检卡 */
 
 // ==================
 // 所需的各种插件
@@ -22,7 +22,7 @@ import { } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import { mallCardList, savePreInfo, saveReportInfo } from '../../../../a_action/shop-action';
+import { mallCardList, savePreInfo, saveReportInfo, queryNotUsedListTicket } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -42,7 +42,7 @@ class HomePageContainer extends React.Component {
 
     // 获取体检卡列表
     getData(pageNum=1, pageSize=10, type='flash') {
-        this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
+        this.props.actions.queryNotUsedListTicket({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     data: type === 'flash' ? (res.data.result || []) : [...this.state.data, ...(res.data.result || [])],
@@ -55,20 +55,17 @@ class HomePageContainer extends React.Component {
 
     // 选择某一张卡，将卡信息保存到store的体检预约信息中
     onCardClick(data) {
-        const path = tools.makePathname(this.props.location.pathname);
-        if (path === 'addreport') { // 来自添加报告选择
-            this.props.actions.saveReportInfo({ ticketNo: String(data.orderId) });
-            setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
-        } else if(path === 'precheck'){ // 来自体检预约选择体检卡
-            this.props.actions.savePreInfo({ ticketNo: String(data.orderId) });
-            setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
-        }
-    }
+        this.props.actions.savePreInfo({ ticketNo: String(data.ticketNo) });
+        setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
 
-    // 工具 - 获取已使用了多少张卡
-    getHowManyByTicket(list) {
-        if (!list){ return 0; }
-        return list.filter((item) => item.ticketStatus !== 1).length;
+        // const path = tools.makePathname(this.props.location.pathname);
+        // if (path === 'addreport') { // 来自添加报告选择
+        //     this.props.actions.saveReportInfo({ ticketNo: String(data.id) });
+        //     setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
+        // } else if(path === 'precheck'){ // 来自体检预约选择体检卡
+        //     this.props.actions.savePreInfo({ ticketNo: String(data.id) });
+        //     setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
+        // }
     }
 
     // 下拉刷新
@@ -106,15 +103,16 @@ class HomePageContainer extends React.Component {
                                     return <li  key={index} className="cardbox page-flex-col flex-jc-sb" onClick={() => this.onCardClick(item)}>
                                         <div className="row1 flex-none page-flex-row flex-jc-sb">
                                             <div>
-                                                <div className="t">健康风险评估卡</div>
-                                                <div className="i">专注疾病早期筛查</div>
+                                                <div className="t" />
                                             </div>
-                                            <div className="flex-none"><img src={ImgRight} /></div>
                                         </div>
                                         <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                             <div>
-                                                <div className="t">共{item.ticketNum}张<span>已使用{this.getHowManyByTicket(item.ticketList)}张</span></div>
-                                                <div className="i">有效期：{tools.dateToStr(new Date(item.validTime))}</div>
+                                                <div className="t">卡号：{tools.cardFormart(item.ticketNo)}</div>
+                                                <div className="i">有效期至：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
+                                            </div>
+                                            <div>
+                                                <div className="money">￥1000</div>
                                             </div>
                                         </div>
                                     </li>;
@@ -148,6 +146,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallCardList, savePreInfo, saveReportInfo }, dispatch),
+        actions: bindActionCreators({ mallCardList, savePreInfo, saveReportInfo, queryNotUsedListTicket }, dispatch),
     })
 )(HomePageContainer);

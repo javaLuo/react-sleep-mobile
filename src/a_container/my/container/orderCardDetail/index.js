@@ -214,7 +214,7 @@ class HomePageContainer extends React.Component {
                                       <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
                                           <div>
                                               <div className="t">
-                                                  共{item.ticketNum}张<span>已使用{this.useNum(item.ticketList)}张</span></div>
+                                                  共{item.totalCount}张<span>已使用{item.useCount}张</span></div>
                                               <div className="i">有效期至：{tools.dateformart(item.validTime)}</div>
                                           </div>
                                           {

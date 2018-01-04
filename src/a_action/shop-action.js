@@ -267,10 +267,30 @@ export const mallQuanDel = (params = {}) => async(dispatch) => {
     }
 };
 
-// 搜索服务站
+// 搜索所有已上线服务站
 export const mallStationList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/station/list', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 搜索所有服务站
+export const mallStationListAll = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/station/listStation', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 查询我的优惠卡
+export const queryListFree = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/ticket/listFree', params );
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -281,6 +301,16 @@ export const mallStationList = (params = {}) => async(dispatch) => {
 export const appUserCheckBuy = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('app/user/checkBuy', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 优惠卡下单购买
+export const createMcard = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/create/mcard', params );
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -332,7 +362,47 @@ export function saveReportInfo(payload = {}) {
 // 体检预约 - 向后台发起请求，添加一条体检预约
 export const mallReserveSave = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/reserve/save', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/ticket/create', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 体检报告 - 获取体检报告
+export const queryReportList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/report/list', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 体检报告 - 添加体检报告
+export const addReportList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/report/show', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 查询当前用户已使用过的体检券 （用于添加体检报告）
+export const queryUsedListTicket = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/report/listTicket', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 查询当前用户未使用过的体检券 （用于体检预约选卡）
+export const queryNotUsedListTicket = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/ticket/reserveTicket', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -406,6 +476,14 @@ export function saveCardInfo(payload = {}) {
 export function saveProDetail(payload = {}) {
     return {
         type: 'PRE::saveProDetail',
+        payload,
+    };
+}
+
+// 我的优惠卡 - 保存当前选择优惠卡信息
+export function saveFreeCardInfo(payload = {}) {
+    return {
+        type: 'PRE::saveFreeCardInfo',
         payload,
     };
 }

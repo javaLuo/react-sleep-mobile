@@ -98,6 +98,17 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    // 产品代言被点击
+    onDaiYanClick() {
+        const u = this.props.userinfo;
+        if (!u) {
+            Toast.info('请先登录', 1);
+        } else if (u.userType === 4) {
+            Toast.info('您没有代言卡', 1);
+        } else {
+            this.props.history.push('/my/mydaiyan');
+        }
+    }
   render() {
     const u = this.props.userinfo;
     return (
@@ -156,7 +167,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mydaiyan' : '/login')}>
+              <div className="item page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的产品代言卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>

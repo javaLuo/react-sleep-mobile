@@ -33,7 +33,7 @@ import BindPhone from './container/bindPhone';
 import SetPassword from './container/setPassword';
 import CheckPwd from './container/checkPwd';
 import MyCustomer from './container/mycustomer';
-import FavCardDetail from './container/favCardsDetail';
+import FavCardsDetail from './container/favCardsDetail';
 import MyFavCards from './container/myFavCards';
 // ==================
 // 本页面所需action
@@ -75,7 +75,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/setpassword`} component={SetPassword} />
               <Route exact path={`${this.props.match.url}/checkpwd`} component={CheckPwd} />
               <Route exact path={`${this.props.match.url}/mycustomer`} component={MyCustomer} />
-              <Route exact path={`${this.props.match.url}/favcarddetail`} component={FavCardDetail} />
+              <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
               <Route exact path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
           </Switch>
       </div>

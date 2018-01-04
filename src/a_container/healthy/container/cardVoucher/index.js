@@ -129,8 +129,14 @@ class HomePageContainer extends React.Component {
       /**
        * 拼凑所需数据
        * userID_体检券号_有效期_是否已使用_头像
+       * userId: p[0],
+       * name: p[1],
+       * head: p[2],
+       * no: p[3],
+       * date: p[4],
        * **/
-        const str = `${this.props.userinfo.id}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}_${obj.ticketStatus}_${encodeURIComponent(this.props.userinfo.headImg)}`;
+        const u = this.props.userinfo;
+        const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}`;
       if(tools.isWeixin()) { // 是微信系统才能分享
           alert('确认赠送?','赠送后您的券将转移给对方，您将无法再查看该券', [
               { text: '取消', onPress: () => console.log('cancel') },
@@ -252,7 +258,7 @@ class HomePageContainer extends React.Component {
                                           <div className="i">有效期至：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
                                       </div>
                                       <div>
-                                          <div className="money">￥{item.ticketPrice}</div>
+                                          <div className="money">￥1000</div>
                                           {
                                               tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
                                           }

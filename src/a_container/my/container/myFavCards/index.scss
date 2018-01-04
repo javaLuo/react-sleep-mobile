@@ -10,14 +10,14 @@
       position: relative;
       padding: .2rem;
       box-sizing: border-box;
-      background-image: url(../../../../assets/kapian@3x.png);
+      background-image: url(../../../../assets/pingguka@3x.png);
       background-size: 100% 100%;
       border-radius: 8px;
       width: 7.1rem;
       height: 3.2rem;
       color: #fff;
       &.abnormal{
-        background-image: url(../../../../assets/share/kapian_one@3x.png);
+        background-image: url(../../../../assets/share/pingguka_one@3x.png);
         .i{
           color: #fff !important;
         }
@@ -40,6 +40,11 @@
           width: 1.2rem;
           height: auto;
         }
+        .flex-none{
+          img{
+            width: .14rem;
+          }
+        }
       }
       .row-center{
         img{
@@ -53,15 +58,19 @@
             margin-left: .45rem;
           }
         }
+        .money{
+          font-size: .32rem;
+          margin-bottom: .1rem;
+        }
       }
       .i{
         font-size: .28rem;
-        color: #9394a4;
+        color: #f0f0f0;
         margin-top: .1rem;
       }
       .share-btn{
         position: relative;
-        padding: .2rem 0 0 .3rem;
+        text-align: right;
         &.check{
           color: #40a9ff;
         }

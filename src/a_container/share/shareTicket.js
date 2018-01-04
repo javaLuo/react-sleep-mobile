@@ -50,8 +50,7 @@ class HomePageContainer extends React.Component {
                 name: p[1],
                 head: p[2],
                 no: p[3],
-                price: p[4],
-                date: p[5],
+                date: p[4],
             }
         });
 
@@ -64,7 +63,6 @@ class HomePageContainer extends React.Component {
         });
     }
 
-
     render() {
         const d = this.state.data;
         return (
@@ -76,31 +74,26 @@ class HomePageContainer extends React.Component {
                     <div className="img-box">
                         <div className="head-box">
                             <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
-                            <div className="name">{d.name || '-'}</div>
+                            <div className="name">{decodeURIComponent(d.name) || '-'}</div>
                             <div className="name-info">送您一张健康风险评估卡</div>
                         </div>
                         <div className="cardbox page-flex-col flex-jc-sb">
                             <div className="row1 flex-none page-flex-row flex-jc-sb">
                                 <div>
-                                    <div className="t">健康风险评估卡</div>
-                                    <div className="i">专注疾病早期筛查</div>
+                                    <div className="t"></div>
                                 </div>
                             </div>
                             <div className="row-center page-flex-row flex-jc-end">
-                                <div>￥{d.price || '-'}</div>
+                                <div />
                             </div>
-                            <div className="row2 flex-none">
+                            <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                 <div>
-                                    <div className="t">卡号：{tools.cardFormart(d.no)}</div>
                                     <div className="i">有效期至：{d.date}</div>
                                 </div>
+                                <div className="flex-none">￥1000</div>
                             </div>
                         </div>
                         <div className="info-box">
-                            <div className="page-flex-row">
-                                <div className="flex-none">领取方式：</div>
-                                <div className="flex-auto">长按下方的二维码，识别关注进入公众号。</div>
-                            </div>
                             <div className="page-flex-row">
                                 <div className="flex-none">查看方式：</div>
                                 <div className="flex-auto">进入公众号[健康管理]-[我的体检卡]中查看。</div>

@@ -103,9 +103,9 @@ class HomePageContainer extends React.Component {
                               <div className="card-box page-flex-row">
                                   <div className="l flex-auto">
                                       <div className="title">服务站名称</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>姓名</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><a href={`tel:13600000000`}>电话</a></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>地址</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station.stationName}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><a href={`tel:${item.station.phone}`}>{item.station.phone}</a></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.station.stationAddress}</span></div>
                                   </div>
                               </div>
                           </li>;

@@ -53,6 +53,7 @@ const initState = {
         pageSize: 10,
     },
     proDetail: {},      // 从收益详情点击一条数据时，保存此条数据的信息，以便下一个页面使用
+    freeCardInfo: {},   // 从我的优惠卡点击一条数据时，保存
 };
 
 // ============================================
@@ -184,6 +185,13 @@ const saveProDetail = (state, action) => {
     });
 };
 
+const saveFreeCardInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        freeCardInfo: payload,
+    });
+};
+
 // ============================================
 // reducer function
 
@@ -219,6 +227,8 @@ const reducerFn = (state = initState, action) => {
             return saveMyCardInfo(state, action);
         case 'PRE::saveProDetail':
             return saveProDetail(state, action);
+        case 'PRE::saveFreeCardInfo':
+            return saveFreeCardInfo(state, action);
         default:
             return actDefault(state, action);
     }

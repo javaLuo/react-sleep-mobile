@@ -14,14 +14,14 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, Modal } from 'antd-mobile';
+import { Button, Modal, Toast } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgCard from '../../../../assets/xuanzeka@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-
+import { addReportList } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -47,6 +47,31 @@ class HomePageContainer extends React.Component {
         }
     }
 
+    // 提交
+    onSubmit() {
+        if (!this.props.reportInfo.ticketNo) {
+            Toast.fail('请选择体检卡', 1);
+            return false;
+        } else if (!tools.checkPhone(this.state.phone)) {
+            Toast.fail('请输入正确的手机号', 1);
+            return false;
+        }
+        const params = {
+            phone: this.state.phone,
+            ticketNo: this.props.reportInfo.ticketNo,
+        };
+        this.props.actions.addReportList(params).then((res) => {
+            if (res.status === 200) {
+                Toast.success('添加成功');
+                this.props.history.go(-1);
+            } else {
+                Toast.fail(res.message);
+            }
+        }).catch(() => {
+            Toast.fail(res.message);
+        });
+    }
+
     render() {
         return (
             <div className="page-add-report">
@@ -59,12 +84,12 @@ class HomePageContainer extends React.Component {
                     </div>
                     <div className="item page-flex-row all_active">
                         <div className="title2">手机号:</div>
-                        <div className="info2"><input maxLength="11" type="tel" value={this.state.phone} onInput={() => this.onPhoneInput()}/></div>
+                        <div className="info2"><input maxLength="11" type="tel" value={this.state.phone} onInput={(e) => this.onPhoneInput(e)}/></div>
                         <div className="line"/>
                     </div>
                 </div>
                 <div className="thefooter">
-                    <Button type="primary">确认添加</Button>
+                    <Button type="primary" onClick={() => this.onSubmit()}>确认添加</Button>
                 </div>
             </div>
         );
@@ -79,6 +104,7 @@ HomePageContainer.propTypes = {
     location: P.any,
     history: P.any,
     reportInfo: P.any,
+    actions: P.any,
 };
 
 // ==================
@@ -90,6 +116,6 @@ export default connect(
         reportInfo: state.shop.reportInfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({}, dispatch),
+        actions: bindActionCreators({ addReportList }, dispatch),
     })
 )(HomePageContainer);

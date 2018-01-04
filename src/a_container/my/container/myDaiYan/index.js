@@ -111,7 +111,7 @@ class Register extends React.Component {
              * head - 头像
              * **/
             const u = this.props.userinfo;
-            const str = `${u.id}_${u.nickName}_${encodeURIComponent(u.headImg)}`;
+            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
             wx.onMenuShareAppMessage({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',

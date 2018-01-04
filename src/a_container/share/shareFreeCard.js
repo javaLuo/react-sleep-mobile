@@ -1,4 +1,4 @@
-/* 分享页 */
+/* 分享页 - 优惠卡的分享页 */
 
 // ==================
 // 所需的各种插件
@@ -9,14 +9,16 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import './index.scss';
+import './shareTicket.scss';
+import tools from '../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
 
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
-import ImgTitle from '../../assets/share/zenSongKa.png';
+import ImgTitle from '../../assets/share/youhuika@3x.png';
+import ImgShiXiao from '../../assets/share/beilinqu@3x.png';    // 被领取
 // ==================
 // 本页面所需action
 // ==================
@@ -30,40 +32,30 @@ class HomePageContainer extends React.Component {
         super(props);
         this.state = {
             data: {},
+            productData: {}, // 分享的卡片信息
             imgCode: '',  // 分享的二维码、
         };
     }
 
     componentDidMount() {
-        document.title = '我的体检卡分享';
+        document.title = '我的体检券分享';
         this.getData();
     }
 
     getData() {
-        let path = this.props.location.pathname.split('/');
-        path = path[path.length - 1];
-        const p = path.split('_');
-        /**
-         * 本页面所需：
-         * userId - 用户ID
-         * name - 用户名
-         * head - 头像
-         * no - 体检卡号
-         * price - 价格
-         * date - 有效期
-         * **/
+        const path = this.props.location.pathname.split('/');
+        let p = path[path.length - 1].split('_');
         this.setState({
             data: {
                 userId: p[0],
                 name: p[1],
                 head: p[2],
                 no: p[3],
-                price: p[4],
-                date: p[5],
+                date: p[4],
             }
         });
 
-        this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 1, shareNo: p[3] }).then((res) => {
+        this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 2, shareNo: p[3]}).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     imgCode: res.data,
@@ -75,12 +67,12 @@ class HomePageContainer extends React.Component {
     render() {
         const d = this.state.data;
         return (
-            <div className="flex-auto page-box page-share" style={{ minHeight: '100vh' }}>
+            <div className="flex-auto page-box page-share-ticket">
                 <div className="title-box">
                     <img src={ImgTitle}/>
                 </div>
                 <div className="body-box">
-                    <div className="img-box">
+                    <div className='img-box'>
                         <div className="head-box">
                             <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
                             <div className="name">{decodeURIComponent(d.name) || '-'}</div>
@@ -94,23 +86,23 @@ class HomePageContainer extends React.Component {
                                 </div>
                             </div>
                             <div className="row-center page-flex-row flex-jc-end">
-                                <div>￥1000</div>
                             </div>
                             <div className="row2 flex-none">
                                 <div>
                                     <div className="i">有效期至：{d.date}</div>
                                 </div>
+                                <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div>
                             </div>
                         </div>
                         <div className="info-box">
                             <div className="page-flex-row">
                                 <div className="flex-none">查看方式：</div>
-                                <div className="flex-auto">进入公众号[健康管理]-[我的体检卡]中查看。</div>
+                                <div className="flex-auto">进入公众号[我的e家]-[我的优惠卡]中查看。</div>
                             </div>
                         </div>
                     </div>
                     <div className="code-box">
-                        <div className="t">长按识别二维码领取赠送卡</div>
+                        <div className="t">长按识别二维码领取优惠卡</div>
                         <div className="codes page-flex-row flex-jc-center">
                             <div>
                                 <img src={this.state.imgCode || ImgQrCode}/>

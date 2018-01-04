@@ -78,16 +78,16 @@ class HomePageContainer extends React.Component {
        delete p.reserveTime_Time;
       // 调用预约接口
         this.props.actions.mallReserveSave(tools.clearNull(p)).then((res) => {
-            if(res.returnCode === '0') {
+            if(res.status === 200) {
                 Toast.success('预约成功',1);
                 setTimeout(() => {
                     this.props.history.push('/healthy/mypre');
                 }, 1000);
             } else {
-                Toast.fail(res.returnMessaage || '服务器错误');
+                Toast.fail(res.message || '服务器错误');
             }
         }).catch(() => {
-            Toast.fail(res.returnMessaage || '服务器错误');
+            Toast.fail(res.message || '服务器错误');
         });
    }
 
@@ -96,7 +96,7 @@ class HomePageContainer extends React.Component {
       <div className="page-pre-check">
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard/precheck')}>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard')}>
                   <div className="title">体检卡号</div>
                   <div className="info">{this.props.preInfo.ticketNo}</div>
                   <div className="arrow2" ><img src={ImgCard} /></div>
@@ -119,10 +119,10 @@ class HomePageContainer extends React.Component {
                   this.props.stationInfo.id ? (
                       <li className="card-box page-flex-row">
                           <div className="l flex-auto">
-                              <div className="title">{this.props.stationInfo.name}</div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.person}</span></div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.phone}</span></div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.address}</span></div>
+                              <div className="title">{this.props.stationInfo.stationName}</div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.person : null}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.stationTel}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.stationAddress}</span></div>
                           </div>
                       </li>
                   ) : null
@@ -158,7 +158,7 @@ class HomePageContainer extends React.Component {
                           }) : []}
                           value={[this.props.preInfo.reserveTime_Time]}
                           cols={1}
-                          onChange={time => this.onTimeChange(time)}
+                          onOk={time => this.onTimeChange(time)}
                       >
                           <div className="item page-flex-row all_active" >
                               <div className="title">选择体检时间</div>
