@@ -16,7 +16,7 @@ import tools from '../../../../util/all';
 // ==================
 import { Button, Toast } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
-
+import Img404 from '../../../../assets/not-found.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -45,7 +45,7 @@ class HomePageContainer extends React.Component {
         this.props.actions.queryReportList({pageNum: 1, pageSize: 999}).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    data: res.data,
+                    data: res.data.result,
                 });
             } else {
                 Toast.fail(res.message, 1);
@@ -55,18 +55,33 @@ class HomePageContainer extends React.Component {
         });
     }
 
+    // 打开PDF
+    onPdf(url) {
+        window.open(url);
+    }
+
     render() {
         return (
             <div className="page-report">
                 <ul>
-                    {/*<li className="card-box page-flex-row">*/}
-                        {/*<div className="l flex-auto">*/}
-                            {/*<div><span>张三</span><span>男</span><span>2017-09-09</span></div>*/}
-                            {/*<div>体检卡号：3458934759027502</div>*/}
-                            {/*<div>上海市嘉定区翼猫体验服务店体检中心</div>*/}
-                        {/*</div>*/}
-                        {/*<div className="r flex-none page-flex-col flex-ai-center flex-jc-center"><img src={ImgRight} /></div>*/}
-                    {/*</li>*/}
+                    {
+                        this.state.data.length ? this.state.data.map((item, index) => {
+                               return <li key={index} className="card-box page-flex-row" onClick={() => this.onPdf(item.reportPDF)}>
+                                    <div className="l flex-auto">
+                                        <div><span>{item.username}</span><span>{item.sex}</span><span>{item.examDate}</span></div>
+                                        <div>体检卡号：</div>
+                                        <div>{item.stationName}</div>
+                                    </div>
+                                    <div className="r flex-none page-flex-col flex-ai-center flex-jc-center"><img src={ImgRight} /></div>
+                                </li>;
+                            })
+                         : (
+                            <li key={0} className="data-nothing">
+                                <img src={Img404}/>
+                                <div>亲，这里什么也没有哦~</div>
+                            </li>
+                        )
+                    }
                 </ul>
                 <div className="thefooter">
                     <Button type="primary" onClick={() => this.props.history.push('/healthy/addreport')}>添加报告</Button>

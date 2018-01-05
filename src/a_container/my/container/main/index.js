@@ -21,6 +21,7 @@ import ImgBar3 from '../../../../assets/jianakangdashi@3x.png';
 import ImgBar4 from '../../../../assets/kehu@3x.png';
 import ImgBar5 from '../../../../assets/daiyanka@3x.png';
 import ImgBar6 from '../../../../assets/shouyi@3x.png';
+import ImgBar7 from '../../../../assets/shiyongbangzhu@3x.png';
 import ImgYouHui from '../../../../assets/youhui@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
 
@@ -188,7 +189,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
               <div className="item page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
-                  <img src={ImgBar6} className="icon"/>
+                  <img src={ImgBar7} className="icon"/>
                   <div className="title">使用帮助</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>

@@ -97,7 +97,7 @@ class HomePageContainer extends React.Component {
                                       <div>预约时间：{item.reserveTime}</div>
                                   </div>
                                   <div className="r flex-none">
-                                      <div className="down">已预约</div>
+                                      <div className="down">{item.useTime ? '已使用' : '已预约'}</div>
                                   </div>
                               </div>
                               <div className="card-box page-flex-row">

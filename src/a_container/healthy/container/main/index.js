@@ -19,6 +19,7 @@ import ImgBar1 from '../../../../assets/tijianka@3x.png';
 import ImgBar2 from '../../../../assets/yuyue@3x.png';
 import ImgBar3 from '../../../../assets/wodeyuyue@3x.png';
 import ImgBar4 from '../../../../assets/baogao@3x.png';
+import ImgBar5 from '../../../../assets/HRA@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -78,7 +79,7 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active mt" onClick={() => this.onHraClick()}>
-                  <img className="icon" src={ImgBar4} />
+                  <img className="icon" src={ImgBar5} />
                   <div className="title">HRA知识库</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

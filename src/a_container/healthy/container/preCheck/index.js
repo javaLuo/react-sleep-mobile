@@ -81,6 +81,20 @@ class HomePageContainer extends React.Component {
         this.props.actions.mallReserveSave(tools.clearNull(p)).then((res) => {
             if(res.status === 200) {
                 Toast.success('预约成功',1);
+                this.props.actions.savePreInfo({      // 预约体检，用户输入的信息，最终接口所需数据
+                    userName: undefined,        // 名字 必填
+                    phone: undefined,           // 手机号 必填
+                    stationId: undefined,       // 服务站ID 必填
+                    stationName: '',    // 服务站名称 必填
+                    reserveTime: '',    // 预约时间 必填
+                    sex: 1,             // 性别，1男0女 必填
+                    ticketNo: '',       // 体检卡编号 必填
+                    height: undefined,   // 身高
+                    weight: undefined,  // 体重
+                    reserveFrom: 2,     // 用户来源 1APP， 2公众号，3后台添加
+                    reserveTime_Date: undefined,    // 临时 - 日期
+                    reserveTime_Time: undefined,    // 临时 - 时间
+                });
                 setTimeout(() => {
                     this.props.history.push('/healthy/mypre');
                 }, 16);

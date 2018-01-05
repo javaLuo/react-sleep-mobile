@@ -17,7 +17,7 @@ import tools from '../../../../util/all';
 import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
 import Img404 from '../../../../assets/not-found.png';
-import { Toast } from 'antd-mobile';
+import { Toast, List } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
@@ -26,14 +26,16 @@ import { saveReportInfo, queryUsedListTicket } from '../../../../a_action/shop-a
 // ==================
 // Definition
 // ==================
+const Item = List.Item;
 class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [], // 用户拥有的体检卡
             wxReady: false, // 微信是否已初始化
-            pageNum: 0,
+            pageNum: 1,
             pageSize: 10,
+            total: 0,
         };
     }
 
@@ -52,6 +54,7 @@ class HomePageContainer extends React.Component {
                     data: type === 'flash' ? (res.data.result || []) : [...this.state.data, ...(res.data.result || [])],
                     pageNum,
                     pageSize,
+                    total: res.data.total,
                 });
             } else if (res.status === 204) { // 未获取到数据
                 Toast.info('没有更多数据了');
@@ -69,7 +72,7 @@ class HomePageContainer extends React.Component {
 
     // 选择某一张卡，将卡信息保存到store的体检预约信息中
     onCardClick(data) {
-        this.props.actions.saveReportInfo({ ticketNo: String(data.id) });
+        this.props.actions.saveReportInfo({ ticketNo: String(data.ticketNo) });
         setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
     }
 
@@ -85,6 +88,10 @@ class HomePageContainer extends React.Component {
     render() {
         return (
             <div className="page-chose-card">
+                <List>
+                    <Item extra={`总计：${this.state.total}张`}>已使用的卡</Item>
+                </List>
+                <div className="luo-box">
                 <Luo
                     id="luo3"
                     className="touch-none"
@@ -126,6 +133,7 @@ class HomePageContainer extends React.Component {
                         })()}
                     </ul>
                 </Luo>
+                </div>
             </div>
         );
     }

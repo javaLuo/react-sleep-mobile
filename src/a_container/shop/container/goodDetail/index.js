@@ -173,7 +173,16 @@ class HomePageContainer extends React.Component {
                 this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
                 this.props.history.push('/shop/confirmpay');
             } else {
-                Toast.fail(res.message || '您当前没有购买权限',1);
+                alert('温馨提示', '您当前还没有购买该产品的权限哦', [
+                    { text: '知道了', onPress: () => console.log('cancel') },
+                    {
+                        text: '查看权限规则',
+                        onPress: () => new Promise((resolve, rej) => {
+                            this.props.history.push('/my/atcat');
+                            resolve();
+                        }),
+                    },
+                ]);
             }
       });
   }

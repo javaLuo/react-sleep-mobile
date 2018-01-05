@@ -73,6 +73,8 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     data: type === 'flash' ? res.data.result : [...this.state.data, ...res.data.result],
                     total: res.data.total,
+                    pageNum,
+                    pageSize,
                 });
             } else {
                 Toast.info(res.message || '数据加载失败', 1);

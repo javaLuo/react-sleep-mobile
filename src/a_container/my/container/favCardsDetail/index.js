@@ -32,6 +32,7 @@ class Register extends React.Component {
         super(props);
         this.state = {
             wxReady: true,  // 微信SDK是否初始化成功
+            loading: false, // 是否正在支付中
         };
         this.s3data = null;
         this.s4data = null;
@@ -141,6 +142,9 @@ class Register extends React.Component {
 
     // 开始支付
     onPay() {
+        this.setState({
+            loading: true
+        });
         if (this.s4data) {              // 已经获取过统一下单了，直接调起支付就行 （即用户取消支付、支付失败后，重新点击支付）
             this.onWxPay(this.s4data).then((msg) => {
                 this.payResult(msg);
@@ -241,12 +245,12 @@ class Register extends React.Component {
                 <div className="img-box">
                     <img className="img" src={Img} />
                 </div>
-                <div className="fav-info">仅需支付50元材料费，即可使用该卡</div>
+                <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : ''}</div>
                 <div className="footer-zw"/>
                 {
                     (d.ticketType === 'M' && d.ticketStatus === 3) ? (
                         <div className="thefooter">
-                            <Button type="primary" onClick={() => this.onPay()}>微信支付</Button>
+                            <Button type="primary" loading={this.state.loading} onClick={() => this.onPay()}>微信支付</Button>
                         </div>
                     ) : null
                 }

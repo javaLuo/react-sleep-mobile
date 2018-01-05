@@ -81,17 +81,16 @@ class HomePageContainer extends React.Component {
                         <div className="cardbox page-flex-col flex-jc-sb">
                             <div className="row1 flex-none page-flex-row flex-jc-sb">
                                 <div>
-                                    <div className="t">健康风险评估卡</div>
-                                    <div className="i">专注疾病早期筛查</div>
+                                    <div className="t"></div>
                                 </div>
                             </div>
                             <div className="row-center page-flex-row flex-jc-end">
                             </div>
-                            <div className="row2 flex-none">
+                            <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                 <div>
                                     <div className="i">有效期至：{d.date}</div>
                                 </div>
-                                <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div>
+                                <div className="flex-none">￥1000</div>
                             </div>
                         </div>
                         <div className="info-box">
