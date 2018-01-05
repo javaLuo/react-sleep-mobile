@@ -66,10 +66,6 @@ class HomePageContainer extends React.Component {
                   <div>下单e家号</div>
                   <div>{data.userId}</div>
               </div>
-              <div className="page-flex-row flex-jc-sb">
-                  <div>昵称</div>
-                  <div></div>
-              </div>
           </div>
       </div>
     );

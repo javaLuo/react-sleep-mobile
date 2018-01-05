@@ -14,8 +14,9 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, List } from 'antd-mobile';
+import { List } from 'antd-mobile';
 import ImgDefault from '../../../../assets/default-head.jpg';
+import Img404 from '../../../../assets/not-found.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -63,7 +64,10 @@ class HomePageContainer extends React.Component {
                           <div className="name flex-auto">{item.nickName}</div>
                           <div className="num flex-none">{item.id}</div>
                       </li>;
-                  }) : <li key="1" className="nothing"><div>暂无数据</div></li>
+                  }) : <li key={0} className="data-nothing">
+                      <img src={Img404}/>
+                      <div>亲，这里什么也没有哦~</div>
+                  </li>
               }
           </ul>
       </div>

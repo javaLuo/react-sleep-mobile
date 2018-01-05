@@ -1,4 +1,4 @@
-/* 健康管理 - 体检预约- 选择未使用过的体检券 */
+/* 健康管理 - 体检报告 - 选择已使用过的体检券 */
 
 // ==================
 // 所需的各种插件
@@ -22,7 +22,7 @@ import { Toast } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import { mallCardList, savePreInfo, saveReportInfo, queryNotUsedListTicket } from '../../../../a_action/shop-action';
+import { saveReportInfo, queryUsedListTicket } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -32,6 +32,8 @@ class HomePageContainer extends React.Component {
         this.state = {
             data: [], // 用户拥有的体检卡
             wxReady: false, // 微信是否已初始化
+            pageNum: 0,
+            pageSize: 10,
         };
     }
 
@@ -43,7 +45,7 @@ class HomePageContainer extends React.Component {
     // 获取体检卡列表
     getData(pageNum=1, pageSize=10, type='flash') {
         Toast.loading('搜索中');
-        this.props.actions.queryNotUsedListTicket({ pageNum, pageSize }).then((res) => {
+        this.props.actions.queryUsedListTicket({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 Toast.hide();
                 this.setState({
@@ -67,17 +69,8 @@ class HomePageContainer extends React.Component {
 
     // 选择某一张卡，将卡信息保存到store的体检预约信息中
     onCardClick(data) {
-        this.props.actions.savePreInfo({ ticketNo: String(data.ticketNo) });
-        setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
-
-        // const path = tools.makePathname(this.props.location.pathname);
-        // if (path === 'addreport') { // 来自添加报告选择
-        //     this.props.actions.saveReportInfo({ ticketNo: String(data.id) });
-        //     setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
-        // } else if(path === 'precheck'){ // 来自体检预约选择体检卡
-        //     this.props.actions.savePreInfo({ ticketNo: String(data.id) });
-        //     setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
-        // }
+        this.props.actions.saveReportInfo({ ticketNo: String(data.id) });
+        setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
     }
 
     // 下拉刷新
@@ -99,7 +92,6 @@ class HomePageContainer extends React.Component {
                     onPullUpLoadMore={() => this.onUp()}
                     iscrollOptions={{
                         disableMouse: true,
-
                     }}
                 >
                     <ul className="the-ul">
@@ -158,6 +150,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallCardList, savePreInfo, saveReportInfo, queryNotUsedListTicket }, dispatch),
+        actions: bindActionCreators({ saveReportInfo, queryUsedListTicket }, dispatch),
     })
 )(HomePageContainer);

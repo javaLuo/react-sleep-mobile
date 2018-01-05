@@ -19,7 +19,7 @@ import ImgShareArr from '../../../../assets/share-arr.png';
 import ImgGuoQi from '../../../../assets/share/yiguoqi@3x.png';
 import ImgShiYong from '../../../../assets/share/yishiyong@3x.png';
 import ImgJinYong from '../../../../assets/share/yijinyong@3x.png';
-import { Toast, SwipeAction, Modal } from 'antd-mobile';
+import { Toast, SwipeAction, Modal, List } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================
@@ -31,6 +31,7 @@ import { wxInit, mallCardListQuan, mallQuanDel } from '../../../../a_action/shop
 // Definition
 // ==================
 const alert = Modal.alert;
+const Item = List.Item;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '体检券';
+      document.title = '体检卡';
       this.getData();
       this.initWeiXinPay();
   }
@@ -137,7 +138,7 @@ class HomePageContainer extends React.Component {
        * **/
         const u = this.props.userinfo;
         const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}`;
-      if(tools.isWeixin()) { // 是微信系统才能分享
+      if(tools.isWeixin() && obj.handsel) { // 是微信系统才能分享
           alert('确认赠送?','赠送后您的券将转移给对方，您将无法再查看该券', [
               { text: '取消', onPress: () => console.log('cancel') },
               { text: '确认', onPress: () => new Promise((resolve, rej) => {
@@ -203,6 +204,13 @@ class HomePageContainer extends React.Component {
       return 1;
     }
 
+    /**
+     * 工具 - 计算当前可使用的有几张
+     * **/
+    getHowManyCanUse(data) {
+        return data.filter((item) => item.ticketStatus === 1).length;
+    }
+
     // 删除体检券
     onDelete(item) {
       console.log('删除体检券', item);
@@ -230,6 +238,9 @@ class HomePageContainer extends React.Component {
       const ticket = this.state.data;
     return (
       <div className="page-card-voucher">
+          <List>
+              <Item extra={`总计：${ticket.length}张  可使用：${this.getHowManyCanUse(ticket)}张`}>体检卡</Item>
+          </List>
           <div className="the-ul">
               {
                   ticket.map((item, index) => {
@@ -260,7 +271,7 @@ class HomePageContainer extends React.Component {
                                       <div>
                                           <div className="money">￥1000</div>
                                           {
-                                              tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
+                                              tools.isWeixin() && item.handsel ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
                                           }
                                       </div>
                                   </div>

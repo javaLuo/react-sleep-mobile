@@ -45,9 +45,10 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '填写体检人信息';
       const p = this.props.preInfo;
+      console.log('所以这是什么：', p);
       this.setState({
-          formName: p.name,
-          formPhone: p.mobile,
+          formName: p.userName,
+          formPhone: p.phone,
           formSex: String(p.sex),
           formTall: p.height,
           formWeight: p.weight,
@@ -56,10 +57,12 @@ class HomePageContainer extends React.Component {
 
   componentWillReceiveProps(nextP) {
       if (nextP.preInfo !== this.props.preInfo) {
+
           const p = nextP.preInfo;
+          console.log('所以触发了吗：', p);
           this.setState({
-              formName: p.name,
-              formPhone: p.mobile,
+              formName: p.userName,
+              formPhone: p.phone,
               formSex: String(p.sex),
               formTall: p.height,
               formWeight: p.weight,
@@ -147,7 +150,7 @@ class HomePageContainer extends React.Component {
           weight: Number(this.state.formWeight),
       });
       setTimeout(() => {
-          this.props.history.push('/healthy/precheck');
+          this.props.history.replace('/healthy/precheck');
       }, 16);
     }
 
@@ -161,14 +164,14 @@ class HomePageContainer extends React.Component {
               <Item arrow="horizontal" extra={this.state.formPhone} onClick={() => this.setPhone()}>手机号码</Item>
           </List>
           <List className="mt">
-              <DatePicker
-                  mode="date"
-                  value={this.state.formDate}
-                  minDate={new Date('1900-01-01')}
-                  onChange={date => this.setState({ formDate: date })}
-              >
-                  <Item arrow="horizontal">出生日期</Item>
-              </DatePicker>
+              {/*<DatePicker*/}
+                  {/*mode="date"*/}
+                  {/*value={this.state.formDate}*/}
+                  {/*minDate={new Date('1900-01-01')}*/}
+                  {/*onChange={date => this.setState({ formDate: date })}*/}
+              {/*>*/}
+                  {/*<Item arrow="horizontal">出生日期</Item>*/}
+              {/*</DatePicker>*/}
               <Picker
                   title="请选择性别"
                   extra={this.state.formSex[0] === '1' ? '男' : '女'}

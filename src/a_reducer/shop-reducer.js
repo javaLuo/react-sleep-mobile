@@ -51,6 +51,7 @@ const initState = {
         data: [],
         pageNum: 1,
         pageSize: 10,
+        total: 0,
     },
     proDetail: {},      // 从收益详情点击一条数据时，保存此条数据的信息，以便下一个页面使用
     freeCardInfo: {},   // 从我的优惠卡点击一条数据时，保存
@@ -168,12 +169,13 @@ const saveReportInfo = (state, action) => {
 };
 
 const saveMyCardInfo = (state, action) => {
-    const { data, pageNum, pageSize } = action;
+    const { data, pageNum, pageSize,total } = action;
     return Object.assign({}, state, {
         myCard: {
             data,
             pageNum,
             pageSize,
+            total,
         },
     });
 };

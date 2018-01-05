@@ -7,6 +7,7 @@
       margin-top: .2rem;
     }
     .cardbox{
+      position: relative;
       padding: .2rem;
       box-sizing: border-box;
       background-image: url(../../../../assets/kapian@3x.png);
@@ -15,6 +16,12 @@
       width: 7.1rem;
       height: 3.2rem;
       color: #fff;
+      &.abnormal{
+        background-image: url(../../../../assets/share/kapian_one@3x.png);
+        .i{
+          color: #fff !important;
+        }
+      }
       .row1{
         .t{
           font-size: .36rem;
@@ -22,8 +29,24 @@
         .i{
           font-size: .26rem;
           color: #9394a4;
-          margin-top: .2rem;
+          margin-top: .1rem;
         }
+        .right-info{
+          font-size: .36rem;
+        }
+        .tip{
+          position: absolute;
+          right: 1.5rem;
+          width: 1.2rem;
+          height: auto;
+        }
+        .flex-none{
+          img{
+            width: .14rem;
+          }
+        }
+      }
+      .row-center{
         img{
           width: .14rem;
         }
@@ -39,7 +62,7 @@
       .i{
         font-size: .28rem;
         color: #9394a4;
-        margin-top: .2rem;
+        margin-top: .1rem;
       }
       .share-btn{
         position: relative;

@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-
+import { List } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/tijianka@3x.png';
 import ImgBar2 from '../../../../assets/yuyue@3x.png';
@@ -37,11 +37,20 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '健康管理';
   }
+
+  // HRA知识库点击
+    onHraClick() {
+      window.open('http://news.yimaokeji.com/index.php/page/HRAknowledge.mhtml');
+    }
+
   render() {
     const user = sessionStorage.getItem('userinfo');
     return (
       <div className="healthy-main">
           {/* 下方各横块 */}
+          <List>
+
+          </List>
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <img className="icon" src={ImgBar1} />
@@ -65,7 +74,12 @@ class HomePageContainer extends React.Component {
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/myreport')}>
                   <img className="icon" src={ImgBar4} />
                   <div className="title">体检报告</div>
-                  {/*<div className="info">1份</div>*/}
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active mt" onClick={() => this.onHraClick()}>
+                  <img className="icon" src={ImgBar4} />
+                  <div className="title">HRA知识库</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

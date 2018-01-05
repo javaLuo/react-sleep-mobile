@@ -92,7 +92,7 @@ class HomePageContainer extends React.Component {
                           return <li className="one-box" key={index}>
                               <div className="pre-box page-flex-row">
                                   <div className="l flex-auto">
-                                      <div>体检人：{item.hraCustomer.username}</div>
+                                      <div>体检人：{item.hraCustomer ? item.hraCustomer.username : ''}</div>
                                       <div>体检卡号：{tools.cardFormart(item.ticketNo)}</div>
                                       <div>预约时间：{item.reserveTime}</div>
                                   </div>
@@ -102,10 +102,10 @@ class HomePageContainer extends React.Component {
                               </div>
                               <div className="card-box page-flex-row">
                                   <div className="l flex-auto">
-                                      <div className="title">服务站名称</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station.stationName}</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><a href={`tel:${item.station.phone}`}>{item.station.phone}</a></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.station.stationAddress}</span></div>
+                                      <div className="title">{item.station ? item.station.name : '-'}</div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.masterName : ''}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><a href={`tel:${item.station ? item.station.masterPhone : ''}`}>{item.station ? item.station.masterPhone : ''}</a></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.station ? item.station.address : ''}</span></div>
                                   </div>
                               </div>
                           </li>;

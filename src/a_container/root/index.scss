@@ -1,8 +1,5 @@
 .boss{
   background-color: #f7f7f7;
-  background-image: url(../../assets/loading.gif);
-  background-position: center 5%;
-  background-repeat: no-repeat;
   min-height: 100vh;
   &.hide{
     opacity: 0;

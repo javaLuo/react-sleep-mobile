@@ -64,19 +64,24 @@ class HomePageContainer extends React.Component {
    * type=update 累加
    * **/
   getData(pageNum = 1, pageSize = 10, type) {
+      Toast.loading('搜索中');
       this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 console.log('我的体检卡：', res.data.result);
+                Toast.hide();
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
                     Toast.info('没有更多数据了', 1);
-                    this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize);
+                    this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize, this.props.myCard.total);
                     return;
                 }
-                this.props.actions.saveMyCardInfo(( type === 'update' ? [...this.props.myCard.data, ...res.data.result] : res.data.result ), pageNum, pageSize);
+                this.props.actions.saveMyCardInfo(( type === 'update' ? [...this.props.myCard.data, ...res.data.result] : res.data.result ), pageNum, pageSize, res.data.total);
             } else {
-                Toast.info(res.message || '数据加载失败', 1);
-                this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize);
+                Toast.fail(res.message || '数据加载失败', 1);
+                this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize, this.props.myCard.total);
             }
+      }).catch(() => {
+          Toast.fail('网络错误，请稍后');
+          this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize,this.props.myCard.total);
       });
   }
 
@@ -136,7 +141,7 @@ class HomePageContainer extends React.Component {
     onStartShare(obj, index, e) {
       e.stopPropagation();
       console.log('要分享的信息：', obj);
-      if(tools.isWeixin() && this.checkCardStatus(obj) === 1) { // 是微信中并且卡的状态正常才能分享
+      if(tools.isWeixin() && obj.handsel) { // 是微信中并且卡的状态正常才能分享
           alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡', [
               { text: '取消', onPress: () => console.log('cancel') },
               {
@@ -219,7 +224,7 @@ class HomePageContainer extends React.Component {
           const validTime = new Date(`${item.validTime} 23:59:59`).getTime();
           if (validTime - new Date().getTime() < 0) {   // 已过期
               return 2;
-          } else if (item.ticketNum - item.useCount <= 0) {   // 全部用完
+          } else if (item.totalCount - item.useCount <= 0) {   // 全部用完
               return 3;
           }
           return 1;
@@ -260,6 +265,10 @@ class HomePageContainer extends React.Component {
   render() {
     return (
       <div className="page-mycard">
+          <List>
+              <Item extra={`总计：${this.props.myCard.total || ''}张`}>体检卡</Item>
+          </List>
+          <div className="luo-box">
           <Luo
             id="luo1"
             className="touch-none"
@@ -322,7 +331,7 @@ class HomePageContainer extends React.Component {
                                                       <div className="i">有效期至：{item.validTime}</div>
                                                   </div>
                                                   {
-                                                      tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
+                                                      tools.isWeixin() && item.handsel ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
                                                   }
                                               </div>
                                           </div>
@@ -334,6 +343,7 @@ class HomePageContainer extends React.Component {
                   }
               </div>
           </Luo>
+          </div>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
               <div className="title">点击右上角进行赠送</div>

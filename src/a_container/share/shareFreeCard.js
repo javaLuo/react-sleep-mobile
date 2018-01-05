@@ -67,7 +67,7 @@ class HomePageContainer extends React.Component {
     render() {
         const d = this.state.data;
         return (
-            <div className="flex-auto page-box page-share-ticket">
+            <div className="flex-auto page-share-ticket">
                 <div className="title-box">
                     <img src={ImgTitle}/>
                 </div>

@@ -362,7 +362,7 @@ export function saveReportInfo(payload = {}) {
 // 体检预约 - 向后台发起请求，添加一条体检预约
 export const mallReserveSave = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/ticket/create', params );
+        const res = await Fetchapi.newPost('mall/ticket/create', params, 'post', true );
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -447,12 +447,13 @@ export function saveServiceInfo(payload = {}) {
 }
 
 // 保存当前查询的体检卡信息（上拉加载下拉刷新用的）
-export function saveMyCardInfo(data = {}, pageNum, pageSize) {
+export function saveMyCardInfo(data = {}, pageNum, pageSize, total) {
     return {
         type: 'PRE::saveMyCardInfo',
         data,
         pageNum,
         pageSize,
+        total,
     };
 }
 

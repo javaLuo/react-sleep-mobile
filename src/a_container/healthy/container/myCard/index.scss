@@ -1,5 +1,8 @@
 .page-mycard{
   height: 100vh;
+  .luo-box{
+    height: calc(100% - 47px);
+  }
   .the-ul{
     padding: .2rem;
     box-sizing: border-box;

@@ -43,6 +43,7 @@ class HomePageContainer extends React.Component {
         which: -1,  // 当前选中哪一个进行分享
         pageNum: 1,
         pageSize: 10,
+        total: 0,   // 总数
     };
   }
 
@@ -70,7 +71,8 @@ class HomePageContainer extends React.Component {
                     return;
                 }
                 this.setState({
-                    data: type === 'flash' ? res.data.result : [...this.state.data, ...res.data.result]
+                    data: type === 'flash' ? res.data.result : [...this.state.data, ...res.data.result],
+                    total: res.data.total,
                 });
             } else {
                 Toast.info(res.message || '数据加载失败', 1);
@@ -137,7 +139,7 @@ class HomePageContainer extends React.Component {
     onStartShare(obj, index, e) {
       e.stopPropagation();
       console.log('要分享的信息：', obj);
-      if(tools.isWeixin() && this.checkCardStatus(obj) === 1) { // 是微信中并且卡的状态正常才能分享
+      if(tools.isWeixin() && obj.handsel) { // 是微信中并且卡的状态正常才能分享
           alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡', [
               { text: '取消', onPress: () => console.log('cancel') },
               {
@@ -218,6 +220,10 @@ class HomePageContainer extends React.Component {
   render() {
     return (
       <div className="page-myfavcards">
+          <List>
+              <Item extra={`总计：${this.state.total}张`}>优惠卡</Item>
+          </List>
+          <div className="luo-box">
           <Luo
             id="luo1"
             className="touch-none"
@@ -264,7 +270,7 @@ class HomePageContainer extends React.Component {
                                               <div>
                                                   <div className="money">￥1000</div>
                                                   {
-                                                      tools.isWeixin() ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
+                                                      tools.isWeixin() && item.handsel ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
                                                   }
                                               </div>
                                           </div>
@@ -276,6 +282,7 @@ class HomePageContainer extends React.Component {
                   }
               </div>
           </Luo>
+          </div>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
               <div className="title">点击右上角进行赠送</div>

@@ -52,6 +52,7 @@ class HomePageContainer extends React.Component {
 
     // 时间选择
     onTimeChange(time) {
+      console.log('触发啊：', time);
       this.props.actions.savePreInfo({
           reserveTime: `${tools.dateformart(this.props.preInfo.reserveTime_Date)} ${time[0]}`,
           reserveTime_Time: time[0],
@@ -82,12 +83,12 @@ class HomePageContainer extends React.Component {
                 Toast.success('预约成功',1);
                 setTimeout(() => {
                     this.props.history.push('/healthy/mypre');
-                }, 1000);
+                }, 16);
             } else {
-                Toast.fail(res.message || '服务器错误');
+                Toast.fail(res.message || '网络错误，请重试',1);
             }
         }).catch(() => {
-            Toast.fail(res.message || '服务器错误');
+            Toast.fail('网络错误，请重试',1);
         });
    }
 
@@ -151,12 +152,11 @@ class HomePageContainer extends React.Component {
           </div>
           <div className="bar-list">
               {
-                  this.props.stationInfo.id ? (
+                  (this.props.stationInfo.id && this.props.stationInfo.reserveTime) ? (
                       <Picker
                           data={this.props.stationInfo.reserveTime ? this.props.stationInfo.reserveTime.map((item, index) => {
                               return { label: item, value: item };
                           }) : []}
-                          value={[this.props.preInfo.reserveTime_Time]}
                           cols={1}
                           onOk={time => this.onTimeChange(time)}
                       >

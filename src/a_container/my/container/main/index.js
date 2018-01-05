@@ -101,13 +101,22 @@ class HomePageContainer extends React.Component {
     // 产品代言被点击
     onDaiYanClick() {
         const u = this.props.userinfo;
+        const a = this.props.ambassador;
         if (!u) {
             Toast.info('请先登录', 1);
-        } else if (u.userType === 4) {
-            Toast.info('您没有代言卡', 1);
-        } else {
-            this.props.history.push('/my/mydaiyan');
+            return;
         }
+
+        if (u.userType === 2 || (u.userType === 3 && a.userType === 2)) {
+            this.props.history.push('/my/mydaiyan');
+        } else {
+            Toast.info('您没有代言卡');
+        }
+    }
+
+    // 使用帮助被点击
+    onHelpClick() {
+      window.open('http://news.yimaokeji.com/index.php/page/weixinHelp.html');
     }
   render() {
     const u = this.props.userinfo;
@@ -176,6 +185,11 @@ class HomePageContainer extends React.Component {
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+              </div>
+              <div className="item page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
+                  <img src={ImgBar6} className="icon"/>
+                  <div className="title">使用帮助</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
           </div>

@@ -24,6 +24,7 @@ import MyReport from './container/myreport';
 import AddReport from './container/addreport';
 import ChoseService from './container/choseservice';
 import ChoseCard from './container/choseCard';
+import ChoseCard2 from './container/choseCard2';
 import CardVoucher from './container/cardVoucher';
 // ==================
 // 本页面所需action
@@ -57,6 +58,7 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/addreport`} component={AddReport} />
             <Route exact path={`${this.props.match.url}/choseservice`} component={ChoseService} />
             <Route exact path={`${this.props.match.url}/chosecard`} component={ChoseCard} />
+            <Route exact path={`${this.props.match.url}/chosecard2`} component={ChoseCard2} />
             <Route exact path={`${this.props.match.url}/cardvoucher/:id`} component={CardVoucher} />
           </Switch>
         </div>
