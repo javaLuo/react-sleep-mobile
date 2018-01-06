@@ -72,6 +72,8 @@ class HomePageContainer extends React.Component {
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
                     if (type === 'flash') {
                         Toast.info('没有更多数据了', 1);
+                    } else {
+                      Toast.hide();
                     }
 
                     this.props.actions.saveMyCardInfo((type === 'flash' ? [] : this.props.myCard.data), this.props.myCard.pageNum, this.props.myCard.pageSize, this.props.myCard.total);

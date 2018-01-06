@@ -70,7 +70,9 @@ class HomePageContainer extends React.Component {
               });
               if (type === 'update') {
                   Toast.fail('没有更多数据了',1);
-              }
+              } else{
+                    Toast.hide();
+                }
           }
       }).catch(() => {
           this.setState({

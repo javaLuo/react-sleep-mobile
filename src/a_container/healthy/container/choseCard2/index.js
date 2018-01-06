@@ -59,6 +59,8 @@ class HomePageContainer extends React.Component {
             } else if (res.status === 204) { // 未获取到数据
                 if (type === 'update') {
                     Toast.info('没有更多数据了',1);
+                } else{
+                    Toast.hide();
                 }
 
                 this.setState({
