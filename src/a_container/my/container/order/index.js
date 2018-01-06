@@ -42,15 +42,17 @@ class HomePageContainer extends React.Component {
     this.getData();
   }
 
-  // 获取当前登录用户的相关信息
+  // 获取数据
   getData() {
-      this.props.actions.mallOrderList({ pageNum:0, pageSize: 999 }).then((res) => {
-          if (res.status === 200) {
+      this.props.actions.mallOrderList({ pageNum:1, pageSize: 999 }).then((res) => {
+          if (res.status === 200 && res.data) {
               this.setState({
-                  data: res.data.result,
+                  data: res.data.result || [],
               });
               console.log('订单信息：', res.data.result);
           }
+      }).catch(() =>{
+          Toast.fail('网络错误，请重试');
       });
   }
 
@@ -107,8 +109,12 @@ class HomePageContainer extends React.Component {
     }
 
     // 查看体检卡详情
-    onLook(id) {
-        this.props.history.push(`/my/ordercarddetail/${id}`);
+    onLook(item) {
+      if (item.modelType === 'M') { // 优惠卡
+          this.props.history.push(`/my/myfavcards/fav_${item.id}`);
+      } else {  // 普通卡
+          this.props.history.push(`/my/ordercarddetail/${item.id}`);
+      }
     }
 
   render() {
@@ -153,7 +159,7 @@ class HomePageContainer extends React.Component {
                                                       case '1': return <span>未受理</span>;
                                                       case '2': return <span>已受理</span>;
                                                       case '3': return <span>处理中</span>;
-                                                      case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                      case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>];
                                                       case '-1': return <span>审核中</span>;
                                                       case '-2': return <span>未通过</span>;
                                                       case '-3': return <span>已取消</span>;
@@ -198,7 +204,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;
@@ -243,7 +249,7 @@ class HomePageContainer extends React.Component {
                                                   case '1': return <span>未受理</span>;
                                                   case '2': return <span>已受理</span>;
                                                   case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item.id)}>查看体检卡</a>];
+                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>];
                                                   case '-1': return <span>审核中</span>;
                                                   case '-2': return <span>未通过</span>;
                                                   case '-3': return <span>已取消</span>;

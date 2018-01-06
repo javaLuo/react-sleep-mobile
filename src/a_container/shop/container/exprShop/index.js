@@ -55,7 +55,7 @@ class HomePageContainer extends React.Component {
             pageSize,
             stationName: search,
         };
-        Toast.loading('正在搜索...', 0);
+        Toast.loading('搜索中...', 0);
         this.props.actions.mallStationListAll(params).then((res) => {
             console.log('得到了什么：', res);
             if (res.status === 200) {

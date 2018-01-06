@@ -114,7 +114,26 @@ class HomePageContainer extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
-
+            // 如果没有点选，就分享主页
+            wx.onMenuShareAppMessage({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);

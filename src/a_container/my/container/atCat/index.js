@@ -35,7 +35,7 @@ import ImgE2 from '../../../../assets/two_pingguka@3x.png';
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/app-action';
+import { myAmbassador } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -188,7 +188,7 @@ class HomePageContainer extends React.Component {
                             <li className="page-flex-row flex-ai-center">
                                 <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgD1 : ImgD2} /></div>
                                 <div className="info-box flex-auto">
-                                    <div className="t">生物理疗经销权</div>
+                                    <div className="t">生物理疗产品经销权</div>
                                 </div>
                                 {/*<div className="info2 flex-none">收益：30%</div>*/}
                             </li>
@@ -219,7 +219,7 @@ class HomePageContainer extends React.Component {
                                     <div>生物理疗产品</div>
                                 </li>
                                 <li>
-                                    <img src={this.props.ambassador.userType === 2 ? ImgE1 : ImgE2} />
+                                    <img src={(this.props.ambassador && this.props.ambassador.userType === 2) ? ImgE1 : ImgE2} />
                                     <div>健康风险评估卡</div>
                                 </li>
                             </ul>
@@ -266,6 +266,6 @@ export default connect(
     ambassador: state.app.ambassador,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ }, dispatch),
+    actions: bindActionCreators({ myAmbassador }, dispatch),
   })
 )(HomePageContainer);

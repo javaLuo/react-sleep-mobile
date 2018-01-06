@@ -66,7 +66,7 @@ class HomePageContainer extends React.Component {
                     totalIncome: res.data.totalIncome,
                 });
             } else {
-                Toast.fail(res.message || '获取数据失败');
+
             }
       });
     }

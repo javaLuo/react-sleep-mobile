@@ -76,7 +76,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/checkpwd`} component={CheckPwd} />
               <Route exact path={`${this.props.match.url}/mycustomer`} component={MyCustomer} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
-              <Route exact path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
+              <Route path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
           </Switch>
       </div>
     );

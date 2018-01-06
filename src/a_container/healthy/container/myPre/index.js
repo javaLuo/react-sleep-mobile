@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import Img404 from '../../../../assets/not-found.png';
 import ImgRen from '../../../../assets/ren@3x.png';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
@@ -55,6 +55,7 @@ class HomePageContainer extends React.Component {
 
   // 获取本页面所需数据
   getData(pageNum=1, pageSize=10, type='flash') {
+      Toast.loading('搜索中...',0);
       this.props.actions.mecReserveList({ pageNum, pageSize }).then((res) => {
           if (res.status === 200) {
               this.setState({
@@ -62,10 +63,33 @@ class HomePageContainer extends React.Component {
                   pageNum,
                   pageSize
               });
+              Toast.hide();
+          } else {
+              this.setState({
+                  data: type === 'flash' ? [] : this.state.data,
+              });
+              if (type === 'update') {
+                  Toast.fail('没有更多数据了',1);
+              }
           }
+      }).catch(() => {
+          this.setState({
+              data: type === 'flash' ? [] : this.state.data,
+          });
+          Toast.fail( '网络错误，请重试',1);
       });
   }
 
+  // 工具 - 获取状态
+    getType(type) {
+      switch(type) {
+          case 1: return '已预约';
+          case 2: return '已完成';
+          case 4: return '已过期';
+          case 5: return '预约过期';
+          default: return '已预约';
+      }
+    }
   render() {
     return (
       <div className="page-my-pre">
@@ -79,7 +103,7 @@ class HomePageContainer extends React.Component {
 
               }}
           >
-          <ul>
+          <ul className="the-ul">
           {
               (() => {
                   if (this.state.data.length === 0) {
@@ -97,7 +121,7 @@ class HomePageContainer extends React.Component {
                                       <div>预约时间：{item.reserveTime}</div>
                                   </div>
                                   <div className="r flex-none">
-                                      <div className="down">{item.useTime ? '已使用' : '已预约'}</div>
+                                      <div className="down">{this.getType(item.ticketStatus)}</div>
                                   </div>
                               </div>
                               <div className="card-box page-flex-row">

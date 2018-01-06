@@ -50,8 +50,8 @@ class HomePageContainer extends React.Component {
               <span>体检卡如何使用</span>
           </div>
           <div className="info">
-              <p>1.购买成功后，请前往【健康管理】 - 【我的体检卡】中查看体检卡卡号</p>
-              <p>2.在商品详情页查看体检卡适用的线下店，可选择其中任意一家翼猫服务体检中心并前往体检</p>
+              <p>1.购买成功后，请前往【健康管理】 - 【我的体检卡】中查看</p>
+              <p>2.在商品详情页查看健康风险评估卡适用的体验店，可选择其中任意一家翼猫服务体验中心并前往检测。</p>
           </div>
           <div className="title">
               <span>使用须知</span>

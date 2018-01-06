@@ -46,7 +46,7 @@ class HomePageContainer extends React.Component {
     }
 
     getData(pageNum=1,pageSize=10,type='flash') {
-        Toast.loading('搜索中');
+        Toast.loading('搜索中...',0);
         this.props.actions.queryReportList({pageNum, pageSize}).then((res) => {
             if (res.status === 200) {
                 this.setState({
@@ -59,7 +59,9 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     data: type==='flash' ? [] : this.state.data,
                 });
-                Toast.fail('没有更多数据了', 1);
+                if (type === 'update') {
+                    Toast.fail('没有更多数据了', 1);
+                }
             }
         }).catch(() => {
             this.setState({

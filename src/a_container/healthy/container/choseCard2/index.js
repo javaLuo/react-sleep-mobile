@@ -46,7 +46,7 @@ class HomePageContainer extends React.Component {
 
     // 获取体检卡列表
     getData(pageNum=1, pageSize=10, type='flash') {
-        Toast.loading('搜索中');
+        Toast.loading('搜索中...',0);
         this.props.actions.queryUsedListTicket({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 Toast.hide();
@@ -57,7 +57,10 @@ class HomePageContainer extends React.Component {
                     total: res.data.total,
                 });
             } else if (res.status === 204) { // 未获取到数据
-                Toast.info('没有更多数据了');
+                if (type === 'update') {
+                    Toast.info('没有更多数据了',1);
+                }
+
                 this.setState({
                     data: type === 'flash' ? [] : this.state.data,
                 });

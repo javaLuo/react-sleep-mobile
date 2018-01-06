@@ -64,14 +64,17 @@ class HomePageContainer extends React.Component {
    * type=update 累加
    * **/
   getData(pageNum = 1, pageSize = 10, type) {
-      Toast.loading('搜索中');
+      Toast.loading('搜索中...',0);
       this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
                 console.log('我的体检卡：', res.data.result);
                 Toast.hide();
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
-                    Toast.info('没有更多数据了', 1);
-                    this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize, this.props.myCard.total);
+                    if (type === 'flash') {
+                        Toast.info('没有更多数据了', 1);
+                    }
+
+                    this.props.actions.saveMyCardInfo((type === 'flash' ? [] : this.props.myCard.data), this.props.myCard.pageNum, this.props.myCard.pageSize, this.props.myCard.total);
                     return;
                 }
                 this.props.actions.saveMyCardInfo(( type === 'update' ? [...this.props.myCard.data, ...res.data.result] : res.data.result ), pageNum, pageSize, res.data.total);
@@ -130,6 +133,26 @@ class HomePageContainer extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
+            // 如果没有点选，就分享主页
+            wx.onMenuShareAppMessage({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);
@@ -266,7 +289,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-mycard">
           <List>
-              <Item extra={`总计：${this.props.myCard.total || ''}张`}>体检卡</Item>
+              <Item extra={`总计：${this.props.myCard.total}张`}>体检卡</Item>
           </List>
           <div className="luo-box">
           <Luo

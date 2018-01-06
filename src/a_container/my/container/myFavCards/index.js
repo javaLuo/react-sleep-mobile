@@ -44,12 +44,22 @@ class HomePageContainer extends React.Component {
         pageNum: 1,
         pageSize: 10,
         total: 0,   // 总数
+        search: null,
     };
   }
 
   componentDidMount() {
       document.title = '我的优惠卡';
-      this.getData();
+      const p = this.props.location.pathname.split('/')[0];
+      const arr = p.split('_');
+      let search = null;
+      if (arr[0] === 'fav') {   // 来自我的订单优惠卡点击进入
+          search = arr[1];
+      }
+      this.getData(this.state.pageNum, this.state.pageSize, 'flash', search);
+      this.setState({
+          search,
+      });
       this.initWeiXinPay();
   }
 
@@ -59,14 +69,23 @@ class HomePageContainer extends React.Component {
    * type=falsh 刷新
    * type=update 累加
    * **/
-  getData(pageNum = 1, pageSize = 10, type = 'flash') {
-      this.props.actions.queryListFree({userId: this.props.userinfo.id, pageNum, pageSize }).then((res) => {
+  getData(pageNum = 1, pageSize = 10, type = 'flash', search = null) {
+      const params = {
+          userId: this.props.userinfo.id,
+          pageNum,
+          pageSize,
+          search,
+      };
+      this.props.actions.queryListFree(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 console.log('我的优惠卡：', res.data.result);
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
-                    Toast.info('没有更多数据了', 1);
+                    if (type === 'update') {
+                        Toast.info('没有更多数据了', 1);
+                    }
                     this.setState({
                         data: type === 'flash' ? [] : this.state.data,
+                        total: type === 'flash' ? 0 : this.state.total,
                     });
                     return;
                 }
@@ -80,6 +99,7 @@ class HomePageContainer extends React.Component {
                 Toast.info(res.message || '数据加载失败', 1);
                 this.setState({
                     data: type === 'flash' ? [] : this.state.data,
+                    total: type === 'flash' ? 0 : this.state.total,
                 });
             }
       });
@@ -130,6 +150,26 @@ class HomePageContainer extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
+            // 如果没有点选，就分享主页
+            wx.onMenuShareAppMessage({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);
@@ -191,11 +231,11 @@ class HomePageContainer extends React.Component {
 
     // 下拉刷新
     onDown() {
-        this.getData(1, this.state.pageSize, 'flash');
+        this.getData(1, this.state.pageSize, 'flash', this.state.search);
     }
     // 上拉加载
     onUp() {
-      this.getData(this.state.pageNum + 1, this.state.pageSize, 'update');
+      this.getData(this.state.pageNum + 1, this.state.pageSize, 'update', this.state.search);
     }
 
     // 工具 - 判断当前体检卡状态（正常1、过期2、已使用3）

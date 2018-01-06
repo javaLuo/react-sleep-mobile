@@ -55,7 +55,7 @@ class HomePageContainer extends React.Component {
         pageSize,
         stationName: search,
     };
-      Toast.loading('正在搜索...', 0);
+      Toast.loading('搜索中...', 0);
       this.props.actions.mallStationList(params).then((res) => {
           console.log('得到了什么：', res);
             if (res.status === 200) {
@@ -125,8 +125,8 @@ class HomePageContainer extends React.Component {
                           return (
                               <li key={index} className="card-box page-flex-row" onClick={() => this.onChose(item)}>
                                   <div className="l flex-auto">
-                                      <div className="title">{item.stationName}</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.person : null}</span></div>
+                                      <div className="title">{item.stationName || ''}</div>
+                                      {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.person : null}</span></div>*/}
                                       <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.stationTel}</span></div>
                                       <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.stationAddress}</span></div>
                                   </div>

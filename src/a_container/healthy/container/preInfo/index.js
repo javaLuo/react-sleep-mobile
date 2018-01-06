@@ -150,7 +150,7 @@ class HomePageContainer extends React.Component {
           weight: Number(this.state.formWeight),
       });
       setTimeout(() => {
-          this.props.history.replace('/healthy/precheck');
+          this.props.history.go(-1);
       }, 16);
     }
 

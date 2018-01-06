@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
       if (!this.props.orderInfo.id) {
           return false;
       }
-      this.props.actions.mallOrderHraCard({ orderId: this.props.orderInfo.id, pageNum:0, pageSize: 10 }).then((res) => {
+      this.props.actions.mallOrderHraCard({ orderId: this.props.orderInfo.id, pageNum:1, pageSize: 99 }).then((res) => {
         if(res.status === 200 && res.data && res.data.result) {
             this.setState({
                 data: res.data.result || [],
@@ -56,8 +56,12 @@ class HomePageContainer extends React.Component {
   }
 
   // 点击跳转到商品详情页
-  onGotoProduct(id) {
-      this.props.history.push(`/shop/gooddetail/${id}`);
+  onGotoProduct(data) {
+      if (data.modelType === 'M') { // 优惠卡，不跳转
+
+      } else { // 普通卡
+          this.props.history.push(`/shop/gooddetail/${data.id}`);
+      }
   }
 
     // 待付款的订单点击付款
@@ -108,7 +112,12 @@ class HomePageContainer extends React.Component {
             Toast.fail('获取订单信息失败',1);
             return true;
         }
-        this.props.history.push(`/my/ordercarddetail/${obj.id}`);
+        if(obj.modelType === 'M') { // 优惠卡，跳优惠卡页面
+            this.props.history.push(`/my/myfavcards/fav_${obj.id}`);
+        } else{ // 普通体检卡，跳体检卡详情页
+            this.props.history.push(`/my/ordercarddetail/${obj.id}`);
+        }
+
     }
 
   render() {
@@ -116,7 +125,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-order-detail">
           <div className="card-box">
-              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data.id)}>
+              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data)}>
                   <div className="pic flex-none">
                       {
                           (data.productImg) ? (
@@ -151,7 +160,7 @@ class HomePageContainer extends React.Component {
                   case 4: return (
                       <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
                           <a onClick={() => this.onDel()}>删除订单</a>
-                          <a className="blue" onClick={() => this.onLook()}>查看体检卡</a>
+                          <a className="blue" onClick={() => this.onLook()}>{this.props.orderInfo.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>
                       </div>
                   );
                   default: return null;

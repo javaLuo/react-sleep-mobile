@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
           pageNum,
           pageSize,
       };
-      Toast.loading('搜索中');
+      Toast.loading('搜索中...',0);
       this.props.actions.userIncomeDetails(tools.clearNull(params)).then((res) => {
         if (res.status === 200) {
             if (res.data && res.data.basePage && res.data.basePage.result && res.data.basePage.result.length) {
@@ -79,7 +79,9 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     data: this.state.data,
                 });
-                Toast.info('没有更多数据了',1);
+                if (type === 'update') {
+                    Toast.info('没有更多数据了',1);
+                }
             }
         } else {
             if (type === 'flash') {

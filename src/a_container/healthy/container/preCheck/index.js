@@ -136,7 +136,7 @@ class HomePageContainer extends React.Component {
                       <li className="card-box page-flex-row">
                           <div className="l flex-auto">
                               <div className="title">{this.props.stationInfo.stationName}</div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.person : null}</span></div>
+                              {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.person : null}</span></div>*/}
                               <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.stationTel}</span></div>
                               <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.stationAddress}</span></div>
                           </div>

@@ -1,6 +1,9 @@
 .page-my-pre{
   height: 100vh;
-  background-color: #fff;
+  background-color: #f7f7f7;
+  .the-ul{
+    background-color: #f7f7f7 !important;
+  }
   .one-box{
     &+.one-box{
       margin-top: .2rem;
@@ -33,6 +36,7 @@
 
     .card-box{
       padding: .2rem;
+      border-top: solid 1px #f7f7f7;
       background-color: #fff;
       .l{
         .title{

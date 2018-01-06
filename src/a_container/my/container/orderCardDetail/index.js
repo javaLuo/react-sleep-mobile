@@ -17,7 +17,7 @@ import tools from '../../../../util/all';
 
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
-
+import Img404 from '../../../../assets/not-found.png';
 import { Modal, Toast } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -121,6 +121,26 @@ class HomePageContainer extends React.Component {
         });
         wx.ready(() => {
             console.log('微信JS-SDK初始化成功');
+            // 如果没有点选，就分享主页
+            wx.onMenuShareAppMessage({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: '翼猫健康e家',
+                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                link: `${Config.baseURL}/gzh`,
+                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
         });
         wx.error((e) => {
             console.log('微信JS-SDK初始化失败：', e);
@@ -224,7 +244,10 @@ class HomePageContainer extends React.Component {
                           if (!this.state.data) {
                               return <li key={0} className="nodata">加载中...</li>;
                           } else if (this.state.data.length === 0) {
-                              return <li key={0} className="nodata">暂无数据</li>;
+                              return <li key={0} className="data-nothing">
+                                  <img src={Img404}/>
+                                  <div>亲，这里什么也没有哦~</div>
+                              </li>;
                           } else {
                               return this.state.data.map((item, index) => {
                                   return <li key={index} className={this.checkCardStatus(item) === 1 ? 'cardbox page-flex-col flex-jc-sb' : 'cardbox abnormal page-flex-col flex-jc-sb'} onClick={() => this.onClickCard(item)}>
