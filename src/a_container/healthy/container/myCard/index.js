@@ -310,7 +310,7 @@ class HomePageContainer extends React.Component {
                                                       <div className="t">健康风险评估卡</div>
                                                       <div className="i">专注疾病早期筛查</div>
                                                   </div>
-                                                  <div className="flex-none">￥{item.cardPrice}</div>
+                                                  <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}￥{item.cardPrice}</div>
                                                   {(() => {
                                                       const type = this.checkCardStatus(item);
                                                       if (type === 2) {   // 已过期

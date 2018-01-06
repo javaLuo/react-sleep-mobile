@@ -3,7 +3,11 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "jquery": true
+        "jquery": true,
+        "mocha": true,
+        "node": true,
+        "jest": true,
+        "jasmine": true,
     },
     "extends": "plugin:react/recommended",
     "parser": "babel-eslint",

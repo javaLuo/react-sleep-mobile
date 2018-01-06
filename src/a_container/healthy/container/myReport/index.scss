@@ -1,4 +1,8 @@
 .page-report{
+  height: 100vh;
+  .luo-box{
+    height: calc(100% - 47px);
+  }
   .card-box{
     padding: .2rem;
     background-color: #fff;

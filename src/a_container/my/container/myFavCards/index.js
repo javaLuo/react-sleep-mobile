@@ -259,7 +259,7 @@ class HomePageContainer extends React.Component {
                                                   } else if (type === 3) {   // 已使用
                                                       return <img className="tip" src={ImgShiYong} />;
                                                   }
-                                                  return <div className="flex-none"><img src={ImgRight} /></div>;
+                                                  return <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
                                               })()}
                                           </div>
                                           <div className="row-center page-flex-row flex-jc-end">

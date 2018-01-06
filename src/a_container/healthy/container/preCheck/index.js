@@ -151,7 +151,7 @@ class HomePageContainer extends React.Component {
                           title="体检日期"
                           extra="Optional"
                           value={this.props.preInfo.reserveTime_Date}
-                          minDate={new Date()}
+                          minDate={new Date(new Date().getTime() + 86400000)}
                           onChange={date => this.onDateChange(date)}
                       >
                           <div className="item page-flex-row all_active" >

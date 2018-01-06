@@ -41,7 +41,7 @@ class HomePageContainer extends React.Component {
 
   // HRA知识库点击
     onHraClick() {
-      window.open('http://news.yimaokeji.com/index.php/page/HRAknowledge.mhtml');
+      window.open('http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml');
     }
 
   render() {

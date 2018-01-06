@@ -261,7 +261,7 @@ class HomePageContainer extends React.Component {
                                       <div>
                                           <div className="t" />
                                       </div>
-                                      <div className="flex-none">{this.getNameByTicketStatus(item)}</div>
+                                      <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}{this.getNameByTicketStatus(item)}</div>
                                   </div>
                                   <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={() => this.onStartShare(item, index)}>
                                       <div>

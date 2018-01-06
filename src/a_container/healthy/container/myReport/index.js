@@ -14,9 +14,12 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
+
 import { Button, Toast } from 'antd-mobile';
+import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import Img404 from '../../../../assets/not-found.png';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -32,6 +35,8 @@ class HomePageContainer extends React.Component {
         super(props);
         this.state = {
             data: [],
+            pageNum: 1,
+            pageSize: 10,
         };
     }
 
@@ -40,17 +45,26 @@ class HomePageContainer extends React.Component {
         this.getData();
     }
 
-    getData() {
-
-        this.props.actions.queryReportList({pageNum: 1, pageSize: 999}).then((res) => {
+    getData(pageNum=1,pageSize=10,type='flash') {
+        Toast.loading('搜索中');
+        this.props.actions.queryReportList({pageNum, pageSize}).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    data: res.data.result,
+                    data: type==='flash' ? res.data.result : [...this.state.data, ...res.data.result],
+                    pageNum,
+                    pageSize,
                 });
+                Toast.hide();
             } else {
-                Toast.fail(res.message, 1);
+                this.setState({
+                    data: type==='flash' ? [] : this.state.data,
+                });
+                Toast.fail('没有更多数据了', 1);
             }
         }).catch(() => {
+            this.setState({
+                data: type==='flash' ? [] : this.state.data,
+            });
             Toast.fail(res.message, 1);
         });
     }
@@ -60,17 +74,35 @@ class HomePageContainer extends React.Component {
         window.open(url);
     }
 
+    // 下拉刷新
+    onDown() {
+        this.getData(1, this.state.pageSize, 'flash');
+    }
+    // 上拉加载
+    onUp() {
+        this.getData(this.state.pageNum + 1, this.state.pageSize, 'update');
+    }
+
     render() {
         return (
             <div className="page-report">
+                <div className="luo-box">
+                <Luo
+                    id="luo1"
+                    className="touch-none"
+                    onPullDownRefresh={() => this.onDown()}
+                    onPullUpLoadMore={() => this.onUp()}
+                    iscrollOptions={{
+                        disableMouse: true,
+                    }}
+                >
                 <ul>
                     {
                         this.state.data.length ? this.state.data.map((item, index) => {
                                return <li key={index} className="card-box page-flex-row" onClick={() => this.onPdf(item.reportPDF)}>
                                     <div className="l flex-auto">
                                         <div><span>{item.username}</span><span>{item.sex}</span><span>{item.examDate}</span></div>
-                                        <div>体检卡号：</div>
-                                        <div>{item.stationName}</div>
+                                        <div>{item.stationName || '--'}</div>
                                     </div>
                                     <div className="r flex-none page-flex-col flex-ai-center flex-jc-center"><img src={ImgRight} /></div>
                                 </li>;
@@ -83,6 +115,8 @@ class HomePageContainer extends React.Component {
                         )
                     }
                 </ul>
+                </Luo>
+                </div>
                 <div className="thefooter">
                     <Button type="primary" onClick={() => this.props.history.push('/healthy/addreport')}>添加报告</Button>
                 </div>

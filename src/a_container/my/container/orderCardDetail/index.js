@@ -233,7 +233,7 @@ class HomePageContainer extends React.Component {
                                               <div className="t">健康风险评估卡</div>
                                               <div className="i">专注疾病早期筛查</div>
                                           </div>
-                                          <div className="flex-none"><img src={ImgRight}/></div>
+                                          <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight}/></div>
                                       </div>
                                       <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
                                           <div>

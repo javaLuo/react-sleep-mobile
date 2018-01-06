@@ -117,7 +117,7 @@ class HomePageContainer extends React.Component {
 
     // 使用帮助被点击
     onHelpClick() {
-      window.open('http://news.yimaokeji.com/index.php/page/weixinHelp.html');
+      window.open('http://e.yimaokeji.com/index.php/page/weixinHelp.html');
     }
   render() {
     const u = this.props.userinfo;
@@ -165,15 +165,15 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
-                  <img src={ImgYouHui} className="icon" />
-                  <div className="title">我的优惠卡</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mycustomer': '/login')}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的推广客户</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
+                  <img src={ImgYouHui} className="icon" />
+                  <div className="title">我的优惠卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
