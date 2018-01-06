@@ -73,7 +73,7 @@ class HomePageContainer extends React.Component {
     // 选择某一张卡，将卡信息保存到store的体检预约信息中
     onCardClick(data) {
         this.props.actions.savePreInfo({ ticketNo: String(data.ticketNo) });
-        setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
+        setTimeout(() => this.props.history.go(-1), 16);
 
         // const path = tools.makePathname(this.props.location.pathname);
         // if (path === 'addreport') { // 来自添加报告选择

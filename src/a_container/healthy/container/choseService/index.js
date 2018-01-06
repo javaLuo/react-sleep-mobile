@@ -92,7 +92,7 @@ class HomePageContainer extends React.Component {
     onChose(item) {
       console.log('选择了：', item);
       this.props.actions.saveServiceInfo(item);
-      setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
+      setTimeout(() => this.props.history.go(-1), 16);
     }
 
   render() {
@@ -102,6 +102,7 @@ class HomePageContainer extends React.Component {
               placeholder="输入省/市/区/服务站名称"
               maxLength={25}
               onSubmit={(e) => this.onSearch(e)}
+              onChange={(e) => this.onSearch(e)}
               iscrollOptions={{
                   disableMouse: true,
 

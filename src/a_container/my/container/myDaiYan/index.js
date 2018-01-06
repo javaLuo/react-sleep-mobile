@@ -115,7 +115,7 @@ class Register extends React.Component {
             wx.onMenuShareAppMessage({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
-                link: `${Config.baseURL}/gzh/#/daiyanshare/${str}`,
+                link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
                 type: 'link',
                 success: () => {
@@ -126,7 +126,7 @@ class Register extends React.Component {
             wx.onMenuShareTimeline({
                 title: 'HRA健康风险评估',
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
-                link: `${Config.baseURL}/gzh/#/daiyanshare/${str}`,
+                link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
                 success: () => {
                     Toast.info('分享成功', 1);

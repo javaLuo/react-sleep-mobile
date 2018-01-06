@@ -73,7 +73,7 @@ class HomePageContainer extends React.Component {
     // 选择某一张卡，将卡信息保存到store的体检预约信息中
     onCardClick(data) {
         this.props.actions.saveReportInfo({ ticketNo: String(data.ticketNo) });
-        setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
+        setTimeout(() => this.props.history.go(-1), 16);
     }
 
     // 下拉刷新

@@ -26,7 +26,7 @@ import ImgCard from '../../../../assets/xuanzeka@3x.png';
 // 本页面所需action
 // ==================
 
-import { mallReserveSave, savePreInfo } from '../../../../a_action/shop-action';
+import { mallReserveSave, savePreInfo, saveServiceInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -95,6 +95,7 @@ class HomePageContainer extends React.Component {
                     reserveTime_Date: undefined,    // 临时 - 日期
                     reserveTime_Time: undefined,    // 临时 - 时间
                 });
+                this.props.actions.saveServiceInfo({});
                 setTimeout(() => {
                     this.props.history.push('/healthy/mypre');
                 }, 16);
@@ -214,6 +215,6 @@ export default connect(
     stationInfo: state.shop.stationInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallReserveSave, savePreInfo }, dispatch),
+    actions: bindActionCreators({ mallReserveSave, savePreInfo, saveServiceInfo }, dispatch),
   })
 )(HomePageContainer);

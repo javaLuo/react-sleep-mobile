@@ -15,13 +15,12 @@ import tools from '../../../../util/all';
 // 所需的所有组件
 // ==================
 import { Button, Modal, Toast } from 'antd-mobile';
-import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgCard from '../../../../assets/xuanzeka@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { addReportList } from '../../../../a_action/shop-action';
+import { addReportList, saveReportInfo } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -63,7 +62,9 @@ class HomePageContainer extends React.Component {
         this.props.actions.addReportList(params).then((res) => {
             if (res.status === 200) {
                 Toast.success('添加成功');
-                this.props.history.go(-1);
+                this.props.actions.saveReportInfo({ ticketNo: '' });
+                setTimeout(() => this.props.history.replace('/healthy/myreport'), 16);
+
             } else {
                 Toast.fail(res.message);
             }
@@ -116,6 +117,6 @@ export default connect(
         reportInfo: state.shop.reportInfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ addReportList }, dispatch),
+        actions: bindActionCreators({ addReportList, saveReportInfo }, dispatch),
     })
 )(HomePageContainer);

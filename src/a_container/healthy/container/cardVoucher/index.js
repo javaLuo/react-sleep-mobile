@@ -145,7 +145,7 @@ class HomePageContainer extends React.Component {
                   wx.onMenuShareAppMessage({
                       title: 'HRA健康风险评估卡',
                       desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-                      link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
+                      link: `${Config.baseURL}/gzh/?#/shareticket/${str}`,
                       imgUrl: 'http://isluo.com/work/logo/share_card.png',
                       type: 'link',
                       success: () => {
@@ -156,7 +156,7 @@ class HomePageContainer extends React.Component {
                   wx.onMenuShareTimeline({
                       title: 'HRA健康风险评估卡',
                       desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
-                      link: `${Config.baseURL}/gzh/#/shareticket/${str}`,
+                      link: `${Config.baseURL}/gzh/?#/shareticket/${str}`,
                       imgUrl: 'http://isluo.com/work/logo/share_card.png',
                       success: () => {
                           Toast.info('分享成功', 1);

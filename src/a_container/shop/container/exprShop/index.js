@@ -95,6 +95,7 @@ class HomePageContainer extends React.Component {
                     placeholder="输入省/市/区/服务站名称"
                     maxLength={25}
                     onSubmit={(e) => this.onSearch(e)}
+                    onChange={(e) => this.onSearch(e)}
                     iscrollOptions={{
                         disableMouse: true,
 
