@@ -234,7 +234,7 @@ class HomePageContainer extends React.Component {
           {
               this.state.page === 0 ? (
                   <div className="thefooter">
-                      <Button type="primary" onClick={() => this.props.history.push('/shop/exprshop')}>查看翼猫体验服务中心</Button>
+                      <Button type="primary" onClick={() => this.props.history.push('/shop/exprshop2')}>查看翼猫体验服务中心</Button>
                   </div>
               ) : null
           }

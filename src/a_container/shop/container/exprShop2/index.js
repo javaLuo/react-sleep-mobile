@@ -25,7 +25,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { mallStationList, saveServiceInfo } from '../../../../a_action/shop-action';
+import { mallStationListAll, saveServiceInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '体验服务中心';
+        document.title = '选择服务中心';
         this.getData(this.state.pageNum, this.state.pageSize, this.state.search, 'flash');
     }
 
@@ -56,7 +56,7 @@ class HomePageContainer extends React.Component {
             stationName: search,
         };
         Toast.loading('搜索中...', 0);
-        this.props.actions.mallStationList(params).then((res) => {
+        this.props.actions.mallStationListAll(params).then((res) => {
             console.log('得到了什么：', res);
             if (res.status === 200) {
                 me.setState({
@@ -117,9 +117,10 @@ class HomePageContainer extends React.Component {
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
                                                 <div className="title">{item.stationName || ''}</div>
-                                                {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.person : null}</span></div>*/}
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.stationTel}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.stationAddress}</span></div>
+                                                <div className="title">{item.name}</div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.phone}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
                                             </div>
                                         </li>
                                     );
@@ -155,6 +156,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallStationList, saveServiceInfo }, dispatch),
+        actions: bindActionCreators({ mallStationListAll, saveServiceInfo }, dispatch),
     })
 )(HomePageContainer);

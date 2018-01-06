@@ -1,0 +1,115 @@
+.page-expr-shop{
+  .bar-list{
+    padding: 0 0 .28rem 0;
+    .item{
+      height:.98rem;
+      align-items: center;
+      background-color: #fff;
+      position: relative;
+      .icon{
+        padding: 0 .3rem;
+        width: .32rem;
+        height: auto;
+      }
+      .title{
+        flex:auto;
+        font-size: .32rem;;
+        letter-spacing: 1px;
+        padding-left: .2rem;
+        .i{
+          font-size: .28rem;;
+          color: #89888e;
+        }
+      }
+      .title2{
+        flex:none;
+        font-size: .32rem;;
+        letter-spacing: 1px;
+        padding-left: .2rem;
+        width: 2rem;
+        .i{
+          font-size: .28rem;;
+          color: #89888e;
+        }
+      }
+      .info{
+        flex: auto;
+        font-size: .32rem;;
+        color: #89888e;
+        text-align: right;
+      }
+      .info2{
+        flex: auto;
+        font-size: .32rem;;
+        color: #89888e;
+        text-align: left;
+      }
+      .arrow{
+        padding: 0 .28rem;
+        img{
+          width: .14rem;
+          height: auto;
+        }
+      }
+      .arrow2{
+        padding: 0 .28rem;
+        img{
+          width: .34rem;
+          height: auto;
+        }
+      }
+      .line{
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        width: 94%;
+        left: 3%;
+        background-color: #f7f7f7;
+      }
+      &.mt{
+        margin-top: .28rem;
+      }
+    }
+  }
+  .card-ul{
+    margin-bottom: .2rem;
+  }
+  .card-box{
+    padding: .2rem;
+    background-color: #fff;
+    &+.card-box{
+      margin-top: .2rem;
+    }
+    .l{
+      .title{
+        color: #222328;
+        font-size: .32rem;
+        letter-spacing: 1px;
+      }
+      .info{
+        margin-top: .2rem;
+        font-size: .32rem;;
+        color: #89888e;
+        img{
+          width: .28rem;
+          margin-right: .2rem;
+        }
+      }
+    }
+    .r{
+      .addr{
+        text-align: center;
+        color: #4788f5;
+        font-size: .28rem;;
+        letter-spacing: 1px;
+        img{
+          height: .8rem;
+          margin-bottom: .1rem;
+        }
+      }
+    }
+  }
+  .iscroll-box{
+    height: calc(100vh - 44px);
+  }
+}
