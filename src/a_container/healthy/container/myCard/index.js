@@ -70,7 +70,7 @@ class HomePageContainer extends React.Component {
                 console.log('我的体检卡：', res.data.result);
                 Toast.hide();
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
-                    if (type === 'flash') {
+                    if (type === 'update') {
                         Toast.info('没有更多数据了', 1);
                     } else {
                       Toast.hide();
