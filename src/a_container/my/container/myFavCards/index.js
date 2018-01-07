@@ -50,12 +50,14 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '我的优惠卡';
-      const p = this.props.location.pathname.split('/')[0];
+      let p = this.props.location.pathname.split('/');
+      p = p[p.length - 1];
       const arr = p.split('_');
       let search = null;
       if (arr[0] === 'fav') {   // 来自我的订单优惠卡点击进入
           search = arr[1];
       }
+      console.log('searh是什么：', this.props.location, search);
       this.getData(this.state.pageNum, this.state.pageSize, 'flash', search);
       this.setState({
           search,
@@ -70,11 +72,13 @@ class HomePageContainer extends React.Component {
    * type=update 累加
    * **/
   getData(pageNum = 1, pageSize = 10, type = 'flash', search = null) {
+      console.log('searh是什么2：', this.props.location, search);
+      const u = this.props.userinfo || {};
       const params = {
-          userId: this.props.userinfo.id,
+          userId: u.id,
           pageNum,
           pageSize,
-          search,
+          orderId: search,
       };
       this.props.actions.queryListFree(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
