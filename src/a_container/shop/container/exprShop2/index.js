@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '选择服务中心';
+        document.title = '体检服务中心';
         this.getData(this.state.pageNum, this.state.pageSize, this.state.search, 'flash');
     }
 

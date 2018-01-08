@@ -138,8 +138,8 @@ const saveServiceInfo = (state, action) => {
     return Object.assign({}, state, {
         stationInfo: payload,
         preInfo: Object.assign({}, state.preInfo, {
-            stationId: payload.stationId,
-            stationName: payload.name,
+            stationId: payload.station ? payload.station.id : "",
+            stationName: payload.station ? payload.station.name : '',
             reserveTime: '',
             reserveTime_Time: undefined,
             reserveTime_Date: undefined,

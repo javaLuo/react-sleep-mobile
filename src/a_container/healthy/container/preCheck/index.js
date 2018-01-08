@@ -135,10 +135,10 @@ class HomePageContainer extends React.Component {
                   this.props.stationInfo.id ? (
                       <li className="card-box page-flex-row">
                           <div className="l flex-auto">
-                              <div className="title">{this.props.stationInfo.stationName}</div>
-                              {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.person : null}</span></div>*/}
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.stationTel}</span></div>
-                              <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.stationAddress}</span></div>
+                              <div className="title">{this.props.stationInfo.station ? this.props.stationInfo.station.name : ''}</div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.masterName : null}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.masterPhone : null}</span></div>
+                              <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{this.props.stationInfo.station ? this.props.stationInfo.station.address : null}</span></div>
                           </div>
                       </li>
                   ) : null

@@ -56,8 +56,8 @@ class HomePageContainer extends React.Component {
   }
 
   // 点击跳转到商品详情页
-  onGotoProduct(data) {
-      if (data.modelType === 'M') { // 优惠卡，不跳转
+  onGotoProduct(data, type) {
+      if (type === 'M') { // 优惠卡，不跳转
 
       } else { // 普通卡
           this.props.history.push(`/shop/gooddetail/${data.id}`);
@@ -125,7 +125,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-order-detail">
           <div className="card-box">
-              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data)}>
+              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data, this.props.orderInfo.modelType)}>
                   <div className="pic flex-none">
                       {
                           (data.productImg) ? (

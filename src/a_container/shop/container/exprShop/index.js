@@ -116,10 +116,10 @@ class HomePageContainer extends React.Component {
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
-                                                <div className="title">{item.stationName || ''}</div>
-                                                {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.person : null}</span></div>*/}
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.stationTel}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.stationAddress}</span></div>
+                                                <div className="title">{item.station ? item.station.name : ''}</div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.masterName : null}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.station ? item.station.masterPhone : null}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.station ? item.station.address : null}</span></div>
                                             </div>
                                         </li>
                                     );

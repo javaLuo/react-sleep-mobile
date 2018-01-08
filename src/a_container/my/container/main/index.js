@@ -38,6 +38,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        show: false,    // 是否显示
     };
   }
 
@@ -48,6 +49,11 @@ class HomePageContainer extends React.Component {
         this.getUserInfo();
       }
       this.getMyAmbassador();
+      setTimeout(() => {
+          this.setState({
+              show: true,
+          });
+      },0);
   }
 
   // 工具 - 通过用户类型type获取对应的称号
@@ -122,7 +128,7 @@ class HomePageContainer extends React.Component {
   render() {
     const u = this.props.userinfo;
     return (
-      <div className="my-main">
+      <div className={this.state.show ? 'my-main show' : 'my-main'}>
           {/* 顶部 */}
           <div className="head all_active">
               <Link to={u ? '/my/userinfo' : '/login'} className="page-flex-row" style={{ width: '100%', height: '100%'}}>
@@ -151,44 +157,44 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="big-title mt">翼猫圈</div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
+              <div className="item tran1 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
                   <div className="info">{u ? this.getNameByUserType(u.userType) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.onDaShiClick()}>
+              <div className="item tran2 hide page-flex-row all_active" onClick={() => this.onDaShiClick()}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
                   <div className="info">{(u && u.userType !== 4) ? this.getNameByUserType(this.props.ambassador ? this.props.ambassador.userType : '') : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mycustomer': '/login')}>
+              <div className="item tran3 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mycustomer': '/login')}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的推广客户</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
+              <div className="item tran4 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                   <img src={ImgYouHui} className="icon" />
                   <div className="title">我的优惠卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
+              <div className="item tran5 hide page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的产品代言卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
+              <div className="item tran6 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
-              <div className="item page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
+              <div className="item tran7 hide page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
                   <img src={ImgBar7} className="icon"/>
                   <div className="title">使用帮助</div>
                   <div className="arrow"><img src={ImgRight} /></div>

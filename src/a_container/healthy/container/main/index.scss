@@ -1,4 +1,28 @@
 .healthy-main{
+  overflow-x: hidden;
+  .tran1{
+    transition:all 100ms;
+  }
+  .tran2{
+    transition:all 150ms;
+  }
+  .tran3{
+    transition:all 200ms;
+  }
+  .tran4{
+    transition:all 250ms;
+  }
+  .tran5{
+    transition:all 300ms;
+  }
+  &.show{
+    .bar-list{
+      .item.hide{
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
   .bar-list{
     padding: 0 0 .28rem 0;
     .item{
@@ -6,6 +30,10 @@
       align-items: center;
       background-color: #fff;
       position: relative;
+      &.hide{
+        opacity: 0;
+        transform: translateX(50px);
+      }
       .icon{
         padding: 0 .3rem;
         width: .38rem;

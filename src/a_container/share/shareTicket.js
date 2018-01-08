@@ -101,7 +101,7 @@ class HomePageContainer extends React.Component {
                         </div>
                     </div>
                     <div className="code-box">
-                        <div className="t">长按识别二维码接受邀请</div>
+                        <div className="t">长按识别二维码领取赠送卡</div>
                         <div className="codes page-flex-row flex-jc-center">
                             <div>
                                 <img src={this.state.imgCode || ImgQrCode}/>
