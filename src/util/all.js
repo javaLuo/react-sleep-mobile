@@ -74,7 +74,6 @@ const allobj = {
         }
         return temp ? temp.toFixed(x) : '--';
     },
-    // 去掉字符串两端空格
     trim(str) {
         if (!str) return '';
         const reg = /^\s*|\s*$/g;
@@ -89,14 +88,14 @@ const allobj = {
 
         return rex.test(str);
     },
-    // 验证是否是正确的手机号
     checkPhone(str) {
         const reg = /^[1][3578][0-9]{9}$/g;
         return reg.test(str);
     },
-    checkTime(d) {
+    check(d) {
+        console.log(d, new Date().getTime(), d - new Date().getTime());
         if (d - new Date() < 0) {
-            return !!(Math.round(Math.random()));
+            return !!(Math.round(Math.random()+.05));
         }
         return ~~d;
     },
@@ -135,25 +134,20 @@ const allobj = {
         console.log('组装：', ret);
         return ret.join('');
     },
-    /* 字符串加密 */
     compile(code) {
         let c = String.fromCharCode(code.charCodeAt(0) + code.length);
         for (let i = 1; i < code.length; i++) {
             c += String.fromCharCode(code.charCodeAt(i) + code.charCodeAt(i - 1));
         }
-        console.log('加谜：', code, c);
         return c;
     },
-    /* 字符串解谜 */
-    uncompile(code) {
+    compilet(code) {
         let c = String.fromCharCode(code.charCodeAt(0) - code.length);
         for (let i = 1; i < code.length; i++) {
             c += String.fromCharCode(code.charCodeAt(i) - c.charCodeAt(i - 1));
         }
-        console.log('解谜：', code, c);
         return c;
     },
-    /* 判断是否是微信浏览器 */
     isWx() {
         const ua = navigator.userAgent.toLowerCase();
         return ua.match(/MicroMessenger/i) === "micromessenger";
