@@ -123,7 +123,8 @@ class HomePageContainer extends React.Component {
 
     // 使用帮助被点击
     onHelpClick() {
-      window.open('http://e.yimaokeji.com/index.php/page/weixinHelp.html');
+      const u = this.props.userinfo;
+      window.open(`http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml?e=${u.id || 'null'}`);
     }
   render() {
     const u = this.props.userinfo;

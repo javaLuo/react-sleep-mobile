@@ -21,6 +21,7 @@ import lazeShare from 'bundle-loader?lazy&name=share!../share';
 import lazeShareTicketList from 'bundle-loader?lazy&name=shareticketlist!../share/shareTicketList';
 import lazeShareTicket from 'bundle-loader?lazy&name=shareticket!../share/shareTicket';
 import lazeShareFreeCard from 'bundle-loader?lazy&name=sharefreecard!../share/shareFreeCard';
+import lazeShareHra from 'bundle-loader?lazy&name=sharehra!../share/shareHra';
 import lazeWxShare from 'bundle-loader?lazy&name=wxshare!../share/wxShare';
 import lazeDaiYanShare from 'bundle-loader?lazy&name=daiyanshare!../share/daiyanShare';
 import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
@@ -41,6 +42,7 @@ const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props}
 const ShareTicketList = (props) => (<Bundle load={lazeShareTicketList}>{(ShareTicketList) => <ShareTicketList {...props} />}</Bundle>);    // 卡片分享点击进入查看5张体检券
 const ShareTicket = (props) => (<Bundle load={lazeShareTicket}>{(ShareTicket) => <ShareTicket {...props} />}</Bundle>);    // 体检券直接分享
 const ShareFreeCard = (props) => (<Bundle load={lazeShareFreeCard}>{(ShareFreeCard) => <ShareFreeCard {...props} />}</Bundle>);    // 优惠卡直接分享
+const ShareHra = (props) => (<Bundle load={lazeShareHra}>{(ShareHra) => <ShareHra {...props} />}</Bundle>);    // 优惠卡直接分享
 const WxShare = (props) => (<Bundle load={lazeWxShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);         // 分享出去展现的页面
 const DaiYanShare = (props) => (<Bundle load={lazeDaiYanShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);         // 分享出去展现的页面
 const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
@@ -178,6 +180,7 @@ class RootContainer extends React.Component {
                   <Route path="/shareticketlist/:id" render={(props) => this.onEnter(ShareTicketList, props)} />
                   <Route path="/shareticket/:id" render={(props) => this.onEnter(ShareTicket, props)} />
                   <Route path="/sharefreecard/:id" render={(props) => this.onEnter(ShareFreeCard, props)} />
+                  <Route path="/sharehra/:id" render={(props) => this.onEnter(ShareHra, props)} />
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route path="/daiyanshare/:id" render={(props) => this.onEnter(DaiYanShare, props)} />

@@ -48,11 +48,11 @@ class HomePageContainer extends React.Component {
 
   // HRA知识库点击
     onHraClick() {
-      window.open('http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml');
+      const u = this.props.userinfo;
+      window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${u.id || 'null'}`);
     }
 
   render() {
-    const user = sessionStorage.getItem('userinfo');
     return (
       <div className={this.state.show ? 'healthy-main show' : 'healthy-main'}>
           {/* 下方各横块 */}
@@ -101,6 +101,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -109,7 +110,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({}, dispatch),
