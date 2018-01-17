@@ -160,11 +160,11 @@ class HomePageContainer extends React.Component {
 
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.onSetPassword()}>
-                  <div className="title">密码设置</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
+              {/*<div className="item page-flex-row all_active" onClick={() => this.onSetPassword()}>*/}
+                  {/*<div className="title">密码设置</div>*/}
+                  {/*<div className="arrow"><img src={ImgRight} /></div>*/}
+                  {/*<div className="line"/>*/}
+              {/*</div>*/}
               {/*{*/}
                   {/*u && u.openid ? (*/}
                       {/*<div className="item page-flex-row all_active mt" onClick={() => this.onUnBdingWx()}>*/}
