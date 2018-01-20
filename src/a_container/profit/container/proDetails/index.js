@@ -16,6 +16,7 @@ import tools from '../../../../util/all';
 // ==================
 import { List, Toast } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
+import ImgDefault from '../../../../assets/default-head.jpg';
 // ==================
 // 本页面所需action
 // ==================
@@ -38,17 +39,25 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '收益详情';
       if (!this.props.proDetail) {
-          Toast.fail('未获取到收益详情信息');
+          Toast.fail('未获取到收益详情信息',1);
       }
   }
 
   render() {
       const data = this.props.proDetail;
+      const u = this.props.userinfo || {};
     return (
       <div className="page-details">
           <List>
               <Item extra={<span style={{ color: '#FF0303' }}>￥{data.income || '--'}</span>}>收益</Item>
           </List>
+          {
+              u.userType === 5 ? (
+                  <List className={'mt'}>
+                      <Item extra={data.resourceName}>收益来源用户</Item>
+                  </List>
+              ) : null
+          }
           <div className="info-box">
               <div className="page-flex-row flex-jc-sb">
                   <div>类型</div>
@@ -59,14 +68,18 @@ class HomePageContainer extends React.Component {
                   <div>{data.balanceTime}</div>
               </div>
               <div className="page-flex-row flex-jc-sb">
-                  <div>交易流水号</div>
+                  <div>交易单号</div>
                   <div>{data.orderId}</div>
               </div>
-              <div className="page-flex-row flex-jc-sb">
-                  <div>下单e家号</div>
-                  <div>{data.userId}</div>
-              </div>
           </div>
+          <List>
+              <Item
+                  thumb={<img src={data.headImg || ImgDefault} />}
+                  className={'who'}
+              >
+                  <div style={{ textAlign: 'right' }}>{data.nickName}<Brief>e家号：{data.userId}</Brief></div>
+              </Item>
+          </List>
       </div>
     );
   }
@@ -79,7 +92,8 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
-    proDetail: P.any,
+  proDetail: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -89,6 +103,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       proDetail: state.shop.proDetail,
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({}, dispatch),

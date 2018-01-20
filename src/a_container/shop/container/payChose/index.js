@@ -300,7 +300,7 @@ class HomePageContainer extends React.Component {
              * 2.从我的订单跳转付款，程序没有商品相关信息，订单信息中带有商品信息
              * **/
             sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
-            location.assign(`http://hra.yimaokeji.com/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`);
+            location.assign(`${Config.baseURL}/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`);
         }
     }
 

@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
     onBindDealear() {
         const u = this.props.userinfo;
         if (!u){
-            Toast.fail('请先登录');
+            Toast.fail('请先登录',1);
             this.props.history.replace('/login');
             return false;
         }
@@ -105,11 +105,7 @@ class HomePageContainer extends React.Component {
           this.props.history.replace('/login');
           return false;
       }
-      if ( u.mobile) {
-          Toast.info('您已绑定过手机号',1);
-      } else {
-          this.props.history.push('/my/bindphone');
-      }
+      this.props.history.push('/my/bindphone');
     }
 
     // 解除绑定微信
@@ -123,7 +119,7 @@ class HomePageContainer extends React.Component {
           if (res.status === 200) {
               Toast.success('解绑成功',1);
           } else {
-              Toast.fail(res.message);
+              Toast.fail(res.message,1);
           }
       });
     }

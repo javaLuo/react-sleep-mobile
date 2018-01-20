@@ -63,16 +63,16 @@ class HomePageContainer extends React.Component {
       const p = _.cloneDeep(this.props.preInfo);
       // 检查各必要的信息
        if (!p.ticketNo) {
-           Toast.fail('请选择体检卡');
+           Toast.fail('请选择体检卡',1);
            return false;
        } else if(!p.userName || !p.phone) {
-           Toast.fail('请填写体检人信息');
+           Toast.fail('请填写体检人信息',1);
            return false;
        } else if (!p.stationId) {
-           Toast.fail('请选择体检服务中心');
+           Toast.fail('请选择体检服务中心',1);
            return false;
        } else if (!p.reserveTime_Time || !p.reserveTime_Date) {
-           Toast.fail('请选择体检日期和时间');
+           Toast.fail('请选择体检日期和时间',1);
            return false;
        }
        delete p.reserveTime_Date;

@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
                   data: res.data.result || [],
               });
           } else {
-              Toast.fail(res.message || '获取体检券失败，请重试');
+              Toast.fail(res.message || '获取体检券失败，请重试',1);
           }
       });
     }
@@ -240,10 +240,10 @@ class HomePageContainer extends React.Component {
                 onPress: () => new Promise((resolve, rej) => {
                     this.props.actions.mallQuanDel({ ticketId: item.id }).then((res) =>{
                         if (res.status === 200) {
-                            Toast.success('删除成功');
+                            Toast.success('删除成功',1);
                             this.getData();
                         } else {
-                            Toast.fail(res.message || '删除失败，请重试');
+                            Toast.fail(res.message || '删除失败，请重试',1);
                         }
                         resolve();
                     }).catch(() => {

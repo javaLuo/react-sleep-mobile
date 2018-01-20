@@ -31,6 +31,7 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            pageType: false,    // 是已绑定手机号进来的true，还是没绑定手机号进来的false
             formChecked: false, // 表单：协议checkbox是否选中
             modalShow: false, // 模态框是否选中
             phone: '', // 表单phone
@@ -41,6 +42,13 @@ class Register extends React.Component {
             myVcode: '',    // 后台传来的验证码信息
         };
         this.timer = null;  // 获取验证码的tiemr
+    }
+
+    componentWillMount() {
+        const u = this.props.userinfo || {};
+        this.setState({
+            pageType: !!u.mobile,
+        });
     }
 
     componentWillUnmount() {
@@ -141,13 +149,6 @@ class Register extends React.Component {
                     this.props.history.replace('/my/checkpwd');
                 } else {
                     Toast.success('绑定成功', 1);
-                    // 这是之前发现没有密码，还要继续去校验经销商密码
-                    // const pathName = this.props.location.pathname.split('/');
-                    // if (pathName[pathName.length - 1] === 'password') {
-                    //     this.props.history.replace('/my/setpassword');
-                    // } else {
-                    //     this.props.history.go(-1);
-                    // }
                     this.props.history.go(-1);
                 }
             } else {
@@ -157,43 +158,63 @@ class Register extends React.Component {
     }
 
     render() {
+        const u = this.props.userinfo || {};
+        const t = this.state.pageType;
         return (
             <div className="flex-auto page-box page-binding" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                     <div className="login-box">
                         <img className="logo" src={ImgLogo} />
                         <div className="logo-info">
-                            绑定会让您的账号更加安全<br/>绑定后，您还可以通过手机号登录健康e家
+                            { t ? (
+                                <span>当前绑定手机号<br/><b style={{ fontSize: '.5rem' }}>{tools.addMosaic(u.mobile)}</b></span>
+                            ) : (
+                                <span>绑定会让您的账号更加安全<br/>绑定后，您还可以通过手机号登录健康e家</span>
+                            )}
                         </div>
-                        <div className="input-box">
-                            <List className="this-list">
-                                <InputItem
-                                    clear
-                                    placeholder="请输入您的手机号"
-                                    maxLength={11}
-                                    value={this.state.phone}
-                                    onChange={(e) => this.onPhoneInput(e)}
-                                />
-                                <InputItem
-                                    clear
-                                    placeholder="输入您的验证码"
-                                    maxLength={8}
-                                    value={this.state.vcode}
-                                    extra={<span
-                                        className="btn"
-                                        onClick={() => this.getVerifyCode()}
-                                    >
+                        {
+                            (!t) && (
+                                <div className="input-box">
+                                    <List className="this-list">
+                                        <InputItem
+                                            clear
+                                            placeholder="请输入您的手机号"
+                                            maxLength={11}
+                                            value={this.state.phone}
+                                            onChange={(e) => this.onPhoneInput(e)}
+                                        />
+                                        <InputItem
+                                            clear
+                                            placeholder="输入您的验证码"
+                                            maxLength={8}
+                                            value={this.state.vcode}
+                                            extra={<span
+                                                className="btn"
+                                                onClick={() => this.getVerifyCode()}
+                                            >
                                         {this.state.verifyCodeInfo}
                                     </span>}
-                                    onChange={(e) => this.onVcodeInput(e)}
-                                />
-                            </List>
-                        </div>
-                        <Button
-                            type="primary"
-                            className="this-btn"
-                            disabled={this.state.loading}
-                            onClick={() => this.onSubmit()}
-                        >立即绑定</Button>
+                                            onChange={(e) => this.onVcodeInput(e)}
+                                        />
+                                    </List>
+                                </div>
+                            )
+                        }
+                        {
+                            t ? (
+                                <Button
+                                    type="primary"
+                                    className="this-btn"
+                                    onClick={() => this.setState({ pageType: false })}
+                                >更换手机号</Button>
+                            ) : (
+                                <Button
+                                    type="primary"
+                                    className="this-btn"
+                                    disabled={this.state.loading}
+                                    onClick={() => this.onSubmit()}
+                                >立即绑定</Button>
+                            )
+                        }
                     </div>
                 {/*<Modal*/}
                     {/*visible={this.state.modalCodeShow}*/}

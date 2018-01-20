@@ -42,6 +42,9 @@ class HomePageContainer extends React.Component {
 
   getData() {
       const u = this.props.userinfo;
+      if (!u) {
+          return;
+      }
       this.props.actions.getMyCustomers({ userId: u.id }).then((res) => {
           if (res.status === 200) {
               if (res.data) {
@@ -61,8 +64,11 @@ class HomePageContainer extends React.Component {
                   this.state.data.length ? this.state.data.map((item, index) => {
                       return <li key={index} className="page-flex-row flex-ai-center">
                           <div className="photo flex-none"><img src={item.headImg || ImgDefault} /></div>
-                          <div className="name flex-auto">{item.nickName}</div>
-                          <div className="num flex-none">{item.id}</div>
+                          <div className="name flex-auto">
+                              <div>{item.nickName}</div>
+                              <div className="lit">e家号：{item.id}</div>
+                          </div>
+                          <div className="num flex-none">{item.ambassadorTime}</div>
                       </li>;
                   }) : <li key={0} className="data-nothing">
                       <img src={Img404}/>

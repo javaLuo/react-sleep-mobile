@@ -64,6 +64,8 @@ class HomePageContainer extends React.Component {
           case '2': return '个人版经销商';
           case '3': return '分享用户';
           case '4': return '普通用户';
+          case '5': return '企业版经销商';
+          case '6': return '企业版经销商'; // 子账户
           default: return '';
       }
     }
@@ -114,10 +116,10 @@ class HomePageContainer extends React.Component {
             return;
         }
 
-        if (u.userType === 2 || (u.userType === 3 && a.userType === 2)) {
+        if ([2,5,6].indexOf(u.userType) > -1 || (u.userType === 3 && a.userType === 2)) {
             this.props.history.push('/my/mydaiyan');
         } else {
-            Toast.info('您没有代言卡');
+            Toast.info('您没有代言卡',1);
         }
     }
 

@@ -68,7 +68,7 @@ class HomePageContainer extends React.Component {
                 });
             }
         }).catch(() => {
-            Toast.fail('网络错误，请重试');
+            Toast.fail('网络错误，请重试',1);
             this.setState({
                 data: type === 'flash' ? [] : this.state.data,
             });

@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { List, DatePicker, Toast } from 'antd-mobile';
+import { List, DatePicker, Toast, Picker } from 'antd-mobile';
 import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 // ==================
@@ -32,9 +32,11 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: [],   // 数据
+        allAccount: [], // 所有的子账号
         pageNum: 1,
         pageSize: 10,
         date: undefined, // 当前选中的年月
+        searchAccount: ['all'],    // 选中的子账号
         totalIncome: 0, // 合计
 
     };
@@ -45,22 +47,39 @@ class HomePageContainer extends React.Component {
       this.getData();
   }
 
+  // 收益来源选择变化
+    onAccountChange(obj) {
+      console.log('是各什111么：', obj);
+        this.setState({
+            searchAccount: obj,
+        });
+        this.getData(this.state.date, obj, 1, this.state.pageSize, 'flash');
+    }
+
   // 日期选择变化时触发
     onDateChange(obj) {
+      console.log('返回的什么：', obj);
       this.setState({
           date: obj,
       });
-      this.getData(obj, 1, this.state.pageSize, 'flash');
+      this.getData(obj, this.state.searchAccount, 1, this.state.pageSize, 'flash');
     }
 
-    getData(date = null, pageNum=1, pageSize=10, type='flash') {
+    getData(date = null, account=null, pageNum=1, pageSize=10, type='flash') {
       const u = this.props.userinfo;
       if (!u){
           return;
       }
+      // 处理是否选择了收益来源
+      let userId;
+      if (account && account[0] !== 'all') {
+          userId = account[0];
+      } else {
+          userId = u.id;
+      }
       const params = {
-          userId: u.id,
-          balanceTime: tools.dateformart(date),
+          userId,
+          balanceTime: date ? (date[1] === '全年' ? date[0] : `${date.join('-')}-01`) : null,
           pageNum,
           pageSize,
       };
@@ -71,6 +90,7 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     totalIncome: res.data.totalIncome,
                     data: type==='flash' ? res.data.basePage.result : [...this.state.data, ...res.data.basePage.result],
+                    allAccount: res.data.sonDistributor || this.state.allAccount,
                     pageNum,
                     pageSize,
                 });
@@ -113,26 +133,67 @@ class HomePageContainer extends React.Component {
     }
 
     onDown(){
-      this.getData(this.state.date, 1, this.state.pageSize, 'flash');
+      this.getData(this.state.date, this.state.searchAccount, 1, this.state.pageSize, 'flash');
     }
 
     onUp() {
-      this.getData(this.state.date, this.state.pageNum+1, this.state.pageSize, 'update');
+      this.getData(this.state.date, this.state.searchAccount, this.state.pageNum+1, this.state.pageSize, 'update');
     }
 
   render() {
+        const u = this.props.userinfo || {};
     return (
       <div className="profit-main">
-          <DatePicker
-            mode="month"
-            value={this.state.date}
-            onChange={(obj) => this.onDateChange(obj)}
+          {
+              (u && u.userType === 5) ? (
+                  <List>
+                      <Picker
+                          extra={'收益来源选择'}
+                          cols={1}
+                          data={[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.nickName || item.userName, value: item.id }))]}
+                          cascade={false}
+                          value={this.state.searchAccount}
+                          onOk={(obj) => this.onAccountChange(obj)}
+                      >
+                          <Item >收益来源账户:</Item>
+                      </Picker>
+                  </List>
+              ) : null
+          }
+          <Picker
+              data={[
+                  (() => {
+                      const nowYear = new Date().getFullYear();
+                      const y = [];
+                      for(let i= 2010; i<=nowYear; i++) {
+                          y.push({label: i, value: `${i}`});
+                      }
+                      return y;
+                  })(),
+                  [
+                      {label: '1月',value: '01'},
+                      {label: '2月',value: '02'},
+                      {label: '3月',value: '03'},
+                      {label: '4月',value: '04'},
+                      {label: '5月',value: '05'},
+                      {label: '6月',value: '06'},
+                      {label: '7月',value: '07'},
+                      {label: '8月',value: '08'},
+                      {label: '9月',value: '09'},
+                      {label: '10月',value: '10'},
+                      {label: '11月',value: '11'},
+                      {label: '12月',value: '12'},
+                  ],
+                  ]}
+              cascade={false}
+              value={this.state.date}
+              onOk={(obj) => this.onDateChange(obj)}
           >
               <div className="head-chose page-flex-row flex-jc-sb">
-                  <div className="date-chose"><span>{tools.dateformart(this.state.date, 'month') || '选择时间'}</span><img src={ImgRight} /></div>
+                  <div className="date-chose"><span>{this.state.date ?  this.state.date.join('-') : '选择时间'}</span><img src={ImgRight} /></div>
                   <div>￥{this.state.totalIncome}</div>
               </div>
-          </DatePicker>
+          </Picker>
           <div className="list-box">
               <Luo
                   id="luo1"

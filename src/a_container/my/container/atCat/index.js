@@ -20,6 +20,7 @@ import ImgBlue from '../../../../assets/yimaoka_one@3x.png';
 import ImgRed from '../../../../assets/yimaoka_two@3x.png';
 import ImgYellow from '../../../../assets/yimaoka_three@3x.png';
 import ImgBlack from '../../../../assets/yimaoka_four@3x.png';
+import ImgGreen from '../../../../assets/baijin@3x.png';
 import ImgDuiGou from '../../../../assets/duigou@3x.png';
 import ImgA1 from '../../../../assets/one_yikatong@3x.png';
 import ImgA2 from '../../../../assets/two_yikatong@3x.png';
@@ -85,6 +86,8 @@ class HomePageContainer extends React.Component {
           page = 2;
       } else if (u.userType === 2) { // 个人版经销商
           page = 3;
+      } else if (u.userType === 5 || u.userType === 6){ // 企业版主卡，子卡
+          page = 4;
       }
       this.onScrollPageTo(page, 0);
   }
@@ -106,12 +109,12 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
-    const u = this.props.userinfo;
+    const u = this.props.userinfo || {};
     return (
       <div className="page-at-cat">
         <div className="iscroll-box">
           <div className="scroll" id="scroll1">
-            <ul className="scroll-ul" style={{ width: '400%' }}>
+            <ul className="scroll-ul" style={{ width: '500%' }}>
               <li>
                 <div style={{ backgroundImage: `url(${ImgBlue})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">用户版翼猫卡</div>
@@ -140,6 +143,13 @@ class HomePageContainer extends React.Component {
                     <div className="foot"><span>全国翼猫体验店通用</span>{[2].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
+                <li>
+                    <div style={{ backgroundImage: `url(${ImgGreen})` }} className="page-flex-col flex-jc-sb">
+                        <div className="t">企业版白金{u.userType === 5 ? '(主)' : (u.userType === 6 ? '(子)' : null)}卡</div>
+                        {[5,6].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                        <div className="foot"><span>全国翼猫体验店通用</span>{[5,6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    </div>
+                </li>
             </ul>
           </div>
         </div>
@@ -148,6 +158,7 @@ class HomePageContainer extends React.Component {
           <div className={this.state.page === 1 ? 'check' : ''} onClick={() => this.onScrollPageTo(1)}/>
           <div className={this.state.page === 2 ? 'check' : ''} onClick={() => this.onScrollPageTo(2)}/>
           <div className={this.state.page === 3 ? 'check' : ''} onClick={() => this.onScrollPageTo(3)}/>
+            <div className={this.state.page === 4 ? 'check' : ''} onClick={() => this.onScrollPageTo(4)}/>
         </div>
         <div className="info-all-box">
             {(() => {
@@ -171,12 +182,11 @@ class HomePageContainer extends React.Component {
                                             case 1: return '3';
                                             case 2: return '20';
                                             case 3: return '300';
+                                            case 4: return '600';
                                             default: return '-';
                                         }
                                     })()}台)</div>
-                                    {/*<div className="i">每台设备每年收益</div>*/}
                                 </div>
-                                {/*<div className="info2 flex-none">收益：40%</div>*/}
                             </li>
                             <li className="page-flex-row flex-ai-center">
                                 <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgC1 : ImgC2} /></div>

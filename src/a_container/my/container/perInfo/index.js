@@ -91,7 +91,7 @@ class HomePageContainer extends React.Component {
   updateUserInfo(obj) {
     const u = this.props.userinfo;
     if (!u){
-        Toast.fail('未获取到用户信息');
+        Toast.fail('未获取到用户信息',1);
         return false;
     }
 

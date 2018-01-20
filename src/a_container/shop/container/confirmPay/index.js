@@ -80,7 +80,7 @@ class HomePageContainer extends React.Component {
       this.props.actions.shopStartPayOrder(params);
 
       const p = Object.assign({productId: this.props.orderParams.nowProduct.id},this.props.orderParams.params, params);
-        Toast.loading('正在创建订单');
+        Toast.loading('正在创建订单',0);
       this.props.actions.placeAndOrder(p).then((res) => {
           if (res.status === 200) {
               Toast.hide();

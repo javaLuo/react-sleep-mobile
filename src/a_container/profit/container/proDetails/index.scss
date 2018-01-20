@@ -15,4 +15,24 @@
       }
     }
   }
+  .who{
+    color: #f00;
+    .am-list-thumb img{
+      width: .82rem;
+      height: .82rem;
+      border-radius: .82rem;
+      object-fit: cover;
+    }
+  }
+  .mt{
+    margin-top: .2rem;
+  }
+  .am-list-body{
+    &:before{
+      display: none !important;
+    }
+    &::after{
+      display: none !important;
+    }
+  }
 }
