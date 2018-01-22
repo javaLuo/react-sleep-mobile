@@ -170,8 +170,8 @@ class HomePageContainer extends React.Component {
                         const u = this.props.userinfo;
                         const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${obj.validTime}`;
                         wx.onMenuShareAppMessage({
-                            title: 'HRA健康风险评估卡',
-                            desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                            title: `${u.nickName}赠送您一张翼猫HRA健康风险评估卡`,
+                            desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',
                             link: `${Config.baseURL}/gzh/#/share/${str}`,
                             imgUrl: 'http://isluo.com/work/logo/share_card.png',
                             type: 'link',
@@ -180,8 +180,8 @@ class HomePageContainer extends React.Component {
                             }
                         });
                         wx.onMenuShareTimeline({
-                            title: 'HRA健康风险评估卡',
-                            desc: '专注疾病早期筛查，5分钟出具检测报告，为您提供干预方案',
+                            title: `${u.nickName}赠送您一张翼猫HRA健康风险评估卡`,
+                            desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',
                             link: `${Config.baseURL}/gzh/#/share/${str}`,
                             imgUrl: 'http://isluo.com/work/logo/share_card.png',
                             success: () => {

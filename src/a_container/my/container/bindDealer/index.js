@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, Toast, List, InputItem } from 'antd-mobile';
+import { Button, Toast, List, InputItem, Modal } from 'antd-mobile';
 import ImgLogo from '../../../../assets/dunpai@3x.png';
 
 // ==================
@@ -25,6 +25,7 @@ import { bindDistributor } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
+const alert = Modal.alert;
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -74,7 +75,7 @@ class Register extends React.Component {
             return;
         }
         const u = this.props.userinfo;
-        if (u && [0,1,2].indexOf(u.userType)>=0) {
+        if (u && [0,1,2,5,6].indexOf(u.userType)>=0) {
             Toast.info('您已绑定过经销商账号', 1);
             return;
         }
@@ -88,24 +89,37 @@ class Register extends React.Component {
             loginName: this.state.userName,
             password: this.state.password,
         };
-        this.props.actions.bindDistributor(params).then((res) => {
-            if(res.status === 200) {
-                Toast.success('绑定成功',1);
-                setTimeout(() => {
-                    this.props.history.go(-1);
+        alert('确认绑定经销商账号?', '绑定后将不可以解绑', [
+            { text: '取消', onPress: () => {
+                this.setState({
+                    loading: false,
                 });
-            } else {
-                Toast.fail(res.message || '绑定失败',1);
-            }
-            this.setState({
-                loading: false,
-            });
-        }).catch(() => {
-            Toast.fail('网络错误，请重试',1);
-            this.setState({
-                loading: false,
-            });
-        });
+            } },
+            {
+                text: '确认',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.bindDistributor(params).then((res) => {
+                        if(res.status === 200) {
+                            Toast.success('绑定成功',1);
+                            setTimeout(() => {
+                                this.props.history.go(-1);
+                            });
+                        } else {
+                            Toast.fail(res.message || '绑定失败',1);
+                        }
+                        this.setState({
+                            loading: false,
+                        });
+                    }).catch(() => {
+                        Toast.fail('网络错误，请重试',1);
+                        this.setState({
+                            loading: false,
+                        });
+                    });
+                    resolve();
+                }),
+            },
+        ]);
     }
 
     render() {

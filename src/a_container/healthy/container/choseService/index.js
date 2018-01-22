@@ -1,4 +1,4 @@
-/* 健康管理 - 选择体检服务中心 */
+/* 健康管理 - 选择体检服务中心（只显示已上线的） */
 
 // ==================
 // 所需的各种插件
@@ -10,11 +10,12 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
+import _ from 'lodash';
 import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { SearchBar, PullToRefresh, Toast } from 'antd-mobile';
+import { List, Toast, Icon, Picker } from 'antd-mobile';
 import Luo from 'iscroll-luo';
 import ImgRen from '../../../../assets/ren@3x.png';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
@@ -26,19 +27,22 @@ import Img404 from '../../../../assets/not-found.png';
 // ==================
 
 import { mallStationList, saveServiceInfo } from '../../../../a_action/shop-action';
+import { getAreaList } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
 // ==================
+const Item = List.Item;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
         data: [],   // 所有数据
+        sourceData: [], // 所有省市数据（层级）
         loading: false, // 搜索中
         pageNum: 1,
         pageSize: 10,
-        search: '',
+        search: undefined,
         refreshing: false, // 加载更多搜索中
     };
   }
@@ -46,17 +50,30 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '选择服务站';
       this.getData(this.state.pageNum, this.state.pageSize, this.state.search, 'flash');
+      if (!this.props.areaData.length) {
+          this.getArea();
+      } else {
+          this.makeAreaData(this.props.areaData);
+      }
   }
+
+   componentWillReceiveProps(nextP) {
+      if (nextP.areaData !== this.props.areaData) {
+          this.makeAreaData(nextP.areaData);
+      }
+   }
 
   getData(pageNum, pageSize, search, flash = 'flash') {
     const me = this;
     const params = {
         pageNum,
         pageSize,
-        stationName: search,
+        province: search && search[0],
+        city: search && search[1],
+        region: search && search[2],
     };
       Toast.loading('搜索中...', 0);
-      this.props.actions.mallStationList(params).then((res) => {
+      this.props.actions.mallStationList(tools.clearNull(params)).then((res) => {
           console.log('得到了什么：', res);
             if (res.status === 200) {
                 me.setState({
@@ -74,6 +91,11 @@ class HomePageContainer extends React.Component {
       });
   }
 
+  // 获取所有省市区
+  getArea() {
+      this.props.actions.getAreaList();
+  }
+
     // 开始搜索
     onSearch(e) {
       this.getData(1, this.state.pageSize, e, 'flash');
@@ -88,6 +110,35 @@ class HomePageContainer extends React.Component {
         this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, 'update');
     }
 
+    // 通过区域原始数据组装Picker所需数据
+    makeAreaData(d) {
+      const data = d.map((item, index) => {
+          return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id };
+      });
+      const areaData = this.recursionAreaData(null, data);
+      console.log('变成什么了', areaData);
+      this.setState({
+          sourceData: areaData,
+      });
+    }
+    // 工具 - 递归生成区域层级数据
+    recursionAreaData(one, data) {
+        let kids;
+        if (!one) { // 第1次递归
+            kids = data.filter((item) => !item.parentId);
+        } else {
+            kids = data.filter((item) => item.parentId === one.id);
+        }
+        kids.forEach((item) => item.children = this.recursionAreaData(item, data));
+        return kids.length ? kids : null;
+    }
+
+    // 城市选择
+    onCityChose(data) {
+      console.log('Area:', data);
+        this.getData(1, this.state.pageSize, data, 'flash');
+    }
+
     // 选择
     onChose(item) {
       console.log('选择了：', item);
@@ -96,18 +147,21 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
+      console.log('当前数据：', this.state.sourceData);
     return (
       <div className="page-chose-service">
-          <SearchBar
-              placeholder="输入省/市/区/服务站名称"
-              maxLength={25}
-              onSubmit={(e) => this.onSearch(e)}
-              onChange={(e) => this.onSearch(e)}
-              iscrollOptions={{
-                  disableMouse: true,
-
-              }}
-          />
+          <List>
+              <Picker
+                  data={[{label: '不限', value: ''},...this.state.sourceData]}
+                  extra={'区域搜索'}
+                  value={this.state.search}
+                  format={(v) => v.join('>')}
+                  cols={3}
+                  onOk={(v) => this.onCityChose(v)}
+              >
+                  <Item thumb={<Icon type="search" style={{ color: '#888888' }} size={'sm'}/>}>&#12288;</Item>
+              </Picker>
+          </List>
           <div className="iscroll-box">
               <Luo
                   id="luo2"
@@ -152,7 +206,8 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
-    actions: P.any,
+  actions: P.any,
+  areaData: P.any,
 };
 
 // ==================
@@ -161,9 +216,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-
+      areaData: state.app.areaData,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallStationList, saveServiceInfo }, dispatch),
+    actions: bindActionCreators({ mallStationList, saveServiceInfo, getAreaList }, dispatch),
   })
 )(HomePageContainer);

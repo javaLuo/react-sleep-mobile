@@ -72,10 +72,13 @@ class HomePageContainer extends React.Component {
       }
       // 处理是否选择了收益来源
       let userId;
+      let userType; // 后台分了两个接口，查自己用1，查子账户用2
       if (account && account[0] !== 'all') {
           userId = account[0];
+          userType = 2;
       } else {
           userId = u.id;
+          userType = 1;
       }
       const params = {
           userId,
@@ -84,19 +87,20 @@ class HomePageContainer extends React.Component {
           pageSize,
       };
       Toast.loading('搜索中...',0);
-      this.props.actions.userIncomeDetails(tools.clearNull(params)).then((res) => {
+      this.props.actions.userIncomeDetails(tools.clearNull(params), userType).then((res) => {
         if (res.status === 200) {
             if (res.data && res.data.basePage && res.data.basePage.result && res.data.basePage.result.length) {
                 this.setState({
                     totalIncome: res.data.totalIncome,
                     data: type==='flash' ? res.data.basePage.result : [...this.state.data, ...res.data.basePage.result],
-                    allAccount: res.data.sonDistributor || this.state.allAccount,
+                    allAccount: userType === 1 ? res.data.sonDistributor : this.state.allAccount,
                     pageNum,
                     pageSize,
                 });
                 Toast.hide();
             } else {    // 没有数据后台返回的是null
                 this.setState({
+                    totalIncome: 0,
                     data: this.state.data,
                 });
                 if (type === 'update') {
@@ -110,13 +114,14 @@ class HomePageContainer extends React.Component {
                 console.log('传了一个');
                 this.setState({
                     data: [],
+                    totalIncome: 0,
                 });
             } else {
                 this.setState({
                     data: this.state.data,
                 });
             }
-            Toast.fail(res.message || '获取数据失败',1);
+            Toast.info(res.message || '获取数据失败',1);
         }
       }).catch(() => {
           this.setState({
@@ -150,12 +155,12 @@ class HomePageContainer extends React.Component {
                       <Picker
                           extra={'收益来源选择'}
                           cols={1}
-                          data={[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.nickName || item.userName, value: item.id }))]}
+                          data={[[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.nickName || item.userName, value: item.id }))]]}
                           cascade={false}
                           value={this.state.searchAccount}
                           onOk={(obj) => this.onAccountChange(obj)}
                       >
-                          <Item >收益来源账户:</Item>
+                          <Item >收益来源账户</Item>
                       </Picker>
                   </List>
               ) : null

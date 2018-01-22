@@ -99,7 +99,7 @@ class Register extends React.Component {
             jsApiList: [
                 'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
-                'onMenuShareQQ',             // 分享到QQ
+                'onMenuShareQQ',            // 分享到QQ
             ]
         });
         wx.ready(() => {
@@ -113,7 +113,7 @@ class Register extends React.Component {
             const u = this.props.userinfo;
             const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
             wx.onMenuShareAppMessage({
-                title: 'HRA健康风险评估',
+                title: `${u.nickName}为翼猫HRA健康风险评估系统代言`,
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
                 link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
@@ -124,7 +124,7 @@ class Register extends React.Component {
             });
 
             wx.onMenuShareTimeline({
-                title: 'HRA健康风险评估',
+                title: `${u.nickName}为翼猫HRA健康风险评估系统代言`,
                 desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
                 link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
                 imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',

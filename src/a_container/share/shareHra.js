@@ -10,15 +10,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import tools from '../../util/all';
-
-import './daiyanShare.scss';
+import './shareHra.scss';
 // ==================
 // 所需的所有组件
 // ==================
-
-import Img from '../../assets/share/daiyanka.png';
-import ImgYaoQinKa from '../../assets/share/yaoqinka@3x.png';
+import ImgTitle from '../../assets/share/han@3x.png';
+import ImgDefault from '../../assets/logo-img.png';
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';
 // ==================
@@ -31,7 +28,7 @@ import { shareBuild } from '../../a_action/app-action';
 // Definition
 // ==================
 
-class Register extends React.Component {
+class Register extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,33 +37,30 @@ class Register extends React.Component {
         };
     }
 
-    componentWillUnmount() {
-
+    componentWillMount() {
+        // 处理location中的数据 id_nickName_headImg
+        const pathname = this.props.location.pathname.split('/');
+        const p = pathname[pathname.length - 1];
+        const data = p.split('_');
+        if (data.length > 2) {  // 获取到了信息
+            this.setState({
+                data: {
+                    id: data[0],
+                    name: data[1],
+                    head: data[2],
+                }
+            });
+            setTimeout(() => this.getCode(data[0]));
+        }
     }
 
     componentDidMount() {
-        document.title = '我的代言卡分享';
         this.getCode();
     }
 
     // 获取二维码图片
-    getCode() {
-        const pathname = this.props.location.pathname.split('/');
-        const temp = pathname[pathname.length - 1].split('_');
-
-        /**
-         * userid - 用户ID
-         * name - 名字
-         * head - 头像
-         * **/
-        this.setState({
-            data: {
-                userid: temp[0],
-                name: temp[1],
-                head: temp[2],
-            }
-        });
-        this.props.actions.shareBuild({ userId: temp[0], shareType: 0 }).then((res) => {
+    getCode(userId) {
+        this.props.actions.shareBuild({ userId, shareType: 0 }).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     imgCode: res.data,
@@ -78,29 +72,25 @@ class Register extends React.Component {
     render() {
         const d = this.state.data;
         return (
-            <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh' }}>
-                <div className="title-box">
-                    <img src={ImgYaoQinKa}/>
-                </div>
-                <div className="body-box">
+            <div className="flex-auto page-box page-sharehra" style={{ minHeight: '100vh' }}>
+                <div className="title">{d.name ? '本页包含您的专属二维码，快快转发分享给您的好友吧' : '好东西别忘了分享哦！快快转发分享给您的好友吧'}</div>
+                <div className="info-box">
+                    <img className="t" src={ImgTitle} />
                     <div className="head-box">
-                        <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
-                        <div className="name">{decodeURIComponent(d.name) || '-'}</div>
-                        <div className="name-info">为翼猫HRA健康风险评估系统代言</div>
+                        <img className="head" src={d.head ? decodeURIComponent(d.head) : ImgDefault}/>
+                        <div className="line"/>
+                        <div className="circle-left"/>
+                        <div className="circle-right"/>
                     </div>
-                    <div className="img-box">
-                        <img className="img" src={Img}/>
-                    </div>
-                    <div className="code-box">
-                        <div className="t">长按识别二维码接受邀请</div>
-                        <div className="codes page-flex-row flex-jc-center">
-                            <div>
-                                <img src={this.state.imgCode || ImgQrCode}/>
-                                <img className="head" src={decodeURIComponent(d.head)} />
-                            </div>
-                            <div>
-                                <img src={ImgZhiWen} />
-                            </div>
+                    <div className="info"><span>[{d.name ? decodeURIComponent(d.name) : '健康e家'}]</span>邀请您关注更多健康资讯</div>
+                    <div className="info">长按识别二维码接受邀请</div>
+                    <div className="codes page-flex-row flex-jc-center">
+                        <div>
+                            <img src={this.state.imgCode || ImgQrCode}/>
+                            {d.head && <img className="head" src={decodeURIComponent(d.head)} />}
+                        </div>
+                        <div>
+                            <img src={ImgZhiWen} />
                         </div>
                     </div>
                 </div>
@@ -117,7 +107,6 @@ Register.propTypes = {
     location: P.any,
     history: P.any,
     actions: P.any,
-    userinfo: P.any,
 };
 
 // ==================
@@ -126,7 +115,6 @@ Register.propTypes = {
 
 export default connect(
     (state) => ({
-        userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
         actions: bindActionCreators({ shareBuild }, dispatch),

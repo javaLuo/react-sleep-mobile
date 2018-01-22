@@ -420,9 +420,14 @@ export const userIncomeMain = (params = {}) => async(dispatch) => {
 };
 
 // 收益管理 - 收益明细
-export const userIncomeDetails = (params = {}) => async(dispatch) => {
+export const userIncomeDetails = (params = {}, type = 1) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('app/user/income/details', params);
+        let res;
+        if (type === 1) {   // 查全部
+            res = await Fetchapi.newPost('app/user/income/details/first', params);
+        } else {    // 查某个子账户
+            res = await Fetchapi.newPost('app/user/income/details/second', params);
+        }
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

@@ -125,9 +125,17 @@ class HomePageContainer extends React.Component {
 
     // 使用帮助被点击
     onHelpClick() {
-      const u = this.props.userinfo;
-      window.open(`http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml?e=${u.id || 'null'}`);
+     const u = this.props.userinfo;
+      /**
+       * id_nickName_headImg
+       * **/
+      let str = 'null';
+      if (u && u.id) {  // 有用户信息
+          str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
+      }
+      window.open(`http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml?e=${str}`);
     }
+
   render() {
     const u = this.props.userinfo;
     return (

@@ -54,7 +54,7 @@ class HomePageContainer extends React.Component {
           {
               u.userType === 5 ? (
                   <List className={'mt'}>
-                      <Item extra={data.resourceName}>收益来源用户</Item>
+                      <Item extra={data.resourceName}>收益来源账户</Item>
                   </List>
               ) : null
           }

@@ -8,6 +8,7 @@ const initState = {
     userinfo: null, // 全局用户信息
     ambassador: null, // 当前用户的健康大使信息
     wxCode: '',     // 微信网页授权 - code
+    areaData: [],   // 所有省市区原始数据
 
 };
 
@@ -37,6 +38,13 @@ const getMyAmbassador = (state, action) => {
         ambassador: payload,
     });
 };
+
+const getAreaList = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        areaData: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -49,6 +57,8 @@ const reducerFn = (state = initState, action) => {
     return saveWxCode(state, action);
   case 'APP::getMyAmbassador':
     return getMyAmbassador(state, action);
+  case 'APP::getAreaList':
+      return getAreaList(state, action);
   default:
     return actDefault(state, action);
   }

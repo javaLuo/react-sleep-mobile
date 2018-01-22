@@ -196,6 +196,22 @@ export const myAmbassador = (params = {}) => async(dispatch) => {
     }
 };
 
+// 查询所有省市区
+export const getAreaList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/area/areaList', params);
+        if(res.status === 200) {
+            dispatch({
+                type: 'APP::getAreaList',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 微信网页授权 - 保存code
 export function saveWxCode(code) {
     return {

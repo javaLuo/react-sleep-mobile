@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Checkbox, Modal, Button, Toast, List, InputItem } from 'antd-mobile';
+import { Modal, Button, Toast, List, InputItem } from 'antd-mobile';
 import ImgLogo from '../../../../assets/dunpai@3x.png';
 
 // ==================
@@ -25,8 +25,7 @@ import { getVerifyCode, getUserInfo, updateUserInfo, bindPhone } from '../../../
 // ==================
 // Definition
 // ==================
-const AgreeItem = Checkbox.AgreeItem;
-const operation = Modal.operation;
+const alert = Modal.alert;
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -143,18 +142,23 @@ class Register extends React.Component {
             countryCode: '86',
             verifyCode: this.state.vcode,
         };
-        this.props.actions.bindPhone(params).then((res) => {
-            if(res.status === 200) {
-                if (res.data.disUser && [3,4].indexOf(res.data.userType>=0)) { // 是经销商但没有检验过密码
-                    this.props.history.replace('/my/checkpwd');
-                } else {
-                    Toast.success('绑定成功', 1);
-                    this.props.history.go(-1);
-                }
-            } else {
-                Toast.fail(res.message || '绑定失败', 1);
-            }
-        });
+        alert('确认绑定手机号？', '绑定后将不可以解绑', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            {
+                text: '确认',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.bindPhone(params).then((res) => {
+                        if(res.status === 200) {
+                            Toast.success('绑定成功', 1);
+                            this.props.history.go(-1);
+                        } else {
+                            Toast.fail(res.message || '绑定失败', 1);
+                        }
+                    });
+                    resolve();
+                }),
+            },
+        ]);
     }
 
     render() {

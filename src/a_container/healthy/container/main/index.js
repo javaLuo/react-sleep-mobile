@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import {  } from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/tijianka@3x.png';
 import ImgBar2 from '../../../../assets/yuyue@3x.png';
@@ -24,6 +24,7 @@ import ImgBar5 from '../../../../assets/HRA@3x.png';
 // 本页面所需action
 // ==================
 
+import { shareBuild } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -49,7 +50,38 @@ class HomePageContainer extends React.Component {
   // HRA知识库点击
     onHraClick() {
       const u = this.props.userinfo;
-      window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${u.id || 'null'}`);
+        /**
+         * 先生成二维码，还要带头像和昵称
+         * id_nickName_headImg
+         * **/
+        let str = 'null';
+        if (u && u.id) {
+            str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
+        }
+        window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
+    }
+
+    // 获取二维码图片
+    getCode() {
+        const u = this.props.userinfo || {};
+        let str = 'null';
+        Toast.loading('正在跳转', 3);
+        if (Number(u.id)){
+            this.props.actions.shareBuild({ userId: u.id, shareType: 0 }).then((res) => {
+                if (res.status === 200) {
+                    /**
+                     * 先生成二维码，还要带头像和昵称
+                     * id_nickName_headImg_code
+                     * **/
+                    str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${res.data}`;
+                    window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
+                } else {
+                    window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
+                }
+            }).catch(() => {
+                window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
+            });
+        }
     }
 
   render() {
@@ -102,6 +134,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
     userinfo: P.any,
+    actions: P.any,
 };
 
 // ==================
@@ -113,6 +146,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ shareBuild }, dispatch),
   })
 )(HomePageContainer);
