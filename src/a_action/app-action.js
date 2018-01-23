@@ -212,6 +212,16 @@ export const getAreaList = (params = {}) => async(dispatch) => {
     }
 };
 
+// 根据用户id查询用户信息
+export const getUserInfoById = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/nickAndHead', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 微信网页授权 - 保存code
 export function saveWxCode(code) {
     return {

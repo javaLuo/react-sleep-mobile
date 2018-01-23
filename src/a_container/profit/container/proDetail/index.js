@@ -155,7 +155,7 @@ class HomePageContainer extends React.Component {
                       <Picker
                           extra={'收益来源选择'}
                           cols={1}
-                          data={[[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.nickName || item.userName, value: item.id }))]]}
+                          data={[[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.realName || item.nickName, value: item.id }))]]}
                           cascade={false}
                           value={this.state.searchAccount}
                           onOk={(obj) => this.onAccountChange(obj)}

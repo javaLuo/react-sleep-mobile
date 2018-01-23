@@ -68,7 +68,7 @@ class HomePageContainer extends React.Component {
             this.props.history.replace('/login');
             return false;
         }
-        if (u.disUser && [0,1,2].indexOf(u.userType) >= 0){ // 已绑定经销商
+        if (u.disUser && [0,1,2,5,6].indexOf(u.userType) >= 0){ // 已绑定经销商
             Toast.info('您已是经销商用户', 1);
         } else {    // 不是经销商就跳转到经销商绑定页
             this.props.history.push('/my/binddealer');
@@ -103,6 +103,9 @@ class HomePageContainer extends React.Component {
       if (!u) {
           Toast.fail('请先登录',1);
           this.props.history.replace('/login');
+          return false;
+      } else if (u.mobile) {
+          Toast.info('已绑定过手机号',1);
           return false;
       }
       this.props.history.push('/my/bindphone');
@@ -151,7 +154,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.onBindPhone()}>
                   <div className="title">绑定手机号</div>
-                  <div className={u && u.mobile ? "info mr" : 'info'}>{u ? tools.addMosaic(u.mobile) : ''}</div>
+                  <div className={u && u.mobile ? "info mr" : 'info'}>{u ? u.mobile : ''}</div>
                   {u && u.mobile ? null : <div className="arrow"><img src={ImgRight} /></div>}
 
                   <div className="line"/>

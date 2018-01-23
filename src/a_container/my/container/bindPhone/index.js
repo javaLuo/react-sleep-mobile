@@ -170,7 +170,7 @@ class Register extends React.Component {
                         <img className="logo" src={ImgLogo} />
                         <div className="logo-info">
                             { t ? (
-                                <span>当前绑定手机号<br/><b style={{ fontSize: '.5rem' }}>{tools.addMosaic(u.mobile)}</b></span>
+                                <span>当前绑定手机号<br/><b style={{ fontSize: '.5rem' }}>{u.mobile}</b></span>
                             ) : (
                                 <span>绑定会让您的账号更加安全<br/>绑定后，您还可以通过手机号登录健康e家</span>
                             )}

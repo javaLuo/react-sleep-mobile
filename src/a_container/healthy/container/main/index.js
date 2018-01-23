@@ -63,25 +63,18 @@ class HomePageContainer extends React.Component {
 
     // 获取二维码图片
     getCode() {
-        const u = this.props.userinfo || {};
+        const u = this.props.userinfo;
+        /**
+         * 还要带头像和昵称
+         * id_nickName_headImg_code
+         * 正式：http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}
+         * 测试：http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21&e=${str}
+         * **/
         let str = 'null';
-        Toast.loading('正在跳转', 3);
-        if (Number(u.id)){
-            this.props.actions.shareBuild({ userId: u.id, shareType: 0 }).then((res) => {
-                if (res.status === 200) {
-                    /**
-                     * 先生成二维码，还要带头像和昵称
-                     * id_nickName_headImg_code
-                     * **/
-                    str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${res.data}`;
-                    window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
-                } else {
-                    window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
-                }
-            }).catch(() => {
-                window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
-            });
+        if (u && u.id) {  // 有用户信息
+            str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
         }
+        window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml`);
     }
 
   render() {

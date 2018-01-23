@@ -187,7 +187,7 @@ class Register extends React.Component {
                 <div className="login-box">
                     <div className="logo-info">
                         <span className="small">为了帐号安全，需要验证当前手机有效性</span><br/>
-                        <span>当前绑定手机号：{this.props.userinfo ? tools.addMosaic(this.props.userinfo.mobile) : ''}</span>
+                        <span>当前绑定手机号：{this.props.userinfo ? this.props.userinfo.mobile : ''}</span>
                     </div>
                     <div className="input-box">
                         <List className="this-list">

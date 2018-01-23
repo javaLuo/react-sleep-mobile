@@ -116,7 +116,7 @@ class HomePageContainer extends React.Component {
             return;
         }
 
-        if ([2,5,6].indexOf(u.userType) > -1 || (u.userType === 3 && a.userType === 2)) {
+        if ([2,5,6].indexOf(u.userType) > -1 || (u.userType === 3 && [2,5,6].indexOf(a.userType) > -1)) {
             this.props.history.push('/my/mydaiyan');
         } else {
             Toast.info('您没有代言卡',1);
@@ -128,12 +128,14 @@ class HomePageContainer extends React.Component {
      const u = this.props.userinfo;
       /**
        * id_nickName_headImg
+       * 测试：http://www.huiyuzixun.cn/index.php?m=book&f=browse&t=mhtml&bookID=3&e=${str}
+       * 正式：http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml?e=${str}
        * **/
       let str = 'null';
       if (u && u.id) {  // 有用户信息
           str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
       }
-      window.open(`http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml?e=${str}`);
+      window.open(`http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml`);
     }
 
   render() {

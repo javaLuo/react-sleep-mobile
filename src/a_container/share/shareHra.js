@@ -22,7 +22,7 @@ import ImgZhiWen from '../../assets/share/zhiwen@3x.png';
 // 本页面所需action
 // ==================
 
-import { shareBuild } from '../../a_action/app-action';
+import { shareBuild, getUserInfoById } from '../../a_action/app-action';
 
 // ==================
 // Definition
@@ -33,7 +33,9 @@ class Register extends React.PureComponent {
         super(props);
         this.state = {
             imgCode: '',
-            data: {},
+            id: '',
+            headImg: null,
+            nickName: '',
         };
     }
 
@@ -41,21 +43,16 @@ class Register extends React.PureComponent {
         // 处理location中的数据 id_nickName_headImg
         const pathname = this.props.location.pathname.split('/');
         const p = pathname[pathname.length - 1];
-        const data = p.split('_');
-        if (data.length > 2) {  // 获取到了信息
+        if (Number(p)) {  // 获取到了信息
             this.setState({
-                data: {
-                    id: data[0],
-                    name: data[1],
-                    head: data[2],
-                }
+                id: Number(p),
             });
-            setTimeout(() => this.getCode(data[0]));
         }
     }
 
     componentDidMount() {
-        this.getCode();
+        this.getCode(this.state.id);
+        this.getUserInfo(this.state.id);
     }
 
     // 获取二维码图片
@@ -69,25 +66,36 @@ class Register extends React.PureComponent {
         });
     }
 
+    // 获取头像和昵称
+    getUserInfo(userId) {
+        this.props.actions.getUserInfoById({ userId }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    headImg: res.headImg,
+                    nickName: res.nickName,
+                });
+            }
+        });
+    }
+
     render() {
-        const d = this.state.data;
         return (
             <div className="flex-auto page-box page-sharehra" style={{ minHeight: '100vh' }}>
-                <div className="title">{d.name ? '本页包含您的专属二维码，快快转发分享给您的好友吧' : '好东西别忘了分享哦！快快转发分享给您的好友吧'}</div>
+                <div className="title">{this.state.id ? '本页包含您的专属二维码，快快转发分享给您的好友吧' : '好东西别忘了分享哦！快快转发分享给您的好友吧'}</div>
                 <div className="info-box">
                     <img className="t" src={ImgTitle} />
                     <div className="head-box">
-                        <img className="head" src={d.head ? decodeURIComponent(d.head) : ImgDefault}/>
+                        <img className="head" src={this.state.headImg || ImgDefault}/>
                         <div className="line"/>
                         <div className="circle-left"/>
                         <div className="circle-right"/>
                     </div>
-                    <div className="info"><span>[{d.name ? decodeURIComponent(d.name) : '健康e家'}]</span>邀请您关注更多健康资讯</div>
+                    <div className="info"><span>[{ this.state.nickName || '健康e家'}]</span>邀请您关注更多健康资讯</div>
                     <div className="info">长按识别二维码接受邀请</div>
                     <div className="codes page-flex-row flex-jc-center">
                         <div>
                             <img src={this.state.imgCode || ImgQrCode}/>
-                            {d.head && <img className="head" src={decodeURIComponent(d.head)} />}
+                            {this.state.headImg && <img className="head" src={this.state.headImg} />}
                         </div>
                         <div>
                             <img src={ImgZhiWen} />
@@ -117,6 +125,6 @@ export default connect(
     (state) => ({
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ shareBuild }, dispatch),
+        actions: bindActionCreators({ shareBuild, getUserInfoById }, dispatch),
     })
 )(Register);
