@@ -131,11 +131,11 @@ class HomePageContainer extends React.Component {
        * 测试：http://www.huiyuzixun.cn/index.php?m=book&f=browse&t=mhtml&bookID=3&e=${str}
        * 正式：http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml?e=${str}
        * **/
-      let str = 'null';
+      let str = '';
       if (u && u.id) {  // 有用户信息
-          str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
+          str = `&e=${u.id}`;
       }
-      window.open(`http://e.yimaokeji.com/index.php/page/weixinHelp.mhtml`);
+      window.open(`http://www.huiyuzixun.cn/index.php?m=book&f=browse&t=mhtml&bookID=3${str}`);
     }
 
   render() {

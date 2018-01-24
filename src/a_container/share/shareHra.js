@@ -22,7 +22,7 @@ import ImgZhiWen from '../../assets/share/zhiwen@3x.png';
 // 本页面所需action
 // ==================
 
-import { shareBuild, getUserInfoById } from '../../a_action/app-action';
+import { shareBuild, getUserInfo } from '../../a_action/app-action';
 
 // ==================
 // Definition
@@ -52,7 +52,9 @@ class Register extends React.PureComponent {
 
     componentDidMount() {
         this.getCode(this.state.id);
-        this.getUserInfo(this.state.id);
+        if (this.state.id) {
+            this.getUserInfo(this.state.id);
+        }
     }
 
     // 获取二维码图片
@@ -68,11 +70,11 @@ class Register extends React.PureComponent {
 
     // 获取头像和昵称
     getUserInfo(userId) {
-        this.props.actions.getUserInfoById({ userId }).then((res) => {
+        this.props.actions.getUserInfo({ userId }).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    headImg: res.headImg,
-                    nickName: res.nickName,
+                    headImg: res.data.headImg,
+                    nickName: res.data.nickName,
                 });
             }
         });
@@ -94,7 +96,7 @@ class Register extends React.PureComponent {
                     <div className="info">长按识别二维码接受邀请</div>
                     <div className="codes page-flex-row flex-jc-center">
                         <div>
-                            <img src={this.state.imgCode || ImgQrCode}/>
+                            <img src={this.state.imgCode || ImgQrCode} style={{ position: 'absolute', zIndex: 9999 }}/>
                             {this.state.headImg && <img className="head" src={this.state.headImg} />}
                         </div>
                         <div>
@@ -125,6 +127,6 @@ export default connect(
     (state) => ({
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ shareBuild, getUserInfoById }, dispatch),
+        actions: bindActionCreators({ shareBuild, getUserInfo }, dispatch),
     })
 )(Register);

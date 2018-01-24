@@ -51,30 +51,16 @@ class HomePageContainer extends React.Component {
     onHraClick() {
       const u = this.props.userinfo;
         /**
-         * 先生成二维码，还要带头像和昵称
-         * id_nickName_headImg
-         * **/
-        let str = 'null';
-        if (u && u.id) {
-            str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
-        }
-        window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}`);
-    }
-
-    // 获取二维码图片
-    getCode() {
-        const u = this.props.userinfo;
-        /**
          * 还要带头像和昵称
          * id_nickName_headImg_code
          * 正式：http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}
          * 测试：http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21&e=${str}
          * **/
-        let str = 'null';
+        let str = '';
         if (u && u.id) {  // 有用户信息
-            str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
+            str = `&e=${u.id}`;
         }
-        window.open(`http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml`);
+        window.open(`http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21${str}`);
     }
 
   render() {

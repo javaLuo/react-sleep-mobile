@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" id="this-html">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -26,12 +26,6 @@
   <div id="app-root" class="app-root">
     <div class="loading">loading</div>
   </div>
-  <script>
-      /** 如果是IOS APP，IOS APP会自动调用下面的方法 **/
-      function accountAndPasswordFunc() {
-          sessionStorage.setItem('ios_login_info', JSON.stringify(arguments['0']));
-      }
-  </script>
   <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
   <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 </body>

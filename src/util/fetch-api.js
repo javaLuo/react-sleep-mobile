@@ -93,7 +93,12 @@ export default class ApiService {
     static newPost(url, bodyObj = {}, type='post', isJson) {
         const openId = localStorage.getItem('openId') || null;
         const params = _.cloneDeep(bodyObj);
-        params.openId = openId;
+        if (url === 'app/user/get' && bodyObj && bodyObj.userId) {
+            // 如果是获取用户信息，并且传递了userID,就不要再传openId
+        } else {
+            params.openId = openId;
+        }
+
         if (isJson) {
             return new Promise((res, rej) => {
                 $.ajax({

@@ -181,6 +181,7 @@ class RootContainer extends React.Component {
                   <Route path="/shareticket/:id" render={(props) => this.onEnter(ShareTicket, props)} />
                   <Route path="/sharefreecard/:id" render={(props) => this.onEnter(ShareFreeCard, props)} />
                   <Route path="/sharehra" render={(props) => this.onEnter(ShareHra, props)} />
+                  <Route path="/myshare" render={(props) => this.onEnter(ShareHra, props)} />
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route path="/daiyanshare/:id" render={(props) => this.onEnter(DaiYanShare, props)} />

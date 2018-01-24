@@ -105,8 +105,7 @@ module.exports = {
             template: './src/index.html',           //html模板路径
             favicon: 'favicon.ico',                 // 自动把根目录下的favicon.ico图片加入html
             inject: true,                           // 是否将js放在body的末尾
-        }),
-
+        })
     ],
     // 解析器， webpack提供的各种方便的工具函数
     resolve: {
