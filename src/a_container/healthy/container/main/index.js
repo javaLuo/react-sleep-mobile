@@ -52,15 +52,14 @@ class HomePageContainer extends React.Component {
       const u = this.props.userinfo;
         /**
          * 还要带头像和昵称
-         * id_nickName_headImg_code
-         * 正式：http://e.yimaokeji.com/index.php/page/HRAknowledge.mhtml?e=${str}
-         * 测试：http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21&e=${str}
+         * 正式： http://e.yimaokeji.com/index.php?m=page&f=view&t=mhtml&pageID=1${str}
+         * 测试：http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21${str}
          * **/
         let str = '';
         if (u && u.id) {  // 有用户信息
             str = `&e=${u.id}`;
         }
-        window.open(`http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21${str}`);
+        window.open(`http://e.yimaokeji.com/index.php?m=page&f=view&t=mhtml&pageID=1${str}`);
     }
 
   render() {

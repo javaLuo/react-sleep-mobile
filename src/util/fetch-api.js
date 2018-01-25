@@ -103,7 +103,7 @@ export default class ApiService {
             return new Promise((res, rej) => {
                 $.ajax({
                     url:`${Config.baseURL}/${url}`,
-                    method: type,
+                    type: type,
                     contentType: 'application/json;charset=UTF-8',
                     crossOrigin: true,
                     withCredentials: true,
@@ -128,7 +128,7 @@ export default class ApiService {
             return new Promise((res, rej) => {
                 $.ajax({
                     url:`${Config.baseURL}/${url}`,
-                    method: type,
+                    type: type,
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                     crossOrigin: true,
                     withCredentials: true,
