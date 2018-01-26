@@ -493,3 +493,13 @@ export function saveFreeCardInfo(payload = {}) {
         payload,
     };
 }
+
+// 修改卡的分享状态
+export const ticketHandsel = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/ticket/handsel', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

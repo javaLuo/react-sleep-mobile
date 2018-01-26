@@ -16,7 +16,8 @@ import './shareHra.scss';
 // ==================
 import ImgTitle from '../../assets/share/han@3x.png';
 import ImgDefault from '../../assets/logo-img.png';
-import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
+//import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
+import ImgQrCode from '../../assets/share/qrcode_test.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';
 // ==================
 // 本页面所需action

@@ -27,7 +27,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { wxInit, queryListFree, saveFreeCardInfo } from '../../../../a_action/shop-action';
+import { wxInit, queryListFree, saveFreeCardInfo, ticketHandsel } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -186,6 +186,7 @@ class HomePageContainer extends React.Component {
     // 点击分享按钮，需判断是否是原生系统
     onStartShare(obj, index, e) {
       e.stopPropagation();
+      const me = this;
       console.log('要分享的信息：', obj);
       if(tools.isWeixin() && obj.handsel) { // 是微信中并且卡的状态正常才能分享
           alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡', [
@@ -213,6 +214,7 @@ class HomePageContainer extends React.Component {
                           type: 'link',
                           success: () => {
                               Toast.info('分享成功', 1);
+                              me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
                           }
                       });
                       wx.onMenuShareTimeline({
@@ -222,6 +224,7 @@ class HomePageContainer extends React.Component {
                           imgUrl: 'http://isluo.com/work/logo/share_card.png',
                           success: () => {
                               Toast.info('分享成功', 1);
+                              me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
                           }
                       });
                       this.setState({
@@ -233,6 +236,15 @@ class HomePageContainer extends React.Component {
               },
           ]);
       }
+    }
+
+    // 分享成功后还要调个接口更改状态
+    ticketHandsel(params) {
+        this.props.actions.ticketHandsel(params).then((res) => {
+            if (res.status === 200) {
+                this.onDown();
+            }
+        });
     }
 
     // 下拉刷新
@@ -360,6 +372,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ wxInit, queryListFree, saveFreeCardInfo }, dispatch),
+    actions: bindActionCreators({ wxInit, queryListFree, saveFreeCardInfo, ticketHandsel }, dispatch),
   })
 )(HomePageContainer);

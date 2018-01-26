@@ -27,7 +27,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo, mallCardDel, mallCardListQuan } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit, saveCardInfo, saveMyCardInfo, mallCardDel, mallCardListQuan, ticketHandsel } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -60,7 +60,7 @@ class HomePageContainer extends React.Component {
 
   /**
    * 获取体检卡列表
-   * type=falsh 刷新
+   * type=flash 刷新
    * type=update 累加
    * **/
   getData(pageNum = 1, pageSize = 10, type) {
@@ -164,6 +164,7 @@ class HomePageContainer extends React.Component {
 
     // 点击分享按钮，需判断是否是原生系统
     onStartShare(obj, index, e) {
+      const me = this;
       e.stopPropagation();
       console.log('要分享的信息：', obj);
       if(tools.isWeixin() && obj.handsel) { // 是微信中并且卡的状态正常才能分享
@@ -191,6 +192,7 @@ class HomePageContainer extends React.Component {
                           type: 'link',
                           success: () => {
                               Toast.info('分享成功', 1);
+                              me.ticketHandsel({ userId: u.id, shareType: 1, shareNo: obj.id });
                           }
                       });
                       wx.onMenuShareTimeline({
@@ -200,6 +202,7 @@ class HomePageContainer extends React.Component {
                           imgUrl: 'http://isluo.com/work/logo/share_card.png',
                           success: () => {
                               Toast.info('分享成功', 1);
+                              me.ticketHandsel({ userId: u.id, shareType: 1, shareNo: obj.id });
                           }
                       });
                       this.setState({
@@ -213,6 +216,14 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    // 分享成功后还要调个接口更改状态
+    ticketHandsel(params) {
+      this.props.actions.ticketHandsel(params).then((res) => {
+          if (res.status === 200) {
+              this.onDown();
+          }
+      });
+    }
     // 点击卡片进入体检券页
     onClickCard(obj) {
         // this.props.actions.saveCardInfo(obj);
@@ -400,6 +411,6 @@ export default connect(
       myCard: state.shop.myCard,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, saveMyCardInfo, mallCardDel, mallCardListQuan }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, saveMyCardInfo, mallCardDel, mallCardListQuan, ticketHandsel }, dispatch),
   })
 )(HomePageContainer);

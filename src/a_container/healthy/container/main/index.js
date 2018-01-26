@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
         if (u && u.id) {  // 有用户信息
             str = `&e=${u.id}`;
         }
-        window.open(`http://e.yimaokeji.com/index.php?m=page&f=view&t=mhtml&pageID=1${str}`);
+        window.open(`http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21${str}`);
     }
 
   render() {

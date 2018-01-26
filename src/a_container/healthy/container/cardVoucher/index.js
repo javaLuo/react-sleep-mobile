@@ -26,7 +26,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { wxInit, mallCardListQuan, mallQuanDel } from '../../../../a_action/shop-action';
+import { wxInit, mallCardListQuan, mallQuanDel, ticketHandsel } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -143,6 +143,7 @@ class HomePageContainer extends React.Component {
 
     // 点击分享按钮，需判断是否是原生系统
     onStartShare(obj, index) {
+      const me = this;
       if (this.checkType(obj) !== 1) {
           return;
       }
@@ -169,6 +170,7 @@ class HomePageContainer extends React.Component {
                       type: 'link',
                       success: () => {
                           Toast.info('分享成功', 1);
+                          me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
                       }
                   });
 
@@ -179,6 +181,7 @@ class HomePageContainer extends React.Component {
                       imgUrl: 'http://isluo.com/work/logo/share_card.png',
                       success: () => {
                           Toast.info('分享成功', 1);
+                          me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
                       }
                   });
 
@@ -190,6 +193,15 @@ class HomePageContainer extends React.Component {
               })},
           ]);
       }
+    }
+
+    // 分享成功后还要调个接口更改状态
+    ticketHandsel(params) {
+        this.props.actions.ticketHandsel(params).then((res) => {
+            if (res.status === 200) {
+                this.getData();
+            }
+        });
     }
 
     // 工具 - 根据状态id返回对应的名字
@@ -329,6 +341,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ wxInit, mallCardListQuan, mallQuanDel }, dispatch),
+    actions: bindActionCreators({ wxInit, mallCardListQuan, mallQuanDel, ticketHandsel }, dispatch),
   })
 )(HomePageContainer);
