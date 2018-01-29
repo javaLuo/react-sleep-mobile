@@ -33,6 +33,8 @@ import BindPhone from './container/bindPhone';
 import SetPassword from './container/setPassword';
 import CheckPwd from './container/checkPwd';
 import MyCustomer from './container/mycustomer';
+import Primary from './container/mycustomer/primary';
+import PrimaryIn from './container/mycustomer/primaryIn';
 import FavCardsDetail from './container/favCardsDetail';
 import MyFavCards from './container/myFavCards';
 // ==================
@@ -74,7 +76,9 @@ class My extends React.Component {
               <Route path={`${this.props.match.url}/bindphone`} component={BindPhone} />
               <Route exact path={`${this.props.match.url}/setpassword`} component={SetPassword} />
               <Route exact path={`${this.props.match.url}/checkpwd`} component={CheckPwd} />
-              <Route exact path={`${this.props.match.url}/mycustomer`} component={MyCustomer} />
+              <Route exact path={`${this.props.match.url}/mycustomer/:id`} component={MyCustomer} />
+              <Route exact path={`${this.props.match.url}/primary`} component={Primary} />
+              <Route exact path={`${this.props.match.url}/primaryin`} component={PrimaryIn} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
               <Route path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
           </Switch>

@@ -24,7 +24,11 @@
     }
   }
   .bar-list{
-    padding: 0 0 .28rem 0;
+    .bar-title{
+      padding: .28rem;
+      font-size: .32rem;
+      color: #aaa;
+    }
     .item{
       padding: .3rem 0;
       align-items: center;

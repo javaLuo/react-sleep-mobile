@@ -503,3 +503,13 @@ export const ticketHandsel = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 我的客户 - 主账号进入时调此接口,返回主账号和其所有子账号
+export const getCustomersCompany = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/my/customers/company', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

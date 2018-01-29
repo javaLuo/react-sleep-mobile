@@ -16,11 +16,13 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Button } from 'antd-mobile';
-import ImgBlue from '../../../../assets/yimaoka_one@3x.png';
-import ImgRed from '../../../../assets/yimaoka_two@3x.png';
-import ImgYellow from '../../../../assets/yimaoka_three@3x.png';
-import ImgBlack from '../../../../assets/yimaoka_four@3x.png';
-import ImgGreen from '../../../../assets/baijin@3x.png';
+import ImgPutong from '../../../../assets/atCar/card_putong.png';
+import ImgFenxiang from '../../../../assets/atCar/card_fenxiang.png';
+import ImgFenxiao from '../../../../assets/atCar/card_fenxiao.png';
+import ImgGeren from '../../../../assets/atCar/card_geren.png';
+import ImgQiye from '../../../../assets/atCar/card_qiye.png';
+import ImgWeichuang from '../../../../assets/atCar/card_weichuang.png';
+
 import ImgDuiGou from '../../../../assets/duigou@3x.png';
 import ImgA1 from '../../../../assets/one_yikatong@3x.png';
 import ImgA2 from '../../../../assets/two_yikatong@3x.png';
@@ -80,14 +82,15 @@ class HomePageContainer extends React.Component {
   init() {
       const u = this.props.userinfo;
       let page = 0;
-      if (u.userType === 0) { // 体验版经销商
-          page = 1;
-      } else if (u.userType === 1) { // 微创版经销商
-          page = 2;
-      } else if (u.userType === 2) { // 个人版经销商
-          page = 3;
-      } else if (u.userType === 5 || u.userType === 6){ // 企业版主卡，子卡
-          page = 4;
+      switch(u.userType) {
+          case 0:
+          case 4: page = 0;break;   // 体验版、普通用户
+          case 3: page = 1;break;   // 分享用户
+          case 7: page = 2;break;   // 分销用户
+          case 1: page = 3;break;   // 微创版经销商
+          case 2: page = 4;break;   // 个人版经销商
+          case 5:
+          case 6: page = 5;break;   // 企业版经销商（主、子）
       }
       this.onScrollPageTo(page, 0);
   }
@@ -114,40 +117,47 @@ class HomePageContainer extends React.Component {
       <div className="page-at-cat">
         <div className="iscroll-box">
           <div className="scroll" id="scroll1">
-            <ul className="scroll-ul" style={{ width: '500%' }}>
+            <ul className="scroll-ul" style={{ width: '600%' }}>
               <li>
-                <div style={{ backgroundImage: `url(${ImgBlue})` }} className="page-flex-col flex-jc-sb">
-                  <div className="t">用户版翼猫卡</div>
-                    {[3,4].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>全国翼猫体验店通用</span>{[3,4].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
-                </div>
-              </li>
-              <li>
-                <div style={{ backgroundImage: `url(${ImgRed})` }} className="page-flex-col flex-jc-sb">
-                  <div className="t">体验版翼猫卡</div>
-                    {[0].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>全国翼猫体验店通用</span>{[0].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
-                </div>
-              </li>
-              <li>
-                <div style={{ backgroundImage: `url(${ImgYellow})` }} className="page-flex-col flex-jc-sb">
-                  <div className="t">微创版黄金卡</div>
-                    {[1].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>全国翼猫体验店通用</span>{[1].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
-                </div>
-              </li>
-              <li>
-                <div style={{ backgroundImage: `url(${ImgBlack})` }} className="page-flex-col flex-jc-sb">
-                  <div className="t">个人版钻石卡</div>
-                    {[2].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>全国翼猫体验店通用</span>{[2].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                <div style={{ backgroundImage: `url(${ImgPutong})` }} className="page-flex-col flex-jc-sb">
+                  <div className="t">普通用户</div>
+                    {[4].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>&#12288;</span>{[4].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
                 <li>
-                    <div style={{ backgroundImage: `url(${ImgGreen})` }} className="page-flex-col flex-jc-sb">
-                        <div className="t">企业版白金{u.userType === 5 ? '(主)' : (u.userType === 6 ? '(子)' : null)}卡</div>
+                    <div style={{ backgroundImage: `url(${ImgFenxiang})` }} className="page-flex-col flex-jc-sb">
+                        <div className="t">分享用户</div>
+                        {[3].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                        <div className="foot"><span>&#12288;</span>{[3].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ backgroundImage: `url(${ImgFenxiao})` }} className="page-flex-col flex-jc-sb">
+                        <div className="t">分销用户</div>
+                        {[7].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                        <div className="foot"><span>&#12288;</span>{[7].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    </div>
+                </li>
+              <li>
+                <div style={{ backgroundImage: `url(${ImgWeichuang})` }} className="page-flex-col flex-jc-sb">
+                  <div className="t">微创版经销商</div>
+                    {[1].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>&#12288;</span>{[1].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                </div>
+              </li>
+              <li>
+                <div style={{ backgroundImage: `url(${ImgGeren})` }} className="page-flex-col flex-jc-sb">
+                  <div className="t">个人版经销商</div>
+                    {[2].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                    <div className="foot"><span>&#12288;</span>{[2].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                </div>
+              </li>
+                <li>
+                    <div style={{ backgroundImage: `url(${ImgQiye})` }} className="page-flex-col flex-jc-sb">
+                        <div className="t">企业版经销商{u.userType === 5 ? '(主)' : (u.userType === 6 ? '(子)' : null)}</div>
                         {[5,6].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                        <div className="foot"><span>全国翼猫体验店通用</span>{[5,6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                        <div className="foot"><span>&#12288;</span>{[5,6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                     </div>
                 </li>
             </ul>
@@ -158,91 +168,92 @@ class HomePageContainer extends React.Component {
           <div className={this.state.page === 1 ? 'check' : ''} onClick={() => this.onScrollPageTo(1)}/>
           <div className={this.state.page === 2 ? 'check' : ''} onClick={() => this.onScrollPageTo(2)}/>
           <div className={this.state.page === 3 ? 'check' : ''} onClick={() => this.onScrollPageTo(3)}/>
-            <div className={this.state.page === 4 ? 'check' : ''} onClick={() => this.onScrollPageTo(4)}/>
+          <div className={this.state.page === 4 ? 'check' : ''} onClick={() => this.onScrollPageTo(4)}/>
+          <div className={this.state.page === 5 ? 'check' : ''} onClick={() => this.onScrollPageTo(5)}/>
         </div>
         <div className="info-all-box">
-            {(() => {
-                const u = this.props.userinfo;
-                if (this.state.page !== 0) {
-                    return (
-                        <ul>
-                            <li className="page-flex-row flex-ai-center">
-                                <div className="pic flex-none"><img src={ImgA1} /></div>
-                                <div className="info-box flex-auto">
-                                    <div className="t">翼猫一卡通，千店共享</div>
-                                    <div className="i">全国体验店免费服务，进店体验，休闲娱乐</div>
-                                </div>
-                            </li>
-                            <li className="page-flex-row flex-ai-center">
-                                <div className="pic flex-none"><img src={ImgB1} /></div>
-                                <div className="info-box flex-auto">
-                                    <div className="t">智能净水设备经销权({(() => {
-                                        console.log('这个时候：', u);
-                                        switch (this.state.page) {
-                                            case 1: return '3';
-                                            case 2: return '20';
-                                            case 3: return '300';
-                                            case 4: return '600';
-                                            default: return '-';
-                                        }
-                                    })()}台)</div>
-                                </div>
-                            </li>
-                            <li className="page-flex-row flex-ai-center">
-                                <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgC1 : ImgC2} /></div>
-                                <div className="info-box flex-auto">
-                                    <div className="t">健康食品经销权</div>
-                                </div>
-                                {/*<div className="info2 flex-none">收益：30%</div>*/}
-                            </li>
-                            <li className="page-flex-row flex-ai-center">
-                                <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgD1 : ImgD2} /></div>
-                                <div className="info-box flex-auto">
-                                    <div className="t">生物理疗产品经销权</div>
-                                </div>
-                                {/*<div className="info2 flex-none">收益：30%</div>*/}
-                            </li>
-                            <li className="page-flex-row flex-ai-center">
-                                <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgE1 : ImgE2} /></div>
-                                <div className="info-box flex-auto">
-                                    <div className="t">健康风险评估卡经销权</div>
-                                </div>
-                                {/*<div className="info2 flex-none">收益：30%</div>*/}
-                            </li>
-                        </ul>
-                    );
-                } else {
-                    return (
-                        <div className="card1">
-                            <div className="title"><span>产品购买权</span></div>
-                            <ul className="ul page-flex-row">
-                                <li>
-                                    <img src={ImgB2} />
-                                    <div>智能净水</div>
-                                </li>
-                                <li>
-                                    <img src={ImgC2} />
-                                    <div>健康食品</div>
-                                </li>
-                                <li>
-                                    <img src={ImgD2} />
-                                    <div>生物理疗产品</div>
-                                </li>
-                                <li>
-                                    <img src={(this.props.ambassador && this.props.ambassador.userType === 2) ? ImgE1 : ImgE2} />
-                                    <div>健康风险评估卡</div>
-                                </li>
-                            </ul>
-                            <div className="title"><span>温馨提示</span></div>
-                            <div className="info">1.拥有健康大使的用户，可以购买您的健康大使拥有经销权的产品，暂不支持在线购买其他产品。</div>
-                            <div className="info">2.还没有健康大使的用户，我们不建议您在线直接购买，请您到附近的体验服务站现场体验购买</div>
+            <div className="card1">
+                <div className="title"><span>商城产品购买权</span></div>
+                <ul className="ul page-flex-row">
+                    <li>
+                        <img src={[2,3,4,5].includes(this.state.page) ? ImgB1 : ImgB2} />
+                        <div>净水服务</div>
+                    </li>
+                    <li>
+                        <img src={[2,3,4,5].includes(this.state.page) ? ImgC1 : ImgC2} />
+                        <div>健康食品</div>
+                    </li>
+                    <li>
+                        <img src={[2,3,4,5].includes(this.state.page) ? ImgD1 : ImgD2} />
+                        <div>生物理疗</div>
+                    </li>
+                    <li>
+                        <img src={[2,3,4,5].includes(this.state.page) ? ImgE1 : ImgE2} />
+                        <div>健康评估</div>
+                    </li>
+                </ul>
+            </div>
+            <div className="card1">
+                <div className="title"><span>产品分销权</span></div>
+                <ul className="card-ul" key='1'>
+                    <li className="page-flex-row flex-ai-center">
+                        <div className="pic flex-none"><img src={this.state.page >= 2 ? ImgB1 : ImgB2} /></div>
+                        <div className="info-box flex-auto">
+                            <div className="t">净水服务</div>
                         </div>
-                    );
-                }
-            })()}
+                    </li>
+                    <li className="page-flex-row flex-ai-center">
+                        <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgC1 : ImgC2} /></div>
+                        <div className="info-box flex-auto">
+                            <div className="t">健康食品</div>
+                        </div>
+                    </li>
+                    <li className="page-flex-row flex-ai-center">
+                        <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgD1 : ImgD2} /></div>
+                        <div className="info-box flex-auto">
+                            <div className="t">生物理疗</div>
+                        </div>
+                    </li>
+                    <li className="page-flex-row flex-ai-center">
+                        <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgE1 : ImgE2} /></div>
+                        <div className="info-box flex-auto">
+                            <div className="t">健康评估</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            {
+                this.state.page === 0 ? (
+                    <div className="card1">
+                        <div className="title"><span>用户说明</span></div>
+                        <div className="info">1.您还没有健康大使，我们不建议您在线直接购买，请您到附近的体验服务站现场体验购买。</div>
+                        <div className="info">2.您还不具有商城产品分销权，成为分销用户或经销商，才有商城产品分销权。</div>
+                        <div className="info">3.找到一个比您级别高的用户，微信扫描他（她）的个人专属二维码（“我的e家”-“我的产品代言卡”），即可自动升级为分享用户。</div>
+                    </div>
+                ) : null
+            }
+            {
+                this.state.page === 1 ? (
+                    <div className="card1">
+                        <div className="title"><span>用户说明</span></div>
+                        <div className="info">1.您还不具有商城产品分销权，成为分销用户或经销商，才有商城产品分销权。</div>
+                        <div className="info">2.您购买任意一款产品后，在订单状态是“已完成”后，即可自动升级为分销用户，开始享受分销提成。</div>
+                    </div>
+                ) : null
+            }
+            {
+                this.state.page === 2 ? (
+                    <div className="card1">
+                        <div className="title"><span>用户说明</span></div>
+                        <div className="info">1.您购买某系列任意一款产品后，可分销该系列所有产品，并享受分销提成。</div>
+                        <div className="info">2.您购买的产品订单状态是“已完成”时，才开始具备该系列产品的分销资格。</div>
+                        <div className="info">3.自己购买产品不能享受分销提成，分销给他人才能享受分销提成。</div>
+                    </div>
+                ) : null
+            }
         </div>
           {
-              this.state.page === 0 ? (
+              [0,1].includes(this.state.page) ? (
                   <div className="thefooter">
                       <Button type="primary" onClick={() => this.props.history.push('/shop/exprshop2')}>查看翼猫体验服务中心</Button>
                   </div>

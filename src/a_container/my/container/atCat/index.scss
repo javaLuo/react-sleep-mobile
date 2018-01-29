@@ -25,6 +25,7 @@
             color: #fff;
             font-size: .34rem;
             .t{
+              text-align: right;
             }
             .u{
               .name{
@@ -96,7 +97,7 @@
         &>li{
           padding: .1rem 0;
           flex: none;
-          flex-basis: 33.333%;
+          flex-basis: 25%;
           display: block;
           text-align: center;
           img{
@@ -105,34 +106,34 @@
           }
         }
       }
-    }
-    &>ul{
-      &>li{
-        box-sizing: border-box;
-        padding: .3rem;
-        .pic{
-          width: 1rem;
-          height: 1rem;
-          img{
-            width: 100%;
-            height: 100%;
+      .card-ul{
+        &>li{
+          box-sizing: border-box;
+          padding: .3rem;
+          .pic{
+            width: 1rem;
+            height: 1rem;
+            img{
+              width: 100%;
+              height: 100%;
+            }
           }
-        }
-        .info-box{
-          margin-left: .3rem;
-          .t{
-            font-size: .32rem;
-            color: #25292e;
+          .info-box{
+            margin-left: .3rem;
+            .t{
+              font-size: .32rem;
+              color: #25292e;
+            }
+            .i{
+              font-size: .28rem;
+              color: #999ca0;
+              margin-top: .1rem;
+            }
           }
-          .i{
+          .info2{
             font-size: .28rem;
-            color: #999ca0;
-            margin-top: .1rem;
+            color: #f95355;
           }
-        }
-        .info2{
-          font-size: .28rem;
-          color: #f95355;
         }
       }
     }

@@ -66,6 +66,7 @@ class HomePageContainer extends React.Component {
           case '4': return '普通用户';
           case '5': return '企业版经销商';
           case '6': return '企业版经销商'; // 子账户
+          case '7': return '分销用户';
           default: return '';
       }
     }
@@ -98,8 +99,6 @@ class HomePageContainer extends React.Component {
         const a = this.props.ambassador;
       if (!u) {
           Toast.info('请先登录', 1);
-      } else if (u.userType === 4) {
-          Toast.info('您还没有健康大使哦', 1);
       } else if (!a) {
           Toast.info('获取健康大使信息失败', 1);
       } else {
@@ -116,13 +115,27 @@ class HomePageContainer extends React.Component {
             return;
         }
 
-        if ([2,5,6].indexOf(u.userType) > -1 || (u.userType === 3 && [2,5,6].indexOf(a.userType) > -1)) {
+        if ([2,5,6,7].indexOf(u.userType) > -1 || (u.userType === 3 && [2,5,6,7].indexOf(a.userType) > -1)) {
             this.props.history.push('/my/mydaiyan');
         } else {
             Toast.info('您没有代言卡',1);
         }
     }
 
+    // 我的推广客户被点击
+    onMyCustomerClick() {
+        const u = this.props.userinfo;
+        if (!u) {
+            Toast.info('请先登录', 1);
+            return;
+        }
+        if ([5].includes(u.userType)) { // 是企业主账号
+            this.props.history.push('/my/primary');
+        } else {
+            this.props.history.push(`/my/mycustomer/${u.id}`);
+        }
+
+    }
     // 使用帮助被点击
     onHelpClick() {
      const u = this.props.userinfo;
@@ -185,7 +198,7 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran3 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/mycustomer': '/login')}>
+              <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的推广客户</div>
                   <div className="arrow"><img src={ImgRight} /></div>

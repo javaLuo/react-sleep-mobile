@@ -1,0 +1,47 @@
+.page-primary{
+  background-color: #fff;
+  min-height: 100vh;
+  .data-title{
+    padding: .28rem;
+    color: #aaa;
+    font-size: .32rem;
+  }
+  .data-list{
+    display: block;
+    &>li{
+      background-color: #fff;
+      box-sizing: border-box;
+      padding: .3rem;
+      .photo{
+        width: 1rem;
+        height: 1rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .name{
+        margin-left: .3rem;
+        font-size: .32rem;
+        .lit{
+          font-size: .28rem;
+          color: #aaa;
+        }
+      }
+      .num{
+        color: #aaa;
+        font-size: .32rem;
+      }
+    }
+  }
+  .nothing{
+    padding: .2rem;
+    text-align: center;
+    color: #aaa;
+    font-size: .28rem;
+    background-color: transparent !important;
+  }
+}

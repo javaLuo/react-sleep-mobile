@@ -37,23 +37,25 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '我的推广客户';
-      this.getData();
+      const p = this.props.location.pathname.split('/');
+      if (Number(p[p.length - 1])){
+          this.getData(p[p.length - 1]);
+      }
+
   }
 
-  getData() {
-      const u = this.props.userinfo;
-      if (!u) {
-          return;
-      }
-      this.props.actions.getMyCustomers({ userId: u.id }).then((res) => {
-          if (res.status === 200) {
-              if (res.data) {
-                  this.setState({
-                      data: res.data,
-                  });
-              }
-          }
-      });
+  getData(userId = null) {
+        if (userId && Number(userId)) {
+            this.props.actions.getMyCustomers({ userId: Number(userId) }).then((res) => {
+                if (res.status === 200) {
+                    if (res.data) {
+                        this.setState({
+                            data: res.data,
+                        });
+                    }
+                }
+            });
+        }
   }
 
   render() {

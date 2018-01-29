@@ -47,10 +47,15 @@ class TestContainer extends React.PureComponent {
         });
     }
 
+    onClick2() {
+        location.assign('weixin://wxpay/bizpayurl?pr=FkrQBXv');
+    }
     render() {
         return (
             <div className="page-notfound">
-                <Button type='primary' onClick={() => this.wxH5Pay()}>支付</Button>
+                <Button type='primary' onClick={() => this.wxH5Pay()}>支付</Button><br/>
+                <Button type='primary' onClick={() => this.onClick2()}>支付2</Button>
+                <a href='weixin://wxpay/bizpayurl?pr=FkrQBXv'>支付3</a>
             </div>
         );
     }
