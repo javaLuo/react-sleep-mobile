@@ -25,9 +25,11 @@
   }
   .bar-list{
     .bar-title{
-      padding: .28rem;
-      font-size: .32rem;
-      color: #aaa;
+      background-color: #fff;
+      position: relative;
+      padding: .3rem;
+      font-size: .36rem;
+      border-bottom: solid 1px #f0f0f0;
     }
     .item{
       padding: .3rem 0;

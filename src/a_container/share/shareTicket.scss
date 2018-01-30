@@ -113,6 +113,17 @@
         padding: .4rem .2rem;
         font-size: .28rem;
         color: #999ca0;
+        position: relative;
+        &.outTime{
+          color: #ccc !important;
+        }
+        .card-state{
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 0;
+          height: 1.2rem;
+        }
         &>div+div{
           margin-top: .1rem;
         }

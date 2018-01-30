@@ -157,7 +157,8 @@ class HomePageContainer extends React.Component {
        * date: p[4],
        * **/
         const u = this.props.userinfo;
-        const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}`;
+        const dateTime = new Date().getTime();
+        const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${encodeURIComponent(obj.validEndTime.split(' ')[0])}_${dateTime}`;
       if(tools.isWeixin() && obj.handsel) { // 是微信系统才能分享
           alert('确认赠送?','赠送后您的券将转移给对方，您将无法再查看该券', [
               { text: '取消', onPress: () => console.log('cancel') },
@@ -170,7 +171,7 @@ class HomePageContainer extends React.Component {
                       type: 'link',
                       success: () => {
                           Toast.info('分享成功', 1);
-                          me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
+                          me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo, dateTime });
                       }
                   });
 
@@ -181,7 +182,7 @@ class HomePageContainer extends React.Component {
                       imgUrl: 'http://isluo.com/work/logo/share_card.png',
                       success: () => {
                           Toast.info('分享成功', 1);
-                          me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
+                          me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo, dateTime });
                       }
                   });
 
@@ -283,7 +284,7 @@ class HomePageContainer extends React.Component {
                                   {
                                       text: '删除',
                                       onPress: () => this.onDelete(item),
-                                      style: { backgroundColor: '#F4333C', color: 'white', padding: '0 10px' },
+                                      style: { backgroundColor: '#FFF', color: '#f00', padding: '0 10px' },
                                   },
                               ]}
                           >
@@ -302,7 +303,7 @@ class HomePageContainer extends React.Component {
                                       <div>
                                           <div className="money">￥1000</div>
                                           {
-                                              tools.isWeixin() && item.handsel ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
+                                              tools.isWeixin() && item.handsel && item.handselStatus !== 1 ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
                                           }
                                       </div>
                                   </div>

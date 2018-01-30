@@ -25,7 +25,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { mallCardList, wxInit, saveCardInfo, mallOrderHraCard } from '../../../../a_action/shop-action';
+import { mallCardList, wxInit, saveCardInfo, mallOrderHraCard, ticketHandsel } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -151,6 +151,7 @@ class HomePageContainer extends React.Component {
     // 点击分享按钮，
     onStartShare(obj, index, e) {
       e.stopPropagation();
+        const me = this;
       console.log('要分享的信息：', obj, tools.isWeixin());
         if(tools.isWeixin() && this.checkCardStatus(obj) === 1) { // 是微信中并且卡的状态正常才能分享
             alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡', [
@@ -168,7 +169,8 @@ class HomePageContainer extends React.Component {
                          * date - 有效期
                          * **/
                         const u = this.props.userinfo;
-                        const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${obj.validTime}`;
+                        const dateTime = new Date().getTime();
+                        const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${obj.validTime}_${dateTime}`;
                         wx.onMenuShareAppMessage({
                             title: `${u.nickName}赠送您一张翼猫HRA健康风险评估卡`,
                             desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',
@@ -177,6 +179,7 @@ class HomePageContainer extends React.Component {
                             type: 'link',
                             success: () => {
                                 Toast.info('分享成功', 1);
+                                me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo, dateTime });
                             }
                         });
                         wx.onMenuShareTimeline({
@@ -186,6 +189,7 @@ class HomePageContainer extends React.Component {
                             imgUrl: 'http://isluo.com/work/logo/share_card.png',
                             success: () => {
                                 Toast.info('分享成功', 1);
+                                me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo, dateTime });
                             }
                         });
                         this.setState({
@@ -235,6 +239,15 @@ class HomePageContainer extends React.Component {
       return num;
     }
 
+    // 分享成功后还要调个接口更改状态
+    ticketHandsel(params) {
+        this.props.actions.ticketHandsel(params).then((res) => {
+            if (res.status === 200) {
+                this.getData();
+            }
+        });
+    }
+
   render() {
     return (
       <div className="page-ordercarddetail">
@@ -265,7 +278,7 @@ class HomePageContainer extends React.Component {
                                               <div className="i">有效期至：{tools.dateformart(item.validTime)}</div>
                                           </div>
                                           {
-                                              tools.isWeixin() ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
+                                              tools.isWeixin() && item.handselStatus !== 1 ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
                                           }
                                       </div>
                                   </li>;
@@ -303,6 +316,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, mallOrderHraCard }, dispatch),
+    actions: bindActionCreators({ mallCardList, wxInit, saveCardInfo, mallOrderHraCard, ticketHandsel }, dispatch),
   })
 )(HomePageContainer);

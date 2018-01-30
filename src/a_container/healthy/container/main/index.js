@@ -50,7 +50,7 @@ class HomePageContainer extends React.Component {
       ,0);
   }
 
-  // HRA知识库点击
+  // 健康知识库点击
     onHraClick() {
       const u = this.props.userinfo;
         /**
@@ -62,7 +62,27 @@ class HomePageContainer extends React.Component {
         if (u && u.id) {  // 有用户信息
             str = `&e=${u.id}`;
         }
-        window.open(`http://www.huiyuzixun.cn/index.php?m=page&f=view&t=mhtml&pageID=21${str}`);
+        window.open(`http://e.yimaokeji.com/index.php?m=page&f=view&t=mhtml&pageID=1${str}`);
+    }
+
+    // 健康资讯点击
+    onZiXunClick() {
+      const u = this.props.userinfo;
+        let str = '';
+        if (u && u.id) {  // 有用户信息
+            str = `&e=${u.id}`;
+        }
+      window.open(`http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1${str}`);
+    }
+
+    // 健康新闻
+    onNewsClick() {
+        const u = this.props.userinfo;
+        let str = '';
+        if (u && u.id) {  // 有用户信息
+            str = `&e=${u.id}`;
+        }
+        window.open(`http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=11&pageID=1&${str}`);
     }
 
   render() {
@@ -96,14 +116,14 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           <div className="bar-list">
-              <div className="bar-title">健康知识</div>
-              <div className="item hide tran1 page-flex-row all_active">
+              <div className="bar-title">健康智库</div>
+              <div className="item hide tran1 page-flex-row all_active" onClick={() => this.onNewsClick()}>
                   <img className="icon" src={ImgBar5} />
                   <div className="title">健康新闻</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item hide tran2 page-flex-row all_active">
+              <div className="item hide tran2 page-flex-row all_active" onClick={() => this.onZiXunClick()}>
                   <img className="icon" src={ImgBar6} />
                   <div className="title">健康资讯</div>
                   <div className="arrow"><img src={ImgRight} /></div>
@@ -111,13 +131,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item hide tran5 page-flex-row all_active" onClick={() => this.onHraClick()}>
                   <img className="icon" src={ImgBar7} />
-                  <div className="title">健康知识库</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item hide tran2 page-flex-row all_active">
-                  <img className="icon" src={ImgBar8} />
-                  <div className="title">健康画册</div>
+                  <div className="title">HRA知识库</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

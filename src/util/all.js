@@ -45,7 +45,7 @@ const allobj = {
         const d = date.getDate().toString().padStart(2,'0');
         const h = date.getHours().toString().padStart(2,'0');
         const min = date.getMinutes().toString().padStart(2,'0');
-        return `${date.getFullYear()}-${m}-${d} ${h}:${min}:00`;
+        return `${date.getFullYear()}-${m}-${d} ${h}:${min}`;
     },
     // 将数字或字符串*100，保留两位小数点返回,非法返回''
     percent(str) {

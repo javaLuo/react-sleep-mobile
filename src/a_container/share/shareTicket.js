@@ -18,6 +18,8 @@ import tools from '../../util/all';
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
 import ImgTitle from '../../assets/share/zenSongKa.png';
+import ImgOut24Hour from '../../assets/share/tuihui@3x.png'; // 超过24小时未领取图标
+import ImgOutTime from '../../assets/share/yiguoqi@3x.png'; // 卡本身过期图标
 // ==================
 // 本页面所需action
 // ==================
@@ -44,17 +46,19 @@ class HomePageContainer extends React.Component {
     getData() {
         const path = this.props.location.pathname.split('/');
         let p = path[path.length - 1].split('_');
+
         this.setState({
             data: {
                 userId: p[0],
-                name: p[1],
-                head: p[2],
+                name: decodeURIComponent(p[1]),
+                head: decodeURIComponent(p[2]),
                 no: p[3],
-                date: p[4],
+                date: decodeURIComponent(p[4]),
+                dateTime: Number(p[5]),
             }
         });
 
-        this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 2, shareNo: p[3]}).then((res) => {
+        this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 2, shareNo: p[3], dateTime: p[5]}).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     imgCode: res.data,
@@ -63,8 +67,21 @@ class HomePageContainer extends React.Component {
         });
     }
 
+    // 各异常状态 0正常，1卡过期，2领取时间超24小时
+    makeAbnormal(d) {
+        let abnormal = 0;
+        if (new Date(`${d.date} 23:59:59`).getTime() - new Date().getTime() < 0) {  // 卡本身已过期
+            abnormal = 1;
+        } else if (new Date().getTime() - Number(d.dateTime) > 86400000) { // 超过24小时
+            abnormal = 2;
+        }
+        return abnormal;
+    }
+
     render() {
         const d = this.state.data;
+        const type = this.makeAbnormal(d);
+
         return (
             <div className="flex-auto page-share-ticket">
                 <div className="title-box">
@@ -73,8 +90,8 @@ class HomePageContainer extends React.Component {
                 <div className="body-box">
                     <div className="img-box">
                         <div className="head-box">
-                            <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
-                            <div className="name">{decodeURIComponent(d.name) || '-'}</div>
+                            <div className="pic"><img src={d.head} /></div>
+                            <div className="name">{d.name || '-'}</div>
                             <div className="name-info">送您一张健康风险评估卡</div>
                         </div>
                         <div className="cardbox page-flex-col flex-jc-sb">
@@ -93,8 +110,23 @@ class HomePageContainer extends React.Component {
                                 <div className="flex-none">￥1000</div>
                             </div>
                         </div>
-                        <div className="info-box">
-                            <div className="page-flex-row">
+                        <div className={type !== 0 ? "info-box outTime" : "info-box"}>
+                            {(() => {
+                                switch(type) {
+                                    case 1: return <img className="card-state" src={ImgOutTime} />;
+                                    case 2: return <img className="card-state" src={ImgOut24Hour} />;
+                                    default: return null;
+                                }
+                            })()}
+                            {
+                                this.state.data.dateTime ? (
+                                    <div className="page-flex-row">
+                                        <div className="flex-none">限时领取：</div>
+                                        <div className="flex-auto">{tools.dateToStrMin(new Date(this.state.data.dateTime + 86400000))}之前可领取</div>
+                                    </div>
+                                ) : null
+                            }
+                            <div className="page-flex-row" >
                                 <div className="flex-none">查看方式：</div>
                                 <div className="flex-auto">进入公众号[健康管理]-[我的体检卡]中查看。</div>
                             </div>
@@ -105,7 +137,7 @@ class HomePageContainer extends React.Component {
                         <div className="codes page-flex-row flex-jc-center">
                             <div>
                                 <img src={this.state.imgCode || ImgQrCode}/>
-                                <img className="head" src={decodeURIComponent(d.head)} />
+                                <img className="head" src={d.head} />
                             </div>
                             <div>
                                 <img src={ImgZhiWen} />

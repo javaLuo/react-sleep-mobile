@@ -222,35 +222,78 @@ class HomePageContainer extends React.Component {
                     </li>
                 </ul>
             </div>
-            {
-                this.state.page === 0 ? (
-                    <div className="card1">
-                        <div className="title"><span>用户说明</span></div>
-                        <div className="info">1.您还没有健康大使，我们不建议您在线直接购买，请您到附近的体验服务站现场体验购买。</div>
-                        <div className="info">2.您还不具有商城产品分销权，成为分销用户或经销商，才有商城产品分销权。</div>
-                        <div className="info">3.找到一个比您级别高的用户，微信扫描他（她）的个人专属二维码（“我的e家”-“我的产品代言卡”），即可自动升级为分享用户。</div>
-                    </div>
-                ) : null
-            }
-            {
-                this.state.page === 1 ? (
-                    <div className="card1">
-                        <div className="title"><span>用户说明</span></div>
-                        <div className="info">1.您还不具有商城产品分销权，成为分销用户或经销商，才有商城产品分销权。</div>
-                        <div className="info">2.您购买任意一款产品后，在订单状态是“已完成”后，即可自动升级为分销用户，开始享受分销提成。</div>
-                    </div>
-                ) : null
-            }
-            {
-                this.state.page === 2 ? (
-                    <div className="card1">
-                        <div className="title"><span>用户说明</span></div>
-                        <div className="info">1.您购买某系列任意一款产品后，可分销该系列所有产品，并享受分销提成。</div>
-                        <div className="info">2.您购买的产品订单状态是“已完成”时，才开始具备该系列产品的分销资格。</div>
-                        <div className="info">3.自己购买产品不能享受分销提成，分销给他人才能享受分销提成。</div>
-                    </div>
-                ) : null
-            }
+            {(() => {
+                switch(this.state.page) {
+                    case 0: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1.普通用户：普通用户是指健康大使不是翼猫经销商或间接不是翼猫经销商的用户。</div>
+                            <div className="info">2.商城产品购买权：在没有翼猫经销商作为健康大使的指导和帮助下，我们不建议在翼猫健康商城直接购买产品，请到附近的翼猫体验服务站体验后再购买。</div>
+                            <div className="info">3.商城产品分销权：不具有翼猫健康商城产品分销权，成为翼猫分销用户或经销商后，才拥有商城产品的分销、经销权。</div>
+                            <div className="info">4.用户升级：请您到附近的翼猫体验服务站，了解如何成为分享用户、分销用户或翼猫经销商。</div>
+                        </div>
+                    );
+                    case 1: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1.分享用户：分享用户是指翼猫经销商直接或间接分享二维码创建的用户。</div>
+                            <div className="info">2.商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3.商城产品分销权：不具有商城产品分销权，成为分销用户或经销商，才拥有商城产品分销、经销权。</div>
+                            <div className="info">4.用户升级：分享用户在翼猫健康商城中购买任意一款产品后，即可自动升级为分销用户，享受该系列产品的分销权，享受分销收益。</div>
+                        </div>
+                    );
+                    case 2: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1. 分销用户：分享用户在商城购买任一款产品后就变成分销用户，分销用户可以帮助翼猫经销商分销产品，享受分销收益。</div>
+                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3. 商城产品分销权：</div>
+                            <div className="info">分销用户可分销某产品系列的所有产品，并享受分销收益。</div>
+                            <div className="info">自己多次购买产品不享受分销折扣，分销给他人才能享受分销收益。</div>
+                            <div className="info">4.用户升级：分销用户想成为翼猫经销商，请您到附近的翼猫体验服务站咨询，稍后我们支持在线升级为翼猫经销商，享受产品经销收益。</div>
+                        </div>
+                    );
+                    case 3: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1. 微创版经销商：仅需加盟费¥2980元即可成为翼猫微创版经销商。</div>
+                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3. 商城产品分销权：</div>
+                            <div className="info">具有经销翼猫智能净水服务的权利，并可发展分销用户协助分销翼猫净水服务，能按翼猫微创版经销商政策享受净水服务的收益。</div>
+                            <div className="info">4.用户升级：稍后我们支持在线升级为个人版经销商，享受个人版经销商产品经销权益。</div>
+                        </div>
+                    );
+                    case 4: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1. 个人版经销商：需加盟费¥29800元成为个人版经销商。</div>
+                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3. 商城产品分销权：</div>
+                            <div className="info">具有经销翼猫健康商城中所有产品的权利，并可发展分销用户协助分销翼猫商城中所有产品，能按翼猫个人版经销商政策享受产品经销代理收益。</div>
+                        </div>
+                    );
+                    case 5: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1. 企业版经销商（主账户）：需加盟费¥59800元成为企业版经销商。</div>
+                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3. 商城产品分销权：</div>
+                            <div className="info">可以分销商城中的所有产品，并可按翼猫企业版经销商政策享受产品经销代理收益。</div>
+                            <div className="info">可以自主发展子账户，由子账户分销翼猫商城产品。</div>
+                            <div className="info">可以发展分销用户协助分销翼猫商城中所有产品。</div>
+                        </div>
+                    );
+                    case 6: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
+                            <div className="info">1. 企业版经销商（子账户）：企业版经销商主账户分出来的的子账户。</div>
+                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3. 商城产品分销权：</div>
+                            <div className="info">可发展分销用户协助分销翼猫商城中所有产品，并由企业版主账户自行分配收益。</div>
+                        </div>
+                    );
+                }
+            })()}
         </div>
           {
               [0,1].includes(this.state.page) ? (

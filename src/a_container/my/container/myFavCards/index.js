@@ -205,7 +205,8 @@ class HomePageContainer extends React.Component {
                        type: p[5] 1未使用，2已使用，3已禁用，4过期
                        * **/
                       const u = this.props.userinfo;
-                      const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${obj.validEndTime.split(' ')[0]}`;
+                      const dateTime = new Date().getTime();
+                      const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${encodeURIComponent(obj.validEndTime.split(' ')[0])}_${dateTime}`;
                       wx.onMenuShareAppMessage({
                           title: `${u.nickName}赠送您一张翼猫HRA健康风险评估优惠卡`,
                           desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',
@@ -214,7 +215,7 @@ class HomePageContainer extends React.Component {
                           type: 'link',
                           success: () => {
                               Toast.info('分享成功', 1);
-                              me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
+                              me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo, dateTime });
                           }
                       });
                       wx.onMenuShareTimeline({
@@ -224,7 +225,7 @@ class HomePageContainer extends React.Component {
                           imgUrl: 'http://isluo.com/work/logo/share_card.png',
                           success: () => {
                               Toast.info('分享成功', 1);
-                              me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo });
+                              me.ticketHandsel({ userId: u.id, shareType: 2, shareNo: obj.ticketNo, dateTime });
                           }
                       });
                       this.setState({
@@ -330,7 +331,7 @@ class HomePageContainer extends React.Component {
                                               <div>
                                                   <div className="money">￥1000</div>
                                                   {
-                                                      tools.isWeixin() && item.handsel ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
+                                                      tools.isWeixin() && item.handsel && item.handselStatus !== 1 ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
                                                   }
                                               </div>
                                           </div>

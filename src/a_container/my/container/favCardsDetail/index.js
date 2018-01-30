@@ -248,7 +248,7 @@ class Register extends React.Component {
                 <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : ''}</div>
                 <div className="footer-zw"/>
                 {
-                    (d.ticketType === 'M' && d.ticketStatus === 3) ? (
+                    (d.ticketType === 'M' && d.ticketStatus === 3 && d.handselStatus !== 1) ? (
                         <div className="thefooter">
                             <Button type="primary" loading={this.state.loading} onClick={() => this.onPay()}>微信支付</Button>
                         </div>

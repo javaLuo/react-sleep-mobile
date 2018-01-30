@@ -181,9 +181,11 @@ class HomePageContainer extends React.Component {
                        * no - 体检卡号
                        * price - 价格
                        * date - 有效期
+                       * dateTime - 分享的时间（通过此时间来判断过期）
                        * **/
                       const u = this.props.userinfo;
-                      const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${obj.validTime}`;
+                      const dateTime = new Date().getTime();
+                      const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${encodeURIComponent(obj.validTime)}_${dateTime}`;
                       wx.onMenuShareAppMessage({
                           title: `${u.nickName}赠送您一张翼猫HRA健康风险评估卡`,
                           desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',
@@ -192,7 +194,7 @@ class HomePageContainer extends React.Component {
                           type: 'link',
                           success: () => {
                               Toast.info('分享成功', 1);
-                              me.ticketHandsel({ userId: u.id, shareType: 1, shareNo: obj.id });
+                              me.ticketHandsel({ userId: u.id, shareType: 1, shareNo: obj.id, dateTime });
                           }
                       });
                       wx.onMenuShareTimeline({
@@ -202,7 +204,7 @@ class HomePageContainer extends React.Component {
                           imgUrl: 'http://isluo.com/work/logo/share_card.png',
                           success: () => {
                               Toast.info('分享成功', 1);
-                              me.ticketHandsel({ userId: u.id, shareType: 1, shareNo: obj.id });
+                              me.ticketHandsel({ userId: u.id, shareType: 1, shareNo: obj.id, dateTime });
                           }
                       });
                       this.setState({
@@ -336,7 +338,7 @@ class HomePageContainer extends React.Component {
                                               {
                                                   text: '删除',
                                                   onPress: () => this.onDelete(item),
-                                                  style: { backgroundColor: '#F4333C', color: 'white', padding: '0 10px'},
+                                                  style: { backgroundColor: '#fff', color: '#f00', padding: '0 10px'},
                                               },
                                           ]}
                                       >
@@ -367,7 +369,7 @@ class HomePageContainer extends React.Component {
                                                       <div className="i">有效期至：{item.validTime}</div>
                                                   </div>
                                                   {
-                                                      tools.isWeixin() && item.handsel ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
+                                                      tools.isWeixin() && item.handsel && item.handselStatus !== 1 ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
                                                   }
                                               </div>
                                           </div>
