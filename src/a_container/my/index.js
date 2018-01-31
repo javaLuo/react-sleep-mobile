@@ -37,6 +37,9 @@ import Primary from './container/mycustomer/primary';
 import PrimaryIn from './container/mycustomer/primaryIn';
 import FavCardsDetail from './container/favCardsDetail';
 import MyFavCards from './container/myFavCards';
+import Addr from './container/addr';
+import NewAddr from './container/newAddr';
+import UpAddr from './container/addr/upAddr';
 // ==================
 // 本页面所需action
 // ==================
@@ -81,6 +84,9 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/primaryin`} component={PrimaryIn} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
               <Route path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
+              <Route path={`${this.props.match.url}/addr`} component={Addr} />
+              <Route path={`${this.props.match.url}/newaddr`} component={NewAddr} />
+              <Route path={`${this.props.match.url}/upaddr`} component={UpAddr} />
           </Switch>
       </div>
     );

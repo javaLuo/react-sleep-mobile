@@ -1,4 +1,4 @@
-/* 我的e家 - 个人主页 - 添加收货地址 */
+/* 我的e家 - 个人主页 - 修改收货地址 */
 
 // ==================
 // 所需的各种插件
@@ -10,43 +10,55 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import tools from '../../../../util/all';
-import './index.scss';
+import './upAddr.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, List, Icon, WingBlank, InputItem, Toast, Picker } from 'antd-mobile';
+import { Button, List, InputItem, Toast, Picker } from 'antd-mobile';
 
 // ==================
 // 本页面所需action
 // ==================
 
-import { saveAddrss } from '../../../../a_action/shop-action';
+import { upAddr } from '../../../../a_action/shop-action';
 import { getAreaList } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
 const Item = List.Item;
 class HomePageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        formName: '',
-        formPhone: '',
-        formAddr: '',
-        formArea: undefined,    // 地区
-        sourceData: [], // 所有省市数据（层级）
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: null,   // 当前编辑的数据的ID
+            formName: '',
+            formPhone: '',
+            formAddr: '',
+            formArea: undefined,    // 地区
+            sourceData: [], // 所有省市数据（层级）
 
-    };
-  }
+        };
+    }
 
-  componentDidMount() {
-      document.title = '添加收货地址';
-      if (!this.props.areaData.length) {
-          this.getArea();
-      } else {
-          this.makeAreaData(this.props.areaData);
-      }
-  }
+    componentDidMount() {
+        document.title = '修改收货地址';
+        if (!this.props.areaData.length) {
+            this.getArea();
+        } else {
+            this.makeAreaData(this.props.areaData);
+        }
+        const n = this.props.nowData;
+        console.log('NowData:', n);
+        if (n){
+            this.setState({
+                id: n.id,
+                formName: n.contact,
+                formPhone: n.mobile,
+                formAddr: n.street,
+                formArea: n.province ? [n.province, n.city, n.region] : undefined,
+            });
+        }
+    }
 
     componentWillReceiveProps(nextP) {
         if (nextP.areaData !== this.props.areaData) {
@@ -81,13 +93,13 @@ class HomePageContainer extends React.Component {
         return kids.length ? kids : null;
     }
 
-   // 保存
+    // 保存
     onSubmit() {
-      const u = this.props.userinfo;
-      if (!u) {
-          Toast.fail('请先登录', 1);
-          return;
-      }
+        const u = this.props.userinfo;
+        if (!u) {
+            Toast.fail('请先登录', 1);
+            return;
+        }
         if (!this.state.formName) {
             Toast.fail('请输入姓名',1);
             return;
@@ -102,6 +114,7 @@ class HomePageContainer extends React.Component {
             return;
         }
         const params = {
+            id: this.state.id,
             userId: u.id,
             contact: this.state.formName,
             mobile: this.state.formPhone,
@@ -111,12 +124,12 @@ class HomePageContainer extends React.Component {
             street: this.state.formAddr
         };
         Toast.loading('请稍后…');
-        this.props.actions.saveAddrss(tools.clearNull(params)).then((res) => {
+        this.props.actions.upAddr(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
-                Toast.success('添加成功');
+                Toast.success('修改成功');
                 this.props.history.go(-1);
             } else {
-                Toast.fail(res.message || '添加失败');
+                Toast.fail(res.message || '修改失败');
             }
         }).catch(() => {
             Toast.hide();
@@ -125,12 +138,12 @@ class HomePageContainer extends React.Component {
 
     // onNameChange
     onNameChange(v) {
-       const value = tools.trim(v);
-       if (value.length <= 12) {
-           this.setState({
-               formName: value,
-           });
-       }
+        const value = tools.trim(v);
+        if (value.length <= 12) {
+            this.setState({
+                formName: value,
+            });
+        }
     }
 
     // onPhoneChange
@@ -160,30 +173,30 @@ class HomePageContainer extends React.Component {
             formArea: data,
         });
     }
-  render() {
-    return (
-      <div className="newaddr-page">
-          <List>
-              <InputItem clear value={this.state.formName} onChange={(v) => this.onNameChange(v)}>收货人</InputItem>
-              <InputItem type="number" clear value={this.state.formPhone} onChange={(v) => this.onPhoneChange(v)}>联系电话</InputItem>
-              <Picker
-                  data={this.state.sourceData}
-                  extra={''}
-                  value={this.state.formArea}
-                  format={(v) => v.join('/')}
-                  cols={3}
-                  onOk={(v) => this.onCityChose(v)}
-              >
-                  <Item arrow={'horizontal'}>所在区域</Item>
-              </Picker>
-              <InputItem clear value={this.state.formAddr} onChange={(v) => this.onAddrChange(v)}>详细地址</InputItem>
-          </List>
-          <div className="page-footer">
-              <Button type="primary" onClick={() => this.onSubmit()}>保存</Button>
-          </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="newaddr-page">
+                <List>
+                    <InputItem clear value={this.state.formName} onChange={(v) => this.onNameChange(v)}>收货人</InputItem>
+                    <InputItem type="number" clear value={this.state.formPhone} onChange={(v) => this.onPhoneChange(v)}>联系电话</InputItem>
+                    <Picker
+                        data={this.state.sourceData}
+                        extra={''}
+                        value={this.state.formArea}
+                        format={(v) => v.join('/')}
+                        cols={3}
+                        onOk={(v) => this.onCityChose(v)}
+                    >
+                        <Item arrow={'horizontal'}>所在区域</Item>
+                    </Picker>
+                    <InputItem clear value={this.state.formAddr} onChange={(v) => this.onAddrChange(v)}>详细地址</InputItem>
+                </List>
+                <div className="page-footer">
+                    <Button type="primary" onClick={() => this.onSubmit()}>保存</Button>
+                </div>
+            </div>
+        );
+    }
 }
 
 // ==================
@@ -191,11 +204,12 @@ class HomePageContainer extends React.Component {
 // ==================
 
 HomePageContainer.propTypes = {
-  location: P.any,
-  history: P.any,
-  actions: P.any,
-  areaData: P.array,
+    location: P.any,
+    history: P.any,
+    actions: P.any,
+    areaData: P.array,
     userinfo: P.any,
+    nowData: P.any,
 };
 
 // ==================
@@ -203,11 +217,12 @@ HomePageContainer.propTypes = {
 // ==================
 
 export default connect(
-  (state) => ({
-      areaData: state.app.areaData,
-      userinfo: state.app.userinfo,
-  }), 
-  (dispatch) => ({
-    actions: bindActionCreators({ saveAddrss, getAreaList }, dispatch),
-  })
+    (state) => ({
+        areaData: state.app.areaData,
+        userinfo: state.app.userinfo,
+        nowData: state.shop.upAddrData,
+    }),
+    (dispatch) => ({
+        actions: bindActionCreators({ getAreaList, upAddr }, dispatch),
+    })
 )(HomePageContainer);

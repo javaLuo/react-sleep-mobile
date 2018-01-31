@@ -213,7 +213,7 @@ class HomePageContainer extends React.Component {
             return <img className="tip" src={ImgShiYong} />;
         } else if (item.ticketStatus === 3) {   // 已禁用
             return <img className="tip" src={ImgJinYong} />;
-        } else if (new Date(`${item.validEndTime.split(' ')} 23:59:59`) - new Date() < 0) { // 已过期
+        } else if (item.ticketStatus === 4) { // 已过期
             return <img className="tip" src={ImgGuoQi} />;
         }
         return null;
@@ -230,7 +230,7 @@ class HomePageContainer extends React.Component {
           return 2;
       } else if (item.ticketStatus === 3) {
           return 3;
-      } else if (new Date(`${item.validEndTime.split(' ')} 23:59:59`) - new Date() < 0) {
+      } else if (item.ticketStatus === 4) {
           return 4;
       }
       return 1;

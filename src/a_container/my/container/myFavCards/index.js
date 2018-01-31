@@ -260,8 +260,7 @@ class HomePageContainer extends React.Component {
     // 工具 - 判断当前体检卡状态（正常1、过期2、已使用3）
     checkCardStatus(item) {
       try{
-          const validTime = new Date(`${item.vaildEndTime}`).getTime();
-          if (validTime - new Date().getTime() < 0) {   // 已过期
+          if (item.ticketStatus === 4) {   // 已过期
               return 2;
           } else if (item.ticketStatus === 2) {   // 已使用
               return 3;

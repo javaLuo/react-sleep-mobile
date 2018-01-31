@@ -97,26 +97,65 @@ export const placeAndOrder = (params = {}) => async(dispatch) => {
     }
 };
 
-// 添加收货地址
-export const saveAddrss = (params = {}) => async(dispatch) => {
+// 查询收货地址列表
+export const getAddrList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/address/saveAddrss', params, 'post', true, 1);
-        if (res.status === 200) {
-            dispatch({
-                type: 'SHOP::saveAddrss',
-                payload: res.data.result,
-            });
-        }
+        const res = await Fetchapi.newPost('mall/address/list', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
     }
 };
 
+// 添加收货地址
+export const saveAddrss = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/address/save', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+// 删除收货地址
+export const delAddr = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/address/delete', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+// 修改收货地址
+export const upAddr = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/address/update', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 设置默认收货地址
+export const setDefaultAddr = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/address/hasDefault', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 进入编辑收货地址页时，把当前所选地址存入store
+export function onSaveUpAddrNow(params) {
+    return {
+        type: 'ADDR::onSaveUpAddrNow',
+        payload: params,
+    };
+}
 // 微信支付
 export const wxPay = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/wxpay/unifiedorder', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/wxpay/unifiedorder', params, 'post', true);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

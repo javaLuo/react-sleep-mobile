@@ -331,14 +331,14 @@ class HomePageContainer extends React.Component {
                               return this.props.myCard.data.map((item, index) => {
                                   return (
                                       <SwipeAction
-                                          style={{ backgroundColor: '#F4333C' }}
+                                          style={{ backgroundColor: 'transparent' }}
                                           key={index}
                                           autoClose
                                           right={[
                                               {
                                                   text: '删除',
                                                   onPress: () => this.onDelete(item),
-                                                  style: { backgroundColor: '#fff', color: '#f00', padding: '0 10px'},
+                                                  style: { backgroundColor: 'transparent', color: '#f00', padding: '0 10px'},
                                               },
                                           ]}
                                       >
@@ -355,6 +355,8 @@ class HomePageContainer extends React.Component {
                                                           return <img className="tip" src={ImgGuoQi} />;
                                                       } else if (type === 3) {   // 全部用完
                                                           return <img className="tip" src={ImgShiYong} />;
+                                                      } else if (type === 4) {
+
                                                       }
                                                       return null;
                                                   })()}

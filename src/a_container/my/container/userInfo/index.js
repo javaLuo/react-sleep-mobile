@@ -127,6 +127,11 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    // 点击收货地址
+    onAddrClick() {
+        this.props.history.push('/my/addr');
+    }
+
   render() {
       const u = this.props.userinfo;
       console.log('u是什么：', u);
@@ -141,7 +146,12 @@ class HomePageContainer extends React.Component {
                       <div className="line"/>
                   </Link>
               </div>
-              <div className="item page-flex-row all_active mt">
+              <div className="item page-flex-row all_active mt" onClick={() => this.onAddrClick()}>
+                  <div className="title">收货地址</div>
+                  <div className="info mr"><div className="arrow"><img src={ImgRight} /></div></div>
+                  <div className="line"/>
+              </div>
+              <div className="item page-flex-row all_active">
                   <div className="title">e家号</div>
                   <div className="info mr">{u ? u.id : ''}</div>
                   <div className="line"/>
