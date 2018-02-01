@@ -371,7 +371,7 @@ class HomePageContainer extends React.Component {
                                                       <div className="i">有效期至：{item.validTime}</div>
                                                   </div>
                                                   {
-                                                      tools.isWeixin() && item.handsel && item.handselStatus !== 1 ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
+                                                      tools.isWeixin() && item.handsel ? <div className={this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'} >赠送</div> : null
                                                   }
                                               </div>
                                           </div>

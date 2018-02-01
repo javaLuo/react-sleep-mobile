@@ -19,7 +19,7 @@ import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图�
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
 import ImgTitle from '../../assets/share/youhuika@3x.png';
 import ImgOut24Hour from '../../assets/share/tuihui@3x.png'; // 超过24小时未领取图标
-import ImgOutTime from '../../assets/share/yiguoqi@3x.png'; // 卡本身过期图标
+import ImgOutTime from '../../assets/share/guoqi24@3x.png'; // 卡本身过期图标
 // ==================
 // 本页面所需action
 // ==================
@@ -35,6 +35,7 @@ class HomePageContainer extends React.Component {
             data: {},
             productData: {}, // 分享的卡片信息
             imgCode: '',  // 分享的二维码、
+            isExpired: false, // 卡是否超过24小时
         };
     }
 
@@ -60,7 +61,8 @@ class HomePageContainer extends React.Component {
         this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 2, shareNo: p[3], dateTime: p[5]}).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    imgCode: res.data,
+                    imgCode: res.data.qrcode,
+                    isExpired: res.data.isExpired,
                 });
             }
         });
@@ -71,7 +73,7 @@ class HomePageContainer extends React.Component {
         let abnormal = 0;
         if (new Date(`${d.date} 23:59:59`).getTime() - new Date().getTime() < 0) {  // 卡本身已过期
             abnormal = 1;
-        } else if (new Date().getTime() - Number(d.dateTime) > 86400000) { // 超过24小时
+        } else if (this.state.isExpired) { // 超过24小时
             abnormal = 2;
         }
         return abnormal;
@@ -92,7 +94,7 @@ class HomePageContainer extends React.Component {
                             <div className="name">{d.name || '-'}</div>
                             <div className="name-info">送您一张健康风险评估卡</div>
                         </div>
-                        <div className="cardbox page-flex-col flex-jc-sb">
+                        <div className={type !== 0 ? "cardbox page-flex-col flex-jc-sb no-normal" : "cardbox page-flex-col flex-jc-sb"}>
                             <div className="row1 flex-none page-flex-row flex-jc-sb">
                                 <div>
                                     <div className="t"></div>
@@ -106,8 +108,6 @@ class HomePageContainer extends React.Component {
                                 </div>
                                 <div className="flex-none">￥1000</div>
                             </div>
-                        </div>
-                        <div className={type !== 0 ? "info-box outTime" : "info-box"}>
                             {(() => {
                                 switch(type) {
                                     case 1: return <img className="card-state" src={ImgOutTime} />;
@@ -115,6 +115,8 @@ class HomePageContainer extends React.Component {
                                     default: return null;
                                 }
                             })()}
+                        </div>
+                        <div className={"info-box"}>
                             {
                                 this.state.data.dateTime ? (
                                     <div className="page-flex-row">
