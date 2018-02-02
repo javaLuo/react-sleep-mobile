@@ -57,7 +57,7 @@ class Register extends React.Component {
             <div className="flex-auto page-box page-amb" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                 <div className="login-box">
                     <div  className="logo"><img src={a.headImg || ImgDefault} /></div>
-                    <div className="logo-info">{ a.nickName || a.userName }</div>
+                    <div className="logo-info">{ a.nickName || a.realName }</div>
                     <List className="this-list">
                         <Item extra={a.id || ''}>e家号</Item>
                         <Item extra={<a href={`tel:${a.mobile || ''}`} target="_blank">{a.mobile}</a>}>手机号</Item>

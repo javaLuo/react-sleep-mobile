@@ -89,7 +89,7 @@ class HomePageContainer extends React.Component {
             {
                 text: '确定',
                 onPress: () => new Promise((resolve, rej) => {
-                    this.props.actions.mallOrderDel({ orderId: id }).then((res) => {
+                    this.props.actions.mallOrderDel({ orderId: obj.id }).then((res) => {
                         if (res.status === 200) {
                             this.props.history.go(-1);
                             Toast.success('订单已删除',1);

@@ -100,7 +100,7 @@ class HomePageContainer extends React.Component {
       if (!u) {
           Toast.info('请先登录', 1);
       } else if (!a) {
-          Toast.info('获取健康大使信息失败', 1);
+          Toast.info('您还没有健康大使', 1);
       } else {
           this.props.history.push('/my/healthyamb');
       }
@@ -114,12 +114,7 @@ class HomePageContainer extends React.Component {
             Toast.info('请先登录', 1);
             return;
         }
-
-        if ([2,5,6,7].indexOf(u.userType) > -1 || (u.userType === 3 && [2,5,6,7].indexOf(a.userType) > -1)) {
-            this.props.history.push('/my/mydaiyan');
-        } else {
-            Toast.info('您没有代言卡',1);
-        }
+        this.props.history.push('/my/mydaiyan');
     }
 
     // 我的推广客户被点击
@@ -194,7 +189,7 @@ class HomePageContainer extends React.Component {
               <div className="item tran2 hide page-flex-row all_active" onClick={() => this.onDaShiClick()}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
-                  <div className="info">{(u && u.userType !== 4) ? this.getNameByUserType(this.props.ambassador ? this.props.ambassador.userType : '') : ''}</div>
+                  <div className="info">{this.props.ambassador ? (this.props.ambassador.nickName || this.props.ambassador.realName) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

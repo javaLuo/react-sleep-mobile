@@ -176,19 +176,19 @@ class HomePageContainer extends React.Component {
                 <div className="title"><span>商城产品购买权</span></div>
                 <ul className="ul page-flex-row">
                     <li>
-                        <img src={[2,3,4,5].includes(this.state.page) ? ImgB1 : ImgB2} />
+                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgB1 : ImgB2} />
                         <div>净水服务</div>
                     </li>
                     <li>
-                        <img src={[2,3,4,5].includes(this.state.page) ? ImgC1 : ImgC2} />
+                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgC1 : ImgC2} />
                         <div>健康食品</div>
                     </li>
                     <li>
-                        <img src={[2,3,4,5].includes(this.state.page) ? ImgD1 : ImgD2} />
+                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgD1 : ImgD2} />
                         <div>生物理疗</div>
                     </li>
                     <li>
-                        <img src={[2,3,4,5].includes(this.state.page) ? ImgE1 : ImgE2} />
+                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgE1 : ImgE2} />
                         <div>健康评估</div>
                     </li>
                 </ul>
