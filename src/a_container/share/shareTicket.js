@@ -20,6 +20,7 @@ import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
 import ImgTitle from '../../assets/share/zenSongKa.png';
 import ImgOut24Hour from '../../assets/share/tuihui@3x.png'; // 超过24小时未领取图标
 import ImgOutTime from '../../assets/share/guoqi24@3x.png'; // 卡本身过期图标
+import ImgLingQu from '../../assets/share/lingqu@3x.png'; // 已被领取
 // ==================
 // 本页面所需action
 // ==================
@@ -36,6 +37,8 @@ class HomePageContainer extends React.Component {
             productData: {}, // 分享的卡片信息
             imgCode: '',  // 分享的二维码、
             isExpired: false, // 卡是否超过24小时
+            isReceived: false,  // 卡是否已被领取
+            isTicketExpired: false, // 卡是否已过期
         };
     }
 
@@ -64,25 +67,29 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     imgCode: res.data.qrcode,
                     isExpired: res.data.isExpired,
+                    isReceived: res.data.isReceived,
+                    isTicketExpired: res.data.isTicketExpired,
                 });
             }
         });
     }
 
     // 各异常状态 0正常，1卡过期，2领取时间超24小时
-    makeAbnormal(d) {
+    makeAbnormal() {
         let abnormal = 0;
-        if (new Date(`${d.date} 23:59:59`).getTime() - new Date().getTime() < 0) {  // 卡本身已过期
+        if (this.state.isReceived) {    // 卡已被领取
             abnormal = 1;
-        } else if (this.state.isExpired) { // 超过24小时
+        }else if (this.state.isTicketExpired) {  // 卡本身已过期
             abnormal = 2;
+        } else if (this.state.isExpired) { // 超过24小时
+            abnormal = 3;
         }
         return abnormal;
     }
 
     render() {
         const d = this.state.data;
-        const type = this.makeAbnormal(d);
+        const type = this.makeAbnormal();
 
         return (
             <div className="flex-auto page-share-ticket">
@@ -113,8 +120,9 @@ class HomePageContainer extends React.Component {
                             </div>
                             {(() => {
                                 switch(type) {
-                                    case 1: return <img className="card-state" src={ImgOutTime} />;
-                                    case 2: return <img className="card-state" src={ImgOut24Hour} />;
+                                    case 1: return <img className="card-state" src={ImgLingQu} />;
+                                    case 2: return <img className="card-state" src={ImgOutTime} />;
+                                    case 3: return <img className="card-state" src={ImgOut24Hour} />;
                                     default: return null;
                                 }
                             })()}

@@ -160,7 +160,7 @@ class HomePageContainer extends React.Component {
         const dateTime = new Date().getTime();
         const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.ticketNo}_${encodeURIComponent(obj.validEndTime.split(' ')[0])}_${dateTime}`;
       if(tools.isWeixin() && obj.handsel) { // 是微信系统才能分享
-          alert('确认赠送?','赠送后您的券将转移给对方，您将无法再查看该券', [
+          alert('确认赠送?','赠送后您的券将转移给对方，您将无法再查看该券，该赠送24小时内有效', [
               { text: '取消', onPress: () => console.log('cancel') },
               { text: '确认', onPress: () => new Promise((resolve, rej) => {
                   wx.onMenuShareAppMessage({

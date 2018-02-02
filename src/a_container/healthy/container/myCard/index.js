@@ -168,7 +168,7 @@ class HomePageContainer extends React.Component {
       e.stopPropagation();
       console.log('要分享的信息：', obj);
       if(tools.isWeixin() && obj.handsel) { // 是微信中并且卡的状态正常才能分享
-          alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡', [
+          alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡，该赠送24小时内有效', [
               { text: '取消', onPress: () => console.log('cancel') },
               {
                   text: '确认',

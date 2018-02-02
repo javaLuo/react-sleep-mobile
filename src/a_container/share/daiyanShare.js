@@ -67,7 +67,7 @@ class Register extends React.Component {
         this.props.actions.shareBuild({ userId: temp[0], shareType: 0 }).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    imgCode: res.data,
+                    imgCode: res.data.qrcode,
                 });
             }
         });

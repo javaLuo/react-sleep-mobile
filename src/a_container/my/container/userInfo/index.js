@@ -148,7 +148,8 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item page-flex-row all_active mt" onClick={() => this.onAddrClick()}>
                   <div className="title">收货地址</div>
-                  <div className="info mr"><div className="arrow"><img src={ImgRight} /></div></div>
+                  <div className="info mr"></div>
+                  <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active">
