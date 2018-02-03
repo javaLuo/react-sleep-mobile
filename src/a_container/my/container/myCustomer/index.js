@@ -58,6 +58,21 @@ class HomePageContainer extends React.Component {
         }
   }
 
+    // 工具 - 通过用户类型type获取对应的称号
+    getNameByUserType(type) {
+        switch(String(type)){
+            case '0': return '体验版经销商';
+            case '1': return '微创版经销商';
+            case '2': return '个人版经销商';
+            case '3': return '分享用户';
+            case '4': return '普通用户';
+            case '5': return '企业版经销商';
+            case '6': return '企业版经销商'; // 子账户
+            case '7': return '分销用户';
+            default: return '';
+        }
+    }
+
   render() {
     return (
       <div className="page-customer">
@@ -67,10 +82,10 @@ class HomePageContainer extends React.Component {
                       return <li key={index} className="page-flex-row flex-ai-center">
                           <div className="photo flex-none"><img src={item.headImg || ImgDefault} /></div>
                           <div className="name flex-auto">
-                              <div>{item.nickName}</div>
+                              <div className="all_nowarp">{item.nickName}</div>
                               <div className="lit">e家号：{item.id}</div>
+                              <div className="lit mt">身份：{this.getNameByUserType(item.userType)}<span>{item.ambassadorTime}</span></div>
                           </div>
-                          <div className="num flex-none">{item.ambassadorTime}</div>
                       </li>;
                   }) : <li key={0} className="data-nothing">
                       <img src={Img404}/>

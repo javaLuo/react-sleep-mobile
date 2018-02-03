@@ -533,6 +533,14 @@ export function saveFreeCardInfo(payload = {}) {
     };
 }
 
+// 我的客户 - 主账号进入子账号，保存子账号信息，因为下一个页面要用
+export function saveSonInInfo(payload = {}) {
+    return {
+        type: 'MY::saveSonInInfo',
+        payload,
+    };
+}
+
 // 修改卡的分享状态
 export const ticketHandsel = (params = {}) => async(dispatch) => {
     try {

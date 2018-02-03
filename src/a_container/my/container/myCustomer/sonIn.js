@@ -1,4 +1,4 @@
-/* 我的e家 - 我的客户 - 企业版主账号点击进入此页面 */
+/* 我的e家 - 我的客户 - 企业版子账号点击进入此页面 */
 
 // ==================
 // 所需的各种插件
@@ -41,7 +41,7 @@ class HomePageContainer extends React.Component {
     }
 
     getData() {
-        const u = this.props.userinfo;
+        const u = this.props.sonInfo;
         if (!u) {
             return;
         }
@@ -76,10 +76,10 @@ class HomePageContainer extends React.Component {
     }
 
     render() {
-        const u = this.props.userinfo || {};
+        const u = this.props.sonInfo || {};
         return (
             <div className="page-primary">
-                {u.id && <div className="data-title">主账号</div>}
+                {u.id && <div className="data-title">子账号</div>}
                 {u.id && <ul className="data-list">
                     <li className="page-flex-row flex-ai-center">
                         <div className="photo flex-none"><img src={u.headImg} /></div>
@@ -121,7 +121,7 @@ HomePageContainer.propTypes = {
     location: P.any,
     history: P.any,
     actions: P.any,
-    userinfo: P.any,
+    sonInfo: P.any,
 };
 
 // ==================
@@ -130,7 +130,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
     (state) => ({
-        userinfo: state.app.userinfo,
+        sonInfo: state.shop.sonInfo,
     }),
     (dispatch) => ({
         actions: bindActionCreators({ getMyCustomers }, dispatch),

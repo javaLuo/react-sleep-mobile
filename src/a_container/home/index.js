@@ -47,7 +47,7 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
-    console.log('图片：', this.props.homePics);
+    const u = this.props.userinfo;
     return (
       <div className="flex-auto page-box home-page">
           {/* 顶部轮播 */}
@@ -62,7 +62,7 @@ class HomePageContainer extends React.Component {
                       {this.props.homePics.map((item, index) => (
                           <a
                               key={index}
-                              href={item.url}
+                              href={u ? `${item.url}&e=${u.id}` : item.url}
                               style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                               target="_blank"
                           >
@@ -128,6 +128,7 @@ HomePageContainer.propTypes = {
   actions: P.any,
   allProducts: P.array, // 所有的产品
     homePics: P.array,  // 首页顶部轮播图
+    userinfo: P.any,
 };
 
 // ==================
@@ -138,6 +139,7 @@ export default connect(
   (state) => ({
       allProducts: state.shop.allProducts,  // 所有的产品  数组
       homePics: state.shop.homePics,  // 首页顶部轮播图
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ getProDuctList, mallApList, mallCardCreate }, dispatch),

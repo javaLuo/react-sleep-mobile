@@ -144,7 +144,7 @@ class HomePageContainer extends React.Component {
       if (u && u.id) {  // 有用户信息
           str = `&e=${u.id}`;
       }
-      window.open(`http://www.huiyuzixun.cn/index.php?m=book&f=browse&t=mhtml&bookID=3&e=${str}`);
+      window.open(`http://e.yimaokeji.com/index.php?m=book&f=browse&t=mhtml&nodeID=385${str}`);
     }
 
   render() {

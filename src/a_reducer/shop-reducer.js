@@ -56,6 +56,7 @@ const initState = {
     proDetail: {},      // 从收益详情点击一条数据时，保存此条数据的信息，以便下一个页面使用
     freeCardInfo: {},   // 从我的优惠卡点击一条数据时，保存
     upAddrData: null,   // 当前编辑的收货地址信息
+    sonInfo: null,      // 我的客户，主账号进入子账号要用
 };
 
 // ============================================
@@ -197,9 +198,15 @@ const saveFreeCardInfo = (state, action) => {
 
 const onSaveUpAddrNow = (state, action) => {
     const { payload } = action;
-    console.log('到了没有2：', payload);
     return Object.assign({}, state, {
         upAddrData: payload,
+    });
+};
+
+const saveSonInInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        sonInfo: payload,
     });
 };
 
@@ -242,6 +249,8 @@ const reducerFn = (state = initState, action) => {
             return saveFreeCardInfo(state, action);
         case 'ADDR::onSaveUpAddrNow':
             return onSaveUpAddrNow(state, action);
+        case 'MY::saveSonInInfo':
+            return saveSonInInfo(state, action);
         default:
             return actDefault(state, action);
     }

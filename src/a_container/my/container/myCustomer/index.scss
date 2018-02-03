@@ -4,6 +4,7 @@
   .data-list{
     display: block;
     &>li{
+      position: relative;
       background-color: #fff;
       box-sizing: border-box;
       padding: .3rem;
@@ -21,9 +22,17 @@
       .name{
         margin-left: .3rem;
         font-size: .32rem;
+        width: calc(100vw - 1.9rem);
+        &>div{
+          width: 100%;
+        }
         .lit{
           font-size: .28rem;
-          color: #aaa;
+          color: #888;
+          margin-top: .1rem;
+          span{
+            float: right;
+          }
         }
       }
       .num{

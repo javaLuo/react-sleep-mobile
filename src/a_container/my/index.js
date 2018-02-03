@@ -35,6 +35,7 @@ import CheckPwd from './container/checkPwd';
 import MyCustomer from './container/mycustomer';
 import Primary from './container/mycustomer/primary';
 import PrimaryIn from './container/mycustomer/primaryIn';
+import SonIn from './container/mycustomer/sonIn';
 import FavCardsDetail from './container/favCardsDetail';
 import MyFavCards from './container/myFavCards';
 import Addr from './container/addr';
@@ -82,6 +83,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/mycustomer/:id`} component={MyCustomer} />
               <Route exact path={`${this.props.match.url}/primary`} component={Primary} />
               <Route exact path={`${this.props.match.url}/primaryin`} component={PrimaryIn} />
+              <Route exact path={`${this.props.match.url}/sonin`} component={SonIn} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
               <Route path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
               <Route path={`${this.props.match.url}/addr`} component={Addr} />

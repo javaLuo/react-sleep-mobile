@@ -21,7 +21,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { getCustomersCompany } from '../../../../a_action/shop-action';
+import { getCustomersCompany, saveSonInInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -66,7 +66,23 @@ class HomePageContainer extends React.Component {
     }
     // 子账号被点击
     onSonClick(item) {
-        this.props.history.push(`/my/mycustomer/${item.id}`);
+        this.props.actions.saveSonInInfo(item); // 将当前选中存入store
+        this.props.history.push(`/my/sonin`);
+    }
+
+    // 工具 - 通过用户类型type获取对应的称号
+    getNameByUserType(type) {
+        switch(String(type)){
+            case '0': return '体验版经销商';
+            case '1': return '微创版经销商';
+            case '2': return '个人版经销商';
+            case '3': return '分享用户';
+            case '4': return '普通用户';
+            case '5': return '企业版经销商';
+            case '6': return '企业版经销商'; // 子账户
+            case '7': return '分销用户';
+            default: return '';
+        }
     }
 
     render() {
@@ -78,13 +94,13 @@ class HomePageContainer extends React.Component {
                     <li className="page-flex-row flex-ai-center" onClick={() => this.onPrimaryClick()}>
                         <div className="photo flex-none"><img src={u.headImg} /></div>
                         <div className="name flex-auto">
-                            <div>{u.nickName}</div>
+                            <div className="all_nowarp">{u.nickName}</div>
                             <div className="lit">e家号：{u.id}</div>
+                            <div className="lit mt">身份：{this.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
                         </div>
-                        <div className="num flex-none">{u.bindTime}</div>
                     </li>
                 </ul>}
-                <div className="data-title">子账号</div>
+                <div className="data-title">子账号<span style={{ float: 'right' }}>总计：{this.state.data ? this.state.data.filter((item) => item.userType === 6).length : '0'}人</span></div>
                 <ul className="data-list">
                     {
                         this.state.data.length ? this.state.data.filter((item) => {
@@ -93,14 +109,14 @@ class HomePageContainer extends React.Component {
                             return <li key={index} className="page-flex-row flex-ai-center" onClick={() => this.onSonClick(item)}>
                                 <div className="photo flex-none"><img src={item.headImg || ImgDefault} /></div>
                                 <div className="name flex-auto">
-                                    <div>{item.nickName}</div>
+                                    <div className="all_nowarp">{item.nickName}</div>
                                     <div className="lit">e家号：{item.id}</div>
+                                    <div className="lit">身份：{this.getNameByUserType(item.userType)}<span>{item.ambassadorTime}</span></div>
                                 </div>
-                                <div className="num flex-none">{item.bindTime}</div>
                             </li>;
                         }) : <li key={0} className="data-nothing">
                             <img src={Img404}/>
-                            <div>没有查询到子账号</div>
+                            <div>亲，这里什么也没有哦~</div>
                         </li>
                     }
                 </ul>
@@ -129,6 +145,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getCustomersCompany }, dispatch),
+        actions: bindActionCreators({ getCustomersCompany, saveSonInInfo }, dispatch),
     })
 )(HomePageContainer);

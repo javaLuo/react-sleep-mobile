@@ -111,6 +111,29 @@ class HomePageContainer extends React.Component {
         }
     }
 
+    /**
+     * 产品分销权，亮还是不亮，真尼玛服了
+     * @page: 当前处于哪一页，处于分销用户页时，需动态亮与不亮
+     * @a: 亮的图片
+     * @b: 不亮的图片
+     * @type: 1-智能净水,2-健康食品,3-生物理疗,4-健康睡眠,5-健康体检
+     * **/
+    youWantLight(page, a, b, type){
+      if([0, 1].includes(page)) {
+          return b;
+      } else if ([2].includes(page)) {  // 处于分销用户页
+          const u = this.props.userinfo;
+          const p = (u && u.incomePermission) ? u.incomePermission.split(',') : [];
+          if (p.includes(String(type))) {
+              return a;
+          } else {
+              return b;
+          }
+      } else {
+          return a;
+      }
+    }
+
   render() {
     const u = this.props.userinfo || {};
     return (
@@ -197,25 +220,25 @@ class HomePageContainer extends React.Component {
                 <div className="title"><span>产品分销权</span></div>
                 <ul className="card-ul" key='1'>
                     <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.state.page >= 2 ? ImgB1 : ImgB2} /></div>
+                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgB1, ImgB2, 1)} /></div>
                         <div className="info-box flex-auto">
                             <div className="t">净水服务</div>
                         </div>
                     </li>
                     <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgC1 : ImgC2} /></div>
+                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgC1, ImgC2, 2)} /></div>
                         <div className="info-box flex-auto">
                             <div className="t">健康食品</div>
                         </div>
                     </li>
                     <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgD1 : ImgD2} /></div>
+                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgD1, ImgD2, 3)} /></div>
                         <div className="info-box flex-auto">
                             <div className="t">生物理疗</div>
                         </div>
                     </li>
                     <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.state.page >= 3 ? ImgE1 : ImgE2} /></div>
+                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgE1, ImgE2, 5)} /></div>
                         <div className="info-box flex-auto">
                             <div className="t">健康评估</div>
                         </div>
