@@ -176,7 +176,12 @@ class HomePageContainer extends React.Component {
               >
                   <Item arrow={'horizontal'}>所在区域</Item>
               </Picker>
-              <InputItem clear value={this.state.formAddr} onChange={(v) => this.onAddrChange(v)}>详细地址</InputItem>
+              <InputItem
+                  clear
+                  value={this.state.formAddr}
+                  onChange={(v) => this.onAddrChange(v)}
+                  placeholder={'请输入详细地址信息'}
+              >详细地址</InputItem>
           </List>
           <div className="page-footer">
               <Button type="primary" onClick={() => this.onSubmit()}>保存</Button>
