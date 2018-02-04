@@ -55,8 +55,36 @@
       }
     }
   }
+  .shouyi{
+    text-align: center;
+    background-color: #fff;
+    padding: .3rem;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    .title{
+      font-size: .32rem;
+      color: #999ca0;
+    }
+    .money{
+      font-size: .36rem;
+      color: #222;
+      margin-top: .2rem;
+    }
+  }
   .dit{
     float: left;
     font-size: 48px;
+  }
+  .mt{
+    margin-top: .2rem;
+  }
+  .am-list-body{
+    &:before{
+      display: none !important;
+    }
+    &::after{
+      display: none !important;
+    }
   }
 }

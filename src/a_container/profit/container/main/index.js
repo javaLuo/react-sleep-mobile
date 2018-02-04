@@ -40,7 +40,6 @@ class HomePageContainer extends React.Component {
       document.title = '收益管理';
       const me = this;
       if (!this.props.userinfo) {   // 没有获取到用户信息，直接返回
-        this.props.history.go(-1);
         return;
       }
       // setTimeout是因为初次加载时，CSS可能还没加载完毕，导致图表样式有问题
@@ -137,8 +136,28 @@ class HomePageContainer extends React.Component {
                   })
               }
           </ul>
+          <div className="shouyi page-flex-row">
+              <div className="flex-1">
+                  <div className="title">已结算金额</div>
+                  <div className="money">￥11.00</div>
+              </div>
+              <div className="flex-1">
+                  <div className="title">可结算金额</div>
+                  <div className="money">￥111.00</div>
+              </div>
+              <div className="flex-1">
+                  <div className="title">待结算金额</div>
+                  <div className="money">￥1.00</div>
+              </div>
+          </div>
           <List>
               <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/prodetail')}>收益明细</Item>
+          </List>
+          <List className="mt">
+              <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/tixian')} extra={<span style={{ color: '#4191F8'}}>￥150.00</span>}>我要提现</Item>
+          </List>
+          <List>
+              <Item arrow="horizontal" >提现记录</Item>
           </List>
       </div>
     );

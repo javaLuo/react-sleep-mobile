@@ -18,6 +18,9 @@ import { Switch, Route } from 'react-router-dom';
 import Main from './container/main';
 import ProDetail from './container/proDetail';
 import ProDetails from './container/proDetails';
+import Tixian from './container/tiXian';
+import TixianNow from './container/tiXian/tiXianNow';
+import TixianDetail from './container/tiXian/tiXianDetail';
 
 // ==================
 // 本页面所需action
@@ -46,6 +49,9 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/`} component={Main} />
             <Route exact path={`${this.props.match.url}/prodetail`} component={ProDetail} />
             <Route exact path={`${this.props.match.url}/prodetails/:id`} component={ProDetails} />
+            <Route exact path={`${this.props.match.url}/tixian`} component={Tixian} />
+            <Route exact path={`${this.props.match.url}/tixiannow`} component={TixianNow} />
+            <Route exact path={`${this.props.match.url}/tixiandetail`} component={TixianDetail} />
           </Switch>
         </div>
     );

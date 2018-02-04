@@ -1,0 +1,44 @@
+.page-tixiandetail{
+  .step-box{
+    box-sizing: border-box;
+    padding: 15px;
+    .am-steps-item-content{
+      margin-top: 12px;
+    }
+    .am-steps-item-title{
+      color: #222;
+      font-weight: normal;
+    }
+  }
+  .step-icon{
+    width: 24px;
+    height: 24px;
+  }
+  .info-box{
+    padding: .2rem;
+    background-color: #fff;
+    margin-top: .2rem;
+    &>div{
+      padding: .1rem 0;
+      &>div{
+        &:first-child{
+          color: #aaa;
+        }
+        &:last-child{
+          color: #25292e;
+        }
+      }
+    }
+  }
+  .mt{
+    margin-top: .2rem;
+  }
+  .am-list-body{
+    &:before{
+      display: none !important;
+    }
+    &::after{
+      display: none !important;
+    }
+  }
+}

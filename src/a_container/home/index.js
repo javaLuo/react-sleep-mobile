@@ -81,7 +81,7 @@ class HomePageContainer extends React.Component {
               ) : <div style={{ width: '100%', height: '2rem', backgroundColor: '#f0f0f0' }}/>
           }
 
-          {/* 最新资讯 */}
+          {/* 所有产品 */}
           {
             this.props.allProducts.map((theType, i) => {
               return (
@@ -100,8 +100,14 @@ class HomePageContainer extends React.Component {
                                       <div className="i flex-auto">
                                         <div className="all_nowarp2" />
                                       </div>
-                                      <div className="k page-flex-row flex-jc-end flex-none">
-                                        <span>￥ <i>{item.typeModel.price || '0'}</i></span>
+                                      <div className="k flex-none">
+                                          {
+                                            item.typeId === 1 ? (
+                                                item.typeModel.chargeTypes.map((v, index) => <div key={index} className="water-info">{v.chargeName}</div>)
+                                            ) : (
+                                                <div>￥ <i>{item.typeModel.price || '0'}</i></div>
+                                            )
+                                          }
                                       </div>
                                     </div>
                                   </Link>

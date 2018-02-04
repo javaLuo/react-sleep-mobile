@@ -24,6 +24,7 @@ import ExprShop from './container/exprShop';
 import ExprShop2 from './container/exprShop2';
 import Pay from './container/pay';
 import PayResult from './container/payresult';
+import ChoseAddr from './container/choseAddr';
 // ==================
 // 本页面所需action
 // ==================
@@ -53,6 +54,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/becomedealer`} component={BecomeDealer} />
               <Route exact path={`${this.props.match.url}/exprshop`} component={ExprShop} />
               <Route exact path={`${this.props.match.url}/exprshop2`} component={ExprShop2} />
+              <Route exact path={`${this.props.match.url}/choseaddr`} component={ChoseAddr} />
           </Switch>
       </div>
     );

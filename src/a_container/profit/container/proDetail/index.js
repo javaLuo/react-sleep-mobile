@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { List, DatePicker, Toast, Picker } from 'antd-mobile';
+import { List, Toast, Picker } from 'antd-mobile';
 import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 // ==================

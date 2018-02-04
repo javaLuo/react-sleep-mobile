@@ -173,7 +173,6 @@ export const wxInit = (params = {}) => async(dispatch) => {
 };
 
 // 商品详情页 - 立即下单，保存计费方式和购买数量
-// 保存菜单层级数据，别的地方可随时使用
 export function shopStartPreOrder(params, nowProduct) {
     return {
         type: 'SHOP::shopStartPreOrder',
@@ -186,6 +185,14 @@ export function shopStartPreOrder(params, nowProduct) {
 export function shopStartPayOrder(params) {
     return {
         type: 'SHOP::shopStartPayOrder',
+        params,
+    };
+}
+
+// 选择收货地址
+export function saveShopAddr(params) {
+    return {
+        type: 'SHOP::saveShopAddr',
         params,
     };
 }

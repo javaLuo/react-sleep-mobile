@@ -11,13 +11,15 @@ const initState = {
         params: {       // 当前下单所需参数，购买数量，支付方式等等
             count: 0,           // 购买数量
             feeType: null,      // 收费类型ID
-            serviceTime: null,  // 服务时间
+            serviceTime: null,  // 服务时间(水机安装时间)
             openAccountFee: 0,  // 开户费
             fee: 0,             // 总价
             payType: null,      // 支付方式ID
             isPay: false,        // 是否支付
             orderFrom: 2,       // 来源： 1:App, 2:微信，3：经销商
+            addrId: null,       // 收货地址ID（除了体检卡，都有）
         },
+        addr: null,             // 所选择的收货地址信息，用于展示
     },
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
@@ -210,6 +212,15 @@ const saveSonInInfo = (state, action) => {
     });
 };
 
+const saveShopAddr = (state, action) => {
+    const { params } = action;
+    const orderParams = _.cloneDeep(state.orderParams);
+    orderParams.params = Object.assign({}, state.orderParams.params, {addrId: params.id});
+    orderParams.addr = params;
+    return Object.assign({}, state, {
+        orderParams,
+    });
+};
 // ============================================
 // reducer function
 
@@ -251,6 +262,8 @@ const reducerFn = (state = initState, action) => {
             return onSaveUpAddrNow(state, action);
         case 'MY::saveSonInInfo':
             return saveSonInInfo(state, action);
+        case 'SHOP::saveShopAddr':
+            return saveShopAddr(state, action);
         default:
             return actDefault(state, action);
     }

@@ -14,14 +14,14 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { Carousel, List, Stepper, Modal, Button, Toast } from 'antd-mobile';
+import { Carousel, List, Stepper, Modal, Button, Toast, Picker } from 'antd-mobile';
 import imgDefault from '../../../../assets/logo-img.png';
 
 // ==================
 // 本页面所需action
 // ==================
 
-import { productById, shopStartPreOrder, getAllChargeTypes, appUserCheckBuy } from '../../../../a_action/shop-action';
+import { productById, shopStartPreOrder, appUserCheckBuy } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -33,7 +33,6 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: null, // 当前商品数据
-        jifeiShow: false,   //  计费选择框是否显示
         formJifei: null,   // 当前选择的计费方式
         formCount: 1,   // 购买数量
         loading: false, // 是否正在异步请求中
@@ -41,17 +40,12 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      console.log('locationAAA:', this.props.location);
       document.title = '商品详情';
       // 通过URL中传来的商品ID获取商品信息
       const id = Number(this.props.location.pathname.split('/').reverse()[0]);
       if(!isNaN(id)) {
           this.getData(id);
       }
-      // 获取所有收费方式 暂时没有收费方式
-      // if (!this.props.allChargeTypes.length) {
-      //     this.getAllChargeTypes();
-      // }
   }
 
   // 获取原始数据
@@ -67,10 +61,13 @@ class HomePageContainer extends React.Component {
     });
   }
 
-  // 获取收费方式
-    getAllChargeTypes() {
-      this.props.actions.getAllChargeTypes();
-  }
+  // 构建计费方式所需数据
+    makeJiFeiData(data) {
+      const d = data && data.typeModel && data.typeModel.chargeTypes ? data.typeModel.chargeTypes : [];
+      return d.map((item) => {
+          return { label: item.chargeName, value: item.id };
+      });
+    }
 
   // 工具 - 根据Code获取销售方式
   getNameBySaleMode(code) {
@@ -92,46 +89,16 @@ class HomePageContainer extends React.Component {
             default: return '';
         }
     }
-  // 工具 - 根据收费方式ID查询收费方式名称
-    getNameByChargeID(id) {
-
-      const t = this.props.allChargeTypes.find((item) => item.id === id);
-      return t ? t.dicValue : '';
-    }
-
-  // 计费方式选择 弹窗出现 水机专用
-  onChoseJiFei() {
-    this.setState({
-        jifeiShow: true,
-    });
-  }
-
-  // 计费方式 关闭
-  onJiFeiClose() {
-      this.setState({
-          jifeiShow: false,
-      });
-  }
 
   // 计费方式选择确定
   onJiFeiChose(id) {
     this.setState({
         formJifei: id,
-        jifeiShow: false,
     });
   }
 
   // 购买数量改变时触发
   onCountChange(v) {
-      // if (!this.state.data || !this.state.data.amount) {
-      //     Toast.fail('该商品暂时无货');
-      //     return;
-      // }
-      // if (v <= this.state.data.amount) {
-      //     this.setState({
-      //         formCount: v,
-      //     });
-      // }
       this.setState({
           formCount: v,
       });
@@ -155,20 +122,17 @@ class HomePageContainer extends React.Component {
           this.props.history.replace(`/my/bindphone`);
           return false;
       }else if (!this.state.formCount){
-          Toast.fail('请选择购买数量',1);
+          Toast.info('请选择购买数量',1);
           return false;
+      } else if (this.state.data.typeId === 1 && !this.state.formJifei) { // 水机需要选择计费方式
+          Toast.info('请选择计费方式', 1);
+          return;
       }
-
-      // const params = { count: this.state.formCount, feeType: this.state.formJifei };
-      // const nowProduct = this.state.data;
-      // this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
-      // this.props.history.push('/shop/confirmpay');
-      // return;
 
       // 检查当前用户是否有权限购买当前物品
       this.props.actions.appUserCheckBuy({ productType: String(this.state.data.typeName.code) }).then((res) => {
             if (res.status === 200) { // 有权限
-                const params = { count: this.state.formCount, feeType: this.state.formJifei };
+                const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
                 const nowProduct = this.state.data;
                 this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
                 this.props.history.push('/shop/confirmpay');
@@ -188,7 +152,6 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
-      console.log('有了吗：', this.props.allChargeTypes);
       const d = this.state.data;
     return (
       <div className="flex-auto page-box gooddetail-page">
@@ -216,16 +179,30 @@ class HomePageContainer extends React.Component {
                   <div className="cost">￥ <span>{d && d.typeModel.price}</span></div>
               </div>
               <div className="server page-flex-row">
-                  <div>运费：￥0</div>
+                  <div>运费：￥{d && d.typeModel ? (d.typeModel.shipFee || 0) : 0}</div>
                   <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
                   <div>已售：{d && (d.buyCount || 0)}张</div>
               </div>
           </div>
           {/* List */}
           <List>
-              {/*<Item extra={this.getNameByChargeID(this.state.formJifei)} arrow="horizontal" multipleLine onClick={() => this.onChoseJiFei()}>收费方式</Item>*/}
-              <Item extra={<Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>选择数量</Item>
-              <Item extra={this.getNameByChargeID(this.state.formJifei)} onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>查看适用体验店</Item>
+              <Item extra={ d && d.typeId === 1 ? '1' : <Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
+              {
+                  /** 只有水机有计费方式选择(typeId === 1) **/
+                  d && d.typeId === 1 ? (
+                      <Picker
+                          data={this.makeJiFeiData(d)}
+                          extra={''}
+                          value={this.state.formJifei}
+                          cols={1}
+                          onOk={(v) => this.onJiFeiChose(v)}
+                      >
+                          <Item arrow="horizontal">计费方式</Item>
+                      </Picker>
+                  ) : null
+              }
+
+              <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>查看适用体验店</Item>
           </List>
           <div className="detail-box">
               {(d && d.detailImg) ? <img src={d.detailImg} /> : null}
@@ -233,18 +210,6 @@ class HomePageContainer extends React.Component {
           <div className="play">
               <Button type="primary" onClick={() => this.onSubmit()}>立即下单</Button>
           </div>
-          <Modal
-              popup
-              visible={this.state.jifeiShow}
-              animationType="slide-up"
-              onClose={() => this.onJiFeiClose()}
-          >
-              <div style={{ padding: '10px' }}>
-                  {this.props.allChargeTypes.map((item, index) => {
-                     return <Button key={index} className="jifei-btn" type="primary" onClick={() => this.onJiFeiChose(item.id)}>{item.dicValue}</Button>;
-                  })}
-              </div>
-          </Modal>
       </div>
     );
   }
@@ -258,7 +223,6 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-  allChargeTypes: P.array,
   userinfo: P.any,
 };
 
@@ -272,6 +236,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById, shopStartPreOrder, getAllChargeTypes, appUserCheckBuy}, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy}, dispatch),
   })
 )(HomePageContainer);
