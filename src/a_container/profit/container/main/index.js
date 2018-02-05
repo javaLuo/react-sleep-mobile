@@ -155,9 +155,7 @@ class HomePageContainer extends React.Component {
           </List>
           <List className="mt">
               <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/tixian')} extra={<span style={{ color: '#4191F8'}}>￥150.00</span>}>我要提现</Item>
-          </List>
-          <List>
-              <Item arrow="horizontal" >提现记录</Item>
+              <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/tixianrecord')}>提现记录</Item>
           </List>
       </div>
     );

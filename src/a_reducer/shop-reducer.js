@@ -221,6 +221,16 @@ const saveShopAddr = (state, action) => {
         orderParams,
     });
 };
+
+const setDefaultAttr = (state, action) => {
+    const { payload } = action;
+    const orderParams = _.cloneDeep(state.orderParams);
+    orderParams.params = Object.assign({}, state.orderParams.params, {addrId: payload.id});
+    orderParams.addr = payload;
+    return Object.assign({}, state, {
+        orderParams,
+    });
+};
 // ============================================
 // reducer function
 
@@ -264,6 +274,8 @@ const reducerFn = (state = initState, action) => {
             return saveSonInInfo(state, action);
         case 'SHOP::saveShopAddr':
             return saveShopAddr(state, action);
+        case 'APP::setDefaultAttr':
+            return setDefaultAttr(state, action);
         default:
             return actDefault(state, action);
     }

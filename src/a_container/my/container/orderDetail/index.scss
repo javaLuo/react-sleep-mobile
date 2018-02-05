@@ -47,6 +47,13 @@
     &>div{
       line-height: .6rem;
     }
+    .worker{
+      color: #222;
+      margin-bottom: .3rem;
+    }
+    .basic{
+      margin-bottom: .3rem;
+    }
   }
   .thefooter{
     position: fixed;
@@ -79,6 +86,18 @@
           color: #fff;
         }
       }
+    }
+  }
+  .normal-item.am-list-item {
+    .am-list-thumb {
+      margin: 0 0 0 15px;
+    }
+    .am-list-brief{
+      font-size: .32rem;
+    }
+    img {
+      width: 12px;
+      height: auto;
     }
   }
 }

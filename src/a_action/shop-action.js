@@ -567,3 +567,49 @@ export const getCustomersCompany = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 分页查询提现记录
+export const getCashRecordList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/cashRecord/list', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 检查提现是否符合需求
+export const checkTiXianCan = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/wxpay/cashRecord/check', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 进行提现
+export const startTiXian = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/wxpay/cashRecord/withdraw', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 获取默认地址，没有默认地址就是第1个，1个都没有的话就没有 (下单时专用，会自动设置购买信息中的地址)
+export const getDefaultAttr = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/address/defaultList', params, 'post', true);
+        if(res.status === 200 && res.data) {
+            dispatch({
+                type: 'APP::setDefaultAttr',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

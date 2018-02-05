@@ -21,7 +21,7 @@ import imgDefault from '../../../../assets/logo-img.png';
 // 本页面所需action
 // ==================
 
-import { productById, shopStartPreOrder, appUserCheckBuy } from '../../../../a_action/shop-action';
+import { productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -135,6 +135,10 @@ class HomePageContainer extends React.Component {
                 const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
                 const nowProduct = this.state.data;
                 this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
+                // 实物商品提前查询默认收货地址
+                if (this.state.data.typeId !== 5) {
+                    this.props.actions.getDefaultAttr();
+                }
                 this.props.history.push('/shop/confirmpay');
             } else {
                 alert('温馨提示', '您当前还没有购买该产品的权限哦', [
@@ -236,6 +240,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy}, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr}, dispatch),
   })
 )(HomePageContainer);

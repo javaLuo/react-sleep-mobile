@@ -61,8 +61,8 @@ class HomePageContainer extends React.Component {
       switch(String(type)){
           case '0': return '待付款';
           case '1': return '未受理';
-          case '2': return '已受理';
-          case '3': return '处理中';
+          case '2': return '待发货';
+          case '3': return '已发货';
           case '4': return '已完成';
           case '-1': return '审核中';
           case '-2': return '未通过';
@@ -117,6 +117,30 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    // 返回当前订单的各状态
+    makeType(item) {
+      // 先判断当时是什么类型的产品
+        const type = item.product.typeId;
+        switch(String(item.conditions)){
+            // 待付款
+            case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
+            case '1': return <span style={{ color: '#ccc' }}>未受理</span>;
+            case '2': return null;  // 待发货
+            case '3': return null;  // 待收货
+            // 已完成
+            case '4':
+                const map = [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>];
+                if (type === 5) {   // 精准体检，有查看卡的连接
+                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>);
+                }
+                return map;
+            case '-1': return <span>审核中</span>;
+            case '-2': return <span>未通过</span>;
+            case '-3': return <span>已取消</span>;
+            default: return <span>未知状态</span>;
+        }
+    }
+
   render() {
     return (
       <div className="page-order" style={{ minHeight: '100vh' }}>
@@ -125,9 +149,12 @@ class HomePageContainer extends React.Component {
             tabs={[
                 { title: '全部' },
                 { title: '待付款' },
+                { title: '待发货' },
+                { title: '待收货' },
                 { title: '已完成' }
             ]}
           >
+              {/** 全部 **/}
               <div className="tabs-div">
                   <ul>
                       {
@@ -153,19 +180,7 @@ class HomePageContainer extends React.Component {
                                               </div>
                                           </div>
                                           <div className="controls page-flex-row flex-jc-end">
-                                              {(() => {
-                                                  switch(String(item.conditions)){
-                                                      case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-                                                      case '1': return <span>未受理</span>;
-                                                      case '2': return <span>已受理</span>;
-                                                      case '3': return <span>处理中</span>;
-                                                      case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>];
-                                                      case '-1': return <span>审核中</span>;
-                                                      case '-2': return <span>未通过</span>;
-                                                      case '-3': return <span>已取消</span>;
-                                                      default: return <span>未知状态</span>;
-                                                  }
-                                              })()}
+                                              {this.makeType(item)}
                                           </div>
                                   </li>
                               );
@@ -173,6 +188,7 @@ class HomePageContainer extends React.Component {
                       }
                   </ul>
               </div>
+              {/** 待付款 **/}
               <div className="tabs-div">
                   <ul>
                       {
@@ -198,19 +214,7 @@ class HomePageContainer extends React.Component {
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
-                                          {(() => {
-                                              switch(String(item.conditions)){
-                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-                                                  case '1': return <span>未受理</span>;
-                                                  case '2': return <span>已受理</span>;
-                                                  case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>];
-                                                  case '-1': return <span>审核中</span>;
-                                                  case '-2': return <span>未通过</span>;
-                                                  case '-3': return <span>已取消</span>;
-                                                  default: return <span>未知状态</span>;
-                                              }
-                                          })()}
+                                          {this.makeType(item)}
                                       </div>
                                   </li>
                               );
@@ -218,6 +222,75 @@ class HomePageContainer extends React.Component {
                       }
                   </ul>
               </div>
+              {/** 待发货 **/}
+              <div className="tabs-div">
+                  <ul>
+                      {
+                          this.state.data.filter((item) => item.conditions === 2).map((item, index) => {
+                              return (
+                                  <li className="card-box" key={index}>
+                                      <div className="title page-flex-row flex-jc-sb">
+                                          <span className="num">订单号：{item.id}</span>
+                                          <span className="type">{this.getNameByConditions(item.conditions)}</span>
+                                      </div>
+                                      <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
+                                          <div className="pic flex-none">
+                                              {
+                                                  (item.product && item.product.productImg) ?
+                                                      <img src={item.product.productImg.split(',')[0]} /> : null
+                                              }
+                                          </div>
+                                          <div className="goods flex-auto">
+                                              <div className="t">{item.product ? item.product.name : ''}</div>
+                                              <div className="i">价格：￥{item.product ? item.product.typeModel.price : ''}</div>
+                                              <div className="i">数量：{item.count}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
+                                          </div>
+                                      </div>
+                                      <div className="controls page-flex-row flex-jc-end">
+                                          {this.makeType(item)}
+                                      </div>
+                                  </li>
+                              );
+                          })
+                      }
+                  </ul>
+              </div>
+              {/** 待收货 **/}
+              <div className="tabs-div">
+                  <ul>
+                      {
+                          this.state.data.filter((item) => item.conditions === 3).map((item, index) => {
+                              return (
+                                  <li className="card-box" key={index}>
+                                      <div className="title page-flex-row flex-jc-sb">
+                                          <span className="num">订单号：{item.id}</span>
+                                          <span className="type">{this.getNameByConditions(item.conditions)}</span>
+                                      </div>
+                                      <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
+                                          <div className="pic flex-none">
+                                              {
+                                                  (item.product && item.product.productImg) ?
+                                                      <img src={item.product.productImg.split(',')[0]} /> : null
+                                              }
+                                          </div>
+                                          <div className="goods flex-auto">
+                                              <div className="t">{item.product ? item.product.name : ''}</div>
+                                              <div className="i">价格：￥{item.product ? item.product.typeModel.price : ''}</div>
+                                              <div className="i">数量：{item.count}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count) : ''}</div>
+                                          </div>
+                                      </div>
+                                      <div className="controls page-flex-row flex-jc-end">
+                                          {this.makeType(item)}
+                                      </div>
+                                  </li>
+                              );
+                          })
+                      }
+                  </ul>
+              </div>
+              {/** 已完成 **/}
               <div className="tabs-div">
                   <ul>
                       {
@@ -243,19 +316,7 @@ class HomePageContainer extends React.Component {
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
-                                          {(() => {
-                                              switch(String(item.conditions)){
-                                                  case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-                                                  case '1': return <span>未受理</span>;
-                                                  case '2': return <span>已受理</span>;
-                                                  case '3': return <span>处理中</span>;
-                                                  case '4': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>];
-                                                  case '-1': return <span>审核中</span>;
-                                                  case '-2': return <span>未通过</span>;
-                                                  case '-3': return <span>已取消</span>;
-                                                  default: return <span>未知状态</span>;
-                                              }
-                                          })()}
+                                          {this.makeType(item)}
                                       </div>
                                   </li>
                               );

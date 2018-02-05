@@ -21,6 +21,7 @@ import ProDetails from './container/proDetails';
 import Tixian from './container/tiXian';
 import TixianNow from './container/tiXian/tiXianNow';
 import TixianDetail from './container/tiXian/tiXianDetail';
+import TixianRecord from './container/tiXian/tiXianRecord';
 
 // ==================
 // 本页面所需action
@@ -52,6 +53,7 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/tixian`} component={Tixian} />
             <Route exact path={`${this.props.match.url}/tixiannow`} component={TixianNow} />
             <Route exact path={`${this.props.match.url}/tixiandetail`} component={TixianDetail} />
+            <Route exact path={`${this.props.match.url}/tixianrecord`} component={TixianRecord} />
           </Switch>
         </div>
     );

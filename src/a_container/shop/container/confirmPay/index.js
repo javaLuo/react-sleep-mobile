@@ -131,9 +131,10 @@ class HomePageContainer extends React.Component {
       console.log(d, nowParams);
     return (
       <div className="flex-auto page-box confirm-pay">
-          <List>
-              {
-                  d && d.typeId !== 5 ? (
+
+          {
+              d && d.typeId !== 5 ? (
+                  <List className="mb">
                       <Item
                           thumb={<img src={ImgDiZhi} />}
                           extra={ addr ? null : "请选择收货地址"}
@@ -152,16 +153,19 @@ class HomePageContainer extends React.Component {
                               </Brief>) : null
                           }
                       </Item>
-                  ) : null
-              }
-
+                  </List>
+              ) : null
+          }
+          <List className="mb">
               <Item
                   className={'this-item'}
                 thumb={d.productImg ? <img src={d.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  {d.name}<Brief>&#12288;</Brief>
+                  {d.name}<Brief><span style={{ color: '#fc4800' }}>{d.typeModel.price}</span></Brief>
               </Item>
+          </List>
+          <List>
               <Item extra={d && d.typeId === 1 ? this.state.formCount : <Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
@@ -194,7 +198,7 @@ class HomePageContainer extends React.Component {
                           minDate={new Date(new Date().getTime() + 86400000)}
                           onChange={date => this.onDateChange(date)}
                       >
-                        <Item extra={`￥${d.typeModel.openAccountFee}`}>安装时间</Item>
+                        <Item extra={`￥${d.typeModel.openAccountFee}`} arrow={'horizontal'}>安装时间</Item>
                       </DatePicker>
                   ) : null
               }

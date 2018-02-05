@@ -97,7 +97,7 @@ class HomePageContainer extends React.Component {
 
   render() {
     return (
-      <div className="addr-page">
+      <div className="page-choseaddr">
           <div className="luo-box">
               <Luo
                   id="luo1"

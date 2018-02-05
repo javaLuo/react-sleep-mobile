@@ -1,0 +1,31 @@
+.page-expr-shop{
+  .iscroll-box{
+    height: 100vh;
+  }
+  .card-box{
+    padding: .3rem;
+    background-color: #fff;
+    &+.card-box{
+      margin-top: .2rem;
+    }
+    .l{
+      .title{
+        color: #222328;
+        font-size: .32rem;
+        letter-spacing: 1px;
+      }
+      .info{
+        margin-top: .2rem;
+        font-size: .32rem;;
+        color: #89888e;
+        img{
+          width: .28rem;
+          margin-right: .2rem;
+        }
+      }
+    }
+    .r{
+      font-size: .36rem;
+    }
+  }
+}

@@ -60,11 +60,15 @@ class HomePageContainer extends React.Component {
                     pageSize,
                 });
               } else {  // 查询成功但没有数据
-                this.setState({
-                    data: this.state.data,
-                });
                 if (type === 'update') {
+                    this.setState({
+                        data: this.state.data,
+                    });
                     Toast.info('没有更多数据了', 1);
+                } else {
+                    this.setState({
+                        data: [],
+                    });
                 }
               }
           } else {  // 查询失败

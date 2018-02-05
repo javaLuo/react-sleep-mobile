@@ -46,6 +46,11 @@ class HomePageContainer extends React.Component {
     }
   }
 
+  // 通过产品类型确定用哪一个图
+    getIconByType(id) {
+
+    }
+
   render() {
     const u = this.props.userinfo;
     return (
@@ -80,8 +85,20 @@ class HomePageContainer extends React.Component {
                   </Carousel>
               ) : <div style={{ width: '100%', height: '2rem', backgroundColor: '#f0f0f0' }}/>
           }
-
-          {/* 所有产品 */}
+          {/** 产品bar **/}
+          {/*<div className="list-bar page-flex-row">*/}
+              {/*{*/}
+                {/*this.props.allProducts.map((item, index) => {*/}
+                    {/*return (*/}
+                    {/*<div key={index} className="flex-1">*/}
+                      {/*<img src={this.getIconByType(item.id)} />*/}
+                      {/*<div>{item.name}</div>*/}
+                    {/*</div>*/}
+                    {/*);*/}
+                {/*})*/}
+              {/*}*/}
+          {/*</div>*/}
+          {/* 所有产品列表 */}
           {
             this.props.allProducts.map((theType, i) => {
               return (

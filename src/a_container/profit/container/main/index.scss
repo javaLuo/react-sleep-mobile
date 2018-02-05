@@ -79,12 +79,4 @@
   .mt{
     margin-top: .2rem;
   }
-  .am-list-body{
-    &:before{
-      display: none !important;
-    }
-    &::after{
-      display: none !important;
-    }
-  }
 }

@@ -20,8 +20,8 @@ import ImgLogo from '../../../../assets/dunpai@3x.png';
 // 本页面所需action
 // ==================
 
-import { getVerifyCode, setPwd } from '../../../../a_action/app-action';
-
+import { getVerifyCode } from '../../../../a_action/app-action';
+import { startTiXian } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -38,8 +38,8 @@ class Register extends React.Component {
             verifyCodeInfo: '获取验证码', // 获取验证码按钮显示的内容
             password1: '', // 表单password
             password2: '', // 表单确认password
-            modalCodeShow: false,   // 验证码Modal是否显示
             myVcode: '',    // 后台传来的验证码信息
+            loading: false, // 是否正在submit
         };
         this.timer = null;  // 获取验证码的tiemr
     }
@@ -49,13 +49,6 @@ class Register extends React.Component {
     }
     componentWillUnmount() {
         clearInterval(this.timer);
-    }
-
-    // 验证码模态框关闭
-    onModalCodeClose() {
-        this.setState({
-            modalCodeShow: false,
-        });
     }
 
     // 表单phone输入时
@@ -122,26 +115,11 @@ class Register extends React.Component {
         me.props.actions.getVerifyCode({ mobile: this.props.userinfo.mobile, countryCode: '86' }).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    modalCodeShow: true,
                     myVcode: res.data.text,
                 });
             } else {
                 Toast.fail(res.message || '验证码获取失败',1);
             }
-        });
-    }
-
-    // 密码输入框改变
-    onPassword1Change(e) {
-        this.setState({
-            password1: e,
-        });
-    }
-
-    // 密码输入框2改变
-    onPassword2Change(e) {
-        this.setState({
-            password2: e,
         });
     }
 
@@ -152,32 +130,34 @@ class Register extends React.Component {
             Toast.fail('请先绑定手机号',1);
             return;
         }
-        if(this.state.password1.length < 6){
-            Toast.fail('密码不能少于6位', 1);
-            return;
-        }
-        // if (this.state.password1 !== this.state.password2){
-        //     Toast.fail('两次密码不一致', 1);
-        //     return;
-        // }
         if (!this.state.vcode) {
             Toast.fail('请填写验证码', 1);
             return;
         }
 
         const params = {
-            mobile: u.mobile,
-            countryCode: '86',
+            amount: 1000,
             verifyCode: this.state.vcode,
-            password: this.state.password1,
+            countryCode: 6,
         };
-        this.props.actions.setPwd(params).then((res) => {
+        this.setState({
+            loading: true
+        });
+        this.props.actions.startTiXian(params).then((res) => {
             if (res.status === 200) {
-                Toast.success('设置密码成功', 1);
+                Toast.success('提现成功', 1);
                 this.props.history.go(-1);
             } else {
-                Toast.fail(res.message || '设置失败',1);
+                Toast.fail(res.message || '提现失败',1);
             }
+            this.setState({
+                loading: false
+            });
+        }).catch(() => {
+            Toast.fail('网络错误，请重试');
+            this.setState({
+                loading: false
+            });
         });
     }
 
@@ -238,6 +218,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getVerifyCode, setPwd }, dispatch),
+        actions: bindActionCreators({ getVerifyCode, startTiXian }, dispatch),
     })
 )(Register);
