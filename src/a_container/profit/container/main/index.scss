@@ -95,7 +95,6 @@
   }
 }
 .aq-modal{
-  display: block;
   padding: 15px 0;
   .am-modal-transparent{
     width: 85vw;
@@ -110,6 +109,7 @@
       p{
         font-size: 14px;
         color: #666;
+        margin-bottom: .1rem;
       }
     }
   }

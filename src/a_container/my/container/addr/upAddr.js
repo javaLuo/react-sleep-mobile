@@ -90,7 +90,7 @@ class HomePageContainer extends React.Component {
             kids = data.filter((item) => item.parentId === one.id);
         }
         kids.forEach((item) => item.children = this.recursionAreaData(item, data));
-        return kids.length ? kids : null;
+        return kids;
     }
 
     // 保存

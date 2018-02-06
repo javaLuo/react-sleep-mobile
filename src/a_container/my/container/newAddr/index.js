@@ -66,6 +66,7 @@ class HomePageContainer extends React.Component {
             return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id, level: item.level };
         });
         const areaData = this.recursionAreaData(null, data);
+        console.log('都是什么啊：', areaData);
         this.setState({
             sourceData: areaData || [],
         });
@@ -79,7 +80,7 @@ class HomePageContainer extends React.Component {
             kids = data.filter((item) => item.parentId === one.id);
         }
         kids.forEach((item) => item.children = this.recursionAreaData(item, data));
-        return kids.length ? kids : null;
+        return kids;
     }
 
    // 保存

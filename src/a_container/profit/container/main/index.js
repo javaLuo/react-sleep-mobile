@@ -66,7 +66,7 @@ class HomePageContainer extends React.Component {
                 this.setState({
                     data: res.data.incomeList,
                     totalIncome: res.data.totalIncome,
-                    moneyWait: Number(res.data.canNotBeWithdrawCsh) || 0,
+                    moneyWait: Number(res.data.canNotBeWithdrawCash) || 0,
                     moneyCan: Number(res.data.canBeWithdrawCash) || 0,
                     moneyOk: Number(res.data.totalWithdrawCash) || 0,
                 });
@@ -168,11 +168,11 @@ class HomePageContainer extends React.Component {
                       [
                           <div key={0} className="flex-1">
                               <div className="title">已提现金额</div>
-                              <div className="money">￥{this.state.moneyOk.toFixed(2)}</div>
+                              <div className="money">￥{this.state.moneyOk.toFixed(4)}</div>
                           </div>,
                           <div key={1} className="flex-1">
                               <div className="title">可提现金额</div>
-                              <div className="money">￥{this.state.moneyCan.toFixed(2)}</div>
+                              <div className="money">￥{this.state.moneyCan.toFixed(4)}</div>
                           </div>
                       ]
                   ) : null
@@ -180,7 +180,7 @@ class HomePageContainer extends React.Component {
 
               <div className="flex-1">
                   <div className="title">待结算金额</div>
-                  <div className="money">￥{this.state.moneyWait.toFixed(2)}</div>
+                  <div className="money">￥{this.state.moneyWait.toFixed(4)}</div>
               </div>
           </div>
           <List>
@@ -189,7 +189,7 @@ class HomePageContainer extends React.Component {
           { /** 只有分销用户(type === 7)可以提现 **/
               u && u.userType === 7 ? (
                   <List className="mt">
-                      <Item arrow="horizontal" onClick={() => this.onIWantNow()} extra={<span style={{ color: '#4191F8'}}>￥{this.state.moneyCan.toFixed(2)}</span>}>我要提现</Item>
+                      <Item arrow="horizontal" onClick={() => this.onIWantNow()} extra={<span style={{ color: '#4191F8'}}>￥{this.state.moneyCan.toFixed(4)}</span>}>我要提现</Item>
                       <Item arrow="horizontal" onClick={() => this.props.history.push('/profit/tixianrecord')}>提现记录</Item>
                   </List>
               ) : null
