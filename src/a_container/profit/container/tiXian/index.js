@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
     // 全部提现被点击
     onAllIn() {
       this.setState({
-          howMuch: '1000.00',
+          howMuch: this.props.iwantnow.toFixed(2),
       });
     }
 
@@ -76,7 +76,7 @@ class HomePageContainer extends React.Component {
 
       this.props.actions.checkTiXianCan({ amount: v }).then((res) => {
           if (res.status === 200) {
-              this.props.history.push('/profit/tixiannow');
+              this.props.history.push(`/profit/tixiannow/${v}`);
           } else {
               Toast.fail(res.message || '当前金额不可提现',1);
           }
@@ -86,28 +86,26 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
-      const data = this.props.proDetail;
       const u = this.props.userinfo || {};
     return (
       <div className="page-tixian">
           <List>
               <Item extra={<span style={{ color: '#338CF8' }}>微信零钱</span>}>提现账户</Item>
           </List>
+
           <div className="tixian">
               <div className="t">提现金额:</div>
-              <List>
-                  <InputItem
-                      className="tixian-input"
-                      type={'money'}
-                      placeholder="请输入金额"
-                      onChange={(e) => this.onTixianInput(e)}
-                      moneyKeyboardAlign="left"
-                      value={this.state.howMuch}
-                      clear
-                  >￥</InputItem>
-              </List>
+              <InputItem
+                  className="tixian-input"
+                  type={'money'}
+                  placeholder="请输入金额"
+                  onChange={(e) => this.onTixianInput(e)}
+                  moneyKeyboardAlign="left"
+                  value={this.state.howMuch}
+                  clear
+              >￥</InputItem>
           </div>
-          <div className="tixian-info">可提现金额：￥1000.00，<span onClick={() => this.onAllIn()}>全部提现</span></div>
+          <div className="tixian-info">可提现金额：￥{this.props.iwantnow.toFixed(2)}，<span onClick={() => this.onAllIn()}>全部提现</span></div>
           <div className="info">买家支付后，可获得分销收益，但不可提现。自发货起15天之后，收益可提现。若发货起15天内，买家退货，收益将自动扣除。</div>
           <div className="submit-box"><Button className="submit-btn" type="primary" onClick={() => this.onSubmit()}>立即提现</Button></div>
           <div className="info">
@@ -129,8 +127,8 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
     actions: P.any,
-  proDetail: P.any,
     userinfo: P.any,
+    iwantnow: P.number,
 };
 
 // ==================
@@ -139,8 +137,8 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-      proDetail: state.shop.proDetail,
       userinfo: state.app.userinfo,
+      iwantnow: state.shop.iwantnow,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ checkTiXianCan }, dispatch),

@@ -50,6 +50,7 @@ class HomePageContainer extends React.Component {
 
     componentWillReceiveProps(nextP) {
         if (nextP.areaData !== this.props.areaData) {
+            console.log('触发了没啊：', nextP.areaData);
             this.makeAreaData(nextP.areaData);
         }
     }
@@ -62,18 +63,18 @@ class HomePageContainer extends React.Component {
     // 通过区域原始数据组装Picker所需数据
     makeAreaData(d) {
         const data = d.map((item, index) => {
-            return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id };
+            return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id, level: item.level };
         });
         const areaData = this.recursionAreaData(null, data);
         this.setState({
-            sourceData: areaData,
+            sourceData: areaData || [],
         });
     }
     // 工具 - 递归生成区域层级数据
     recursionAreaData(one, data) {
         let kids;
         if (!one) { // 第1次递归
-            kids = data.filter((item) => !item.parentId);
+            kids = data.filter((item) => item.level === 0);
         } else {
             kids = data.filter((item) => item.parentId === one.id);
         }
@@ -161,6 +162,7 @@ class HomePageContainer extends React.Component {
         });
     }
   render() {
+      console.log('东西呢：', this.state.sourceData);
     return (
       <div className="newaddr-page">
           <List>

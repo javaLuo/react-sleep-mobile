@@ -28,11 +28,19 @@
     margin-top: .2rem;
   }
   .am-list-body{
-    &:before{
+    &::before{
       display: none !important;
     }
     &::after{
       display: none !important;
+    }
+    .am-list-line{
+      &::before{
+        display: none !important;
+      }
+      &::after{
+        display: none !important;
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-/* 健康管理 - 选择体检服务中心 - 用于商品详情页查看适用的体验店（已上线的） */
+/* 健康管理 - 查看体检服务中心 - 用于商品详情页查看适用的体验店（已上线的） */
 
 // ==================
 // 所需的各种插件
@@ -111,19 +111,19 @@ class HomePageContainer extends React.Component {
     // 通过区域原始数据组装Picker所需数据
     makeAreaData(d) {
         const data = d.map((item, index) => {
-            return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id };
+            return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id, level: item.level };
         });
         const areaData = this.recursionAreaData(null, data);
         console.log('变成什么了', areaData);
         this.setState({
-            sourceData: areaData,
+            sourceData: areaData || [],
         });
     }
     // 工具 - 递归生成区域层级数据
     recursionAreaData(one, data) {
         let kids;
         if (!one) { // 第1次递归
-            kids = data.filter((item) => !item.parentId);
+            kids = data.filter((item) => item.level === 0);
         } else {
             kids = data.filter((item) => item.parentId === one.id);
         }
@@ -138,6 +138,7 @@ class HomePageContainer extends React.Component {
     }
 
     render() {
+        console.log('此时sourceData:', this.state.sourceData);
         return (
             <div className="page-expr-shop">
                 <List>

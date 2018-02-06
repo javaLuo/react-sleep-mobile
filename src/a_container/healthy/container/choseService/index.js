@@ -113,7 +113,7 @@ class HomePageContainer extends React.Component {
     // 通过区域原始数据组装Picker所需数据
     makeAreaData(d) {
       const data = d.map((item, index) => {
-          return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id };
+          return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id, level: item.level };
       });
       const areaData = this.recursionAreaData(null, data);
       console.log('变成什么了', areaData);
@@ -125,7 +125,7 @@ class HomePageContainer extends React.Component {
     recursionAreaData(one, data) {
         let kids;
         if (!one) { // 第1次递归
-            kids = data.filter((item) => !item.parentId);
+            kids = data.filter((item) => item.level === 0);
         } else {
             kids = data.filter((item) => item.parentId === one.id);
         }

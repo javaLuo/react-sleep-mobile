@@ -613,3 +613,19 @@ export const getDefaultAttr = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 保存可提现金额，准备提现
+export function saveIWantNow(payload = {}) {
+    return {
+        type: 'PRE::saveIWantNow',
+        payload,
+    };
+}
+
+// 从提现记录列表进入提现详情时，保存当前的信息
+export function saveTiXianDetailInfo(payload = {}) {
+    return {
+        type: 'PRE::saveTiXianDetailInfo',
+        payload,
+    };
+}

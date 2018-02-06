@@ -1,4 +1,18 @@
 .profit-main{
+  .aq{
+    position: absolute;
+    top: .2rem;
+    right: .2rem;
+    font-size: .4rem;
+    width: .6rem;
+    height: .6rem;
+    text-align: center;
+    line-height: .6rem;
+    border-radius: .4rem;
+    background-color: #aaa;
+    color: #fff;
+    z-index: 999;
+  }
   .charts-box{
     position: relative;
     width: 100%;
@@ -78,5 +92,25 @@
   }
   .mt{
     margin-top: .2rem;
+  }
+}
+.aq-modal{
+  display: block;
+  padding: 15px 0;
+  .am-modal-transparent{
+    width: 85vw;
+  }
+  .am-modal{
+    margin: 0 auto;
+    .am-modal-body{
+      text-align: left !important;
+      h4{
+        font-size: 16px;
+      }
+      p{
+        font-size: 14px;
+        color: #666;
+      }
+    }
   }
 }

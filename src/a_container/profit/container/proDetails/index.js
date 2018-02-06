@@ -72,7 +72,8 @@ class HomePageContainer extends React.Component {
                   <div>{data.orderId}</div>
               </div>
           </div>
-          <List>
+          <List className="mt">
+              <Item>收益来源：</Item>
               <Item
                   thumb={<img src={data.headImg || ImgDefault} />}
                   className={'who'}
@@ -80,6 +81,20 @@ class HomePageContainer extends React.Component {
                   <div style={{ textAlign: 'right' }}>{data.nickName}<Brief>e家号：{data.userId}</Brief></div>
               </Item>
           </List>
+          {
+              data.userSaleId ? (
+                  <List className="mt">
+                      <Item>分销商信息：</Item>
+                      <Item
+                          thumb={<img src={data.userSaleHeadImg || ImgDefault} />}
+                          className={'who'}
+                      >
+                          <div style={{ textAlign: 'right' }}>{data.userSaleNickName}<Brief>e家号：{data.userSaleId}</Brief></div>
+                      </Item>
+                      <Item extra={`￥${data.userSaleMoney || 0}`}>归属于分销商收益</Item>
+                  </List>
+              ) : null
+          }
       </div>
     );
   }

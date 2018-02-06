@@ -16,7 +16,7 @@ import './index.scss';
 
 import { Carousel, List, Stepper, Modal, Button, Toast, Picker } from 'antd-mobile';
 import imgDefault from '../../../../assets/logo-img.png';
-
+import StepperLuo from '../../../../a_component/StepperLuo';
 // ==================
 // 本页面所需action
 // ==================
@@ -106,7 +106,13 @@ class HomePageContainer extends React.Component {
 
   // 查看当前商品适用的体验店
   onSeeExpreShop() {
-      this.props.history.push('/shop/exprshop');
+      const d = this.state.data;
+      if(d && d.typeId === 1){  // 水机
+          this.props.history.push('/shop/exprshop2');
+      } else {
+          this.props.history.push('/shop/exprshop');
+      }
+
   }
 
   // 点击立即下单
@@ -155,6 +161,21 @@ class HomePageContainer extends React.Component {
       });
   }
 
+  // 允许购买的最大数量
+    canBuyHowMany(type) {
+      // 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
+        switch(Number(type)) {
+            case 0: return 5;
+            case 1: return 1;
+            case 2: return 3;
+            case 3: return 2;
+            case 4: return 1;
+            case 5: return 5;
+            case 6: return 5;
+            default: return 5;
+        }
+    }
+
   render() {
       const d = this.state.data;
     return (
@@ -190,7 +211,8 @@ class HomePageContainer extends React.Component {
           </div>
           {/* List */}
           <List>
-              <Item extra={ d && d.typeId === 1 ? '1' : <Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={5} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>
+              {/*<Item extra={ d && d.typeId === 1 ? '1' : <Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={this.canBuyHowMany(d && d.typeId)} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>*/}
+              <Item extra={<StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (
@@ -206,7 +228,7 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
 
-              <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>查看适用体验店</Item>
+              <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>{d && d.typeId === 1 ? '可安装净水系统的区域查询': '查看适用体验店'}</Item>
           </List>
           <div className="detail-box">
               {(d && d.detailImg) ? <img src={d.detailImg} /> : null}

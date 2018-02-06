@@ -32,21 +32,18 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: new Date(), // 当前选中的年月
-
         };
     }
 
     componentDidMount() {
-        document.title = '收益详情';
-        if (!this.props.proDetail) {
+        document.title = '提现记录详情';
+        if (!this.props.tiXianDetail) {
             Toast.fail('未获取到收益详情信息',1);
         }
     }
 
     render() {
-        const data = this.props.proDetail;
-        const u = this.props.userinfo || {};
+        const data = this.props.tiXianDetail || {};
 
         const stepsInfo = [{
             title: '发起提现',
@@ -61,36 +58,35 @@ class HomePageContainer extends React.Component {
 
         return (
             <div className="page-tixiandetail">
-                <div className="step-box">
-                    <Steps current={1} direction="horizontal" size="small">
-                        <Step title="发起提现" description={'2018-02-02 14:20:59'} icon={<img className="step-icon" src={ImgStep1} />}/>
-                        <Step title="处理中" icon={<img className="step-icon" src={ImgStep0} />}/>
-                        <Step title="提现成功" description={'2018-02-02 14:20:59'} icon={<img className="step-icon" src={ImgStep0} />}/>
-                    </Steps>
-                </div>
+                {/**
+                    下面这部分不要了，为了防止以后又要了，所以注释在此
+                 **/}
+                {/*<div className="step-box">*/}
+                    {/*<Steps current={data.flag || 0} direction="horizontal" size="small">*/}
+                        {/*<Step title="发起提现" description={tools.dateToStr(new Date(data.withdrawTime))} icon={<img className="step-icon" src={ImgStep1} />}/>*/}
+                        {/*<Step title="处理中" icon={<img className="step-icon" src={ImgStep1} />}/>*/}
+                        {/*<Step title="提现成功" description={tools.dateToStr(new Date(data.withdrawTime + 1000))} icon={<img className="step-icon" src={ImgStep1} />}/>*/}
+                    {/*</Steps>*/}
+                {/*</div>*/}
                 <List>
-                    <Item extra={<span style={{ color: '#FF0303' }}>￥{data.income || '--'}</span>}>提现</Item>
+                    <Item extra={<span style={{ color: '#FF0303' }}>￥{data.amount ? Number(data.amount).toFixed(2) : '--'}</span>}>提现</Item>
                 </List>
                 <div className="info-box">
                     <div className="page-flex-row flex-jc-sb">
                         <div>类型</div>
-                        <div>{data.productTypeName}</div>
+                        <div>提现到{data.destCash}</div>
                     </div>
                     <div className="page-flex-row flex-jc-sb">
                         <div>时间</div>
-                        <div>{data.balanceTime}</div>
+                        <div>{tools.dateToStr(new Date(data.withdrawTime))}</div>
                     </div>
                     <div className="page-flex-row flex-jc-sb">
                         <div>交易单号</div>
-                        <div>{data.orderId}</div>
+                        <div>{data.partnerTradeNo}</div>
                     </div>
                     <div className="page-flex-row flex-jc-sb">
                         <div>手续费</div>
-                        <div>{data.orderId}</div>
-                    </div>
-                    <div className="page-flex-row flex-jc-sb">
-                        <div>到账微信</div>
-                        <div>{data.orderId}</div>
+                        <div>￥{Number(data.formalitiesFee).toFixed(2)}</div>
                     </div>
                 </div>
             </div>
@@ -105,8 +101,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
     location: P.any,
     history: P.any,
-    proDetail: P.any,
-    userinfo: P.any,
+    tiXianDetail: P.any,
 };
 
 // ==================
@@ -115,8 +110,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
     (state) => ({
-        proDetail: state.shop.proDetail,
-        userinfo: state.app.userinfo,
+        tiXianDetail: state.shop.tiXianDetail,
     }),
     (dispatch) => ({
         actions: bindActionCreators({}, dispatch),

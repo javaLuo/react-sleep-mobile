@@ -58,7 +58,6 @@ class HomePageContainer extends React.Component {
     setTimeout(() => {
         this.scrollDom = new IScroll('#scroll1', {
             scrollX: true,
-
             snap: true
         });
         // 滚动结束时，判断当前是哪一页
@@ -89,8 +88,8 @@ class HomePageContainer extends React.Component {
           case 7: page = 2;break;   // 分销用户
           case 1: page = 3;break;   // 微创版经销商
           case 2: page = 4;break;   // 个人版经销商
-          case 5:
-          case 6: page = 5;break;   // 企业版经销商（主、子）
+          case 5: page = 6;break;   // 企业版经销商（主）
+          case 6: page = 5;break;   // 企业版经销商（子）
       }
       this.onScrollPageTo(page, 0);
   }
@@ -140,7 +139,7 @@ class HomePageContainer extends React.Component {
       <div className="page-at-cat">
         <div className="iscroll-box">
           <div className="scroll" id="scroll1">
-            <ul className="scroll-ul" style={{ width: '600%' }}>
+            <ul className="scroll-ul" style={{ width: '700%' }}>
               <li>
                 <div style={{ backgroundImage: `url(${ImgPutong})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">普通用户</div>
@@ -178,9 +177,16 @@ class HomePageContainer extends React.Component {
               </li>
                 <li>
                     <div style={{ backgroundImage: `url(${ImgQiye})` }} className="page-flex-col flex-jc-sb">
-                        <div className="t">企业版经销商{u.userType === 5 ? '(主)' : (u.userType === 6 ? '(子)' : null)}</div>
-                        {[5,6].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                        <div className="foot"><span>&#12288;</span>{[5,6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                        <div className="t">企业版经销商(子账号)</div>
+                        {[6].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                        <div className="foot"><span>&#12288;</span>{[6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    </div>
+                </li>
+                <li>
+                    <div style={{ backgroundImage: `url(${ImgQiye})` }} className="page-flex-col flex-jc-sb">
+                        <div className="t">企业版经销商(主账号)</div>
+                        {[5].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
+                        <div className="foot"><span>&#12288;</span>{[5].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                     </div>
                 </li>
             </ul>
@@ -193,25 +199,26 @@ class HomePageContainer extends React.Component {
           <div className={this.state.page === 3 ? 'check' : ''} onClick={() => this.onScrollPageTo(3)}/>
           <div className={this.state.page === 4 ? 'check' : ''} onClick={() => this.onScrollPageTo(4)}/>
           <div className={this.state.page === 5 ? 'check' : ''} onClick={() => this.onScrollPageTo(5)}/>
+          <div className={this.state.page === 6 ? 'check' : ''} onClick={() => this.onScrollPageTo(6)}/>
         </div>
         <div className="info-all-box">
             <div className="card1">
                 <div className="title"><span>商城产品购买权</span></div>
                 <ul className="ul page-flex-row">
                     <li>
-                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgB1 : ImgB2} />
+                        <img src={[1,2,3,4,5,6].includes(this.state.page) ? ImgB1 : ImgB2} />
                         <div>净水服务</div>
                     </li>
                     <li>
-                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgC1 : ImgC2} />
+                        <img src={[1,2,3,4,5,6].includes(this.state.page) ? ImgC1 : ImgC2} />
                         <div>健康食品</div>
                     </li>
                     <li>
-                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgD1 : ImgD2} />
+                        <img src={[1,2,3,4,5,6].includes(this.state.page) ? ImgD1 : ImgD2} />
                         <div>生物理疗</div>
                     </li>
                     <li>
-                        <img src={[1,2,3,4,5].includes(this.state.page) ? ImgE1 : ImgE2} />
+                        <img src={[1,2,3,4,5,6].includes(this.state.page) ? ImgE1 : ImgE2} />
                         <div>健康评估</div>
                     </li>
                 </ul>
@@ -298,21 +305,21 @@ class HomePageContainer extends React.Component {
                     case 5: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
+                            <div className="info">1. 企业版经销商（子账户）：企业版经销商主账户分出来的的子账户。</div>
+                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
+                            <div className="info">3. 商城产品分销权：</div>
+                            <div className="info">可发展分销用户协助分销翼猫商城中所有产品，并由企业版主账户自行分配收益。</div>
+                        </div>
+                    );
+                    case 6: return (
+                        <div className="card1">
+                            <div className="title"><span>用户说明</span></div>
                             <div className="info">1. 企业版经销商（主账户）：需加盟费¥59800元成为企业版经销商。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3. 商城产品分销权：</div>
                             <div className="info">可以分销商城中的所有产品，并可按翼猫企业版经销商政策享受产品经销代理收益。</div>
                             <div className="info">可以自主发展子账户，由子账户分销翼猫商城产品。</div>
                             <div className="info">可以发展分销用户协助分销翼猫商城中所有产品。</div>
-                        </div>
-                    );
-                    case 6: return (
-                        <div className="card1">
-                            <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 企业版经销商（子账户）：企业版经销商主账户分出来的的子账户。</div>
-                            <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：</div>
-                            <div className="info">可发展分销用户协助分销翼猫商城中所有产品，并由企业版主账户自行分配收益。</div>
                         </div>
                     );
                 }

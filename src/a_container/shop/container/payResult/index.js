@@ -67,13 +67,13 @@ class HomePageContainer extends React.Component {
           <div className="head">
 
               {
-                  this.state.orderData.conditions === 4 ? <img src={ImgIcon} /> : <img src={ImgFail} />
+                  [2,4].includes(this.state.orderData.conditions) ? <img src={ImgIcon} /> : <img src={ImgFail} />
               }
               <div>{(() => {
                   switch(String(this.state.orderData.conditions)){
                       case '0': return '付款失败';
                       case '1': return '等待受理';
-                      case '2': return '已受理';
+                      case '2': return '购买成功';  // 待发货
                       case '3': return '处理中';
                       case '4': return '购买成功';
                       case '-1': return '审核成功';

@@ -31,13 +31,9 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            formChecked: false, // 表单：协议checkbox是否选中
-            modalShow: false, // 模态框是否选中
             vcode: '', // 表单验证码值
             verifyCode: false,   // 获取验证码按钮是否正在冷却
             verifyCodeInfo: '获取验证码', // 获取验证码按钮显示的内容
-            password1: '', // 表单password
-            password2: '', // 表单确认password
             myVcode: '',    // 后台传来的验证码信息
             loading: false, // 是否正在submit
         };
@@ -45,20 +41,10 @@ class Register extends React.Component {
     }
 
     componentDidMount(){
-        document.title = '密码设置';
+        document.title = '提现';
     }
     componentWillUnmount() {
         clearInterval(this.timer);
-    }
-
-    // 表单phone输入时
-    onPhoneInput(e) {
-        const v = tools.trim(e);
-        if (v.length <= 11) {
-            this.setState({
-                phone: v,
-            });
-        }
     }
 
     // 表单vcode输入时
@@ -67,16 +53,6 @@ class Register extends React.Component {
         if (v.length <= 6) {
             this.setState({
                 vcode: v,
-            });
-        }
-    }
-
-    // 表单password
-    onPasswordInput(e) {
-        const v = tools.trim(e);
-        if (v.length <= 20) {
-            this.setState({
-                password: v,
             });
         }
     }
@@ -125,20 +101,22 @@ class Register extends React.Component {
 
     // 提交
     onSubmit() {
-        const u = this.props.userinfo;
-        if(!u || !u.mobile) {
-            Toast.fail('请先绑定手机号',1);
-            return;
-        }
         if (!this.state.vcode) {
             Toast.fail('请填写验证码', 1);
             return;
         }
 
+        const pathname = this.props.location.pathname.split('/');
+        const v = Number(pathname[pathname.length - 1]);
+        if (!v) {
+            Toast.fail('提现金额异常');
+            return;
+        }
+
         const params = {
-            amount: 1000,
+            amount: v,
             verifyCode: this.state.vcode,
-            countryCode: 6,
+            countryCode: 86,
         };
         this.setState({
             loading: true
@@ -146,7 +124,7 @@ class Register extends React.Component {
         this.props.actions.startTiXian(params).then((res) => {
             if (res.status === 200) {
                 Toast.success('提现成功', 1);
-                this.props.history.go(-1);
+                this.props.history.replace('/profit'); // 回到收益明细页（因为信息改变了，在这个页才能更新信息）
             } else {
                 Toast.fail(res.message || '提现失败',1);
             }

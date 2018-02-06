@@ -59,6 +59,8 @@ const initState = {
     freeCardInfo: {},   // 从我的优惠卡点击一条数据时，保存
     upAddrData: null,   // 当前编辑的收货地址信息
     sonInfo: null,      // 我的客户，主账号进入子账号要用
+    iwantnow: 0,        // 可提现金额（从收益页进入提现页时带过去）
+    tiXianDetail: null, // 从提现记录列表进入详情页时所需信息
 };
 
 // ============================================
@@ -231,6 +233,20 @@ const setDefaultAttr = (state, action) => {
         orderParams,
     });
 };
+
+const saveIWantNow = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        iwantnow: payload,
+    });
+};
+
+const saveTiXianDetailInfo = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        tiXianDetail: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -276,6 +292,10 @@ const reducerFn = (state = initState, action) => {
             return saveShopAddr(state, action);
         case 'APP::setDefaultAttr':
             return setDefaultAttr(state, action);
+        case 'PRE::saveIWantNow':
+            return saveIWantNow(state, action);
+        case 'PRE::saveTiXianDetailInfo':
+            return saveTiXianDetailInfo(state, action);
         default:
             return actDefault(state, action);
     }

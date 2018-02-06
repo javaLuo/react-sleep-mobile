@@ -73,7 +73,12 @@
       }
       .share-btn{
         position: relative;
-        text-align: right;
+        background-color: #fff;
+        color: #222;
+        text-align: center;
+        font-size: .26rem;
+        padding: .02rem .22rem;
+        border-radius: .4rem;
         &.check{
           color: #40a9ff;
         }

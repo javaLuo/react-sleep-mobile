@@ -22,7 +22,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { getCashRecordList } from '../../../../a_action/shop-action';
+import { getCashRecordList, saveTiXianDetailInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
 
     componentDidMount() {
         document.title = '提现记录';
-        this.getData(this.state.pageNum, this.state.pageSize, this.state.search, 'flash');
+        this.getData(this.state.pageNum, this.state.pageSize, 'flash');
     }
 
     componentWillReceiveProps(nextP) {
@@ -59,7 +59,6 @@ class HomePageContainer extends React.Component {
         };
         Toast.loading('搜索中...', 0);
         this.props.actions.getCashRecordList(tools.clearNull(params)).then((res) => {
-            console.log('得到了什么：', res);
             if (res.status === 200) {
                 me.setState({
                     data: flash === 'flash' ? (res.data.result || []) : [...this.state.data, ...(res.data.result || [])],
@@ -87,16 +86,23 @@ class HomePageContainer extends React.Component {
 
     // 下拉刷新
     onDown() {
-        this.getData(1, this.state.pageSize, this.state.search, 'flash');
+        this.getData(1, this.state.pageSize, 'flash');
     }
     // 上拉加载
     onUp() {
-        this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, 'update');
+        this.getData(this.state.pageNum + 1, this.state.pageSize, 'update');
+    }
+
+    // 点击提现
+    onCLickThis(item) {
+        // 将信息存入store
+        this.props.actions.saveTiXianDetailInfo(item);
+        setTimeout(() => this.props.history.push('/profit/tixiandetail'));
     }
 
     render() {
         return (
-            <div className="page-expr-shop">
+            <div className="page-tixianrecord">
                 <div className="iscroll-box">
                     <Luo
                         id="luo2"
@@ -108,13 +114,13 @@ class HomePageContainer extends React.Component {
                             {
                                 this.state.data.length ? this.state.data.map((item, index) => {
                                     return (
-                                        <li key={index} className="card-box page-flex-row">
+                                        <li key={index} className="card-box page-flex-row" onClick={() => this.onCLickThis(item)}>
                                             <div className="l flex-auto">
-                                                <div className="title">提现到微信零钱</div>
-                                                <div className="info">{item.time}</div>
+                                                <div className="title">提现到{item.destCash}</div>
+                                                <div className="info">{tools.dateToStr(new Date(item.withdrawTime))}</div>
                                             </div>
                                             <div className="r">
-                                                ￥400.00
+                                                ￥{Number(item.amount) ? Number(item.amount).toFixed(2) : '--'}
                                             </div>
                                         </li>
                                     );
@@ -151,6 +157,6 @@ export default connect(
         areaData: state.app.areaData,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getCashRecordList }, dispatch),
+        actions: bindActionCreators({ getCashRecordList, saveTiXianDetailInfo }, dispatch),
     })
 )(HomePageContainer);
