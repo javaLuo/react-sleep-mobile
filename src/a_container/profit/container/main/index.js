@@ -36,7 +36,7 @@ class HomePageContainer extends React.Component {
         moneyOk: 0,     // 已提现金额
     };
     this.dom = null;    // 图表实例
-    this.colors = ['#ffb937', '#5c99ff', '#9942f9', '#ff4e83'];
+    this.colors = ['#ffb937', '#5c99ff', '#9942f9', '#ff4e83', '#03E8FF', '#5c99ff', '#C903FF', '#FF642C'];
   }
 
   componentDidMount() {
@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
       this.props.actions.userIncomeMain({ userId: u.id}).then((res) => {
             if (res.status === 200) {
                 this.setState({
-                    data: res.data.incomeList,
+                    data: Object.entries(res.data.productTypeList).map((item) => ({ name: item[0], value: item[1] })),
                     totalIncome: res.data.totalIncome,
                     moneyWait: Number(res.data.canNotBeWithdrawCash) || 0,
                     moneyCan: Number(res.data.canBeWithdrawCash) || 0,
@@ -78,9 +78,7 @@ class HomePageContainer extends React.Component {
 
     // 处理图表数据
     makeOption(data = []) {
-        const list = data.map((item, index) => {
-            return {value: item.income, name: item.productTypeName};
-        });
+        const list = data;
 
         const option = {
             tooltip: {
@@ -158,7 +156,7 @@ class HomePageContainer extends React.Component {
           <ul className="data-ul all_clear">
               {
                   this.state.data.map((item, index) => {
-                      return <li key={index}><i style={{ backgroundColor: this.colors[index>this.colors.length-1 ? this.colors.length -1 : index] }}/>{item.productTypeName}：￥{item.income}</li>;
+                      return <li key={index}><i style={{ backgroundColor: this.colors[index>this.colors.length-1 ? this.colors.length -1 : index] }}/>{item.name}：￥{Number(item.value).toFixed(4)}</li>;
                   })
               }
           </ul>

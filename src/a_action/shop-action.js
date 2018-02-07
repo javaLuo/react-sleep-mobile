@@ -629,3 +629,14 @@ export function saveTiXianDetailInfo(payload = {}) {
         payload,
     };
 }
+
+
+// 获取分享所需信息
+export const getShareInfo = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/speakCard/list', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

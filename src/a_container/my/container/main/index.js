@@ -109,12 +109,11 @@ class HomePageContainer extends React.Component {
     // 产品代言被点击
     onDaiYanClick() {
         const u = this.props.userinfo;
-        const a = this.props.ambassador;
         if (!u) {
             Toast.info('请先登录', 1);
             return;
         }
-        this.props.history.push('/my/mydaiyan');
+        this.props.history.push('/my/daiyan');
     }
 
     // 我的推广客户被点击

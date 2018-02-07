@@ -9,10 +9,12 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
-import tools from '../../util/all';
+
 // ==================
 // 所需的所有组件
 // ==================
+import $ from 'jquery';
+import _ from 'lodash';
 import { Carousel, Icon } from 'antd-mobile';
 import imgDefalut from '../../assets/logo-img.png';
 // ==================
@@ -51,8 +53,14 @@ class HomePageContainer extends React.Component {
 
     }
 
+    // 点bar弹到指定地方
+    onBarClick(id) {
+    console.log(id, $(`#list_${id}`).offset().top);
+      $(document.body).animate( { scrollTop:  $(`#list_${id}`).offset().top - 50}, 300);
+    }
   render() {
     const u = this.props.userinfo;
+    const allProducts = _.cloneDeep(this.props.allProducts).sort((a, b) => a.sorts - b.sorts);
     return (
       <div className="flex-auto page-box home-page">
           {/* 顶部轮播 */}
@@ -86,23 +94,22 @@ class HomePageContainer extends React.Component {
               ) : <div style={{ width: '100%', height: '2rem', backgroundColor: '#f0f0f0' }}/>
           }
           {/** 产品bar **/}
-          {/*<div className="list-bar page-flex-row">*/}
-              {/*{*/}
-                {/*this.props.allProducts.map((item, index) => {*/}
-                    {/*return (*/}
-                    {/*<div key={index} className="flex-1">*/}
-                      {/*<img src={this.getIconByType(item.id)} />*/}
-                      {/*<div>{item.name}</div>*/}
-                    {/*</div>*/}
-                    {/*);*/}
-                {/*})*/}
-              {/*}*/}
-          {/*</div>*/}
+          <div className="home-bar page-flex-row">
+              {
+                allProducts.map((item, index) => {
+                    return (
+                    <div key={index} onClick={() => this.onBarClick(item.id)}>
+                      <div>{item.name}</div>
+                    </div>
+                    );
+                })
+              }
+          </div>
           {/* 所有产品列表 */}
           {
-            this.props.allProducts.map((theType, i) => {
+            allProducts.map((theType, i) => {
               return (
-                  <div key={i} className="the-list">
+                  <div key={i} className="the-list" id={`list_${theType.id}`}>
                     <div className="title page-flex-row">
                       <div className="flex-auto">{ theType.name }</div>
                     </div>

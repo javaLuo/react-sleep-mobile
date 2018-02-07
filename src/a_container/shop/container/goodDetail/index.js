@@ -205,13 +205,16 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥{d && d.typeModel ? (d.typeModel.shipFee || 0) : 0}</div>
-                  <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
-                  <div>已售：{d && (d.buyCount || 0)}张</div>
+                  { /** 只有体检卡显示有效期 **/
+                      d && d.typeId === 5 ? (
+                          <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
+                      ) : null
+                  }
+                  <div>已售：{d && (d.buyCount || 0)}</div>
               </div>
           </div>
           {/* List */}
           <List>
-              {/*<Item extra={ d && d.typeId === 1 ? '1' : <Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={this.canBuyHowMany(d && d.typeId)} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>*/}
               <Item extra={<StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
@@ -228,7 +231,11 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
 
-              <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>{d && d.typeId === 1 ? '可安装净水系统的区域查询': '查看适用体验店'}</Item>
+              {
+                  d && [0,1,4,5,6].includes(d.typeId) ? (
+                      <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>{d && d.typeId === 1 ? '可安装净水系统的区域查询': '查看适用体验店'}</Item>
+                  ) : null
+              }
           </List>
           <div className="detail-box">
               {(d && d.detailImg) ? <img src={d.detailImg} /> : null}

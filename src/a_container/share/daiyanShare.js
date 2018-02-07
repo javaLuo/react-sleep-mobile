@@ -24,7 +24,7 @@ import ImgZhiWen from '../../assets/share/zhiwen@3x.png';
 // ==================
 
 import { shareBuild } from '../../a_action/app-action';
-
+import { getShareInfo } from '../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -35,6 +35,7 @@ class Register extends React.Component {
         this.state = {
             imgCode: '',
             data: {},
+            d1: {}, // 从后台获取的信息
         };
     }
 
@@ -45,6 +46,25 @@ class Register extends React.Component {
     componentDidMount() {
         document.title = '我的代言卡分享';
         this.getCode();
+        this.getShareInfo();
+    }
+
+    // 获取分享所需内容
+    getShareInfo() {
+        const pathname = this.props.location.pathname.split('/');
+        const info = pathname[pathname.length - 1].split('_');
+        const t = Number(info[3]);
+        console.log('搞什么啊：', info, t);
+        if (t) {
+            this.props.actions.getShareInfo({ typeCode: t }).then((res) => {
+                if (res.status === 200) {
+                    this.setState({
+                        d1: res.data[0],
+                    });
+                }
+            });
+        }
+
     }
 
     // 获取二维码图片
@@ -56,6 +76,7 @@ class Register extends React.Component {
          * userid - 用户ID
          * name - 名字
          * head - 头像
+         * type - 是哪种类型的代言卡
          * **/
         this.setState({
             data: {
@@ -75,6 +96,8 @@ class Register extends React.Component {
 
     render() {
         const d = this.state.data;
+        const d1 = this.state.d1;
+        console.log('d1是各什么：', d1);
         return (
             <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh' }}>
                 <div className="title-box">
@@ -84,10 +107,14 @@ class Register extends React.Component {
                     <div className="head-box">
                         <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
                         <div className="name">{decodeURIComponent(d.name) || '-'}</div>
-                        <div className="name-info">为翼猫HRA健康风险评估系统代言</div>
+                        <div className="name-info">{d1.title}</div>
                     </div>
                     <div className="img-box">
-                        <img className="img" src={Img}/>
+                        {
+                            d1.contentImage ? (
+                                <img className="img" src={d1.contentImage}/>
+                            ) : null
+                        }
                     </div>
                     <div className="code-box">
                         <div className="t">长按识别二维码接受邀请</div>
@@ -127,6 +154,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ shareBuild }, dispatch),
+        actions: bindActionCreators({ shareBuild, getShareInfo }, dispatch),
     })
 )(Register);

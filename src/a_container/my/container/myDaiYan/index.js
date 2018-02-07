@@ -24,7 +24,7 @@ import ImgZhiWen from '../../../../assets/share/zhiwen@3x.png';
 // 本页面所需action
 // ==================
 
-import { wxInit } from '../../../../a_action/shop-action';
+import { wxInit, getShareInfo } from '../../../../a_action/shop-action';
 import { shareBuild } from '../../../../a_action/app-action';
 // ==================
 // Definition
@@ -37,6 +37,7 @@ class Register extends React.Component {
             shareShow: false,   // 分享提示框是否显示
             wxReady: true,  // 微信SDK是否初始化成功
             imgCode: '',    // 二维码图片
+            d1: {},   // 数据1 分享所需
         };
     }
 
@@ -46,8 +47,34 @@ class Register extends React.Component {
 
     componentDidMount() {
         document.title = '我的代言卡';
-        this.initWeiXinPay();
+        const t = this.getType();
+        if (t) {
+            this.initAll(t);
+        }
         this.getCode();
+    }
+
+    // 获取当前是哪种类型的代言卡
+    getType() {
+        const pathname = this.props.location.pathname.split('/');
+        const type = Number(pathname[pathname.length - 1]);
+        return type || null;
+    }
+
+    initAll(t) {
+        Promise.all([
+            this.props.actions.getShareInfo({ typeCode: t }),
+            this.props.actions.wxInit()
+        ]).then((res) => {
+            if (res[0].status === 200 && res[0].data && res[1].status === 200) {
+                this.setState({
+                    d1: res[0].data[0]
+                });
+                this.initWxConfig(res[0].data[0], res[1].data, t);
+            }
+        }).catch(() => {
+            Toast.fail('初始化分享失败', 1);
+        });
     }
 
     // 获取二维码图片
@@ -65,37 +92,21 @@ class Register extends React.Component {
         });
     }
 
-    // 获取微信初始化所需参数
-    initWeiXinPay() {
-        // 后台需要给个接口，返回appID,timestamp,nonceStr,signature
-        this.props.actions.wxInit().then((res) => {
-            console.log('返回的是什么：', res);
-            if (res.status === 200) {
-                console.log('走这里：', res);
-                this.initWxConfig(res.data);
-            } else {
-                this.onFail();
-            }
-        }).catch(() => {
-            this.onFail();
-        });
-    }
-
     // 初始化微信JS-SDK
-    initWxConfig(data) {
+    initWxConfig(d1, d2, t) {
         const me = this;
         if(typeof wx === 'undefined') {
             console.log('weixin sdk load failed!');
             this.onFail();
             return false;
         }
-        console.log('到这里了', data);
+        console.log('到这里了', d1, d2);
         wx.config({
             debug: false,
             appId: Config.appId,
-            timestamp: data.timestamp,
-            nonceStr: data.noncestr,
-            signature: data.signature,
+            timestamp: d2.timestamp,
+            nonceStr: d2.noncestr,
+            signature: d2.signature,
             jsApiList: [
                 'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
@@ -111,12 +122,12 @@ class Register extends React.Component {
              * head - 头像
              * **/
             const u = this.props.userinfo;
-            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}`;
+            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${t}`;
             wx.onMenuShareAppMessage({
-                title: `${u.nickName}为翼猫HRA健康风险评估系统代言`,
-                desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
+                title: `${u.nickName}${d1.title}`,
+                desc: d1.content,
                 link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
-                imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
+                imgUrl: d1.titleImage,
                 type: 'link',
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -124,10 +135,10 @@ class Register extends React.Component {
             });
 
             wx.onMenuShareTimeline({
-                title: `${u.nickName}为翼猫HRA健康风险评估系统代言`,
-                desc: '专注疾病早期筛查，5分钟给出人体9大系统220项指标，临床准确率96%',
+                title: `${u.nickName}${d1.title}`,
+                desc: d1.content,
                 link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
-                imgUrl: 'http://isluo.com/work/logo/share_daiyan.png',
+                imgUrl: d1.titleImage,
                 success: () => {
                     Toast.info('分享成功', 1);
                 }
@@ -156,6 +167,8 @@ class Register extends React.Component {
 
     render() {
         const u = this.props.userinfo || {};
+        const d1 = this.state.d1;
+        console.log('d1是什么：', d1);
         return (
             <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh' }}>
                 <div className="title-box">
@@ -165,10 +178,15 @@ class Register extends React.Component {
                     <div className="head-box">
                         <div className="pic"><img src={u.headImg} /></div>
                         <div className="name">{u.nickName || '-'}</div>
-                        <div className="name-info">为翼猫HRA健康风险评估系统代言</div>
+                        <div className="name-info">{d1.title || ' '}</div>
                     </div>
                     <div className="img-box">
-                        <img className="img" src={Img}/>
+                        {
+                            d1.contentImage ? (
+                                <img className="img" src={d1.contentImage}/>
+                            ) : null
+                        }
+
                     </div>
                     <div className="code-box">
                         <div className="t">长按识别二维码接受邀请</div>
@@ -216,6 +234,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ wxInit, shareBuild }, dispatch),
+        actions: bindActionCreators({ wxInit, shareBuild, getShareInfo }, dispatch),
     })
 )(Register);

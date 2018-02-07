@@ -41,6 +41,7 @@ import MyFavCards from './container/myFavCards';
 import Addr from './container/addr';
 import NewAddr from './container/newAddr';
 import UpAddr from './container/addr/upAddr';
+import DaiYan from './container/myDaiYan/daiyan';
 // ==================
 // 本页面所需action
 // ==================
@@ -75,7 +76,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/useofknow`} component={UseOfKnow} />
               <Route exact path={`${this.props.match.url}/healthyamb`} component={HealthyAmb} />
               <Route exact path={`${this.props.match.url}/atCat`} component={AtCat} />
-              <Route exact path={`${this.props.match.url}/mydaiyan`} component={MyDaiYan} />
+              <Route exact path={`${this.props.match.url}/mydaiyan/:id`} component={MyDaiYan} />
               <Route exact path={`${this.props.match.url}/binddealer`} component={BindDealer} />
               <Route path={`${this.props.match.url}/bindphone`} component={BindPhone} />
               <Route exact path={`${this.props.match.url}/setpassword`} component={SetPassword} />
@@ -89,6 +90,7 @@ class My extends React.Component {
               <Route path={`${this.props.match.url}/addr`} component={Addr} />
               <Route path={`${this.props.match.url}/newaddr`} component={NewAddr} />
               <Route path={`${this.props.match.url}/upaddr`} component={UpAddr} />
+              <Route path={`${this.props.match.url}/daiyan`} component={DaiYan} />
           </Switch>
       </div>
     );
