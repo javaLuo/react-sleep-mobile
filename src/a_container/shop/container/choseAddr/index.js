@@ -9,13 +9,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import tools from '../../../../util/all';
 import Luo from 'iscroll-luo';
 import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Icon, WingBlank, Toast, Modal } from 'antd-mobile';
+import { Icon, WingBlank, Toast, Modal, Button  } from 'antd-mobile';
 import Img404 from '../../../../assets/not-found.png';
 // ==================
 // 本页面所需action
@@ -117,7 +116,12 @@ class HomePageContainer extends React.Component {
                                           <div className="name">{item.contact}<span>{item.mobile}</span></div>
                                           <div className="addr">{`${item.province || ''}${item.city || ''}${item.region || ''}${item.street}`}</div>
                                           <div className="page-flex-row controls">
-                                              <div className="page-flex-row flex-ai-center" ><Icon className={item.defaultAddress ? 'icon check' : 'icon no-check' } type="check-circle"/> 默认地址</div>
+                                              {
+                                                  item.defaultAddress ? (
+                                                      <div className="page-flex-row flex-ai-center" ><Icon className={'icon check'} type="check-circle"/> 默认地址</div>
+                                                  ) : null
+                                              }
+
                                           </div>
                                       </WingBlank>
                                   </li>
@@ -129,6 +133,9 @@ class HomePageContainer extends React.Component {
                       }
                   </ul>
               </Luo>
+          </div>
+          <div className="page-footer">
+              <Button type="primary" onClick={() => this.props.history.push('/my/addr')}>管理收货地址</Button>
           </div>
       </div>
     );

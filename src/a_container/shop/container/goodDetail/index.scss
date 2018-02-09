@@ -6,7 +6,7 @@
     img{
       display: block;
       width: 100%;
-      object-fit: cover;
+      height: auto;
     }
     .default{
       position: absolute;
@@ -26,7 +26,6 @@
     overflow: hidden;
     img{
       object-fit: cover;
-      height: calc(100vw * 0.61);
     }
   }
   .goodinfo{

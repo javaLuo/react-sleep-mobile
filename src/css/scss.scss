@@ -108,3 +108,14 @@ $fontSize: .32rem;
     color: #fff !important;
   }
 }
+
+.special-item{
+  .am-list-line{
+    .am-list-content{
+      flex: none !important;
+    }
+    .am-list-extra{
+      flex: auto !important;
+    }
+  }
+}

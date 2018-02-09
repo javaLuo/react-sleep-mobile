@@ -225,30 +225,22 @@ class HomePageContainer extends React.Component {
             </div>
             <div className="card1">
                 <div className="title"><span>产品分销权</span></div>
-                <ul className="card-ul" key='1'>
-                    <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgB1, ImgB2, 1)} /></div>
-                        <div className="info-box flex-auto">
-                            <div className="t">净水服务</div>
-                        </div>
+                <ul className="ul page-flex-row" key='1'>
+                    <li>
+                        <img src={this.youWantLight(this.state.page, ImgB1, ImgB2, 1)} />
+                        <div>净水服务</div>
                     </li>
-                    <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgC1, ImgC2, 2)} /></div>
-                        <div className="info-box flex-auto">
-                            <div className="t">健康食品</div>
-                        </div>
+                    <li>
+                        <img src={this.youWantLight(this.state.page, ImgC1, ImgC2, 2)} />
+                        <div>健康食品</div>
                     </li>
-                    <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgD1, ImgD2, 3)} /></div>
-                        <div className="info-box flex-auto">
-                            <div className="t">生物理疗</div>
-                        </div>
+                    <li>
+                        <img src={this.youWantLight(this.state.page, ImgD1, ImgD2, 3)} />
+                        <div>生物理疗</div>
                     </li>
-                    <li className="page-flex-row flex-ai-center">
-                        <div className="pic flex-none"><img src={this.youWantLight(this.state.page, ImgE1, ImgE2, 5)} /></div>
-                        <div className="info-box flex-auto">
-                            <div className="t">健康评估</div>
-                        </div>
+                    <li>
+                        <img src={this.youWantLight(this.state.page, ImgE1, ImgE2, 5)} />
+                        <div>健康评估</div>
                     </li>
                 </ul>
             </div>

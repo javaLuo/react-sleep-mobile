@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import Echarts from 'echarts';
 import './index.scss';
+import $ from 'jquery';
 import { userIncomeMain } from '../../../../a_action/shop-action';
 // ==================
 // 所需的所有组件
@@ -50,6 +51,9 @@ class HomePageContainer extends React.Component {
           this.dom = Echarts.init(document.getElementById('echarts-1'));
           this.getData();
       }, 16);
+      $(window).on('resize', () => {
+          this.dom && this.dom.resize();
+      });
   }
 
     componentWillUpdate(nextP, nextS) {
@@ -58,6 +62,9 @@ class HomePageContainer extends React.Component {
       }
     }
 
+    componentWillUnmount() {
+      $(window).off('resize');
+    }
     // 获取原始数据
     getData(){
       const u = this.props.userinfo;
@@ -177,7 +184,7 @@ class HomePageContainer extends React.Component {
               }
 
               <div className="flex-1">
-                  <div className="title">待结算金额</div>
+                  <div className="title">{ u && u.userType === 7 ? '暂不可提现' : '待结算金额'}</div>
                   <div className="money">￥{this.state.moneyWait.toFixed(4)}</div>
               </div>
           </div>

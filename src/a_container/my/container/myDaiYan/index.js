@@ -15,8 +15,16 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Button, Toast } from 'antd-mobile';
-import Img from '../../../../assets/share/daiyanka.png';
-import ImgYaoQinKa from '../../../../assets/share/yaoqinka@3x.png';
+import ImgCyan from '../../../../assets/share/y_cyan.png';
+import ImgGreen from '../../../../assets/share/y_green.png';
+import ImgBlue from '../../../../assets/share/y_blue.png';
+import ImgOrange from '../../../../assets/share/y_orange.png';
+
+import ImgLCyan from '../../../../assets/share/l_cyan.png';
+import ImgLGreen from '../../../../assets/share/l_green.png';
+import ImgLBlue from '../../../../assets/share/l_blue.png';
+import ImgLOrange from '../../../../assets/share/l_orange.png';
+
 import ImgShareArr from '../../../../assets/share-arr.png';
 import ImgQrCode from '../../../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../../../assets/share/zhiwen@3x.png';
@@ -38,6 +46,8 @@ class Register extends React.Component {
             wxReady: true,  // 微信SDK是否初始化成功
             imgCode: '',    // 二维码图片
             d1: {},   // 数据1 分享所需
+            type: null,     // 当前数据的ID，用于查询当前对应的图片什么的
+            type2: null,    // 当前是什么类型的代言卡1水，2养未来，3冷敷贴，5体检卡 ，用于显示不同的颜色
         };
     }
 
@@ -49,7 +59,7 @@ class Register extends React.Component {
         document.title = '我的代言卡';
         const t = this.getType();
         if (t) {
-            this.initAll(t);
+            this.initAll(t.type, t.type2);
         }
         this.getCode();
     }
@@ -57,20 +67,24 @@ class Register extends React.Component {
     // 获取当前是哪种类型的代言卡
     getType() {
         const pathname = this.props.location.pathname.split('/');
-        const type = Number(pathname[pathname.length - 1]);
-        return type || null;
+        const t = pathname[pathname.length - 1].split('_');
+        this.setState({
+            type: t[0] || null,
+            type2: t[1] || null,
+        });
+        return {type: t[0], type2: t[1]} || null;
     }
 
-    initAll(t) {
+    initAll(t, t2) {
         Promise.all([
-            this.props.actions.getShareInfo({ typeCode: t }),
+            this.props.actions.getShareInfo({ speakCardId: t }),
             this.props.actions.wxInit()
         ]).then((res) => {
             if (res[0].status === 200 && res[0].data && res[1].status === 200) {
                 this.setState({
-                    d1: res[0].data[0]
+                    d1: res[0].data,
                 });
-                this.initWxConfig(res[0].data[0], res[1].data, t);
+                this.initWxConfig(res[0].data, res[1].data, t, t2);
             }
         }).catch(() => {
             Toast.fail('初始化分享失败', 1);
@@ -93,7 +107,7 @@ class Register extends React.Component {
     }
 
     // 初始化微信JS-SDK
-    initWxConfig(d1, d2, t) {
+    initWxConfig(d1, d2, t, t2) {
         const me = this;
         if(typeof wx === 'undefined') {
             console.log('weixin sdk load failed!');
@@ -120,9 +134,11 @@ class Register extends React.Component {
              * userid - 用户ID
              * name - 名字
              * head - 头像
+             * t - 当前数据ID
+             * t2 - 当前数据类型ID
              * **/
             const u = this.props.userinfo;
-            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${t}`;
+            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${t}_${t2}`;
             wx.onMenuShareAppMessage({
                 title: `${u.nickName}${d1.title}`,
                 desc: d1.content,
@@ -165,14 +181,48 @@ class Register extends React.Component {
         });
     }
 
+    // 选LOGO
+    choseLogo(type) {
+        switch(Number(type)){
+            case 1: return ImgLBlue;   // 水机
+            case 2: return ImgLGreen;   // 养未来
+            case 3: return ImgLOrange;   // 冷敷贴
+            case 5: return ImgLCyan;   // 体检卡
+            default: return ImgLCyan;
+        }
+    }
+
+    // 选标题
+    choseTitle(type) {
+        switch(Number(type)){
+            case 1: return ImgBlue;   // 水机
+            case 2: return ImgGreen;   // 养未来
+            case 3: return ImgOrange;   // 冷敷贴
+            case 5: return ImgCyan;   // 体检卡
+            default: return ImgCyan;
+        }
+    }
+
+    // 选颜色
+    choseColor(type) {
+        switch(Number(type)){
+            case 1: return '#0074FF';   // 水机
+            case 2: return '#00CD0C';   // 养未来
+            case 3: return '#FF9500';   // 冷敷贴
+            case 5: return '#00C8CC';   // 体检卡
+            default: return '#00C8CC';
+        }
+    }
+
     render() {
         const u = this.props.userinfo || {};
         const d1 = this.state.d1;
-        console.log('d1是什么：', d1);
+        console.log('d1是什么：', d1, this.state.type);
         return (
             <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh' }}>
+                <img className="logo" src={this.choseLogo(this.state.type2)} />
                 <div className="title-box">
-                    <img src={ImgYaoQinKa}/>
+                    <img src={this.choseTitle(this.state.type2)}/>
                 </div>
                 <div className="body-box">
                     <div className="head-box">
@@ -203,7 +253,7 @@ class Register extends React.Component {
                 </div>
                 <div className="footer-zw"/>
                 <div className="thefooter">
-                    <Button type="primary" onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
+                    <Button type="primary"  style={{ backgroundColor: this.choseColor(this.state.type2) }} onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
                 </div>
                 <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
                     <img className="share" src={ImgShareArr} />

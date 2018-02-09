@@ -61,6 +61,7 @@ const initState = {
     sonInfo: null,      // 我的客户，主账号进入子账号要用
     iwantnow: 0,        // 可提现金额（从收益页进入提现页时带过去）
     tiXianDetail: null, // 从提现记录列表进入详情页时所需信息
+    daiyanList: null,     // 代言卡选择页数据
 };
 
 // ============================================
@@ -227,7 +228,7 @@ const saveShopAddr = (state, action) => {
 const setDefaultAttr = (state, action) => {
     const { payload } = action;
     const orderParams = _.cloneDeep(state.orderParams);
-    orderParams.params = Object.assign({}, state.orderParams.params, {addrId: payload.id});
+    orderParams.params = Object.assign({}, state.orderParams.params, {addrId: payload ? payload.id : null});
     orderParams.addr = payload;
     return Object.assign({}, state, {
         orderParams,
@@ -245,6 +246,13 @@ const saveTiXianDetailInfo = (state, action) => {
     const { payload } = action;
     return Object.assign({}, state, {
         tiXianDetail: payload,
+    });
+};
+
+const getDaiYanList = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        daiyanList: payload,
     });
 };
 // ============================================
@@ -296,6 +304,8 @@ const reducerFn = (state = initState, action) => {
             return saveIWantNow(state, action);
         case 'PRE::saveTiXianDetailInfo':
             return saveTiXianDetailInfo(state, action);
+        case 'MY::getDaiYanList':
+            return getDaiYanList(state, action);
         default:
             return actDefault(state, action);
     }

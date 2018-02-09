@@ -41,7 +41,7 @@ class HomePageContainer extends React.Component {
   componentWillMount() {
       // 如果没有选择商品就跳转到我的订单
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-         // this.props.history.replace('/my/order');
+         this.props.history.replace('/my/order');
       }
   }
 
@@ -179,7 +179,7 @@ class HomePageContainer extends React.Component {
                 thumb={d.productImg ? <img src={d.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  {d.name}<Brief><span style={{ color: '#fc4800' }}>{d.typeModel.price}</span></Brief>
+                  {d.name}<Brief><span style={{ color: '#fc4800' }}>{d.typeModel && d.typeModel.price}</span></Brief>
               </Item>
           </List>
           <List>
@@ -195,7 +195,7 @@ class HomePageContainer extends React.Component {
                           cols={1}
                           onOk={(v) => this.onJiFeiChose(v)}
                       >
-                          <Item arrow="horizontal">计费方式</Item>
+                          <Item arrow="horizontal" className="special-item">计费方式</Item>
                       </Picker>
                   ) : null
               }

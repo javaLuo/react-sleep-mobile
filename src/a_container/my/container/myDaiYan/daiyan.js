@@ -25,7 +25,7 @@ import ImgR from '../../../../assets/xiangyou@3x.png';
 // 本页面所需action
 // ==================
 
-import { wxInit } from '../../../../a_action/shop-action';
+import { wxInit, getDaiYanList } from '../../../../a_action/shop-action';
 import { shareBuild } from '../../../../a_action/app-action';
 // ==================
 // Definition
@@ -45,55 +45,64 @@ class Register extends React.Component {
 
     componentDidMount() {
         document.title = '我的产品代言卡';
+        if(!this.props.daiyanList) {
+            this.getData();
+        }
     }
 
-    onChose(type) {
-        this.props.history.push(`/my/mydaiyan/${type}`);
+    /**
+     * 点击一个选项触发
+     * @type: 这条数据的ID
+     * @type2: 这条数据的类型ID
+     * **/
+    onChose(type, type2) {
+        this.props.history.push(`/my/mydaiyan/${type}_${type2}`);
+    }
+
+    getData() {
+        this.props.actions.getDaiYanList();
+    }
+
+    makeData(data) {
+        if (!data) { return null; }
+        const map = Object.entries(data);
+        return map.map((item, index) => {
+            return (
+                <div key={index} className="abox">
+                    <div className="title">{this.switchType(item[0])}</div>
+                    <ul className="the-ul">
+                    {
+                        item[1].map((v, i) => {
+                            return <li key={i} onClick={() => this.onChose(v.id, item[0])}>
+                                <img className="pic" src={v.titleImage}/>
+                                <div className="info">{v.name}</div>
+                                <img className="r" src={ImgR}/>
+                            </li>;
+                        })
+                    }
+                    </ul>
+                </div>
+            );
+        });
+    }
+
+    switchType(t) {
+        switch(Number(t)){
+            case 0: return '其他';
+            case 1: return '净水服务';
+            case 2: return '健康食品';
+            case 3: return '生物科技';
+            case 5: return '智能评估';
+            default: return '';
+        }
     }
 
     render() {
         return (
             <div className="flex-auto page-box page-daiyan">
-                <div className="abox">
-                    <div className="title">净水服务</div>
-                    <ul className="the-ul">
-                        <li onClick={() => this.onChose(1)}>
-                            <img className="pic" src={ImgB1}/>
-                            <div className="info">翼猫智能净水系统代言卡</div>
-                            <img className="r" src={ImgR}/>
-                        </li>
-                    </ul>
-                </div>
-                <div className="abox">
-                    <div className="title">健康食品</div>
-                    <ul className="the-ul">
-                        <li onClick={() => this.onChose(2)}>
-                            <img className="pic" src={ImgC1}/>
-                            <div className="info">翼猫养未来健康食品系统代言卡</div>
-                            <img className="r" src={ImgR}/>
-                        </li>
-                    </ul>
-                </div>
-                <div className="abox">
-                    <div className="title">生物科技</div>
-                    <ul className="the-ul">
-                        <li onClick={() => this.onChose(3)}>
-                            <img className="pic" src={ImgD1}/>
-                            <div className="info">翼猫冷敷贴系统代言卡</div>
-                            <img className="r" src={ImgR}/>
-                        </li>
-                    </ul>
-                </div>
-                <div className="abox">
-                    <div className="title">健康评估</div>
-                    <ul className="the-ul">
-                        <li onClick={() => this.onChose(5)}>
-                            <img className="pic" src={ImgE1}/>
-                            <div className="info">翼猫HRA健康风险评估系统代言卡</div>
-                            <img className="r" src={ImgR}/>
-                        </li>
-                    </ul>
-                </div>
+                {
+                    this.makeData(this.props.daiyanList)
+                }
             </div>
         );
     }
@@ -107,6 +116,7 @@ Register.propTypes = {
     location: P.any,
     history: P.any,
     actions: P.any,
+    daiyanList: P.any,
 };
 
 // ==================
@@ -115,9 +125,9 @@ Register.propTypes = {
 
 export default connect(
     (state) => ({
-
+        daiyanList: state.shop.daiyanList,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ wxInit, shareBuild }, dispatch),
+        actions: bindActionCreators({ wxInit, shareBuild, getDaiYanList }, dispatch),
     })
 )(Register);

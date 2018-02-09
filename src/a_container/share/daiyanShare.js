@@ -16,7 +16,16 @@ import './daiyanShare.scss';
 // ==================
 
 import Img from '../../assets/share/daiyanka.png';
-import ImgYaoQinKa from '../../assets/share/yaoqinka@3x.png';
+import ImgCyan from '../../assets/share/y_cyan.png';
+import ImgGreen from '../../assets/share/y_green.png';
+import ImgBlue from '../../assets/share/y_blue.png';
+import ImgOrange from '../../assets/share/y_orange.png';
+
+import ImgLCyan from '../../assets/share/l_cyan.png';
+import ImgLGreen from '../../assets/share/l_green.png';
+import ImgLBlue from '../../assets/share/l_blue.png';
+import ImgLOrange from '../../assets/share/l_orange.png';
+
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';
 // ==================
@@ -36,6 +45,8 @@ class Register extends React.Component {
             imgCode: '',
             data: {},
             d1: {}, // 从后台获取的信息
+            type: null,
+            type2: null,
         };
     }
 
@@ -54,12 +65,17 @@ class Register extends React.Component {
         const pathname = this.props.location.pathname.split('/');
         const info = pathname[pathname.length - 1].split('_');
         const t = Number(info[3]);
-        console.log('搞什么啊：', info, t);
+        const t2 = Number(info[4]);
+        this.setState({
+            type: t || null,
+            type2: t2 || null,
+        });
+
         if (t) {
-            this.props.actions.getShareInfo({ typeCode: t }).then((res) => {
+            this.props.actions.getShareInfo({ speakCardId: t }).then((res) => {
                 if (res.status === 200) {
                     this.setState({
-                        d1: res.data[0],
+                        d1: res.data,
                     });
                 }
             });
@@ -94,14 +110,37 @@ class Register extends React.Component {
         });
     }
 
+    // 选LOGO
+    choseLogo(type) {
+        switch(Number(type)){
+            case 1: return ImgLBlue;   // 水机
+            case 2: return ImgLGreen;   // 养未来
+            case 3: return ImgLOrange;   // 冷敷贴
+            case 5: return ImgLCyan;   // 体检卡
+            default: return ImgLCyan;
+        }
+    }
+
+    // 选标题
+    choseTitle(type) {
+        switch(Number(type)){
+            case 1: return ImgBlue;   // 水机
+            case 2: return ImgGreen;   // 养未来
+            case 3: return ImgOrange;   // 冷敷贴
+            case 5: return ImgCyan;   // 体检卡
+            default: return ImgCyan;
+        }
+    }
+
     render() {
         const d = this.state.data;
         const d1 = this.state.d1;
         console.log('d1是各什么：', d1);
         return (
             <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh' }}>
+                <img className="logo" src={this.choseLogo(this.state.type2)} />
                 <div className="title-box">
-                    <img src={ImgYaoQinKa}/>
+                    <img src={this.choseTitle(this.state.type2)}/>
                 </div>
                 <div className="body-box">
                     <div className="head-box">

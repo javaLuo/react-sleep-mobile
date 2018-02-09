@@ -602,7 +602,7 @@ export const startTiXian = (params = {}) => async(dispatch) => {
 export const getDefaultAttr = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/address/defaultList', params, 'post', true);
-        if(res.status === 200 && res.data) {
+        if(res.status === 200) {
             dispatch({
                 type: 'APP::setDefaultAttr',
                 payload: res.data,
@@ -630,11 +630,26 @@ export function saveTiXianDetailInfo(payload = {}) {
     };
 }
 
+// 获取我的代言卡选择页数据
+export const getDaiYanList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('/mall/speakCard/list', params, 'post', true);
+        if (res.status === 200) {
+            dispatch({
+                type: 'MY::getDaiYanList',
+                payload: res.data
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
 
 // 获取分享所需信息
 export const getShareInfo = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/speakCard/list', params);
+        const res = await Fetchapi.newPost('mall/speakCard/speakCardById', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

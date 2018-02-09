@@ -58,6 +58,15 @@ class HomePageContainer extends React.Component {
                   </List>
               ) : null
           }
+          <List className="mt">
+              <Item>下单信息：</Item>
+              <Item
+                  thumb={<img src={data.headImg || ImgDefault} />}
+                  className={'who'}
+              >
+                  <div style={{ textAlign: 'right' }}>{data.nickName}<Brief>e家号：{data.userId}</Brief></div>
+              </Item>
+          </List>
           <div className="info-box">
               <div className="page-flex-row flex-jc-sb">
                   <div>类型</div>
@@ -72,17 +81,8 @@ class HomePageContainer extends React.Component {
                   <div>{data.orderId}</div>
               </div>
           </div>
-          <List className="mt">
-              <Item>收益来源：</Item>
-              <Item
-                  thumb={<img src={data.headImg || ImgDefault} />}
-                  className={'who'}
-              >
-                  <div style={{ textAlign: 'right' }}>{data.nickName}<Brief>e家号：{data.userId}</Brief></div>
-              </Item>
-          </List>
           {
-              data.userSaleId ? (
+              [5,6].includes(u.typeId ) ? (
                   <List className="mt">
                       <Item>分销商信息：</Item>
                       <Item

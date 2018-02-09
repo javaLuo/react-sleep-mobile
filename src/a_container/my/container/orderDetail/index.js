@@ -198,11 +198,11 @@ class HomePageContainer extends React.Component {
               <div className="basic">
                   <div>订单号：{this.props.orderInfo.id || ''}</div>
                   <div>下单时间：{this.props.orderInfo.createTime || ''}</div>
-                  {this.props.orderInfo.conditions === 4 ? <div>付款时间：{this.props.orderInfo.payTime || '--'}</div> : null}
+                  {this.props.orderInfo.payTime ? <div>付款时间：{this.props.orderInfo.payTime || '--'}</div> : null}
               </div>
               { /** 水机有付款方式 **/
                   type === 1 ? (
-                      <div>付款方式：{o.chargeType && o.chargeType.chargeName}</div>
+                      <div>计费方式：{o.chargeType && o.chargeType.chargeName}</div>
                   ) : null
               }
               <div>运费：￥{o.shipFee || 0}</div>

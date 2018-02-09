@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
         formJifei: null,   // 当前选择的计费方式
         formCount: 1,   // 购买数量
         loading: false, // 是否正在异步请求中
+        imgHeight: 200,
     };
   }
 
@@ -130,9 +131,6 @@ class HomePageContainer extends React.Component {
       }else if (!this.state.formCount){
           Toast.info('请选择购买数量',1);
           return false;
-      } else if (this.state.data.typeId === 1 && !this.state.formJifei) { // 水机需要选择计费方式
-          Toast.info('请选择计费方式', 1);
-          return;
       }
 
       // 检查当前用户是否有权限购买当前物品
@@ -226,11 +224,10 @@ class HomePageContainer extends React.Component {
                           cols={1}
                           onOk={(v) => this.onJiFeiChose(v)}
                       >
-                          <Item arrow="horizontal">计费方式</Item>
+                          <Item arrow="horizontal" className="special-item">计费方式</Item>
                       </Picker>
                   ) : null
               }
-
               {
                   d && [0,1,4,5,6].includes(d.typeId) ? (
                       <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>{d && d.typeId === 1 ? '可安装净水系统的区域查询': '查看适用体验店'}</Item>

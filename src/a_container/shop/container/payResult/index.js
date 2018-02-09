@@ -90,19 +90,6 @@ class HomePageContainer extends React.Component {
               <div>数量：{this.props.payResultInfo.payData.count}</div>
               <div>实付款：{this.props.payResultInfo.payData.fee ? `￥ ${this.props.payResultInfo.payData.fee}` : ''}</div>
           </div>
-          {/*<div className="cards">*/}
-              {/*<div className="title page-flex-row flex-jc-sb">*/}
-                  {/*<div className="t">体检卡</div>*/}
-                  {/*<div className="i">有效期至：{this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData[0].validTime : ''}</div>*/}
-              {/*</div>*/}
-              {/*<List>*/}
-                  {/*{*/}
-                      {/*this.props.payResultInfo.cardData ? this.props.payResultInfo.cardData.map((item, index) => {*/}
-                          {/*return <Item key={index} extra={<a className="list-btn" onClick={() => this.props.history.push('/healthy/mycard')}>查看体检卡</a>}>体检卡{index + 1}：共{item.ticketList.length}张体检券</Item>;*/}
-                      {/*}) : null*/}
-                  {/*}*/}
-              {/*</List>*/}
-          {/*</div>*/}
           <div className="thefooter">
               <Button type="primary" onClick={() => this.props.history.replace('/my/order')}>返回我的订单</Button>
           </div>
