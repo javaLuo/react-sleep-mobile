@@ -91,7 +91,7 @@ class HomePageContainer extends React.Component {
                           </a>
                       ))}
                   </Carousel>
-              ) : <div style={{ width: '100%', height: '2rem', backgroundColor: '#f0f0f0' }}/>
+              ) : null
           }
           {/** 产品bar **/}
           <div className="home-bar page-flex-row">

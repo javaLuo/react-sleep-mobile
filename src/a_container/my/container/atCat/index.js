@@ -120,7 +120,7 @@ class HomePageContainer extends React.Component {
     youWantLight(page, a, b, type){
       if([0, 1].includes(page)) {
           return b;
-      } else if ([2].includes(page)) {  // 处于分销用户页
+      } else if ([2].includes(page)) {  // 处于分销用户页 根据用户信息中的数据哪些亮哪些不亮
           const u = this.props.userinfo;
           const p = (u && u.incomePermission) ? u.incomePermission.split(',') : [];
           if (p.includes(String(type))) {
@@ -128,6 +128,11 @@ class HomePageContainer extends React.Component {
           } else {
               return b;
           }
+      } else if ([3].includes(page)){   // 处于微创版经销商 只能卖水机
+          if (type === 1) {
+              return a;
+          }
+          return b;
       } else {
           return a;
       }

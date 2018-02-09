@@ -69,7 +69,7 @@ class Register extends React.Component {
         return map.map((item, index) => {
             return (
                 <div key={index} className="abox">
-                    <div className="title">{this.switchType(item[0])}</div>
+                    <div className="title">{item[1][0] && item[1][0].productTypeName}</div>
                     <ul className="the-ul">
                     {
                         item[1].map((v, i) => {
@@ -84,17 +84,6 @@ class Register extends React.Component {
                 </div>
             );
         });
-    }
-
-    switchType(t) {
-        switch(Number(t)){
-            case 0: return '其他';
-            case 1: return '净水服务';
-            case 2: return '健康食品';
-            case 3: return '生物科技';
-            case 5: return '智能评估';
-            default: return '';
-        }
     }
 
     render() {

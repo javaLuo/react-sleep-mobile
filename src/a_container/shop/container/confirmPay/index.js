@@ -183,8 +183,7 @@ class HomePageContainer extends React.Component {
               </Item>
           </List>
           <List>
-              {/*<Item extra={d && d.typeId === 1 ? this.state.formCount : <Stepper style={{ width: '100%', minWidth: '100px' }} min={1} max={this.canBuyHowMany(d && d.typeId)} showNumber size="small" value={this.state.formCount} onChange={(e) => this.onCountChange(e)}/>}>购买数量</Item>*/}
-              <Item extra={<StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+              <Item extra={d && d.typeId === 1 ? 1 : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (

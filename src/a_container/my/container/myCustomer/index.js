@@ -82,7 +82,7 @@ class HomePageContainer extends React.Component {
                       return <li key={index} className="page-flex-row flex-ai-center">
                           <div className="photo flex-none"><img src={item.headImg || ImgDefault} /></div>
                           <div className="name flex-auto">
-                              <div className="all_nowarp">{item.nickName}</div>
+                              <div className="all_nowarp">昵称：{item.nickName}</div>
                               <div className="lit">e家号：{item.id}</div>
                               <div className="lit mt">身份：{this.getNameByUserType(item.userType)}<span>{item.ambassadorTime}</span></div>
                           </div>

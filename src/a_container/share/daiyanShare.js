@@ -137,7 +137,7 @@ class Register extends React.Component {
         const d1 = this.state.d1;
         console.log('d1是各什么：', d1);
         return (
-            <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh' }}>
+            <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh', backgroundImage: d1.backImage }}>
                 <img className="logo" src={this.choseLogo(this.state.type2)} />
                 <div className="title-box">
                     <img src={this.choseTitle(this.state.type2)}/>

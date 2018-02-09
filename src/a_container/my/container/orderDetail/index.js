@@ -191,7 +191,7 @@ class HomePageContainer extends React.Component {
                   type === 1 ? (
                       <div className="worker">
                           <div>安装工：{o.customer && o.customer.realName}</div>
-                          <div>联系电话：{o.customer && o.customer.phone}</div>
+                          <div>联系电话：{o.customer  ? <a href={`tel:${o.customer.phone}`}>{o.customer.phone}</a> : null}</div>
                       </div>
                   ) : null
               }
