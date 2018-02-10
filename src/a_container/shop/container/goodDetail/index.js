@@ -199,7 +199,7 @@ class HomePageContainer extends React.Component {
           <div className="goodinfo">
               <div className="title">{d && d.name}</div>
               <div className="info">
-                  <div className="cost">￥ <span>{d && d.typeModel.price}</span></div>
+                  <div className="cost">￥ <span>{d && (d.typeModel.price + (d.typeModel.openAccountFee || 0))}</span></div>
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥{d && d.typeModel ? (d.typeModel.shipFee || 0) : 0}</div>

@@ -67,7 +67,7 @@ class HomePageContainer extends React.Component {
           return;
       }
         if(d.typeId === 1 && !this.state.formJifei) { // 水机需要选择计费方式
-            Toast.info('请选择支付方式', 1);
+            Toast.info('请选择计费方式', 1);
             return;
         }
       if(d.typeId === 1 && !this.state.formServiceTime) { // 水机需要选择安装时间
@@ -179,7 +179,7 @@ class HomePageContainer extends React.Component {
                 thumb={d.productImg ? <img src={d.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  {d.name}<Brief><span style={{ color: '#fc4800' }}>{d.typeModel && d.typeModel.price}</span></Brief>
+                  {d.name}<Brief><span style={{ color: '#fc4800' }}>{d && (d.typeModel.price + (d.typeModel.openAccountFee || 0))}</span></Brief>
               </Item>
           </List>
           <List>
@@ -199,12 +199,6 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
               {
-                  /** 只有水机有开户费(typeId === 1) **/
-                  d && d.typeId === 1 ? (
-                      <Item extra={`￥${d.typeModel.openAccountFee}`}>开户费</Item>
-                  ) : null
-              }
-              {
                   /** 只有水机有服务时间(typeId === 1) **/
                   d && d.typeId === 1 ? (
                       <DatePicker
@@ -220,7 +214,19 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
               {
-                  /** 水机和体检卡没有开户费(typeId === 1，5) **/
+                  // d.typeModel.openAccountFee
+                  d && d.typeId === 1 ? (
+                      <Item
+                          extra={`￥${(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}`}
+                          align={'top'}
+                      >首年度预缴<Brief>
+                          <div>采流量计费方式：额外免费享受180元的净水服务费额度；</div>
+                          <div>采包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期未14个月。</div>
+                      </Brief></Item>
+                  ) : null
+              }
+              {
+                  /** 水机和体检卡没有运费(typeId === 1，5) **/
                   d && ![1,5].includes(d.typeId) ? (
                       <Item extra={`￥${d. typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
                   ) : null

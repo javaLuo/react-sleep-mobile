@@ -120,14 +120,15 @@ class HomePageContainer extends React.Component {
                                   <Link to={`/shop/gooddetail/${item.id}`}>
                                     <div className="pic flex-none page-flex-row flex-jc-center flex-ai-center">{ item.productImg ? <img src={item.productImg.split(',')[0]} /> : <img className='default' src={imgDefalut}/>}</div>
                                     <div className="detail flex-auto page-flex-col">
-                                      <div className="t flex-none all_nowarp">{item.name}</div>
+                                      <div className="t flex-none">{item.name}</div>
                                       <div className="i flex-auto">
                                         <div className="all_nowarp2" />
                                       </div>
                                       <div className="k flex-none">
                                           {
                                             item.typeId === 1 ? (
-                                                item.typeModel.chargeTypes.map((v, index) => <div key={index} className="water-info">{v.chargeName}</div>)
+                                                // item.typeModel.chargeTypes.map((v, index) => <div key={index} className="water-info">{v.chargeName}</div>)
+                                                <div className="water-info">0元供机，仅收取净水服务费</div>
                                             ) : (
                                                 <div>￥ <i>{item.typeModel.price || '0'}</i></div>
                                             )

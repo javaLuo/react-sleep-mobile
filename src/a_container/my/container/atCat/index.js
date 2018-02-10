@@ -149,49 +149,49 @@ class HomePageContainer extends React.Component {
                 <div style={{ backgroundImage: `url(${ImgPutong})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">普通用户</div>
                     {[4].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>&#12288;</span>{[4].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[4].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
                 <li>
                     <div style={{ backgroundImage: `url(${ImgFenxiang})` }} className="page-flex-col flex-jc-sb">
                         <div className="t">分享用户</div>
                         {[3].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                        <div className="foot"><span>&#12288;</span>{[3].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                        <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[3].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                     </div>
                 </li>
                 <li>
                     <div style={{ backgroundImage: `url(${ImgFenxiao})` }} className="page-flex-col flex-jc-sb">
                         <div className="t">分销用户</div>
                         {[7].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                        <div className="foot"><span>&#12288;</span>{[7].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                        <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[7].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                     </div>
                 </li>
               <li>
                 <div style={{ backgroundImage: `url(${ImgWeichuang})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">微创版经销商</div>
                     {[1].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>&#12288;</span>{[1].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[1].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
               <li>
                 <div style={{ backgroundImage: `url(${ImgGeren})` }} className="page-flex-col flex-jc-sb">
                   <div className="t">个人版经销商</div>
                     {[2].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                    <div className="foot"><span>&#12288;</span>{[2].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                    <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[2].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                 </div>
               </li>
                 <li>
                     <div style={{ backgroundImage: `url(${ImgQiye})` }} className="page-flex-col flex-jc-sb">
                         <div className="t">企业版经销商(子账号)</div>
                         {[6].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                        <div className="foot"><span>&#12288;</span>{[6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                        <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[6].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                     </div>
                 </li>
                 <li>
                     <div style={{ backgroundImage: `url(${ImgQiye})` }} className="page-flex-col flex-jc-sb">
                         <div className="t">企业版经销商(主账号)</div>
                         {[5].indexOf(u.userType) >= 0 ? <div className="u"><span>e家号：</span>{u.id}</div> : null}
-                        <div className="foot"><span>&#12288;</span>{[5].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
+                        <div className="foot"><span>翼猫一卡通：全国翼猫体验店通用</span>{[5].indexOf(u.userType) >= 0 ? <img src={ImgDuiGou} /> : null}</div>
                     </div>
                 </li>
             </ul>
@@ -229,7 +229,7 @@ class HomePageContainer extends React.Component {
                 </ul>
             </div>
             <div className="card1">
-                <div className="title"><span>产品分销权</span></div>
+                <div className="title"><span>商城产品分销权</span></div>
                 <ul className="ul page-flex-row" key='1'>
                     <li>
                         <img src={this.youWantLight(this.state.page, ImgB1, ImgB2, 1)} />
@@ -254,69 +254,62 @@ class HomePageContainer extends React.Component {
                     case 0: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1.普通用户：普通用户是指健康大使不是翼猫经销商或间接不是翼猫经销商的用户。</div>
-                            <div className="info">2.商城产品购买权：在没有翼猫经销商作为健康大使的指导和帮助下，我们不建议在翼猫健康商城直接购买产品，请到附近的翼猫体验服务站体验后再购买。</div>
-                            <div className="info">3.商城产品分销权：不具有翼猫健康商城产品分销权，成为翼猫分销用户或经销商后，才拥有商城产品的分销、经销权。</div>
-                            <div className="info">4.用户升级：请您到附近的翼猫体验服务站，了解如何成为分享用户、分销用户或翼猫经销商。</div>
+                            <div className="info">1.普通用户：是指新用户自主关注【翼猫健康e家】微信公众号或通过扫描其他普通用户的个人专属二维码关注公众号的用户。</div>
+                            <div className="info">2.商城产品购买权：在没有翼猫经销商作为健康大使的指导和帮助下，我们不建议在翼猫健康商城直接购买产品。您可以通过扫描非普通用户专属二维码升级为分享用户后购买产品，或请您到附近的翼猫体验服务站体验后再购买。</div>
+                            <div className="info">3.商城产品分销权：普通用户不享有翼猫健康商场产品的分销权限，不享有分销收益。</div>
+                            <div className="info">4.用户升级：普通用户可通过扫描非普通用户的专属二维码升级为分享用户，或缴纳经销代理费成为翼猫经销商。</div>
                         </div>
                     );
                     case 1: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1.分享用户：分享用户是指翼猫经销商直接或间接分享二维码创建的用户。</div>
+                            <div className="info">1.分享用户：分享用户是指通过扫描非普通用户创建、升级的用户。</div>
                             <div className="info">2.商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3.商城产品分销权：不具有商城产品分销权，成为分销用户或经销商，才拥有商城产品分销、经销权。</div>
-                            <div className="info">4.用户升级：分享用户在翼猫健康商城中购买任意一款产品后，即可自动升级为分销用户，享受该系列产品的分销权，享受分销收益。</div>
+                            <div className="info">3.商城产品分销权：分享用户不享有翼猫健康商场产品的分销权限，不享有分销收益。</div>
+                            <div className="info">4.用户升级：分享用户在翼猫健康商城中成功购买任意一款产品后，即可自动升级为分销用户。</div>
                         </div>
                     );
                     case 2: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 分销用户：分享用户在商城购买任一款产品后就变成分销用户，分销用户可以帮助翼猫经销商分销产品，享受分销收益。</div>
+                            <div className="info">1. 分销用户：分销用户是指分享用户通过购买商城产品而升级成为可以分销同系列产品的用户。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：</div>
-                            <div className="info">分销用户可分销某产品系列的所有产品，并享受分销收益。</div>
-                            <div className="info">自己多次购买产品不享受分销折扣，分销给他人才能享受分销收益。</div>
-                            <div className="info">4.用户升级：分销用户想成为翼猫经销商，请您到附近的翼猫体验服务站咨询，稍后我们支持在线升级为翼猫经销商，享受产品经销收益。</div>
+                            <div className="info">3. 商城产品分销权：分销用户可以分销其购买的同系列产品，想享有直接分销的下一级用户购买同系列产品的分销收益。</div>
+                            <div className="info">4.用户升级：可通过缴纳经销代理费，成为翼猫经销商，享受产品经销收益。缴费方式请您到附近的翼猫体验服务站咨询，稍后我们支持在线升级为翼猫经销商。</div>
                         </div>
                     );
                     case 3: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 微创版经销商：仅需加盟费¥2980元即可成为翼猫微创版经销商。</div>
+                            <div className="info">1. 微创版经销商：已缴纳2980元经销代理费，享有“翼猫”净水设备装机额度20台限额内的净水服务终端用户开发资格的经销商，小微创业版经销商每人仅可购买一次。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：</div>
-                            <div className="info">具有经销翼猫智能净水服务的权利，并可发展分销用户协助分销翼猫净水服务，能按翼猫微创版经销商政策享受净水服务的收益。</div>
-                            <div className="info">4.用户升级：稍后我们支持在线升级为个人版经销商，享受个人版经销商产品经销权益。</div>
+                            <div className="info">3. 商城产品分销权：有推广20台翼猫智能净水设备的额度，其下级分销用户可协助分销翼猫智能净水设备，并共用该额度。</div>
+                            <div className="info">4.用户升级：可升级为个人版经销商、企业版经销商，具体升级方式请咨询全国各地翼猫体验服务中心。稍后我们将支持在线升级为个人版经销商，享受个人版经销商产品经销权益。</div>
                         </div>
                     );
                     case 4: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 个人版经销商：需加盟费¥29800元成为个人版经销商。</div>
+                            <div className="info">1. 个人版经销商：已缴纳29800元经销代理费，享有“翼猫”净水设备装机额度300台限额内的净水服务终端用户开发资格、养未来健康食品及翼猫生物冷敷贴产品经销代理资格的经销商。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：</div>
-                            <div className="info">具有经销翼猫健康商城中所有产品的权利，并可发展分销用户协助分销翼猫商城中所有产品，能按翼猫个人版经销商政策享受产品经销代理收益。</div>
+                            <div className="info">3. 商城产品分销权：享有推广300台翼猫智能净水设备的额度及分销翼猫健康商城内其他产品，其下级分销用户可协助分销健康商城内的产品，并共用该净水设备额度。</div>
+                            <div className="info">4. 用户升级：可升级为企业版经销商，具体升级方式请咨询全国各地翼猫体验服务中心。</div>
                         </div>
                     );
                     case 5: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 企业版经销商（子账户）：企业版经销商主账户分出来的的子账户。</div>
+                            <div className="info">1. 企业版经销商（子账户）：过企业版经销商主账户开设的子帐户。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：</div>
-                            <div className="info">可发展分销用户协助分销翼猫商城中所有产品，并由企业版主账户自行分配收益。</div>
+                            <div className="info">3. 商城产品分销权：享有推广主账号下翼猫智能净水设备的额度及分销翼猫健康商城内其他产品，其收益由企业版经销商线下分配收益。</div>
                         </div>
                     );
                     case 6: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 企业版经销商（主账户）：需加盟费¥59800元成为企业版经销商。</div>
+                            <div className="info">1. 企业版经销商（主账户）：已缴纳59800元经销代理费，享有“翼猫”净水设备装机额度600台限额内的净水服务终端用户开发资格、养未来健康食品及翼猫生物冷敷贴产品经销代理资格的经销商，可开设一定端口数量的子账号。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：</div>
-                            <div className="info">可以分销商城中的所有产品，并可按翼猫企业版经销商政策享受产品经销代理收益。</div>
-                            <div className="info">可以自主发展子账户，由子账户分销翼猫商城产品。</div>
-                            <div className="info">可以发展分销用户协助分销翼猫商城中所有产品。</div>
+                            <div className="info">3. 商城产品分销权：享有推广600台翼猫智能净水设备的额度及分销翼猫健康商城内其他产品，其下级分销用户、子账号及子账号下级分销用户协助分销翼猫商城中所有产品，并共用该净水设备额度。</div>
                         </div>
                     );
                 }

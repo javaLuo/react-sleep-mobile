@@ -32,7 +32,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         date: new Date(), // 当前选中的年月
-
+        userType: null, // 当前收益明细对应的帐号的用户类型
     };
   }
 
@@ -41,6 +41,11 @@ class HomePageContainer extends React.Component {
       if (!this.props.proDetail) {
           Toast.fail('未获取到收益详情信息',1);
       }
+      const p = this.props.location.pathname.split('/');
+      const userType = p[p.length - 1];
+      this.setState({
+          userType
+      });
   }
 
   render() {
@@ -82,7 +87,7 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           {
-              [1,2,5,6].includes(u.typeId ) ? (
+              [1,2,5,6].includes(Number(this.state.userType)) && data.userSaleMoney ? (
                   <List className="mt">
                       <Item>分销商信息：</Item>
                       <Item

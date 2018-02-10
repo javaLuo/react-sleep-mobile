@@ -89,23 +89,28 @@ class HomePageContainer extends React.Component {
       Toast.loading('搜索中...',0);
       this.props.actions.userIncomeDetails(tools.clearNull(params), userType).then((res) => {
         if (res.status === 200) {
+            this.setState({
+                allAccount: userType === 1 ? res.data.sonDistributor : this.state.allAccount,
+            });
             if (res.data && res.data.basePage && res.data.basePage.result && res.data.basePage.result.length) {
                 this.setState({
                     totalIncome: res.data.totalIncome,
                     data: type==='flash' ? res.data.basePage.result : [...this.state.data, ...res.data.basePage.result],
-                    allAccount: userType === 1 ? res.data.sonDistributor : this.state.allAccount,
                     pageNum,
                     pageSize,
                 });
                 Toast.hide();
             } else {    // 没有数据后台返回的是null
-                this.setState({
-                    totalIncome: 0,
-                    data: this.state.data,
-                });
                 if (type === 'update') {
+                    this.setState({
+                        data: this.state.data,
+                    });
                     Toast.info('没有更多数据了',1);
                 } else{
+                    this.setState({
+                        totalIncome: 0,
+                        data: [],
+                    });
                     Toast.hide();
                 }
             }
@@ -131,10 +136,23 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    // 工具 - 根据子账号ID查子账号userType;
+    getTypeByUserId(id) {
+      const t = this.state.allAccount.find((item) => {
+          return item.id === Number(id);
+      });
+      return t && t.userType;
+    }
+
     // 点击一条数据，进入该数据的详情页
     onItemClick(d) {
+      let userType = this.props.userinfo.userType;
+      if (this.state.searchAccount[0] !== 'all') { // 选的子账号，用子账号的userType
+          userType = this.getTypeByUserId(this.state.searchAccount[0]);
+      }
+      console.log('userType是：', userType);
       this.props.actions.saveProDetail(d);  // 将当前选中的这条数据保存到store
-      setTimeout(() => this.props.history.push('/profit/prodetails/1'), 16);
+      setTimeout(() => this.props.history.push(`/profit/prodetails/${userType}`), 16);
     }
 
     onDown(){
@@ -199,7 +217,7 @@ class HomePageContainer extends React.Component {
                   <div>￥{this.state.totalIncome}</div>
               </div>
           </Picker>
-          <div className="list-box">
+          <div className="list-box" style={{ height: u.userType === 5 ? 'calc(100vh - 88px)' : 'calc(100vh - 44px)' }}>
               <Luo
                   id="luo1"
                   className="touch-none"

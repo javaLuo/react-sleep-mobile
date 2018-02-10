@@ -182,7 +182,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
                       <div className="t">{ data.name || '' }</div>
-                      <div className="i">￥<span>{data.typeModel ? data.typeModel.price : ''}</span></div>
+                      <div className="i">￥<span>{data && (data.typeModel.price + (data.typeModel.openAccountFee || 0))}</span></div>
                   </div>
               </div>
           </div>
@@ -208,7 +208,7 @@ class HomePageContainer extends React.Component {
               <div>运费：￥{o.shipFee || 0}</div>
               { /** 水机有开户费 **/
                   type === 1 ? (
-                      <div>开户费：{o.openAccountFee}</div>
+                      <div>首年度预缴：{o.fee}</div>
                   ) : null
               }
               <div>数量：{this.props.orderInfo.count || ''}</div>
