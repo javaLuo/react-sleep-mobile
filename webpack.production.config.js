@@ -81,7 +81,7 @@ module.exports = {
 
         // 配置了这个插件，再配合上面loader中的配置，将所有样式文件打包为一个单独的css文件
         new ExtractTextPlugin({
-            filename:'[name].css',  // 生成的文件名
+            filename:'[name].[hash:6].css',  // 生成的文件名
             allChunks: true,        // 从所有chunk中提取
         }),
 

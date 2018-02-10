@@ -220,8 +220,8 @@ class HomePageContainer extends React.Component {
                           extra={`￥${(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}`}
                           align={'top'}
                       >首年度预缴<Brief>
-                          <div>采流量计费方式：额外免费享受180元的净水服务费额度；</div>
-                          <div>采包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期未14个月。</div>
+                          <div className="year-info">采流量计费方式：额外免费享受180元的净水服务费额度；</div>
+                          <div className="year-info">采包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期未14个月。</div>
                       </Brief></Item>
                   ) : null
               }
@@ -232,6 +232,7 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
           </List>
+          <div className="zw46"/>
           <div className="thefooter page-flex-row">
               <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}</div>
               <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>确认支付</div>
