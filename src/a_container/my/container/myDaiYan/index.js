@@ -47,7 +47,6 @@ class Register extends React.Component {
             imgCode: '',    // 二维码图片
             d1: {},   // 数据1 分享所需
             type: null,     // 当前数据的ID，用于查询当前对应的图片什么的
-            type2: null,    // 当前是什么类型的代言卡1水，2养未来，3冷敷贴，5体检卡 ，用于显示不同的颜色
         };
     }
 
@@ -59,7 +58,7 @@ class Register extends React.Component {
         document.title = '我的代言卡';
         const t = this.getType();
         if (t) {
-            this.initAll(t.type, t.type2);
+            this.initAll(t);
         }
         this.getCode();
     }
@@ -67,15 +66,14 @@ class Register extends React.Component {
     // 获取当前是哪种类型的代言卡
     getType() {
         const pathname = this.props.location.pathname.split('/');
-        const t = pathname[pathname.length - 1].split('_');
+        const t = pathname[pathname.length - 1];
         this.setState({
-            type: t[0] || null,
-            type2: t[1] || null,
+            type: t || null,
         });
-        return {type: t[0], type2: t[1]} || null;
+        return t || null;
     }
 
-    initAll(t, t2) {
+    initAll(t) {
         Promise.all([
             this.props.actions.getShareInfo({ speakCardId: t }),
             this.props.actions.wxInit()
@@ -84,7 +82,7 @@ class Register extends React.Component {
                 this.setState({
                     d1: res[0].data,
                 });
-                this.initWxConfig(res[0].data, res[1].data, t, t2);
+                this.initWxConfig(res[0].data, res[1].data, t);
             }
         }).catch(() => {
             Toast.fail('初始化分享失败', 1);
@@ -107,7 +105,7 @@ class Register extends React.Component {
     }
 
     // 初始化微信JS-SDK
-    initWxConfig(d1, d2, t, t2) {
+    initWxConfig(d1, d2, t) {
         const me = this;
         if(typeof wx === 'undefined') {
             console.log('weixin sdk load failed!');
@@ -135,10 +133,9 @@ class Register extends React.Component {
              * name - 名字
              * head - 头像
              * t - 当前数据ID
-             * t2 - 当前数据类型ID
              * **/
             const u = this.props.userinfo;
-            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${t}_${t2}`;
+            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${t}`;
             wx.onMenuShareAppMessage({
                 title: `${u.nickName}${d1.title}`,
                 desc: d1.content,
@@ -181,54 +178,17 @@ class Register extends React.Component {
         });
     }
 
-    // 选LOGO
-    choseLogo(type) {
-        switch(Number(type)){
-            case 1: return ImgLBlue;   // 水机
-            case 2: return ImgLGreen;   // 养未来
-            case 3: return ImgLOrange;   // 冷敷贴
-            case 5: return ImgLCyan;   // 体检卡
-            default: return ImgLCyan;
-        }
-    }
-
-    // 选标题
-    choseTitle(type) {
-        switch(Number(type)){
-            case 1: return ImgBlue;   // 水机
-            case 2: return ImgGreen;   // 养未来
-            case 3: return ImgOrange;   // 冷敷贴
-            case 5: return ImgCyan;   // 体检卡
-            default: return ImgCyan;
-        }
-    }
-
-    // 选颜色
-    choseColor(type) {
-        switch(Number(type)){
-            case 1: return '#0074FF';   // 水机
-            case 2: return '#00CD0C';   // 养未来
-            case 3: return '#FF9500';   // 冷敷贴
-            case 5: return '#00C8CC';   // 体检卡
-            default: return '#00C8CC';
-        }
-    }
-
     render() {
         const u = this.props.userinfo || {};
         const d1 = this.state.d1;
         console.log('d1是什么：', d1, this.state.type);
         return (
-            <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh', backgroundImage: d1.backImage }}>
-                <img className="logo" src={this.choseLogo(this.state.type2)} />
-                <div className="title-box">
-                    <img src={this.choseTitle(this.state.type2)}/>
-                </div>
+            <div className="flex-auto page-box page-daiyanka" style={{ minHeight: '100vh', backgroundImage: `url(${d1.backImage})` }}>
                 <div className="body-box">
                     <div className="head-box">
                         <div className="pic"><img src={u.headImg} /></div>
-                        <div className="name">{u.nickName || '-'}</div>
-                        <div className="name-info">{d1.title || ' '}</div>
+                        <div className="name" style={{ color: d1.colorOne || '#fff' }}>{u.nickName || '-'}</div>
+                        <div className="name-info" style={{ color: d1.colorOne || '#fff' }}>{d1.title || ' '}</div>
                     </div>
                     <div className="img-box">
                         {
@@ -253,7 +213,7 @@ class Register extends React.Component {
                 </div>
                 <div className="footer-zw"/>
                 <div className="thefooter">
-                    <Button type="primary"  style={{ backgroundColor: this.choseColor(this.state.type2) }} onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
+                    <Button type="primary"  style={{ backgroundColor: d1.colorTwo || '#0074FF' }} onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
                 </div>
                 <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
                     <img className="share" src={ImgShareArr} />

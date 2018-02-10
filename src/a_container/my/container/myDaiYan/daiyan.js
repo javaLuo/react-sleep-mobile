@@ -55,8 +55,8 @@ class Register extends React.Component {
      * @type: 这条数据的ID
      * @type2: 这条数据的类型ID
      * **/
-    onChose(type, type2) {
-        this.props.history.push(`/my/mydaiyan/${type}_${type2}`);
+    onChose(type) {
+        this.props.history.push(`/my/mydaiyan/${type}`);
     }
 
     getData() {
@@ -73,7 +73,7 @@ class Register extends React.Component {
                     <ul className="the-ul">
                     {
                         item[1].map((v, i) => {
-                            return <li key={i} onClick={() => this.onChose(v.id, item[0])}>
+                            return <li key={i} onClick={() => this.onChose(v.id)}>
                                 <img className="pic" src={v.titleImage}/>
                                 <div className="info">{v.name}</div>
                                 <img className="r" src={ImgR}/>

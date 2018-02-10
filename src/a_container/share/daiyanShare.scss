@@ -1,8 +1,8 @@
 .page-daiyankashare{
   background-color: #040B1E !important;
-  background-size: cover;
-  background-position: top left;
-  background-attachment: fixed;
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
   min-height: 100vh !important;
   .logo{
     position: absolute;
@@ -19,7 +19,7 @@
     }
   }
   .body-box{
-    padding: 0 .2rem .2rem .2rem;
+    padding: 1.3rem .2rem .2rem .2rem;
     .head-box{
       position: relative;
       margin-top: 0;
@@ -83,6 +83,7 @@
         color: #fff;
         text-align: center;
         letter-spacing: 1px;
+        margin-top: .2rem;
       }
       .codes{
         margin-top: .2rem;

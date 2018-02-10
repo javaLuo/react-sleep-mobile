@@ -46,7 +46,6 @@ class Register extends React.Component {
             data: {},
             d1: {}, // 从后台获取的信息
             type: null,
-            type2: null,
         };
     }
 
@@ -65,10 +64,8 @@ class Register extends React.Component {
         const pathname = this.props.location.pathname.split('/');
         const info = pathname[pathname.length - 1].split('_');
         const t = Number(info[3]);
-        const t2 = Number(info[4]);
         this.setState({
             type: t || null,
-            type2: t2 || null,
         });
 
         if (t) {
@@ -110,38 +107,12 @@ class Register extends React.Component {
         });
     }
 
-    // 选LOGO
-    choseLogo(type) {
-        switch(Number(type)){
-            case 1: return ImgLBlue;   // 水机
-            case 2: return ImgLGreen;   // 养未来
-            case 3: return ImgLOrange;   // 冷敷贴
-            case 5: return ImgLCyan;   // 体检卡
-            default: return ImgLCyan;
-        }
-    }
-
-    // 选标题
-    choseTitle(type) {
-        switch(Number(type)){
-            case 1: return ImgBlue;   // 水机
-            case 2: return ImgGreen;   // 养未来
-            case 3: return ImgOrange;   // 冷敷贴
-            case 5: return ImgCyan;   // 体检卡
-            default: return ImgCyan;
-        }
-    }
-
     render() {
         const d = this.state.data;
         const d1 = this.state.d1;
         console.log('d1是各什么：', d1);
         return (
-            <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh', backgroundImage: d1.backImage }}>
-                <img className="logo" src={this.choseLogo(this.state.type2)} />
-                <div className="title-box">
-                    <img src={this.choseTitle(this.state.type2)}/>
-                </div>
+            <div className="flex-auto page-box page-daiyankashare" style={{ minHeight: '100vh', backgroundImage: `url(${d1.backImage})` }}>
                 <div className="body-box">
                     <div className="head-box">
                         <div className="pic"><img src={decodeURIComponent(d.head)} /></div>

@@ -82,7 +82,7 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           {
-              [5,6].includes(u.typeId ) ? (
+              [1,2,5,6].includes(u.typeId ) ? (
                   <List className="mt">
                       <Item>分销商信息：</Item>
                       <Item

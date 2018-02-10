@@ -1,13 +1,14 @@
 .page-primary{
-  background-color: #fff;
   min-height: 100vh;
   .data-title{
     padding: .28rem;
     color: #aaa;
     font-size: .32rem;
+    border-bottom: solid 1px #f0f0f0;
   }
   .data-list{
     display: block;
+    margin-bottom: .2rem;
     &>li{
       position: relative;
       background-color: #fff;

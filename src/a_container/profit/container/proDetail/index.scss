@@ -26,4 +26,13 @@
     width: 100%;
     height: calc(100vh - 54px);
   }
+  .am-list-body{
+    border-top: none;
+    &::before{
+      background-color: transparent;
+    }
+    &::after{
+      background-color: transparent;
+    }
+  }
 }
