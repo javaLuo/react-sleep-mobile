@@ -28,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="518">
-              <caret line="232" column="15" lean-forward="true" selection-start-line="232" selection-start-column="15" selection-end-line="232" selection-end-column="15" />
+              <caret line="232" column="15" lean-forward="false" selection-start-line="232" selection-start-column="15" selection-end-line="232" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -38,13 +38,13 @@
         <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="558">
-              <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+              <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="webpack.production.config.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="webpack.production.config.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webpack.production.config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="318">
@@ -74,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2530">
-              <caret line="306" column="93" lean-forward="false" selection-start-line="306" selection-start-column="93" selection-end-line="306" selection-end-column="93" />
+            <state relative-caret-position="6842">
+              <caret line="316" column="44" lean-forward="true" selection-start-line="316" selection-start-column="44" selection-end-line="316" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -210,10 +210,10 @@
         <option value="$PROJECT_DIR$/src/a_container/home/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/atCat/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/order/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss" />
         <option value="$PROJECT_DIR$/webpack.production.config.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/order/index.js" />
       </list>
     </option>
   </component>
@@ -228,10 +228,10 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="50" />
-    <option name="width" value="1919" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="411" />
+    <option name="y" value="49" />
+    <option name="width" value="1503" />
     <option name="height" value="985" />
   </component>
   <component name="ProjectView">
@@ -267,6 +267,30 @@
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -441,18 +465,18 @@
       <workItem from="1518138553472" duration="10295000" />
       <workItem from="1518225011381" duration="5163000" />
       <workItem from="1518241774067" duration="4785000" />
-      <workItem from="1518248575245" duration="6861000" />
+      <workItem from="1518248575245" duration="8805000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1149161000" />
+    <option name="totallyTimeSpent" value="1151105000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="50" width="1919" height="985" extended-state="0" />
+    <frame x="411" y="49" width="1503" height="985" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13504992" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17283121" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32723358" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -864,14 +888,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2530">
-          <caret line="306" column="93" lean-forward="false" selection-start-line="306" selection-start-column="93" selection-end-line="306" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2303">
@@ -886,7 +902,7 @@
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
-          <caret line="232" column="15" lean-forward="true" selection-start-line="232" selection-start-column="15" selection-end-line="232" selection-end-column="15" />
+          <caret line="232" column="15" lean-forward="false" selection-start-line="232" selection-start-column="15" selection-end-line="232" selection-end-column="15" />
           <folding />
         </state>
       </provider>
@@ -894,7 +910,7 @@
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
-          <caret line="36" column="13" lean-forward="true" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+          <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -903,6 +919,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="71" column="56" lean-forward="false" selection-start-line="71" selection-start-column="56" selection-end-line="71" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6842">
+          <caret line="316" column="44" lean-forward="true" selection-start-line="316" selection-start-column="44" selection-end-line="316" selection-end-column="44" />
           <folding />
         </state>
       </provider>
