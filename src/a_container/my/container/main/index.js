@@ -174,6 +174,7 @@ class HomePageContainer extends React.Component {
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>
                   <img src={ImgDingDan} className="icon"/>
                   <div className="title">我的订单</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
@@ -195,29 +196,34 @@ class HomePageContainer extends React.Component {
               <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的推广客户</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item tran4 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                   <img src={ImgYouHui} className="icon" />
                   <div className="title">我的优惠卡</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item tran5 hide page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的产品代言卡</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item tran6 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
               <div className="item tran7 hide page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
                   <img src={ImgBar7} className="icon"/>
                   <div className="title">使用帮助</div>
+                  <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
           </div>

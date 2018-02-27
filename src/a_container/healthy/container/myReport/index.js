@@ -105,7 +105,7 @@ class HomePageContainer extends React.Component {
                         this.state.data.length ? this.state.data.map((item, index) => {
                                return <li key={index} className="card-box page-flex-row" onClick={() => this.onPdf(item.reportPDF)}>
                                     <div className="l flex-auto">
-                                        <div><span>{item.username}</span><span>{item.sex === 1 ? '男' : '女'}</span><span>{item.examDate}</span></div>
+                                        <div><span>{item.username}</span><span>{['男', 1].includes(item.sex) ? '男' : '女'}</span><span>{item.examDate}</span></div>
                                         <div>{item.stationName || '--'}</div>
                                     </div>
                                     <div className="r flex-none page-flex-col flex-ai-center flex-jc-center"><img src={ImgRight} /></div>

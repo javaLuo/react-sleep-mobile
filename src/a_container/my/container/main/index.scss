@@ -100,15 +100,19 @@
         box-sizing: initial;
       }
       .title{
-        flex:auto;
+        flex:none;
         font-size: .36rem;;
         letter-spacing: 1px;
       }
       .info{
         flex: auto;
-        font-size: .32rem;;
+        font-size: .32rem;
         color: #89888e;
         text-align: right;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        margin-left: 2px;
       }
       .arrow{
         padding: 0 .28rem;
