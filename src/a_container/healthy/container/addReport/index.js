@@ -34,7 +34,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '添加体检报告';
+        document.title = '添加检查报告';
     }
     // phone改变时触发
     onPhoneInput(e) {
@@ -49,7 +49,7 @@ class HomePageContainer extends React.Component {
     // 提交
     onSubmit() {
         if (!this.props.reportInfo.ticketNo) {
-            Toast.fail('请选择体检卡', 1);
+            Toast.fail('请选择评估卡', 1);
             return false;
         } else if (!tools.checkPhone(this.state.phone)) {
             Toast.fail('请输入正确的手机号', 1);
@@ -78,7 +78,7 @@ class HomePageContainer extends React.Component {
             <div className="page-add-report">
                 <div className="bar-list">
                     <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard2')}>
-                        <div className="title2">体检卡号:</div>
+                        <div className="title2">评估卡号:</div>
                         <div className="info2">{this.props.reportInfo.ticketNo}</div>
                         <div className="arrow2"><img src={ImgCard} /></div>
                         <div className="line"/>

@@ -42,7 +42,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的体检卡分享';
+        document.title = '我的评估卡分享';
         this.getData();
     }
 
@@ -55,7 +55,7 @@ class HomePageContainer extends React.Component {
          * userId - 用户ID
          * name - 用户名
          * head - 头像
-         * no - 体检卡号
+         * no - 评估卡号
          * price - 价格
          * date - 有效期
          * dateTime - 分享的时间
@@ -147,7 +147,7 @@ class HomePageContainer extends React.Component {
                             }
                             <div className="page-flex-row" >
                                 <div className="flex-none">查看方式：</div>
-                                <div className="flex-auto">进入公众号[健康管理]-[我的体检卡]中查看。</div>
+                                <div className="flex-auto">进入公众号[健康管理]-[我的评估卡]中查看。</div>
                             </div>
                         </div>
                     </div>

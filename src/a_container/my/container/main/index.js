@@ -209,7 +209,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item tran5 hide page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
-                  <div className="title">我的产品代言卡</div>
+                  <div className="title">我的代言卡</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

@@ -31,7 +31,7 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [], // 用户拥有的体检卡
+            data: [], // 用户拥有的评估卡
             pageNum: 1,
             pageSize: 10,
             total: 0,
@@ -40,11 +40,11 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '选择体检卡';
+        document.title = '选择评估卡';
         this.getData();
     }
 
-    // 获取体检卡列表
+    // 获取评估卡列表
     getData(pageNum=1, pageSize=10, type='flash') {
         Toast.loading('搜索中...',0);
         this.props.actions.queryNotUsedListTicket({ pageNum, pageSize }).then((res) => {
@@ -84,7 +84,7 @@ class HomePageContainer extends React.Component {
         // if (path === 'addreport') { // 来自添加报告选择
         //     this.props.actions.saveReportInfo({ ticketNo: String(data.id) });
         //     setTimeout(() => this.props.history.replace('/healthy/addreport'), 16);
-        // } else if(path === 'precheck'){ // 来自体检预约选择体检卡
+        // } else if(path === 'precheck'){ // 来自体检预约选择评估卡
         //     this.props.actions.savePreInfo({ ticketNo: String(data.id) });
         //     setTimeout(() => this.props.history.replace('/healthy/precheck'), 16);
         // }

@@ -147,6 +147,13 @@ class HomePageContainer extends React.Component {
         ]);
     }
 
+    getSex(sex) {
+      switch(Number(sex)) {
+          case 1: return '男';
+          case 2: return '女';
+          default: return '';
+      }
+    }
   render() {
     return (
       <div className="addr-page">
@@ -166,7 +173,7 @@ class HomePageContainer extends React.Component {
                               return (
                                   <li key={index}>
                                       <WingBlank>
-                                          <div className="name">{item.contact}<span>{item.mobile}</span></div>
+                                          <div className="name">{item.contact}<kbd style={{ marginLeft: '5px' }}>{this.getSex(item.sex)}</kbd><span>{item.mobile}</span></div>
                                           <div className="addr">{`${item.province || ''}${item.city || ''}${item.region || ''}${item.street}`}</div>
                                           <div className="page-flex-row controls">
                                               <div className="page-flex-row flex-ai-center" onClick={() => this.onSetDefault(item)}><Icon className={item.defaultAddress ? 'icon check' : 'icon no-check' } type="check-circle"/> 默认地址</div>

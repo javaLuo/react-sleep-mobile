@@ -1,4 +1,4 @@
-/* 健康管理 - 分享 - 从体检卡点击查看5张体检券页 */
+/* 健康管理 - 分享 - 从评估卡点击查看5张体检券页 */
 
 // ==================
 // 所需的各种插件
@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
         this.getData();
     }
 
-    // 获取体检卡列表
+    // 获取评估卡列表
     getData() {
         const path = this.props.location.pathname.split('/');
         let info = path[path.length - 1];

@@ -1,4 +1,4 @@
-/* 健康管理 - 填写体检人信息 */
+/* 健康管理 - 填写被评估者信息 */
 
 // ==================
 // 所需的各种插件
@@ -43,7 +43,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '填写体检人信息';
+      document.title = '填写被评估者信息';
       const p = this.props.preInfo;
       console.log('所以这是什么：', p);
       this.setState({

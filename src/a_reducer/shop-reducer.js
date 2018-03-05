@@ -17,29 +17,29 @@ const initState = {
             payType: null,      // 支付方式ID
             isPay: false,        // 是否支付
             orderFrom: 2,       // 来源： 1:App, 2:微信，3：经销商
-            addrId: null,       // 收货地址ID（除了体检卡，都有）
+            addrId: null,       // 收货地址ID（除了评估卡，都有）
         },
         addr: null,             // 所选择的收货地址信息，用于展示
     },
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
     homePics: [],   // 首页轮播图
-    preInfo: {      // 预约体检，用户输入的信息，最终接口所需数据
+    preInfo: {      // 预约检查，用户输入的信息，最终接口所需数据
         userName: undefined,    // 名字 必填
         phone: undefined,       // 手机号 必填
         stationId: undefined,    // 服务站ID 必填
         stationName: '',    // 服务站名称 必填
         reserveTime: '',    // 预约时间 必填
         sex: 1,             // 性别，1男0女 必填
-        ticketNo: '',       // 体检卡编号 必填
+        ticketNo: '',       // 评估卡编号 必填
         height: undefined,   // 身高
         weight: undefined,  // 体重
         reserveFrom: 2,     // 用户来源 1APP， 2公众号，3后台添加
         reserveTime_Date: undefined,    // 临时 - 日期
         reserveTime_Time: undefined,    // 临时 - 时间
     },
-    reportInfo: {       // 健康管理 - 体检报告 -添加体检报告所选取的各数据
-        ticketNo: '',   // 体检卡号
+    reportInfo: {       // 健康管理 - 检查报告 -添加检查报告所选取的各数据
+        ticketNo: '',   // 评估卡号
         phone: '',      // 手机号
     },
     payResultInfo: {    // 支付成功，支付成功页面需要订单信息、生成的卡片信息
@@ -48,8 +48,8 @@ const initState = {
     },
     stationInfo: {},    // 当前所选服务站信息（用于体检预约）
     orderInfo: {},     // 当前所选订单信息（从我的订单点击进入订单详情时所需）
-    cardInfo: {},       // 当前选中的卡信息（从我的体检卡点击，进入体检券页所需，卡片信息中包含了所有体检券信息）
-    myCard: {           // 我的体检卡数据 保存分页的数据，各个地方都可以用
+    cardInfo: {},       // 当前选中的卡信息（从我的评估卡点击，进入体检券页所需，卡片信息中包含了所有体检券信息）
+    myCard: {           // 我的评估卡数据 保存分页的数据，各个地方都可以用
         data: [],
         pageNum: 1,
         pageSize: 10,

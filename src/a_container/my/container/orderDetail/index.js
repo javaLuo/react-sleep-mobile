@@ -117,7 +117,7 @@ class HomePageContainer extends React.Component {
         }
         if(obj.modelType === 'M') { // 优惠卡，跳优惠卡页面
             this.props.history.push(`/my/myfavcards/fav_${obj.id}`);
-        } else{ // 普通体检卡，跳体检卡详情页
+        } else{ // 普通评估卡，跳评估卡详情页
             this.props.history.push(`/my/ordercarddetail/${obj.id}`);
         }
 
@@ -137,7 +137,7 @@ class HomePageContainer extends React.Component {
             case '4':
                 const map = [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>];
                 if (type === 5) {   // 精准体检，有查看卡的连接
-                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>);
+                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看评估卡'}</a>);
                 }
                 return map;
             case '-1': return <span>审核中</span>;
@@ -214,7 +214,7 @@ class HomePageContainer extends React.Component {
               <div>数量：{this.props.orderInfo.count || ''}</div>
               <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
           </div>
-          { /** 只有体检卡有常见问题 **/
+          { /** 只有评估卡有常见问题 **/
               type === 5 ? (
                   <List>
                       <Item arrow="horizontal" onClick={() => this.props.history.push('/my/useofknow')}>常见问题</Item>
@@ -233,7 +233,7 @@ class HomePageContainer extends React.Component {
                   case 4: return (
                       <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
                           <a onClick={() => this.onDel()}>删除订单</a>
-                          {type === 5 ? <a className="blue" onClick={() => this.onLook()}>{this.props.orderInfo.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a> : null}
+                          {type === 5 ? <a className="blue" onClick={() => this.onLook()}>{this.props.orderInfo.modelType === 'M' ? '查看优惠卡' : '查看评估卡'}</a> : null}
                       </div>
                   );
                   default: return null;

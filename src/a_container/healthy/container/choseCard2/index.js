@@ -1,4 +1,4 @@
-/* 健康管理 - 体检报告 - 选择已使用过的体检券 */
+/* 健康管理 - 检查报告 - 选择已使用过的体检券 */
 
 // ==================
 // 所需的各种插件
@@ -31,7 +31,7 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [], // 用户拥有的体检卡
+            data: [], // 用户拥有的评估卡
             wxReady: false, // 微信是否已初始化
             pageNum: 1,
             pageSize: 10,
@@ -40,11 +40,11 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '选择体检卡';
+        document.title = '选择评估卡';
         this.getData();
     }
 
-    // 获取体检卡列表
+    // 获取评估卡列表
     getData(pageNum=1, pageSize=10, type='flash') {
         Toast.loading('搜索中...',0);
         this.props.actions.queryUsedListTicket({ pageNum, pageSize }).then((res) => {

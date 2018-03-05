@@ -108,7 +108,7 @@ class HomePageContainer extends React.Component {
       this.props.history.push(`/my/orderdetail`);
     }
 
-    // 查看体检卡详情
+    // 查看评估卡详情
     onLook(item) {
       if (item.modelType === 'M') { // 优惠卡
           this.props.history.push(`/my/myfavcards/fav_${item.id}`);
@@ -131,7 +131,7 @@ class HomePageContainer extends React.Component {
             case '4':
                 const map = [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>];
                 if (type === 5) {   // 精准体检，有查看卡的连接
-                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看体检卡'}</a>);
+                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看评估卡'}</a>);
                 }
                 return map;
             case '-1': return <span>审核中</span>;

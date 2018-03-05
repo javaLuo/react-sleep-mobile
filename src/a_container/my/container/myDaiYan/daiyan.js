@@ -44,7 +44,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的产品代言卡';
+        document.title = '我的代言卡';
         if(!this.props.daiyanList) {
             this.getData();
         }

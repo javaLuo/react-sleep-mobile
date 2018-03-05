@@ -34,8 +34,23 @@
     max-height: 60px;
     border-radius: 4px;
   }
+  .year-info-box{
+    border-bottom: solid 1px #eee;
+    position: relative;
+    padding: 0 15px 10px 15px;
+    margin-top: -5px;
+    z-index: 3
+  }
   .year-info{
     white-space: normal !important;
+    color: #888;
+  }
+  .this-speacl-item{
+    .am-list-line{
+      &::after{
+        display: none !important;
+      }
+    }
   }
   .mb{
     margin-bottom: .2rem;

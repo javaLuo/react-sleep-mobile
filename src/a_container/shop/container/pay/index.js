@@ -157,7 +157,7 @@ class HomePageContainer extends React.Component {
             if (!res) {
                 Toast.fail('支付失败',1);
             } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
-                // 支付成功后在后台添加对应数量的体检卡
+                // 支付成功后在后台添加对应数量的评估卡
                 this.makeCards();
                 Toast.success('支付成功',1);
             } else {  // 支付遇到错误
@@ -195,7 +195,7 @@ class HomePageContainer extends React.Component {
       this.onPay(this.s3data);
     }
 
-    // 支付成功后生成体检卡
+    // 支付成功后生成评估卡
     makeCards() {
         this.props.actions.mallCardCreate({ orderId: this.state.pay_info.id }).then((res) => {
             if (res.status === 200) {

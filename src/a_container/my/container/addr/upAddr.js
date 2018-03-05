@@ -34,6 +34,7 @@ class HomePageContainer extends React.Component {
             formName: '',
             formPhone: '',
             formAddr: '',
+            formSex: undefined,
             formArea: undefined,    // 地区
             sourceData: [], // 所有省市数据（层级）
 
@@ -54,6 +55,7 @@ class HomePageContainer extends React.Component {
                 id: n.id,
                 formName: n.contact,
                 formPhone: n.mobile,
+                formSex: [n.sex],
                 formAddr: n.street,
                 formArea: n.province ? [n.province, n.city, n.region] : undefined,
             });
@@ -106,7 +108,10 @@ class HomePageContainer extends React.Component {
         } else if (!tools.checkPhone(this.state.formPhone)) {
             Toast.fail('请输入正确的手机号',1);
             return;
-        }  else if (!this.state.formArea) {
+        }  else if (!this.state.formSex && this.state.formSex !== 0) {
+            Toast.fail('请选择性别', 1);
+            return;
+        } else if (!this.state.formArea) {
             Toast.fail('请选择区域',1);
             return;
         } else if (!this.state.formAddr) {
@@ -118,6 +123,7 @@ class HomePageContainer extends React.Component {
             userId: u.id,
             contact: this.state.formName,
             mobile: this.state.formPhone,
+            sex: this.state.formSex && this.state.formSex[0],
             province: this.state.formArea && this.state.formArea[0],
             city: this.state.formArea && this.state.formArea[1],
             region: this.state.formArea && this.state.formArea[2],
@@ -173,6 +179,14 @@ class HomePageContainer extends React.Component {
             formArea: data,
         });
     }
+
+    // 性别选择
+    onSexChose(v) {
+        this.setState({
+            formSex: v,
+        });
+    }
+
     render() {
         console.log('Picker妈的你不更新吗：', this.state.sourceData);
         return (
@@ -180,6 +194,15 @@ class HomePageContainer extends React.Component {
                 <List>
                     <InputItem clear value={this.state.formName} onChange={(v) => this.onNameChange(v)}>收货人</InputItem>
                     <InputItem type="number" clear value={this.state.formPhone} onChange={(v) => this.onPhoneChange(v)}>联系电话</InputItem>
+                    <Picker
+                        data={[{ label: '男', value: 1 }, { label: '女', value: 2 }]}
+                        extra={''}
+                        value={this.state.formSex}
+                        cols={1}
+                        onOk={(v) => this.onSexChose(v)}
+                    >
+                        <Item arrow={'horizontal'}>性别</Item>
+                    </Picker>
                     <Picker
                         data={this.state.sourceData}
                         extra={''}

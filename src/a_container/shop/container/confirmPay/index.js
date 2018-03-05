@@ -41,7 +41,7 @@ class HomePageContainer extends React.Component {
   componentWillMount() {
       // 如果没有选择商品就跳转到我的订单
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-         this.props.history.replace('/my/order');
+        // this.props.history.replace('/my/order');
       }
   }
 
@@ -61,8 +61,8 @@ class HomePageContainer extends React.Component {
   // 确认支付被点击，生成订单
     onSubmit() {
       console.log('收集的信息：', this.props.orderParams);
-      const d = this.props.orderParams.nowProduct;
-      if(d.typeId !== 5 && !this.props.orderParams.params.addrId) {  // 除体检卡以外的产品需要收货地址
+      const d = this.props.orderParams.nowProduct || { typeMode: {} };
+      if(d.typeId !== 5 && !this.props.orderParams.params.addrId) {  // 除评估卡以外的产品需要收货地址
           Toast.info('请选择收货地址', 1);
           return;
       }
@@ -140,9 +140,15 @@ class HomePageContainer extends React.Component {
             default: return 5;
         }
     }
-
+    getSex(sex) {
+        switch(Number(sex)) {
+            case 1: return '男';
+            case 2: return '女';
+            default: return '';
+        }
+    }
   render() {
-      const d = this.props.orderParams.nowProduct || {typeModel: undefined}; // 当前商品对象
+      const d = this.props.orderParams.nowProduct || {typeModel: {}}; // 当前商品对象
       const addr = this.props.orderParams.addr;   // 当前选择的收货地址
       const nowParams = this.props.orderParams.params;  // 当前订单的参数
       console.log(d, nowParams);
@@ -161,7 +167,7 @@ class HomePageContainer extends React.Component {
                           onClick={() => this.props.history.push('/shop/choseaddr')}
                       >
                           {
-                              addr ? `收货人：${addr.contact}` : null
+                              addr ? `收货人：${addr.contact}  ${this.getSex(addr.sex)}` : null
                           }
                           {
                               addr ? (<Brief>
@@ -216,17 +222,21 @@ class HomePageContainer extends React.Component {
               {
                   // d.typeModel.openAccountFee
                   d && d.typeId === 1 ? (
-                      <Item
+                      [<Item
+                          key="0"
                           extra={`￥${(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}`}
                           align={'top'}
-                      >首年度预缴<Brief>
-                          <div className="year-info">采流量计费方式：额外免费享受180元的净水服务费额度；</div>
-                          <div className="year-info">采包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期未14个月。</div>
-                      </Brief></Item>
+                          className={"this-speacl-item"}
+                      >首年度预缴</Item>,
+                      <div className={"year-info-box"} key="1">
+                          <div className="year-info mb">采用流量计费方式：额外免费享受180元的净水服务费额度；</div>
+                          <div className="year-info">采用包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期为14个月。</div>
+                      </div>
+                      ]
                   ) : null
               }
               {
-                  /** 水机和体检卡没有运费(typeId === 1，5) **/
+                  /** 水机和评估卡没有运费(typeId === 1，5) **/
                   d && ![1,5].includes(d.typeId) ? (
                       <Item extra={`￥${d. typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
                   ) : null

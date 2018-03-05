@@ -93,7 +93,13 @@ class HomePageContainer extends React.Component {
         this.props.actions.saveShopAddr(item);
         setTimeout(() => this.props.history.go(-1));
     }
-
+    getSex(sex) {
+        switch(Number(sex)) {
+            case 1: return '男';
+            case 2: return '女';
+            default: return '';
+        }
+    }
   render() {
     return (
       <div className="page-choseaddr">
@@ -113,7 +119,7 @@ class HomePageContainer extends React.Component {
                               return (
                                   <li key={index} onClick={() => this.onChoseThis(item)}>
                                       <WingBlank>
-                                          <div className="name">{item.contact}<span>{item.mobile}</span></div>
+                                          <div className="name">{item.contact}<kbd style={{ marginLeft: '5px' }}>{this.getSex(item.sex)}</kbd><span>{item.mobile}</span></div>
                                           <div className="addr">{`${item.province || ''}${item.city || ''}${item.region || ''}${item.street}`}</div>
                                           <div className="page-flex-row controls">
                                               {

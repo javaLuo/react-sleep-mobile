@@ -1,0 +1,13 @@
+.loading {
+  position: absolute;
+  width: 100%;
+  top: 20%;
+  color: #aaa;
+  text-align: center;
+  transform: translateX(-50%);
+  font-size: 14px;
+  img{
+    display: block;
+    margin: 0 auto 20px auto;
+  }
+}

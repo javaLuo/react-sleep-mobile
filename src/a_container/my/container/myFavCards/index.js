@@ -67,7 +67,7 @@ class HomePageContainer extends React.Component {
 
 
   /**
-   * 获取体检卡列表
+   * 获取评估卡列表
    * type=falsh 刷新
    * type=update 累加
    * **/
@@ -257,7 +257,7 @@ class HomePageContainer extends React.Component {
       this.getData(this.state.pageNum + 1, this.state.pageSize, 'update', this.state.search);
     }
 
-    // 工具 - 判断当前体检卡状态（正常1、过期2、已使用3）
+    // 工具 - 判断当前评估卡状态（正常1、过期2、已使用3）
     checkCardStatus(item) {
       try{
           if (item.ticketStatus === 4) {   // 已过期
@@ -271,7 +271,7 @@ class HomePageContainer extends React.Component {
       }
     }
 
-    // 点击一张体检卡
+    // 点击一张评估卡
     onCardClick(item) {
       this.props.actions.saveFreeCardInfo(item);    // 保存该张卡信息，下个页面要用
       setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);

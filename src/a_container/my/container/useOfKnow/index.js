@@ -47,18 +47,18 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-use-of-know">
           <div className="title">
-              <span>体检卡如何使用</span>
+              <span>评估卡如何使用</span>
           </div>
           <div className="info">
-              <p>1.购买成功后，请前往【健康管理】 - 【我的体检卡】中查看</p>
+              <p>1.购买成功后，请前往【健康管理】 - 【我的评估卡】中查看</p>
               <p>2.在商品详情页查看健康风险评估卡适用的体验店，可选择其中任意一家翼猫服务体验中心并前往检测。</p>
           </div>
           <div className="title">
               <span>使用须知</span>
           </div>
           <div className="info">
-              <p className="blue">本体检卡是虚拟商品，不记名、不挂失</p>
-              <p>一张体检卡仅供一人使用一次</p>
+              <p className="blue">本评估卡是虚拟商品，不记名、不挂失</p>
+              <p>一张评估卡仅供一人使用一次</p>
               <p>有效期：<span>一年</span></p>
               <p>联系客服：<span>400-151-9999</span></p>
           </div>

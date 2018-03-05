@@ -1,4 +1,4 @@
-/* 健康管理 - 体检卡 - 体检券页 */
+/* 健康管理 - 评估卡 - 体检券页 */
 
 // ==================
 // 所需的各种插件
@@ -43,7 +43,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '体检卡';
+      document.title = '评估卡';
       this.getData();
       this.initWeiXinPay();
   }
@@ -271,7 +271,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-card-voucher">
           <List>
-              <Item extra={`总计：${ticket.length}张  可使用：${this.getHowManyCanUse(ticket)}张`}>体检卡</Item>
+              <Item extra={`总计：${ticket.length}张  可使用：${this.getHowManyCanUse(ticket)}张`}>评估卡</Item>
           </List>
           <div className="the-ul">
               {

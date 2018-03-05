@@ -51,9 +51,9 @@ class HomePageContainer extends React.Component {
               <div className="info">购买成功</div>
           </div>
           <List>
-              <Item className="long" extra="有效期至：2018-12-22">体检卡</Item>
-              <Item className="long" arrow="horizontal">体检卡1: 共5张体检券</Item>
-              <Item className="long" arrow="horizontal">体检卡2: 共5张体检券</Item>
+              <Item className="long" extra="有效期至：2018-12-22">评估卡</Item>
+              <Item className="long" arrow="horizontal">评估卡1: 共5张体检券</Item>
+              <Item className="long" arrow="horizontal">评估卡2: 共5张体检券</Item>
           </List>
           <div className="order-info">
               <div>订单号：123234234999999</div>

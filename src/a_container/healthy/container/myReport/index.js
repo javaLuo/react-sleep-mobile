@@ -1,4 +1,4 @@
-/* 健康管理 - 体检报告 */
+/* 健康管理 - 检查报告 */
 
 // ==================
 // 所需的各种插件
@@ -41,14 +41,14 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的体检报告';
+        document.title = '我的检查报告';
         this.getData();
     }
 
     getData(pageNum=1,pageSize=10,type='flash') {
         Toast.loading('搜索中...',0);
         this.props.actions.queryReportList({pageNum, pageSize}).then((res) => {
-            if (res.status === 200) {
+            if (res.status === 200 && res.data.result) {
                 this.setState({
                     data: type==='flash' ? res.data.result : [...this.state.data, ...res.data.result],
                     pageNum,

@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '预约体检';
+      document.title = '预约检查';
   }
 
   // 日期选择
@@ -63,16 +63,16 @@ class HomePageContainer extends React.Component {
       const p = _.cloneDeep(this.props.preInfo);
       // 检查各必要的信息
        if (!p.ticketNo) {
-           Toast.fail('请选择体检卡',1);
+           Toast.fail('请选择评估卡',1);
            return false;
        } else if(!p.userName || !p.phone) {
-           Toast.fail('请填写体检人信息',1);
+           Toast.fail('请填写被评估者信息',1);
            return false;
        } else if (!p.stationId) {
            Toast.fail('请选择体检服务中心',1);
            return false;
-       } else if (!p.reserveTime_Time || !p.reserveTime_Date) {
-           Toast.fail('请选择体检日期和时间',1);
+       } else if (!p.reserveTime_Date) {
+           Toast.fail('请选择体检日期',1);
            return false;
        }
        delete p.reserveTime_Date;
@@ -81,19 +81,19 @@ class HomePageContainer extends React.Component {
         this.props.actions.mallReserveSave(tools.clearNull(p)).then((res) => {
             if(res.status === 200) {
                 Toast.success('预约成功',1);
-                this.props.actions.savePreInfo({      // 预约体检，用户输入的信息，最终接口所需数据
+                this.props.actions.savePreInfo({      // 预约检查，用户输入的信息，最终接口所需数据
                     userName: undefined,        // 名字 必填
                     phone: undefined,           // 手机号 必填
                     stationId: undefined,       // 服务站ID 必填
                     stationName: '',    // 服务站名称 必填
                     reserveTime: '',    // 预约时间 必填
                     sex: 1,             // 性别，1男0女 必填
-                    ticketNo: '',       // 体检卡编号 必填
+                    ticketNo: '',       // 评估卡编号 必填
                     height: undefined,   // 身高
                     weight: undefined,  // 体重
                     reserveFrom: 2,     // 用户来源 1APP， 2公众号，3后台添加
                     reserveTime_Date: undefined,    // 临时 - 日期
-                    reserveTime_Time: undefined,    // 临时 - 时间
+                   reserveTime_Time: undefined,    // 临时 - 时间
                 });
                 this.props.actions.saveServiceInfo({});
                 setTimeout(() => {
@@ -113,13 +113,13 @@ class HomePageContainer extends React.Component {
           {/* 下方各横块 */}
           <div className="bar-list">
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/chosecard')}>
-                  <div className="title">体检卡号</div>
+                  <div className="title">评估卡号</div>
                   <div className="info">{this.props.preInfo.ticketNo}</div>
                   <div className="arrow2" ><img src={ImgCard} /></div>
                   <div className="line"/>
               </div>
               <div className="item page-flex-row all_active" onClick={() => this.props.history.push('/healthy/preinfo')}>
-                  <div className="title">体检人信息</div>
+                  <div className="title">被评估者信息</div>
                   <div className="info">{this.props.preInfo.userName || ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
@@ -165,26 +165,26 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
           </div>
-          <div className="bar-list">
-              {
-                  (this.props.stationInfo.id && this.props.stationInfo.reserveTime) ? (
-                      <Picker
-                          data={this.props.stationInfo.reserveTime ? this.props.stationInfo.reserveTime.map((item, index) => {
-                              return { label: item, value: item };
-                          }) : []}
-                          cols={1}
-                          onOk={time => this.onTimeChange(time)}
-                      >
-                          <div className="item page-flex-row all_active" >
-                              <div className="title">选择体检时间</div>
-                              <div className="info">{this.props.preInfo.reserveTime_Time}</div>
-                              <div className="arrow"><img src={ImgRight} /></div>
-                              <div className="line"/>
-                          </div>
-                      </Picker>
-                  ) : null
-              }
-          </div>
+          {/*<div className="bar-list">*/}
+              {/*{*/}
+                  {/*(this.props.stationInfo.id && this.props.stationInfo.reserveTime) ? (*/}
+                      {/*<Picker*/}
+                          {/*data={this.props.stationInfo.reserveTime ? this.props.stationInfo.reserveTime.map((item, index) => {*/}
+                              {/*return { label: item, value: item };*/}
+                          {/*}) : []}*/}
+                          {/*cols={1}*/}
+                          {/*onOk={time => this.onTimeChange(time)}*/}
+                      {/*>*/}
+                          {/*<div className="item page-flex-row all_active" >*/}
+                              {/*<div className="title">选择体检时间</div>*/}
+                              {/*<div className="info">{this.props.preInfo.reserveTime_Time}</div>*/}
+                              {/*<div className="arrow"><img src={ImgRight} /></div>*/}
+                              {/*<div className="line"/>*/}
+                          {/*</div>*/}
+                      {/*</Picker>*/}
+                  {/*) : null*/}
+              {/*}*/}
+          {/*</div>*/}
           <div className="thefooter">
               <Button type="primary" onClick={() => this.onSubmit()}>立即预约</Button>
           </div>

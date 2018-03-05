@@ -33,6 +33,7 @@ class HomePageContainer extends React.Component {
         formName: '',
         formPhone: '',
         formAddr: '',
+        formSex: undefined,
         formArea: undefined,    // 地区
         sourceData: [], // 所有省市数据（层级）
 
@@ -96,7 +97,10 @@ class HomePageContainer extends React.Component {
         } else if (!tools.checkPhone(this.state.formPhone)) {
             Toast.fail('请输入正确的手机号',1);
             return;
-        }  else if (!this.state.formArea) {
+        } else if (!this.state.formSex && this.state.formSex !== 0) {
+            Toast.fail('请选择性别', 1);
+            return;
+        } else if (!this.state.formArea) {
             Toast.fail('请选择区域',1);
             return;
         } else if (!this.state.formAddr) {
@@ -108,6 +112,7 @@ class HomePageContainer extends React.Component {
             contact: this.state.formName,
             mobile: this.state.formPhone,
             province: this.state.formArea && this.state.formArea[0],
+            sex: this.state.formSex && this.state.formSex[0],
             city: this.state.formArea && this.state.formArea[1],
             region: this.state.formArea && this.state.formArea[2],
             street: this.state.formAddr
@@ -162,6 +167,14 @@ class HomePageContainer extends React.Component {
             formArea: data,
         });
     }
+
+    // 性别选择
+    onSexChose(v) {
+      this.setState({
+          formSex: v,
+      });
+    }
+
   render() {
       console.log('东西呢：', this.state.sourceData);
     return (
@@ -169,6 +182,15 @@ class HomePageContainer extends React.Component {
           <List>
               <InputItem clear value={this.state.formName} onChange={(v) => this.onNameChange(v)}>收货人</InputItem>
               <InputItem type="number" clear value={this.state.formPhone} onChange={(v) => this.onPhoneChange(v)}>联系电话</InputItem>
+              <Picker
+                  data={[{ label: '男', value: 1 }, { label: '女', value: 2 }]}
+                  extra={''}
+                  value={this.state.formSex}
+                  cols={1}
+                  onOk={(v) => this.onSexChose(v)}
+              >
+                  <Item arrow={'horizontal'}>性别</Item>
+              </Picker>
               <Picker
                   data={this.state.sourceData}
                   extra={''}

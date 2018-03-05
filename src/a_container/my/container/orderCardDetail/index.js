@@ -1,4 +1,4 @@
-/* 我的订单 - 查看体检卡详情页 */
+/* 我的订单 - 查看评估卡详情页 */
 
 // ==================
 // 所需的各种插件
@@ -42,7 +42,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '体检卡';
+      document.title = '评估卡';
       this.getData();
       this.initWeiXinPay();
   }
@@ -54,7 +54,7 @@ class HomePageContainer extends React.Component {
     }
 
   /**
-   * 获取体检卡列表
+   * 获取评估卡列表
    * type=falsh 刷新
    * type=update 累加
    * **/
@@ -73,7 +73,7 @@ class HomePageContainer extends React.Component {
                   });
               }
           } else {
-              Toast.fail(res.message || '查询体检卡信息失败');
+              Toast.fail(res.message || '查询评估卡信息失败');
           }
       });
   }
@@ -164,7 +164,7 @@ class HomePageContainer extends React.Component {
                          * userId - 用户ID
                          * name - 用户名
                          * head - 头像
-                         * no - 体检卡号
+                         * no - 评估卡号
                          * price - 价格
                          * date - 有效期
                          * **/
@@ -210,7 +210,7 @@ class HomePageContainer extends React.Component {
         this.props.history.push(`/healthy/cardvoucher/${obj.id}`);
     }
 
-    // 工具 - 判断当前体检卡状态（正常1、过期2、已使用3）
+    // 工具 - 判断当前评估卡状态（正常1、过期2、已使用3）
     checkCardStatus(item) {
         try{
             const validTime = new Date(`${item.validTime} 23:59:59`).getTime();

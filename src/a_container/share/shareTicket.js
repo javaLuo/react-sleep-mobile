@@ -138,7 +138,7 @@ class HomePageContainer extends React.Component {
                             }
                             <div className="page-flex-row" >
                                 <div className="flex-none">查看方式：</div>
-                                <div className="flex-auto">进入公众号[健康管理]-[我的体检卡]中查看。</div>
+                                <div className="flex-auto">进入公众号[健康管理]-[我的评估卡]中查看。</div>
                             </div>
                         </div>
                     </div>

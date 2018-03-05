@@ -203,7 +203,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥{d && d.typeModel ? (d.typeModel.shipFee || 0) : 0}</div>
-                  { /** 只有体检卡显示有效期 **/
+                  { /** 只有评估卡显示有效期 **/
                       d && d.typeId === 5 ? (
                           <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
                       ) : null

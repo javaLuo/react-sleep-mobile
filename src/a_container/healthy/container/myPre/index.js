@@ -40,7 +40,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '我的体检预约';
+      document.title = '我的评估预约';
       this.getData(this.state.pageNum, this.state.pageSize, 'flash');
   }
 
@@ -119,7 +119,7 @@ class HomePageContainer extends React.Component {
                               <div className="pre-box page-flex-row">
                                   <div className="l flex-auto">
                                       <div>体检人：{item.hraCustomer ? item.hraCustomer.username : ''}</div>
-                                      <div>体检卡号：{tools.cardFormart(item.ticketNo)}</div>
+                                      <div>评估卡号：{tools.cardFormart(item.ticketNo)}</div>
                                       <div>预约时间：{item.reserveTime}</div>
                                   </div>
                                   <div className="r flex-none">

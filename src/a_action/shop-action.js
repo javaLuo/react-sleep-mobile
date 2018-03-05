@@ -152,10 +152,19 @@ export function onSaveUpAddrNow(params) {
         payload: params,
     };
 }
-// 微信支付
+// 微信支付（调后台统一下单）
 export const wxPay = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/wxpay/unifiedorder', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+// 微信支付（后台返回支付二维码）
+export const wxPay2 = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('gzh/mall/wxscanpay', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -263,7 +272,7 @@ export const mallOrderDel = (params = {}) => async(dispatch) => {
     }
 };
 
-// 生成体检卡 支付成功后调用
+// 生成评估卡 支付成功后调用
 export const mallCardCreate = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/hracard/create', params);
@@ -273,7 +282,7 @@ export const mallCardCreate = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询我的体检卡
+// 查询我的评估卡
 export const mallCardList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/hracard/listCard', params);
@@ -283,7 +292,7 @@ export const mallCardList = (params = {}) => async(dispatch) => {
     }
 };
 
-// 根据体检卡查体检券
+// 根据评估卡查体检券
 export const mallCardListQuan = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/hracard/listByCardId', params);
@@ -293,7 +302,7 @@ export const mallCardListQuan = (params = {}) => async(dispatch) => {
     }
 };
 
-// 删除体检卡
+// 删除评估卡
 export const mallCardDel = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/hracard/delete', params);
@@ -397,7 +406,7 @@ export function savePreInfo(payload = {}) {
     };
 }
 
-// 体检预约 - 添加体检报告 - 保存所选择的信息
+// 体检预约 - 添加检查报告 - 保存所选择的信息
 export function saveReportInfo(payload = {}) {
     return {
         type: 'PRE::saveReportInfo',
@@ -415,17 +424,17 @@ export const mallReserveSave = (params = {}) => async(dispatch) => {
     }
 };
 
-// 体检报告 - 获取体检报告
+// 检查报告 - 获取检查报告
 export const queryReportList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('app/report/list', params, 'post', true);
+        const res = await Fetchapi.newPost('app/report/list', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
     }
 };
 
-// 体检报告 - 添加体检报告
+// 检查报告 - 添加检查报告
 export const addReportList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('app/report/show', params);
@@ -435,7 +444,7 @@ export const addReportList = (params = {}) => async(dispatch) => {
     }
 };
 
-// 查询当前用户已使用过的体检券 （用于添加体检报告）
+// 查询当前用户已使用过的体检券 （用于添加检查报告）
 export const queryUsedListTicket = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('app/report/listTicket', params);
@@ -497,7 +506,7 @@ export function saveServiceInfo(payload = {}) {
     };
 }
 
-// 保存当前查询的体检卡信息（上拉加载下拉刷新用的）
+// 保存当前查询的评估卡信息（上拉加载下拉刷新用的）
 export function saveMyCardInfo(data = {}, pageNum, pageSize, total) {
     return {
         type: 'PRE::saveMyCardInfo',
@@ -516,7 +525,7 @@ export function saveOrderInfo(payload = {}) {
     };
 }
 
-// 由我的体检卡点击一张卡片，进入体检券也，保存当前体检卡信息
+// 由我的评估卡点击一张卡片，进入体检券也，保存当前评估卡信息
 export function saveCardInfo(payload = {}) {
     return {
         type: 'PRE::saveCardInfo',

@@ -92,13 +92,13 @@ class HomePageContainer extends React.Component {
               <div className="bar-title">健康检查</div>
               <div className="item hide tran1 page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <img className="icon" src={ImgBar1} />
-                  <div className="title">我的体检卡</div>
+                  <div className="title">我的评估卡</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
               <div className="item hide tran2 page-flex-row all_active" onClick={() => this.props.history.push('/healthy/precheck')}>
                   <img className="icon" src={ImgBar2} />
-                  <div className="title">预约体检</div>
+                  <div className="title">预约检查</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
@@ -110,7 +110,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item hide tran4 page-flex-row all_active" onClick={() => this.props.history.push('/healthy/myreport')}>
                   <img className="icon" src={ImgBar4} />
-                  <div className="title">体检报告</div>
+                  <div className="title">检查报告</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

@@ -115,7 +115,7 @@ class HomePageContainer extends React.Component {
      * @page: 当前处于哪一页，处于分销用户页时，需动态亮与不亮
      * @a: 亮的图片
      * @b: 不亮的图片
-     * @type: 1-智能净水,2-健康食品,3-生物理疗,4-健康睡眠,5-健康体检
+     * @type: 1-智能净水,2-健康食品,3-生物科技,4-健康睡眠,5-健康体检
      * **/
     youWantLight(page, a, b, type){
       if([0, 1].includes(page)) {
@@ -220,7 +220,7 @@ class HomePageContainer extends React.Component {
                     </li>
                     <li>
                         <img src={[1,2,3,4,5,6].includes(this.state.page) ? ImgD1 : ImgD2} />
-                        <div>生物理疗</div>
+                        <div>生物科技</div>
                     </li>
                     <li>
                         <img src={[1,2,3,4,5,6].includes(this.state.page) ? ImgE1 : ImgE2} />
@@ -241,7 +241,7 @@ class HomePageContainer extends React.Component {
                     </li>
                     <li>
                         <img src={this.youWantLight(this.state.page, ImgD1, ImgD2, 3)} />
-                        <div>生物理疗</div>
+                        <div>生物科技</div>
                     </li>
                     <li>
                         <img src={this.youWantLight(this.state.page, ImgE1, ImgE2, 5)} />
@@ -299,7 +299,7 @@ class HomePageContainer extends React.Component {
                     case 5: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 企业版经销商（子账户）：过企业版经销商主账户开设的子帐户。</div>
+                            <div className="info">1. 企业版经销商（子账户）：通过企业版经销商主账户开设的子帐户。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3. 商城产品分销权：享有推广主账号下翼猫智能净水设备的额度及分销翼猫健康商城内其他产品，其收益由企业版经销商线下分配收益。</div>
                         </div>

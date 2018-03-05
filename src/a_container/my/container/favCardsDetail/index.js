@@ -204,7 +204,7 @@ class Register extends React.Component {
             Toast.fail('支付失败, 请重试',1);
             this.returnPage();
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
-            // 支付成功后在后台添加对应数量的体检卡 (现在由后台自动生成)
+            // 支付成功后在后台添加对应数量的评估卡 (现在由后台自动生成)
             // this.makeCards();
             Toast.success('支付成功',1);
             this.successReturn();

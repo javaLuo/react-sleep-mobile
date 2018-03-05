@@ -27,7 +27,7 @@ class TestContainer extends React.PureComponent {
     wxH5Pay() {
         sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
         this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-            body: '翼猫体检卡',                                 // 商品描述
+            body: '翼猫评估卡',                                 // 商品描述
             total_fee: 1 , // 总价格（分）
             spbill_create_ip: typeof returnCitySN !== 'undefined' ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
             out_trade_no: `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取

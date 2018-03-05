@@ -1,4 +1,4 @@
-/* 健康管理 - 我的体检卡 */
+/* 健康管理 - 我的评估卡 */
 
 // ==================
 // 所需的各种插件
@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '我的体检卡';
+      document.title = '我的评估卡';
       if ((!this.props.myCard.data) || (!this.props.myCard.data.length)) {
           console.log('你还是执行了这里：', this.props.myCard.data);
           this.getData();
@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
     }
 
   /**
-   * 获取体检卡列表
+   * 获取评估卡列表
    * type=flash 刷新
    * type=update 累加
    * **/
@@ -67,7 +67,7 @@ class HomePageContainer extends React.Component {
       Toast.loading('搜索中...',0);
       this.props.actions.mallCardList({ pageNum, pageSize }).then((res) => {
             if (res.status === 200) {
-                console.log('我的体检卡：', res.data.result);
+                console.log('我的评估卡：', res.data.result);
                 Toast.hide();
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
                     if (type === 'update') {
@@ -178,7 +178,7 @@ class HomePageContainer extends React.Component {
                        * userId - 用户ID
                        * name - 用户名
                        * head - 头像
-                       * no - 体检卡号
+                       * no - 评估卡号
                        * price - 价格
                        * date - 有效期
                        * dateTime - 分享的时间（通过此时间来判断过期）
@@ -256,7 +256,7 @@ class HomePageContainer extends React.Component {
       this.getData(this.props.myCard.pageNum + 1, this.props.myCard.pageSize, 'update');
     }
 
-    // 工具 - 判断当前体检卡状态（正常1、过期2、已使用3）
+    // 工具 - 判断当前评估卡状态（正常1、过期2、已使用3）
     checkCardStatus(item) {
       try{
           const validTime = new Date(`${item.validTime} 23:59:59`).getTime();
@@ -271,14 +271,14 @@ class HomePageContainer extends React.Component {
       }
     }
 
-    // 删除体检卡
+    // 删除评估卡
     onDelete(item) {
       console.log('是什么：', item);
       if (item.ticketNum - item.useCount > 0) {
           Toast.info('存在未使用的卡，不可以删除哦');
           return;
       }
-        alert('确认删除体检卡?', '删除后将无法再查看该体检卡', [
+        alert('确认删除评估卡?', '删除后将无法再查看该评估卡', [
             { text: '取消', onPress: () => console.log('cancel') },
             {
                 text: '确认',
@@ -304,7 +304,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-mycard">
           <List>
-              <Item extra={`总计：${this.props.myCard.total}张`}>体检卡</Item>
+              <Item extra={`总计：${this.props.myCard.total}张`}>评估卡</Item>
           </List>
           <div className="luo-box">
           <Luo
