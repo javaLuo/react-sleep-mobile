@@ -250,6 +250,24 @@ const allobj = {
             }
         });
         return r;
+    },
+
+    /**
+     * 通过type值返回对应的用户类型
+     * 因为多个地方用到，所以统一提取到这里
+     * */
+    getNameByUserType(type) {
+        switch(String(type)){
+            case '0': return '体验版经销商';
+            case '1': return '微创版经销商';
+            case '2': return '个人版经销商';
+            case '3': return '分享用户';
+            case '4': return '普通用户';
+            case '5': return '企业版经销商';
+            case '6': return '企业版经销商'; // 子账户
+            case '7': return '分销用户';
+            default: return '';
+        }
     }
 };
 

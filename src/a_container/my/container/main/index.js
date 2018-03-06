@@ -24,7 +24,7 @@ import ImgBar6 from '../../../../assets/shouyi@3x.png';
 import ImgBar7 from '../../../../assets/shiyongbangzhu@3x.png';
 import ImgYouHui from '../../../../assets/youhui@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
-
+import tools from '../../../../util/all';
 // ==================
 // 本页面所需action
 // ==================
@@ -55,21 +55,6 @@ class HomePageContainer extends React.Component {
           });
       },0);
   }
-
-  // 工具 - 通过用户类型type获取对应的称号
-    getNameByUserType(type) {
-      switch(String(type)){
-          case '0': return '体验版经销商';
-          case '1': return '微创版经销商';
-          case '2': return '个人版经销商';
-          case '3': return '分享用户';
-          case '4': return '普通用户';
-          case '5': return '企业版经销商';
-          case '6': return '企业版经销商'; // 子账户
-          case '7': return '分销用户';
-          default: return '';
-      }
-    }
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
@@ -126,7 +111,7 @@ class HomePageContainer extends React.Component {
         if ([5].includes(u.userType)) { // 是企业主账号
             this.props.history.push('/my/primary');
         } else {
-            this.props.history.push(`/my/mycustomer/${u.id}`);
+            this.props.history.push(`/my/mycustomer/${u.id}/${u.userType}`);
         }
 
     }
@@ -182,7 +167,7 @@ class HomePageContainer extends React.Component {
               <div className="item tran1 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
-                  <div className="info">{u ? this.getNameByUserType(u.userType) : ''}</div>
+                  <div className="info">{u ? tools.getNameByUserType(u.userType) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

@@ -1,5 +1,8 @@
 .page-customer{
-  min-height: 100vh;
+  height: 100vh;
+  .tabs-div{
+    height: 100%;
+  }
   .data-list{
     display: block;
     &>li{

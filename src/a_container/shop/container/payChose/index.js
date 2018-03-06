@@ -35,7 +35,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        payType: 'wxpay2',    // 支付方式 wxpay微信支付（公众号或H5）、alipay支付宝网页支付
+        payType: 'wxpay',    // 支付方式 wxpay微信支付（公众号或H5）、alipay支付宝网页支付
         wxReady: true,      // 默认微信JS-SDK是OK的，因为无论对错，wx.ready都会被触发
         pay_info: {},       // 订单信息
         pay_obj: {},        // 商品信息
@@ -444,11 +444,11 @@ class HomePageContainer extends React.Component {
               </Item>
           </List>
           <List style={{ marginTop: '.2rem' }}>
-              {/*<RadioItem key="wxpay" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>*/}
+              <RadioItem key="wxpay" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>
               {
                   tools.isWeixin() ? null : <RadioItem key="alipay" thumb={<img  src={ImgZhiFuBao} />} checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>
               }
-              <RadioItem key="wxpay2" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay2'} onChange={() => this.onChange('wxpay2')}>微信扫码支付</RadioItem>
+              {/*<RadioItem key="wxpay2" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay2'} onChange={() => this.onChange('wxpay2')}>微信扫码支付</RadioItem>*/}
           </List>
           <div className="thefooter page-flex-row">
               <Button loading={this.state.loading} type="primary" onClick={() => this.onSubmit()}>{this.state.loading ? <span>支付中 ￥{this.state.pay_info.fee}</span> : <span>确认支付 ￥{this.state.pay_info.fee}</span>}</Button>
