@@ -1,13 +1,29 @@
 import Fetchapi from '../util/fetch-api';
 import { Toast } from 'antd-mobile';
 import Config from '../config';
-// 查询所有产品
+// 查询所有产品(非活动产品)
 export const getProDuctList = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/product/listByType', { pageNum: 0, pageSize: 9999, typeId: 1 });
+        const res = await Fetchapi.newPost('mall/product/listByType', { pageNum: 0, pageSize: 9999, typeId: 1, activityType: 1 });
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::getProDuctList',
+                payload: res.data.result,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 查询所有产品(活动产品)
+export const getProDuctListActive = () => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/product/listByType', { pageNum: 0, pageSize: 9999, typeId: 1, activityType: 2 });
+        if (res.status === 200) {
+            dispatch({
+                type: 'SHOP::getProDuctListActive',
                 payload: res.data.result,
             });
         }
@@ -206,7 +222,7 @@ export function saveShopAddr(params) {
     };
 }
 
-// 首页轮播图
+// 获取首页轮播图
 export const mallApList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/ap/list', params);
@@ -236,6 +252,25 @@ export const mecReserveList = (params = {}) => async(dispatch) => {
 export const mallOrderList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/order/list', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+// 查询我的客户的订单列表
+export const auditList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/auditList', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 设置我的客户订单通过还是不通过，1通过，2不通过
+export const setAuditList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/auditList', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -611,6 +646,7 @@ export const startTiXian = (params = {}) => async(dispatch) => {
 export const getDefaultAttr = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/address/defaultList', params, 'post', true);
+        console.log('获取默认地址返回：', res);
         if(res.status === 200) {
             dispatch({
                 type: 'APP::setDefaultAttr',
@@ -659,6 +695,16 @@ export const getDaiYanList = (params = {}) => async(dispatch) => {
 export const getShareInfo = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/speakCard/speakCardById', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 查询指定区域下的安装工列表
+export const queryCustomerList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/customerList ', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

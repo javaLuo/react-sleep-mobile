@@ -1,43 +1,14 @@
-.home-page{
-  .my-carousel{
-    background-color: #f0f0f0;
-    img{
-      object-fit: cover;
-      height: calc(100vw * 0.43);
-    }
-  }
-  .link-bar{
-    background-color: #fff;
-    justify-content: center;
-    &>div{
-      flex: 1;
-      padding: .3rem 0;
-      text-align: center;
-      img{
-        display: block;
-        width: 1.2rem;
-        height: 1.2rem;
-        margin: 0 auto .2rem auto;
-      }
-      &:active{
-        background-color: #f0f0f0;
-      }
-    }
-  }
-  .active-bar{
+.shop-active-page{
+  .top-bar{
     position: relative;
-    box-sizing: border-box;
-    width: 94%;
-    margin:0 auto;
-    height: 0;
-    padding-top: 25%;
-    background-image: url(../../assets/home/banner_one.png);
+    width: 100%;
+    padding-top: 56%;
+    background-image: url(../../../../assets/shop/banner_two.png);
     background-size: cover;
     background-position: top center;
-    border-radius: 3px;
     &>div{
       position: absolute;
-      bottom: 12%;
+      top: 42.6%;
       left: 50%;
       transform: translateX(-50%);
       color: #fff;
@@ -48,33 +19,7 @@
       }
     }
   }
-  .home-bar{
-    position: sticky;
-    background-color: #fff;
-    top: 0;
-    padding: 10px 0;
-    height: 50px;
-    font-size: .32rem;
-    max-height: 150px;
-    box-sizing: border-box;
-    z-index: 99;
-    &>div{
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      &:active{
-        background-color: #f0f0f0;
-      }
-      &+div{
-        border-left: solid 1px #f0f0f0;
-      }
-    }
-  }
   .the-list{
-    &+.the-list{
-      margin-top: .2rem;
-    }
     .title{
       height: .88rem;
       line-height: .88rem;
@@ -141,19 +86,27 @@
               font-size: .28rem;;
               color: #888;
               .all_nowarp2{
+                padding-top: .1rem;
                 line-height: .31rem;
               }
             }
             .k{
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
               div{
-                font-size: .22rem;
-                color: #fc4800;
+                font-size: .24rem;
+                color: #89888e;
                 i{
                   font-style: normal;
                   font-size: .36rem;
                 }
               }
-              .water-info{
+              .btn{
+                background-color: #4285f4;
+                color: #fff;
+                padding: 0 .2rem;
+                border-radius: 2rem;
                 margin-top: .01rem;
                 font-size: .3rem;
               }

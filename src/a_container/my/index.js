@@ -42,6 +42,9 @@ import Addr from './container/addr';
 import NewAddr from './container/newAddr';
 import UpAddr from './container/addr/upAddr';
 import DaiYan from './container/myDaiYan/daiyan';
+import OrderCustomer from './container/orderCustomer';
+import OrderCustomerDetail from './container/ordercustomerdetail';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -78,7 +81,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/atCat`} component={AtCat} />
               <Route exact path={`${this.props.match.url}/mydaiyan/:id`} component={MyDaiYan} />
               <Route exact path={`${this.props.match.url}/binddealer`} component={BindDealer} />
-              <Route path={`${this.props.match.url}/bindphone`} component={BindPhone} />
+              <Route exact path={`${this.props.match.url}/bindphone`} component={BindPhone} />
               <Route exact path={`${this.props.match.url}/setpassword`} component={SetPassword} />
               <Route exact path={`${this.props.match.url}/checkpwd`} component={CheckPwd} />
               <Route exact path={`${this.props.match.url}/mycustomer/:id/:type`} component={MyCustomer} />
@@ -86,11 +89,13 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/primaryin`} component={PrimaryIn} />
               <Route exact path={`${this.props.match.url}/sonin`} component={SonIn} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
-              <Route path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
-              <Route path={`${this.props.match.url}/addr`} component={Addr} />
-              <Route path={`${this.props.match.url}/newaddr`} component={NewAddr} />
-              <Route path={`${this.props.match.url}/upaddr`} component={UpAddr} />
-              <Route path={`${this.props.match.url}/daiyan`} component={DaiYan} />
+              <Route exact path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
+              <Route exact path={`${this.props.match.url}/addr`} component={Addr} />
+              <Route exact path={`${this.props.match.url}/newaddr`} component={NewAddr} />
+              <Route exact path={`${this.props.match.url}/upaddr`} component={UpAddr} />
+              <Route exact path={`${this.props.match.url}/daiyan`} component={DaiYan} />
+              <Route exact path={`${this.props.match.url}/ordercustomer`} component={OrderCustomer} />
+              <Route exact path={`${this.props.match.url}/ordercustomerdetail`} component={OrderCustomerDetail} />
           </Switch>
       </div>
     );

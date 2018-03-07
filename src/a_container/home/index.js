@@ -17,11 +17,14 @@ import $ from 'jquery';
 import _ from 'lodash';
 import { Carousel, Icon } from 'antd-mobile';
 import imgDefalut from '../../assets/logo-img.png';
+import ImgZiXun from '../../assets/home/home_zixun@3x.png';
+import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
+import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { getProDuctList, mallApList, mallCardCreate } from '../../a_action/shop-action';
+import { getProDuctList, mallApList } from '../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -58,6 +61,27 @@ class HomePageContainer extends React.Component {
     console.log(id, $(`#list_${id}`).offset().top);
       $(document.body).animate( { scrollTop:  $(`#list_${id}`).offset().top - 50}, 300);
     }
+
+    // 点击linkBar导航到不同页面
+    onLinkClick(type) {
+      switch(type) {
+          // 跳健康资讯
+          case 1:
+              const u = this.props.userinfo;
+              let str = '';
+              if (u && u.id) {  // 有用户信息
+                  str = `&e=${u.id}`;
+              }
+              window.open(`http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1${str}`);
+              break;
+          // 跳视频直播
+          case 2:
+              break;
+          // 跳翼猫体验店查询
+          case 3:
+              this.props.history.push('/shop/exprshop2');
+      }
+    }
   render() {
     const u = this.props.userinfo;
     const allProducts = _.cloneDeep(this.props.allProducts).sort((a, b) => a.sorts - b.sorts);
@@ -93,6 +117,25 @@ class HomePageContainer extends React.Component {
                   </Carousel>
               ) : null
           }
+          {/** 上方导航bar **/}
+          <div className="link-bar page-flex-row">
+              <div onClick={() => this.onLinkClick(1)}>
+                  <img src={ImgZiXun} />
+                  <div>健康资讯</div>
+              </div>
+              <div onClick={() => this.onLinkClick(2)}>
+                  <img src={ImgZhiBo} />
+                  <div>视频直播</div>
+              </div>
+              <div onClick={() => this.onLinkClick(3)}>
+                  <img src={ImgTiYan} />
+                  <div>翼猫体验店</div>
+              </div>
+          </div>
+          {/** 横幅 **/}
+          <div className="active-bar" onClick={() => this.props.history.push('/shop/shopactive')}>
+              <div>已有<span>99999</span>人参与</div>
+          </div>
           {/** 产品bar **/}
           <div className="home-bar page-flex-row">
               {
@@ -173,6 +216,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getProDuctList, mallApList, mallCardCreate }, dispatch),
+    actions: bindActionCreators({ getProDuctList, mallApList }, dispatch),
   })
 )(HomePageContainer);

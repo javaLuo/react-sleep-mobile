@@ -1,4 +1,4 @@
-/* 我的e家 - 订单详情 */
+/* 我的e家 - 我的客户订单详情 */
 
 // ==================
 // 所需的各种插件
@@ -16,12 +16,11 @@ import './index.scss';
 // ==================
 import { Toast, List, Button, Modal } from 'antd-mobile';
 import ImgDiZhi from '../../../../assets/dizhi@3x.png';
-import ImgTimer from '../../../../assets/shop/shenhe@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallOrderQuery, mallOrderDel } from '../../../../a_action/shop-action';
+import { mallOrderQuery, mallOrderDel, setAuditList } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -68,60 +67,16 @@ class HomePageContainer extends React.Component {
       }
   }
 
-    // 待付款的订单点击付款
-    onPay() {
-        const obj = this.props.orderInfo;
-        if (!obj) {
-            Toast.fail('获取订单信息失败',1);
-            return true;
-        }
-        sessionStorage.setItem('pay-info', JSON.stringify(obj));
-        console.log('代入的obj', obj.product);
-        sessionStorage.setItem('pay-obj', JSON.stringify({ nowProduct: obj.product}));
-        this.props.history.push('/shop/payChose');
-    }
-
-    // 删除订单
-    onDel() {
-        const obj = this.props.orderInfo;
-        if (!obj) {
-            Toast.fail('获取订单信息失败',1);
-            return true;
-        }
-        alert('确认删除订单？', '删除之后将无法再查看订单', [
-            { text: '取消', onPress: () => console.log('cancel') },
-            {
-                text: '确定',
-                onPress: () => new Promise((resolve, rej) => {
-                    this.props.actions.mallOrderDel({ orderId: obj.id }).then((res) => {
-                        if (res.status === 200) {
-                            this.props.history.go(-1);
-                            Toast.success('订单已删除',1);
-                        } else {
-                            Toast.fail(res.message || '订单取消失败',1);
-                        }
-                        resolve();
-                    }).catch(() => {
-                        rej();
-                    });
-                }),
-            },
-        ]);
-    }
-
-    // 查看订单对应的卡的信息
-    onLook() {
-        const obj = this.props.orderInfo;
-        if (!obj) {
-            Toast.fail('获取订单信息失败',1);
-            return true;
-        }
-        if(obj.modelType === 'M') { // 优惠卡，跳优惠卡页面
-            this.props.history.push(`/my/myfavcards/fav_${obj.id}`);
-        } else{ // 普通评估卡，跳评估卡详情页
-            this.props.history.push(`/my/ordercarddetail/${obj.id}`);
-        }
-
+  // 审核通过或不通过
+    onPass(activityStatus) {
+        this.props.actions.setAuditList({ orderId: this.props.orderInfo.id, activityStatus }).then((res) => {
+            if (res.status === 200) {
+                this.props.history.go(-1);
+                Toast.success('操作成功', 1);
+            } else {
+                Toast.fail(res.message);
+            }
+        });
     }
 
     // 返回当前订单的各状态
@@ -148,21 +103,6 @@ class HomePageContainer extends React.Component {
         }
     }
 
-    // 返回当前订单的各状态
-    getType(conditions) {
-        switch(String(conditions)){
-            // 待付款
-            case '0': return '待付款';
-            case '1': return '未受理';
-            case '2': return '待发货';  // 待发货
-            case '3': return '待收货';  // 待收货
-            case '4': return '已完成';
-            case '-1': return '审核中';
-            case '-2': return '未通过';
-            case '-3': return '已取消';
-            default: return '未知状态，请联系客服';
-        }
-    }
   render() {
       const data = this.props.orderInfo.product || {};
       const o = this.state.order;
@@ -170,19 +110,6 @@ class HomePageContainer extends React.Component {
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
     return (
       <div className="page-order-detail">
-          {/** 订单状态 **/}
-          <div className="order-type">
-              <List>
-                  <Item
-                      thumb={<img src={ImgTimer} />}
-                      className={'normal-item'}
-                      multipleLine
-                  >
-                      {this.getType(this.props.orderInfo.conditions)}
-                      <Brief>订单正在审核(1~3个工作日)，请耐心等待</Brief>
-                  </Item>
-              </List>
-          </div>
           {
               type !== 5 && addr ? (
                   <List>
@@ -253,16 +180,10 @@ class HomePageContainer extends React.Component {
 
           {(() => {
               switch(this.props.orderInfo.conditions){
-                  case 0: return (
+                  case -1: return (
                       <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
-                          <a onClick={() => this.onDel()}>删除订单</a>
-                          <a className="blue" onClick={() => this.onPay()}>立即支付</a>
-                      </div>
-                  );
-                  case 4: return (
-                      <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
-                          <a onClick={() => this.onDel()}>删除订单</a>
-                          {type === 5 ? <a className="blue" onClick={() => this.onLook()}>{this.props.orderInfo.modelType === 'M' ? '查看优惠卡' : '查看评估卡'}</a> : null}
+                          <a onClick={() => this.onPass(1)}>审核不通过</a>
+                          <a className="blue" onClick={() => this.onPass(2)}>审核通过</a>
                       </div>
                   );
                   default: return null;
@@ -293,6 +214,6 @@ export default connect(
       orderInfo: state.shop.orderInfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallOrderQuery, mallOrderDel }, dispatch),
+    actions: bindActionCreators({ mallOrderQuery, mallOrderDel, setAuditList }, dispatch),
   })
 )(HomePageContainer);

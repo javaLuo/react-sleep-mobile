@@ -37,6 +37,7 @@ class HomePageContainer extends React.Component {
         formCount: 1,   // 购买数量
         loading: false, // 是否正在异步请求中
         imgHeight: 200,
+        show: false,
     };
   }
 
@@ -44,6 +45,7 @@ class HomePageContainer extends React.Component {
       document.title = '商品详情';
       // 通过URL中传来的商品ID获取商品信息
       const id = Number(this.props.location.pathname.split('/').reverse()[0]);
+      Toast.loading('加载中…');
       if(!isNaN(id)) {
           this.getData(id);
       }
@@ -55,10 +57,14 @@ class HomePageContainer extends React.Component {
         if(res.status === 200) {
             this.setState({
                 data: res.data,
+                show: true,
             });
+            Toast.hide();
         } else {
-            Toast.fail(res.message);
+            Toast.fail(res.message, 1);
         }
+    }).catch(() => {
+        this.props.history.go(-1);
     });
   }
 
@@ -119,7 +125,6 @@ class HomePageContainer extends React.Component {
   // 点击立即下单
   onSubmit() {
       const u = this.props.userinfo;
-      console.log('用户信息：', u, this.state.data);
       if (!u) {
          Toast.info('请先登录', 1);
          this.props.history.push(`/login`);
@@ -177,7 +182,7 @@ class HomePageContainer extends React.Component {
   render() {
       const d = this.state.data;
     return (
-      <div className="flex-auto page-box gooddetail-page">
+      <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
               {
@@ -199,7 +204,7 @@ class HomePageContainer extends React.Component {
           <div className="goodinfo">
               <div className="title">{d && d.name}</div>
               <div className="info">
-                  <div className="cost">￥ <span>{d && (d.typeModel.price + (d.typeModel.openAccountFee || 0))}</span></div>
+                  <div className="cost">￥ <span>{d && d.typeModel ? (d.typeModel.price + d.typeModel.openAccountFee) : "--"}</span></div>
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥{d && d.typeModel ? (d.typeModel.shipFee || 0) : 0}</div>
@@ -208,12 +213,12 @@ class HomePageContainer extends React.Component {
                           <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
                       ) : null
                   }
-                  <div>已售：{d && (d.buyCount || 0)}</div>
+                  <div>{d && d.activityType === 2 ? `${d.buyCount || 0}已申请` : `已售：${ d && d.buyCount || 0}`}</div>
               </div>
           </div>
           {/* List */}
           <List>
-              <Item extra={d && d.typeId === 1 ? 1 : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+              <Item extra={d && d.typeId === 1 ? '仅限1台' : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (

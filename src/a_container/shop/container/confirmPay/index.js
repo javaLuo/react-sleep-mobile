@@ -21,7 +21,7 @@ import StepperLuo from '../../../../a_component/StepperLuo';
 // 本页面所需action
 // ==================
 
-import { shopStartPayOrder, placeAndOrder } from '../../../../a_action/shop-action';
+import { shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -35,13 +35,16 @@ class HomePageContainer extends React.Component {
         formCount: this.props.orderParams.params.count, // 购买数量
         formServiceTime: new Date(new Date().getTime() + 86400000),  // 服务时间
         formJifei: this.props.orderParams.params.feeType ? [this.props.orderParams.params.feeType] : undefined,    // 计费方式
+        formPaiDan: [1],  // 派单方式，1自动，2手动，默认自动
+        formServerMan: undefined,    // 安装工ID
+        serverList: [], // 当前区域下的安装工列表
     };
   }
 
   componentWillMount() {
       // 如果没有选择商品就跳转到我的订单
       if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-        // this.props.history.replace('/my/order');
+        this.props.history.replace('/my/order');
       }
   }
 
@@ -50,7 +53,29 @@ class HomePageContainer extends React.Component {
       // sessionStorage.removeItem('pay-obj');
       // sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
+      this.queryCustomerList();
   }
+
+  // 获取安装工信息
+    queryCustomerList() {
+      const addr = this.props.orderParams.addr;
+      console.log('收货地址信息：', addr);
+      if (!addr) { return; }
+
+      const params = {
+        province: addr.province,
+          city: addr.city,
+          region: addr.region,
+      };
+      this.props.actions.queryCustomerList(params).then((res) => {
+          console.log('查安装工列表返回：', res);
+        if (res.status === 200) {
+            this.setState({
+                serverList: res.data,
+            });
+        }
+      });
+    }
 
     // form 购买数量被改变
     onCountChange(v) {
@@ -74,6 +99,15 @@ class HomePageContainer extends React.Component {
           Toast.info('请选择安装时间', 1);
           return;
       }
+    if(Number(this.state.formPaiDan) === 2 && !this.state.formServerMan) { // 如果选择的是手动派单，但没选安装工
+       Toast.info('请选择为您服务的安装工', 1);
+       return;
+    }
+    // 获取安装工信息，如果有的话，没有返回null
+        let serverMan = null;
+        if (Number(this.state.formPaiDan) === 2) {
+            serverMan = this.getInfoByServerManId(this.state.formServerMan[0]);
+        }
 
       const params = {
           count: this.state.formCount,  // 购买数量
@@ -83,6 +117,9 @@ class HomePageContainer extends React.Component {
           orderFrom: 2,             // 支付方式： 2微信支付
           openAccountFee: d.typeModel.openAccountFee,   // 开户费
           fee: d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee,
+          customerId: serverMan && serverMan.id,
+          customerName: serverMan && serverMan.realName,
+          customerPhone: serverMan && serverMan.phone,
       };
       // 保存购买数量、服务时间、开户费、总费用
       this.props.actions.shopStartPayOrder(params);
@@ -94,7 +131,13 @@ class HomePageContainer extends React.Component {
               Toast.hide();
               sessionStorage.setItem('pay-info', JSON.stringify(res.data));                 // 将返回的订单信息存入sessionStorage
               sessionStorage.setItem('pay-obj', JSON.stringify(this.props.orderParams));    // 将当前所选择的商品信息存入session
-              this.props.history.replace('/shop/payChose');
+              /** 普通商品跳转到付款选择页，活动物品直接跳转到订单详情 **/
+              if (d.activityType === 2) {
+                  this.props.actions.saveOrderInfo(res.data);
+                  this.props.history.push(`/my/orderdetail`);
+              } else {
+                  this.props.history.replace('/shop/payChose');
+              }
           } else {
               Toast.fail(res.message || '订单创建失败',1);
           }
@@ -104,6 +147,12 @@ class HomePageContainer extends React.Component {
       return true;
     }
 
+    // 根据ID查询完整的安装工信息
+    getInfoByServerManId(id) {
+      const t = this.state.serverList.find((item) => item.id === id);
+      console.log('得到的安装工：', t);
+      return t || null;
+    }
     // 构建计费方式所需数据
     makeJiFeiData(data) {
         const d = data && data.typeModel && data.typeModel.chargeTypes ? data.typeModel.chargeTypes : [];
@@ -123,6 +172,24 @@ class HomePageContainer extends React.Component {
     onJiFeiChose(v) {
       this.setState({
           formJifei: v,
+      });
+    }
+
+    // 派单方式选择
+    onPaiDanChose(v) {
+      console.log('派单选择了什么', v);
+        this.setState({
+            formPaiDan: v,
+        });
+        if (Number(v) === 2) {
+            this.queryCustomerList();
+        }
+    }
+    // 服务人员选择
+    onServeChose(v) {
+      console.log('选择了什么：', v);
+      this.setState({
+          formServerMan: v,
       });
     }
 
@@ -189,7 +256,7 @@ class HomePageContainer extends React.Component {
               </Item>
           </List>
           <List>
-              <Item extra={d && d.typeId === 1 ? 1 : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+              <Item extra={d && d.typeId === 1 ? '仅限1台' : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (
@@ -217,6 +284,40 @@ class HomePageContainer extends React.Component {
                       >
                         <Item extra={`￥${d.typeModel.openAccountFee}`} arrow={'horizontal'}>安装时间</Item>
                       </DatePicker>
+                  ) : null
+              }
+              {
+                  /**
+                   * 只有水机有派单方式(typeId === 1)
+                   * 只有选择了地址才会出现派单方式
+                   * **/
+                  d && d.typeId === 1 ? (
+                      <Picker
+                          data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}
+                          extra={''}
+                          value={this.state.formPaiDan}
+                          cols={1}
+                          onOk={(v) => this.onPaiDanChose(v)}
+                      >
+                          <Item arrow="horizontal" className="special-item">派单方式</Item>
+                      </Picker>
+                  ) : null
+              }
+              {
+                  /**
+                   * 安装工
+                   * 只有派单方式选择手动才会出现
+                   * **/
+                  Number(this.state.formPaiDan) === 2 ? (
+                      <Picker
+                          data={this.state.serverList.map((item) => ({ label: `${item.realName} ${item.phone}`, value: item.id }))}
+                          extra={''}
+                          value={this.state.formServerMan}
+                          cols={1}
+                          onOk={(v) => this.onServeChose(v)}
+                      >
+                          <Item arrow="horizontal" className="special-item">服务人员</Item>
+                      </Picker>
                   ) : null
               }
               {
@@ -272,6 +373,6 @@ export default connect(
     orderParams: state.shop.orderParams,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ shopStartPayOrder, placeAndOrder }, dispatch),
+    actions: bindActionCreators({ shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo }, dispatch),
   })
 )(HomePageContainer);

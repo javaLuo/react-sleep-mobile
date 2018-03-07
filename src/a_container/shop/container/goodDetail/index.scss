@@ -1,4 +1,9 @@
 .gooddetail-page{
+  opacity: 0;
+  transition: 200ms;
+  &.show{
+    opacity: 1;
+  }
   .title-pic{
     min-height: 3rem;
     position: relative;

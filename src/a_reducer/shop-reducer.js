@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 const initState = {
     allProducts: [],    // 所有的产品
+    allProductsActive: [],    // 所有的产品
     allProductTypes: [],// 所有的产品类型
     orderParams: {      // 下单流程所需
         nowProduct: null,   // 当前的商品对象，包括ID、名称、型号等
@@ -73,6 +74,13 @@ const getProDuctList = (state, action) => {
     const { payload } = action;
     return Object.assign({}, state, {
         allProducts: payload,
+    });
+};
+
+const getProDuctListActive = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        allProductsActive: payload,
     });
 };
 
@@ -262,6 +270,8 @@ const reducerFn = (state = initState, action) => {
     switch (action.type) {
         case 'SHOP::getProDuctList':
             return getProDuctList(state, action);
+        case 'SHOP::getProDuctListActive':
+            return getProDuctListActive(state, action);
         case 'SHOP::listProductType':
             return listProductType(state, action);
         case 'SHOP::shopStartPreOrder':
