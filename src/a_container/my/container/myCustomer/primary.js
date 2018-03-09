@@ -17,6 +17,7 @@ import './primary.scss';
 import { List, Toast } from 'antd-mobile';
 import ImgDefault from '../../../../assets/default-head.jpg';
 import Img404 from '../../../../assets/not-found.png';
+import ImgR from '../../../../assets/xiangyou2@3x.png';
 import Li from './component/list';
 // ==================
 // 本页面所需action
@@ -96,6 +97,8 @@ class HomePageContainer extends React.Component {
                         </li>
                     }
                 </ul>
+                <div style={{ height: '45px' }} />
+                <div className="footer-btn" onClick={() => this.props.history.push('/my/customernex')}>我的客户关系说明<img src={ImgR} /></div>
             </div>
         );
     }

@@ -116,8 +116,8 @@ class Register extends React.Component {
                 <div className="body-box">
                     <div className="head-box">
                         <div className="pic"><img src={decodeURIComponent(d.head)} /></div>
-                        <div className="name">{decodeURIComponent(d.name) || '-'}</div>
-                        <div className="name-info">{d1.title}</div>
+                        <div className="name" style={{ color: d1.colorOne || '#fff' }}>{decodeURIComponent(d.name) || '-'}</div>
+                        <div className="name-info" style={{ color: d1.colorOne || '#fff' }}>{d1.title}</div>
                     </div>
                     <div className="img-box">
                         {

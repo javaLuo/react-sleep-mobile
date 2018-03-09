@@ -16,6 +16,7 @@ import './index.scss';
 // ==================
 import { Toast, List, Button, Modal } from 'antd-mobile';
 import ImgDiZhi from '../../../../assets/dizhi@3x.png';
+import ImgTimer from '../../../../assets/shop/shenhe@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -79,27 +80,18 @@ class HomePageContainer extends React.Component {
         });
     }
 
-    // 返回当前订单的各状态
-    makeType(item) {
-        // 先判断当时是什么类型的产品
-        const type = item.product.typeId;
-        switch(String(item.conditions)){
+    // 返回当前订单的各状态(客户订单里是根据activityType判断的)
+    getType(item) {
+      console.log('当前订单信息：', item);
+      const thetime = new Date(item.createTime.replace(/-/g, "/"));
+      thetime.setDate(thetime.getDate() + 3);
+        switch(String(item.activityStatus)){
             // 待付款
-            case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-            case '1': return <span style={{ color: '#ccc' }}>未受理</span>;
-            case '2': return null;  // 待发货
-            case '3': return null;  // 待收货
-            // 已完成
-            case '4':
-                const map = [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>];
-                if (type === 5) {   // 精准体检，有查看卡的连接
-                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看评估卡'}</a>);
-                }
-                return map;
-            case '-1': return <span>审核中</span>;
-            case '-2': return <span>未通过</span>;
-            case '-3': return <span>已取消</span>;
-            default: return <span>未知状态</span>;
+            case '1': return {label:'待审核', info: `审核时限为3天，请您尽快在${tools.dateToStr(thetime)}前进行审核，超时订单将自动审核不通过`};
+            case '2': return {label:'待发货', info: '正在等待发货'};
+            case '3': return {label:'退款中', info: '订单审核未通过'};
+            case '4': return {label:'已退款', info: '订单审核未通过'};
+            default: return null;
         }
     }
 
@@ -108,8 +100,26 @@ class HomePageContainer extends React.Component {
       const o = this.state.order;
       const addr = o.shopAddress;
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
+      const activeStatus = this.getType(this.props.orderInfo);
     return (
       <div className="page-order-detail">
+          {/** 订单状态 **/}
+          {
+              activeStatus && (
+                  <div className="order-type">
+                      <List>
+                          <Item
+                              thumb={<img src={ImgTimer} />}
+                              className={'normal-item'}
+                              multipleLine
+                          >
+                              {activeStatus.label}
+                              {activeStatus.info ? <Brief><div className="all_warp">{ activeStatus.info }</div></Brief> : null}
+                          </Item>
+                      </List>
+                  </div>
+              )
+          }
           {
               type !== 5 && addr ? (
                   <List>
@@ -179,11 +189,11 @@ class HomePageContainer extends React.Component {
           }
 
           {(() => {
-              switch(this.props.orderInfo.conditions){
-                  case -1: return (
+              switch(this.props.orderInfo.activityStatus){
+                  case 1: return (
                       <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
-                          <a onClick={() => this.onPass(1)}>审核不通过</a>
-                          <a className="blue" onClick={() => this.onPass(2)}>审核通过</a>
+                          <a onClick={() => this.onPass(2)}>审核不通过</a>
+                          <a className="blue" onClick={() => this.onPass(1)}>审核通过</a>
                       </div>
                   );
                   default: return null;

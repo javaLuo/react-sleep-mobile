@@ -33,7 +33,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        order: [],  // 通过 query接口获取到的订单数据（包含了地址数据）
+        order: {},  // 通过 query接口获取到的订单数据（包含了地址数据）
     };
   }
 
@@ -152,37 +152,46 @@ class HomePageContainer extends React.Component {
     getType(conditions) {
         switch(String(conditions)){
             // 待付款
-            case '0': return '待付款';
-            case '1': return '未受理';
-            case '2': return '待发货';  // 待发货
-            case '3': return '待收货';  // 待收货
-            case '4': return '已完成';
-            case '-1': return '审核中';
-            case '-2': return '未通过';
-            case '-3': return '已取消';
-            default: return '未知状态，请联系客服';
+            case '0': return {label:'待付款', info: '请尽快完成支付'};
+            case '1': return {label:'未受理', info: ''};
+            case '2': return {label:'待发货', info: '正在等待发货'};
+            case '3': return {label:'待收货', info: '物品已在途中，请耐心等待'};
+            case '4': return {label:'已完成', info: ''};
+            case '-1': return {label:'审核中', info: ''};
+            case '-2': return {label:'未通过', info: ''};
+            case '-3': return {label:'已取消', info: ''};
+            case '-4': return {label:'已关闭', info: ''};
+            default: return null;
         }
     }
+
   render() {
-      const data = this.props.orderInfo.product || {};
+      console.log('这尼玛是个什么：', this.props.orderInfo);
+      const data = this.props.orderInfo.product || { typeModel: {} };
       const o = this.state.order;
       const addr = o.shopAddress;
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
+      const activeStatus = this.getType(o.conditions);
+      console.log('所以这是个什么；', activeStatus);
     return (
       <div className="page-order-detail">
           {/** 订单状态 **/}
-          <div className="order-type">
-              <List>
-                  <Item
-                      thumb={<img src={ImgTimer} />}
-                      className={'normal-item'}
-                      multipleLine
-                  >
-                      {this.getType(this.props.orderInfo.conditions)}
-                      <Brief>订单正在审核(1~3个工作日)，请耐心等待</Brief>
-                  </Item>
-              </List>
-          </div>
+          {
+              activeStatus && (
+                  <div className="order-type">
+                      <List>
+                          <Item
+                              thumb={<img src={ImgTimer} />}
+                              className={'normal-item'}
+                              multipleLine
+                          >
+                              {activeStatus.label}
+                              {activeStatus.info ? <Brief>{ activeStatus.info }</Brief> : null}
+                          </Item>
+                      </List>
+                  </div>
+              )
+          }
           {
               type !== 5 && addr ? (
                   <List>
@@ -201,7 +210,7 @@ class HomePageContainer extends React.Component {
               ) : null
           }
           <div className="card-box">
-              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data, this.props.orderInfo.modelType)}>
+              <div className="info page-flex-row" onClick={() => this.onGotoProduct(data, o.modelType)}>
                   <div className="pic flex-none">
                       {
                           (data.productImg) ? (
@@ -225,9 +234,9 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
               <div className="basic">
-                  <div>订单号：{this.props.orderInfo.id || ''}</div>
-                  <div>下单时间：{this.props.orderInfo.createTime || ''}</div>
-                  {this.props.orderInfo.payTime ? <div>付款时间：{this.props.orderInfo.payTime || '--'}</div> : null}
+                  <div>订单号：{o.id || ''}</div>
+                  <div>下单时间：{o.createTime || ''}</div>
+                  {o.payTime ? <div>付款时间：{o.payTime || '--'}</div> : null}
               </div>
               { /** 水机有付款方式 **/
                   type === 1 ? (
@@ -240,8 +249,8 @@ class HomePageContainer extends React.Component {
                       <div>首年度预缴：{o.fee}</div>
                   ) : null
               }
-              <div>数量：{this.props.orderInfo.count || ''}</div>
-              <div>实付款：￥{this.props.orderInfo.fee || ''}</div>
+              <div>数量：{o.count || ''}</div>
+              <div>实付款：￥{o.fee || ''}</div>
           </div>
           { /** 只有评估卡有常见问题 **/
               type === 5 ? (
@@ -252,7 +261,10 @@ class HomePageContainer extends React.Component {
           }
 
           {(() => {
-              switch(this.props.orderInfo.conditions){
+              if(o.activityType === 2) { // 活动商品不需要支付
+                  return null;
+              }
+              switch(o.conditions){
                   case 0: return (
                       <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
                           <a onClick={() => this.onDel()}>删除订单</a>

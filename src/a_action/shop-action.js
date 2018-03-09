@@ -270,7 +270,7 @@ export const auditList = (params = {}) => async(dispatch) => {
 // 设置我的客户订单通过还是不通过，1通过，2不通过
 export const setAuditList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/auditList', params);
+        const res = await Fetchapi.newPost('mall/order/auditOrder', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

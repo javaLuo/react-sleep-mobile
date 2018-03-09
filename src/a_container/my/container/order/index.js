@@ -104,6 +104,7 @@ class HomePageContainer extends React.Component {
 
     // 查看订单详情
     onSeeDetail(obj) {
+      console.log('你查看详情传递的是个什么：', obj);
       this.props.actions.saveOrderInfo(obj);
       this.props.history.push(`/my/orderdetail`);
     }

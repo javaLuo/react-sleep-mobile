@@ -23,7 +23,7 @@ import ImgZhiFuBao from '../../../../assets/zhifubao@3x.png';
 // 本页面所需action
 // ==================
 
-import { getAllPayTypes, wxPay, wxPay2, wxInit, payResultNeed } from '../../../../a_action/shop-action';
+import { getAllPayTypes, wxPay, wxPay2, wxInit, payResultNeed, saveOrderInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -420,16 +420,24 @@ class HomePageContainer extends React.Component {
      * 支付成功时，跳转到成功页
      * **/
     successReturn() {
-        sessionStorage.removeItem('pay-obj');
-        sessionStorage.removeItem('pay-info');
-        sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
         /**
          * 支付流程完成，跳转到结果页
          * 参数1：成功后生成的卡片信息，现在由后台生成，获取不到
          * 参数2：当前的订单信息
          * **/
-        this.props.actions.payResultNeed({}, this.state.pay_info);
-        setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
+        // this.props.actions.payResultNeed({}, this.state.pay_info);
+        // setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
+            console.log('到这了没有');
+        const pay_data = this.getPayInfo();
+        pay_data.product = this.getObjInfo().nowProduct;
+        this.props.actions.saveOrderInfo(pay_data);
+        console.log('支付完成即将跳转到这里了是不是：', pay_data);
+
+        sessionStorage.removeItem('pay-obj');
+        sessionStorage.removeItem('pay-info');
+        sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
+
+        this.props.history.replace(`/my/orderdetail`);
     }
 
   render() {
@@ -508,6 +516,6 @@ export default connect(
       orderParams: state.shop.orderParams,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getAllPayTypes, wxPay, wxPay2, wxInit, payResultNeed }, dispatch),
+    actions: bindActionCreators({ getAllPayTypes, wxPay, wxPay2, wxInit, payResultNeed, saveOrderInfo }, dispatch),
   })
 )(HomePageContainer);

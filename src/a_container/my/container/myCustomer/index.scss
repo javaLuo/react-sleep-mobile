@@ -1,56 +1,60 @@
 .page-customer{
-  height: 100vh;
+  height: calc(100vh - 45px);
   .tabs-div{
     height: 100%;
   }
-  .data-list{
-    display: block;
-    &>li{
-      position: relative;
-      background-color: #fff;
-      box-sizing: border-box;
-      padding: .3rem;
-      &+li{
-        border-top: solid 1px #f0f0f0;
-      }
-      .photo{
-        width: 1rem;
-        height: 1rem;
-        overflow: hidden;
-        border-radius: 1rem;
-        img{
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      .name{
-        margin-left: .3rem;
-        font-size: .32rem;
-        width: calc(100vw - 1.9rem);
-        &>div{
-          width: 100%;
-        }
-        .lit{
-          font-size: .28rem;
-          color: #888;
-          margin-top: .1rem;
-          span{
-            float: right;
-          }
-        }
-      }
-      .num{
-        color: #aaa;
-        font-size: .32rem;
-      }
+  .tabs-bars-div{
+    text-align: center;
+    &>div+div{
+      padding-top: 8px;
     }
   }
+  .footer-btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background-color: #999C9F;
+    color: #fff;
+    text-align: center;
+    line-height: 45px;
+    font-size: 16px;
+    img{
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform:  translateY(-50%);
+      height: 14px;
+    }
+    &:active{
+      background-color: #B7BFC1;
+    }
+  }
+  .footer-zw{
+    height: 45px;
+    width: 100%;
+  }
+  .am-tabs-default-bar-tab{
+    height: 56px;
+  }
+
   .nothing{
     padding: .2rem;
     text-align: center;
     color: #aaa;
     font-size: .28rem;
     background-color: transparent !important;
+  }
+}
+.que-modal-info{
+  width: 100%;
+  padding: .2rem;
+  font-size: .36rem;
+  color: #333;
+  img{
+    height: .65rem;
+    width: auto;
+    margin-right: .2rem;
   }
 }

@@ -33,7 +33,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: null, // 当前商品数据
-        formJifei: null,   // 当前选择的计费方式
+        formJifei: undefined,   // 当前选择的计费方式
         formCount: 1,   // 购买数量
         loading: false, // 是否正在异步请求中
         imgHeight: 200,
@@ -58,6 +58,7 @@ class HomePageContainer extends React.Component {
             this.setState({
                 data: res.data,
                 show: true,
+                formJifei: (res.data && res.data.typeModel && res.data.typeModel.chargeTypes) ? [res.data.typeModel.chargeTypes[0].id] : undefined, // 默认选择第1个
             });
             Toast.hide();
         } else {

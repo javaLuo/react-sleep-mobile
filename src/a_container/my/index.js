@@ -44,6 +44,7 @@ import UpAddr from './container/addr/upAddr';
 import DaiYan from './container/myDaiYan/daiyan';
 import OrderCustomer from './container/orderCustomer';
 import OrderCustomerDetail from './container/ordercustomerdetail';
+import CustomerNex from './container/customerNex';
 
 // ==================
 // 本页面所需action
@@ -96,6 +97,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/daiyan`} component={DaiYan} />
               <Route exact path={`${this.props.match.url}/ordercustomer`} component={OrderCustomer} />
               <Route exact path={`${this.props.match.url}/ordercustomerdetail`} component={OrderCustomerDetail} />
+              <Route exact path={`${this.props.match.url}/customernex`} component={CustomerNex} />
           </Switch>
       </div>
     );

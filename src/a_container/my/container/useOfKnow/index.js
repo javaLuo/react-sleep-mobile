@@ -14,7 +14,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, List } from 'antd-mobile';
+import { List } from 'antd-mobile';
 
 // ==================
 // 本页面所需action

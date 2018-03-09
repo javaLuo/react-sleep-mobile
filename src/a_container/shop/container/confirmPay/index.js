@@ -132,12 +132,7 @@ class HomePageContainer extends React.Component {
               sessionStorage.setItem('pay-info', JSON.stringify(res.data));                 // 将返回的订单信息存入sessionStorage
               sessionStorage.setItem('pay-obj', JSON.stringify(this.props.orderParams));    // 将当前所选择的商品信息存入session
               /** 普通商品跳转到付款选择页，活动物品直接跳转到订单详情 **/
-              if (d.activityType === 2) {
-                  this.props.actions.saveOrderInfo(res.data);
-                  this.props.history.push(`/my/orderdetail`);
-              } else {
-                  this.props.history.replace('/shop/payChose');
-              }
+              this.props.history.replace('/shop/payChose');
           } else {
               Toast.fail(res.message || '订单创建失败',1);
           }
@@ -339,7 +334,7 @@ class HomePageContainer extends React.Component {
               {
                   /** 水机和评估卡没有运费(typeId === 1，5) **/
                   d && ![1,5].includes(d.typeId) ? (
-                      <Item extra={`￥${d. typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
+                      <Item extra={`￥${d.typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
                   ) : null
               }
           </List>
