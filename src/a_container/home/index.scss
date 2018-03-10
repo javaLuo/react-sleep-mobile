@@ -82,16 +82,13 @@
       padding:0 10px;
       border-top: solid 1px #f7f7f7;
       background-color: #fff;
-      a{
-        display: block;
-        height: 100%;
-        color: #222;
-        span{
-          vertical-align: middle;
-        }
-        svg{
-          float: right;
-        }
+      justify-content: center;
+      align-items: center;
+      span{
+        padding:0 .2rem;
+      }
+      .line{
+        width: .7rem;
       }
     }
     .list{
@@ -145,17 +142,20 @@
               }
             }
             .k{
-              div{
-                font-size: .22rem;
+              display: flex;
+              justify-content: space-between;
+              align-items: baseline;
+              .a{
+                font-size: .24rem;
+                color: #888;
+              }
+              .b{
+                font-size: .24rem;
                 color: #fc4800;
                 i{
+                  font-size: .46rem;
                   font-style: normal;
-                  font-size: .36rem;
                 }
-              }
-              .water-info{
-                margin-top: .01rem;
-                font-size: .3rem;
               }
             }
           }

@@ -60,7 +60,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '我的推广客户';
+      document.title = '我的客户';
       if (this.state.id){
           this.getData(this.state.id);
       }

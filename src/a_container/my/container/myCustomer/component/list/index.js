@@ -67,13 +67,13 @@ class List extends React.PureComponent {
             );
             case 'unbind' : return (
                 <li className="customer-li page-flex-row flex-ai-center" onClick={() => this.onCallBack()}>
-            <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
-            <div className="name flex-auto">
-            <div className="title all_nowarp">{u.nickName}</div>
-            <div className="lit black">电话：{u.mobile}</div>
-            <div className="lit">身份：未绑定用户</div>
-            </div>
-            </li>
+                    <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
+                    <div className="name flex-auto">
+                    <div className="title all_nowarp">{u.nickName}</div>
+                    <div className="lit black">电话：{u.mobile}</div>
+                    <div className="lit">身份：未绑定用户</div>
+                    </div>
+                </li>
             );
             default: return (
              <li className="customer-li page-flex-row flex-ai-center" onClick={() => this.onCallBack()}>

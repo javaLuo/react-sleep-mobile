@@ -20,6 +20,8 @@ import imgDefalut from '../../assets/logo-img.png';
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
 import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
+import ImgWtfL from '../../assets/home/wtf-l@3x.png';
+import ImgWtfR from '../../assets/home/wtf-r@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -154,7 +156,9 @@ class HomePageContainer extends React.Component {
               return (
                   <div key={i} className="the-list" id={`list_${theType.id}`}>
                     <div className="title page-flex-row">
-                      <div className="flex-auto">{ theType.name }</div>
+                            <img className="line" src={ImgWtfR} />
+                            <span>{ theType.name }</span>
+                            <img className="line" src={ImgWtfL} />
                     </div>
                     <ul className="list">
                         { theType.productList.filter((item) => item.onShelf).map((item, index) => {
@@ -168,14 +172,8 @@ class HomePageContainer extends React.Component {
                                         <div className="all_nowarp2" />
                                       </div>
                                       <div className="k flex-none">
-                                          {
-                                            item.typeId === 1 ? (
-                                                // item.typeModel.chargeTypes.map((v, index) => <div key={index} className="water-info">{v.chargeName}</div>)
-                                                <div className="water-info">0元供机，仅收取净水服务费</div>
-                                            ) : (
-                                                <div>￥ <i>{item.typeModel.price || '0'}</i></div>
-                                            )
-                                          }
+                                          <div className="a">{ item.typeId === 1 ? "已供：" : "已售："}{item.buyCount}</div>
+                                          <div className="b">{ item.typeId === 1 ? <span>首年度预缴 </span> : null }<span>￥</span><i>{item.typeModel.price || '0'}</i></div>
                                       </div>
                                     </div>
                                   </Link>

@@ -30,6 +30,7 @@ import tools from '../../../../util/all';
 // ==================
 
 import { getUserInfo, myAmbassador } from '../../../../a_action/app-action';
+import { getMyCustomers } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -39,6 +40,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         show: false,    // 是否显示
+        howManyCustomer: 0, // 有多少个推广用户
     };
   }
 
@@ -47,8 +49,11 @@ class HomePageContainer extends React.Component {
       console.log('location:', this.props.location);
       if (!this.props.userinfo) {
         this.getUserInfo();
+      } else {
+          this.getMyAmbassador();
+          this.getMyCustomers();
       }
-      this.getMyAmbassador();
+
       setTimeout(() => {
           this.setState({
               show: true,
@@ -64,10 +69,25 @@ class HomePageContainer extends React.Component {
           this.props.actions.getUserInfo({ openId }).then((res) => {
               if (res.status === 200) {
                   this.getMyAmbassador();
+                  this.getMyCustomers();
               }
           });
       }
   }
+
+  // 获得有多少个推广客户
+    getMyCustomers() {
+      const u = this.props.userinfo;
+      if (u) {
+          this.props.actions.getMyCustomers({ userId: u.id }).then((res) => {
+              if (res.status === 200) {
+                  this.setState({
+                      howManyCustomer: res.data.distributionCount + res.data.shareCount + res.data.unBindCount,
+                  });
+              }
+          });
+      }
+    }
 
   // 获取健康大使信息
     getMyAmbassador() {
@@ -189,8 +209,8 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
-                  <div className="title">我的推广客户</div>
-                  <div className="info" />
+                  <div className="title">我的客户</div>
+                  <div className="info" >{this.state.howManyCustomer}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
@@ -258,6 +278,6 @@ export default connect(
     ambassador: state.app.ambassador,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo, myAmbassador }, dispatch),
+    actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomers }, dispatch),
   })
 )(HomePageContainer);

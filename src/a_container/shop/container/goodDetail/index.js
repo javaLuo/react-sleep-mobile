@@ -214,7 +214,20 @@ class HomePageContainer extends React.Component {
                           <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
                       ) : null
                   }
-                  <div>{d && d.activityType === 2 ? `${d.buyCount || 0}已申请` : `已售：${ d && d.buyCount || 0}`}</div>
+                  <div>
+                      {(() => {
+                          if (!d) {
+                              return null;
+                          }
+                          if (d.activityType === 2) {   // 活动产品
+                              return `${d.buyCount || 0}人申请`;
+                          } else if (d.typeId === 1) { // 水机
+                              return `已供：${ d && d.buyCount || 0}`;
+                          }
+
+                          return `已售：${ d && d.buyCount || 0}`;
+                      })()}
+                    </div>
               </div>
           </div>
           {/* List */}

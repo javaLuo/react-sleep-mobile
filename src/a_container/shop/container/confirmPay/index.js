@@ -288,7 +288,7 @@ class HomePageContainer extends React.Component {
                    * **/
                   d && d.typeId === 1 ? (
                       <Picker
-                          data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}
+                          data={[{ label: '自动派单', value: 1 }]}  // , { label: '手动指派', value: 2 }
                           extra={''}
                           value={this.state.formPaiDan}
                           cols={1}
