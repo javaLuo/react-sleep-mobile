@@ -70,7 +70,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                     <div className="title all_nowarp">{u.nickName}</div>
-                    <div className="lit black">电话：{u.mobile}</div>
+                    <div className="lit black">联系方式：{u.mobile}</div>
                     <div className="lit">身份：未绑定用户</div>
                     </div>
                 </li>

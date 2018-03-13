@@ -29,6 +29,7 @@ import ImgD1 from '../../../../assets/one_liliao@3x.png';
 import ImgD2 from '../../../../assets/two_liliao@3x.png';
 import ImgE1 from '../../../../assets/one_pingguka@3x.png';
 import ImgE2 from '../../../../assets/two_pingguka@3x.png';
+import ImgLingDang from '../../../../assets/lingdang@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -145,6 +146,14 @@ class HomePageContainer extends React.Component {
                       {
                           tabs.map((obj, index) =>
                               <div key={index} className="tabs-div">
+                                  {
+                                      obj.type === 'unbind' ? (
+                                          <div className="f-info">
+                                              <div className="icon1"><img src={ImgLingDang} /></div>
+                                              <div className="info">您有部分客户仍未绑定 [翼猫健康e家] 公众号。赶快分享您的专属个人二维码，邀请他们加入翼猫健康e家，为您发展更多客户吧！</div>
+                                          </div>
+                                      ) : null
+                                  }
                                   <ul className="data-list">
                                       {
                                           obj.list && obj.list.length ? obj.list.map((item, index) => {

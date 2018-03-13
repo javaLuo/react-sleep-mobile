@@ -22,7 +22,7 @@ import imgDefalut from '../../../../assets/logo-img.png';
 // 本页面所需action
 // ==================
 
-import { getProDuctListActive } from '../../../../a_action/shop-action';
+import { getProDuctListActive, getOrdersCount } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -44,7 +44,19 @@ class HomePageContainer extends React.Component {
     if(!this.props.allProductsActive || this.props.allProductsActive.length === 0) {
       this.props.actions.getProDuctListActive();
     }
+      this.getOrdersCount();
   }
+
+    // 获取活动有多少人参加
+    getOrdersCount() {
+        this.props.actions.getOrdersCount().then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    activeCount: res.data,
+                });
+            }
+        });
+    }
 
   render() {
     const u = this.props.userinfo;
@@ -53,7 +65,7 @@ class HomePageContainer extends React.Component {
       <div className="flex-auto page-box shop-active-page">
           {/* 顶部图片 */}
           <div className="top-bar" >
-              <div>已有<span>99999</span>人参与</div>
+              <div>已有<span>{this.state.activeCount}</span>人参与</div>
           </div>
           {/* 所有产品列表 */}
           <div className="the-list">
@@ -115,6 +127,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getProDuctListActive }, dispatch),
+    actions: bindActionCreators({ getProDuctListActive, getOrdersCount }, dispatch),
   })
 )(HomePageContainer);

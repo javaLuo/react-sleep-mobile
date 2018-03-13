@@ -70,6 +70,7 @@ const Jump = Loadable({ loader: () => import("../jump"), loading: Loading });
 const Shop = Loadable({ loader: () => import("../shop"), loading: Loading });
 const Forgot = Loadable({ loader: () => import("../register/forgot"), loading: Loading });
 const Profit = Loadable({ loader: () => import("../profit"), loading: Loading });
+const DownLine = Loadable({ loader: () => import("../downLine"), loading: Loading });
 
 /**
  * 普通组件
@@ -210,6 +211,7 @@ class RootContainer extends React.Component {
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route path="/daiyanshare/:id" render={(props) => this.onEnter(DaiYanShare, props)} />
+                  <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />

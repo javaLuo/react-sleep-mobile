@@ -22,6 +22,7 @@ import ImgBar4 from '../../../../assets/kehu@3x.png';
 import ImgBar5 from '../../../../assets/daiyanka@3x.png';
 import ImgBar6 from '../../../../assets/shouyi@3x.png';
 import ImgBar7 from '../../../../assets/shiyongbangzhu@3x.png';
+import ImgBar8 from '../../../../assets/wodekehudingdan@3x.png';
 import ImgYouHui from '../../../../assets/youhui@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
 import tools from '../../../../util/all';
@@ -209,7 +210,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
-                  <div className="title">我的客户</div>
+                  <div className="title">我的推广客户</div>
                   <div className="info" >{this.state.howManyCustomer}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
@@ -217,8 +218,8 @@ class HomePageContainer extends React.Component {
               {
                   (u && [0,1,2,5,6].includes(u.userType)) ?
                   <div className="item tran4 hide page-flex-row all_active" onClick={() => this.onMyOrderCustomerClick()}>
-                      <img src={ImgBar4} className="icon"/>
-                      <div className="title">客户订单</div>
+                      <img src={ImgBar8} className="icon"/>
+                      <div className="title">我的客户订单</div>
                       <div className="info" />
                       <div className="arrow"><img src={ImgRight} /></div>
                       <div className="line"/>

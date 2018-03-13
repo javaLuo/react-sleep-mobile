@@ -91,7 +91,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/sonin`} component={SonIn} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
               <Route exact path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
-              <Route exact path={`${this.props.match.url}/addr`} component={Addr} />
+              <Route exact path={`${this.props.match.url}/addr/:id`} component={Addr} />
               <Route exact path={`${this.props.match.url}/newaddr`} component={NewAddr} />
               <Route exact path={`${this.props.match.url}/upaddr`} component={UpAddr} />
               <Route exact path={`${this.props.match.url}/daiyan`} component={DaiYan} />

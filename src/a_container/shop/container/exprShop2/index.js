@@ -25,7 +25,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { mallStationListAll, saveServiceInfo } from '../../../../a_action/shop-action';
+import { mallStationListAll, saveServiceInfo, saveMapAddr } from '../../../../a_action/shop-action';
 import { getAreaList } from '../../../../a_action/app-action';
 // ==================
 // Definition
@@ -137,6 +137,12 @@ class HomePageContainer extends React.Component {
         this.getData(1, this.state.pageSize, data, 'flash');
     }
 
+    // 去导航，把所有信息都TMD的传过去
+    onGoMap(item) {
+        this.props.actions.saveMapAddr(item);
+        setTimeout(() => this.props.history.push('/downline/map'));
+    }
+
     render() {
         return (
             <div className="page-expr-shop">
@@ -165,11 +171,16 @@ class HomePageContainer extends React.Component {
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
-                                                <div className="title">{item.stationName || ''}</div>
                                                 <div className="title">{item.name}</div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.phone}</span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
+                                            </div>
+                                            <div className="r flex-none" onClick={() => this.onGoMap(item)}>
+                                                <div className="addr">
+                                                    <img src={ImgAddr} />
+                                                    <div>导航</div>
+                                                </div>
                                             </div>
                                         </li>
                                     );
@@ -206,6 +217,6 @@ export default connect(
         areaData: state.app.areaData,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallStationListAll, saveServiceInfo, getAreaList }, dispatch),
+        actions: bindActionCreators({ mallStationListAll, saveServiceInfo, getAreaList, saveMapAddr }, dispatch),
     })
 )(HomePageContainer);

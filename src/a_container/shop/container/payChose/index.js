@@ -180,7 +180,7 @@ class HomePageContainer extends React.Component {
             if (!s2) { return false; }
 
             const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-                body: 'yimaokeji-card',                                 // 商品描述
+                body: this.state.pay_obj.name || '翼猫科技商品',                                 // 商品描述
                 total_fee: Number(this.state.pay_info.fee * 100) || 0 , // 总价格（分）
                 spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
                 out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
@@ -214,7 +214,7 @@ class HomePageContainer extends React.Component {
             //     orderId: String(this.state.pay_info.id),      // 商户订单号，通过后台生成订单接口获取
             // });
             const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-                body: 'yimaokeji-card',                                 // 商品描述
+                body: this.state.pay_obj.name || '翼猫科技商品',       // 商品描述
                 total_fee: Number(this.state.pay_info.fee * 100) || 0 , // 总价格（分）
                 spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
                 out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
@@ -272,7 +272,7 @@ class HomePageContainer extends React.Component {
     wxH5Pay() {
         sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
         this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-            body: 'yimaokeji-card',                                 // 商品描述
+            body: this.state.pay_obj.name || '翼猫科技商品',                                 // 商品描述
             total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
             spbill_create_ip: typeof returnCitySN !== 'undefined' ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
             out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取

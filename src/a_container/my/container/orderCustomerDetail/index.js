@@ -16,7 +16,11 @@ import './index.scss';
 // ==================
 import { Toast, List, Button, Modal } from 'antd-mobile';
 import ImgDiZhi from '../../../../assets/dizhi@3x.png';
-import ImgTimer from '../../../../assets/shop/shenhe@3x.png';
+import ImgShenHe from '../../../../assets/shop/shenhe@3x.png';
+import ImgFaHuo from '../../../../assets/shop/fahuo@3x.png';
+import ImgShouHuo from '../../../../assets/shop/shouhuo@3x.png';
+import ImgYiWanCheng from '../../../../assets/shop/yiwancheng@3x.png';
+import ImgFuKuan from '../../../../assets/shop/fukuan@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -87,10 +91,10 @@ class HomePageContainer extends React.Component {
       thetime.setDate(thetime.getDate() + 3);
         switch(String(item.activityStatus)){
             // 待付款
-            case '1': return {label:'待审核', info: `审核时限为3天，请您尽快在${tools.dateToStr(thetime)}前进行审核，超时订单将自动审核不通过`};
-            case '2': return {label:'待发货', info: '正在等待发货'};
-            case '3': return {label:'退款中', info: '订单审核未通过'};
-            case '4': return {label:'已退款', info: '订单审核未通过'};
+            case '1': return {label:'待审核', info: `审核时限为3天，请您尽快在${tools.dateToStr(thetime)}前进行审核，超时订单将自动审核不通过`, icon: ImgShenHe};
+            case '2': return {label:'待发货', info: '正在等待发货', icon: ImgFaHuo};
+            case '3': return {label:'退款中', info: '订单审核未通过', icon: ImgYiWanCheng};
+            case '4': return {label:'已退款', info: '订单审核未通过', icon: ImgYiWanCheng};
             default: return null;
         }
     }
@@ -109,7 +113,7 @@ class HomePageContainer extends React.Component {
                   <div className="order-type">
                       <List>
                           <Item
-                              thumb={<img src={ImgTimer} />}
+                              thumb={<img src={activeStatus.icon} />}
                               className={'normal-item'}
                               multipleLine
                           >
@@ -157,7 +161,7 @@ class HomePageContainer extends React.Component {
                   type === 1 ? (
                       <div className="worker">
                           <div>安装工：{o.customer && o.customer.realName}</div>
-                          <div>联系电话：{o.customer  ? <a href={`tel:${o.customer.phone}`}>{o.customer.phone}</a> : null}</div>
+                          <div>联系方式：{o.customer  ? <a href={`tel:${o.customer.phone}`}>{o.customer.phone}</a> : null}</div>
                       </div>
                   ) : null
               }

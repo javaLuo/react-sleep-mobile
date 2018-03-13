@@ -1,4 +1,4 @@
-/* 我的e家 - 个人主页 - 收货地址 */
+/* 我的e家 - 个人主页 - 收货地址/现在商品中选择收货地址也是这个 */
 
 // ==================
 // 所需的各种插件
@@ -37,12 +37,17 @@ class HomePageContainer extends React.Component {
         data: [],
         pageNum: 1,
         pageSize: 10,
+        type: 1, // 1正常的管理地址，2从商品进来的选择收货地址
     };
   }
 
   componentDidMount() {
       document.title = '收货地址';
       this.getData();
+      const p = this.props.location.pathname.split('/').pop();
+      this.setState({
+          type: Number(p) || 1,
+      });
   }
 
   getData(pageNum = 1, pageSize = 10, type = 'flash') {
@@ -95,7 +100,8 @@ class HomePageContainer extends React.Component {
     }
 
     // 删除
-    onDel(item) {
+    onDel(e, item) {
+        e.stopPropagation();
         alert('删除地址', '确定删除该地址吗？', [
             { text: '取消', onPress: () => console.log('cancel') },
             { text: '确定', onPress: () => new Promise((resolve, rej) => {
@@ -117,13 +123,15 @@ class HomePageContainer extends React.Component {
     }
 
     // 修改
-    onUpDate(item) {
+    onUpDate(e, item) {
+      e.stopPropagation();
       this.props.actions.onSaveUpAddrNow(item);
       setTimeout(() => this.props.history.push('/my/upaddr'));
     }
 
     // 设置默认地址
-    onSetDefault(item) {
+    onSetDefault(e, item) {
+      e.stopPropagation();
       if (item.defaultAddress){
           return;
       }
@@ -154,6 +162,16 @@ class HomePageContainer extends React.Component {
           default: return '';
       }
     }
+
+    // 选择这一个
+    onChoseThis(item) {
+      if (this.state.type === 2) {
+          // 把所选择的地址存入购买数据
+          this.props.actions.saveShopAddr(item);
+          setTimeout(() => this.props.history.go(-1));
+      }
+    }
+
   render() {
     return (
       <div className="addr-page">
@@ -171,15 +189,15 @@ class HomePageContainer extends React.Component {
                       {
                           this.state.data.length ? this.state.data.map((item, index) => {
                               return (
-                                  <li key={index}>
+                                  <li key={index} onClick={() => this.onChoseThis(item)}>
                                       <WingBlank>
                                           <div className="name">{item.contact}<kbd style={{ marginLeft: '5px' }}>{this.getSex(item.sex)}</kbd><span>{item.mobile}</span></div>
                                           <div className="addr">{`${item.province || ''}${item.city || ''}${item.region || ''}${item.street}`}</div>
                                           <div className="page-flex-row controls">
-                                              <div className="page-flex-row flex-ai-center" onClick={() => this.onSetDefault(item)}><Icon className={item.defaultAddress ? 'icon check' : 'icon no-check' } type="check-circle"/> 默认地址</div>
+                                              <div className="page-flex-row flex-ai-center" onClick={(e) => this.onSetDefault(e, item)}><Icon className={item.defaultAddress ? 'icon check' : 'icon no-check' } type="check-circle"/> 默认地址</div>
                                               <div className="flex-auto btns page-flex-row flex-jc-end">
-                                                  <div className="page-flex-row flex-ai-center" onClick={() => this.onUpDate(item)}><img src={ImgUp} />编辑</div>
-                                                  <div className="page-flex-row flex-ai-center" onClick={() => this.onDel(item)}><img src={ImgDel} />删除</div>
+                                                  <div className="page-flex-row flex-ai-center" onClick={(e) => this.onUpDate(e, item)}><img src={ImgUp} />编辑</div>
+                                                  <div className="page-flex-row flex-ai-center" onClick={(e) => this.onDel(e, item)}><img src={ImgDel} />删除</div>
                                               </div>
                                           </div>
                                       </WingBlank>

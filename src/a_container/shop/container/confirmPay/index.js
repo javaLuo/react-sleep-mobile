@@ -188,6 +188,13 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    // 选择这一个
+    onChoseThis(item) {
+        // 把所选择的地址存入购买数据
+        this.props.actions.saveShopAddr(item);
+        setTimeout(() => this.props.history.go(-1));
+    }
+
     // 允许购买的最大数量
     canBuyHowMany(type) {
         // 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
@@ -216,7 +223,6 @@ class HomePageContainer extends React.Component {
       console.log(d, nowParams);
     return (
       <div className="flex-auto page-box confirm-pay">
-
           {
               d && d.typeId !== 5 ? (
                   <List className="mb">
@@ -226,7 +232,7 @@ class HomePageContainer extends React.Component {
                           className={'normal-item'}
                           multipleLine
                           arrow={'horizontal'}
-                          onClick={() => this.props.history.push('/shop/choseaddr')}
+                          onClick={() => this.props.history.push('/my/addr/2')}
                       >
                           {
                               addr ? `收货人：${addr.contact}  ${this.getSex(addr.sex)}` : null

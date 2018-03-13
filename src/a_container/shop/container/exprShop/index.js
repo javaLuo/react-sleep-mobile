@@ -108,6 +108,12 @@ class HomePageContainer extends React.Component {
         this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, 'update');
     }
 
+    // 去导航，把所有信息都TMD的传过去
+    onGoMap(item) {
+        this.props.actions.saveMapAddr(item);
+        setTimeout(() => this.props.history.push('/downline/map'));
+    }
+
     // 通过区域原始数据组装Picker所需数据
     makeAreaData(d) {
         const data = d.map((item, index) => {
@@ -166,10 +172,16 @@ class HomePageContainer extends React.Component {
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
-                                                <div className="title">{item.station ? item.station.name : ''}</div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.masterName : null}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.station ? item.station.masterPhone : null}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.station ? item.station.address : null}</span></div>
+                                                <div className="title">{item.name}</div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.phone}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
+                                            </div>
+                                            <div className="r flex-none" onClick={() => this.onGoMap(item)}>
+                                                <div className="addr">
+                                                    <img src={ImgAddr} />
+                                                    <div>导航</div>
+                                                </div>
                                             </div>
                                         </li>
                                     );

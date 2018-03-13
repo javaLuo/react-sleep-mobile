@@ -26,7 +26,7 @@ import ImgWtfR from '../../assets/home/wtf-r@3x.png';
 // 本页面所需action
 // ==================
 
-import { getProDuctList, mallApList } from '../../a_action/shop-action';
+import { getProDuctList, mallApList, getOrdersCount } from '../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         imgHeight: '200px',
+        activeCount: 0,
     };
   }
 
@@ -51,11 +52,18 @@ class HomePageContainer extends React.Component {
     if (!this.props.homePics || this.props.homePics.length === 0) {
       this.props.actions.mallApList({ typeCode: 'slideshow' });
     }
+    this.getOrdersCount();
   }
 
-  // 通过产品类型确定用哪一个图
-    getIconByType(id) {
-
+  // 获取活动有多少人参加
+    getOrdersCount() {
+      this.props.actions.getOrdersCount().then((res) => {
+          if (res.status === 200) {
+              this.setState({
+                  activeCount: res.data,
+              });
+          }
+      });
     }
 
     // 点bar弹到指定地方
@@ -78,6 +86,7 @@ class HomePageContainer extends React.Component {
               break;
           // 跳视频直播
           case 2:
+              window.open('http://tv.yimaokeji.com/watch/1447826');
               break;
           // 跳翼猫体验店查询
           case 3:
@@ -136,7 +145,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/** 横幅 **/}
           <div className="active-bar" onClick={() => this.props.history.push('/shop/shopactive')}>
-              <div>已有<span>99999</span>人参与</div>
+              <div>已有<span>{this.state.activeCount}</span>人参与</div>
           </div>
           {/** 产品bar **/}
           <div className="home-bar page-flex-row">
@@ -214,6 +223,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getProDuctList, mallApList }, dispatch),
+    actions: bindActionCreators({ getProDuctList, mallApList, getOrdersCount }, dispatch),
   })
 )(HomePageContainer);

@@ -63,6 +63,7 @@ const initState = {
     iwantnow: 0,        // 可提现金额（从收益页进入提现页时带过去）
     tiXianDetail: null, // 从提现记录列表进入详情页时所需信息
     daiyanList: null,     // 代言卡选择页数据
+    mapAddr: null,  // 进入地图时当前选择的地址
 };
 
 // ============================================
@@ -263,6 +264,13 @@ const getDaiYanList = (state, action) => {
         daiyanList: payload,
     });
 };
+
+const saveMapAddr = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        mapAddr: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -316,6 +324,8 @@ const reducerFn = (state = initState, action) => {
             return saveTiXianDetailInfo(state, action);
         case 'MY::getDaiYanList':
             return getDaiYanList(state, action);
+        case 'MY::saveMapAddr':
+            return saveMapAddr(state, action);
         default:
             return actDefault(state, action);
     }

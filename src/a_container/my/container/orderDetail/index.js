@@ -16,7 +16,12 @@ import './index.scss';
 // ==================
 import { Toast, List, Button, Modal } from 'antd-mobile';
 import ImgDiZhi from '../../../../assets/dizhi@3x.png';
-import ImgTimer from '../../../../assets/shop/shenhe@3x.png';
+import ImgShenHe from '../../../../assets/shop/shenhe@3x.png';
+import ImgFaHuo from '../../../../assets/shop/fahuo@3x.png';
+import ImgShouHuo from '../../../../assets/shop/shouhuo@3x.png';
+import ImgYiWanCheng from '../../../../assets/shop/yiwancheng@3x.png';
+import ImgFuKuan from '../../../../assets/shop/fukuan@3x.png';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -152,15 +157,15 @@ class HomePageContainer extends React.Component {
     getType(conditions) {
         switch(String(conditions)){
             // 待付款
-            case '0': return {label:'待付款', info: '请尽快完成支付'};
-            case '1': return {label:'未受理', info: ''};
-            case '2': return {label:'待发货', info: '正在等待发货'};
-            case '3': return {label:'待收货', info: '物品已在途中，请耐心等待'};
-            case '4': return {label:'已完成', info: ''};
-            case '-1': return {label:'审核中', info: ''};
-            case '-2': return {label:'未通过', info: ''};
-            case '-3': return {label:'已取消', info: ''};
-            case '-4': return {label:'已关闭', info: ''};
+            case '0': return {label:'待付款', info: '请尽快完成支付', icon: ImgFuKuan};
+            case '1': return {label:'未受理', info: '', icon: ImgShenHe};
+            case '2': return {label:'待发货', info: '正在等待发货', icon: ImgFaHuo};
+            case '3': return {label:'待收货', info: '物品已在途中，请耐心等待', icon: ImgShouHuo};
+            case '4': return {label:'已完成', info: '', icon: ImgYiWanCheng};
+            case '-1': return {label:'审核中', info: '', icon: ImgShenHe};
+            case '-2': return {label:'未通过', info: '', icon: ImgShenHe};
+            case '-3': return {label:'已取消', info: '', icon: ImgShenHe};
+            case '-4': return {label:'已关闭', info: '', icon: ImgShenHe};
             default: return null;
         }
     }
@@ -181,7 +186,7 @@ class HomePageContainer extends React.Component {
                   <div className="order-type">
                       <List>
                           <Item
-                              thumb={<img src={ImgTimer} />}
+                              thumb={<img src={activeStatus.icon} />}
                               className={'normal-item'}
                               multipleLine
                           >
@@ -229,7 +234,7 @@ class HomePageContainer extends React.Component {
                   type === 1 ? (
                       <div className="worker">
                           <div>安装工：{o.customer && o.customer.realName}</div>
-                          <div>联系电话：{o.customer  ? <a href={`tel:${o.customer.phone}`}>{o.customer.phone}</a> : null}</div>
+                          <div>联系方式：{o.customer  ? <a href={`tel:${o.customer.phone}`}>{o.customer.phone}</a> : null}</div>
                       </div>
                   ) : null
               }

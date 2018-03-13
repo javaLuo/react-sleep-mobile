@@ -125,7 +125,7 @@ class HomePageContainer extends React.Component {
         switch(String(item.conditions)){
             // 待付款
             case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-            case '1': return <span style={{ color: '#ccc' }}>未受理</span>;
+            case '1': return <span style={{ color: '#ccc' }}>未受理</span>;    // 待审核
             case '2': return null;  // 待发货
             case '3': return null;  // 待收货
             // 已完成
@@ -227,7 +227,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          this.state.data.filter((item) => item.conditions === 2).map((item, index) => {
+                          this.state.data.filter((item) => [1,2].includes(item.conditions)).map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">

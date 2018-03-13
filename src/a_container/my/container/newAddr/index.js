@@ -181,7 +181,7 @@ class HomePageContainer extends React.Component {
       <div className="newaddr-page">
           <List>
               <InputItem clear value={this.state.formName} onChange={(v) => this.onNameChange(v)}>收货人</InputItem>
-              <InputItem type="number" clear value={this.state.formPhone} onChange={(v) => this.onPhoneChange(v)}>联系电话</InputItem>
+              <InputItem type="number" clear value={this.state.formPhone} onChange={(v) => this.onPhoneChange(v)}>联系方式</InputItem>
               <Picker
                   data={[{ label: '男', value: 1 }, { label: '女', value: 2 }]}
                   extra={''}

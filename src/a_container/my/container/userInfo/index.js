@@ -129,7 +129,7 @@ class HomePageContainer extends React.Component {
 
     // 点击收货地址
     onAddrClick() {
-        this.props.history.push('/my/addr');
+        this.props.history.push('/my/addr/1'); // 1表示是普通的收货地址管理，2表示是从商品进入的选择收货地址
     }
 
   render() {

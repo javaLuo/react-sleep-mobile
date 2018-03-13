@@ -2,6 +2,32 @@
   height: calc(100vh - 45px);
   .tabs-div{
     height: 100%;
+    .f-info{
+      box-sizing: border-box;
+      margin: .3rem .3rem 0 .3rem;
+      background-color: #eaeaea;
+      border-radius: .1rem;
+      padding: .3rem;
+      display: flex;
+      align-items: center;
+      .icon1{
+        width: .7rem;
+        height: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: none;
+        img{
+          width: .4rem;
+          height: auto;
+        }
+      }
+      .info{
+        margin-left: .3rem;
+        color: #999ca0;
+        font-size: .24rem;
+      }
+    }
   }
   .tabs-bars-div{
     text-align: center;

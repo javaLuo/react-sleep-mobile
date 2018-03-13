@@ -592,6 +592,14 @@ export function saveSonInInfo(payload = {}) {
     };
 }
 
+// 点击进入地图时，保存当前选的地址信息
+export function saveMapAddr(payload = {}) {
+    return {
+        type: 'MY::saveMapAddr',
+        payload,
+    };
+}
+
 // 修改卡的分享状态
 export const ticketHandsel = (params = {}) => async(dispatch) => {
     try {
@@ -704,7 +712,17 @@ export const getShareInfo = (params = {}) => async(dispatch) => {
 // 查询指定区域下的安装工列表
 export const queryCustomerList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/customerList ', params);
+        const res = await Fetchapi.newPost('mall/order/customerList', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 获取当前有多少人参加活动
+export const getOrdersCount = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/ordersCount', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

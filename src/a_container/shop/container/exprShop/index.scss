@@ -97,6 +97,16 @@
       }
     }
     .r{
+      position: relative;
+      width: 2rem;
+      margin-left: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: solid 1px #f0f0f0;
+      &:active{
+        background-color: #f0f0f0;
+      }
       .addr{
         text-align: center;
         color: #4788f5;
