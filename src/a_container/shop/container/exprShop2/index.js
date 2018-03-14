@@ -20,7 +20,7 @@ import ImgRen from '../../../../assets/ren@3x.png';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
 import ImgPhone from '../../../../assets/dianhua@3x.png';
 import Img404 from '../../../../assets/not-found.png';
-
+import ImgDaoHang from '../../../../assets/daohang@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -178,7 +178,7 @@ class HomePageContainer extends React.Component {
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(item)}>
                                                 <div className="addr">
-                                                    <img src={ImgAddr} />
+                                                    <img src={ImgDaoHang} />
                                                     <div>导航</div>
                                                 </div>
                                             </div>

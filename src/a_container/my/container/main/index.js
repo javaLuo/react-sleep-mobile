@@ -210,21 +210,18 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
-                  <div className="title">我的推广客户</div>
+                  <div className="title">我的客户</div>
                   <div className="info" >{this.state.howManyCustomer}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              {
-                  (u && [0,1,2,5,6].includes(u.userType)) ?
-                  <div className="item tran4 hide page-flex-row all_active" onClick={() => this.onMyOrderCustomerClick()}>
-                      <img src={ImgBar8} className="icon"/>
-                      <div className="title">我的客户订单</div>
-                      <div className="info" />
-                      <div className="arrow"><img src={ImgRight} /></div>
-                      <div className="line"/>
-                  </div> : null
-              }
+              <div className="item tran4 hide page-flex-row all_active" onClick={() => this.onMyOrderCustomerClick()}>
+                  <img src={ImgBar8} className="icon"/>
+                  <div className="title">我的客户订单</div>
+                  <div className="info" />
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
               <div className="item tran5 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                   <img src={ImgYouHui} className="icon" />
                   <div className="title">我的优惠卡</div>

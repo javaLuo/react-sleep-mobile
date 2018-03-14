@@ -14,7 +14,7 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { Tabs, Button, Modal, Toast } from 'antd-mobile';
+import { Tabs, Modal, Toast, Badge } from 'antd-mobile';
 
 // ==================
 // 本页面所需action
@@ -60,7 +60,7 @@ class HomePageContainer extends React.Component {
     getNameByConditions(type) {
       switch(String(type)){
           case '0': return '待付款';
-          case '1': return '未受理';
+          case '1': return '待审核';
           case '2': return '待发货';
           case '3': return '已发货';
           case '4': return '已完成';
@@ -125,7 +125,7 @@ class HomePageContainer extends React.Component {
         switch(String(item.conditions)){
             // 待付款
             case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-            case '1': return <span style={{ color: '#ccc' }}>未受理</span>;    // 待审核
+            case '1': return <span style={{ color: '#ccc' }}>待审核</span>;    // 待审核
             case '2': return null;  // 待发货
             case '3': return null;  // 待收货
             // 已完成
@@ -143,6 +143,12 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
+      const dataAll = this.state.data;
+      const dataA = dataAll.filter((item) => item.conditions === 0);
+      const dataB = dataAll.filter((item) => [1,2].includes(item.conditions));
+      const dataC = dataAll.filter((item) => item.conditions === 3);
+      const dataD = dataAll.filter((item) => item.conditions === 4);
+
     return (
       <div className="page-order" style={{ minHeight: '100vh' }}>
           <Tabs
@@ -150,8 +156,8 @@ class HomePageContainer extends React.Component {
             tabs={[
                 { title: '全部' },
                 { title: '待付款' },
-                { title: '待发货' },
-                { title: '待收货' },
+                { title: <Badge text={dataB.length}>待发货</Badge> },
+                { title: <Badge text={dataC.length}>待收货</Badge> },
                 { title: '已完成' }
             ]}
           >
@@ -159,7 +165,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          this.state.data.map((item, index) => {
+                          dataAll.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                           <div className="title page-flex-row flex-jc-sb">
@@ -193,7 +199,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          this.state.data.filter((item) => item.conditions === 0).map((item, index) => {
+                          dataA.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -227,7 +233,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          this.state.data.filter((item) => [1,2].includes(item.conditions)).map((item, index) => {
+                          dataB.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -261,7 +267,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          this.state.data.filter((item) => item.conditions === 3).map((item, index) => {
+                          dataC.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -295,7 +301,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          this.state.data.filter((item) => item.conditions === 4).map((item, index) => {
+                          dataD.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">

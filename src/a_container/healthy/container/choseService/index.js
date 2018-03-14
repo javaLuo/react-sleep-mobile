@@ -21,12 +21,12 @@ import ImgRen from '../../../../assets/ren@3x.png';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
 import ImgPhone from '../../../../assets/dianhua@3x.png';
 import Img404 from '../../../../assets/not-found.png';
-
+import ImgDaoHang from '../../../../assets/daohang@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallStationList, saveServiceInfo } from '../../../../a_action/shop-action';
+import { mallStationList, saveServiceInfo, saveMapAddr } from '../../../../a_action/shop-action';
 import { getAreaList } from '../../../../a_action/app-action';
 
 // ==================
@@ -143,7 +143,14 @@ class HomePageContainer extends React.Component {
     onChose(item) {
       console.log('选择了：', item);
       this.props.actions.saveServiceInfo(item);
-      setTimeout(() => this.props.history.go(-1), 16);
+      setTimeout(() => this.props.history.go(-1));
+    }
+
+    // 去导航，把所有信息都TMD的传过去
+    onGoMap(e, item) {
+      e.stopPropagation();
+        this.props.actions.saveMapAddr(item);
+        setTimeout(() => this.props.history.push('/downline/map'));
     }
 
   render() {
@@ -176,13 +183,20 @@ class HomePageContainer extends React.Component {
                   <ul>
                   {
                       this.state.data.length ? this.state.data.map((item, index) => {
+                          const station = item.station || {};
                           return (
                               <li key={index} className="card-box page-flex-row" onClick={() => this.onChose(item)}>
                                   <div className="l flex-auto">
-                                      <div className="title">{item.station ? item.station.name : ''}</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.station ? item.station.masterName : null}</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.station ? item.station.masterPhone : null}</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.station ? item.station.address : null}</span></div>
+                                      <div className="title">{station.name}</div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{station.person}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{station.phone}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
+                                  </div>
+                                  <div className="r flex-none" onClick={(e) => this.onGoMap(e, station)}>
+                                      <div className="addr">
+                                          <img src={ImgDaoHang} />
+                                          <div>导航</div>
+                                      </div>
                                   </div>
                               </li>
                           );
@@ -219,6 +233,6 @@ export default connect(
       areaData: state.app.areaData,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallStationList, saveServiceInfo, getAreaList }, dispatch),
+    actions: bindActionCreators({ mallStationList, saveServiceInfo, getAreaList, saveMapAddr }, dispatch),
   })
 )(HomePageContainer);

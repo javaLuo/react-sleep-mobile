@@ -136,7 +136,7 @@ class HomePageContainer extends React.Component {
         switch(String(item.conditions)){
             // 待付款
             case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-            case '1': return <span style={{ color: '#ccc' }}>未受理</span>;
+            case '1': return <span style={{ color: '#ccc' }}>待审核</span>;
             case '2': return null;  // 待发货
             case '3': return null;  // 待收货
             // 已完成
@@ -158,7 +158,7 @@ class HomePageContainer extends React.Component {
         switch(String(conditions)){
             // 待付款
             case '0': return {label:'待付款', info: '请尽快完成支付', icon: ImgFuKuan};
-            case '1': return {label:'未受理', info: '', icon: ImgShenHe};
+            case '1': return {label:'待审核', info: '订单将在1~3个工作日审核完毕，请耐心等待', icon: ImgShenHe};
             case '2': return {label:'待发货', info: '正在等待发货', icon: ImgFaHuo};
             case '3': return {label:'待收货', info: '物品已在途中，请耐心等待', icon: ImgShouHuo};
             case '4': return {label:'已完成', info: '', icon: ImgYiWanCheng};
@@ -191,7 +191,7 @@ class HomePageContainer extends React.Component {
                               multipleLine
                           >
                               {activeStatus.label}
-                              {activeStatus.info ? <Brief>{ activeStatus.info }</Brief> : null}
+                              {activeStatus.info ? <Brief><div className="all_warp">{ activeStatus.info }</div></Brief> : null}
                           </Item>
                       </List>
                   </div>

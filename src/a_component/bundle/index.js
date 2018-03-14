@@ -2,7 +2,7 @@ import React from 'react';
 import P from 'prop-types';
 import tools from '../../util/all';
 import c from '../../config';
-
+import Loading from '../loading';
 class Bundle extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ class Bundle extends React.Component {
     }
 
     render() {
-        return this.state.mod ? this.props.children(this.state.mod) : null;
+        return this.state.mod ? this.props.children(this.state.mod) : this.props.children(Loading);
     }
 }
 

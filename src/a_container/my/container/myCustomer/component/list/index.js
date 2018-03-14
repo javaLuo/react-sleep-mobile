@@ -55,7 +55,7 @@ class List extends React.PureComponent {
         switch(type) {
             // 分销客户
             case 'distribution': return (
-                <li className="customer-li page-flex-row flex-ai-center" onClick={() => this.onCallBack()}>
+                <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}</div>
@@ -66,7 +66,7 @@ class List extends React.PureComponent {
                 </li>
             );
             case 'unbind' : return (
-                <li className="customer-li page-flex-row flex-ai-center" onClick={() => this.onCallBack()}>
+                <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                     <div className="title all_nowarp">{u.nickName}</div>
@@ -76,7 +76,7 @@ class List extends React.PureComponent {
                 </li>
             );
             default: return (
-             <li className="customer-li page-flex-row flex-ai-center" onClick={() => this.onCallBack()}>
+             <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
                 <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                 <div className="name flex-auto">
                 <div className="all_nowarp">{u.nickName}</div>

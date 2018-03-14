@@ -84,11 +84,13 @@
       background-color: #fff;
       justify-content: center;
       align-items: center;
-      span{
-        padding:0 .2rem;
-      }
       .line{
-        width: .7rem;
+        padding:0 .2rem;
+        width: 1rem;
+      }
+      .type-icon{
+        height: .4rem;
+        margin-right: .1rem;
       }
     }
     .list{

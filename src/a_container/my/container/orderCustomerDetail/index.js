@@ -74,14 +74,25 @@ class HomePageContainer extends React.Component {
 
   // 审核通过或不通过
     onPass(activityStatus) {
-        this.props.actions.setAuditList({ orderId: this.props.orderInfo.id, activityStatus }).then((res) => {
-            if (res.status === 200) {
-                this.props.history.go(-1);
-                Toast.success('操作成功', 1);
-            } else {
-                Toast.fail(res.message);
-            }
-        });
+        alert( '审核操作', activityStatus === 1  ? '确认审核通过?' : '确认审核不通过?', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            {
+                text: '确定',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.setAuditList({ orderId: this.props.orderInfo.id, activityStatus }).then((res) => {
+                        if (res.status === 200) {
+                            this.props.history.go(-1);
+                            Toast.success('操作成功', 1);
+                        } else {
+                            Toast.fail(res.message);
+                        }
+                        resolve();
+                    }).catch(() => {
+                        rej();
+                    });
+                }),
+            },
+        ]);
     }
 
     // 返回当前订单的各状态(客户订单里是根据activityType判断的)
@@ -165,6 +176,11 @@ class HomePageContainer extends React.Component {
                       </div>
                   ) : null
               }
+              <div className="basic">
+                  <div>下单人信息：{this.props.orderInfo.userInfo && this.props.orderInfo.userInfo.realName }</div>
+                  <div>昵称：{this.props.orderInfo.userInfo && this.props.orderInfo.userInfo.nickName}</div>
+                  <div>e家号：{this.props.orderInfo.userInfo && this.props.orderInfo.userInfo.id}</div>
+              </div>
               <div className="basic">
                   <div>订单号：{this.props.orderInfo.id || ''}</div>
                   <div>下单时间：{this.props.orderInfo.createTime || ''}</div>

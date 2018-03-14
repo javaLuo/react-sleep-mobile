@@ -80,14 +80,26 @@ class HomePageContainer extends React.Component {
 
     // 修改客户订单的审核是否通过
     onSetOrder(orderId, activityStatus) {
-       this.props.actions.setAuditList({ orderId, activityStatus }).then((res) => {
-           if (res.status === 200) {
-               this.getData();
-               Toast.success('操作成功', 1);
-           } else {
-               Toast.fail(res.message);
-           }
-       });
+        alert( '审核操作', activityStatus === 1  ? '确认审核通过?' : '确认审核不通过?', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            {
+                text: '确定',
+                onPress: () => new Promise((resolve, rej) => {
+                    this.props.actions.setAuditList({ orderId, activityStatus }).then((res) => {
+                        if (res.status === 200) {
+                            this.getData();
+                            Toast.success('操作成功', 1);
+                        } else {
+                            Toast.fail(res.message);
+                        }
+                        resolve();
+                    }).catch(() => {
+                        rej();
+                    });
+                }),
+            },
+        ]);
+
     }
 
     // 返回当前订单的各状态

@@ -31,6 +31,10 @@ class Shop extends React.Component {
     };
   }
 
+  componentDidMount() {
+      document.title = "导航";
+  }
+
   render() {
     return (
       <div>

@@ -23,7 +23,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { getAddrList, delAddr, onSaveUpAddrNow, setDefaultAddr } from '../../../../a_action/shop-action';
+import { getAddrList, delAddr, onSaveUpAddrNow, setDefaultAddr, saveShopAddr } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -45,6 +45,7 @@ class HomePageContainer extends React.Component {
       document.title = '收货地址';
       this.getData();
       const p = this.props.location.pathname.split('/').pop();
+      console.log('P现在是什么：', p);
       this.setState({
           type: Number(p) || 1,
       });
@@ -238,6 +239,6 @@ export default connect(
 
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getAddrList, delAddr, onSaveUpAddrNow, setDefaultAddr }, dispatch),
+    actions: bindActionCreators({ getAddrList, delAddr, onSaveUpAddrNow, setDefaultAddr, saveShopAddr }, dispatch),
   })
 )(HomePageContainer);

@@ -45,7 +45,6 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-
     this.init();
   }
 
@@ -62,7 +61,7 @@ class HomePageContainer extends React.Component {
   }
   /** 第1阶段 地图初始化，各种插件 **/
   init() {
-      Toast.loading('初始化...');
+      Toast.loading('定位中...');
       this.map = new AMap.Map("container", {
           zoom: 14,
       });
@@ -107,7 +106,6 @@ class HomePageContainer extends React.Component {
       let now = this.i + 1;
       console.log('now等于几：', now);
       if (now >= 3) {
-          Toast.hide();
           this.step2();
           this.setState({
               isDown: true,
@@ -212,6 +210,7 @@ class HomePageContainer extends React.Component {
 
     /** 第3步，开始画路线 **/
     step3() {
+        Toast.hide();
         console.log('开始画线', this.state.userXY, this.state.downXY);
         this.transfer.search(this.state.userXY, this.state.downXY, (status, result) => {
             //TODO 解析返回结果，自己生成操作界面和地图展示界面

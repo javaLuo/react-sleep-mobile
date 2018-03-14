@@ -166,6 +166,7 @@ class HomePageContainer extends React.Component {
                   <div key={i} className="the-list" id={`list_${theType.id}`}>
                     <div className="title page-flex-row">
                             <img className="line" src={ImgWtfR} />
+                        {theType.typeIcon ? <img className="type-icon" src={theType.typeIcon} /> : null}
                             <span>{ theType.name }</span>
                             <img className="line" src={ImgWtfL} />
                     </div>
