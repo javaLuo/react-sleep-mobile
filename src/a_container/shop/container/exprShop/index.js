@@ -26,7 +26,7 @@ import ImgDaoHang from '../../../../assets/daohang@3x.png';
 // 本页面所需action
 // ==================
 
-import { mallStationList, saveServiceInfo } from '../../../../a_action/shop-action';
+import { mallStationList, saveServiceInfo, saveMapAddr } from '../../../../a_action/shop-action';
 import { getAreaList } from '../../../../a_action/app-action';
 // ==================
 // Definition
@@ -170,15 +170,16 @@ class HomePageContainer extends React.Component {
                         <ul>
                             {
                                 this.state.data.length ? this.state.data.map((item, index) => {
+                                    const station = item.station || {};
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
-                                                <div className="title">{item.name}</div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{item.phone}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
+                                                <div className="title">{station.name}</div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{station.person}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{station.phone}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
                                             </div>
-                                            <div className="r flex-none" onClick={() => this.onGoMap(item)}>
+                                            <div className="r flex-none" onClick={() => this.onGoMap(station)}>
                                                 <div className="addr">
                                                     <img src={ImgDaoHang} />
                                                     <div>导航</div>
@@ -219,6 +220,6 @@ export default connect(
         areaData: state.app.areaData,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallStationList, saveServiceInfo, getAreaList }, dispatch),
+        actions: bindActionCreators({ mallStationList, saveServiceInfo, getAreaList, saveMapAddr }, dispatch),
     })
 )(HomePageContainer);

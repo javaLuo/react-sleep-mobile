@@ -79,9 +79,9 @@ class List extends React.PureComponent {
              <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
                 <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                 <div className="name flex-auto">
-                <div className="all_nowarp">{u.nickName}</div>
-                <div className="lit black">e家号：{u.id}</div>
-                <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
+                    <div className="all_nowarp">{u.nickName}</div>
+                    <div className="lit black">e家号：{u.id}</div>
+                    <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
                 </div>
             </li>
             );
@@ -96,6 +96,7 @@ class List extends React.PureComponent {
 List.propTypes = {
     type: P.string,
     data: P.any,
+    jiantou: P.bool,
     onCallBack: P.func,
     onQueClick: P.func,
 };

@@ -76,6 +76,7 @@ class HomePageContainer extends React.Component {
                     <Li
                         data={u}
                         type={'normal'}
+                        jiantou={true}
                         onCallBack={() => this.onPrimaryClick(u)}
                     />
                 </ul>}
@@ -89,6 +90,7 @@ class HomePageContainer extends React.Component {
                                 key={index}
                                 data={item}
                                 type={'normal'}
+                                jiantou={true}
                                 onCallBack={(obj) => this.onPrimaryClick(obj)}
                             />;
                         }) : <li key={0} className="data-nothing">

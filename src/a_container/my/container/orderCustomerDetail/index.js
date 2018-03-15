@@ -208,17 +208,13 @@ class HomePageContainer extends React.Component {
               ) : null
           }
 
-          {(() => {
-              switch(this.props.orderInfo.activityStatus){
-                  case 1: return (
-                      <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
-                          <a onClick={() => this.onPass(2)}>审核不通过</a>
-                          <a className="blue" onClick={() => this.onPass(1)}>审核通过</a>
-                      </div>
-                  );
-                  default: return null;
-              }
-          })()}
+          { /** 待审核并且是主账号，才有 **/
+              (this.props.orderInfo.conditions === 1 && [1,2,5].includes(this.props.userinfo.userType)) ?
+                  <div className="thefooter page-flex-row flex-ai-center flex-jc-end">
+                      <a onClick={() => this.onPass(2)}>审核不通过</a>
+                      <a className="blue" onClick={() => this.onPass(1)}>审核通过</a>
+                  </div> : null
+          }
       </div>
     );
   }
@@ -233,6 +229,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   orderInfo: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -242,6 +239,7 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       orderInfo: state.shop.orderInfo,
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ mallOrderQuery, mallOrderDel, setAuditList }, dispatch),

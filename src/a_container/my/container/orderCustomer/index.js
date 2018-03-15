@@ -54,12 +54,18 @@ class HomePageContainer extends React.Component {
   }
 
   // 工具 - 根据type值获取是什么状态
-    getNameByConditions(type) {
+    getNameByConditions(type, type1) {
+        switch(String(type1)){
+            case '3': return '退款中';
+            case '4': return '已退款';
+            default:;
+        }
+
       switch(String(type)){
           case '1': return '待审核';
           case '2': return '待发货';
-          case '3': return '退款中';
-          case '4': return '已退款';
+          case '3': return '已发货';
+          case '4': return '已完成';
           default: return '';
       }
     }
@@ -104,19 +110,18 @@ class HomePageContainer extends React.Component {
 
     // 返回当前订单的各状态
     makeType(item) {
-        switch(String(item.activityStatus)) {
-            // 待审核
-            case '1': return [<a key="0" onClick={() => this.onSetOrder(item.id, 2)}>审核不通过</a>, <a key="0" onClick={() => this.onSetOrder(item.id, 1)}>审核通过</a>];
-            default: return null;
-        }
+      if(item.conditions === 1 && [1,2,5].includes(this.props.userinfo.userType)) {
+          return [<a key="0" onClick={() => this.onSetOrder(item.id, 2)}>审核不通过</a>, <a key="0" onClick={() => this.onSetOrder(item.id, 1)}>审核通过</a>];
+      }
+      return null;
     }
 
   render() {
-      const data = this.state.data.filter((item) => [1,2,3,4].includes(item.activityStatus) || item.conditions === 3);  // 全部数据(只包含待审核、待发货、退款中、已退款、待收货)
-      const dataA = this.state.data.filter((item) => item.activityStatus === 1);   // 待审核
-      const dataB = this.state.data.filter((item) => item.activityStatus === 2);   // 待发货
-      const dataC = this.state.data.filter((item) => item.conditions === 3);   // 待收货
-      const dataD = this.state.data.filter((item) => [3,4].includes(item.activityStatus));   // 已完成
+      const data = this.state.data.filter((item) => [1,2,3,4].includes(item.conditions));  // 全部数据(只包含待审核、待发货、退款中、已退款、待收货)
+      const dataA = data.filter((item) => item.conditions === 1);   // 待审核
+      const dataB = data.filter((item) => item.conditions === 2);   // 待发货
+      const dataC = data.filter((item) => item.conditions === 3);   // 待收货
+      const dataD = data.filter((item) => item.conditions === 4);   // 已完成
     return (
       <div className="page-order" style={{ minHeight: '100vh' }}>
           <Tabs
@@ -138,7 +143,7 @@ class HomePageContainer extends React.Component {
                                   <li className="card-box" key={index}>
                                           <div className="title page-flex-row flex-jc-sb">
                                               <span className="num">订单号：{item.id}</span>
-                                              <span className="type">{this.getNameByConditions(item.activityStatus)}</span>
+                                              <span className="type">{this.getNameByConditions(item.conditions, item.activityStatus)}</span>
                                           </div>
                                           <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                               <div className="pic flex-none">
@@ -172,7 +177,7 @@ class HomePageContainer extends React.Component {
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
                                           <span className="num">订单号：{item.id}</span>
-                                          <span className="type">{this.getNameByConditions(item.activityStatus)}</span>
+                                          <span className="type">{this.getNameByConditions(item.conditions, item.activityStatus)}</span>
                                       </div>
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
@@ -206,7 +211,7 @@ class HomePageContainer extends React.Component {
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
                                           <span className="num">订单号：{item.id}</span>
-                                          <span className="type">{this.getNameByConditions(item.activityStatus)}</span>
+                                          <span className="type">{this.getNameByConditions(item.conditions, item.activityStatus)}</span>
                                       </div>
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
@@ -240,7 +245,7 @@ class HomePageContainer extends React.Component {
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
                                           <span className="num">订单号：{item.id}</span>
-                                          <span className="type">{this.getNameByConditions(item.activityStatus)}</span>
+                                          <span className="type">{this.getNameByConditions(item.conditions, item.activityStatus)}</span>
                                       </div>
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
@@ -274,7 +279,7 @@ class HomePageContainer extends React.Component {
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
                                           <span className="num">订单号：{item.id}</span>
-                                          <span className="type">{this.getNameByConditions(item.activityStatus)}</span>
+                                          <span className="type">{this.getNameByConditions(item.conditions, item.activityStatus)}</span>
                                       </div>
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">

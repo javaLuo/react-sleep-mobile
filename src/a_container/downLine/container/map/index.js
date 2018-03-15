@@ -74,7 +74,7 @@ class HomePageContainer extends React.Component {
               convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
               showButton: true,        //显示定位按钮，默认：true
               buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
-              buttonOffset: new AMap.Pixel(5, 5),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+              buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
               showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
               showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
               panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
@@ -129,7 +129,7 @@ class HomePageContainer extends React.Component {
                   var cityinfo = result.city;
 
 
-                  // 初始化路线（驾车）
+                  // 初始化路线（步行）
                   AMap.service('AMap.Walking',() => {
                       //实例化Transfer
                       this.MWalk = new AMap.Walking({

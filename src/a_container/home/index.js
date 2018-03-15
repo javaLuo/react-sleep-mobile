@@ -183,7 +183,7 @@ class HomePageContainer extends React.Component {
                                       </div>
                                       <div className="k flex-none">
                                           <div className="a">{ item.typeId === 1 ? "已供：" : "已售："}{item.buyCount}</div>
-                                          <div className="b">{ item.typeId === 1 ? <span>首年度预缴 </span> : null }<span>￥</span><i>{item.typeModel.price || '0'}</i></div>
+                                          <div className="b">{ item.typeId === 1 ? <span>首年度预缴 </span> : null }<span>￥</span><i>{item.typeModel.price + (item.typeModel.openAccountFee || 0)}</i></div>
                                       </div>
                                     </div>
                                   </Link>
