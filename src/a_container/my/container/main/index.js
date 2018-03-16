@@ -83,7 +83,7 @@ class HomePageContainer extends React.Component {
           this.props.actions.getMyCustomers({ userId: u.id }).then((res) => {
               if (res.status === 200) {
                   this.setState({
-                      howManyCustomer: res.data.distributionCount + res.data.shareCount + res.data.unBindCount,
+                      howManyCustomer: res.data.totalCount,
                   });
               }
           });

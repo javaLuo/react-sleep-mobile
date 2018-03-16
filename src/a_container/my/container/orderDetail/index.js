@@ -130,35 +130,17 @@ class HomePageContainer extends React.Component {
     }
 
     // 返回当前订单的各状态
-    makeType(item) {
-        // 先判断当时是什么类型的产品
-        const type = item.product.typeId;
+    getType(item) {
+        switch(String(item.activityStatus)){
+            case '3': return {label:'退款中', info: '订单审核未通过', icon: ImgYiWanCheng};
+            case '4': return {label:'已退款', info: '订单审核未通过', icon: ImgYiWanCheng};
+            default:;
+        }
+
         switch(String(item.conditions)){
             // 待付款
-            case '0': return [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>, <a key="1" className="blue" onClick={() => this.onPay(item)}>付款</a>];
-            case '1': return <span style={{ color: '#ccc' }}>待审核</span>;
-            case '2': return null;  // 待发货
-            case '3': return null;  // 待收货
-            // 已完成
-            case '4':
-                const map = [<a key="0" onClick={() => this.onDelOrder(item.id)}>删除订单</a>];
-                if (type === 5) {   // 精准体检，有查看卡的连接
-                    map.push(<a key="1" className="blue" onClick={() => this.onLook(item)}>{item.modelType === 'M' ? '查看优惠卡' : '查看评估卡'}</a>);
-                }
-                return map;
-            case '-1': return <span>审核中</span>;
-            case '-2': return <span>未通过</span>;
-            case '-3': return <span>已取消</span>;
-            default: return <span>未知状态</span>;
-        }
-    }
-
-    // 返回当前订单的各状态
-    getType(conditions) {
-        switch(String(conditions)){
-            // 待付款
             case '0': return {label:'待付款', info: '请尽快完成支付', icon: ImgFuKuan};
-            case '1': return {label:'待审核', info: '订单将在1~3个工作日审核完毕，请耐心等待', icon: ImgShenHe};
+            case '1': return {label:'待审核', info: '订单正在审核（1~3个工作日），请耐心等待', icon: ImgShenHe};
             case '2': return {label:'待发货', info: '正在等待发货', icon: ImgFaHuo};
             case '3': return {label:'待收货', info: '物品已在途中，请耐心等待', icon: ImgShouHuo};
             case '4': return {label:'已完成', info: '', icon: ImgYiWanCheng};
@@ -176,7 +158,7 @@ class HomePageContainer extends React.Component {
       const o = this.state.order;
       const addr = o.shopAddress;
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
-      const activeStatus = this.getType(o.conditions);
+      const activeStatus = this.getType(o);
       console.log('所以这是个什么；', activeStatus);
     return (
       <div className="page-order-detail">

@@ -14,7 +14,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Toast, List, Button, Modal } from 'antd-mobile';
+import { Toast, List, Modal } from 'antd-mobile';
 import ImgDiZhi from '../../../../assets/dizhi@3x.png';
 import ImgShenHe from '../../../../assets/shop/shenhe@3x.png';
 import ImgFaHuo from '../../../../assets/shop/fahuo@3x.png';
@@ -100,14 +100,27 @@ class HomePageContainer extends React.Component {
       console.log('当前订单信息：', item);
       const thetime = new Date(item.createTime.replace(/-/g, "/"));
       thetime.setDate(thetime.getDate() + 3);
+
         switch(String(item.activityStatus)){
-            // 待付款
-            case '1': return {label:'待审核', info: `审核时限为3天，请您尽快在${tools.dateToStr(thetime)}前进行审核，超时订单将自动审核不通过`, icon: ImgShenHe};
-            case '2': return {label:'待发货', info: '正在等待发货', icon: ImgFaHuo};
             case '3': return {label:'退款中', info: '订单审核未通过', icon: ImgYiWanCheng};
             case '4': return {label:'已退款', info: '订单审核未通过', icon: ImgYiWanCheng};
+            default:;
+        }
+
+        const u = this.props.userinfo || {};
+        switch(String(item.conditions)){
+            case '0': return {label:'待付款', info: '请尽快完成支付', icon: ImgFuKuan};
+            case '1': return {label:'待审核', info: u.userType === 6 ? '订单正在审核（1~3个工作日），请耐心等待' : `审核时限为3天，请您尽快在${tools.dateToStr(thetime)}前进行审核，超时订单将自动审核不通过`, icon: ImgShenHe};
+            case '2': return {label:'待发货', info: '正在等待发货', icon: ImgFaHuo};
+            case '3': return {label:'待收货', info: '物品已在途中，请耐心等待', icon: ImgShouHuo};
+            case '4': return {label:'已完成', info: '', icon: ImgYiWanCheng};
+            case '-1': return {label:'审核中', info: '', icon: ImgShenHe};
+            case '-2': return {label:'未通过', info: '', icon: ImgShenHe};
+            case '-3': return {label:'已取消', info: '', icon: ImgShenHe};
+            case '-4': return {label:'已关闭', info: '', icon: ImgShenHe};
             default: return null;
         }
+
     }
 
   render() {

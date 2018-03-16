@@ -47,6 +47,18 @@ const allobj = {
         const min = date.getMinutes().toString().padStart(2,'0');
         return `${date.getFullYear()}-${m}-${d} ${h}:${min}`;
     },
+    /**
+     * 标准日期转字符串时分秒
+     * */
+    dateToTime(date) {
+        if (!date) { return ''; }
+        const m = `${date.getMonth() + 1}`.padStart(2,'0');
+        const d = date.getDate().toString().padStart(2,'0');
+        const h = date.getHours().toString().padStart(2,'0');
+        const min = date.getMinutes().toString().padStart(2,'0');
+        const s = date.getSeconds().toString().padStart(2,'0');
+        return `${h}:${min}:${s}`;
+    },
     // 将数字或字符串*100，保留两位小数点返回,非法返回''
     percent(str) {
         if (!str && str !== 0) { return ''; }
@@ -89,7 +101,7 @@ const allobj = {
         return rex.test(str);
     },
     checkPhone(str) {
-        const reg = /^[1][3578][0-9]{9}$/g;
+        const reg = /^[1][1234567890][0-9]{9}$/g;
         return reg.test(str);
     },
     check(d) {

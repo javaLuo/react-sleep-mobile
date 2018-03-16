@@ -45,7 +45,7 @@ class HomePageContainer extends React.Component {
   // 日期选择
     onDateChange(date) {
         this.props.actions.savePreInfo({
-            reserveTime: `${tools.dateformart(date)} ${this.props.preInfo.reserveTime_Time}`,
+            reserveTime: `${tools.dateformart(date)} ${this.props.preInfo.reserveTime_Time || tools.dateToTime(new Date())}`,
             reserveTime_Date: date,
         });
     }
