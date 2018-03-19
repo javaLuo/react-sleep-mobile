@@ -23,6 +23,7 @@ import ImgBar5 from '../../../../assets/daiyanka@3x.png';
 import ImgBar6 from '../../../../assets/shouyi@3x.png';
 import ImgBar7 from '../../../../assets/shiyongbangzhu@3x.png';
 import ImgBar8 from '../../../../assets/wodekehudingdan@3x.png';
+import ImgBar9 from '../../../../assets/jxs@3x.png';
 import ImgYouHui from '../../../../assets/youhui@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
 import tools from '../../../../util/all';
@@ -31,7 +32,7 @@ import tools from '../../../../util/all';
 // ==================
 
 import { getUserInfo, myAmbassador } from '../../../../a_action/app-action';
-import { getMyCustomers } from '../../../../a_action/shop-action';
+import { getMyCustomersCount } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -80,7 +81,7 @@ class HomePageContainer extends React.Component {
     getMyCustomers() {
       const u = this.props.userinfo;
       if (u) {
-          this.props.actions.getMyCustomers({ userId: u.id }).then((res) => {
+          this.props.actions.getMyCustomersCount({ userId: u.id }).then((res) => {
               if (res.status === 200) {
                   this.setState({
                       howManyCustomer: res.data.totalCount,
@@ -161,6 +162,21 @@ class HomePageContainer extends React.Component {
       window.open(`http://e.yimaokeji.com/index.php?m=book&f=browse&t=mhtml&nodeID=385${str}`);
     }
 
+    // 点击绑定经销商按钮
+    onBindDealear() {
+        const u = this.props.userinfo;
+        if (!u){
+            Toast.fail('请先登录',1);
+            this.props.history.replace('/login');
+            return false;
+        }
+        if (u.disUser && [0,1,2,5,6].indexOf(u.userType) >= 0){ // 已绑定经销商
+            Toast.info('您已是经销商用户', 1);
+        } else {    // 不是经销商就跳转到经销商绑定页
+            this.props.history.push('/my/binddealer');
+        }
+    }
+
   render() {
     const u = this.props.userinfo;
     return (
@@ -194,49 +210,56 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
               </div>
               <div className="big-title mt">翼猫圈</div>
-              <div className="item tran1 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
+              <div className="item tran1 hide page-flex-row all_active" onClick={() => this.onBindDealear()}>
+                  <img src={ImgBar9} className="icon" />
+                  <div className="title">绑定经销商用户</div>
+                  <div className="info">{(u && u.disUser) ? u.userName : ''}</div>
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+              </div>
+              <div className="item tran2 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
                   <div className="info">{u ? tools.getNameByUserType(u.userType) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran2 hide page-flex-row all_active" onClick={() => this.onDaShiClick()}>
+              <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onDaShiClick()}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
                   <div className="info">{this.props.ambassador ? (this.props.ambassador.nickName || this.props.ambassador.realName) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
+              <div className="item tran4 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的客户</div>
                   <div className="info" >{this.state.howManyCustomer}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran4 hide page-flex-row all_active" onClick={() => this.onMyOrderCustomerClick()}>
+              <div className="item tran5 hide page-flex-row all_active" onClick={() => this.onMyOrderCustomerClick()}>
                   <img src={ImgBar8} className="icon"/>
                   <div className="title">我的客户订单</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran5 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
+              <div className="item tran6 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                   <img src={ImgYouHui} className="icon" />
                   <div className="title">我的优惠卡</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran6 hide page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
+              <div className="item tran7 hide page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的代言卡</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-              <div className="item tran7 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
+              <div className="item tran8 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
                   <div className="info" />
@@ -276,6 +299,6 @@ export default connect(
     ambassador: state.app.ambassador,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomers }, dispatch),
+    actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount }, dispatch),
   })
 )(HomePageContainer);

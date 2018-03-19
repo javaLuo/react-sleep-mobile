@@ -417,6 +417,17 @@ export const getMyCustomers = (params = {}) => async(dispatch) => {
     }
 };
 
+
+// 获取我的推广用户列表共有多少个
+export const getMyCustomersCount = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/my/customers/count', params );
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 绑定经销商
 export const bindDistributor = (params = {}) => async(dispatch) => {
     try {

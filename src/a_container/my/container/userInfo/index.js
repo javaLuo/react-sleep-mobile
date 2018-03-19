@@ -157,12 +157,12 @@ class HomePageContainer extends React.Component {
                   <div className="info mr">{u ? u.id : ''}</div>
                   <div className="line"/>
               </div>
-              <div className="item page-flex-row all_active" onClick={() => this.onBindDealear()}>
-                  <div className="title">绑定经销商账户</div>
-                  <div className={u && u.disUser ? "info mr" : 'info'}>{(u && u.disUser) ? u.userName : ''}</div>
-                  {u && u.disUser ? null : <div className="arrow"><img src={ImgRight} /></div>}
-                  <div className="line"/>
-              </div>
+              {/*<div className="item page-flex-row all_active" onClick={() => this.onBindDealear()}>*/}
+                  {/*<div className="title">绑定经销商账户</div>*/}
+                  {/*<div className={u && u.disUser ? "info mr" : 'info'}>{(u && u.disUser) ? u.userName : ''}</div>*/}
+                  {/*{u && u.disUser ? null : <div className="arrow"><img src={ImgRight} /></div>}*/}
+                  {/*<div className="line"/>*/}
+              {/*</div>*/}
               <div className="item page-flex-row all_active" onClick={() => this.onBindPhone()}>
                   <div className="title">绑定手机号</div>
                   <div className={u && u.mobile ? "info mr" : 'info'}>{u ? u.mobile : ''}</div>
