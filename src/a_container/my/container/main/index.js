@@ -212,9 +212,9 @@ class HomePageContainer extends React.Component {
               <div className="big-title mt">翼猫圈</div>
               <div className="item tran1 hide page-flex-row all_active" onClick={() => this.onBindDealear()}>
                   <img src={ImgBar9} className="icon" />
-                  <div className="title">绑定经销商用户</div>
-                  <div className="info">{(u && u.disUser) ? u.userName : ''}</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="title">绑定经销商账户</div>
+                  <div className={u && u.disUser ? "info mr" : 'info'}>{(u && u.disUser) ? u.userName : ''}</div>
+                  {u && u.disUser ? null : <div className="arrow"><img src={ImgRight} /></div>}
                   <div className="line"/>
               </div>
               <div className="item tran2 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>

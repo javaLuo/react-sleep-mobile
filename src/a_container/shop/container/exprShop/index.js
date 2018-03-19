@@ -176,7 +176,7 @@ class HomePageContainer extends React.Component {
                                             <div className="l flex-auto">
                                                 <div className="title">{station.name}</div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{station.person}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span>{station.phone}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${station.phone || ''}`}>{station.phone}</a></span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(station)}>

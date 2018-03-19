@@ -6,6 +6,13 @@
     &+li{
       border-top: solid 1px #f0f0f0;
     }
+  .r{
+    position: absolute;
+    height: 14px;
+    top: 50%;
+    right: .2rem;
+    transform: translateY(-50%);
+  }
     .photo{
       width: 1rem;
       height: 1rem;

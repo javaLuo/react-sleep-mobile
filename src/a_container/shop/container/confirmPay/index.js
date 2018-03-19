@@ -239,7 +239,7 @@ class HomePageContainer extends React.Component {
                           }
                           {
                               addr ? (<Brief>
-                                  <div>电话：{addr.mobile}</div>
+                                  <div>电话：<a href={`tel:${addr.mobile || ''}`}>{addr.mobile || ''}</a></div>
                                   <div className="all_warp">收货地址：{`${addr.province || ''}${addr.city || ''}${addr.region || ''}${addr.street}`}</div>
                               </Brief>) : null
                           }
@@ -292,17 +292,17 @@ class HomePageContainer extends React.Component {
                    * 只有水机有派单方式(typeId === 1)
                    * 只有选择了地址才会出现派单方式
                    * **/
-                  // d && d.typeId === 1 ? (
-                  //     <Picker
-                  //         data={[{ label: '自动派单', value: 1 }]}  // , { label: '手动指派', value: 2 }
-                  //         extra={''}
-                  //         value={this.state.formPaiDan}
-                  //         cols={1}
-                  //         onOk={(v) => this.onPaiDanChose(v)}
-                  //     >
-                  //         <Item arrow="horizontal" className="special-item">派单方式</Item>
-                  //     </Picker>
-                  // ) : null
+                  d && d.typeId === 1 ? (
+                      <Picker
+                          data={[{ label: '自动派单', value: 1 }]}  // , { label: '手动指派', value: 2 }
+                          extra={''}
+                          value={this.state.formPaiDan}
+                          cols={1}
+                          onOk={(v) => this.onPaiDanChose(v)}
+                      >
+                          <Item arrow="horizontal" className="special-item">派单方式</Item>
+                      </Picker>
+                  ) : null
               }
               {
                   /**

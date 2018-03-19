@@ -189,7 +189,7 @@ class HomePageContainer extends React.Component {
                       >
                           收货人：{addr.contact}
                           <Brief>
-                              <div>电话：{addr.mobile}</div>
+                              <div>电话：<a href={`tel:${addr.mobile || ''}`}>{addr.mobile || ''}</a></div>
                               <div className="all_warp">收货地址：{`${addr.province || ''}${addr.city || ''}${addr.region || ''}${addr.street}`}</div>
                           </Brief>
                       </Item>

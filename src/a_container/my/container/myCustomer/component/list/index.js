@@ -19,7 +19,7 @@ import ImgD1 from '../../../../../../assets/one_liliao@3x.png';
 import ImgD2 from '../../../../../../assets/two_liliao@3x.png';
 import ImgE1 from '../../../../../../assets/one_pingguka@3x.png';
 import ImgE2 from '../../../../../../assets/two_pingguka@3x.png';
-
+import ImgR from '../../../../../../assets/xiangyou@3x.png';
 class List extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -60,6 +60,7 @@ class List extends React.PureComponent {
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}</div>
                         <div className="lit black">e家号：{u.id}</div>
+                        <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <div className="lit mt">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
                         <div className="lit fxq">分销权：<div>{this.makePower(u.incomePermission)}</div><span className="que" onClick={() => this.onQue(u)}>?</span></div>
                     </div>
@@ -70,8 +71,19 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                     <div className="title all_nowarp">{u.nickName}</div>
-                    <div className="lit black">联系方式：{u.mobile}</div>
+                    <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                     <div className="lit">身份：未绑定用户</div>
+                    </div>
+                </li>
+            );
+            case 'share': return (
+                <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
+                    <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
+                    <div className="name flex-auto">
+                        <div className="all_nowarp">{u.nickName}</div>
+                        <div className="lit black">e家号：{u.id}</div>
+                        <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
+                        <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
                     </div>
                 </li>
             );
@@ -83,6 +95,11 @@ class List extends React.PureComponent {
                     <div className="lit black">e家号：{u.id}</div>
                     <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
                 </div>
+                 {
+                     this.props.jiantou ? (
+                         <img className="r" src={ImgR} />
+                     ) : null
+                 }
             </li>
             );
         }
