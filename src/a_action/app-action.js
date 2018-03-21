@@ -53,6 +53,16 @@ export const getVerifyCode = (params = {}) => async(dispatch) => {
     }
 };
 
+// 提现时获取验证码
+export const getVerifyCode2 = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/sms/withdraw/getVerifyCode', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 注册
 export const register = (params = {}) => async(dispatch) => {
     try {

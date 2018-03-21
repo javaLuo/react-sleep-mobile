@@ -20,7 +20,7 @@ import ImgLogo from '../../../../assets/dunpai@3x.png';
 // 本页面所需action
 // ==================
 
-import { getVerifyCode } from '../../../../a_action/app-action';
+import { getVerifyCode2 } from '../../../../a_action/app-action';
 import { startTiXian } from '../../../../a_action/shop-action';
 // ==================
 // Definition
@@ -88,7 +88,7 @@ class Register extends React.Component {
             }
         }, 1000);
 
-        me.props.actions.getVerifyCode({ mobile: this.props.userinfo.mobile, countryCode: '86' }).then((res) => {
+        me.props.actions.getVerifyCode2({ mobile: this.props.userinfo.mobile, countryCode: '86' }).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     myVcode: res.data.text,
@@ -196,6 +196,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getVerifyCode, startTiXian }, dispatch),
+        actions: bindActionCreators({ getVerifyCode2, startTiXian }, dispatch),
     })
 )(Register);

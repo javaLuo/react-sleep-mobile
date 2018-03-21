@@ -118,7 +118,7 @@ class HomePageContainer extends React.Component {
           openAccountFee: d.typeModel.openAccountFee,   // 开户费
           fee: d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee,
           customerId: serverMan && serverMan.id,
-          customerName: serverMan && serverMan.realName,
+          customerName: serverMan && serverMan.name,
           customerPhone: serverMan && serverMan.phone,
       };
       // 保存购买数量、服务时间、开户费、总费用
@@ -144,8 +144,9 @@ class HomePageContainer extends React.Component {
 
     // 根据ID查询完整的安装工信息
     getInfoByServerManId(id) {
+      console.log('什么情况：', id, this.state.formServerMan);
       const t = this.state.serverList.find((item) => item.id === id);
-      console.log('得到的安装工：', t);
+      console.log('得到的安装工222：', t);
       return t || null;
     }
     // 构建计费方式所需数据
@@ -239,7 +240,7 @@ class HomePageContainer extends React.Component {
                           }
                           {
                               addr ? (<Brief>
-                                  <div>电话：<a href={`tel:${addr.mobile || ''}`}>{addr.mobile || ''}</a></div>
+                                  <div>电话：{addr.mobile || ''}</div>
                                   <div className="all_warp">收货地址：{`${addr.province || ''}${addr.city || ''}${addr.region || ''}${addr.street}`}</div>
                               </Brief>) : null
                           }
@@ -294,7 +295,7 @@ class HomePageContainer extends React.Component {
                    * **/
                   d && d.typeId === 1 ? (
                       <Picker
-                          data={[{ label: '自动派单', value: 1 }]}  // , { label: '手动指派', value: 2 }
+                          data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}  // , { label: '手动指派', value: 2 }
                           extra={''}
                           value={this.state.formPaiDan}
                           cols={1}
@@ -311,13 +312,26 @@ class HomePageContainer extends React.Component {
                    * **/
                   Number(this.state.formPaiDan) === 2 ? (
                       <Picker
-                          data={this.state.serverList.map((item) => ({ label: `${item.realName} ${item.phone}`, value: item.id }))}
-                          extra={''}
+                          data={this.state.serverList.map((item) => ({ label: `${item.name || item.realName} ${tools.addMosaic(item.phone)}`, value: item.id }))}
                           value={this.state.formServerMan}
                           cols={1}
                           onOk={(v) => this.onServeChose(v)}
                       >
-                          <Item arrow="horizontal" className="special-item">服务人员</Item>
+                          {/*<Item*/}
+                              {/*arrow="horizontal"*/}
+                              {/*className="special-item"*/}
+                              {/*extra={this.state.formServerMan ? this.getInfoByServerManId(this.state.formServerMan[0]).name : '请选2择'}*/}
+                          {/*>服务人员</Item>*/}
+                          <div className="am-list-item special-item am-list-item-middle hoho">
+                              <div className="am-list-line">
+                                  <div className="am-list-content">服务人员</div>
+                                  <div className="am-list-extra">{this.state.formServerMan ? (() => {
+                                      const d = this.getInfoByServerManId(this.state.formServerMan[0]);
+                                      return d && `${d.name} ${d.phone}`;
+                                  })() : '请选择'}</div>
+                                  <div className="am-list-arrow am-list-arrow-horizontal" aria-hidden="true" />
+                              </div>
+                          </div>
                       </Picker>
                   ) : null
               }

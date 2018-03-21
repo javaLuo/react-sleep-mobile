@@ -113,6 +113,12 @@ class HomePageContainer extends React.Component {
         const data = d.map((item, index) => {
             return {label: item.areaName, value: item.areaName, parentId: item.parentId, id: item.id, level: item.level };
         });
+        // 每一个市下面加一个“全部”
+        const temp = data.filter((item, index) => item.level === 1);
+        console.log('TEMP:', temp);
+        temp.forEach((item, index) => {
+            data.unshift({label: '全部', value: '', parentId: item.id, id: null, level: item.level + 1 });
+        });
         const areaData = this.recursionAreaData(null, data);
         console.log('变成什么了', areaData);
         this.setState({
@@ -172,8 +178,8 @@ class HomePageContainer extends React.Component {
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
                                                 <div className="title">{item.name}</div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${item.phone || ''}`}>{item.phone}</a></span></div>
+                                                {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>*/}
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${item.phone || ''}`}>{tools.addMosaic(item.phone)}</a></span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{item.address}</span></div>
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(item)}>

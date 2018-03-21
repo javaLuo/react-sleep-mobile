@@ -133,8 +133,8 @@ const allobj = {
                 return s.length;
             }
             const l = s.length - 2;
-            if (l <= 6) { return l; }
-            return 6;
+            if (l <= 4) { return l; }
+            return 4;
         })();
         const start = Math.floor((lenth - howmuch) / 2);
         const ret = s.split('').map((v, i) => {

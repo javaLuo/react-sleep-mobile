@@ -194,6 +194,7 @@ class HomePageContainer extends React.Component {
                       return y;
                   })(),
                   [
+                      {label: '全年',value: '全年'},
                       {label: '1月',value: '01'},
                       {label: '2月',value: '02'},
                       {label: '3月',value: '03'},

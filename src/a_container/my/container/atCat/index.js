@@ -256,7 +256,7 @@ class HomePageContainer extends React.Component {
                             <div className="title"><span>用户说明</span></div>
                             <div className="info">1.普通用户：是指新用户自主关注【翼猫健康e家】微信公众号或通过扫描其他普通用户的个人专属二维码关注公众号的用户。</div>
                             <div className="info">2.商城产品购买权：在没有翼猫经销商作为健康大使的指导和帮助下，我们不建议在翼猫健康商城直接购买产品。您可以通过扫描非普通用户专属二维码升级为分享用户后购买产品，或请您到附近的翼猫体验服务站体验后再购买。</div>
-                            <div className="info">3.商城产品分销权：普通用户不享有翼猫健康商场产品的分销权限，不享有分销收益。</div>
+                            <div className="info">3.商城产品分销权：普通用户不享有翼猫健康商城产品的分销权限，不享有分销收益。</div>
                             <div className="info">4.用户升级：普通用户可通过扫描非普通用户的专属二维码升级为分享用户，或缴纳经销代理费成为翼猫经销商。</div>
                         </div>
                     );
@@ -265,17 +265,16 @@ class HomePageContainer extends React.Component {
                             <div className="title"><span>用户说明</span></div>
                             <div className="info">1.分享用户：分享用户是指通过扫描非普通用户创建、升级的用户。</div>
                             <div className="info">2.商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3.商城产品分销权：分享用户不享有翼猫健康商场产品的分销权限，不享有分销收益。</div>
-                            <div className="info">4.用户升级：分享用户在翼猫健康商城中成功购买任意一款产品后，即可自动升级为分销用户。</div>
+                            <div className="info">3.商城产品分销权：分享用户不享有翼猫健康商城产品的分销权限，不享有分销收益。</div>
+                            <div className="info">4.用户升级：分享用户在翼猫健康商城中租赁任一款翼猫智能净水设备，并支付首年度预缴费，待装机完成即可升级为分销用户。</div>
                         </div>
                     );
                     case 2: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 分销用户：分销用户是指分享用户通过购买商城产品而升级成为可以分销同系列产品的用户。</div>
+                            <div className="info">1. 分销用户：分销用户是指分享用户在翼猫健康商城中租赁任一款翼猫智能净水设备，并支付首年度预缴费，待装机完成后升级为分销用户。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：分销用户可以分销其购买的同系列产品，想享有直接分销的下一级用户购买同系列产品的分销收益。</div>
-                            <div className="info">4.用户升级：可通过缴纳经销代理费，成为翼猫经销商，享受产品经销收益。缴费方式请您到附近的翼猫体验服务站咨询，稍后我们支持在线升级为翼猫经销商。</div>
+                            <div className="info">3. 商城产品分销权：分销用户根据产品分销权可以帮助翼猫经销商分销相应的产品，并享受收益；<br/>分销用户帮助经销商分销水机产品，需使用经销商水机配额；分销用户自己购买产品不享受分销收益，仅享受其直接客户购买产品时产生的收益。</div>
                         </div>
                     );
                     case 3: return (
