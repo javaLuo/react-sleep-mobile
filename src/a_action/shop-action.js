@@ -739,3 +739,14 @@ export const getOrdersCount = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+
+// 查询离当前位置最近的服务站们
+export const stationNearBy = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/station/nearby', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

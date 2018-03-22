@@ -239,3 +239,11 @@ export function saveWxCode(code) {
         payload: code,
     };
 }
+
+// 保存用户当前位置
+export function saveUserLngLat(xy) {
+    return {
+      type: 'APP::saveUserLngLat',
+      payload: xy,
+    };
+}

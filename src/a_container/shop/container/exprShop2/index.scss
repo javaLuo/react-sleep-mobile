@@ -1,4 +1,21 @@
 .page-expr-shop{
+  .hideMap{
+    display: none;
+  }
+  .fujin{
+    display: flex;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    color: #89888e;
+    font-size: 16px;
+    span{
+      padding: 0 8px;
+    }
+    img{
+      width: 1.4rem;
+    }
+  }
   .bar-list{
     padding: 0 0 .28rem 0;
     .item{
@@ -101,16 +118,26 @@
       width: 2rem;
       margin-left: 4px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
       border-left: solid 1px #f0f0f0;
       &:active{
         background-color: #f0f0f0;
       }
+      .lang{
+        flex: none;
+        margin-bottom: .1rem;
+        color: #89888e;
+      }
       .addr{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
         text-align: center;
         color: #4788f5;
-        font-size: .28rem;;
+        font-size: .28rem;
         letter-spacing: 1px;
         img{
           height: .8rem;
@@ -120,6 +147,6 @@
     }
   }
   .iscroll-box{
-    height: calc(100vh - 44px);
+    height: calc(100vh - 89px);
   }
 }

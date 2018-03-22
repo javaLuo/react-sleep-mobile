@@ -20,7 +20,7 @@ import { Toast } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import {  } from '../../../../a_action/shop-action';
+import { saveUserLngLat } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -122,7 +122,7 @@ class HomePageContainer extends React.Component {
           return;
       }
 
-      //自动获取用户IP，返回当前城市
+      // 自动获取用户IP，返回当前城市
       this.citySearch.getLocalCity((status, result) => {
           if (status === 'complete' && result.info === 'OK') {
               if (result && result.city) {
@@ -165,17 +165,26 @@ class HomePageContainer extends React.Component {
       });
 
       // 定位用户当前坐标
-      this.geolocation.getCurrentPosition((status, result) => {
-          console.log('定位用户当前坐标：', status, result);
-          if (status === 'complete') {
-              this.setState({
-                  userXY: [result.position.lng, result.position.lat],
-              });
-              this.down2();
-          } else {
-              Toast.fail('定位失败');
-          }
-      });
+      if (this.props.userXY) {
+          this.setState({
+              userXY: [this.props.userXY[0], this.props.userXY[1]],
+          });
+          this.down2();
+      } else {
+          this.geolocation.getCurrentPosition((status, result) => {
+              console.log('定位用户当前坐标：', status, result);
+              if (status === 'complete') {
+                  this.setState({
+                      userXY: [result.position.lng, result.position.lat],
+                  });
+                  this.props.actions.saveUserLngLat([result.position.lng, result.position.lat]);
+                  this.down2();
+              } else {
+                  Toast.fail('定位失败');
+              }
+          });
+      }
+
 
     const addr = this.props.mapAddr;
     // 查询终点经纬度
@@ -235,6 +244,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
     mapAddr: P.any,
+    userXY: P.any,
 };
 
 // ==================
@@ -244,8 +254,9 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
     mapAddr: state.shop.mapAddr,
+    userXY: state.app.userXY,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({  }, dispatch),
+    actions: bindActionCreators({ saveUserLngLat  }, dispatch),
   })
 )(HomePageContainer);
