@@ -125,6 +125,7 @@ class HomePageContainer extends React.Component {
 
   render() {
       const data = this.props.orderInfo.product || {};
+      const order = this.props.orderInfo || {};
       const o = this.state.order;
       const addr = o.shopAddress;
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
@@ -181,8 +182,8 @@ class HomePageContainer extends React.Component {
               </div>
           </div>
           <div className="order-info">
-              { /** 水机才有安装工信息 **/
-                  type === 1 ? (
+              { /** 水机才有安装工信息, 180的订单退款中、已退款、待审核，都不显示安装工信息 **/
+                  (type === 1 && (![3, 4].includes(order.activityStatus) && order.conditions !== 1)) ? (
                       <div className="worker">
                           <div>安装工：{o.customer && o.customer.realName}</div>
                           <div>联系方式：{o.customer  ? <a href={`tel:${o.customer.phone}`}>{o.customer.phone}</a> : null}</div>

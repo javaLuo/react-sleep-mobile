@@ -175,12 +175,6 @@ class HomePageContainer extends React.Component {
                   </Tabs>
               ) : (
                   <ul className="data-list">
-                      <Li
-                          data={{id: 1,}}
-                          type={'share'}
-                          jiantou={true}
-                          onQueClick={(d) => this.onQueClick(d)}
-                      />
                       {
                           d.shareUser && d.shareUser.length ? d.shareUser.map((item, index) => {
                               return <Li

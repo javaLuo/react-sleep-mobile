@@ -65,7 +65,9 @@ class HomePageContainer extends React.Component {
       this.initWeiXinPay();
   }
 
-
+    componentWillUnmount() {
+      Toast.hide();
+    }
   /**
    * 获取评估卡列表
    * type=falsh 刷新
@@ -80,6 +82,7 @@ class HomePageContainer extends React.Component {
           pageSize,
           orderId: search,
       };
+      Toast.loading('请稍后...', 0);
       this.props.actions.queryListFree(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 console.log('我的优惠卡：', res.data.result);
@@ -101,6 +104,7 @@ class HomePageContainer extends React.Component {
                     pageNum,
                     pageSize,
                 });
+                Toast.hide();
             } else {
                 Toast.info(res.message || '数据加载失败', 1);
                 this.setState({
@@ -108,6 +112,8 @@ class HomePageContainer extends React.Component {
                     total: type === 'flash' ? 0 : this.state.total,
                 });
             }
+      }).catch(() => {
+          Toast.hide();
       });
   }
 

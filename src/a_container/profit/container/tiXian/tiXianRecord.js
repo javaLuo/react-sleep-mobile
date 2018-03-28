@@ -117,7 +117,7 @@ class HomePageContainer extends React.Component {
                                         <li key={index} className="card-box page-flex-row" onClick={() => this.onCLickThis(item)}>
                                             <div className="l flex-auto">
                                                 <div className="title">提现到{item.destCash}</div>
-                                                <div className="info">{tools.dateToStr(new Date(item.withdrawTime))}</div>
+                                                <div className="info">{item.withdrawTime}</div>
                                             </div>
                                             <div className="r">
                                                 ￥{Number(item.amount) ? Number(item.amount).toFixed(2) : '--'}

@@ -90,7 +90,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/primaryin`} component={PrimaryIn} />
               <Route exact path={`${this.props.match.url}/sonin`} component={SonIn} />
               <Route exact path={`${this.props.match.url}/favcardsdetail`} component={FavCardsDetail} />
-              <Route exact path={`${this.props.match.url}/myfavcards`} component={MyFavCards} />
+              <Route path={`${this.props.match.url}/myfavcards`} component={MyFavCards} /> {/* 这个不能加exact,因为有两个地方要用，一个不传ID,一个传ID */}
               <Route exact path={`${this.props.match.url}/addr/:id`} component={Addr} />
               <Route exact path={`${this.props.match.url}/newaddr`} component={NewAddr} />
               <Route exact path={`${this.props.match.url}/upaddr`} component={UpAddr} />

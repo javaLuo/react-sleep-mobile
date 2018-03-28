@@ -253,7 +253,7 @@ class HomePageContainer extends React.Component {
                         <ul>
                             {
                                 this.state.data.length ? this.state.data.map((item, index) => {
-                                    const station = item.station || {};
+                                    const station = this.state.resType ? item : (item.station || {});
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
