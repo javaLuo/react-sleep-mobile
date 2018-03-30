@@ -150,6 +150,9 @@
     }
   }
   .iscroll-box{
-    height: calc(100vh - 89px);
+    height: calc(100vh - 45px);
+    &.min{
+      height: calc(100vh - 89px);
+    }
   }
 }

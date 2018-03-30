@@ -17,6 +17,8 @@ import tools from '../../../../util/all';
 import { List, Toast, Steps } from 'antd-mobile';
 import ImgStep0 from '../../../../assets/profit/step0@3x.png';
 import ImgStep1 from '../../../../assets/profit/step1@3x.png';
+import ImgFail from '../../../../assets/profit/fail@3x.png';
+import ImgDown from '../../../../assets/profit/down@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -60,14 +62,33 @@ class HomePageContainer extends React.Component {
             <div className="page-tixiandetail">
                 {/**
                     下面这部分不要了，为了防止以后又要了，所以注释在此
+                    果然，现在又要了2018-3-29，what can I say ?
                  **/}
-                {/*<div className="step-box">*/}
-                    {/*<Steps current={data.flag || 0} direction="horizontal" size="small">*/}
-                        {/*<Step title="发起提现" description={tools.dateToStr(new Date(data.withdrawTime))} icon={<img className="step-icon" src={ImgStep1} />}/>*/}
-                        {/*<Step title="处理中" icon={<img className="step-icon" src={ImgStep1} />}/>*/}
-                        {/*<Step title="提现成功" description={tools.dateToStr(new Date(data.withdrawTime + 1000))} icon={<img className="step-icon" src={ImgStep1} />}/>*/}
-                    {/*</Steps>*/}
-                {/*</div>*/}
+                <ul className="step-box">
+                    <li className="step">
+                        <img className="step-icon" src={ImgStep0} />
+                        <div className="info">
+                            <div>发起提现</div>
+                            <div>2018-03-29 14:20:00</div>
+                        </div>
+                    </li>
+                    <li className="line" />
+                    <li className="step">
+                        <img className="step-icon" src={ImgStep0} />
+                        <div className="info">
+                            <div>审核中</div>
+                            <div>2018-03-29 14:20:00</div>
+                        </div>
+                    </li>
+                    <li className="line" />
+                    <li className="step">
+                        <img className="step-icon" src={ImgDown} />
+                        <div className="info">
+                            <div>提现完成</div>
+                            <div>2018-03-29 14:20:00</div>
+                        </div>
+                    </li>
+                </ul>
                 <List>
                     <Item extra={<span style={{ color: '#FF0303' }}>￥{data.amount ? Number(data.amount).toFixed(2) : '--'}</span>}>提现</Item>
                 </List>

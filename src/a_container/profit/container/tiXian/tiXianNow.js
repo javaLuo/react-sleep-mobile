@@ -1,4 +1,4 @@
-/* 设置密码页 */
+/* 提现确认，输入验证码页 */
 
 // ==================
 // 所需的各种插件
@@ -144,8 +144,7 @@ class Register extends React.Component {
             <div className="flex-auto page-box page-tixiannow" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                 <div className="login-box">
                     <div className="logo-info">
-                        <span className="small">为了提现安全，将向您绑定的手机号码发送验证码</span><br/>
-                        <span>当前绑定手机号：{this.props.userinfo ? this.props.userinfo.mobile : ''}</span>
+                        <span className="small">将向{this.props.userinfo ? tools.addMosaic(this.props.userinfo.mobile) : ''}的手机号发送验证码</span>
                     </div>
                     <div className="input-box">
                         <List className="this-list">
@@ -169,7 +168,7 @@ class Register extends React.Component {
                         className="this-btn"
                         disabled={this.state.loading}
                         onClick={() => this.onSubmit()}
-                    >确认提现</Button>
+                    >立即提现</Button>
                 </div>
             </div>
         );

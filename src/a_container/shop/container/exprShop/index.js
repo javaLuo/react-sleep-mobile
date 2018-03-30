@@ -238,12 +238,16 @@ class HomePageContainer extends React.Component {
                         <Item thumb={<Icon type="search" style={{ color: '#888888' }} size={'sm'}/>}>&#12288;</Item>
                     </Picker>
                 </List>
-                <div className="fujin">
-                    <img src={ImgR} />
-                    <span>附近的体验店</span>
-                    <img src={ImgL} />
-                </div>
-                <div className="iscroll-box">
+                {
+                    this.state.resType ? null : (
+                        <div className="fujin">
+                            <img src={ImgR} />
+                            <span>附近的体验店</span>
+                            <img src={ImgL} />
+                        </div>
+                    )
+                }
+                <div className={this.state.resType ? 'iscroll-box' : 'iscroll-box min'}>
                     <Luo
                         id="luo2"
                         className="touch-none"
@@ -253,7 +257,7 @@ class HomePageContainer extends React.Component {
                         <ul>
                             {
                                 this.state.data.length ? this.state.data.map((item, index) => {
-                                    const station = this.state.resType ? item : (item.station || {});
+                                    const station = this.state.resType ? (item.station || {}) : item;
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
@@ -263,7 +267,7 @@ class HomePageContainer extends React.Component {
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(station)}>
-                                                { item.distance ? <div className="lang">{`${item.distance.toFixed(2)}km`}</div> : null}
+                                                { station.distance ? <div className="lang">{`${station.distance.toFixed(2)}km`}</div> : null}
                                                 <div className="addr">
                                                     <img src={ImgDaoHang} />
                                                     <div>导航</div>

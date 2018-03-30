@@ -14,7 +14,7 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { List, Toast, Button, InputItem } from 'antd-mobile';
+import { List, Toast, Button, Modal } from 'antd-mobile';
 // ==================
 // 本页面所需action
 // ==================
@@ -26,6 +26,7 @@ import { checkTiXianCan } from '../../../../a_action/shop-action';
 // ==================
 const Item = List.Item;
 const Brief = Item.Brief;
+const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -65,47 +66,89 @@ class HomePageContainer extends React.Component {
 
     // 开始提现
     onSubmit() {
-      const v = Number(this.state.howMuch);
-      if (!v) {
-          Toast.info('请填写有效提现金额',1);
-          return;
-      } else if (v < 1){
-          Toast.info('提现金额不得低于1元',1);
+      if (!this.props.userinfo) {
+          Toast.info('请先登录', 1);
           return;
       }
 
-      this.props.actions.checkTiXianCan({ amount: v }).then((res) => {
-          if (res.status === 200) {
-              this.props.history.push(`/profit/tixiannow/${v}`);
-          } else {
-              Toast.fail(res.message || '当前金额不可提现',1);
-          }
-      }).catch(() => {
-          Toast.fail('网络错误，请稍后重试',1);
-      });
+      if (!this.props.userinfo.mobile) {
+          alert('确认提现？', '您还未绑定手机号，绑定后才能提现', [
+              { text: '取消', onPress: () => console.log('cancel') },
+              {
+                  text: '确认',
+                  onPress: () =>
+                      new Promise((resolve) => {
+                          resolve();
+                      }),
+              },
+          ]);
+          return;
+      }
+
+        const v = Number(this.props.iwantnow.toFixed(2));
+
+        if (!v || v < 1) {
+            Toast.info('单次提现金额不可低于1元',1);
+            return;
+        }
+
+      if (v > 20000) {
+          alert('确认提现？', '单笔单日提现不可超过2万元，本次实际可提现2万元，确认提现后，预计1-10个工作日到账', [
+              { text: '取消', onPress: () => console.log('cancel') },
+              {
+                  text: '确认',
+                  onPress: () =>
+                      new Promise((resolve) => {
+                          this.onGoGoGo(v);
+                          resolve();
+                      }),
+              },
+          ]);
+          return;
+      }
+
+      if (v <= 20000) {
+          alert('确认提现？', `您当前可提现金额为${v}元，确认提现后，预计1-10个工作日到账`, [
+              { text: '取消', onPress: () => console.log('cancel') },
+              {
+                  text: '确认',
+                  onPress: () =>
+                      new Promise((resolve) => {
+                          this.onGoGoGo(v);
+                          resolve();
+                      }),
+              },
+          ]);
+          return;
+      }
+    }
+
+    /** 开始向后台查询是否可提现！限制条件也太TM多了 **/
+    onGoGoGo(v) {
+        this.props.actions.checkTiXianCan({ amount: v }).then((res) => {
+            if (res.status === 200) {
+                this.props.history.push(`/profit/tixiannow/${v}`);
+            } else {
+                Toast.fail(res.message || '当前金额不可提现',1);
+            }
+        }).catch(() => {
+            Toast.fail('网络错误，请稍后重试',1);
+        });
     }
 
   render() {
       const u = this.props.userinfo || {};
     return (
       <div className="page-tixian">
-          <List>
-              <Item extra={<span style={{ color: '#338CF8' }}>微信零钱</span>}>提现账户</Item>
-          </List>
-
-          <div className="tixian">
-              <div className="t">提现金额:</div>
-              <InputItem
-                  className="tixian-input"
-                  type={'money'}
-                  placeholder="请输入金额"
-                  onChange={(e) => this.onTixianInput(e)}
-                  moneyKeyboardAlign="left"
-                  value={this.state.howMuch}
-                  clear
-              >￥</InputItem>
+          <div className="my-list">
+              <div className="l flex-none">提现账户</div>
+              <div className="r flex-auto">微信零钱</div>
           </div>
-          <div className="tixian-info">可提现金额：￥{this.props.iwantnow.toFixed(2)}，<span onClick={() => this.onAllIn()}>全部提现</span></div>
+          <div className="my-list mt">
+              <div className="l flex-none">可提现金额</div>
+              <div className="r flex-auto money">￥{this.props.iwantnow.toFixed(2)}</div>
+          </div>
+          {/*<div className="tixian-info">可提现金额：￥{this.props.iwantnow.toFixed(2)}，<span onClick={() => this.onAllIn()}>全部提现</span></div>*/}
           <div className="info">买家支付后，可获得分销收益，但不可提现。自发货起15天之后，收益可提现。若发货起15天内，买家退货，收益将自动扣除。</div>
           <div className="submit-box"><Button className="submit-btn" type="primary" onClick={() => this.onSubmit()}>立即提现</Button></div>
           <div className="info">

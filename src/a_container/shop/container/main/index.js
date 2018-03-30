@@ -42,6 +42,7 @@ class HomePageContainer extends React.Component {
     }
     // 如果state中没有所有的产品类别，就重新获取
     if (!this.props.allProductTypes.length) {
+        console.log('你TM步触发？');
       this.props.actions.listProductType();
     }
   }

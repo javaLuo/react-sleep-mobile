@@ -254,7 +254,7 @@ class HomePageContainer extends React.Component {
                 thumb={d.productImg ? <img src={d.productImg.split(',')[0]} /> : null}
                 multipleLine
               >
-                  {d.name}<Brief><span style={{ color: '#fc4800' }}>{d && (d.typeModel.price + (d.typeModel.openAccountFee || 0))}</span></Brief>
+                  {d.name}<Brief><span style={{ color: '#fc4800' }}>￥{d && (d.typeModel.price + (d.typeModel.openAccountFee || 0))}</span></Brief>
               </Item>
           </List>
           <List>

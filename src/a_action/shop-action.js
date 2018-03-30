@@ -36,11 +36,11 @@ export const getProDuctListActive = () => async(dispatch) => {
 // 查询所有产品类型
 export const listProductType = () => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/listProductType', { pageNum: 0, pageSize: 9999 });
-        if (res.returnCode === '0') {
+        const res = await Fetchapi.newPost('mall/productType/listProductType', { pageNum: 0, pageSize: 9999 });
+        if (res.status === 200) {
             dispatch({
                 type: 'SHOP::listProductType',
-                payload: res.messsageBody.result,
+                payload: res.data.result,
             });
         }
         return res;

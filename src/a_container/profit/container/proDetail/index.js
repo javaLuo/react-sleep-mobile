@@ -21,7 +21,7 @@ import ImgRight from '../../../../assets/xiangyou@3x.png';
 // 本页面所需action
 // ==================
 
-import { userIncomeDetails, saveProDetail } from '../../../../a_action/shop-action';
+import { userIncomeDetails, saveProDetail, listProductType } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -35,8 +35,9 @@ class HomePageContainer extends React.Component {
         allAccount: [], // 所有的子账号
         pageNum: 1,
         pageSize: 10,
-        date: undefined, // 当前选中的年月
+        date: [String(new Date().getFullYear()), '全年'], // 当前选中的年月
         searchAccount: ['all'],    // 选中的子账号
+        productType: ['all'],       // 选中的产品类型
         totalIncome: 0, // 合计
 
     };
@@ -45,15 +46,22 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '收益明细';
       this.getData();
+      if (!this.props.allProductTypes.length) {
+          this.getlistProductType();
+      }
+  }
+
+  // 获取所有产品类型
+  getlistProductType() {
+      this.props.actions.listProductType();
   }
 
   // 收益来源选择变化
     onAccountChange(obj) {
-      console.log('是各什111么：', obj);
         this.setState({
             searchAccount: obj,
         });
-        this.getData(this.state.date, obj, 1, this.state.pageSize, 'flash');
+        this.getData(this.state.date, obj, this.state.productType, 1, this.state.pageSize, 'flash');
     }
 
   // 日期选择变化时触发
@@ -62,10 +70,28 @@ class HomePageContainer extends React.Component {
       this.setState({
           date: obj,
       });
-      this.getData(obj, this.state.searchAccount, 1, this.state.pageSize, 'flash');
+      this.getData(obj, this.state.searchAccount, this.state.productType, 1, this.state.pageSize, 'flash');
     }
 
-    getData(date = null, account=null, pageNum=1, pageSize=10, type='flash') {
+    // 产品类型选择变化
+    onProductTypeChange(obj) {
+        console.log('返回的什么2：', obj);
+        this.setState({
+            productType: obj,
+        });
+        this.getData(obj, this.state.searchAccount, obj, 1, this.state.pageSize, 'flash');
+    }
+
+    /**
+     *
+     * @param date 选择的时间
+     * @param account 选择的子账户
+     * @param productType 选择的产品类型
+     * @param pageNum 当前页码
+     * @param pageSize 每页大小
+     * @param type 是刷新还是加载更多 flash/update
+     */
+    getData(date = null, account=null, productType=null, pageNum=1, pageSize=10, type='flash') {
       const u = this.props.userinfo;
       if (!u){
           return;
@@ -80,11 +106,13 @@ class HomePageContainer extends React.Component {
           userId = u.id;
           userType = 1;
       }
+
       const params = {
           userId,
-          balanceTime: date ? (date[1] === '全年' ? date[0] : `${date.join('-')}-01`) : null,
+          balanceTime: date ? (date[0] === 'all' ? null : ((date[1] === '全年' ? date[0] : `${date.join('-')}-01`))) : null,
           pageNum,
           pageSize,
+          productType: (productType && productType[0] !== 'all') ? productType[0] : null,
       };
       Toast.loading('搜索中...',0);
       this.props.actions.userIncomeDetails(tools.clearNull(params), userType).then((res) => {
@@ -156,11 +184,11 @@ class HomePageContainer extends React.Component {
     }
 
     onDown(){
-      this.getData(this.state.date, this.state.searchAccount, 1, this.state.pageSize, 'flash');
+      this.getData(this.state.date, this.state.searchAccount, this.state.productType, 1, this.state.pageSize, 'flash');
     }
 
     onUp() {
-      this.getData(this.state.date, this.state.searchAccount, this.state.pageNum+1, this.state.pageSize, 'update');
+      this.getData(this.state.date, this.state.searchAccount, this.state.productType, this.state.pageNum+1, this.state.pageSize, 'update');
     }
 
   render() {
@@ -168,10 +196,10 @@ class HomePageContainer extends React.Component {
     return (
       <div className="profit-main">
           {
-              (u && u.userType === 5) ? (
+              (u && u.userType !== 5) ? (
                   <List>
                       <Picker
-                          extra={'收益来源选择'}
+                          extra={'请选择'}
                           cols={1}
                           data={[[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.realName || item.nickName, value: item.id }))]]}
                           cascade={false}
@@ -180,36 +208,51 @@ class HomePageContainer extends React.Component {
                       >
                           <Item >收益来源账户</Item>
                       </Picker>
+                      {
+                          this.props.allProductTypes.length ? (
+                              <Picker
+                                  extra={'请选择：'}
+                                  cols={1}
+                                  data={[[{label:'全部', value: 'all'}, ...this.props.allProductTypes.map((item) => ({ label: item.name, value: item.id }))]]}
+                                  cascade={false}
+                                  value={this.state.productType}
+                                  onOk={(obj) => this.onProductTypeChange(obj)}
+                              >
+                                  <Item >选择产品类型</Item>
+                              </Picker>
+                          ) : null
+                      }
                   </List>
               ) : null
           }
           <Picker
-              data={[
+              data={
                   (() => {
                       const nowYear = new Date().getFullYear();
                       const y = [];
-                      for(let i= 2010; i<=nowYear; i++) {
-                          y.push({label: i, value: `${i}`});
+                      for(let i= nowYear - 10; i<=nowYear; i++) {
+                          y.push({label: i, value: `${i}`, children: [
+                              {label: '全年',value: '全年'},
+                              {label: '1月',value: '01'},
+                              {label: '2月',value: '02'},
+                              {label: '3月',value: '03'},
+                              {label: '4月',value: '04'},
+                              {label: '5月',value: '05'},
+                              {label: '6月',value: '06'},
+                              {label: '7月',value: '07'},
+                              {label: '8月',value: '08'},
+                              {label: '9月',value: '09'},
+                              {label: '10月',value: '10'},
+                              {label: '11月',value: '11'},
+                              {label: '12月',value: '12'},
+                          ]});
                       }
+                      y.push({label: '全部', value:"全部", children:[]});
                       return y;
-                  })(),
-                  [
-                      {label: '全年',value: '全年'},
-                      {label: '1月',value: '01'},
-                      {label: '2月',value: '02'},
-                      {label: '3月',value: '03'},
-                      {label: '4月',value: '04'},
-                      {label: '5月',value: '05'},
-                      {label: '6月',value: '06'},
-                      {label: '7月',value: '07'},
-                      {label: '8月',value: '08'},
-                      {label: '9月',value: '09'},
-                      {label: '10月',value: '10'},
-                      {label: '11月',value: '11'},
-                      {label: '12月',value: '12'},
-                  ],
-                  ]}
-              cascade={false}
+                  })()
+                  }
+              cascade={true}
+              cols={2}
               value={this.state.date}
               onOk={(obj) => this.onDateChange(obj)}
           >
@@ -253,6 +296,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   userinfo: P.any,
+    allProductTypes: P.any,
 };
 
 // ==================
@@ -262,8 +306,9 @@ HomePageContainer.propTypes = {
 export default connect(
   (state) => ({
       userinfo: state.app.userinfo,
+      allProductTypes: state.shop.allProductTypes,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ userIncomeDetails, saveProDetail }, dispatch),
+    actions: bindActionCreators({ userIncomeDetails, saveProDetail, listProductType }, dispatch),
   })
 )(HomePageContainer);
