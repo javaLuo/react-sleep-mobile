@@ -196,7 +196,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="profit-main">
           {
-              (u && u.userType !== 5) ? (
+              (u && u.userType === 5) ? (
                   <List>
                       <Picker
                           extra={'请选择'}

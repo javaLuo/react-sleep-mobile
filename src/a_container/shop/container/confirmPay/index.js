@@ -22,6 +22,7 @@ import StepperLuo from '../../../../a_component/StepperLuo';
 // ==================
 
 import { shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo } from '../../../../a_action/shop-action';
+import { getStationInfoById } from '../../../../a_action/app-action';
 
 // ==================
 // Definition
@@ -38,6 +39,7 @@ class HomePageContainer extends React.Component {
         formPaiDan: [1],  // 派单方式，1自动，2手动，默认自动
         formServerMan: undefined,    // 安装工ID
         serverList: [], // 当前区域下的安装工列表
+        station: null,  // 用户的经销商的推荐人的服务站
     };
   }
 
@@ -54,6 +56,7 @@ class HomePageContainer extends React.Component {
       // sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
       this.queryCustomerList();
+      this.getStationInfoById();
   }
 
   // 获取安装工信息
@@ -77,6 +80,19 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    // 获取用户的经销商的推荐人的服务站,服了
+    getStationInfoById() {
+      if (!this.props.userinfo) {
+          return;
+      }
+      this.props.actions.getStationInfoById({ userId: this.props.userinfo.id }).then((res) => {
+          if (res.status === 200) {
+              this.setState({
+                  station: res.data,
+              });
+          }
+      });
+    }
     // form 购买数量被改变
     onCountChange(v) {
       this.setState({
@@ -317,11 +333,6 @@ class HomePageContainer extends React.Component {
                           cols={1}
                           onOk={(v) => this.onServeChose(v)}
                       >
-                          {/*<Item*/}
-                              {/*arrow="horizontal"*/}
-                              {/*className="special-item"*/}
-                              {/*extra={this.state.formServerMan ? this.getInfoByServerManId(this.state.formServerMan[0]).name : '请选2择'}*/}
-                          {/*>服务人员</Item>*/}
                           <div className="am-list-item special-item am-list-item-middle hoho">
                               <div className="am-list-line">
                                   <div className="am-list-content">服务人员</div>
@@ -358,6 +369,25 @@ class HomePageContainer extends React.Component {
                   ) : null
               }
           </List>
+          {
+              // 健康食品、生物科技有这个提示 1-水机 2-养未来，3-冷敷贴，5-体检
+              d && [2, 3].includes(d.typeId) && this.state.station ? (
+                  <div className="other-info">(此款项是代{ this.state.station }收取)</div>
+              ) : null
+          }
+          {
+              // 健康食品、生物科技有这个提示 1-水机 2-养未来，3-冷敷贴，5-体检
+              d && [5].includes(d.typeId) && this.state.station ? (
+                  [
+                      <div className="other-info" key={1}>(此款项是代{ this.state.station }收取)</div>,
+                      <ul className="other-info-ul" key={2}>
+                          <li>如需开票，请联系：</li>
+                          <li>{ this.state.station }体验服务中心：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">联系门店</a></li>
+                          <li>联系热线：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">4001519999</a></li>
+                      </ul>
+                  ]
+              ) : null
+          }
           <div className="zw46"/>
           <div className="thefooter page-flex-row">
               <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}</div>
@@ -377,6 +407,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   orderParams: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -385,9 +416,10 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
+      userinfo: state.app.userinfo,
     orderParams: state.shop.orderParams,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo }, dispatch),
+    actions: bindActionCreators({ shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo, getStationInfoById }, dispatch),
   })
 )(HomePageContainer);

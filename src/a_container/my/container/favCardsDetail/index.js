@@ -14,7 +14,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, Toast } from 'antd-mobile';
+import { Button, Toast, Modal } from 'antd-mobile';
 import Img from './yhkbj.png';
 
 // ==================
@@ -22,17 +22,18 @@ import Img from './yhkbj.png';
 // ==================
 
 import { wxInit, createMcard, wxPay } from '../../../../a_action/shop-action';
-
+import { getStationInfoById } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
-
+const alert = Modal.alert;
 class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             wxReady: true,  // 微信SDK是否初始化成功
             loading: false, // 是否正在支付中
+            station: null,
         };
         this.s3data = null;
         this.s4data = null;
@@ -44,6 +45,7 @@ class Register extends React.Component {
 
     componentDidMount() {
         document.title = '我的优惠卡';
+        this.getStationInfoById();
     }
 
     // 获取微信初始化所需参数
@@ -102,6 +104,20 @@ class Register extends React.Component {
         });
     }
 
+    // 获取用户的经销商的推荐人的服务站,服了
+    getStationInfoById() {
+        if (!this.props.userinfo) {
+            return;
+        }
+        this.props.actions.getStationInfoById({ userId: this.props.userinfo.id }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    station: res.data,
+                });
+            }
+        });
+    }
+
     /**
      * 1.
      * **/
@@ -142,6 +158,20 @@ class Register extends React.Component {
 
     // 开始支付
     onPay() {
+        if(!this.props.userinfo || !this.props.userinfo.mobile) {
+            alert('确认支付？', '您还未绑定手机号，绑定后才能进行支付', [
+                { text: '取消', onPress: () => console.log('cancel') },
+                {
+                    text: '确认',
+                    onPress: () =>
+                        new Promise((resolve) => {
+                            this.props.history.push('/my/bindphone');
+                            resolve();
+                        }),
+                },
+            ]);
+            return;
+        }
         this.setState({
             loading: true
         });
@@ -245,7 +275,8 @@ class Register extends React.Component {
                 <div className="img-box">
                     <img className="img" src={Img} />
                 </div>
-                <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : ''}</div>
+                <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : '仅需支付50元材料费，即可使用该卡'}</div>
+                <div className="other-info">(此款项是代{ this.state.station }收取)</div>
                 <div className="footer-zw"/>
                 {
                     (d.ticketType === 'M' && d.ticketStatus === 3 && d.handselStatus !== 1) ? (
@@ -281,6 +312,6 @@ export default connect(
         freeCardInfo: state.shop.freeCardInfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ wxInit, createMcard, wxPay }, dispatch),
+        actions: bindActionCreators({ wxInit, createMcard, wxPay, getStationInfoById }, dispatch),
     })
 )(Register);

@@ -232,6 +232,16 @@ export const getUserInfoById = (params = {}) => async(dispatch) => {
     }
 };
 
+// 根据用户id查询用户的经销商的推荐人的所在服务站
+export const getStationInfoById = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/station/referrerStation', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 微信网页授权 - 保存code
 export function saveWxCode(code) {
     return {
