@@ -254,7 +254,7 @@ class HomePageContainer extends React.Component {
               }
           </List>
           <div className="detail-box">
-              {(d && d.detailImg) ? <img src={d.detailImg} /> : null}
+              {(d && d.detailImg) ? d.detailImg.split(',').map((item, index) => <img key={index} src={item} />) : null}
           </div>
           <div className="play">
               <Button type="primary" onClick={() => this.onSubmit()}>立即下单</Button>

@@ -19,7 +19,7 @@ import { List, Toast, Button, Modal } from 'antd-mobile';
 // 本页面所需action
 // ==================
 
-import { checkTiXianCan } from '../../../../a_action/shop-action';
+import { newTiXian } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -114,7 +114,7 @@ class HomePageContainer extends React.Component {
                   text: '确认',
                   onPress: () =>
                       new Promise((resolve) => {
-                          this.onGoGoGo(v);
+                          this.onGoGoGo();
                           resolve();
                       }),
               },
@@ -123,11 +123,11 @@ class HomePageContainer extends React.Component {
       }
     }
 
-    /** 开始向后台查询是否可提现！限制条件也太TM多了 **/
-    onGoGoGo(v) {
-        this.props.actions.checkTiXianCan({ amount: v }).then((res) => {
+    /** 开始向后台申请提现！限制条件也太TM多了 **/
+    onGoGoGo() {
+        this.props.actions.newTiXian().then((res) => {
             if (res.status === 200) {
-                this.props.history.push(`/profit/tixiannow/${v}`);
+                this.props.history.push(`/profit/tixiannow/${res.data.amount}_${res.data.partnerTradeNo}`);
             } else {
                 Toast.fail(res.message || '当前金额不可提现',1);
             }
@@ -153,8 +153,8 @@ class HomePageContainer extends React.Component {
           <div className="submit-box"><Button className="submit-btn" type="primary" onClick={() => this.onSubmit()}>立即提现</Button></div>
           <div className="info">
               * 金额低于1元时不可提现<br/>
-              * 预计1个工作日内可到账<br/>
-              * 同一个用户，单笔单日提现额2w<br/>
+              * 预计1-10个工作日内可到账(遇节假日顺延)<br/>
+              * 同一个用户，单笔单日提现限额2万元<br/>
               * 单日内提现次数不能超过3次
           </div>
       </div>
@@ -184,6 +184,6 @@ export default connect(
       iwantnow: state.shop.iwantnow,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ checkTiXianCan }, dispatch),
+    actions: bindActionCreators({ newTiXian }, dispatch),
   })
 )(HomePageContainer);

@@ -21,7 +21,7 @@ import ImgLogo from '../../../../assets/dunpai@3x.png';
 // ==================
 
 import { getVerifyCode2 } from '../../../../a_action/app-action';
-import { startTiXian } from '../../../../a_action/shop-action';
+import { newTiXian2 } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -107,21 +107,22 @@ class Register extends React.Component {
         }
 
         const pathname = this.props.location.pathname.split('/');
-        const v = Number(pathname[pathname.length - 1]);
-        if (!v) {
+        const v = pathname[pathname.length - 1].split('_');
+        if (!v || !Number(v[0])) {
             Toast.fail('提现金额异常');
             return;
         }
 
         const params = {
-            amount: v,
-            verifyCode: this.state.vcode,
-            countryCode: 86,
+            amount: Number(v[0]),           // 提现金额
+            verifyCode: this.state.vcode,   // 验证码
+            countryCode: 86,                // 城市码
+            partnerTradeNo: Number(v[1]),   // 提现单号
         };
         this.setState({
             loading: true
         });
-        this.props.actions.startTiXian(params).then((res) => {
+        this.props.actions.newTiXian2(params).then((res) => {
             if (res.status === 200) {
                 Toast.success('提现成功', 1);
                 this.props.history.replace('/profit'); // 回到收益明细页（因为信息改变了，在这个页才能更新信息）
@@ -195,6 +196,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getVerifyCode2, startTiXian }, dispatch),
+        actions: bindActionCreators({ getVerifyCode2, newTiXian2 }, dispatch),
     })
 )(Register);

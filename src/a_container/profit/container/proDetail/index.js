@@ -45,7 +45,7 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '收益明细';
-      this.getData();
+      this.getData(this.state.date);
       if (!this.props.allProductTypes.length) {
           this.getlistProductType();
       }
@@ -65,12 +65,11 @@ class HomePageContainer extends React.Component {
     }
 
   // 日期选择变化时触发
-    onDateChange(obj) {
-      console.log('返回的什么：', obj);
+    onDateChange(date) {
       this.setState({
-          date: obj,
+          date,
       });
-      this.getData(obj, this.state.searchAccount, this.state.productType, 1, this.state.pageSize, 'flash');
+      this.getData(date, this.state.searchAccount, this.state.productType, 1, this.state.pageSize, 'flash');
     }
 
     // 产品类型选择变化
@@ -109,7 +108,9 @@ class HomePageContainer extends React.Component {
 
       const params = {
           userId,
-          balanceTime: date ? (date[0] === 'all' ? null : ((date[1] === '全年' ? date[0] : `${date.join('-')}-01`))) : null,
+          // balanceTime: date ? (date[0] === 'all' ? null : ((date[1] === '全年' ? date[0] : `${date.join('-')}-01`))) : null,
+          year: date ? (date[0] === '全部' ? '' : date[0]) : null,
+          month: date && date[1] && date[1] !== '全年' ? date[1] : null,
           pageNum,
           pageSize,
           productType: (productType && productType[0] !== 'all') ? productType[0] : null,
@@ -195,36 +196,34 @@ class HomePageContainer extends React.Component {
         const u = this.props.userinfo || {};
     return (
       <div className="profit-main">
-          {
-              (u && u.userType === 5) ? (
-                  <List>
+          <List>
+              { (u && u.userType === 5) ? (
+                  <Picker
+                      extra={'请选择'}
+                      cols={1}
+                      data={[[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.realName || item.nickName, value: item.id }))]]}
+                      cascade={false}
+                      value={this.state.searchAccount}
+                      onOk={(obj) => this.onAccountChange(obj)}
+                  >
+                      <Item >收益来源账户</Item>
+                  </Picker>) : null
+              }
+              {
+                  this.props.allProductTypes.length ? (
                       <Picker
-                          extra={'请选择'}
+                          extra={'请选择：'}
                           cols={1}
-                          data={[[{label:'全部', value: 'all'}, ...this.state.allAccount.map((item) => ({ label: item.realName || item.nickName, value: item.id }))]]}
+                          data={[[{label:'全部', value: 'all'}, ...this.props.allProductTypes.map((item) => ({ label: item.name, value: item.id }))]]}
                           cascade={false}
-                          value={this.state.searchAccount}
-                          onOk={(obj) => this.onAccountChange(obj)}
+                          value={this.state.productType}
+                          onOk={(obj) => this.onProductTypeChange(obj)}
                       >
-                          <Item >收益来源账户</Item>
+                          <Item >选择产品类型</Item>
                       </Picker>
-                      {
-                          this.props.allProductTypes.length ? (
-                              <Picker
-                                  extra={'请选择：'}
-                                  cols={1}
-                                  data={[[{label:'全部', value: 'all'}, ...this.props.allProductTypes.map((item) => ({ label: item.name, value: item.id }))]]}
-                                  cascade={false}
-                                  value={this.state.productType}
-                                  onOk={(obj) => this.onProductTypeChange(obj)}
-                              >
-                                  <Item >选择产品类型</Item>
-                              </Picker>
-                          ) : null
-                      }
-                  </List>
-              ) : null
-          }
+                  ) : null
+              }
+          </List>
           <Picker
               data={
                   (() => {
@@ -261,7 +260,7 @@ class HomePageContainer extends React.Component {
                   <div>￥{this.state.totalIncome}</div>
               </div>
           </Picker>
-          <div className="list-box" style={{ height: u.userType === 5 ? 'calc(100vh - 88px)' : 'calc(100vh - 44px)' }}>
+          <div className="list-box" style={{ height: u.userType === 5 ? 'calc(100vh - 132px)' : 'calc(100vh - 88px)' }}>
               <Luo
                   id="luo1"
                   className="touch-none"

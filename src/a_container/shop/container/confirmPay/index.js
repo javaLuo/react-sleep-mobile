@@ -382,7 +382,7 @@ class HomePageContainer extends React.Component {
                       <div className="other-info" key={1}>(此款项是代{ this.state.station }收取)</div>,
                       <ul className="other-info-ul" key={2}>
                           <li>如需开票，请联系：</li>
-                          <li>{ this.state.station }体验服务中心：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">联系门店</a></li>
+                          <li>{ this.state.station }：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">联系门店</a></li>
                           <li>联系热线：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">4001519999</a></li>
                       </ul>
                   ]

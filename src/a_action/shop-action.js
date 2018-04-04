@@ -661,6 +661,26 @@ export const startTiXian = (params = {}) => async(dispatch) => {
     }
 };
 
+// 新的 - 申请提现
+export const newTiXian = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/wxpay/cashRecord/apply', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 新的 - 提现最后一步，检查提现验证码
+export const newTiXian2 = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/wxpay/cashRecord/verify', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 获取默认地址，没有默认地址就是第1个，1个都没有的话就没有 (下单时专用，会自动设置购买信息中的地址)
 export const getDefaultAttr = (params = {}) => async(dispatch) => {
     try {
