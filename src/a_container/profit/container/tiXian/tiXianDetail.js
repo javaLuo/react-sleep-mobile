@@ -23,6 +23,7 @@ import ImgDown from '../../../../assets/profit/down@3x.png';
 // 本页面所需action
 // ==================
 
+import { getCashRecordList } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -34,18 +35,38 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: {},
         };
     }
 
     componentDidMount() {
         document.title = '提现记录详情';
-        if (!this.props.tiXianDetail) {
-            Toast.fail('未获取到收益详情信息',1);
-        }
+        const p = this.props.location.pathname.split('/').pop();
+        this.getData(p);
+    }
+
+    getData(partnerTradeNo){
+        const me = this;
+        const params = {
+            partnerTradeNo,
+        };
+        Toast.loading('请稍后...', 0);
+        this.props.actions.getCashRecordList(tools.clearNull(params)).then((res) => {
+            if (res.status === 200) {
+                me.setState({
+                    data: res.data.result ? res.data.result[0] : {},
+                });
+                Toast.hide();
+            } else {
+                Toast.fail(res.message);
+            }
+        }).catch(() => {
+            Toast.fail('查询失败，请重试', 1);
+        });
     }
 
     render() {
-        const data = this.props.tiXianDetail || {};
+        const data = this.state.data;
 
         const stepsInfo = [{
             title: '发起提现',
@@ -66,26 +87,62 @@ class HomePageContainer extends React.Component {
                  **/}
                 <ul className="step-box">
                     <li className="step">
-                        <img className="step-icon" src={ImgStep0} />
+                        <img className="step-icon" src={ImgStep1} />
                         <div className="info">
                             <div>发起提现</div>
-                            <div>2018-03-29 14:20:00</div>
+                            <div>{data.applyTime}</div>
                         </div>
                     </li>
-                    <li className="line" />
+                    <li className="line2" />
                     <li className="step">
-                        <img className="step-icon" src={ImgStep0} />
+                        <img className="step-icon" src={(() => {
+                            switch(data.withdrawStatus) {
+                                case 1: return ImgStep1;
+                                case 2: return ImgFail;
+                                default: return ImgStep0;
+                            }
+                        })()} />
                         <div className="info">
-                            <div>审核中</div>
-                            <div>2018-03-29 14:20:00</div>
+                            <div>{(() => {
+                                switch (data.withdrawStatus) {
+                                    case 1:
+                                        return '审核通过';
+                                    case 2:
+                                        return '审核不通过';
+                                    case 3:
+                                        return '审核中';
+                                    default:
+                                        return '审核中';
+                                }
+                            })()}</div>
+                            <div>{data.audirTime}</div>
                         </div>
                     </li>
-                    <li className="line" />
+                    <li className={data.withdrawStatus === 1 ? 'line2' : 'line1'} />
                     <li className="step">
-                        <img className="step-icon" src={ImgDown} />
+                        <img className="step-icon" src={(() => {
+                            if (data.withdrawStatus !== 1) {
+                                return ImgDown;
+                            }
+                            if (data.flag === 1) {
+                                return ImgFail;
+                            } else {
+                                return ImgDown;
+                            }
+                        })()} />
                         <div className="info">
-                            <div>提现完成</div>
-                            <div>2018-03-29 14:20:00</div>
+                            <div>{(() => {
+                                if (data.withdrawStatus !== 1) {
+                                    return '提现';
+                                }
+
+                                if (data.flag === 1) {
+                                    return '提现失败';
+                                } else {
+                                    return '提现成功';
+                                }
+                            })()}</div>
+                            <div>{data.paymentTime}</div>
                         </div>
                     </li>
                 </ul>
@@ -95,20 +152,20 @@ class HomePageContainer extends React.Component {
                 <div className="info-box">
                     <div className="page-flex-row flex-jc-sb">
                         <div>类型</div>
-                        <div>提现到{data.destCash}</div>
+                        <div>提现到{data.withdrawType === 1 ? '微信钱包' : '支付宝'}</div>
                     </div>
                     <div className="page-flex-row flex-jc-sb">
                         <div>时间</div>
-                        <div>{tools.dateToStr(new Date(data.withdrawTime))}</div>
+                        <div>{data.applyTime}</div>
                     </div>
                     <div className="page-flex-row flex-jc-sb">
                         <div>交易单号</div>
                         <div>{data.partnerTradeNo}</div>
                     </div>
-                    <div className="page-flex-row flex-jc-sb">
-                        <div>手续费</div>
-                        <div>￥{Number(data.formalitiesFee).toFixed(2)}</div>
-                    </div>
+                    {/*<div className="page-flex-row flex-jc-sb">*/}
+                        {/*<div>手续费</div>*/}
+                        {/*<div>￥{Number(data.formalitiesFee).toFixed(2)}</div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         );
@@ -123,6 +180,7 @@ HomePageContainer.propTypes = {
     location: P.any,
     history: P.any,
     tiXianDetail: P.any,
+    actions: P.any,
 };
 
 // ==================
@@ -131,9 +189,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
     (state) => ({
-        tiXianDetail: state.shop.tiXianDetail,
+
     }),
     (dispatch) => ({
-        actions: bindActionCreators({}, dispatch),
+        actions: bindActionCreators({ getCashRecordList }, dispatch),
     })
 )(HomePageContainer);

@@ -32,9 +32,11 @@
     border-top: none;
     &::before{
       background-color: transparent;
+      height: 0;
     }
     &::after{
       background-color: transparent;
+      height: 0;
     }
   }
 }

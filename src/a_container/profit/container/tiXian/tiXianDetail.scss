@@ -31,7 +31,12 @@
         }
       }
     }
-    .line{
+    .line1{
+      height: 2px;
+      flex: auto;
+      background-color: #888888;
+    }
+    .line2{
       height: 2px;
       flex: auto;
       background-color: #53a1ff;

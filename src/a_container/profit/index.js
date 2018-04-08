@@ -52,7 +52,7 @@ class Healthy extends React.Component {
             <Route exact path={`${this.props.match.url}/prodetails/:id`} component={ProDetails} />
             <Route exact path={`${this.props.match.url}/tixian`} component={Tixian} />
             <Route exact path={`${this.props.match.url}/tixiannow/:id`} component={TixianNow} />
-            <Route exact path={`${this.props.match.url}/tixiandetail`} component={TixianDetail} />
+            <Route exact path={`${this.props.match.url}/tixiandetail/:id`} component={TixianDetail} />
             <Route exact path={`${this.props.match.url}/tixianrecord`} component={TixianRecord} />
           </Switch>
         </div>

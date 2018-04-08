@@ -13,34 +13,65 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="78" column="32" lean-forward="true" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
+            <state relative-caret-position="22">
+              <caret line="78" column="32" lean-forward="false" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiXianDetail.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
+      <file leaf-file-name="tiXianDetail.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="78" column="42" lean-forward="true" selection-start-line="78" selection-start-column="42" selection-end-line="78" selection-end-column="42" />
+            <state relative-caret-position="352">
+              <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
+      <file leaf-file-name="tiXianRecord.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="252" column="28" lean-forward="true" selection-start-line="252" selection-start-column="28" selection-end-line="252" selection-end-column="28" />
+            <state relative-caret-position="159">
+              <caret line="107" column="24" lean-forward="false" selection-start-line="107" selection-start-column="24" selection-end-line="107" selection-end-column="24" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1523164381826" expanded="true" signature="2888:4542" ph="..." />
+                <marker date="1523164381826" expanded="true" signature="2934:4523" ph="..." />
+                <marker date="1523164381826" expanded="true" signature="2960:3086" ph="..." />
+                <marker date="1523164381826" expanded="true" signature="3216:4473" ph="..." />
+                <marker date="1523164381826" expanded="true" signature="3607:3874" ph="..." />
+                <marker date="1523164381826" expanded="true" signature="3938:4100" ph="..." />
+                <marker date="1523164381826" expanded="true" signature="4260:4413" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tiXianDetail.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="640">
+              <caret line="131" column="32" lean-forward="true" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="32" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#75#101#0" expanded="true" />
+                <element signature="e#381#430#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,8 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>withdrawTime</find>
-      <find>makeType</find>
       <find>e家号：1</find>
       <find>onSetOrder</find>
       <find>resType</find>
@@ -80,6 +109,8 @@
       <find>pathname</find>
       <find>mall/wxpay/cashRecord/verify</find>
       <find>newTiXian</find>
+      <find>onItemClick</find>
+      <find>onCLickThis</find>
     </findStrings>
     <replaceStrings>
       <replace>ImgIcon1</replace>
@@ -125,7 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/a_container/root/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/order/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/downLine/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/healthyAmb/index.scss" />
@@ -146,7 +176,6 @@
         <option value="$PROJECT_DIR$/src/a_container/my/container/orderCustomerDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/atCat/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.js" />
@@ -162,9 +191,6 @@
         <option value="$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/choseService/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/choseService/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/index.js" />
         <option value="$PROJECT_DIR$/webpack.production.config.js" />
         <option value="$PROJECT_DIR$/src/a_action/app-action.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss" />
@@ -176,6 +202,11 @@
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianNow.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js" />
       </list>
     </option>
   </component>
@@ -191,10 +222,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="7" />
-    <option name="y" value="62" />
-    <option name="width" value="1275" />
-    <option name="height" value="967" />
+    <option name="x" value="643" />
+    <option name="y" value="53" />
+    <option name="width" value="1597" />
+    <option name="height" value="977" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -243,6 +274,24 @@
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
               <item name="profit" type="462c0819:PsiDirectoryNode" />
               <item name="container" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="profit" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+              <item name="proDetail" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="profit" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+              <item name="proDetails" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
@@ -477,18 +526,19 @@
       <workItem from="1522640497289" duration="3228000" />
       <workItem from="1522718954031" duration="4317000" />
       <workItem from="1522805122549" duration="741000" />
-      <workItem from="1522820491350" duration="7573000" />
+      <workItem from="1522820491350" duration="8563000" />
+      <workItem from="1523162826681" duration="3793000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1407209000" />
+    <option name="totallyTimeSpent" value="1411992000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="7" y="62" width="1275" height="967" extended-state="0" />
+    <frame x="643" y="53" width="1597" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20969023" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19038583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -518,13 +568,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/a_container/downLine/container/map/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -611,13 +654,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/checkVcode/index.scss" />
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/checkVcode/index.js" />
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetails/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-788">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="573">
@@ -678,27 +714,6 @@
     <entry file="file://$PROJECT_DIR$/src/assets/profit/fail@3x.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="38" column="3" lean-forward="true" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1518">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/webpack.production.config.js">
@@ -809,7 +824,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="222" column="2" lean-forward="true" selection-start-line="222" selection-start-column="2" selection-end-line="222" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -838,33 +852,88 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="641">
           <caret line="681" column="2" lean-forward="false" selection-start-line="681" selection-start-column="2" selection-end-line="681" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="252" column="28" lean-forward="true" selection-start-line="252" selection-start-column="28" selection-end-line="252" selection-end-column="28" />
+        <state relative-caret-position="348">
+          <caret line="179" column="71" lean-forward="true" selection-start-line="179" selection-start-column="71" selection-end-line="179" selection-end-column="71" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetails/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-692">
+          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#80#106#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="78" column="32" lean-forward="false" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="54" column="72" lean-forward="false" selection-start-line="54" selection-start-column="72" selection-end-line="54" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="107" column="24" lean-forward="false" selection-start-line="107" selection-start-column="24" selection-end-line="107" selection-end-column="24" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1523164381826" expanded="true" signature="2888:4542" ph="..." />
+            <marker date="1523164381826" expanded="true" signature="2934:4523" ph="..." />
+            <marker date="1523164381826" expanded="true" signature="2960:3086" ph="..." />
+            <marker date="1523164381826" expanded="true" signature="3216:4473" ph="..." />
+            <marker date="1523164381826" expanded="true" signature="3607:3874" ph="..." />
+            <marker date="1523164381826" expanded="true" signature="3938:4100" ph="..." />
+            <marker date="1523164381826" expanded="true" signature="4260:4413" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="78" column="42" lean-forward="true" selection-start-line="78" selection-start-column="42" selection-end-line="78" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="78" column="32" lean-forward="true" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="640">
+          <caret line="131" column="32" lean-forward="true" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#75#101#0" expanded="true" />
+            <element signature="e#381#430#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -94,10 +94,11 @@ class HomePageContainer extends React.Component {
     }
 
     // 点击提现
-    onCLickThis(item) {
+    onCLickThis(partnerTradeNo) {
         // 将信息存入store
-        this.props.actions.saveTiXianDetailInfo(item);
-        setTimeout(() => this.props.history.push('/profit/tixiandetail'));
+        // this.props.actions.saveTiXianDetailInfo(item);
+        // setTimeout(() => this.props.history.push('/profit/tixiandetail'));
+        this.props.history.push(`/profit/tixiandetail/${partnerTradeNo}`);
     }
 
     render() {
@@ -114,10 +115,10 @@ class HomePageContainer extends React.Component {
                             {
                                 this.state.data.length ? this.state.data.map((item, index) => {
                                     return (
-                                        <li key={index} className="card-box page-flex-row" onClick={() => this.onCLickThis(item)}>
+                                        <li key={index} className="card-box page-flex-row" onClick={() => this.onCLickThis(item.partnerTradeNo)}>
                                             <div className="l flex-auto">
-                                                <div className="title">提现到{item.destCash}</div>
-                                                <div className="info">{item.withdrawTime}</div>
+                                                <div className="title">提现到{item.withdrawType === 1 ? '微信钱包' : '支付宝'}</div>
+                                                <div className="info">{item.applyTime}</div>
                                             </div>
                                             <div className="r">
                                                 ￥{Number(item.amount) ? Number(item.amount).toFixed(2) : '--'}
