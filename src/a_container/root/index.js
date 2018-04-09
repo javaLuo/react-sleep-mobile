@@ -31,6 +31,7 @@ import lazeShop from 'bundle-loader?lazy&name=shop!../shop';
 import lazeForgot from 'bundle-loader?lazy&name=forgot!../register/forgot';
 import lazeProfit from 'bundle-loader?lazy&name=profit!../profit';
 import lazeDownLine from 'bundle-loader?lazy&name=downline!../downLine';
+import lazeLive from 'bundle-loader?lazy&name=lazelive!../live';
 
 const Home = (props) => (<Bundle load={lazeHome}>{(Home) => <Home {...props} />}</Bundle>);                     // 首页
 const AppHome = (props) => (<Bundle load={lazeAppHome}>{(AppHome) => <AppHome {...props} />}</Bundle>);         // App首页
@@ -52,6 +53,7 @@ const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Jump {...props} />}
 const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFound {...props} />}</Bundle>);     // 404页
 const Profit = (props) => (<Bundle load={lazeProfit}>{(Profit) => <Profit {...props} />}</Bundle>);             // 收益管理模块
 const DownLine = (props) => (<Bundle load={lazeDownLine}>{(DownLine) => <DownLine {...props} />}</Bundle>);             // 收益管理模块
+const Live = (props) => (<Bundle load={lazeLive}>{(Live) => <Live {...props} />}</Bundle>);             // 直播模块
 
 
 // const Home = Loadable({ loader: () => import("../home/index"), loading: Loading });
@@ -214,6 +216,7 @@ class RootContainer extends React.Component {
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route path="/daiyanshare/:id" render={(props) => this.onEnter(DaiYanShare, props)} />
                   <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
+                  <Route path="/live" render={(props) => this.onEnter(Live, props)} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />

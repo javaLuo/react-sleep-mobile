@@ -78,7 +78,7 @@ class HomePageContainer extends React.Component {
         this.setState({
             productType: obj,
         });
-        this.getData(obj, this.state.searchAccount, obj, 1, this.state.pageSize, 'flash');
+        this.getData(this.state.date, this.state.searchAccount, obj, 1, this.state.pageSize, 'flash');
     }
 
     /**
@@ -105,10 +105,9 @@ class HomePageContainer extends React.Component {
           userId = u.id;
           userType = 1;
       }
-
+      console.log('DATE:',date);
       const params = {
           userId,
-          // balanceTime: date ? (date[0] === 'all' ? null : ((date[1] === '全年' ? date[0] : `${date.join('-')}-01`))) : null,
           year: date ? (date[0] === '全部' ? '' : date[0]) : null,
           month: date && date[1] && date[1] !== '全年' ? date[1] : null,
           pageNum,

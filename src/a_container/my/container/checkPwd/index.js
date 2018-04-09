@@ -80,7 +80,7 @@ class Register extends React.Component {
 
     render() {
         return (
-            <div className="flex-auto page-box page-binding" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+            <div className="flex-auto page-box page-checkpwd" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                 <div className="login-box">
                     <div className="logo-info">
                         <span className="small">为了帐号安全，需要验证您的经销商App密码</span>

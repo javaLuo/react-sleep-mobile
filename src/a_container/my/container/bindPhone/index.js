@@ -165,7 +165,7 @@ class Register extends React.Component {
         const u = this.props.userinfo || {};
         const t = this.state.pageType;
         return (
-            <div className="flex-auto page-box page-binding" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+            <div className="flex-auto page-box page-bindphone" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
                     <div className="login-box">
                         <img className="logo" src={ImgLogo} />
                         <div className="logo-info">

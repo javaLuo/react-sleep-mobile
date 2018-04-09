@@ -86,7 +86,8 @@ class HomePageContainer extends React.Component {
               break;
           // 跳视频直播
           case 2:
-              window.open('http://tv.yimaokeji.com/watch/1447826');
+              // window.open('http://tv.yimaokeji.com/watch/1447826');
+              this.props.history.push('/live');
               break;
           // 跳翼猫体验店查询
           case 3:

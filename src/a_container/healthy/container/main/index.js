@@ -89,7 +89,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className={'healthy-main show'}>
           <div className="bar-list">
-              <div className="bar-title">健康检查</div>
+              <div className="bar-title">健康风险评估</div>
               <div className="item hide tran1 page-flex-row all_active" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <img className="icon" src={ImgBar1} />
                   <div className="title">我的评估卡</div>
@@ -131,7 +131,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item hide tran5 page-flex-row all_active" onClick={() => this.onHraClick()}>
                   <img className="icon" src={ImgBar7} />
-                  <div className="title">HRA知识库</div>
+                  <div className="title">健康风险评估知识库</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>

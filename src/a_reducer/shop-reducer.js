@@ -64,6 +64,7 @@ const initState = {
     tiXianDetail: null, // 从提现记录列表进入详情页时所需信息
     daiyanList: null,     // 代言卡选择页数据
     mapAddr: null,  // 进入地图时当前选择的地址
+    liveTypes: [],  // 所有的LIVE分类
 };
 
 // ============================================
@@ -271,6 +272,13 @@ const saveMapAddr = (state, action) => {
         mapAddr: payload,
     });
 };
+
+const getLiveTypes = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        liveTypes: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -326,6 +334,8 @@ const reducerFn = (state = initState, action) => {
             return getDaiYanList(state, action);
         case 'MY::saveMapAddr':
             return saveMapAddr(state, action);
+        case 'LIVE::getLiveTypes':
+            return getLiveTypes(state, action);
         default:
             return actDefault(state, action);
     }

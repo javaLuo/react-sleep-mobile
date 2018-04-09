@@ -265,6 +265,18 @@ class HomePageContainer extends React.Component {
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
+              <div className="item tran8 hide page-flex-row all_active" onClick={() => window.open('https://baidu.com')}>
+                  <img src={ImgBar6} className="icon"/>
+                  <div className="title">用户协议</div>
+                  <div className="info" />
+                  <div className="arrow"><img src={ImgRight} /></div>
+              </div>
+              <div className="item tran8 hide page-flex-row all_active" onClick={() => window.open('https://baidu.com')}>
+                  <img src={ImgBar6} className="icon"/>
+                  <div className="title">隐私协议</div>
+                  <div className="info" />
+                  <div className="arrow"><img src={ImgRight} /></div>
+              </div>
               <div className="item tran8 hide page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
                   <img src={ImgBar7} className="icon"/>
                   <div className="title">使用帮助</div>

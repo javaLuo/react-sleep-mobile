@@ -15,64 +15,48 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js">
+        <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="78" column="32" lean-forward="false" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tiXianDetail.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tiXianRecord.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="107" column="24" lean-forward="false" selection-start-line="107" selection-start-column="24" selection-end-line="107" selection-end-column="24" />
+            <state relative-caret-position="202">
+              <caret line="133" column="56" lean-forward="false" selection-start-line="133" selection-start-column="56" selection-end-line="133" selection-end-column="56" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <marker date="1523164381826" expanded="true" signature="2888:4542" ph="..." />
-                <marker date="1523164381826" expanded="true" signature="2934:4523" ph="..." />
-                <marker date="1523164381826" expanded="true" signature="2960:3086" ph="..." />
-                <marker date="1523164381826" expanded="true" signature="3216:4473" ph="..." />
-                <marker date="1523164381826" expanded="true" signature="3607:3874" ph="..." />
-                <marker date="1523164381826" expanded="true" signature="3938:4100" ph="..." />
-                <marker date="1523164381826" expanded="true" signature="4260:4413" ph="..." />
+                <element signature="e#73#99#0" expanded="true" />
+                <marker date="1523267582611" expanded="true" signature="3337:3380" ph="..." />
+                <marker date="1523267582611" expanded="true" signature="3910:4109" ph="..." />
+                <marker date="1523267582611" expanded="true" signature="4550:4696" ph="..." />
+                <marker date="1523267582611" expanded="true" signature="6494:6607" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.scss" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss">
+        <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+            <state relative-caret-position="22">
+              <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tiXianDetail.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="131" column="32" lean-forward="true" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="32" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#75#101#0" expanded="true" />
-                <element signature="e#381#430#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="265">
+              <caret line="77" column="18" lean-forward="false" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,18 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>e家号：1</find>
-      <find>onSetOrder</find>
-      <find>resType</find>
-      <find>getData2</find>
-      <find>preInfo</find>
-      <find>onChose</find>
-      <find>stationInfo</find>
-      <find>saveServiceInfo</find>
-      <find>产品类型</find>
-      <find>listProductType</find>
-      <find>allProductTypes</find>
-      <find>getData</find>
       <find>onDateChange</find>
       <find>onModalCodeClose</find>
       <find>onSubmit</find>
@@ -111,6 +83,18 @@
       <find>newTiXian</find>
       <find>onItemClick</find>
       <find>onCLickThis</find>
+      <find>协议</find>
+      <find>AgreeItem</find>
+      <find>.page-binding</find>
+      <find>onAccountChange</find>
+      <find>liveTypes</find>
+      <find>onLinkClick</find>
+      <find>tabs</find>
+      <find>tabs-div</find>
+      <find>iscroll</find>
+      <find>销毁</find>
+      <find>referr</find>
+      <find>makeTypesLv1</find>
     </findStrings>
     <replaceStrings>
       <replace>ImgIcon1</replace>
@@ -156,19 +140,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/a_container/my/container/order/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/downLine/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/healthyAmb/index.scss" />
-        <option value="$PROJECT_DIR$/build/dist/my.chunk.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/orderCustomer/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/userInfo/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/component/list/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/component/list/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/home/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/test/index.js" />
         <option value="$PROJECT_DIR$/src/index.html" />
         <option value="$PROJECT_DIR$/src/util/all.js" />
         <option value="$PROJECT_DIR$/src/a_reducer/app-reducer.js" />
@@ -179,7 +150,6 @@
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.js" />
-        <option value="$PROJECT_DIR$/src/a_reducer/shop-reducer.js" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/preCheck/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/main/index.js" />
@@ -198,15 +168,29 @@
         <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
-        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianNow.js" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss" />
         <option value="$PROJECT_DIR$/src/a_container/profit/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js" />
+        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
+        <option value="$PROJECT_DIR$/src/a_container/root/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/live/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/home/index.js" />
+        <option value="$PROJECT_DIR$/src/a_reducer/shop-reducer.js" />
+        <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.scss" />
       </list>
     </option>
   </component>
@@ -222,10 +206,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="643" />
-    <option name="y" value="53" />
-    <option name="width" value="1597" />
-    <option name="height" value="977" />
+    <option name="x" value="116" />
+    <option name="y" value="3" />
+    <option name="width" value="1793" />
+    <option name="height" value="1065" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -258,6 +242,12 @@
               <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_action" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -265,14 +255,14 @@
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="profit" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="profit" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
               <item name="container" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -280,34 +270,16 @@
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="profit" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
               <item name="container" type="462c0819:PsiDirectoryNode" />
-              <item name="proDetail" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="profit" type="462c0819:PsiDirectoryNode" />
-              <item name="container" type="462c0819:PsiDirectoryNode" />
-              <item name="proDetails" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="profit" type="462c0819:PsiDirectoryNode" />
-              <item name="container" type="462c0819:PsiDirectoryNode" />
-              <item name="tiXian" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -324,19 +296,19 @@
     <property name="node.js.selected.package.standard" value="" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\flycat\react-sleep-mobile\src\assets\profit" />
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\profit\container" />
-      <recent name="D:\flycat\react-sleep-mobile\src\assets" />
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\customerNex" />
-      <recent name="D:\flycat\react-sleep-mobile\src\assets\shop" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\flycat\react-sleep-mobile\src\assets" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\shop" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\home" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\share" />
       <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\bindPhone" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\live\container" />
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\live" />
+      <recent name="D:\flycat\react-sleep-mobile\src\assets\profit" />
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\profit\container" />
+      <recent name="D:\flycat\react-sleep-mobile\src\assets" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -527,20 +499,21 @@
       <workItem from="1522718954031" duration="4317000" />
       <workItem from="1522805122549" duration="741000" />
       <workItem from="1522820491350" duration="8563000" />
-      <workItem from="1523162826681" duration="3793000" />
+      <workItem from="1523162826681" duration="6829000" />
+      <workItem from="1523255107173" duration="12112000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1411992000" />
+    <option name="totallyTimeSpent" value="1427140000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="643" y="53" width="1597" height="977" extended-state="0" />
-    <editor active="true" />
+    <frame x="116" y="3" width="1793" height="1065" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19038583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17107485" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3257329" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -553,7 +526,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3257329" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -568,134 +540,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/css.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="42" column="18" lean-forward="false" selection-start-line="42" selection-start-column="18" selection-end-line="42" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/atCat/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="270" column="22" lean-forward="false" selection-start-line="270" selection-start-column="22" selection-end-line="270" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderCustomer/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="288" column="47" lean-forward="true" selection-start-line="288" selection-start-column="47" selection-end-line="288" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="849">
-          <caret line="179" column="40" lean-forward="false" selection-start-line="179" selection-start-column="40" selection-end-line="179" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/preCheck/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="133" column="15" lean-forward="false" selection-start-line="133" selection-start-column="15" selection-end-line="133" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="23" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="44" column="28" lean-forward="false" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_reducer/shop-reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="90" column="23" lean-forward="false" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/register/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1505">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/setPassword/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/checkVcode/index.scss" />
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/checkVcode/index.js" />
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="145" column="2" lean-forward="false" selection-start-line="145" selection-start-column="2" selection-end-line="150" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="240" column="16" lean-forward="true" selection-start-line="240" selection-start-column="16" selection-end-line="249" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="241" column="23" lean-forward="true" selection-start-line="241" selection-start-column="23" selection-end-line="241" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="148" column="2" lean-forward="true" selection-start-line="148" selection-start-column="2" selection-end-line="153" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/choseService/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="255" column="41" lean-forward="true" selection-start-line="255" selection-start-column="41" selection-end-line="255" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/choseService/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="135" column="16" lean-forward="true" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/profit/step0@3x.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -739,20 +583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
           <caret line="79" column="94" lean-forward="false" selection-start-line="79" selection-start-column="94" selection-end-line="79" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -820,13 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_action/app-action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="222" column="2" lean-forward="true" selection-start-line="222" selection-start-column="2" selection-end-line="222" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="512">
@@ -848,16 +671,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="681" column="2" lean-forward="false" selection-start-line="681" selection-start-column="2" selection-end-line="681" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
+        <state relative-caret-position="308">
           <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
           <folding />
         </state>
@@ -865,19 +681,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
+        <state relative-caret-position="682">
           <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="179" column="71" lean-forward="true" selection-start-line="179" selection-start-column="71" selection-end-line="179" selection-end-column="71" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -894,7 +700,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
+        <state relative-caret-position="1584">
           <caret line="78" column="32" lean-forward="false" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
           <folding />
         </state>
@@ -910,10 +716,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
+        <state relative-caret-position="2178">
           <caret line="107" column="24" lean-forward="false" selection-start-line="107" selection-start-column="24" selection-end-line="107" selection-end-column="24" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <marker date="1523164381826" expanded="true" signature="2888:4542" ph="..." />
             <marker date="1523164381826" expanded="true" signature="2934:4523" ph="..." />
             <marker date="1523164381826" expanded="true" signature="2960:3086" ph="..." />
@@ -927,13 +733,244 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="131" column="32" lean-forward="true" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="32" />
+        <state relative-caret-position="2618">
+          <caret line="129" column="47" lean-forward="true" selection-start-line="129" selection-start-column="47" selection-end-line="129" selection-end-column="47" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#75#101#0" expanded="false" />
+            <element signature="e#381#430#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="160" column="11" lean-forward="true" selection-start-line="160" selection-start-column="11" selection-end-line="160" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="82" column="115" lean-forward="false" selection-start-line="82" selection-start-column="115" selection-end-line="82" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/register/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="99" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" lean-forward="true" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="97" column="5" lean-forward="true" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="1" lean-forward="true" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1306">
+          <caret line="72" column="11" lean-forward="true" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#72#98#0" expanded="false" />
+            <element signature="e#330#408#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="275" column="51" lean-forward="true" selection-start-line="275" selection-start-column="51" selection-end-line="275" selection-end-column="51" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/root/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3754">
+          <caret line="220" column="67" lean-forward="true" selection-start-line="220" selection-start-column="67" selection-end-line="220" selection-end-column="67" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#458#504#0" expanded="false" />
+            <element signature="e#6232#6274#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/register/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5489">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="133" column="47" lean-forward="false" selection-start-line="133" selection-start-column="47" selection-end-line="133" selection-end-column="47" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/live/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-603">
+          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_reducer/shop-reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="280" column="2" lean-forward="true" selection-start-line="280" selection-start-column="2" selection-end-line="280" selection-end-column="2" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="77" column="18" lean-forward="false" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="204" column="38" lean-forward="true" selection-start-line="204" selection-start-column="30" selection-end-line="204" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/primaryIn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-726">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#91#117#0" expanded="false" />
+            <element signature="e#392#440#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_component/iscrollLuo/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="134" column="28" lean-forward="true" selection-start-line="134" selection-start-column="4" selection-end-line="134" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/atCat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="58" column="8" lean-forward="false" selection-start-line="58" selection-start-column="8" selection-end-line="61" selection-end-column="11" />
+          <folding>
+            <element signature="e#75#101#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_action/app-action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3825">
+          <caret line="219" column="18" lean-forward="true" selection-start-line="219" selection-start-column="18" selection-end-line="219" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="766" column="16" lean-forward="false" selection-start-line="766" selection-start-column="16" selection-end-line="766" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="133" column="56" lean-forward="false" selection-start-line="133" selection-start-column="56" selection-end-line="133" selection-end-column="56" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#75#101#0" expanded="true" />
-            <element signature="e#381#430#0" expanded="true" />
+            <element signature="e#73#99#0" expanded="true" />
+            <marker date="1523267582611" expanded="true" signature="3337:3380" ph="..." />
+            <marker date="1523267582611" expanded="true" signature="3910:4109" ph="..." />
+            <marker date="1523267582611" expanded="true" signature="4550:4696" ph="..." />
+            <marker date="1523267582611" expanded="true" signature="6494:6607" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

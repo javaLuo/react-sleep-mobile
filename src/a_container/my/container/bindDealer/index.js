@@ -13,7 +13,7 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Button, Toast, List, InputItem, Modal } from 'antd-mobile';
+import { Button, Toast, List, InputItem, Modal, Checkbox } from 'antd-mobile';
 import ImgLogo from '../../../../assets/dunpai@3x.png';
 
 // ==================
@@ -26,6 +26,7 @@ import { bindDistributor } from '../../../../a_action/shop-action';
 // Definition
 // ==================
 const alert = Modal.alert;
+const AgreeItem = Checkbox.AgreeItem;
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -33,6 +34,7 @@ class Register extends React.Component {
             loading: false, // 是否正在异步请求
             userName: '',  // 表单username
             password: '', // 表单password
+            formChecked: false, // 是否勾选协议
         };
 
     }
@@ -64,6 +66,13 @@ class Register extends React.Component {
         }
     }
 
+    // 勾选
+    onFormChecked(e) {
+        this.setState({
+            formChecked: e.target.checked,
+        });
+    }
+
     // 提交
     onSubmit() {
         if(!this.state.userName){
@@ -74,6 +83,11 @@ class Register extends React.Component {
             Toast.fail('密码不能为空', 1);
             return;
         }
+        if(!this.state.formChecked){
+            Toast.info('请阅读并勾选翼猫用户协议和隐私协议后，才能绑定账号', 1);
+            return;
+        }
+
         const u = this.props.userinfo;
         if (u && [0,1,2,5,6].indexOf(u.userType)>=0) {
             Toast.info('您已绑定过经销商账号', 1);
@@ -148,6 +162,11 @@ class Register extends React.Component {
                                 onChange={(e) => this.onPasswordInput(e)}
                             />
                         </List>
+                    </div>
+                    <div className="input-box2">
+                        <AgreeItem className="agree-item" checked={this.state.formChecked} onChange={(e) => this.onFormChecked(e)}>我已阅读并同意
+                            <a href="https://baidu.com" target="_blank" rel="noopener noreferrer">翼猫用户协议</a>和<a href="https://baidu.com" target="_blank" rel="noopener noreferrer">隐私协议</a>
+                        </AgreeItem>
                     </div>
                     <Button
                         type="primary"

@@ -770,3 +770,19 @@ export const stationNearBy = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 获取视频分类列表
+export const getLiveTypes = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/live/type/list', params);
+        if(res.status === 200) {
+            dispatch({
+                type: 'LIVE::getLiveTypes',
+                payload: res.data
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
