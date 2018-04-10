@@ -15,6 +15,7 @@ import './index.scss';
 // ==================
 import $ from 'jquery';
 import _ from 'lodash';
+import { Toast } from 'antd-mobile';
 import { Carousel, Icon } from 'antd-mobile';
 import imgDefalut from '../../assets/logo-img.png';
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';

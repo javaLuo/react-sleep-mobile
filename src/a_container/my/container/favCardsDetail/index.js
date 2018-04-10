@@ -109,7 +109,7 @@ class Register extends React.Component {
         if (!this.props.userinfo) {
             return;
         }
-        this.props.actions.getStationInfoById({ userId: this.props.userinfo.id }).then((res) => {
+        this.props.actions.getStationInfoById({ userId: this.props.userinfo.id, productId: 5 }).then((res) => {
             if (res.status === 200) {
                 this.setState({
                     station: res.data,

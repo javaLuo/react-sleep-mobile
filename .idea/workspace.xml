@@ -14,48 +14,64 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="133" column="56" lean-forward="false" selection-start-line="133" selection-start-column="56" selection-end-line="133" selection-end-column="56" />
+            <state relative-caret-position="243">
+              <caret line="134" column="44" lean-forward="false" selection-start-line="134" selection-start-column="44" selection-end-line="134" selection-end-column="44" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#73#99#0" expanded="true" />
-                <marker date="1523267582611" expanded="true" signature="3337:3380" ph="..." />
-                <marker date="1523267582611" expanded="true" signature="3910:4109" ph="..." />
-                <marker date="1523267582611" expanded="true" signature="4550:4696" ph="..." />
-                <marker date="1523267582611" expanded="true" signature="6494:6607" ph="..." />
+                <element signature="e#402#444#0" expanded="true" />
+                <marker date="1523354739005" expanded="true" signature="7124:7167" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="7695:7894" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="9627:9677" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="10257:11305" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="10601:10832" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="11766:12625" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="11900:12178" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="12269:12551" ph="..." />
+                <marker date="1523354739005" expanded="true" signature="13226:13338" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.scss" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.scss">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/config/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state relative-caret-position="22">
+              <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="551">
+              <caret line="274" column="41" lean-forward="false" selection-start-line="274" selection-start-column="41" selection-end-line="274" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/my/container/order/index.scss">
+        <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="16" />
+            <state relative-caret-position="455">
+              <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
+      <file leaf-file-name="shop-action.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="77" column="18" lean-forward="false" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
+            <state relative-caret-position="243">
+              <caret line="683" column="0" lean-forward="false" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,36 +81,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onDateChange</find>
-      <find>onModalCodeClose</find>
-      <find>onSubmit</find>
-      <find>userIncomeDetails</find>
-      <find>step-box</find>
-      <find>优惠卡</find>
-      <find>alert</find>
-      <find>this.props.history.push</find>
-      <find>onPay</find>
       <find>getStationInfoById</find>
-      <find>detailImg</find>
-      <find>iwantnow</find>
-      <find>checkTiXianCan</find>
-      <find>pathname</find>
-      <find>mall/wxpay/cashRecord/verify</find>
-      <find>newTiXian</find>
-      <find>onItemClick</find>
-      <find>onCLickThis</find>
-      <find>协议</find>
-      <find>AgreeItem</find>
-      <find>.page-binding</find>
-      <find>onAccountChange</find>
-      <find>liveTypes</find>
+      <find>getType</find>
+      <find>联系热线</find>
+      <find>nothing</find>
+      <find>.data-nothing</find>
       <find>onLinkClick</find>
-      <find>tabs</find>
-      <find>tabs-div</find>
-      <find>iscroll</find>
-      <find>销毁</find>
-      <find>referr</find>
+      <find>提现记录</find>
+      <find>未找到该分类信息</find>
+      <find>Luo</find>
+      <find>clickLv2</find>
+      <find>onDown</find>
+      <find>this.props.liveTypes</find>
+      <find>ImgYouHui</find>
+      <find>ImgBar7</find>
+      <find>20个</find>
+      <find>formDate</find>
+      <find>childNow</find>
+      <find>getAllDataByTypeId</find>
+      <find>idNow</find>
+      <find>onTabChange</find>
+      <find>getOrdersCount</find>
+      <find>getProDuctList</find>
+      <find>mallApList</find>
+      <find>newTiXian2</find>
+      <find>live-tabnow</find>
+      <find>play</find>
+      <find>initAllScroll</find>
+      <find>console.log</find>
       <find>makeTypesLv1</find>
+      <find>getData</find>
     </findStrings>
     <replaceStrings>
       <replace>ImgIcon1</replace>
@@ -140,11 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/index.html" />
-        <option value="$PROJECT_DIR$/src/util/all.js" />
-        <option value="$PROJECT_DIR$/src/a_reducer/app-reducer.js" />
-        <option value="$PROJECT_DIR$/src/a_container/downLine/container/map/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/orderCustomerDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/atCat/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.js" />
@@ -164,33 +175,38 @@
         <option value="$PROJECT_DIR$/webpack.production.config.js" />
         <option value="$PROJECT_DIR$/src/a_action/app-action.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianNow.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss" />
         <option value="$PROJECT_DIR$/src/a_container/profit/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianRecord.js" />
-        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/checkPwd/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/healthy/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js" />
-        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
         <option value="$PROJECT_DIR$/src/a_container/root/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/live/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/home/index.js" />
         <option value="$PROJECT_DIR$/src/a_reducer/shop-reducer.js" />
-        <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/css/css.css" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/orderCustomerDetail/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js" />
+        <option value="$PROJECT_DIR$/src/util/all.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js" />
+        <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/home/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/preInfo/index.js" />
+        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.js" />
       </list>
     </option>
   </component>
@@ -206,10 +222,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="116" />
-    <option name="y" value="3" />
-    <option name="width" value="1793" />
-    <option name="height" value="1065" />
+    <option name="x" value="277" />
+    <option name="y" value="34" />
+    <option name="width" value="1681" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -242,37 +258,7 @@
               <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_action" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="my" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="my" type="462c0819:PsiDirectoryNode" />
-              <item name="container" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="my" type="462c0819:PsiDirectoryNode" />
-              <item name="container" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -296,19 +282,19 @@
     <property name="node.js.selected.package.standard" value="" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\flycat\react-sleep-mobile\src\assets" />
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\live\container" />
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\live" />
+      <recent name="D:\flycat\react-sleep-mobile\src\assets\profit" />
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\profit\container" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\flycat\react-sleep-mobile\src\assets" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\shop" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\home" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\share" />
       <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\bindPhone" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\live\container" />
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\live" />
-      <recent name="D:\flycat\react-sleep-mobile\src\assets\profit" />
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\profit\container" />
-      <recent name="D:\flycat\react-sleep-mobile\src\assets" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -501,22 +487,24 @@
       <workItem from="1522820491350" duration="8563000" />
       <workItem from="1523162826681" duration="6829000" />
       <workItem from="1523255107173" duration="12112000" />
+      <workItem from="1523322447373" duration="30217000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1427140000" />
+    <option name="totallyTimeSpent" value="1457357000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="116" y="3" width="1793" height="1065" extended-state="0" />
+    <frame x="277" y="34" width="1681" height="1055" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17107485" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15255256" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14118896" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3257329" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -540,40 +528,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/assets/profit/step0@3x.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/profit/step1@3x.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/profit/down@3x.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/profit/fail@3x.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.production.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="95" column="14" lean-forward="true" selection-start-line="95" selection-start-column="14" selection-end-line="95" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.dev.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/yhkbj.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -614,34 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5458">
-          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2317">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderCardDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderCustomerDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1636">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
@@ -650,39 +576,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="384" column="52" lean-forward="false" selection-start-line="384" selection-start-column="52" selection-end-line="384" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianNow.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="119" column="51" lean-forward="true" selection-start-line="119" selection-start-column="51" selection-end-line="119" selection-end-column="51" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#75#101#0" expanded="false" />
-            <element signature="e#337#415#0" expanded="false" />
-            <element signature="e#533#598#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -728,26 +625,6 @@
             <marker date="1523164381826" expanded="true" signature="3938:4100" ph="..." />
             <marker date="1523164381826" expanded="true" signature="4260:4413" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2618">
-          <caret line="129" column="47" lean-forward="true" selection-start-line="129" selection-start-column="47" selection-end-line="129" selection-end-column="47" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#75#101#0" expanded="false" />
-            <element signature="e#381#430#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/all.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,16 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="275" column="51" lean-forward="true" selection-start-line="275" selection-start-column="51" selection-end-line="275" selection-end-column="51" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/root/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3754">
@@ -841,24 +708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="83" column="7" lean-forward="true" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="133" column="47" lean-forward="false" selection-start-line="133" selection-start-column="47" selection-end-line="133" selection-end-column="47" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/live/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-603">
@@ -876,14 +725,6 @@
           <folding>
             <element signature="n#!!doc" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="77" column="18" lean-forward="false" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,42 +776,215 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/css.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="51" column="34" lean-forward="false" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="136" column="31" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderCustomerDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_action/app-action.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3825">
-          <caret line="219" column="18" lean-forward="true" selection-start-line="219" selection-start-column="18" selection-end-line="219" selection-end-column="18" />
+        <state relative-caret-position="200">
+          <caret line="231" column="5" lean-forward="false" selection-start-line="231" selection-start-column="5" selection-end-line="231" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="9" lean-forward="false" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="23" column="43" lean-forward="false" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="102" column="27" lean-forward="false" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1188">
+          <caret line="126" column="1" lean-forward="false" selection-start-line="126" selection-start-column="1" selection-end-line="126" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#69#95#0" expanded="false" />
+            <element signature="e#368#430#0" expanded="false" />
+            <element signature="e#608#726#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderCardDetail/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1116">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/scss.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderCardDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="262" column="36" lean-forward="false" selection-start-line="262" selection-start-column="36" selection-end-line="262" selection-end-column="36" />
+          <folding>
+            <element signature="e#379#438#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="158" column="41" lean-forward="false" selection-start-line="158" selection-start-column="32" selection-end-line="158" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianDetail.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="61" column="13" lean-forward="true" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="116" column="22" lean-forward="true" selection-start-line="110" selection-start-column="20" selection-end-line="116" selection-end-column="22" />
+          <folding>
+            <element signature="e#386#416#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/preInfo/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2405">
+          <caret line="143" column="17" lean-forward="false" selection-start-line="143" selection-start-column="17" selection-end-line="143" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/tiXian/tiXianNow.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2220">
+          <caret line="124" column="37" lean-forward="false" selection-start-line="124" selection-start-column="27" selection-end-line="124" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-295">
+          <caret line="53" column="35" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="35" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#65#91#0" expanded="false" />
+            <element signature="e#323#346#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="766" column="16" lean-forward="false" selection-start-line="766" selection-start-column="16" selection-end-line="766" selection-end-column="16" />
+        <state relative-caret-position="243">
+          <caret line="683" column="0" lean-forward="false" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="274" column="41" lean-forward="false" selection-start-line="274" selection-start-column="41" selection-end-line="274" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="53" column="43" lean-forward="false" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="133" column="56" lean-forward="false" selection-start-line="133" selection-start-column="56" selection-end-line="133" selection-end-column="56" />
+        <state relative-caret-position="243">
+          <caret line="134" column="44" lean-forward="false" selection-start-line="134" selection-start-column="44" selection-end-line="134" selection-end-column="44" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#73#99#0" expanded="true" />
-            <marker date="1523267582611" expanded="true" signature="3337:3380" ph="..." />
-            <marker date="1523267582611" expanded="true" signature="3910:4109" ph="..." />
-            <marker date="1523267582611" expanded="true" signature="4550:4696" ph="..." />
-            <marker date="1523267582611" expanded="true" signature="6494:6607" ph="..." />
+            <element signature="e#402#444#0" expanded="true" />
+            <marker date="1523354739005" expanded="true" signature="7124:7167" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="7695:7894" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="9627:9677" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="10257:11305" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="10601:10832" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="11766:12625" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="11900:12178" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="12269:12551" ph="..." />
+            <marker date="1523354739005" expanded="true" signature="13226:13338" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/live/container/main/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="23" lean-forward="false" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>

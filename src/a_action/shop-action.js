@@ -641,6 +641,17 @@ export const getCashRecordList = (params = {}) => async(dispatch) => {
     }
 };
 
+
+// 通过no获取某一天提现信息的详情
+export const getCashRecordDetailByNo = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/cashRecord/detail', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
 // 检查提现是否符合需求
 export const checkTiXianCan = (params = {}) => async(dispatch) => {
     try {
@@ -674,7 +685,7 @@ export const newTiXian = (params = {}) => async(dispatch) => {
 // 新的 - 提现最后一步，检查提现验证码
 export const newTiXian2 = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/wxpay/cashRecord/verify', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/wxpay/cashRecord/verify', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -781,6 +792,16 @@ export const getLiveTypes = (params = {}) => async(dispatch) => {
                 payload: res.data
             });
         }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 获取视频分类列表
+export const getLiveList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/live/list', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

@@ -24,6 +24,8 @@ import ImgBar6 from '../../../../assets/shouyi@3x.png';
 import ImgBar7 from '../../../../assets/shiyongbangzhu@3x.png';
 import ImgBar8 from '../../../../assets/wodekehudingdan@3x.png';
 import ImgBar9 from '../../../../assets/jxs@3x.png';
+import ImgBar10 from '../../../../assets/icon_btn_yingsixieyi_normal@3x.png';
+import ImgBar11 from '../../../../assets/icon_btn_yonghuxieyi_normal@3x.png';
 import ImgYouHui from '../../../../assets/youhui@3x.png';
 import ImgDingDan from '../../../../assets/dingdan@3x.png';
 import tools from '../../../../util/all';
@@ -265,14 +267,15 @@ class HomePageContainer extends React.Component {
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
               </div>
-              <div className="item tran8 hide page-flex-row all_active" onClick={() => window.open('https://baidu.com')}>
-                  <img src={ImgBar6} className="icon"/>
+              <div className="item tran8 hide page-flex-row all_active mt" onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=')}>
+                  <img src={ImgBar11} className="icon"/>
                   <div className="title">用户协议</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
               </div>
-              <div className="item tran8 hide page-flex-row all_active" onClick={() => window.open('https://baidu.com')}>
-                  <img src={ImgBar6} className="icon"/>
+              <div className="item tran8 hide page-flex-row all_active" onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=')}>
+                  <img src={ImgBar10} className="icon"/>
                   <div className="title">隐私协议</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>

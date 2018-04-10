@@ -114,21 +114,6 @@ class HomePageContainer extends React.Component {
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
               </div>
-          </div>
-          <div className="bar-list">
-              <div className="bar-title">健康智库</div>
-              <div className="item hide tran1 page-flex-row all_active" onClick={() => this.onNewsClick()}>
-                  <img className="icon" src={ImgBar5} />
-                  <div className="title">健康新闻</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
-              <div className="item hide tran2 page-flex-row all_active" onClick={() => this.onZiXunClick()}>
-                  <img className="icon" src={ImgBar6} />
-                  <div className="title">健康资讯</div>
-                  <div className="arrow"><img src={ImgRight} /></div>
-                  <div className="line"/>
-              </div>
               <div className="item hide tran5 page-flex-row all_active" onClick={() => this.onHraClick()}>
                   <img className="icon" src={ImgBar7} />
                   <div className="title">健康风险评估知识库</div>

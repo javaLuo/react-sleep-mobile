@@ -104,6 +104,7 @@ class HomePageContainer extends React.Component {
         switch(String(item.activityStatus)){
             case '3': return {label:'退款中', info: '订单审核未通过', icon: ImgYiWanCheng};
             case '4': return {label:'已退款', info: '订单审核未通过', icon: ImgYiWanCheng};
+            case '5': return {label:'退款失败', info: <span>退款审核未通过，如有疑问，请联系客服：<a href="tel:4001519999">4001519999</a></span>, icon: ImgYiWanCheng};
             default:;
         }
 

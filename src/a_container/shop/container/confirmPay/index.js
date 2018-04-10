@@ -85,7 +85,9 @@ class HomePageContainer extends React.Component {
       if (!this.props.userinfo) {
           return;
       }
-      this.props.actions.getStationInfoById({ userId: this.props.userinfo.id }).then((res) => {
+      const d = this.props.orderParams.nowProduct || {typeModel: {}}; // 当前商品对象
+
+      this.props.actions.getStationInfoById(tools.clearNull({ userId: this.props.userinfo.id,  productId: d.typeId })).then((res) => {
           if (res.status === 200) {
               this.setState({
                   station: res.data,
@@ -383,7 +385,7 @@ class HomePageContainer extends React.Component {
                       <ul className="other-info-ul" key={2}>
                           <li>如需开票，请联系：</li>
                           <li>{ this.state.station }：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">联系门店</a></li>
-                          <li>联系热线：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">4001519999</a></li>
+                          <li>客服热线：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">4001519999</a></li>
                       </ul>
                   ]
               ) : null

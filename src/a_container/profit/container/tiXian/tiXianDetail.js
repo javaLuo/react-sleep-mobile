@@ -23,7 +23,7 @@ import ImgDown from '../../../../assets/profit/down@3x.png';
 // 本页面所需action
 // ==================
 
-import { getCashRecordList } from '../../../../a_action/shop-action';
+import { getCashRecordList, getCashRecordDetailByNo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -51,7 +51,7 @@ class HomePageContainer extends React.Component {
             partnerTradeNo,
         };
         Toast.loading('请稍后...', 0);
-        this.props.actions.getCashRecordList(tools.clearNull(params)).then((res) => {
+        this.props.actions.getCashRecordDetailByNo(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 me.setState({
                     data: res.data.result ? res.data.result[0] : {},
@@ -67,17 +67,6 @@ class HomePageContainer extends React.Component {
 
     render() {
         const data = this.state.data;
-
-        const stepsInfo = [{
-            title: '发起提现',
-            description: '2018-02-02 14:20:59',
-        }, {
-            title: '处理中',
-            description: '2018-02-02 14:20:59',
-        }, {
-            title: '提现成功',
-            description: '2018-02-02 14:20:59',
-        }].map((s, i) => <Step key={i} title={s.title} description={s.description} />);
 
         return (
             <div className="page-tixiandetail">
@@ -167,6 +156,13 @@ class HomePageContainer extends React.Component {
                         {/*<div>￥{Number(data.formalitiesFee).toFixed(2)}</div>*/}
                     {/*</div>*/}
                 </div>
+                <div className="foot-info">
+                    {
+                        data.withdrawStatus === 2 || data.flag === 2 ? (
+                            data.reason
+                        ) : null
+                    }
+                </div>
             </div>
         );
     }
@@ -192,6 +188,6 @@ export default connect(
 
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getCashRecordList }, dispatch),
+        actions: bindActionCreators({ getCashRecordList, getCashRecordDetailByNo }, dispatch),
     })
 )(HomePageContainer);

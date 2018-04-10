@@ -134,17 +134,20 @@ class HomePageContainer extends React.Component {
     // 保存
     savePreInfo() {
       if (!this.state.formName) {
-          Toast.fail('请输入体检人姓名',1);
+          Toast.info('请输入体检人姓名',1);
           return;
       } else if (!tools.checkPhone(this.state.formPhone)) {
-          Toast.fail('请输入正确的手机号',1);
+          Toast.info('请输入正确的手机号',1);
+          return;
+      } else if (!this.state.formDate) {
+          Toast.info('请填写出生日期',1);
           return;
       }
       this.props.actions.savePreInfo({
           userName: this.state.formName,
           phone: this.state.formPhone,
           sex: Number(this.state.formSex),
-          date: tools.dateformart(this.state.formDate),
+          date: tools.dateformart(this.state.formDate).split('-').join(''),
           idCard: this.state.formID,
           height: Number(this.state.formTall),
           weight: Number(this.state.formWeight),
@@ -164,14 +167,14 @@ class HomePageContainer extends React.Component {
               <Item arrow="horizontal" extra={this.state.formPhone} onClick={() => this.setPhone()}>手机号码</Item>
           </List>
           <List className="mt">
-              {/*<DatePicker*/}
-                  {/*mode="date"*/}
-                  {/*value={this.state.formDate}*/}
-                  {/*minDate={new Date('1900-01-01')}*/}
-                  {/*onChange={date => this.setState({ formDate: date })}*/}
-              {/*>*/}
-                  {/*<Item arrow="horizontal">出生日期</Item>*/}
-              {/*</DatePicker>*/}
+              <DatePicker
+                  mode="date"
+                  value={this.state.formDate}
+                  minDate={new Date('1900-01-01')}
+                  onChange={date => this.setState({ formDate: date })}
+              >
+                  <Item arrow="horizontal">出生日期</Item>
+              </DatePicker>
               <Picker
                   title="请选择性别"
                   extra={this.state.formSex[0] === '1' ? '男' : '女'}
