@@ -165,7 +165,7 @@ class Register extends React.Component {
                     </div>
                     <div className="input-box2">
                         <AgreeItem className="agree-item" checked={this.state.formChecked} onChange={(e) => this.onFormChecked(e)}>我已阅读并同意
-                            <a href="https://baidu.com" target="_blank" rel="noopener noreferrer">翼猫用户协议</a>和<a href="https://baidu.com" target="_blank" rel="noopener noreferrer">隐私协议</a>
+                            <a href="http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=" target="_blank" rel="noopener noreferrer">翼猫用户协议</a>和<a href="http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=" target="_blank" rel="noopener noreferrer">隐私协议</a>
                         </AgreeItem>
                     </div>
                     <Button
