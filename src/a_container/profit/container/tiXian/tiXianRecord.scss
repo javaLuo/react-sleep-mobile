@@ -3,29 +3,41 @@
     height: 100vh;
   }
   .card-box{
-    padding: .3rem;
+    padding: .2rem;
     background-color: #fff;
     &+.card-box{
       margin-top: .2rem;
     }
     .l{
       .title{
-        color: #222328;
+        color: rgb(37, 41, 46);
         font-size: .32rem;
         letter-spacing: 1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
       .info{
-        margin-top: .2rem;
-        font-size: .32rem;;
-        color: #89888e;
-        img{
-          width: .28rem;
-          margin-right: .2rem;
+        margin-top: .1rem;
+        font-size: .28rem;;
+        color: rgb(153, 156, 160);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .type{
+          font-size: .3rem;
+          color: rgb(37, 41, 46);
         }
       }
     }
     .r{
-      font-size: .36rem;
+      display: flex;
+      align-items: center;
+      margin-left: .3rem;
+      img{
+        width: .14rem;
+        height: auto;
+      }
     }
   }
 }

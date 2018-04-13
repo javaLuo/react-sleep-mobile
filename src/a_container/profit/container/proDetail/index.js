@@ -133,7 +133,7 @@ class HomePageContainer extends React.Component {
                     this.setState({
                         data: this.state.data,
                     });
-                    Toast.info('没有更多数据了',1);
+                    Toast.info('暂没有收益数据',1);
                 } else{
                     this.setState({
                         totalIncome: 0,
@@ -255,7 +255,13 @@ class HomePageContainer extends React.Component {
               onOk={(obj) => this.onDateChange(obj)}
           >
               <div className="head-chose page-flex-row flex-jc-sb">
-                  <div className="date-chose"><span>{this.state.date ?  this.state.date.join('-') : '选择时间'}</span><img src={ImgRight} /></div>
+                  <div className="date-chose"><span>{this.state.date ?  (() => {
+                      const d = this.state.date;
+                      if(d && d.length > 1 && d[1] === '全年') {
+                          return d[0];
+                      }
+                      return d.join('-');
+                  })() : '选择时间'}</span><img src={ImgRight} /></div>
                   <div>￥{this.state.totalIncome}</div>
               </div>
           </Picker>

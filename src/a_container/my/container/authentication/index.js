@@ -42,10 +42,10 @@ class HomePageContainer extends React.Component {
   //onSubmit
     onSubmit() {
         if (!this.state.formName) {
-            Toast.fail('请输入真实姓名',1);
+            Toast.info('请输入真实姓名',1);
             return false;
         } else if (this.state.formID.length < 18) {
-            Toast.fail('请输入有效身份证',1);
+            Toast.info('请输入有效身份证',1);
             return false;
         }
     }

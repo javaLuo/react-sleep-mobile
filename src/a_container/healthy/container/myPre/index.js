@@ -69,7 +69,7 @@ class HomePageContainer extends React.Component {
                   data: type === 'flash' ? [] : this.state.data,
               });
               if (type === 'update') {
-                  Toast.fail('没有更多数据了',1);
+                  Toast.info('没有更多数据了',1);
               } else{
                     Toast.hide();
                 }

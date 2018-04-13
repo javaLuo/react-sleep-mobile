@@ -87,7 +87,7 @@ class HomePageContainer extends React.Component {
       }
       const d = this.props.orderParams.nowProduct || {typeModel: {}}; // 当前商品对象
 
-      this.props.actions.getStationInfoById(tools.clearNull({ userId: this.props.userinfo.id,  productId: d.typeId })).then((res) => {
+      this.props.actions.getStationInfoById(tools.clearNull({ userId: this.props.userinfo.id,  productId: d.id })).then((res) => {
           if (res.status === 200) {
               this.setState({
                   station: res.data,

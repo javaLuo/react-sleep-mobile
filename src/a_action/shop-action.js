@@ -634,7 +634,7 @@ export const getCustomersCompany = (params = {}) => async(dispatch) => {
 // 分页查询提现记录
 export const getCashRecordList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/cashRecord/list', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/cashRecord/list', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);
@@ -645,7 +645,7 @@ export const getCashRecordList = (params = {}) => async(dispatch) => {
 // 通过no获取某一天提现信息的详情
 export const getCashRecordDetailByNo = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/cashRecord/detail', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/cashRecord/detail', params);
         return res;
     } catch(err) {
         Toast.fail('网络错误，请重试',1);

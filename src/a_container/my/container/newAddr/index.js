@@ -88,23 +88,23 @@ class HomePageContainer extends React.Component {
     onSubmit() {
       const u = this.props.userinfo;
       if (!u) {
-          Toast.fail('请先登录', 1);
+          Toast.info('请先登录', 1);
           return;
       }
         if (!this.state.formName) {
-            Toast.fail('请输入姓名',1);
+            Toast.info('请输入姓名',1);
             return;
         } else if (!tools.checkPhone(this.state.formPhone)) {
-            Toast.fail('请输入正确的手机号',1);
+            Toast.info('请输入正确的手机号',1);
             return;
         } else if (!this.state.formSex && this.state.formSex !== 0) {
-            Toast.fail('请选择性别', 1);
+            Toast.info('请选择性别', 1);
             return;
         } else if (!this.state.formArea) {
-            Toast.fail('请选择区域',1);
+            Toast.info('请选择区域',1);
             return;
         } else if (!this.state.formAddr) {
-            Toast.fail('请输入详细地址',1);
+            Toast.info('请输入详细地址',1);
             return;
         }
         const params = {

@@ -142,12 +142,18 @@ class HomePageContainer extends React.Component {
       } else if (!this.state.formDate) {
           Toast.info('请填写出生日期',1);
           return;
+      } else if (!this.state.formTall) {
+          Toast.info('请输入身高',1);
+          return;
+      } else if (!this.state.formWeight) {
+          Toast.info('请输入体重', 1);
+          return;
       }
       this.props.actions.savePreInfo({
           userName: this.state.formName,
           phone: this.state.formPhone,
           sex: Number(this.state.formSex),
-          date: tools.dateformart(this.state.formDate).split('-').join(''),
+          birthDate: tools.dateformart(this.state.formDate).split('-').join(''),
           idCard: this.state.formID,
           height: Number(this.state.formTall),
           weight: Number(this.state.formWeight),

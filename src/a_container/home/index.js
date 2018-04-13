@@ -9,14 +9,12 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
-
 // ==================
 // 所需的所有组件
 // ==================
 import $ from 'jquery';
 import _ from 'lodash';
-import { Toast } from 'antd-mobile';
-import { Carousel, Icon } from 'antd-mobile';
+import { Carousel } from 'antd-mobile';
 import imgDefalut from '../../assets/logo-img.png';
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
@@ -36,7 +34,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        imgHeight: '200px',
+        imgHeight: '178px',
         activeCount: 0,
     };
   }
@@ -98,6 +96,11 @@ class HomePageContainer extends React.Component {
   render() {
     const u = this.props.userinfo;
     const allProducts = _.cloneDeep(this.props.allProducts).sort((a, b) => a.sorts - b.sorts);
+    const barData = [
+        { title: '健康资讯', pic: ImgZiXun, key: 1 },
+        { title: '视频直播', pic: ImgZhiBo, key: 2 },
+        { title: '翼猫体验店', pic: ImgTiYan, key: 3 },
+    ];
     return (
       <div className="flex-auto page-box home-page">
           {/* 顶部轮播 */}
@@ -128,22 +131,16 @@ class HomePageContainer extends React.Component {
                           </a>
                       ))}
                   </Carousel>
-              ) : null
+              ) : <div style={{ height: `${this.state.imgHeight}` }} />
           }
           {/** 上方导航bar **/}
           <div className="link-bar page-flex-row">
-              <div onClick={() => this.onLinkClick(1)}>
-                  <img src={ImgZiXun} />
-                  <div>健康资讯</div>
-              </div>
-              <div onClick={() => this.onLinkClick(2)}>
-                  <img src={ImgZhiBo} />
-                  <div>视频直播</div>
-              </div>
-              <div onClick={() => this.onLinkClick(3)}>
-                  <img src={ImgTiYan} />
-                  <div>翼猫体验店</div>
-              </div>
+              {
+                  barData.map((item, index) => <div key={index} onClick={() => this.onLinkClick(item.key)}>
+                      <img src={item.pic} />
+                      <div>{item.title}</div>
+                  </div>)
+              }
           </div>
           {/** 横幅 **/}
           <div className="active-bar" onClick={() => this.props.history.push('/shop/shopactive')}>

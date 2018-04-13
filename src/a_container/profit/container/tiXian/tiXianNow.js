@@ -117,17 +117,17 @@ class Register extends React.Component {
             amount: Number(v[0]),           // 提现金额
             verifyCode: this.state.vcode,   // 验证码
             countryCode: 86,                // 城市码
-            partnerTradeNo: Number(v[1]),   // 提现单号
+            partnerTradeNo: v[1],   // 提现单号
         };
         this.setState({
             loading: true
         });
         this.props.actions.newTiXian2(params).then((res) => {
             if (res.status === 200) {
-                Toast.success('提现成功', 1);
+                Toast.success('提现申请成功', 1);
                 this.props.history.replace('/profit'); // 回到收益明细页（因为信息改变了，在这个页才能更新信息）
             } else {
-                Toast.fail(res.message || '提现失败',1);
+                Toast.fail(res.message || '提现申请失败',1);
             }
             this.setState({
                 loading: false
@@ -169,7 +169,7 @@ class Register extends React.Component {
                         className="this-btn"
                         disabled={this.state.loading}
                         onClick={() => this.onSubmit()}
-                    >立即提现</Button>
+                    >全部提现</Button>
                 </div>
             </div>
         );

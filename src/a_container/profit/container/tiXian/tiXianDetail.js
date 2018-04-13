@@ -54,7 +54,7 @@ class HomePageContainer extends React.Component {
         this.props.actions.getCashRecordDetailByNo(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 me.setState({
-                    data: res.data.result ? res.data.result[0] : {},
+                    data: res.data || {},
                 });
                 Toast.hide();
             } else {
@@ -85,15 +85,15 @@ class HomePageContainer extends React.Component {
                     <li className="line2" />
                     <li className="step">
                         <img className="step-icon" src={(() => {
-                            switch(data.withdrawStatus) {
+                            switch(data.status) {
                                 case 1: return ImgStep1;
                                 case 2: return ImgFail;
-                                default: return ImgStep0;
+                                default: return ImgStep1;
                             }
                         })()} />
                         <div className="info">
                             <div>{(() => {
-                                switch (data.withdrawStatus) {
+                                switch (data.status) {
                                     case 1:
                                         return '审核通过';
                                     case 2:
@@ -107,28 +107,28 @@ class HomePageContainer extends React.Component {
                             <div>{data.audirTime}</div>
                         </div>
                     </li>
-                    <li className={data.withdrawStatus === 1 ? 'line2' : 'line1'} />
+                    <li className={data.status === 1 ? 'line2' : 'line1'} />
                     <li className="step">
                         <img className="step-icon" src={(() => {
-                            if (data.withdrawStatus !== 1) {
+                            if (data.status !== 1) {
                                 return ImgDown;
                             }
                             if (data.flag === 1) {
-                                return ImgFail;
-                            } else {
                                 return ImgDown;
+                            } else {
+                                return ImgFail;
                             }
                         })()} />
                         <div className="info">
                             <div>{(() => {
-                                if (data.withdrawStatus !== 1) {
+                                if (data.status !== 1) {
                                     return '提现';
                                 }
 
                                 if (data.flag === 1) {
-                                    return '提现失败';
-                                } else {
                                     return '提现成功';
+                                } else {
+                                    return '提现失败';
                                 }
                             })()}</div>
                             <div>{data.paymentTime}</div>
@@ -141,7 +141,7 @@ class HomePageContainer extends React.Component {
                 <div className="info-box">
                     <div className="page-flex-row flex-jc-sb">
                         <div>类型</div>
-                        <div>提现到{data.withdrawType === 1 ? '微信钱包' : '支付宝'}</div>
+                        <div>提现到{data.destCash}</div>
                     </div>
                     <div className="page-flex-row flex-jc-sb">
                         <div>时间</div>
@@ -158,8 +158,8 @@ class HomePageContainer extends React.Component {
                 </div>
                 <div className="foot-info">
                     {
-                        data.withdrawStatus === 2 || data.flag === 2 ? (
-                            data.reason
+                        data.status === 2 || data.flag !== 1 ? (
+                            data.auditReason
                         ) : null
                     }
                 </div>

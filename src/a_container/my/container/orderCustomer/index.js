@@ -105,13 +105,12 @@ class HomePageContainer extends React.Component {
                 }),
             },
         ]);
-
     }
 
     // 返回当前订单的各状态
     makeType(item) {
       if(item.conditions === 1 && [1,2,5].includes(this.props.userinfo.userType)) {
-          return [<a key="0" onClick={() => this.onSetOrder(item.id, 2)}>审核不通过</a>, <a key="0" onClick={() => this.onSetOrder(item.id, 1)}>审核通过</a>];
+          return [<a key="0" onClick={() => this.onSetOrder(item.id, 2)}>审核不通过</a>, <a key="0" className="blue" onClick={() => this.onSetOrder(item.id, 1)}>审核通过</a>];
       }
       return null;
     }

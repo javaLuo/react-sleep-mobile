@@ -42,13 +42,13 @@ class Menu extends React.Component {
                 <div className={this.state.pathNow === 'home' ? "menu-item check" : 'menu-item'}>
                     <Link to="/home">
                         <div className="menu-icon icon1" />
-                        <div className="title">健康商城</div>
+                        <div className="title">首页</div>
                     </Link>
                 </div>
                 <div className={this.state.pathNow === 'healthy' ? "menu-item check" : 'menu-item'}>
                     <Link to="/healthy">
                         <div className="menu-icon icon3" />
-                        <div className="title">健康管理</div>
+                        <div className="title">健康服务</div>
                     </Link>
                 </div>
                 <div className={this.state.pathNow === 'my' ? "menu-item check" : 'menu-item'}>

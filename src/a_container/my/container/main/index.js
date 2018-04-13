@@ -168,7 +168,7 @@ class HomePageContainer extends React.Component {
     onBindDealear() {
         const u = this.props.userinfo;
         if (!u){
-            Toast.fail('请先登录',1);
+            Toast.info('请先登录',1);
             this.props.history.replace('/login');
             return false;
         }

@@ -191,7 +191,7 @@ class LiveContainer extends React.Component {
       const id = tab.id || null;
       const d = this.getAllDataByTypeId(id);
       if (!d.d){
-          Toast.fail('未获取到该分类信息', 1);
+          Toast.info('未获取到该分类信息', 1);
           return;
       }
       sessionStorage.setItem('live-tabnow', index);

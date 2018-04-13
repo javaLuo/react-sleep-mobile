@@ -119,3 +119,7 @@ $fontSize: .32rem;
     }
   }
 }
+
+.am-toast > span{
+  max-width: 80% !important;
+}

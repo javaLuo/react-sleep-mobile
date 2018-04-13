@@ -33,6 +33,7 @@ const initState = {
         reserveTime: '',    // 预约时间 必填
         sex: 1,             // 性别，1男0女 必填
         ticketNo: '',       // 评估卡编号 必填
+        birthDate: null,    // 出生日期
         height: undefined,   // 身高
         weight: undefined,  // 体重
         reserveFrom: 2,     // 用户来源 1APP， 2公众号，3后台添加

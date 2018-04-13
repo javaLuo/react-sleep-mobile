@@ -41,7 +41,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '健康管理';
+      document.title = '健康服务';
       setTimeout(() =>{
               this.setState({
                   show: true

@@ -63,20 +63,21 @@ class HomePageContainer extends React.Component {
       const p = _.cloneDeep(this.props.preInfo);
       // 检查各必要的信息
        if (!p.ticketNo) {
-           Toast.fail('请选择评估卡',1);
+           Toast.info('请选择评估卡',1);
            return false;
        } else if(!p.userName || !p.phone) {
-           Toast.fail('请填写被评估者信息',1);
+           Toast.info('请填写被评估者信息',1);
            return false;
        } else if (!p.stationId) {
-           Toast.fail('请选择体检服务中心',1);
+           Toast.info('请选择体检服务中心',1);
            return false;
        } else if (!p.reserveTime_Date) {
-           Toast.fail('请选择体检日期',1);
+           Toast.info('请选择体检日期',1);
            return false;
        }
        delete p.reserveTime_Date;
        delete p.reserveTime_Time;
+       console.log('预约最终的P', p);
       // 调用预约接口
         this.props.actions.mallReserveSave(tools.clearNull(p)).then((res) => {
             if(res.status === 200) {

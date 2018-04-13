@@ -78,6 +78,7 @@ class HomePageContainer extends React.Component {
                   text: '确认',
                   onPress: () =>
                       new Promise((resolve) => {
+                          this.props.history.push(`/my/bindphone`);
                           resolve();
                       }),
               },
@@ -85,49 +86,38 @@ class HomePageContainer extends React.Component {
           return;
       }
 
-        const v = Number(this.props.iwantnow.toFixed(2));
-
-        if (!v || v < 1) {
-            Toast.info('单次提现金额不可低于1元',1);
-            return;
-        }
-
-      if (v > 20000) {
-          alert('确认提现？', '单笔单日提现不可超过2万元，本次实际可提现2万元，确认提现后，预计1-10个工作日到账', [
-              { text: '取消', onPress: () => console.log('cancel') },
-              {
-                  text: '确认',
-                  onPress: () =>
-                      new Promise((resolve) => {
-                          this.onGoGoGo(v);
-                          resolve();
-                      }),
-              },
-          ]);
-          return;
-      }
-
-      if (v <= 20000) {
-          alert('确认提现？', `您当前可提现金额为${v}元，确认提现后，预计1-10个工作日到账`, [
-              { text: '取消', onPress: () => console.log('cancel') },
-              {
-                  text: '确认',
-                  onPress: () =>
-                      new Promise((resolve) => {
-                          this.onGoGoGo();
-                          resolve();
-                      }),
-              },
-          ]);
-          return;
-      }
+        this.onGoGoGo();
     }
 
     /** 开始向后台申请提现！限制条件也太TM多了 **/
     onGoGoGo() {
         this.props.actions.newTiXian().then((res) => {
             if (res.status === 200) {
-                this.props.history.push(`/profit/tixiannow/${res.data.amount}_${res.data.partnerTradeNo}`);
+                if (res.data.amount < this.props.iwantnow) { // 后台返回的可提现金额 < 所有的可提现金额，说明所有的可提现金额超了
+                        alert('确认提现？', `由于提现额度限制，本次实际可提现${res.data.amount}万元，确认提现后，预计1-10个工作日到账，剩余可提现金额可明日再来`, [
+                            { text: '取消', onPress: () => console.log('cancel') },
+                            {
+                                text: '确认',
+                                onPress: () =>
+                                    new Promise((resolve) => {
+                                        this.props.history.push(`/profit/tixiannow/${res.data.amount}_${res.data.partnerTradeNo}`);
+                                        resolve();
+                                    }),
+                            },
+                        ]);
+                } else {
+                    alert('确认提现？', `您当前可提现金额为${res.data.amount}元，确认提现后，预计1-10个工作日到账`, [
+                        { text: '取消', onPress: () => console.log('cancel') },
+                        {
+                            text: '确认',
+                            onPress: () =>
+                                new Promise((resolve) => {
+                                    this.props.history.push(`/profit/tixiannow/${res.data.amount}_${res.data.partnerTradeNo}`);
+                                    resolve();
+                                }),
+                        },
+                    ]);
+                }
             } else {
                 Toast.fail(res.message || '当前金额不可提现',1);
             }
@@ -150,7 +140,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/*<div className="tixian-info">可提现金额：￥{this.props.iwantnow.toFixed(2)}，<span onClick={() => this.onAllIn()}>全部提现</span></div>*/}
           <div className="info">买家支付后，可获得分销收益，但不可提现。自发货起15天之后，收益可提现。若发货起15天内，买家退货，收益将自动扣除。</div>
-          <div className="submit-box"><Button className="submit-btn" type="primary" onClick={() => this.onSubmit()}>立即提现</Button></div>
+          <div className="submit-box"><Button className="submit-btn" type="primary" onClick={() => this.onSubmit()}>全部提现</Button></div>
           <div className="info">
               * 金额低于1元时不可提现<br/>
               * 预计1-10个工作日内可到账(遇节假日顺延)<br/>

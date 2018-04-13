@@ -12,12 +12,13 @@ import P from 'prop-types';
 import './tiXianRecord.scss';
 import tools from '../../../../util/all';
 // ==================
+// ==================
 // 所需的所有组件
 // ==================
 import { List, Toast } from 'antd-mobile';
 import Luo from 'iscroll-luo';
 import Img404 from '../../../../assets/not-found.png';
-
+import ImgR from '../../../../assets/xiangyou@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -101,6 +102,18 @@ class HomePageContainer extends React.Component {
         this.props.history.push(`/profit/tixiandetail/${partnerTradeNo}`);
     }
 
+    // 当前状态
+    takeType(item) {
+        if(item.status === 3) {
+            return <span style={{ color: 'rgb(50, 123, 244)' }}>审核中</span>;
+        }
+        if(item.flag === 2) {
+            return <span>提现失败</span>;
+        } else if (item.flag === 1) {
+            return <span>提现成功</span>;
+        }
+    }
+
     render() {
         return (
             <div className="page-tixianrecord">
@@ -117,11 +130,17 @@ class HomePageContainer extends React.Component {
                                     return (
                                         <li key={index} className="card-box page-flex-row" onClick={() => this.onCLickThis(item.partnerTradeNo)}>
                                             <div className="l flex-auto">
-                                                <div className="title">提现到{item.withdrawType === 1 ? '微信钱包' : '支付宝'}</div>
-                                                <div className="info">{item.applyTime}</div>
+                                                <div className="title">
+                                                    <span>提现到{item.destCash}</span>
+                                                    <span>￥{Number(item.amount) ? Number(item.amount).toFixed(2) : '--'}</span>
+                                                </div>
+                                                <div className="info">
+                                                    <span>{item.applyTime}</span>
+                                                    <span className="type">{this.takeType(item)}</span>
+                                                </div>
                                             </div>
                                             <div className="r">
-                                                ￥{Number(item.amount) ? Number(item.amount).toFixed(2) : '--'}
+                                                <img src={ImgR} />
                                             </div>
                                         </li>
                                     );
