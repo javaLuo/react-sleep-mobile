@@ -104,6 +104,7 @@ module.exports = {
             filename: '../index.html',              //生成的html存放路径，相对于 output.path
             template: './src/index.html',           //html模板路径
             favicon: 'favicon.ico',                 // 自动把根目录下的favicon.ico图片加入html
+            hash: true,
             inject: true,                           // 是否将js放在body的末尾
         }),
         new PreloadWebpackPlugin(),

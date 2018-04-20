@@ -1,7 +1,7 @@
 .page-order{
   height: 100vh;
   .tabs-div{
-    height: 100%;
+    height: calc(100vh - 44px);
     .card-box{
       padding: .2rem;
       background-color: #fff;

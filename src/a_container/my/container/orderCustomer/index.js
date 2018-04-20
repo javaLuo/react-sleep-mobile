@@ -122,7 +122,7 @@ class HomePageContainer extends React.Component {
       const dataC = data.filter((item) => item.conditions === 3);   // 待收货
       const dataD = data.filter((item) => item.conditions === 4);   // 已完成
     return (
-      <div className="page-order" style={{ minHeight: '100vh' }}>
+      <div className="page-order-customer">
           <Tabs
             swipeable={false}
             tabs={[

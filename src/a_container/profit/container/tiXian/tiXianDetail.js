@@ -41,6 +41,9 @@ class HomePageContainer extends React.Component {
 
     componentDidMount() {
         document.title = '提现记录详情';
+        if (!this.props.userinfo) { // 未登录就返回
+            this.props.history.go(-1);
+        }
         const p = this.props.location.pathname.split('/').pop();
         this.getData(p);
     }
@@ -79,7 +82,7 @@ class HomePageContainer extends React.Component {
                         <img className="step-icon" src={ImgStep1} />
                         <div className="info">
                             <div>发起提现</div>
-                            <div>{data.applyTime}</div>
+                            <div>{data.applyTime ? [<div key={0}>{ data.applyTime.split(' ')[0] }</div>,<div key={1}>{ data.applyTime.split(' ')[1] }</div>] : null}</div>
                         </div>
                     </li>
                     <li className="line2" />
@@ -104,34 +107,31 @@ class HomePageContainer extends React.Component {
                                         return '审核中';
                                 }
                             })()}</div>
-                            <div>{data.audirTime}</div>
+                            <div>{data.auditTime ? [<div key={0}>{ data.auditTime.split(' ')[0] }</div>,<div key={1}>{ data.auditTime.split(' ')[1] }</div>] : null}</div>
                         </div>
                     </li>
                     <li className={data.status === 1 ? 'line2' : 'line1'} />
                     <li className="step">
                         <img className="step-icon" src={(() => {
-                            if (data.status !== 1) {
-                                return ImgDown;
-                            }
                             if (data.flag === 1) {
-                                return ImgDown;
-                            } else {
+                                return ImgStep1;
+                            } else if(data.flag === 2){
                                 return ImgFail;
+                            } else {
+                                return ImgStep0;
                             }
                         })()} />
                         <div className="info">
                             <div>{(() => {
-                                if (data.status !== 1) {
-                                    return '提现';
-                                }
-
                                 if (data.flag === 1) {
                                     return '提现成功';
-                                } else {
+                                } else if(data.flag === 2){
                                     return '提现失败';
+                                } else {
+                                    return '提现';
                                 }
                             })()}</div>
-                            <div>{data.paymentTime}</div>
+                            <div>{data.paymentTime ? [<div key={0}>{ data.paymentTime.split(' ')[0] }</div>,<div key={1}>{ data.paymentTime.split(' ')[1] }</div>] : null}</div>
                         </div>
                     </li>
                 </ul>
@@ -177,6 +177,7 @@ HomePageContainer.propTypes = {
     history: P.any,
     tiXianDetail: P.any,
     actions: P.any,
+    userinfo: P.any,
 };
 
 // ==================
@@ -185,7 +186,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
     (state) => ({
-
+        userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
         actions: bindActionCreators({ getCashRecordList, getCashRecordDetailByNo }, dispatch),

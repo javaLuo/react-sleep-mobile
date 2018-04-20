@@ -293,8 +293,8 @@ class HomePageContainer extends React.Component {
           <Luo
             id="luo1"
             className="touch-none"
-            onPullDownRefresh={() => this.onDown()}
-            onPullUpLoadMore={() => this.onUp()}
+            onDown={() => this.onDown()}
+            onUp={() => this.onUp()}
             iscrollOptions={{
                 disableMouse: true,
 
