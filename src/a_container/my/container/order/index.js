@@ -35,11 +35,11 @@ class HomePageContainer extends React.Component {
         pageSize: 10,
         all: [
             /** Tab标题，当前页，数据，分类号，是否需要刷新（删除订单会影响到其他分类的数据） **/
-            { title: '全部', pageNum: 1, data:[], conditions: null, needUp: false},
-            { title: '待付款', pageNum: 1, data:[], conditions: 0, needUp: false },
-            { title: '待发货', pageNum: 1, data:[], conditions: 2, badge: true, needUp: false },
-            { title: '待收货', pageNum: 1, data:[], conditions: 3, badge: true, needUp: false },
-            { title: '已完成', pageNum: 1, data:[], conditions: 4, needUp: false },
+            { title: '全部', pageNum: 1, data:[], conditions: null, needUp: false, total: 0},
+            { title: '待付款', pageNum: 1, data:[], conditions: 0, needUp: false, total: 0 },
+            { title: '待发货', pageNum: 1, data:[], conditions: 2, badge: true, needUp: false, total: 0 },
+            { title: '待收货', pageNum: 1, data:[], conditions: 3, badge: true, needUp: false, total: 0 },
+            { title: '已完成', pageNum: 1, data:[], conditions: 4, needUp: false, total: 0 },
         ],
     };
   }
@@ -80,6 +80,7 @@ class HomePageContainer extends React.Component {
                         all[ind].data = [...all[ind].data, ...res.data.result];
                   }
                   all[ind].pageNum = pageNum;
+                  all[ind].total = res.data.total;
                   Toast.hide();
               } else {
                   if(type === 'flash') {
@@ -252,7 +253,7 @@ class HomePageContainer extends React.Component {
                 this.state.all.map((item) => {
                     let title = item.title;
                     if (item.badge){    // 需要显示小徽标
-                        title = <Badge text={item.data.length}>{item.title}</Badge>;
+                        title = <Badge text={item.total}>{item.title}</Badge>;
                     }
                     return {
                       title,

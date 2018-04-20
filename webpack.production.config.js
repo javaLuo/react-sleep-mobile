@@ -11,8 +11,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'build/dist'),    // 将文件打包到此目录下
         publicPath: '/gzh/dist/',                                // 在生成的html中，文件的引入路径会相对于此地址，生成的css中，以及各类图片的URL都会相对于此地址
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js',
+        filename: '[name].[hash:6].js',
+        chunkFilename: '[name].[hash:6].chunk.js',
     },
     module: {
         rules: [
@@ -73,7 +73,7 @@ module.exports = {
         **/ 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',            // 公共chunk名
-            filename: 'vendors.js',     // 生成的文件名
+            filename: 'vendors.[hash:6].js',     // 生成的文件名
             minChunks: function(module, count) {
                return module.resource && module.resource.indexOf(path.resolve(__dirname, 'src')) < 0;
             }
