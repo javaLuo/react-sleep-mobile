@@ -6,6 +6,7 @@ import { Button, Toast } from 'antd-mobile';
 import { bindActionCreators } from 'redux';
 import { wxPay } from '../../a_action/shop-action';
 import Config from '../../config';
+import './index.scss';
 import P from 'prop-types';
 import _ from 'lodash';
 class TestContainer extends React.PureComponent {
@@ -35,8 +36,8 @@ class TestContainer extends React.PureComponent {
     }
     componentDidMount() {
         document.title = 'Test';
-Toast.info('aaaaaaaaaaaa bbbbb bbbbbbbbbbbbbaaaaaaa', 0);
-        this.init();
+
+        //this.init();
     }
 
     /** 第1阶段 地图初始化，各种插件 **/
@@ -188,28 +189,9 @@ Toast.info('aaaaaaaaaaaa bbbbb bbbbbbbbbbbbbaaaaaaa', 0);
     }
     render() {
         return (
-            <div className="page-notfound">
-                <div>
-                    <div>结果：</div>
-                    <hr />
-                    <ul>
-                        { this.state.res.map((item, index) => {
-                            return <li key={index}>{ `${item[0]}：${item[1]}米` }</li>;
-                        }) }
-                    </ul>
-                </div>
-                <div>
-                    <div>过程：(用时：{ this.state.endTime }s)</div>
-                    <hr />
-                    <div>
-                        <ul>
-                            { this.state.data.map((item, index) => {
-                                return <li key={index}>{ item }</li>;
-                            }) }
-                        </ul>
-                    </div>
-                </div>
-                <div id="container"/>
+            <div className="page-test">
+                <iframe className="the-iframe" wmode="transparent" src="http://a2.rabbitpre.com/m/UnIVJvS"/>
+                <div className="test-footer" />
             </div>
         );
     }

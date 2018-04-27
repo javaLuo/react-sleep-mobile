@@ -14,6 +14,8 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import { Toast } from 'antd-mobile';
+import WaterWave from 'water-wave';
+
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/default-head.jpg';
 import ImgBar2 from '../../../../assets/wozai@3x.png';
@@ -184,7 +186,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className={this.state.show ? 'my-main show' : 'my-main'}>
           {/* 顶部 */}
-          <div className="head all_active">
+          <div className="head">
               <Link to={u ? '/my/userinfo' : '/login'} className="page-flex-row" style={{ width: '100%', height: '100%'}}>
                   <div className="flex-none picture">
                       <div className="pic-box">
@@ -200,91 +202,104 @@ class HomePageContainer extends React.Component {
                   <div className="flex-none arrow">
                       <img src={ImgRight} />
                   </div>
+                  <WaterWave color="#cccccc" press="down"/>
               </Link>
           </div>
           {/* 下方各横块 */}
           <div className="bar-list">
-              <div className="item page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>
+              <div className="item page-flex-row" onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>
                   <img src={ImgDingDan} className="icon"/>
                   <div className="title">我的订单</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="big-title mt">翼猫圈</div>
-              <div className="item tran1 hide page-flex-row all_active" onClick={() => this.onBindDealear()}>
+              <div className="big-title mt">翼猫圈<WaterWave color="#cccccc" press="down"/></div>
+              <div className="item tran1 hide page-flex-row" onClick={() => this.onBindDealear()}>
                   <img src={ImgBar9} className="icon" />
                   <div className="title">绑定经销商账户</div>
                   <div className={u && u.disUser ? "info mr" : 'info'}>{(u && u.disUser) ? u.userName : ''}</div>
                   {u && u.disUser ? null : <div className="arrow"><img src={ImgRight} /></div>}
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran2 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
+              <div className="item tran2 hide page-flex-row" onClick={() => this.props.history.push(u ? '/my/atcat' : '/login')}>
                   <img src={ImgBar2} className="icon"/>
                   <div className="title">我在翼猫</div>
                   <div className="info">{u ? tools.getNameByUserType(u.userType) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran3 hide page-flex-row all_active" onClick={() => this.onDaShiClick()}>
+              <div className="item tran3 hide page-flex-row" onClick={() => this.onDaShiClick()}>
                   <img src={ImgBar3} className="icon" />
                   <div className="title">健康大使</div>
                   <div className="info">{this.props.ambassador ? (this.props.ambassador.nickName || this.props.ambassador.realName) : ''}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran4 hide page-flex-row all_active" onClick={() => this.onMyCustomerClick()}>
+              <div className="item tran4 hide page-flex-row" onClick={() => this.onMyCustomerClick()}>
                   <img src={ImgBar4} className="icon"/>
                   <div className="title">我的客户</div>
                   <div className="info" >{this.state.howManyCustomer}</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran5 hide page-flex-row all_active" onClick={() => this.onMyOrderCustomerClick()}>
+              <div className="item tran5 hide page-flex-row" onClick={() => this.onMyOrderCustomerClick()}>
                   <img src={ImgBar8} className="icon"/>
                   <div className="title">我的客户订单</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran6 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
+              <div className="item tran6 hide page-flex-row" onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                   <img src={ImgYouHui} className="icon" />
                   <div className="title">我的优惠卡</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran7 hide page-flex-row all_active" onClick={() => this.onDaiYanClick()}>
+              <div className="item tran7 hide page-flex-row" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的代言卡</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran8 hide page-flex-row all_active" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
+              <div className="item tran8 hide page-flex-row" onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
                   <img src={ImgBar6} className="icon"/>
                   <div className="title">收益管理</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran8 hide page-flex-row all_active mt" onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=')}>
+              <div className="item tran8 hide page-flex-row mt" onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=')}>
                   <img src={ImgBar11} className="icon"/>
                   <div className="title">用户协议</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran8 hide page-flex-row all_active" onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=')}>
+              <div className="item tran8 hide page-flex-row" onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=')}>
                   <img src={ImgBar10} className="icon"/>
                   <div className="title">隐私协议</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item tran8 hide page-flex-row all_active mt" onClick={() => this.onHelpClick()}>
+              <div className="item tran8 hide page-flex-row mt" onClick={() => this.onHelpClick()}>
                   <img src={ImgBar7} className="icon"/>
                   <div className="title">使用帮助</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
+                  <WaterWave color="#cccccc" press="down"/>
               </div>
           </div>
       </div>

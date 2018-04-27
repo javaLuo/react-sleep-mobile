@@ -266,13 +266,13 @@ class HomePageContainer extends React.Component {
                             <div className="info">1.分享用户：分享用户是指通过扫描非普通用户创建、升级的用户。</div>
                             <div className="info">2.商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3.商城产品分销权：分享用户不享有翼猫健康商城产品的分销权限，不享有分销收益。</div>
-                            <div className="info">4.用户升级：分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，并支付首年度预缴费，待装机完成即可升级为分销用户。</div>
+                            <div className="info">4.用户升级：分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，待装机完成即可升级为分销用户。</div>
                         </div>
                     );
                     case 2: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 分销用户：分销用户是指分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，并支付首年度预缴费，待装机完成后升级为分销用户。</div>
+                            <div className="info">1. 分销用户：分销用户是指分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，待装机完成后升级为分销用户。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3. 商城产品分销权：分销用户根据产品分销权可以帮助翼猫经销商分销相应的产品，并享受收益；<br/>分销用户帮助经销商分销水机产品，需使用经销商水机配额；分销用户自己购买产品不享受分销收益，仅享受其直接客户购买产品时产生的收益。</div>
                         </div>
@@ -280,7 +280,7 @@ class HomePageContainer extends React.Component {
                     case 3: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 微创版经销商：已缴纳2980元经销代理费，享有“翼猫”净水设备装机额度20台限额内的净水服务终端用户开发资格的经销商，小微创业版经销商每人仅可购买一次。</div>
+                            <div className="info">1. 微创版经销商：享有“翼猫”净水设备装机额度20台限额内的净水服务终端用户开发资格的经销商。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3. 商城产品分销权：有推广20台翼猫智能净水设备的额度，其下级分销用户可协助分销翼猫智能净水设备，并共用该额度。</div>
                             <div className="info">4.用户升级：可升级为个人版经销商、企业版经销商，具体升级方式请咨询全国各地翼猫体验服务中心。稍后我们将支持在线升级为个人版经销商，享受个人版经销商产品经销权益。</div>
@@ -289,7 +289,7 @@ class HomePageContainer extends React.Component {
                     case 4: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 个人版经销商：已缴纳29800元经销代理费，享有“翼猫”净水设备装机额度300台限额内的净水服务终端用户开发资格、养未来健康食品及翼猫生物冷敷贴产品经销代理资格的经销商。</div>
+                            <div className="info">1. 个人版经销商：享有“翼猫”净水设备装机额度300台限额内的净水服务终端用户开发资格、养未来健康食品及翼猫生物冷敷贴产品经销代理资格的经销商。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3. 商城产品分销权：享有推广300台翼猫智能净水设备的额度及分销翼猫健康商城内其他产品，其下级分销用户可协助分销健康商城内的产品，并共用该净水设备额度。</div>
                             <div className="info">4. 用户升级：可升级为企业版经销商，具体升级方式请咨询全国各地翼猫体验服务中心。</div>
@@ -306,7 +306,7 @@ class HomePageContainer extends React.Component {
                     case 6: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 企业版经销商（主账户）：已缴纳59800元经销代理费，享有“翼猫”净水设备装机额度600台限额内的净水服务终端用户开发资格、养未来健康食品及翼猫生物冷敷贴产品经销代理资格的经销商，可开设一定端口数量的子账号。</div>
+                            <div className="info">1. 企业版经销商（主账户）：享有“翼猫”净水设备装机额度600台限额内的净水服务终端用户开发资格、养未来健康食品及翼猫生物冷敷贴产品经销代理资格的经销商，可开设一定端口数量的子账号。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3. 商城产品分销权：享有推广600台翼猫智能净水设备的额度及分销翼猫健康商城内其他产品，其下级分销用户、子账号及子账号下级分销用户协助分销翼猫商城中所有产品，并共用该净水设备额度。</div>
                         </div>

@@ -11,12 +11,9 @@ import store from './store';
 // 所有的CSS全部引入到入口文件即可
 import './css/css.css';
 import './css/scss.scss';
-
-import FastClick from 'fastclick';
+import 'water-wave/style.css';
 const rootDom = document.getElementById('app-root');
 
-// initReactFastclick();
-// FastClick.attach(document.body);
 ReactDOM.render(
     <Provider store={store}>
         <Root />
