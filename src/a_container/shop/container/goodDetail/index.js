@@ -13,10 +13,12 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-
+import tools from '../../../../util/all';
 import { Carousel, List, Stepper, Modal, Button, Toast, Picker } from 'antd-mobile';
 import imgDefault from '../../../../assets/logo-img.png';
 import StepperLuo from '../../../../a_component/StepperLuo';
+import ImgTest from '../../../../assets/test/new.png';
+import ImgKiss from '../../../../assets/shop/good@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -183,7 +185,7 @@ class HomePageContainer extends React.Component {
   render() {
       const d = this.state.data;
     return (
-      <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page'}>
+      <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page show'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
               {
@@ -252,7 +254,73 @@ class HomePageContainer extends React.Component {
                       <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>{d && d.typeId === 1 ? '可安装净水系统的区域查询': '查看适用体验店'}</Item>
                   ) : null
               }
+              <Item extra={<span style={{ color: '#ff3929' }}>好评 0.00%</span>} arrow="horizontal">评价详情 (888)</Item>
           </List>
+          <ul className="pj-ul">
+              <li>
+                  <div className="l">
+                      <div className="l1">
+                          <img className="pic" src={ImgTest} />
+                          <div className="info">
+                              <div className="name all_nowarp">{ tools.addMosaic('某某某某某某某') }</div>
+                              <div className="time">2018-02-09</div>
+                          </div>
+                      </div>
+                      <div className={"stars"}>
+                          <img src={ImgKiss} />
+                          <img src={ImgKiss} />
+                          <img src={ImgKiss} />
+                      </div>
+                      <div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>
+                  </div>
+                  <div className="r">
+                      <img src={ImgTest} />
+                      <img src={ImgTest} />
+                  </div>
+              </li>
+              <li>
+                  <div className="l">
+                      <div className="l1">
+                          <img className="pic" src={ImgTest} />
+                          <div className="info">
+                              <div className="name all_nowarp">{ tools.addMosaic('某某某某某') }</div>
+                              <div className="time">2018-02-09</div>
+                          </div>
+                      </div>
+                      <div className={"stars"}>
+                          <img src={ImgKiss} />
+                          <img src={ImgKiss} />
+                          <img src={ImgKiss} />
+                      </div>
+                      <div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>
+                  </div>
+                  <div className="r">
+                      <img src={ImgTest} />
+                      <img src={ImgTest} />
+                  </div>
+              </li>
+              <li>
+                  <div className="l">
+                      <div className="l1">
+                          <img className="pic" src={ImgTest} />
+                          <div className="info">
+                              <div className="name all_nowarp">{ tools.addMosaic('某某某某某某') }</div>
+                              <div className="time">2018-02-09</div>
+                          </div>
+                      </div>
+                      <div className={"stars"}>
+                          <img src={ImgKiss} />
+                          <img src={ImgKiss} />
+                          <img src={ImgKiss} />
+                      </div>
+                      <div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>
+                  </div>
+                  <div className="r">
+                      <img src={ImgTest} />
+                      <img src={ImgTest} />
+                  </div>
+              </li>
+          </ul>
           <div className="detail-box">
               {(d && d.detailImg) ? d.detailImg.split(',').map((item, index) => <img key={index} src={item} />) : null}
           </div>

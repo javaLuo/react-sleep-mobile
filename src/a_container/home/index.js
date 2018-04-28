@@ -7,13 +7,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import config from '../../config';
 import P from 'prop-types';
 import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
 import { Icon } from "antd";
-import _ from 'lodash';
+import WaterWave from 'water-wave';
 import { Carousel } from 'antd-mobile';
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
@@ -30,7 +31,7 @@ import ImgTime from '../../assets/home/thetime@3x.png';
 // 本页面所需action
 // ==================
 
-import { mallApList, getOrdersCount } from '../../a_action/shop-action';
+import { mallApList, getOrdersCount, getLiveListCache, getLiveTypes } from '../../a_action/shop-action';
 import { getRecommend } from '../../a_action/new-action';
 // ==================
 // Definition
@@ -59,12 +60,39 @@ class HomePageContainer extends React.Component {
     if(!this.props.homeRecommend || !this.props.homeRecommend.length) {
         this.getRecommend();
     }
+    // 获取推荐视频
+    if (!this.props.liveHot || !this.props.liveHot.length) {
+        this.getLiveHot();
+    }
+    // 获取视频分类
+      if (!this.props.liveTypes || !this.props.liveTypes.length) {
+        this.getLiveTypes();
+      }
     this.getOrdersCount();
   }
 
   // 获取热销产品
     getRecommend() {
       this.props.actions.getRecommend();
+    }
+
+    // 获取视频热门直播
+    getLiveHot() {
+      const params = {
+          liveTypeId: null,
+          recommend: 1, // 查推荐视频
+          pageNum: 1,
+          pageSize: 10,
+      };
+      this.props.actions.getLiveListCache(params);
+    }
+    // 获取视频分类
+    getLiveTypes() {
+        this.props.actions.getLiveTypes();
+    }
+    // 工具 - 根据ID获取对应的分类对象
+    getLiveTypeById(id) {
+      return this.props.liveTypes.find((item, index) => item.id === id) || {};
     }
 
   // 获取活动有多少人参加
@@ -108,6 +136,10 @@ class HomePageContainer extends React.Component {
     // 点击热销产品 跳转到商品详情页
     onRecommendClick(id) {
       this.props.history.push(`/shop/gooddetail/${id}`);
+    }
+    // 点击视频 跳转到对应视频详情页
+    zbClick(id) {
+        window.open(`${config.baseURL}/mall/live/show?liveId=${id}`);
     }
   render() {
     const u = this.props.userinfo;
@@ -155,6 +187,7 @@ class HomePageContainer extends React.Component {
                   barData.map((item, index) => <div key={index} onClick={() => this.onLinkClick(item.key)}>
                       <img src={item.pic} />
                       <div>{item.title}</div>
+                      <WaterWave color="#cccccc" press="down"/>
                   </div>)
               }
           </div>
@@ -189,7 +222,7 @@ class HomePageContainer extends React.Component {
                   { this.props.homeRecommend.filter((item, index) => index < 2).map((item, index) => {
                       return (
                           <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                              <div className="pic"><img src={item.productImg.split(',')[0]}/></div>
+                              <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
                               <div className="t all_nowarp">{item.name}</div>
                               <div className="num">已售: {item.buyCount}</div>
                               <div className="m"><i>￥</i>{item.price}</div>
@@ -202,7 +235,7 @@ class HomePageContainer extends React.Component {
                       this.props.homeRecommend.filter((item, index) => index > 2).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                                  <div className="pic"><img src={item.productImg.split(',')[0]}/></div>
+                                  <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
                                   <div className="t all_nowarp">{item.name}</div>
                                   <div className="num">已售: {item.buyCount}</div>
                                   <div className="m"><i>￥</i>{item.price}</div>
@@ -211,40 +244,36 @@ class HomePageContainer extends React.Component {
                       })
                   }
               </ul>
-              <div className="foot">查看全部 <Icon type="caret-right" /></div>
+              <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={'/shop'}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 视频直播 **/}
-          <div className="home-content-one">
+          <div className="home-content-one" style={{ display: this.props.liveHot.length ? 'block' : 'none' }}>
               <div className="title">视频直播</div>
               <ul className="zb-1">
-                  <li>
-                      <div className="pic"><img src={ImgTest}/></div>
-                      <div className="total">品牌</div>
-                  </li>
+                  {
+                      this.props.liveHot.filter((item, index) => index===0).map((item, index) => {
+                          return (
+                              <li key={index} onClick={() => this.zbClick(item.liveId)}>
+                                  <div className="pic"><img src={item.coverImage}/></div>
+                                  <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
+                              </li>
+                          );
+                      })
+                  }
               </ul>
-              <ul className="zb-2">
-                  <li>
-                      <div className="pic"><img src={ImgTest}/></div>
-                      <div className="total">直播</div>
-                  </li>
-                  <li>
-                      <div className="pic"><img src={ImgTest}/></div>
-                      <div className="total">直播中</div>
-                  </li>
-                  <li>
-                      <div className="pic"><img src={ImgTest}/></div>
-                      <div className="total">直播中</div>
-                  </li>
-                  <li>
-                      <div className="pic"><img src={ImgTest}/></div>
-                      <div className="total">直播中</div>
-                  </li>
-                  <li>
-                      <div className="pic"><img src={ImgTest}/></div>
-                      <div className="total">直播中</div>
-                  </li>
+              <ul className="zb-2" style={{ display: this.props.liveHot.length>1 ? 'flex' : 'none' }}>
+                  {
+                      this.props.liveHot.filter((item, index) => index>0).map((item, index) => {
+                          return (
+                              <li key={index} onClick={() => this.zbClick(item.liveId)}>
+                                  <div className="pic"><img src={item.coverImage}/></div>
+                                  <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
+                              </li>
+                          );
+                      })
+                  }
               </ul>
-              <div className="foot">查看全部 <Icon type="caret-right" /></div>
+              <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={'/live'}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 翼猫体验店 **/}
           <div className="home-content-one">
@@ -286,7 +315,7 @@ class HomePageContainer extends React.Component {
                       </div>
                   </li>
               </ul>
-              <div className="foot">查看全部 <Icon type="caret-right" /></div>
+              <div className="foot"><WaterWave color="#cccccc" press="down"/>查看全部 <Icon type="caret-right" /></div>
           </div>
           {/** 热门资讯 **/}
           <div className="home-content-one">
@@ -329,7 +358,7 @@ class HomePageContainer extends React.Component {
                       <div className="new_pic" ><img src={ImgTest}/></div>
                   </li>
               </ul>
-              <div className="foot">查看更多 <Icon type="caret-right" /></div>
+              <div className="foot"><WaterWave color="#cccccc" press="down"/>查看更多 <Icon type="caret-right" /></div>
           </div>
       </div>
     );
@@ -347,6 +376,8 @@ HomePageContainer.propTypes = {
     homePics: P.array,  // 首页顶部轮播图
     userinfo: P.any,
     homeRecommend: P.any,
+    liveHot: P.any,
+    liveTypes: P.any,
 };
 
 // ==================
@@ -358,8 +389,10 @@ export default connect(
       homePics: state.shop.homePics,  // 首页顶部轮播图
       userinfo: state.app.userinfo,
       homeRecommend: state.n.homeRecommend,
+      liveHot: state.n.liveHot,
+      liveTypes: state.shop.liveTypes,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend }, dispatch),
+    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes }, dispatch),
   })
 )(HomePageContainer);

@@ -4,6 +4,7 @@
 
 const initState = {
     homeRecommend: [], // 首页 - 热销产品
+    liveHot: [],    // 首页 - 推荐视频
 };
 
 // ============================================
@@ -19,6 +20,13 @@ const getRecommend = (state, action) => {
     });
 };
 
+const getLiveListCache = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        liveHot: payload || [],
+    });
+};
+
 
 // ============================================
 // reducer function
@@ -28,6 +36,8 @@ const reducerFn = (state = initState, action) => {
         // 进入主页时，初始化左边box数据
         case 'NEW::recommend':
             return getRecommend(state, action);
+        case 'NEW::liveHot':
+            return getLiveListCache(state, action);
         default:
             return actDefault(state, action);
     }

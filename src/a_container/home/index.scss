@@ -19,9 +19,6 @@
         height: 52px;
         margin: 0 auto 10px auto;
       }
-      &:active{
-        background-color: #f0f0f0;
-      }
     }
   }
   .home-content-one{
@@ -39,7 +36,10 @@
         font-size: 13px;
       color: rgb(137,136,142);
       text-align: center;
-      padding: 4px 0;
+      padding: 8px 0;
+      a{
+        color: rgb(137,136,142);
+      }
       i{
         opacity: .6;
       }
@@ -229,10 +229,13 @@
         max-width: 150px;
         flex: none;
         width: 33.333%;
+        height: 1.5rem;
         .pic{
           width: 100%;
+          height: 100%;
           img{
             width: 100%;
+            height: 100%;
           }
         }
         .total{

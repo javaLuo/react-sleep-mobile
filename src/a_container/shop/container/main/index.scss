@@ -1,115 +1,94 @@
 .shop-main{
+  min-height: 100vh;
+  background-color: #f0f0f0;
   .title-pic{
-    img{
+    position: relative;
+    background-color: #fff;
+    padding-bottom: 28px;
+    &>img{
       width: 100%;
       height: auto;
+      border-bottom-right-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+    }
+    .search{
+      &.am-search{
+        position: absolute;
+        width: 80%;
+        bottom: 4px;
+        left: 10%;
+        background-color: transparent;
+        .am-search-synthetic-ph{
+          height: 35px;
+          line-height: 35px;
+        }
+        .am-search-clear{
+          top: 50%;
+          transform: translateY(-50%);
+          right: 5px;
+        }
+        .am-search-input{
+          box-shadow: 0 0 8px #ccc;
+          height: 35px;
+          border-radius: 35px;
+          input{
+            height: 35px;
+          }
+        }
+      }
     }
   }
-  .my-grid{
-    position: sticky !important;
-    top: 0;
-    z-index: 10;
-  }
-  .home-bar{
-    padding: 10px 0;
-    height: 1.875rem;
-    max-height: 150px;
-    box-sizing: border-box;
-    justify-content: space-around;
-    &>div{
-      margin-right: 10px;
-      max-width: 150px;
-      width: 25%;
-      height: 100%;
-      &:first-child{
-        margin-left: 10px;
-      }
-      a{
-        display: flex;
+  .body-box{
+    background-color: #f0f0f0;
+    .tab-box{
+      display: flex;
+      box-sizing: border-box;
+      &>div{
+        width: 50%;
+        flex: none;
         box-sizing: border-box;
-        padding: 5px;
-        height: 100%;
-        border: solid 1px #e0e0e0;
-        text-align: center;
-        font-size: .2rem;
-        color: #222328;
-        align-items: center;
-        justify-content: center;
-        border-radius: 6px;
-      }
-    }
-  }
-  .the-list{
-    margin-bottom: -1px;
-    .title{
-      height: .4rem;
-      line-height: .4rem;
-      font-size: .25rem;
-      padding:5px 10px;
-      border-top: solid 1px #e0e0e0;
-      a{
-        display: block;
-        height: 100%;
-        color: #222;
-        span{
-          vertical-align: middle;
+        &:first-child{
+          padding: 10px 5px 10px 10px;
         }
-        svg{
-          float: right;
+        &:nth-child(2){
+          padding: 10px 10px 10px 5px;
         }
-      }
-    }
-    .list{
-      border-top: solid 1px #e0e0e0;
-      border-bottom: solid 1px #e0e0e0;
-      &>li{
-        &+li{
-          border-top: solid 1px #e0e0e0;
-        }
-        &>a{
-          color: #222;
-          display: flex;
-          height: 2rem;
-          max-height: 250px;
-          padding:10px;
-          .pic{
-            width: 35%;
-            height: 100%;
-            max-width: 200px;
+        .a-product{
+          border: solid 1px #eeeeee;
+          box-sizing: border-box;
+          overflow: hidden;
+          border-radius: 4px;
+          background-color: #ffffff;
+          &+div{
+            margin-top: 10px;
+          }
+          &>img{
+            width: 100%;
+            height: auto;
+          }
+          .p-t{
+            font-size: 15px;
+            box-sizing: border-box;
+            padding: 5px;
+          }
+          .p-m{
+            font-size: 16px;
+            color: #f92a19;
+            box-sizing: border-box;
+            padding: 5px;
+          }
+          .p-i{
+            color: #89888e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 5px;
             img{
-              width: 100%;
-              height: 100%;
-              display: block;
-              object-fit: cover;
-              border-radius: 4px;
+              height: 16px;
+              padding-left: 10px;
             }
           }
-          .detail{
-            margin-left: 10px;
-            overflow: hidden;
-            .t{
-              font-size: .32rem;
-            }
-            .i{
-              font-size: .25rem;
-              color: #888;
-              margin-top: .2rem;
-              .all_nowarp2{
-                height: .6rem;
-                line-height: .31rem;
-              }
-            }
-            .k{
-              text-align: right;
-              height: .5rem;
-              font-size: .45rem;
-            }
-          }
-        }
-        &.nothing{
-          padding: .5rem;
-          font-size: .25rem;
-          color: #888;
         }
       }
     }

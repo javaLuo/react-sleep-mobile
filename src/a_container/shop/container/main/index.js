@@ -8,17 +8,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import $ from 'jquery';
 import P from 'prop-types';
-import _ from 'lodash';
 import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
 
-import { Grid } from 'antd-mobile';
-import Img1 from '../../../../assets/fenxiang_three@3x.png';
-
+import { SearchBar, Tabs } from 'antd-mobile';
+import Img1 from '../../../../assets/test/new.png';
+import ImgCar from '../../../../assets/shop/jrgwc@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -41,10 +39,9 @@ class HomePageContainer extends React.Component {
         this.props.actions.getProDuctList();
     }
     // 如果state中没有所有的产品类别，就重新获取
-    if (!this.props.allProductTypes.length) {
-        console.log('你TM步触发？');
-      this.props.actions.listProductType();
-    }
+    // if (!this.props.allProductTypes.length) {
+    //   this.props.actions.listProductType();
+    // }
   }
 
   // 工具 - 通过型号ID查型号名称
@@ -53,69 +50,72 @@ class HomePageContainer extends React.Component {
     return result ? result.name : '';
   }
 
-  // 点击宫格触发
-  onGridClick(el, index) {
-    const me = this;
-      $(document.body).animate({'scrollTop': $(me[`a${index}`]).offset().top - 30 + 'px'}, 500);
-  }
-
-  // 动态设置下方分类列表
-  makeList(types, data) {
-    const t = _.cloneDeep(types);
-    const d = _.cloneDeep(data);
-
-    const result = t.sort((a, b) => a.sorts - b.sorts).map((item) => {
-        const products = d.filter((v, i) => v.typeId === item.id);
-        return {text: item.name, id: item.id, products};
-    });
-    return result;
-  }
+  // 点击一个商品，进入商品详情页
+    onProClick(id) {
+      this.props.history.push(`/shop/gooddetail/${id}`);
+    }
 
   render() {
-    const r = this.makeList(this.props.allProductTypes, this.props.allProducts);
+      const d = [...this.props.allProducts].sort((a, b) => a-b);
     return (
       <div className="flex-auto page-box shop-main">
           <div className="title-pic">
               <img src={Img1} />
+              <SearchBar className="search" placeholder="试试搜：翼猫智能净水" maxLength={16} />
           </div>
-          {/* bar */}
-        <Grid
-            className="my-grid"
-            data={r.map((item) => {
-              return {icon: Img1, text: item.text, id: item.id};
-            })}
-            columnNum={5}
-            onClick={(el, index) => this.onGridClick(el, index)}
-        />
-        {/* 动态配置的列表 */}
-        { r.map((item, index) => {
-          return (
-              <div key={index} className="the-list" ref={(dom) => this[`a${index}`] = dom}>
-                <div className="title page-flex-row">
-                  <div className="flex-auto">{item.text}</div>
-                </div>
-                <ul className="list">
-                    {item.products && item.products.length ? item.products.map((v, i) => {
-                      return (<li key={i}>
-                        <Link to={`/shop/gooddetail/${v.id}?time=${Date.now()}`}>
-                          <div className="pic flex-none">{v.productImg ? <img src={v.productImg.split(',')[0]} /> : null}</div>
-                          <div className="detail flex-auto page-flex-col">
-                            <div className="t flex-none">{v.name}</div>
-                            <div className="i flex-auto">
-                              <div>型号：{v.typeCode}</div>
-                              <div>类型：{this.getTypeNameById(v.typeId)}</div>
-                            </div>
-                            <div className="k flex-none">
-                              <span>￥{v.price}</span>
-                            </div>
-                          </div>
-                        </Link>
-                      </li>);
-                    }) : <li className="nothing"><span>该分类下暂无商品</span></li>}
-                </ul>
-              </div>
-          );
-        }) }
+          <div className="body-box">
+              <Tabs
+                tabs={d.map((item, index) => {
+                    return { title: item.name, id: item.id };
+                })}
+                useOnPan={false}
+                renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}
+                onChange={(tab, index) => {}}
+              >
+                  {
+                      d.map((v, i) => {
+                          return (
+                              <div key={i} className="tab-box">
+                                  <div>
+                                      {
+                                          v.productList.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
+                                              return (
+                                                  <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
+                                                      <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
+                                                      <div className="p-t">{vvv.typeModel && vvv.typeModel.name}</div>
+                                                      <div className="p-m">￥{vvv.typeModel && vvv.typeModel.price}</div>
+                                                      <div className="p-i">
+                                                          <span>已售：{vvv.buyCount || 0}</span>
+                                                          <img src={ImgCar} />
+                                                      </div>
+                                                  </div>
+                                              );
+                                          })
+                                      }
+                                  </div>
+                                  <div>
+                                      {
+                                          v.productList.filter((vv, ii) => ii % 2).map((vvv, iii) => {
+                                              return (
+                                                  <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
+                                                      <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
+                                                      <div className="p-t">{vvv.typeModel && vvv.typeModel.name}</div>
+                                                      <div className="p-m">￥{vvv.typeModel && vvv.typeModel.price}</div>
+                                                      <div className="p-i">
+                                                          <span>已售：{vvv.buyCount || 0}</span>
+                                                          <img src={ImgCar} />
+                                                      </div>
+                                                  </div>
+                                              );
+                                          })
+                                      }
+                                  </div>
+                              </div>
+                          );
+                      })
+                  }
+              </Tabs>
+          </div>
       </div>
     );
   }

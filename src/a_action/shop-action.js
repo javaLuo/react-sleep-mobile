@@ -807,3 +807,19 @@ export const getLiveList = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 获取热门视频（推荐的）并缓存
+export const getLiveListCache = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/live/list', params);
+        if (res.status === 200) {
+            dispatch({
+                type: 'NEW::liveHot',
+                payload: res.data.result || [],
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
