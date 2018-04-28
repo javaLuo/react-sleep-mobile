@@ -68,7 +68,7 @@ class HomePageContainer extends React.Component {
                 tabs={d.map((item, index) => {
                     return { title: item.name, id: item.id };
                 })}
-                useOnPan={false}
+                swipeable={false}
                 renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}
                 onChange={(tab, index) => {}}
               >

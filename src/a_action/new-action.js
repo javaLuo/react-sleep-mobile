@@ -17,3 +17,29 @@ export const getRecommend = () => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 查询所有热门活动
+export const getActivityList = () => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/activity/list', { });
+        if (res.status === 200) {
+            dispatch({
+                type: 'NEW::activityList',
+                payload: res.data.result,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 查询所有热门活动
+export const listByActivityId = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/activity/listByActivityId', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

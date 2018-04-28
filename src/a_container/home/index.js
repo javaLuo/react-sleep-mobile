@@ -32,7 +32,7 @@ import ImgTime from '../../assets/home/thetime@3x.png';
 // ==================
 
 import { mallApList, getOrdersCount, getLiveListCache, getLiveTypes } from '../../a_action/shop-action';
-import { getRecommend } from '../../a_action/new-action';
+import { getRecommend, getActivityList } from '../../a_action/new-action';
 // ==================
 // Definition
 // ==================
@@ -68,12 +68,22 @@ class HomePageContainer extends React.Component {
       if (!this.props.liveTypes || !this.props.liveTypes.length) {
         this.getLiveTypes();
       }
+      // 获取热门活动
+      if (!this.props.activityList || !this.props.activityList.length) {
+        this.getActivityList();
+      }
+      // 获取有多少人参加活动
     this.getOrdersCount();
   }
 
   // 获取热销产品
     getRecommend() {
       this.props.actions.getRecommend();
+    }
+
+    // 获取热门活动
+    getActivityList() {
+        this.props.actions.getActivityList();
     }
 
     // 获取视频热门直播
@@ -197,22 +207,20 @@ class HomePageContainer extends React.Component {
               <div className="active-bar" onClick={() => this.props.history.push('/shop/shopactive')}>
                   <div>已有<span>{this.state.activeCount}</span>人参与</div>
               </div>
-              <ul className="active-list">
-                  <li style={{ width: '50%' }}>
-                      <a href="https://qq.com" target="_blank" rel="noopener noreferrer">
-                          <img src={ImgTest} />
-                      </a>
-                  </li>
-                  <li style={{ width: '50%' }}>
-                      <a href="https://qq.com" target="_blank" rel="noopener noreferrer">
-                          <img src={ImgTest} />
-                      </a>
-                  </li>
-                  <li style={{ width: '100%' }}>
-                      <a href="https://qq.com" target="_blank" rel="noopener noreferrer">
-                          <img src={ImgTest} />
-                      </a>
-                  </li>
+              <ul className="active-list" style={{ display: this.props.activityList.length ? 'flex' : 'none' }}>
+                  {
+                      this.props.activityList.map((item, index) => {
+                          let w = '50%';
+                          if (this.props.activityList.length % 2 && index === this.props.activityList.length -1) { // 奇数最后一个
+                              w = '100%';
+                          }
+                          return (<li key={index} style={{ width: w }}>
+                              <Link to={`/shop/activity/${item.id}`}>
+                                  <img src={item.acImg} />
+                              </Link>
+                          </li>);
+                      })
+                  }
               </ul>
           </div>
           {/** 热销产品 **/}
@@ -378,6 +386,7 @@ HomePageContainer.propTypes = {
     homeRecommend: P.any,
     liveHot: P.any,
     liveTypes: P.any,
+    activityList: P.any,
 };
 
 // ==================
@@ -391,8 +400,9 @@ export default connect(
       homeRecommend: state.n.homeRecommend,
       liveHot: state.n.liveHot,
       liveTypes: state.shop.liveTypes,
+      activityList: state.n.activityList,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes }, dispatch),
+    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList }, dispatch),
   })
 )(HomePageContainer);

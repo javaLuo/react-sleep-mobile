@@ -8,6 +8,37 @@
     min-height: 3rem;
     position: relative;
     background-color: #f0f0f0;
+    .the-video{
+      width: 100%;
+      height: auto;
+    }
+    .chose-btn-box{
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      transform: translateX(-50%);
+      &>div{
+        background-color: #fff;
+        border-radius: 40px;
+        width: 70px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        opacity: .5;
+        &+div{
+          margin-left: 10px;
+        }
+        &.chose{
+          opacity:1;
+        }
+      }
+    }
     img{
       display: block;
       width: 100%;

@@ -14,11 +14,13 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 import tools from '../../../../util/all';
-import { Carousel, List, Stepper, Modal, Button, Toast, Picker } from 'antd-mobile';
+import { Carousel, List, Modal, Button, Toast, Picker, Icon} from 'antd-mobile';
 import imgDefault from '../../../../assets/logo-img.png';
 import StepperLuo from '../../../../a_component/StepperLuo';
 import ImgTest from '../../../../assets/test/new.png';
 import ImgKiss from '../../../../assets/shop/good@3x.png';
+import DPlayer from 'DPlayer';
+import 'DPlayer/dist/DPlayer.min.css';
 // ==================
 // 本页面所需action
 // ==================
@@ -40,7 +42,9 @@ class HomePageContainer extends React.Component {
         loading: false, // 是否正在异步请求中
         imgHeight: 200,
         show: false,
+        titleChose: 1,  // 1视频，2图片
     };
+    this.dp = null; // 播放器实例
   }
 
   componentDidMount() {
@@ -51,6 +55,18 @@ class HomePageContainer extends React.Component {
       if(!isNaN(id)) {
           this.getData(id);
       }
+        this.initVideo();
+  }
+
+  // 初始化视频
+  initVideo(data) {
+      // 初始化视频
+      this.dp = new DPlayer({
+          video:{
+              url: 'https://isluo.com/work/paomo/video/paomo_gem.mp4',
+              pic: 'https://isluo.com/kernel/index/img/welcome/theback.jpg',
+          }
+      });
   }
 
   // 获取原始数据
@@ -62,6 +78,7 @@ class HomePageContainer extends React.Component {
                 show: true,
                 formJifei: (res.data && res.data.typeModel && res.data.typeModel.chargeTypes) ? [res.data.typeModel.chargeTypes[0].id] : undefined, // 默认选择第1个
             });
+            this.initVideo(res.data);
             Toast.hide();
         } else {
             Toast.fail(res.message, 1);
@@ -182,12 +199,20 @@ class HomePageContainer extends React.Component {
         }
     }
 
+    onTitleChose(id) {
+      this.setState({
+          titleChose: id,
+      });
+    }
+
   render() {
       const d = this.state.data;
     return (
       <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page show'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
+              <div className="dplayer the-video" style={{ display: this.state.titleChose === 1 ? 'block' : 'none' }}/>
+              <div style={{ display: this.state.titleChose === 2 ? 'block' : 'none' }}>
               {
                   d && d.productImg ? <Carousel
                       className="my-carousel"
@@ -202,6 +227,11 @@ class HomePageContainer extends React.Component {
                       })}
                   </Carousel> : <img className="default" src={imgDefault} />
               }
+              </div>
+              <div className="chose-btn-box">
+                  <div className={this.state.titleChose === 1 ? 'chose' : null} onClick={() => this.onTitleChose(1)}>视频</div>
+                  <div className={this.state.titleChose === 2 ? 'chose' : null} onClick={() => this.onTitleChose(2)}>图片</div>
+              </div>
           </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">
