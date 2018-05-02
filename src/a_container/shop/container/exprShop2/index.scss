@@ -2,12 +2,32 @@
   .hideMap{
     display: none;
   }
+  .infos{
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    background-color: #fff;
+    &>li{
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      img{
+        width: 15px;
+        height: auto;
+        margin-right: 10px;
+      }
+      &+li{
+        margin-top: 10px;
+      }
+    }
+  }
   .fujin{
     display: flex;
     height: 45px;
     align-items: center;
     justify-content: center;
     color: #89888e;
+    background-color: #fff;
     font-size: 16px;
     span{
       padding: 0 8px;
@@ -146,10 +166,28 @@
       }
     }
   }
-  .iscroll-box{
-    height: calc(100vh - 45px);
-    &.min{
-      height: calc(100vh - 89px);
+  .am-list .am-list-body{
+    box-sizing: border-box;
+    padding: 10px;
+    &::before{
+      display: none !important;
+      opacity: 0 !important;
+    }
+    &::after{
+      display: none !important;
+      opacity: 0 !important;
+    }
+    .am-list-item{
+      border: solid 1px #ccc;
+      border-radius: 4px;
+      height: 32px;
+      min-height: 28px !important;
+      .am-list-thumb{
+        line-height: 14px;
+      }
+      .am-list-extra{
+        font-size: 16px;
+      }
     }
   }
 }

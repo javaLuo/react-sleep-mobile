@@ -15,12 +15,10 @@ import './index.scss';
 // ==================
 import tools from '../../../../util/all';
 import { Carousel, List, Modal, Button, Toast, Picker, Icon} from 'antd-mobile';
-import imgDefault from '../../../../assets/logo-img.png';
 import StepperLuo from '../../../../a_component/StepperLuo';
 import ImgTest from '../../../../assets/test/new.png';
 import ImgKiss from '../../../../assets/shop/good@3x.png';
-import DPlayer from 'DPlayer';
-import 'DPlayer/dist/DPlayer.min.css';
+import VideoLuo from '../../../../a_component/video';
 // ==================
 // 本页面所需action
 // ==================
@@ -36,7 +34,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        data: null, // 当前商品数据
+        data: {}, // 当前商品数据
         formJifei: undefined,   // 当前选择的计费方式
         formCount: 1,   // 购买数量
         loading: false, // 是否正在异步请求中
@@ -44,7 +42,6 @@ class HomePageContainer extends React.Component {
         show: false,
         titleChose: 1,  // 1视频，2图片
     };
-    this.dp = null; // 播放器实例
   }
 
   componentDidMount() {
@@ -55,19 +52,8 @@ class HomePageContainer extends React.Component {
       if(!isNaN(id)) {
           this.getData(id);
       }
-        this.initVideo();
   }
 
-  // 初始化视频
-  initVideo(data) {
-      // 初始化视频
-      this.dp = new DPlayer({
-          video:{
-              url: 'https://isluo.com/work/paomo/video/paomo_gem.mp4',
-              pic: 'https://isluo.com/kernel/index/img/welcome/theback.jpg',
-          }
-      });
-  }
 
   // 获取原始数据
   getData(id) {
@@ -78,7 +64,6 @@ class HomePageContainer extends React.Component {
                 show: true,
                 formJifei: (res.data && res.data.typeModel && res.data.typeModel.chargeTypes) ? [res.data.typeModel.chargeTypes[0].id] : undefined, // 默认选择第1个
             });
-            this.initVideo(res.data);
             Toast.hide();
         } else {
             Toast.fail(res.message, 1);
@@ -199,39 +184,17 @@ class HomePageContainer extends React.Component {
         }
     }
 
-    onTitleChose(id) {
-      this.setState({
-          titleChose: id,
-      });
-    }
-
   render() {
-      const d = this.state.data;
+      const d = this.state.data || {};
     return (
       <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page show'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
-              <div className="dplayer the-video" style={{ display: this.state.titleChose === 1 ? 'block' : 'none' }}/>
-              <div style={{ display: this.state.titleChose === 2 ? 'block' : 'none' }}>
-              {
-                  d && d.productImg ? <Carousel
-                      className="my-carousel"
-                      autoplay
-                      infinite
-                      swipeSpeed={35}
-                  >
-                      {d.productImg.split(',').map((item, index) => {
-                          return <img key={index} src={item} onLoad={() => {
-                              window.dispatchEvent(new Event('resize'));
-                          }}/>;
-                      })}
-                  </Carousel> : <img className="default" src={imgDefault} />
-              }
-              </div>
-              <div className="chose-btn-box">
-                  <div className={this.state.titleChose === 1 ? 'chose' : null} onClick={() => this.onTitleChose(1)}>视频</div>
-                  <div className={this.state.titleChose === 2 ? 'chose' : null} onClick={() => this.onTitleChose(2)}>图片</div>
-              </div>
+              <VideoLuo
+                videoPic={'https://isluo.com/kernel/index/img/welcome/theback.jpg'}
+                videoSrc={'https://isluo.com/work/paomo/video/paomo_gem.mp4'}
+                imgList={d.productImg ? d.productImg.split(',') : ['https://isluo.com/kernel/index/img/welcome/theback.jpg', 'https://isluo.com/kernel/index/img/welcome/girl.png', 'https://isluo.com/kernel/index/img/welcome/theback.jpg', 'https://isluo.com/kernel/index/img/welcome/theback.jpg']}
+              />
           </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">

@@ -82,7 +82,7 @@ class HomePageContainer extends React.Component {
             this.getData2(this.props.userXY[0], this.props.userXY[1]);
             return;
         }
-        Toast.loading('定位中', 0);
+        Toast.loading('定位中...', 0);
         this.map = new AMap.Map("container", {});
         // 加载定位插件
         this.map.plugin('AMap.Geolocation', () => {

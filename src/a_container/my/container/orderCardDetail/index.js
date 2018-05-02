@@ -170,7 +170,7 @@ class HomePageContainer extends React.Component {
                          * **/
                         const u = this.props.userinfo;
                         const dateTime = new Date().getTime();
-                        const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${obj.id}_${obj.cardPrice}_${obj.validTime}_${dateTime}`;
+                        const str = `${u.id}_fff_${encodeURIComponent(u.nickName)}_fff_${encodeURIComponent(u.headImg)}_fff_${obj.id}_fff_${obj.cardPrice}_fff_${obj.validTime}_fff_${dateTime}`;
                         wx.onMenuShareAppMessage({
                             title: `${u.nickName}赠送您一张翼猫HRA健康风险评估卡`,
                             desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',

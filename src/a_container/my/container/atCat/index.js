@@ -54,6 +54,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '我在翼猫';
     this.getMyAmbassador();
     setTimeout(() => {
         this.scrollDom = new IScroll('#scroll1', {
@@ -71,10 +72,8 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillUnmount() {
-      document.title = '我在翼猫';
       this.scrollDom.destroy();
       this.scrollDom = null;
-      console.log('USERINFO:', this.props.userinfo);
   }
 
   /** 进入页面初始化 **/

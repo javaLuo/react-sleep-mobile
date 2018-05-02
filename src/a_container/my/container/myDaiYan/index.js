@@ -135,7 +135,7 @@ class Register extends React.Component {
              * t - 当前数据ID
              * **/
             const u = this.props.userinfo;
-            const str = `${u.id}_${encodeURIComponent(u.nickName)}_${encodeURIComponent(u.headImg)}_${t}`;
+            const str = `${u.id}_fff_${encodeURIComponent(u.nickName)}_fff_${encodeURIComponent(u.headImg)}_fff_${t}`;
             wx.onMenuShareAppMessage({
                 title: `${u.nickName}${d1.title}`,
                 desc: d1.content,

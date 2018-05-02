@@ -49,7 +49,7 @@ class HomePageContainer extends React.Component {
 
     getData() {
         const path = this.props.location.pathname.split('/');
-        let p = path[path.length - 1].split('_');
+        let p = path[path.length - 1].split('_fff_');
 
         this.setState({
             data: {
@@ -106,7 +106,7 @@ class HomePageContainer extends React.Component {
                         <div className={type !== 0 ? "cardbox page-flex-col flex-jc-sb no-normal" : "cardbox page-flex-col flex-jc-sb"}>
                             <div className="row1 flex-none page-flex-row flex-jc-sb">
                                 <div>
-                                    <div className="t"></div>
+                                    <div className="t" />
                                 </div>
                             </div>
                             <div className="row-center page-flex-row flex-jc-end">

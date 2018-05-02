@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
         const path = this.props.location.pathname.split('/');
         let info = path[path.length - 1];
         console.log('是个什么东西啊：', info);
-        info = info.split('_');
+        info = info.split('_fff_');
         const date = info[0];
 
         let list = info[1].split('+');

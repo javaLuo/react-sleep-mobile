@@ -14,15 +14,16 @@ import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
-import { Picker, List, Toast, Icon } from 'antd-mobile';
-import Luo from 'iscroll-luo';
-import ImgRen from '../../../../assets/ren@3x.png';
+import { Picker, List, Toast, Icon, Carousel } from 'antd-mobile';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
 import ImgPhone from '../../../../assets/dianhua@3x.png';
 import Img404 from '../../../../assets/not-found.png';
 import ImgDaoHang from '../../../../assets/daohang@3x.png';
-import ImgR from '../../../../assets/to-r@3x.png';
-import ImgL from '../../../../assets/to-l@3x.png';
+import Img1 from './assets/infos1@3x.png';
+import Img2 from './assets/infos2@3x.png';
+import Img3 from './assets/infos3@3x.png';
+import Img4 from './assets/infos4@3x.png';
+import $ from 'jquery';
 // ==================
 // 本页面所需action
 // ==================
@@ -39,7 +40,6 @@ class HomePageContainer extends React.Component {
         this.state = {
             data: [],   // 所有数据
             sourceData: [], // 所有省市数据（层级）
-            loading: false, // 搜索中
             pageNum: 1,
             pageSize: 10,
             search: undefined,  // 搜索条件
@@ -47,9 +47,11 @@ class HomePageContainer extends React.Component {
             userLng: null, // 用户坐标X
             userLat: null, // 用户坐标Y
             resType: 1, // 0查询的是最近的，1普通的查询
+            downNow: false, // 当前查询是否已全部加载完毕
         };
         this.map = null;            // 地图实例
         this.geolocation = null;    // 定位插件实例
+        this.loading = false;   // 是否在搜索中
     }
 
     componentDidMount() {
@@ -60,6 +62,17 @@ class HomePageContainer extends React.Component {
         } else {
             this.makeAreaData(this.props.areaData);
         }
+        $(window).on('scroll', (e) => {
+            const win = $(window);
+            const scrollTop = win.scrollTop();          // 滚动条滚动了的高度
+            const scrollHeight = $(document).height();  // 文档区域的高度
+            const windowHeight = win.height();          // 窗口总高度
+            if(scrollTop + windowHeight > scrollHeight - 20) {
+                if(!this.loading && !this.state.downNow){
+                    this.onUp();
+                }
+            }
+        });
     }
 
     componentWillUnmount() {
@@ -80,7 +93,7 @@ class HomePageContainer extends React.Component {
             this.getData2(this.props.userXY[0], this.props.userXY[1]);
             return;
         }
-        Toast.loading('定位中', 0);
+        Toast.loading('定位中...', 0);
         this.map = new AMap.Map("container", {});
         // 加载定位插件
         this.map.plugin('AMap.Geolocation', () => {
@@ -114,7 +127,9 @@ class HomePageContainer extends React.Component {
             city: search && search[1],
             region: search && search[2],
         };
+        console.log('开始发请求：', params.city);
         Toast.loading('搜索中...', 0);
+        this.loading = true;
         this.props.actions.mallStationListAll(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 me.setState({
@@ -124,12 +139,19 @@ class HomePageContainer extends React.Component {
                     search,
                     resType: 1,
                 });
+                if(flash === 'update' && (!res.data.result || !res.data.result.length)) { // 没有更多数据
+                    this.setState({
+                        downNow: true,
+                    });
+                }
                 Toast.hide();
             } else {
                 Toast.fail('查询失败，请重试',1);
             }
         }).catch(() => {
             Toast.fail('查询失败，请重试', 1);
+        }).finally(() => {
+            this.loading = false;
         });
     }
 
@@ -140,6 +162,7 @@ class HomePageContainer extends React.Component {
             lat,
         };
         Toast.loading('搜索中...', 0);
+        this.loading = true;
         this.props.actions.stationNearBy(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 res.data.sort((a, b) => a.distance - b.distance);
@@ -147,12 +170,19 @@ class HomePageContainer extends React.Component {
                     data: res.data,
                     resType: 0,
                 });
+
+                    this.setState({
+                        downNow: true,
+                    });
+
                 Toast.hide();
             } else {
                 Toast.fail('查询失败，请重试',1);
             }
         }).catch(() => {
             Toast.fail('查询失败，请重试', 1);
+        }).finally(() => {
+            this.loading = false;
         });
     }
 
@@ -166,12 +196,17 @@ class HomePageContainer extends React.Component {
         this.getData(1, this.state.pageSize, e, 'flash');
     }
 
+    // 滚动到底部，需要加载更多
+    onScrollDown() {
+
+    }
+
     // 下拉刷新
     onDown() {
         if (this.state.resType) { // 非0执行普通搜索
             this.getData(1, this.state.pageSize, this.state.search, 'flash');
         } else {    // 0执行最近搜索
-            this.getData2(this.props.userXY[0], this.props.userXY[1]);
+            // this.getData2(this.props.userXY[0], this.props.userXY[1]);
         }
     }
     // 上拉加载
@@ -179,7 +214,7 @@ class HomePageContainer extends React.Component {
         if (this.state.resType) { // 非0执行普通搜索
             this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, 'update');
         } else {    // 0执行最近搜索
-            this.getData2(this.props.userXY[0], this.props.userXY[1]);
+            // this.getData2(this.props.userXY[0], this.props.userXY[1]);
         }
     }
 
@@ -215,6 +250,9 @@ class HomePageContainer extends React.Component {
     // 城市选择
     onCityChose(data) {
         console.log('Area:', data);
+        this.setState({
+            downNow: false,
+        });
         this.getData(1, this.state.pageSize, data, 'flash');
     }
 
@@ -228,6 +266,47 @@ class HomePageContainer extends React.Component {
         return (
             <div className="page-expr-shop">
                 <div id="container" className="hideMap"/>
+                <Carousel
+                    className="my-carousel"
+                    autoplay={true}
+                    infinite={true}
+                    swipeSpeed={35}
+                >
+                    {[1,2,3].map((item, index) => (
+                        <a
+                            key={index}
+                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                            target="_blank"
+                        >
+                            <img
+                                src={'https://isluo.com/kernel/index/img/welcome/theback.jpg'}
+                                style={{ width: '100%', verticalAlign: 'top' }}
+                                onLoad={() => {
+                                    window.dispatchEvent(new Event('resize'));
+                                    this.setState({ imgHeight: 'auto' });
+                                }}
+                            />
+                        </a>
+                    ))}
+                </Carousel>
+                <ul className="infos">
+                    <li>
+                        <img src={Img1} />
+                        <span>服务工程责任制，一对一定制终身服务</span>
+                    </li>
+                    <li>
+                        <img src={Img2} />
+                        <span>3000家体验服务中心精准覆盖至各省、市及区县</span>
+                    </li>
+                    <li>
+                        <img src={Img3} />
+                        <span>全方位立体式服务网络，24h*7d的无死角服务</span>
+                    </li>
+                    <li>
+                        <img src={Img4} />
+                        <span>斥资百万投建健康风险评估设备</span>
+                    </li>
+                </ul>
                 <List>
                     <Picker
                         data={[{label: '不限', value: ''},...this.state.sourceData]}
@@ -240,22 +319,10 @@ class HomePageContainer extends React.Component {
                         <Item thumb={<Icon type="search" style={{ color: '#888888' }} size={'sm'}/>}>&#12288;</Item>
                     </Picker>
                 </List>
-                {
-                    this.state.resType ? null : (
-                        <div className="fujin">
-                            <img src={ImgR} />
-                            <span>附近的体验店</span>
-                            <img src={ImgL} />
-                        </div>
-                    )
-                }
-                <div className={this.state.resType ? 'iscroll-box' : 'iscroll-box min'}>
-                    <Luo
-                        id="luo2"
-                        className="touch-none"
-                        onPullDownRefresh={() => this.onDown()}
-                        onPullUpLoadMore={() => this.onUp()}
-                    >
+                <div className="fujin">
+                    <span>附近的门店</span>
+                </div>
+                <div>
                         <ul>
                             {
                                 this.state.data.length ? this.state.data.map((item, index) => {
@@ -283,7 +350,6 @@ class HomePageContainer extends React.Component {
                                 </li>
                             }
                         </ul>
-                    </Luo>
                 </div>
             </div>
         );

@@ -238,7 +238,7 @@ class HomePageContainer extends React.Component {
                       );
                   }) }
               </ul>
-              <ul className="hot-2" style={{ display: this.props.homeRecommend.length>3 ? 'block' : 'none' }}>
+              <ul className="hot-2" style={{ display: this.props.homeRecommend.length>3 ? 'flex' : 'none' }}>
                   {
                       this.props.homeRecommend.filter((item, index) => index > 2).map((item, index) => {
                           return (

@@ -62,7 +62,7 @@ class Register extends React.Component {
     // 获取分享所需内容
     getShareInfo() {
         const pathname = this.props.location.pathname.split('/');
-        const info = pathname[pathname.length - 1].split('_');
+        const info = pathname[pathname.length - 1].split('_fff_');
         const t = Number(info[3]);
         this.setState({
             type: t || null,
@@ -83,7 +83,7 @@ class Register extends React.Component {
     // 获取二维码图片
     getCode() {
         const pathname = this.props.location.pathname.split('/');
-        const temp = pathname[pathname.length - 1].split('_');
+        const temp = pathname[pathname.length - 1].split('_fff_');
 
         /**
          * userid - 用户ID
