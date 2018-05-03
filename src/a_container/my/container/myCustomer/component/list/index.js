@@ -20,6 +20,10 @@ import ImgD2 from '../../../../../../assets/two_liliao@3x.png';
 import ImgE1 from '../../../../../../assets/one_pingguka@3x.png';
 import ImgE2 from '../../../../../../assets/two_pingguka@3x.png';
 import ImgR from '../../../../../../assets/xiangyou@3x.png';
+import IconUp from '../../../../../../assets/pen@3x.png';
+import IcomStar1 from '../../../../../../assets/home/star_1@3x.png';
+import IcomStar05 from '../../../../../../assets/home/star_0.5@3x.png';
+import IcomStar0 from '../../../../../../assets/home/star_0@3x.png';
 class List extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -58,11 +62,13 @@ class List extends React.PureComponent {
                 <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
-                        <div className="title all_nowarp">{u.nickName}</div>
+                        <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
+                        <div className="lit black">备注：<span>添加</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
-                        <div className="lit mt">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit fxq">分销权：<div>{this.makePower(u.incomePermission)}</div><span className="que" onClick={() => this.onQue(u)}>?</span></div>
+                        <div className="lit black star">星级标注：<img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IconUp}/></div>
+                        {/*<div className="lit mt">身份：{tools.getNameByUserType(u.userType)}</div>*/}
+                        <div className="lit fxq"><span className="que" onClick={() => this.onQue(u)}>?</span>分销权：<div>{this.makePower(u.incomePermission)}</div></div>
                     </div>
                 </li>
             );

@@ -62,20 +62,11 @@ class HomePageContainer extends React.Component {
         } else {
             this.makeAreaData(this.props.areaData);
         }
-        $(window).on('scroll', (e) => {
-            const win = $(window);
-            const scrollTop = win.scrollTop();          // 滚动条滚动了的高度
-            const scrollHeight = $(document).height();  // 文档区域的高度
-            const windowHeight = win.height();          // 窗口总高度
-            if(scrollTop + windowHeight > scrollHeight - 20) {
-                if(!this.loading && !this.state.downNow){
-                    this.onUp();
-                }
-            }
-        });
+        $(window).on('scroll', this.scrollEvent);
     }
 
     componentWillUnmount() {
+        $(window).off('scroll', this.scrollEvent);
         this.map = null;
         this.geolocation = null;
         Toast.hide();
@@ -84,6 +75,18 @@ class HomePageContainer extends React.Component {
     componentWillReceiveProps(nextP) {
         if (nextP.areaData !== this.props.areaData) {
             this.makeAreaData(nextP.areaData);
+        }
+    }
+
+    scrollEvent() {
+        const win = $(window);
+        const scrollTop = win.scrollTop();          // 滚动条滚动了的高度
+        const scrollHeight = $(document).height();  // 文档区域的高度
+        const windowHeight = win.height();          // 窗口总高度
+        if(scrollTop + windowHeight > scrollHeight - 20) {
+            if(!this.loading && !this.state.downNow){
+                this.onUp();
+            }
         }
     }
 
@@ -262,6 +265,11 @@ class HomePageContainer extends React.Component {
         setTimeout(() => this.props.history.push('/downline/map'));
     }
 
+    // 前往详情页
+    onGoDetail(id) {
+        this.props.history.push(`/exprdetail/${id}`);
+    }
+
     render() {
         return (
             <div className="page-expr-shop">
@@ -329,11 +337,10 @@ class HomePageContainer extends React.Component {
                                     const station = item;
                                     return (
                                         <li key={index} className="card-box page-flex-row">
-                                            <div className="l flex-auto">
+                                            <div className="l flex-auto" onClick={() => this.onGoDetail(station.id)}>
                                                 <div className="title">{station.name}</div>
-                                                {/*<div className="info page-flex-row flex-ai-center"><img src={ImgRen} /><span>{item.person}</span></div>*/}
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${station.phone || ''}`}>{tools.addMosaic(station.phone)}</a></span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
+                                                <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${station.phone || ''}`}>联系门店</a></span></div>
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(station)}>
                                                 { station.distance ? <div className="lang">{`${station.distance.toFixed(2)}km`}</div> : null}

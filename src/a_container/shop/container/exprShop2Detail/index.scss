@@ -1,0 +1,128 @@
+.page-expr-detail{
+  flex-direction: column;
+  height: 100vh;
+  .box1{
+    height: calc(100vh - 50px);
+    overflow:auto;
+  }
+  .box2{
+    flex: none;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    .box2-btn{
+      flex: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img{
+        height: 16px;
+        width: auto;
+        margin-right: 5px;
+      }
+    }
+    .fn{
+      flex: none;
+    }
+    .tj{
+      background-color: rgb(65,132,243);
+      color: #fff;
+      &:active{
+        background-color: #40a9ff;
+      }
+    }
+    .a{
+      width: 108px;
+      max-width: 33.333%;
+      border-right: solid 1px #f0f0f0;
+      border-top: solid 1px #f0f0f0;
+      a{
+        color: rgba(0,0,0, .65);
+      }
+    }
+  }
+  .info-box{
+    box-sizing: border-box;
+    padding: 10px;
+    color: rgb(137,136,142);
+    background-color: #fff;
+    font-size: 13px;
+    text-align: justify;
+    &+.info-box{
+      margin-top: 10px;
+    }
+    .t{
+      font-size: 16px;
+      color: rgb(37,41,46);
+      margin-bottom: 5px;
+    }
+    .star-row{
+      display: flex;
+      align-items: center;
+      &>div{
+        display: flex;
+        align-items: center;
+        img{
+          width: 16px;
+          padding-right: 4px;
+        }
+        &.word{
+          margin-left: 10px;
+        }
+      }
+    }
+    .addr-info{
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      img{
+        height: 16px;
+        margin-right: 10px;
+      }
+    }
+    .about-row{
+      display: flex;
+      flex-wrap: wrap;
+      &>div{
+        flex: none;
+        display: flex;
+        width: 50%;
+        span{
+          font-size: 13px;
+          white-space:normal;
+          word-break:break-all;
+          word-wrap:break-word;
+        }
+        span:first-child{
+          flex: none;
+        }
+      }
+    }
+    .server-row{
+      display: flex;
+      &>div{
+        flex: none;
+        img{
+          display: block;
+          height: 20px;
+          width: auto;
+          margin: 0 auto 5px auto;
+        }
+        &+div{
+          margin-left: 20px;
+        }
+      }
+    }
+    .img-row{
+      width: 100%;
+      overflow: auto;
+      display: flex;
+      img{
+        height: 70px;
+        width: auto;
+        margin-right: 10px;
+      }
+    }
+  }
+}
