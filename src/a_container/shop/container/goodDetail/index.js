@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
+import WaterWave from 'water-wave';
 // ==================
 // 所需的所有组件
 // ==================
@@ -19,6 +20,8 @@ import StepperLuo from '../../../../a_component/StepperLuo';
 import ImgTest from '../../../../assets/test/new.png';
 import ImgKiss from '../../../../assets/shop/good@3x.png';
 import VideoLuo from '../../../../a_component/video';
+import ImgKf from './assets/kf@2x.png';
+import ImgGwc from './assets/gwc@2x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -186,6 +189,7 @@ class HomePageContainer extends React.Component {
 
   render() {
       const d = this.state.data || {};
+      console.log('D是什么：', d);
     return (
       <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page show'}>
           <div className="title-pic">
@@ -193,7 +197,7 @@ class HomePageContainer extends React.Component {
               <VideoLuo
                 videoPic={'https://isluo.com/kernel/index/img/welcome/theback.jpg'}
                 videoSrc={'https://isluo.com/work/paomo/video/paomo_gem.mp4'}
-                imgList={d.productImg ? d.productImg.split(',') : ['https://isluo.com/kernel/index/img/welcome/theback.jpg', 'https://isluo.com/kernel/index/img/welcome/girl.png', 'https://isluo.com/kernel/index/img/welcome/theback.jpg', 'https://isluo.com/kernel/index/img/welcome/theback.jpg']}
+                imgList={d.productImg ? d.productImg.split(',') : []}
               />
           </div>
           {/* 商品信息说明 */}
@@ -318,7 +322,18 @@ class HomePageContainer extends React.Component {
               {(d && d.detailImg) ? d.detailImg.split(',').map((item, index) => <img key={index} src={item} />) : null}
           </div>
           <div className="play">
-              <Button type="primary" onClick={() => this.onSubmit()}>立即下单</Button>
+              <div className="btn-normal">
+                  <img src={ImgKf} />
+                  <div>客服</div>
+                  <WaterWave color="#888888" press="down"/>
+              </div>
+              <div className="btn-normal">
+                  <img src={ImgGwc} />
+                  <div>购物车</div>
+                  <WaterWave color="#888888" press="down"/>
+              </div>
+              <div className="btn-add-gwc">加入购物车<WaterWave color="#cccccc" press="down"/></div>
+              <div className="btn-submit" onClick={() => this.onSubmit()}>立即下单<WaterWave color="#cccccc" press="down"/></div>
           </div>
       </div>
     );

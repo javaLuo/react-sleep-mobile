@@ -12,7 +12,7 @@
     display: flex;
     background-color: #fff;
     .box2-btn{
-      flex: auto;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -22,9 +22,6 @@
         margin-right: 5px;
       }
     }
-    .fn{
-      flex: none;
-    }
     .tj{
       background-color: rgb(65,132,243);
       color: #fff;
@@ -32,9 +29,11 @@
         background-color: #40a9ff;
       }
     }
+    .fn{
+      color: #fff;
+      background-color: rgb(65,132,243);
+    }
     .a{
-      width: 108px;
-      max-width: 33.333%;
       border-right: solid 1px #f0f0f0;
       border-top: solid 1px #f0f0f0;
       a{

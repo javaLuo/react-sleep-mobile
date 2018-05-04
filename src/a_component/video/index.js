@@ -40,8 +40,12 @@ class VideoLuo extends React.PureComponent {
         });
     }
 
-    componentWillReceiveProps() {
-
+    componentWillReceiveProps(nextP) {
+        if(this.props.imgList !== nextP.imgList) {
+            setTimeout(() => {
+                this.scrollDom.refresh();
+            });
+        }
     }
 
     componentWillUnmount() {

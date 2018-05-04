@@ -154,7 +154,7 @@
         padding:5px;
         flex: none;
         max-width: 150px;
-        width: 33.333%;
+        width: 40%;
         transition: all 200ms;
         &:active{
           background-color: #f0f0f0;
@@ -231,8 +231,8 @@
         padding:5px;
         max-width: 150px;
         flex: none;
-        width: 33.333%;
-        height: 1.5rem;
+        width: 40%;
+        height: 1.7rem;
         .pic{
           width: 100%;
           height: 100%;
@@ -264,6 +264,11 @@
         background-position: left bottom;
         background-clip: content-box;
         min-height: 2rem;
+
+        &>div{
+          height: 100%;
+          box-shadow: 0 2px 5px rgb(217,217,217);
+        }
         &:nth-child(-n+2) {
           background-image: url(../../assets/home/di1@3x.png);
           width: 50%;
@@ -321,6 +326,16 @@
             font-size: 14px;
             box-sizing: border-box;
             margin-right: 10px;
+            .top{
+              margin-left: 5px;
+              border-radius: 2px;
+              background-color: #f45044;
+              display: inline-block;
+              color: #fff;
+              font-size: 12px;
+              padding:1px 5px;
+              transform: scale(0.8,0.8);
+            }
           }
           .info{
             display: flex;
@@ -328,8 +343,12 @@
             font-size: 12px;
             margin-top: 10px;
             img{
-              height: 12px;
+              width: 12px;
               margin-right: 4px;
+            }
+            &>span{
+              display: flex;
+              align-items: center;
             }
             .a{
               color: #25292e;

@@ -24,6 +24,8 @@ import IconUp from '../../../../../../assets/pen@3x.png';
 import IcomStar1 from '../../../../../../assets/home/star_1@3x.png';
 import IcomStar05 from '../../../../../../assets/home/star_0.5@3x.png';
 import IcomStar0 from '../../../../../../assets/home/star_0@3x.png';
+import { Picker, Modal } from 'antd-mobile';
+const prompt = Modal.prompt;
 class List extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -52,6 +54,20 @@ class List extends React.PureComponent {
         return res;
     }
 
+    onBeizhu() {
+        prompt('输入新备注', '', [
+            { text: '取消' },
+            { text: '确定', onPress: value => {
+                const v = tools.trim(value);
+                if(!v){Toast.info('备注不能为空', 1);return false;}
+                if(!tools.checkStr(v)){
+                    Toast.info('只能输入汉字/字母/数字', 1);return false;
+                }
+                //this.updateUserInfo({nickName: v});
+            }},
+        ]);
+    }
+
     makeDom(u, type) {
         if (!u || u.id === undefined) {
             return null;
@@ -63,10 +79,28 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black">备注：<span>添加</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => onBeizhu()}>备注：<span>添加</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
-                        <div className="lit black star">星级标注：<img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IconUp}/></div>
+                        <Picker
+                            data={[
+                                { label: '0星', value: 0 },
+                                { label: '0.5星', value: 0.5 },
+                                { label: '1星', value: 1 },
+                                { label: '1.5星', value: 1.5 },
+                                { label: '2星', value: 2 },
+                                { label: '2.5星', value: 2.5 },
+                                { label: '3星', value: 3 },
+                                { label: '3.5星', value: 3.5 },
+                                { label: '4星', value: 4 },
+                                { label: '4.5星', value: 4.5 },
+                                { label: '5星', value: 5 },
+                            ]}
+                            cols={1}
+                            onChange={() => {}}
+                        >
+                            <div className="lit black star">星级标注：<img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IconUp}/></div>
+                        </Picker>
                         {/*<div className="lit mt">身份：{tools.getNameByUserType(u.userType)}</div>*/}
                         <div className="lit fxq"><span className="que" onClick={() => this.onQue(u)}>?</span>分销权：<div>{this.makePower(u.incomePermission)}</div></div>
                     </div>

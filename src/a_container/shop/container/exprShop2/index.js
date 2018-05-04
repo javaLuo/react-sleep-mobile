@@ -62,11 +62,11 @@ class HomePageContainer extends React.Component {
         } else {
             this.makeAreaData(this.props.areaData);
         }
-        $(window).on('scroll', this.scrollEvent);
+        $(window).on('scroll', () => this.scrollEvent());
     }
 
     componentWillUnmount() {
-        $(window).off('scroll', this.scrollEvent);
+        $(window).off('scroll');
         this.map = null;
         this.geolocation = null;
         Toast.hide();
@@ -267,7 +267,7 @@ class HomePageContainer extends React.Component {
 
     // 前往详情页
     onGoDetail(id) {
-        this.props.history.push(`/exprdetail/${id}`);
+        this.props.history.push(`/shop/exprdetail/${id}`);
     }
 
     render() {
@@ -337,9 +337,9 @@ class HomePageContainer extends React.Component {
                                     const station = item;
                                     return (
                                         <li key={index} className="card-box page-flex-row">
-                                            <div className="l flex-auto" onClick={() => this.onGoDetail(station.id)}>
-                                                <div className="title">{station.name}</div>
-                                                <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
+                                            <div className="l flex-auto">
+                                                <div className="title" onClick={() => this.onGoDetail(station.id)}>{station.name}</div>
+                                                <div className="info page-flex-row flex-ai-center" onClick={() => this.onGoDetail(station.id)}><img src={ImgAddr} /><span>{station.address}</span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${station.phone || ''}`}>联系门店</a></span></div>
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(station)}>

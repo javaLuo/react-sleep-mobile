@@ -230,10 +230,10 @@ class HomePageContainer extends React.Component {
                   { this.props.homeRecommend.filter((item, index) => index < 2).map((item, index) => {
                       return (
                           <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                              <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
-                              <div className="t all_nowarp">{item.name}</div>
-                              <div className="num">已售: {item.buyCount}</div>
-                              <div className="m"><i>￥</i>{item.price}</div>
+                                  <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
+                                  <div className="t all_nowarp">{item.name}</div>
+                                  <div className="num">已售: {item.buyCount}</div>
+                                  <div className="m"><i>￥</i>{item.price}</div>
                           </li>
                       );
                   }) }
@@ -243,10 +243,10 @@ class HomePageContainer extends React.Component {
                       this.props.homeRecommend.filter((item, index) => index > 2).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                                  <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
-                                  <div className="t all_nowarp">{item.name}</div>
-                                  <div className="num">已售: {item.buyCount}</div>
-                                  <div className="m"><i>￥</i>{item.price}</div>
+                                      <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
+                                      <div className="t all_nowarp">{item.name}</div>
+                                      <div className="num">已售: {item.buyCount}</div>
+                                      <div className="m"><i>￥</i>{item.price}</div>
                               </li>
                           );
                       })
@@ -288,38 +288,48 @@ class HomePageContainer extends React.Component {
               <div className="title">翼猫体验店</div>
               <ul className="tyd-1">
                   <li>
-                      <div className="total all_nowarp">上海嘉定区体验中心</div>
-                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                      <div className="type">
-                          <div>推荐</div>
+                      <div>
+                          <div className="total all_nowarp">上海嘉定区体验中心</div>
+                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <div className="type">
+                              <div>推荐</div>
+                          </div>
                       </div>
                   </li>
                   <li>
-                      <div className="total all_nowarp">上海嘉定区体验中心</div>
-                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                      <div className="type">
-                          <div>推荐</div>
+                      <div>
+                          <div className="total all_nowarp">上海嘉定区体验中心</div>
+                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <div className="type">
+                              <div>推荐</div>
+                          </div>
                       </div>
                   </li>
                   <li>
-                      <div className="total all_nowarp">上海嘉定区体验中心</div>
-                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                      <div className="type">
-                          <div>推荐</div>
+                      <div>
+                          <div className="total all_nowarp">上海嘉定区体验中心</div>
+                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <div className="type">
+                              <div>推荐</div>
+                          </div>
                       </div>
                   </li>
                   <li>
-                      <div className="total all_nowarp">上海嘉定区体验中心</div>
-                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                      <div className="type">
-                          <div>推荐</div>
+                      <div>
+                          <div className="total all_nowarp">上海嘉定区体验中心</div>
+                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <div className="type">
+                              <div>推荐</div>
+                          </div>
                       </div>
                   </li>
                   <li>
-                      <div className="total all_nowarp">上海嘉定区体验中心</div>
-                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                      <div className="type">
-                          <div>推荐</div>
+                      <div>
+                          <div className="total all_nowarp">上海嘉定区体验中心</div>
+                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <div className="type">
+                              <div>推荐</div>
+                          </div>
                       </div>
                   </li>
               </ul>
@@ -331,7 +341,7 @@ class HomePageContainer extends React.Component {
               <ul className="new-1">
                   <li className="type1">
                       <div>
-                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span>置顶</span></div>
+                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>
                           <div className="info">
                               <span className="a">行业</span>
                               <span className="b"><img src={ImgLooked} />20000</span>
@@ -343,7 +353,7 @@ class HomePageContainer extends React.Component {
                   </li>
                   <li className="type1">
                       <div>
-                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span>置顶</span></div>
+                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>
                           <div className="info">
                               <span className="a">行业</span>
                               <span className="b"><img src={ImgLooked} />20000</span>
@@ -355,7 +365,7 @@ class HomePageContainer extends React.Component {
                   </li>
                   <li className="type1">
                       <div>
-                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span>置顶</span></div>
+                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>
                           <div className="info">
                               <span className="a">行业</span>
                               <span className="b"><img src={ImgLooked} />20000</span>

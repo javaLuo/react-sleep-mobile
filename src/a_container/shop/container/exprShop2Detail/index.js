@@ -210,7 +210,7 @@ class HomePageContainer extends React.Component {
                     </div>
                 </div>
                 <div className="box2">
-                    <div className="box2-btn a fn">
+                    <div className="box2-btn a">
                         <a href="tel:13600000000">
                             <img src={IconPhone} />
                             <span>联系门店</span>
@@ -219,9 +219,6 @@ class HomePageContainer extends React.Component {
                     <div className="box2-btn a fn">
                             <img src={IconRoad} />
                             <span>导航</span>
-                    </div>
-                    <div className="box2-btn tj">
-                        预约检查
                     </div>
                 </div>
             </div>
