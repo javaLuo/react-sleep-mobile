@@ -123,7 +123,7 @@ class List extends React.PureComponent {
                         <div className="all_nowarp">{u.nickName}</div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
-                        <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
+                        <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span style={{ float: 'right' }}>{u.ambassadorTime}</span></div>
                     </div>
                 </li>
             );
@@ -133,7 +133,7 @@ class List extends React.PureComponent {
                 <div className="name flex-auto">
                     <div className="all_nowarp">{u.nickName}</div>
                     <div className="lit black">e家号：{u.id}</div>
-                    <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span>{u.ambassadorTime}</span></div>
+                    <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span style={{ float: 'right'}}>{u.ambassadorTime}</span></div>
                 </div>
                  {
                      this.props.jiantou ? (
