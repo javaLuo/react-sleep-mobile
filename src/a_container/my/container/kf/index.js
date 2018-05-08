@@ -92,8 +92,11 @@ class HomePageContainer extends React.Component {
               <div data-id={3}>关于分销</div>
           </div>
           <div className="footer-btn">
-              <div className="btn btn1"><img src={ImgFill1} /><span>销售咨询</span></div>
-              <div className="btn btn2"><img src={ImgFill2} /><span>客服热线</span></div>
+              {
+                  [3, 7].includes(this.props.userinfo && this.props.userinfo.userType) ? (<a className="btn btn1"><img src={ImgFill1} /><span>销售咨询</span></a>) : null
+              }
+
+              <a className="btn btn2" href="tel:4001519999"><img src={ImgFill2} /><span>客服热线</span></a>
           </div>
       </div>
     );
@@ -108,7 +111,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-    userinfo: P.any,
+  userinfo: P.any,
 };
 
 // ==================

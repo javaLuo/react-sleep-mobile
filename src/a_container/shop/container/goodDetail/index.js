@@ -15,6 +15,7 @@ import WaterWave from 'water-wave';
 // 所需的所有组件
 // ==================
 import tools from '../../../../util/all';
+import Config from '../../../../config';
 import { Carousel, List, Modal, Button, Toast, Picker, Icon} from 'antd-mobile';
 import StepperLuo from '../../../../a_component/StepperLuo';
 import ImgTest from '../../../../assets/test/new.png';
@@ -26,7 +27,7 @@ import ImgGwc from './assets/gwc@2x.png';
 // 本页面所需action
 // ==================
 
-import { productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr } from '../../../../a_action/shop-action';
+import { productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -55,6 +56,7 @@ class HomePageContainer extends React.Component {
       if(!isNaN(id)) {
           this.getData(id);
       }
+
   }
 
 
@@ -66,7 +68,7 @@ class HomePageContainer extends React.Component {
                 data: res.data,
                 show: true,
                 formJifei: (res.data && res.data.typeModel && res.data.typeModel.chargeTypes) ? [res.data.typeModel.chargeTypes[0].id] : undefined, // 默认选择第1个
-            });
+            }, () => this.getWx());
             Toast.hide();
         } else {
             Toast.fail(res.message, 1);
@@ -130,6 +132,68 @@ class HomePageContainer extends React.Component {
 
   }
 
+    // 请求初始化微信所需参数
+    getWx() {
+        this.props.actions.wxInit().then((res) => {
+            if(res.status === 200) {
+                this.initWxConfig(res.data);
+            }
+        });
+    }
+    // 初始化微信JS-SDK
+    initWxConfig(d2) {
+        const me = this;
+        if(typeof wx === 'undefined') {
+            console.log('weixin sdk load failed!');
+            return false;
+        }
+
+        wx.config({
+            debug: false,
+            appId: Config.appId,
+            timestamp: d2.timestamp,
+            nonceStr: d2.noncestr,
+            signature: d2.signature,
+            jsApiList: [
+                'onMenuShareTimeline',      // 分享到朋友圈
+                'onMenuShareAppMessage',    // 分享给微信好友
+            ]
+        });
+        wx.ready(() => {
+            console.log('微信JS-SDK初始化成功');
+            /**
+             * 拼接数据
+             * userid - 用户ID
+             * name - 名字
+             * head - 头像
+             * t - 当前数据ID
+             * **/
+            const u = this.props.userinfo;
+            wx.onMenuShareAppMessage({
+                title: this.state.data.name || '翼猫健康',
+                desc: this.state.data.typeModel ? this.state.data.typeModel.modelDetail : '来自翼猫微信商城',
+                imgUrl: this.state.data.productImg ? this.state.data.productImg.split(',')[0] : null,
+                link: window.location.href,
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: this.state.data.name || '翼猫健康',
+                desc: this.state.data.typeModel ? this.state.data.typeModel.modelDetail : '来自翼猫微信商城',
+                imgUrl: this.state.data.productImg ? this.state.data.productImg.split(',')[0] : null,
+                link: window.location.href,
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+        });
+        wx.error((e) => {
+            console.log('微信JS-SDK初始化失败：', e);
+        });
+    }
+
   // 点击立即下单
   onSubmit() {
       const u = this.props.userinfo;
@@ -187,11 +251,15 @@ class HomePageContainer extends React.Component {
         }
     }
 
+    goEva() {
+      this.props.history.push("/shop/eva");
+    }
+
   render() {
       const d = this.state.data || {};
       console.log('D是什么：', d);
     return (
-      <div className={this.state.show ? 'flex-auto page-box gooddetail-page show' : 'flex-auto page-box gooddetail-page show'}>
+      <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page show'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
               <VideoLuo
@@ -253,7 +321,7 @@ class HomePageContainer extends React.Component {
               }
               <Item extra={<span style={{ color: '#ff3929' }}>好评 0.00%</span>} arrow="horizontal">评价详情 (888)</Item>
           </List>
-          <ul className="pj-ul">
+          <ul className="pj-ul" onClick={() => this.goEva()}>
               <li>
                   <div className="l">
                       <div className="l1">
@@ -322,11 +390,11 @@ class HomePageContainer extends React.Component {
               {(d && d.detailImg) ? d.detailImg.split(',').map((item, index) => <img key={index} src={item} />) : null}
           </div>
           <div className="play">
-              <div className="btn-normal">
+              <Link className="btn-normal" to="/my/kf">
                   <img src={ImgKf} />
                   <div>客服</div>
                   <WaterWave color="#888888" press="down"/>
-              </div>
+              </Link>
               <div className="btn-normal">
                   <img src={ImgGwc} />
                   <div>购物车</div>
@@ -361,6 +429,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr}, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit}, dispatch),
   })
 )(HomePageContainer);

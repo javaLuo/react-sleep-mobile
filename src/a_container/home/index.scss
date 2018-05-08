@@ -205,18 +205,30 @@
         padding:5px;
         .pic{
           width: 100%;
+          height: 3.5rem;
           img{
             width: 100%;
+            height: 100%;
+            object-fit: cover;
           }
         }
         .total{
           position: absolute;
           top: .2rem;
           left: .2rem;
-          border-left: 3px #f00 solid;
+          padding-left: 8px;
           font-size: .24rem;
           color: #fff;
-          padding-left: .1rem;
+          &:before{
+            position: absolute;
+            left:0;
+            top:50%;
+            transform: translateY(-50%);
+            content: '';
+            width: 3px;
+            height: 8px;
+            background-color: #f00;
+          }
         }
       }
     }
@@ -232,23 +244,33 @@
         max-width: 150px;
         flex: none;
         width: 40%;
-        height: 1.7rem;
+        height: 2rem;
         .pic{
           width: 100%;
           height: 100%;
           img{
             width: 100%;
             height: 100%;
+            object-fit: cover;
           }
         }
         .total{
           position: absolute;
           top: .2rem;
           left: .2rem;
-          border-left: 3px #f00 solid;
           font-size: .2rem;
           color: #fff;
-          padding-left: .1rem;
+          padding-left: 8px;
+          &:before{
+            position: absolute;
+            left:0;
+            top:50%;
+            transform: translateY(-50%);
+            content: '';
+            width: 3px;
+            height: 8px;
+            background-color: #f00;
+          }
         }
       }
     }
@@ -260,23 +282,27 @@
         flex-direction: column;
         padding: 5px;
         box-sizing: border-box;
-        background-size: cover;
-        background-position: left bottom;
-        background-clip: content-box;
         min-height: 2rem;
 
         &>div{
+          position: relative;
           height: 100%;
           box-shadow: 0 2px 5px rgb(217,217,217);
+          background-size: cover;
+          background-position: left bottom;
         }
         &:nth-child(-n+2) {
-          background-image: url(../../assets/home/di1@3x.png);
           width: 50%;
+          &>div{
+            background-image: url(../../assets/home/di1@3x.png);
+          }
          }
         &:nth-child(n+3) {
-         background-image: url(../../assets/home/di2@3x.png);
           width: 33.333%;
           margin-top: 10px;
+          &>div{
+            background-image: url(../../assets/home/di2@3x.png);
+          }
         }
         .total{
           font-size: 16px;
@@ -289,13 +315,16 @@
           padding: 0 5px;
           box-sizing: border-box;
           img{
-            width: 14px;
-            padding-right: 4px;
+            width: 11px;
+            height: auto;
+            margin-right: 4px;
           }
         }
         .type{
+          position: absolute;
+          right: 0;
+          bottom:0;
           flex: none;
-          padding: 0 5px;
           box-sizing: border-box;
           display: flex;
           justify-content: flex-end;

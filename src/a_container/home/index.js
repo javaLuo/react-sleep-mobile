@@ -301,7 +301,7 @@ class HomePageContainer extends React.Component {
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
                           <div className="type">
-                              <div>推荐</div>
+                              <div>人气</div>
                           </div>
                       </div>
                   </li>
@@ -309,27 +309,18 @@ class HomePageContainer extends React.Component {
                       <div>
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <div className="type">
-                              <div>推荐</div>
-                          </div>
                       </div>
                   </li>
                   <li>
                       <div>
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <div className="type">
-                              <div>推荐</div>
-                          </div>
                       </div>
                   </li>
                   <li>
                       <div>
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <div className="type">
-                              <div>推荐</div>
-                          </div>
                       </div>
                   </li>
               </ul>

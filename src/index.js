@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'; // react和redux连接的桥梁
 import Root from './a_container/root';
-import initReactFastclick from 'react-fastclick';
-// babel本身只能转换ES6语法，但ES6新增的MAP、SET、Generator等新功能不会转换，所以需要此插件
+
 // 直接引入到这里即可
 import 'babel-polyfill';
 // import store and history

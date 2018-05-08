@@ -79,7 +79,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => onBeizhu()}>备注：<span>添加</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>添加</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker
