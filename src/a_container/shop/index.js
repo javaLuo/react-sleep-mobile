@@ -29,6 +29,7 @@ import ShopActive from './container/shopActive';
 import Activity from './container/activity';
 import ExprDetail from './container/exprShop2Detail';
 import Eva from './container/eva';
+import ShoppingCar from './container/shoppingCar';
 // ==================
 // 本页面所需action
 // ==================
@@ -52,7 +53,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/gooddetail/:id`} component={GoodDetail} />
               <Route exact path={`${this.props.match.url}/waterxd`} component={WaterXD} />
               <Route exact path={`${this.props.match.url}/confirmpay`} component={ConfirmPay} />
-              <Route exact path={`${this.props.match.url}/paychose`} component={PayChose} />
+              <Route exact path={`${this.props.match.url}/paychose/:type`} component={PayChose} />
               <Route exact path={`${this.props.match.url}/pay`} component={Pay} />
               <Route exact path={`${this.props.match.url}/payresult`} component={PayResult} />
               <Route exact path={`${this.props.match.url}/becomedealer`} component={BecomeDealer} />
@@ -63,6 +64,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/activity/:id`} component={Activity} />
               <Route exact path={`${this.props.match.url}/exprdetail/:id`} component={ExprDetail} />
               <Route exact path={`${this.props.match.url}/eva`} component={Eva} />
+              <Route exact path={`${this.props.match.url}/shoppingcar`} component={ShoppingCar} />
           </Switch>
       </div>
     );

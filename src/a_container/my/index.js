@@ -46,6 +46,8 @@ import OrderCustomer from './container/orderCustomer';
 import OrderCustomerDetail from './container/ordercustomerdetail';
 import CustomerNex from './container/customerNex';
 import Kf from './container/kf';
+import DaiYanH5 from './container/myDaiYan/daiyanh5';
+import DaiYanH5Del from './container/myDaiYan/daiyanh5del';
 
 // ==================
 // 本页面所需action
@@ -82,6 +84,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/healthyamb`} component={HealthyAmb} />
               <Route exact path={`${this.props.match.url}/atCat`} component={AtCat} />
               <Route exact path={`${this.props.match.url}/mydaiyan/:id`} component={MyDaiYan} />
+              <Route exact path={`${this.props.match.url}/daiyanh5del/:id`} component={DaiYanH5Del} />
               <Route exact path={`${this.props.match.url}/binddealer`} component={BindDealer} />
               <Route exact path={`${this.props.match.url}/bindphone`} component={BindPhone} />
               <Route exact path={`${this.props.match.url}/setpassword`} component={SetPassword} />
@@ -96,6 +99,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/newaddr`} component={NewAddr} />
               <Route exact path={`${this.props.match.url}/upaddr`} component={UpAddr} />
               <Route exact path={`${this.props.match.url}/daiyan`} component={DaiYan} />
+              <Route exact path={`${this.props.match.url}/daiyanh5`} component={DaiYanH5} />
               <Route exact path={`${this.props.match.url}/ordercustomer`} component={OrderCustomer} />
               <Route exact path={`${this.props.match.url}/ordercustomerdetail`} component={OrderCustomerDetail} />
               <Route exact path={`${this.props.match.url}/customernex`} component={CustomerNex} />

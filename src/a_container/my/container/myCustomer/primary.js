@@ -100,7 +100,7 @@ class HomePageContainer extends React.Component {
                     }
                 </ul>
                 <div style={{ height: '45px' }} />
-                <div className="footer-btn" onClick={() => this.props.history.push('/my/customernex')}>我的客户关系说明<img src={ImgR} /></div>
+                {/*<div className="footer-btn" onClick={() => this.props.history.push('/my/customernex')}>我的客户关系说明<img src={ImgR} /></div>*/}
             </div>
         );
     }

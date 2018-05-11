@@ -103,7 +103,7 @@ class Register extends React.Component {
             loginName: this.state.userName,
             password: this.state.password,
         };
-        alert('确认绑定经销商账号?', '绑定后将不可以解绑', [
+        alert('确认绑定经销商账号?', '绑定后暂不可在线解绑经销商账户', [
             { text: '取消', onPress: () => {
                 this.setState({
                     loading: false,

@@ -127,6 +127,16 @@ class HomePageContainer extends React.Component {
         this.props.history.push('/my/daiyan');
     }
 
+    // H5宣传卡
+    onH5DaiYanClick() {
+        const u = this.props.userinfo;
+        if (!u) {
+            Toast.info('请先登录', 1);
+            return;
+        }
+        this.props.history.push('/my/daiyanh5');
+    }
+
     // 我的推广客户被点击
     onMyCustomerClick() {
         const u = this.props.userinfo;
@@ -267,6 +277,14 @@ class HomePageContainer extends React.Component {
               <div className="item tran7 hide page-flex-row" onClick={() => this.onDaiYanClick()}>
                   <img src={ImgBar5} className="icon"/>
                   <div className="title">我的代言卡</div>
+                  <div className="info" />
+                  <div className="arrow"><img src={ImgRight} /></div>
+                  <div className="line"/>
+                  <WaterWave color="#cccccc" press="down"/>
+              </div>
+              <div className="item tran7 hide page-flex-row" onClick={() => this.onH5DaiYanClick()}>
+                  <img src={ImgBar5} className="icon"/>
+                  <div className="title">我的H5宣传卡</div>
                   <div className="info" />
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>

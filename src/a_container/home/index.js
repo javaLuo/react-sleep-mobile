@@ -210,13 +210,14 @@ class HomePageContainer extends React.Component {
               <ul className="active-list" style={{ display: this.props.activityList.length ? 'flex' : 'none' }}>
                   {
                       this.props.activityList.map((item, index) => {
-                          let w = '50%';
+                          let w = 'calc(50% - 5px)';
                           if (this.props.activityList.length % 2 && index === this.props.activityList.length -1) { // 奇数最后一个
                               w = '100%';
                           }
-                          return (<li key={index} style={{ width: w }}>
+                          return (<li key={index} style={w === '100%' ? { width: w, marginLeft: 0 } : { width: w }}>
                               <Link to={`/shop/activity/${item.id}`}>
                                   <img src={item.acImg} />
+                                  <WaterWave color="#cccccc" press="down"/>
                               </Link>
                           </li>);
                       })
@@ -234,6 +235,7 @@ class HomePageContainer extends React.Component {
                                   <div className="t all_nowarp">{item.name}</div>
                                   <div className="num">已售: {item.buyCount}</div>
                                   <div className="m"><i>￥</i>{item.price}</div>
+                              <WaterWave color="#cccccc" press="down"/>
                           </li>
                       );
                   }) }
@@ -247,6 +249,7 @@ class HomePageContainer extends React.Component {
                                       <div className="t all_nowarp">{item.name}</div>
                                       <div className="num">已售: {item.buyCount}</div>
                                       <div className="m"><i>￥</i>{item.price}</div>
+                                  <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
                       })
@@ -264,6 +267,7 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
                                   <div className="pic"><img src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
+                                  <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
                       })
@@ -276,6 +280,7 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
                                   <div className="pic"><img src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
+                                  <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
                       })
@@ -294,6 +299,7 @@ class HomePageContainer extends React.Component {
                           <div className="type">
                               <div>推荐</div>
                           </div>
+                          <WaterWave color="#cccccc" press="down"/>
                       </div>
                   </li>
                   <li>
@@ -303,28 +309,32 @@ class HomePageContainer extends React.Component {
                           <div className="type">
                               <div>人气</div>
                           </div>
+                          <WaterWave color="#cccccc" press="down"/>
                       </div>
                   </li>
                   <li>
                       <div>
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <WaterWave color="#cccccc" press="down"/>
                       </div>
                   </li>
                   <li>
                       <div>
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <WaterWave color="#cccccc" press="down"/>
                       </div>
                   </li>
                   <li>
                       <div>
                           <div className="total all_nowarp">上海嘉定区体验中心</div>
                           <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                          <WaterWave color="#cccccc" press="down"/>
                       </div>
                   </li>
               </ul>
-              <div className="foot"><WaterWave color="#cccccc" press="down"/>查看全部 <Icon type="caret-right" /></div>
+              <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 热门资讯 **/}
           <div className="home-content-one">
@@ -341,6 +351,7 @@ class HomePageContainer extends React.Component {
                           </div>
                       </div>
                       <div className="new_pic" ><img src={ImgTest}/></div>
+                      <WaterWave color="#cccccc" press="down"/>
                   </li>
                   <li className="type1">
                       <div>
@@ -367,7 +378,7 @@ class HomePageContainer extends React.Component {
                       <div className="new_pic" ><img src={ImgTest}/></div>
                   </li>
               </ul>
-              <div className="foot"><WaterWave color="#cccccc" press="down"/>查看更多 <Icon type="caret-right" /></div>
+              <div className="foot"><WaterWave color="#cccccc" press="down"/><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>
           </div>
       </div>
     );

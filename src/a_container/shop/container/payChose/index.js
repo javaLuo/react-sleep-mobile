@@ -180,10 +180,10 @@ class HomePageContainer extends React.Component {
             if (!s2) { return false; }
 
             const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-                body: this.state.pay_obj.name || '翼猫科技商品',                                 // 商品描述
+                body: this.state.pay_obj.name || '翼猫科技商品',        // 商品描述
                 total_fee: Number(this.state.pay_info.fee * 100) || 0 , // 总价格（分）
                 spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
-                out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
+                out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,  // 商户订单号，通过后台生成订单接口获取
                 code: null,                                             // 授权code, 后台为了拿openid
                 trade_type: 'JSAPI',
             });
@@ -284,8 +284,8 @@ class HomePageContainer extends React.Component {
              * **/
             console.log('H5支付统一下单返回值：', res);
             if (res.status === 200) {
-                location.assign(`${res.data}&redirect_url=${encodeURIComponent(Config.baseURL + '/gzh/#/shop/paychose')}`);
-                // ${encodeURIComponent(Config.baseURL + '/gzh/#/shop/paychose')}
+                location.assign(`${res.data}&redirect_url=${encodeURIComponent(Config.baseURL + '/gzh/#/shop/payChose/1')}`);
+                // ${encodeURIComponent(Config.baseURL + '/gzh/#/shop/payChose/1')}
             }
         }).catch(() => {
             Toast.fail('支付失败，请重试',1);
@@ -437,21 +437,25 @@ class HomePageContainer extends React.Component {
         sessionStorage.removeItem('pay-info');
         sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
 
-        this.props.history.replace(`/my/orderdetail`);
+        this.props.history.replace('/my/order');
+        // 现在由于可以多个商品一起支付，所以不知道该跳到哪个商品
+        // 之前的支付成功页，没有接口提供对应的数据（只能从订单列表才能获得支付后的数据）
+        // 所以无论如何，此处直接跳转到订单页即可
+        // this.props.history.replace(`/my/orderdetail`);
     }
 
   render() {
     return (
       <div className="flex-auto page-box pay-chose">
-          <List className="product-list">
-              <Item
-                  thumb={(this.state.pay_obj.nowProduct && this.state.pay_obj.nowProduct.productImg) ? <img src={this.state.pay_obj.nowProduct.productImg.split(',')[0]} /> : null}
-                  multipleLine
-              >
-                  {this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.name : '--'}<Brief>数量：{this.state.pay_obj.nowProduct ? this.state.pay_info.count : '--'}</Brief>
-              </Item>
-          </List>
-          <List style={{ marginTop: '.2rem' }}>
+          {/*<List className="product-list">*/}
+              {/*<Item*/}
+                  {/*thumb={(this.state.pay_obj.nowProduct && this.state.pay_obj.nowProduct.productImg) ? <img src={this.state.pay_obj.nowProduct.productImg.split(',')[0]} /> : null}*/}
+                  {/*multipleLine*/}
+              {/*>*/}
+                  {/*{this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.name : '--'}<Brief>数量：{this.state.pay_obj.nowProduct ? this.state.pay_info.count : '--'}</Brief>*/}
+              {/*</Item>*/}
+          {/*</List>*/}
+          <List>
               <RadioItem key="wxpay" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>
               {
                   tools.isWeixin() ? null : <RadioItem key="alipay" thumb={<img  src={ImgZhiFuBao} />} checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>

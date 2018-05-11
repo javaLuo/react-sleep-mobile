@@ -22,6 +22,7 @@ const initState = {
         },
         addr: null,             // 所选择的收货地址信息，用于展示
     },
+    shoppingCar: [],    // 购物车，从购物车进入付款页时，需要把所选的所有商品都弄进来
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
     homePics: [],   // 首页轮播图
@@ -64,6 +65,7 @@ const initState = {
     iwantnow: 0,        // 可提现金额（从收益页进入提现页时带过去）
     tiXianDetail: null, // 从提现记录列表进入详情页时所需信息
     daiyanList: null,     // 代言卡选择页数据
+    daiyanh5List: [], // H5代言卡选择页数据
     mapAddr: null,  // 进入地图时当前选择的地址
     liveTypes: [],  // 所有的LIVE分类
 };
@@ -267,6 +269,13 @@ const getDaiYanList = (state, action) => {
     });
 };
 
+const getDaiyanh5List = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        daiyanh5List: payload,
+    });
+};
+
 const saveMapAddr = (state, action) => {
     const { payload } = action;
     return Object.assign({}, state, {
@@ -333,10 +342,14 @@ const reducerFn = (state = initState, action) => {
             return saveTiXianDetailInfo(state, action);
         case 'MY::getDaiYanList':
             return getDaiYanList(state, action);
+        case 'SHOP::daiyanh5List':
+            return getDaiyanh5List(state, action);
         case 'MY::saveMapAddr':
             return saveMapAddr(state, action);
         case 'LIVE::getLiveTypes':
             return getLiveTypes(state, action);
+        case 'APP::pushCar':
+            return pushCar(state, action);
         default:
             return actDefault(state, action);
     }

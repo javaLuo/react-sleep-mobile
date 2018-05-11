@@ -823,3 +823,15 @@ export const getLiveListCache = (params = {}) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+
+/**
+ * 从购物车选择付款，先把所选商品的相关信息存入一个变量
+ * 付款页进入的标识是2
+ * **/
+export function pushCar(params = []) {
+    return {
+        type: 'APP::pushCar',
+        payload: params,
+    };
+}

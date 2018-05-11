@@ -37,6 +37,7 @@
       color: rgb(137,136,142);
       text-align: center;
       padding: 8px 0;
+      margin-top :10px;
       a{
         display: block;
         width: 100%;
@@ -51,17 +52,17 @@
     .active-bar{
       position: relative;
       box-sizing: border-box;
-      width: 94%;
-      margin:-12px auto 0 auto;
+      margin:-12px auto 5px auto;
       height: 0;
       padding-top: 25%;
       background-image: url(../../assets/home/banner_one.png);
       background-size: 100% auto;
       background-position: top center;
+      background-repeat: no-repeat;
       border-radius: 3px;
       &>div{
         position: absolute;
-        bottom: 18%;
+        bottom: 20%;
         left: 50%;
         transform: translateX(-50%);
         color: #fff;
@@ -75,10 +76,14 @@
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      margin-bottom: 0;
       &>li{
         box-sizing: border-box;
-        padding: 5px;
         flex: none;
+        margin-bottom: 10px;
+        &+li{
+          margin-left: 10px;
+        }
         a{
           display: block;
           width:100%;
@@ -94,17 +99,17 @@
 
     .hot-1{
       display: flex;
+      box-sizing: border-box;
       margin-bottom: 0;
       justify-content: space-around;
       &>li{
         box-sizing: border-box;
-        padding:5px;
-        flex: 1;
+        flex: none;
+        width: calc(50% - 5px);
         max-width: 200px;
-        width: 50%;
         transition: all 200ms;
-        &:active{
-          background-color: #f0f0f0;
+        &+li{
+          margin-left: 10px;
         }
         .pic{
           position: relative;
@@ -116,8 +121,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 96%;
-            height: 96%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transform: translate(-50%, -50%);
             max-width: 200px;
             max-height: 200px;
@@ -149,15 +155,15 @@
       overflow-x: auto;
       display: flex;
       margin-bottom: 0;
+      margin-top: 10px;
       &>li{
         box-sizing: border-box;
-        padding:5px;
         flex: none;
         max-width: 150px;
         width: 40%;
         transition: all 200ms;
-        &:active{
-          background-color: #f0f0f0;
+        &+li{
+          margin-left: 10px;
         }
         .pic{
           position: relative;
@@ -169,8 +175,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 96%;
-            height: 96%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transform: translate(-50%, -50%);
             max-width: 200px;
             max-height: 200px;
@@ -198,11 +205,10 @@
     }
 
     .zb-1{
-      margin-bottom: 0;
+      margin-bottom: 10px;
       &>li{
         width: 100%;
         box-sizing: border-box;
-        padding:5px;
         .pic{
           width: 100%;
           height: 3.5rem;
@@ -240,11 +246,13 @@
       margin-bottom: 0;
       &>li{
         box-sizing: border-box;
-        padding:5px;
         max-width: 150px;
         flex: none;
-        width: 40%;
-        height: 2rem;
+        width: 38%;
+        height: 1.8rem;
+        &+li{
+          margin-left: 10px;
+        }
         .pic{
           width: 100%;
           height: 100%;
@@ -278,12 +286,12 @@
       display: flex;
       flex-wrap: wrap;
       &>li{
-        display: flex;
         flex-direction: column;
         padding: 5px;
         box-sizing: border-box;
-        min-height: 2rem;
-
+        height: 2rem;
+        position: relative;
+        display: block;
         &>div{
           position: relative;
           height: 100%;
@@ -299,7 +307,7 @@
          }
         &:nth-child(n+3) {
           width: 33.333%;
-          margin-top: 10px;
+          margin-top: 5px;
           &>div{
             background-image: url(../../assets/home/di2@3x.png);
           }

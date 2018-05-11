@@ -1,4 +1,4 @@
-/* 我的代言卡 */
+/* 我的H5代言卡详情 */
 
 // ==================
 // 所需的各种插件
@@ -8,26 +8,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import tools from '../../../../util/all';
+
 import Config from '../../../../config';
-import './index.scss';
+import './daiyanh5del.scss';
 // ==================
 // 所需的所有组件
 // ==================
 import { Button, Toast } from 'antd-mobile';
-import ImgCyan from '../../../../assets/share/y_cyan.png';
-import ImgGreen from '../../../../assets/share/y_green.png';
-import ImgBlue from '../../../../assets/share/y_blue.png';
-import ImgOrange from '../../../../assets/share/y_orange.png';
-
-import ImgLCyan from '../../../../assets/share/l_cyan.png';
-import ImgLGreen from '../../../../assets/share/l_green.png';
-import ImgLBlue from '../../../../assets/share/l_blue.png';
-import ImgLOrange from '../../../../assets/share/l_orange.png';
 
 import ImgShareArr from '../../../../assets/share-arr.png';
 import ImgQrCode from '../../../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
-import ImgZhiWen from '../../../../assets/share/zhiwen@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -139,7 +129,7 @@ class Register extends React.Component {
             wx.onMenuShareAppMessage({
                 title: `${u.nickName}${d1.title}`,
                 desc: d1.content,
-                link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
+                link: `${Config.baseURL}/gzh/?#/daiyanh5share/${str}`,
                 imgUrl: d1.titleImage,
                 type: 'link',
                 success: () => {
@@ -183,40 +173,23 @@ class Register extends React.Component {
         const d1 = this.state.d1;
         console.log('d1是什么：', d1, this.state.type);
         return (
-            <div className="page-daiyanka" style={{ minHeight: '100vh', backgroundImage: `url(${d1.backImage})` }}>
-                <div className="body-box">
-                    <div className="head-box">
-                        <div className="pic"><img src={u.headImg} /></div>
-                        <div className="name" style={{ color: d1.colorOne || '#fff' }}>{u.nickName || '-'}</div>
-                        <div className="name-info" style={{ color: d1.colorOne || '#fff' }}>{d1.title || ' '}</div>
-                    </div>
-                    <div className="img-box">
-                        {
-                            d1.contentImage ? (
-                                <img className="img" src={d1.contentImage}/>
-                            ) : null
-                        }
-
-                    </div>
-                    <div className="code-box">
-                        <div className="t">长按识别二维码接受邀请</div>
-                        <div className="codes page-flex-row flex-jc-center">
-                            <div>
-                                <img src={this.state.imgCode || ImgQrCode}/>
-                                <img className="head" src={u.headImg} />
-                            </div>
-                            <div>
-                                <img src={ImgZhiWen} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div className="page-daiyankah5">
+                <iframe className="body-box" wmode="transparent" src={item.speakCardUrl}/>
                 <div className="thefooter">
                     <Button type="primary"  style={{ backgroundColor: d1.colorTwo || '#0074FF' }} onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
                 </div>
                 <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
                     <img className="share" src={ImgShareArr} />
                     <div className="title">点击右上角进行分享</div>
+                </div>
+                <div className="code-box">
+                    <div className="codes page-flex-row flex-jc-center">
+                        <div>
+                            <img src={this.state.imgCode || ImgQrCode}/>
+                            <img className="head" src={u.headImg} />
+                        </div>
+                    </div>
+                    <div className="t">长按识别二维码<br/>了解更多精彩</div>
                 </div>
             </div>
         );

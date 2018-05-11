@@ -59,7 +59,9 @@ class HomePageContainer extends React.Component {
 
   }
 
-
+  componentWillUnmount() {
+      Toast.hide();
+  }
   // 获取原始数据
   getData(id) {
     this.props.actions.productById({ productId: id }).then((res) => {
@@ -72,6 +74,8 @@ class HomePageContainer extends React.Component {
             Toast.hide();
         } else {
             Toast.fail(res.message, 1);
+            setTimeout(() => this.props.history.go(-1), 1000);
+
         }
     }).catch(() => {
         this.props.history.go(-1);
@@ -215,7 +219,7 @@ class HomePageContainer extends React.Component {
             if (res.status === 200) { // 有权限
                 const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
                 const nowProduct = this.state.data;
-                this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、）
+                this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、计费方式，当前商品完整信息）
                 // 实物商品提前查询默认收货地址
                 if (this.state.data.typeId !== 5) {
                     this.props.actions.getDefaultAttr();
@@ -259,7 +263,7 @@ class HomePageContainer extends React.Component {
       const d = this.state.data || {};
       console.log('D是什么：', d);
     return (
-      <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page show'}>
+      <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
               <VideoLuo

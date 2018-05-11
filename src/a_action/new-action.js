@@ -43,3 +43,19 @@ export const listByActivityId = (params) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// H5宣传卡列表
+export const speakCardPropList = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/speakCard/propagandaList', params);
+        if (res.status === 200) {
+            dispatch({
+                type: 'SHOP::daiyanh5List',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};

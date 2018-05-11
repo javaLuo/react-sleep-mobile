@@ -150,7 +150,7 @@ class HomePageContainer extends React.Component {
               sessionStorage.setItem('pay-info', JSON.stringify(res.data));                 // 将返回的订单信息存入sessionStorage
               sessionStorage.setItem('pay-obj', JSON.stringify(this.props.orderParams));    // 将当前所选择的商品信息存入session
               /** 普通商品跳转到付款选择页，活动物品直接跳转到订单详情 **/
-              this.props.history.replace('/shop/payChose');
+              this.props.history.replace('/shop/payChose/1');
           } else {
               Toast.fail(res.message || '订单创建失败',1);
           }

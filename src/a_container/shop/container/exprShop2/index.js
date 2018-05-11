@@ -18,7 +18,7 @@ import { Picker, List, Toast, Icon, Carousel } from 'antd-mobile';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
 import ImgPhone from '../../../../assets/dianhua@3x.png';
 import Img404 from '../../../../assets/not-found.png';
-import ImgDaoHang from '../../../../assets/daohang@3x.png';
+import ImgDaoHang from '../../../../assets/daohang_blue@3x.png';
 import Img1 from './assets/infos1@3x.png';
 import Img2 from './assets/infos2@3x.png';
 import Img3 from './assets/infos3@3x.png';

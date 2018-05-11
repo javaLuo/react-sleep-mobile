@@ -161,7 +161,7 @@ class HomePageContainer extends React.Component {
       sessionStorage.setItem('pay-info', JSON.stringify(obj));
       console.log('代入的obj', obj.product);
       sessionStorage.setItem('pay-obj', JSON.stringify({ nowProduct: obj.product}));
-      this.props.history.push('/shop/payChose');
+      this.props.history.push('/shop/payChose/1');
     }
 
     // 查看订单详情

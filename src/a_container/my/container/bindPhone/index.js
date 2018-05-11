@@ -142,7 +142,7 @@ class Register extends React.Component {
             countryCode: '86',
             verifyCode: this.state.vcode,
         };
-        alert('确认绑定手机号？', '绑定后将不可以解绑', [
+        alert('确认绑定手机号？', '绑定后暂不可在线更换手机号', [
             { text: '取消', onPress: () => console.log('cancel') },
             {
                 text: '确认',

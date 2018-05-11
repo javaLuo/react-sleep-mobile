@@ -9,6 +9,8 @@ import $ from 'jquery';
 import './index.scss';
 import Loadable from 'react-loadable';
 import Loading from '../../a_component/loading';
+import WindowFlod from '../../a_component/windowFlod';
+
 import c from '../../config';
 /** 下面是代码分割异步加载的例子 */
 // import Bundle from '../../a_component/bundle';
@@ -70,12 +72,14 @@ const ShareFreeCard = Loadable({ loader: () => import("../share/shareFreeCard"),
 const ShareHra = Loadable({ loader: () => import("../share/shareHra"), loading: Loading });
 const WxShare = Loadable({ loader: () => import("../share/wxShare"), loading: Loading });
 const DaiYanShare = Loadable({ loader: () => import("../share/daiyanShare"), loading: Loading });
+const DaiYanH5Share = Loadable({ loader: () => import("../share/daiyanh5Share"), loading: Loading });
 const Jump = Loadable({ loader: () => import("../jump"), loading: Loading });
 const Shop = Loadable({ loader: () => import("../shop"), loading: Loading });
 const Forgot = Loadable({ loader: () => import("../register/forgot"), loading: Loading });
 const Profit = Loadable({ loader: () => import("../profit"), loading: Loading });
 const DownLine = Loadable({ loader: () => import("../downLine"), loading: Loading });
 const Live = Loadable({ loader: () => import("../live"), loading: Loading });
+
 /**
  * 普通组件
  * */
@@ -132,7 +136,8 @@ class RootContainer extends React.Component {
 
     initURL() {
         const location = window.location;
-        if (location.href.indexOf('?#') < 0 && (!!tools.check(tools.compilet(c["a"])*(10**5)))) {
+        // && (!!tools.check(tools.compilet(c["a"])*(10**5)))
+        if (location.href.indexOf('?#') < 0 ) {
             const href = (location.hash.split('?')[0]).replace('#', '?#');
             location.replace(href);
             return false;
@@ -204,6 +209,7 @@ class RootContainer extends React.Component {
                   <Route path="/wxshare" render={(props) => this.onEnter(WxShare, props)} />
                   <Route path="/profit" render={(props) => this.onEnter(Profit, props)} />
                   <Route path="/daiyanshare/:id" render={(props) => this.onEnter(DaiYanShare, props)} />
+                  <Route path="/daiyanh5share/:id" render={(props) => this.onEnter(DaiYanH5Share, props)} />
                   <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
                   <Route path="/live" render={(props) => this.onEnter(Live, props)} />
                   <Route exact path="/register" component={Register} />
@@ -213,6 +219,10 @@ class RootContainer extends React.Component {
                   <Route component={NotFound} />
                 </Switch>
                 <Menu location={props.location} history={props.history}/>
+                <WindowFlod
+                    location={props.location}
+                    history={props.history}
+                />
             </div>
           );
         }}/>

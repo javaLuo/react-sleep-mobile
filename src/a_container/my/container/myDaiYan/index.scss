@@ -3,6 +3,9 @@
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
+  display :flex;
+  flex-direction: column;
+  height: 100vh;
   .logo{
     position: absolute;
     top: .3rem;
@@ -19,6 +22,7 @@
   }
   .body-box{
     padding: 1.3rem .2rem .2rem .2rem;
+    flex: auto;
     .head-box{
       position: relative;
       margin-top: 0;
@@ -111,9 +115,7 @@
     }
   }
   .thefooter{
-    position: fixed;
-    bottom:0;
-    left:0;
+    flex: none;
     height: 47px;
     width: 100%;
     z-index: 10;
