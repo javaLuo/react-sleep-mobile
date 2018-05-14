@@ -25,8 +25,9 @@ import ImgR from '../../../../assets/xiangyou@3x.png';
 // 本页面所需action
 // ==================
 
-import { wxInit, getDaiYanList } from '../../../../a_action/shop-action';
+import { wxInit } from '../../../../a_action/shop-action';
 import { shareBuild } from '../../../../a_action/app-action';
+import { speakCardPropList } from '../../../../a_action/new-action';
 // ==================
 // Definition
 // ==================
@@ -60,19 +61,18 @@ class Register extends React.Component {
     }
 
     getData() {
-        this.props.actions.getDaiYanList();
+        this.props.actions.speakCardPropList({ cardCategory: 1 });
     }
 
     makeData(data) {
         if (!data) { return null; }
-        const map = Object.entries(data);
-        return map.map((item, index) => {
+        return data.map((item, index) => {
             return (
                 <div key={index} className="abox">
-                    <div className="title">{item[1][0] && item[1][0].productTypeName}</div>
+                    <div className="title">{item.typeName}</div>
                     <ul className="the-ul">
                     {
-                        item[1].map((v, i) => {
+                        item.productSpeakCards && item.productSpeakCards.map((v, i) => {
                             return <li key={i} onClick={() => this.onChose(v.id)}>
                                 <img className="pic" src={v.titleImage}/>
                                 <div className="info">{v.name}</div>
@@ -117,6 +117,6 @@ export default connect(
         daiyanList: state.shop.daiyanList,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ wxInit, shareBuild, getDaiYanList }, dispatch),
+        actions: bindActionCreators({ wxInit, shareBuild, speakCardPropList }, dispatch),
     })
 )(Register);

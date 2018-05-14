@@ -270,10 +270,16 @@ const getDaiYanList = (state, action) => {
 };
 
 const getDaiyanh5List = (state, action) => {
-    const { payload } = action;
-    return Object.assign({}, state, {
-        daiyanh5List: payload,
-    });
+    const { payload, payloadType } = action;
+    if (payloadType === 1) { // 产品代言卡
+        return Object.assign({}, state, {
+            daiyanList: payload,
+        });
+    } else if (payloadType === 2) { // 宣传代言卡
+        return Object.assign({}, state, {
+            daiyanh5List: payload,
+        });
+    }
 };
 
 const saveMapAddr = (state, action) => {

@@ -52,6 +52,7 @@ export const speakCardPropList = (params) => async(dispatch) => {
             dispatch({
                 type: 'SHOP::daiyanh5List',
                 payload: res.data,
+                payloadType: params.cardCategory
             });
         }
         return res;

@@ -55,7 +55,7 @@ class Register extends React.Component {
     }
 
     getData() {
-        this.props.actions.speakCardPropList();
+        this.props.actions.speakCardPropList({ cardCategory: 2 });
     }
 
     makeTabBar(data) {

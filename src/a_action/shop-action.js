@@ -226,7 +226,7 @@ export function saveShopAddr(params) {
 export const mallApList = (params = {}) => async(dispatch) => {
     try {
         const res = await Fetchapi.newPost('mall/ap/list', params);
-        if (res.status === 200) {
+        if (res.status === 200 && params.typeCode === 'slideshow') { // 首页的轮播才缓存
             dispatch({
                 type: 'HOME::mallApList',
                 payload: res.data,

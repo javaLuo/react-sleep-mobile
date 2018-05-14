@@ -14,14 +14,14 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { SearchBar, Tabs } from 'antd-mobile';
+import { SearchBar, Tabs, Carousel } from 'antd-mobile';
 import Img1 from '../../../../assets/test/new.png';
 import ImgCar from '../../../../assets/shop/jrgwc@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { getProDuctList, listProductType } from '../../../../a_action/shop-action';
+import { getProDuctList, listProductType, mallApList } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -30,6 +30,7 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        barPics: [],    // 顶部轮播图
     };
   }
 
@@ -38,11 +39,20 @@ class HomePageContainer extends React.Component {
     if (!this.props.allProducts.length) {
         this.props.actions.getProDuctList();
     }
-    // 如果state中没有所有的产品类别，就重新获取
-    // if (!this.props.allProductTypes.length) {
-    //   this.props.actions.listProductType();
-    // }
+    this.getPics(); // 获取顶部轮播图
   }
+
+  // 获取顶部轮播
+    getPics() {
+      this.props.actions.mallApList({ typeCode: 'shop' }).then((res) => {
+          if(res.status === 200) {
+              this.setState({
+                  barPics: res.data,
+                  imgHeight: '178px',
+              });
+          }
+      });
+    }
 
   // 工具 - 通过型号ID查型号名称
   getTypeNameById(id) {
@@ -57,12 +67,39 @@ class HomePageContainer extends React.Component {
 
   render() {
       const d = [...this.props.allProducts].sort((a, b) => a-b);
+      const u = this.props.userinfo;
     return (
       <div className="flex-auto page-box shop-main">
-          <div className="title-pic">
-              <img src={Img1} />
-              <SearchBar className="search" placeholder="试试搜：翼猫智能净水" maxLength={16} />
-          </div>
+          {/* 顶部轮播 */}
+          {
+              (this.state.barPics.length) ? (
+                  <Carousel
+                      className="my-carousel"
+                      autoplay={true}
+                      infinite={true}
+                      swipeSpeed={35}
+                  >
+                      {this.state.barPics.map((item, index) => (
+                          <a
+                              key={index}
+                              href={u ? `${item.url}&e=${u.id}` : item.url}
+                              style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                              target="_blank"
+                          >
+                              <img
+                                  src={item.adImg}
+                                  style={{ width: '100%', verticalAlign: 'top' }}
+                                  onLoad={() => {
+                                      // fire window resize event to change height
+                                      window.dispatchEvent(new Event('resize'));
+                                      this.setState({ imgHeight: 'auto' });
+                                  }}
+                              />
+                          </a>
+                      ))}
+                  </Carousel>
+              ) : <div style={{ height: this.state.imgHeight }} />
+          }
           <div className="body-box">
               <Tabs
                 tabs={d.map((item, index) => {
@@ -131,6 +168,7 @@ HomePageContainer.propTypes = {
   actions: P.any,
   allProducts: P.array,
   allProductTypes: P.array,
+    userinfo: P.any,
 };
 
 // ==================
@@ -141,8 +179,9 @@ export default connect(
   (state) => ({
       allProducts: state.shop.allProducts,
       allProductTypes: state.shop.allProductTypes,
+      userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getProDuctList, listProductType }, dispatch),
+    actions: bindActionCreators({ getProDuctList, listProductType, mallApList }, dispatch),
   })
 )(HomePageContainer);
