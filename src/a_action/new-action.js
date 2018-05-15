@@ -60,3 +60,31 @@ export const speakCardPropList = (params) => async(dispatch) => {
         Toast.fail('网络错误，请重试',1);
     }
 };
+
+// 客服页所需数据
+export const getKfList = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/assistant/list', params);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+// 首页 - 查询推荐的服务站
+export const getGoodServiceStations = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/station/recommend/list', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.fail('网络错误，请重试',1);
+    }
+};
+
+// 进入体验店
+// 保存用户当前位置
+export function inputStation(data) {
+    return {
+        type: 'SHOP::inputStation',
+        payload: data,
+    };
+}

@@ -32,7 +32,7 @@ import ImgTime from '../../assets/home/thetime@3x.png';
 // ==================
 
 import { mallApList, getOrdersCount, getLiveListCache, getLiveTypes } from '../../a_action/shop-action';
-import { getRecommend, getActivityList } from '../../a_action/new-action';
+import { getRecommend, getActivityList, getGoodServiceStations, inputStation } from '../../a_action/new-action';
 // ==================
 // Definition
 // ==================
@@ -42,6 +42,7 @@ class HomePageContainer extends React.Component {
     this.state = {
         imgHeight: '178px',
         activeCount: 0,
+        stations: [],   // 5个推荐的体验店
     };
   }
 
@@ -74,6 +75,9 @@ class HomePageContainer extends React.Component {
       }
       // 获取有多少人参加活动
     this.getOrdersCount();
+
+    // 获取推荐服务站
+      this.getGoodServiceStations();
   }
 
   // 获取热销产品
@@ -81,6 +85,16 @@ class HomePageContainer extends React.Component {
       this.props.actions.getRecommend();
     }
 
+    // 获取推荐服务站
+    getGoodServiceStations() {
+      this.props.actions.getGoodServiceStations({ pageNum: 1, pageSize: 5 }).then((res) => {
+        if(res.status === 200) {
+            this.setState({
+                stations: res.data,
+            });
+        }
+      });
+    }
     // 获取热门活动
     getActivityList() {
         this.props.actions.getActivityList();
@@ -150,6 +164,11 @@ class HomePageContainer extends React.Component {
     // 点击视频 跳转到对应视频详情页
     zbClick(id) {
         window.open(`${config.baseURL}/mall/live/show?liveId=${id}`);
+    }
+    // 保存当前服务站信息，并进入服务站详情页
+    inputStation(data) {
+      this.props.actions.inputStation(data);
+      this.props.history.push('/shop/exprdetail');
     }
   render() {
     const u = this.props.userinfo;
@@ -292,47 +311,30 @@ class HomePageContainer extends React.Component {
           <div className="home-content-one">
               <div className="title">翼猫体验店</div>
               <ul className="tyd-1">
-                  <li>
-                      <div>
-                          <div className="total all_nowarp">上海嘉定区体验中心</div>
-                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <div className="type">
-                              <div>推荐</div>
-                          </div>
-                          <WaterWave color="#cccccc" press="down"/>
-                      </div>
-                  </li>
-                  <li>
-                      <div>
-                          <div className="total all_nowarp">上海嘉定区体验中心</div>
-                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <div className="type">
-                              <div>人气</div>
-                          </div>
-                          <WaterWave color="#cccccc" press="down"/>
-                      </div>
-                  </li>
-                  <li>
-                      <div>
-                          <div className="total all_nowarp">上海嘉定区体验中心</div>
-                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <WaterWave color="#cccccc" press="down"/>
-                      </div>
-                  </li>
-                  <li>
-                      <div>
-                          <div className="total all_nowarp">上海嘉定区体验中心</div>
-                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <WaterWave color="#cccccc" press="down"/>
-                      </div>
-                  </li>
-                  <li>
-                      <div>
-                          <div className="total all_nowarp">上海嘉定区体验中心</div>
-                          <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
-                          <WaterWave color="#cccccc" press="down"/>
-                      </div>
-                  </li>
+                  {
+                      this.state.stations.map((item, index) => {
+                          return (
+                              <li key={index} onClick={() => this.inputStation(item)}>
+                                  <div>
+                                      <div className="total all_nowarp">{item.name}</div>
+                                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                                      {(() => {
+                                          switch(index) {
+                                              case 0 : return <div className="type">
+                                                  <div>推荐</div>
+                                              </div>;
+                                              case 1: return <div className="type">
+                                                  <div>人气</div>
+                                              </div>;
+                                              default: return null;
+                                          }
+                                      })()}
+                                      <WaterWave color="#cccccc" press="down"/>
+                                  </div>
+                              </li>
+                          );
+                      })
+                  }
               </ul>
               <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
@@ -415,6 +417,6 @@ export default connect(
       activityList: state.n.activityList,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList }, dispatch),
+    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList, getGoodServiceStations, inputStation }, dispatch),
   })
 )(HomePageContainer);

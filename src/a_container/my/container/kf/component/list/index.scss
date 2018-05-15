@@ -32,8 +32,28 @@
       padding-bottom: 10px;
     }
     .qs{
+      margin: 0;
+      padding: 10px 0;
       &>li{
+        position: relative;
         list-style: circle;
+        color: #0e80d2;
+        padding-left: 10px;
+        &::before{
+          content: "";
+          display: block;
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          border-radius: 6px;
+          background-color: #ccc;
+          top: 50%;
+          left: -2px;
+          transform: translateY(-50%);
+        }
+        &:active{
+          color: #40a9ff;
+        }
       }
     }
     &:before{
@@ -48,6 +68,59 @@
       background-color: #fff;
     }
   }
+
+  .word-box-r{
+    position: relative;
+    max-width: calc(100vw - 100px);
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-right: 15px;
+    text-align: left;
+    .t{
+      font-size: 15px;
+      border-bottom: solid 1px #ccc;
+      padding-bottom: 10px;
+    }
+    .qs{
+      margin: 0;
+      padding: 10px 0;
+      &>li{
+        position: relative;
+        list-style: circle;
+        color: #0e80d2;
+        padding-left: 10px;
+        &::before{
+          content: "";
+          display: block;
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          border-radius: 6px;
+          background-color: #ccc;
+          top: 50%;
+          left: -2px;
+          transform: translateY(-50%);
+        }
+        &:active{
+          color: #40a9ff;
+        }
+      }
+    }
+    &:before{
+      content: "";
+      position: absolute;
+      top: 15px;
+      right: -6px;
+      display: block;
+      width: 12px;
+      height: 12px;
+      transform: rotate(45deg);
+      background-color: #fff;
+    }
+  }
+
   .type1{
     color: #aaa;
     text-align: center;
@@ -62,10 +135,21 @@
   }
   .type3{
     text-align: justify;
-    text-indent: 2em;
     display: flex;
   }
   .type4{
     display: flex;
+  }
+  .type5{
+    display: flex;
+    justify-content: flex-end;
+    &>div{
+      flex: none;
+    }
+  }
+  .type6{
+    text-align: justify;
+    display: flex;
+
   }
 }

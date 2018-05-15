@@ -62,7 +62,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/choseaddr`} component={ChoseAddr} />
               <Route exact path={`${this.props.match.url}/shopactive`} component={ShopActive} />
               <Route exact path={`${this.props.match.url}/activity/:id`} component={Activity} />
-              <Route exact path={`${this.props.match.url}/exprdetail/:id`} component={ExprDetail} />
+              <Route exact path={`${this.props.match.url}/exprdetail`} component={ExprDetail} />
               <Route exact path={`${this.props.match.url}/eva`} component={Eva} />
               <Route exact path={`${this.props.match.url}/shoppingcar`} component={ShoppingCar} />
           </Switch>

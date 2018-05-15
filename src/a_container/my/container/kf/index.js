@@ -13,6 +13,7 @@ import tools from '../../../../util/all';
 import { Transition } from 'react-spring';
 import './index.scss';
 import $ from 'jquery';
+import { Toast } from 'antd-mobile';
 // ==================
 // 所需的所有组件
 // ==================
@@ -25,7 +26,7 @@ import ImgFill2 from './assets/Fill2@3x.png';
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/app-action';
+import { getKfList } from '../../../../a_action/new-action';
 
 // ==================
 // Definition
@@ -34,17 +35,39 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        data: [],   // 原始数据
         tempData: [
             {type: 1, date: new Date()},
             {type: 2},
             {type: 3},
         ],   // 零时数据
+        loading: false, // 正在回答中
     };
   }
 
   componentDidMount() {
       document.title = '客服助手';
+      this.getData();
   }
+    componentWillUnmount(){
+      Toast.hide();
+    }
+  // 获取数据
+    getData() {
+      Toast.loading('请稍后...', 0);
+      this.props.actions.getKfList().then((res) => {
+          if(res.status === 200) {
+              this.setState({
+                  data: res.data
+              });
+              Toast.hide();
+          } else {
+              Toast.info(res.message, 1);
+          }
+      }).catch((e)=>{
+          Toast.info('客服机器人启动失败', 1);
+      });
+    }
 
   // 滑动到最下面
     static scrollToDown() {
@@ -53,12 +76,15 @@ class HomePageContainer extends React.Component {
 
     onTypeClick(e) {
       const qid = e.target.getAttribute('data-id');
+      if (!qid) { // 可能点到ul本身了
+          return;
+      }
       const t = [...this.state.tempData];
       if(t[t.length-1].qid === qid && t[t.length-1].type === 4) { // 上一个已经是同样类型的回答了
           return;
       }
       t.push({ type: 4, qid });
-      console.log(t);
+      console.log('QID', t, qid);
       this.setState({
           tempData: t,
       }, () => {
@@ -66,6 +92,28 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    q2a(q, a) {
+        if(this.state.loading) {    // 正在回答中
+            return;
+        }
+      const tempData = [...this.state.tempData];
+      tempData.push({ type: 5, q });
+      this.setState({
+          tempData,
+          loading: true,
+      }, () => {
+          HomePageContainer.scrollToDown();
+      });
+      setTimeout(() => {
+          tempData.push({ type: 6, a });
+          this.setState({
+              tempData,
+              loading: false,
+          }, () => {
+              HomePageContainer.scrollToDown();
+          });
+      }, 500);
+    }
   render() {
     return (
       <div className="page-kf">
@@ -79,17 +127,21 @@ class HomePageContainer extends React.Component {
                       return (<Talk
                           style={styles}
                           listOne={item}
-                          source={[
-
-                          ]}
+                          source={this.state.data}
+                          q2a ={(q, a) => this.q2a(q, a)}
+                          u={this.props.userinfo || {}}
                       />);
                   })}
               </Transition>
           </div>
           <div className="types" onClick={(e) => this.onTypeClick(e)}>
-              <div data-id={1}>热门咨询</div>
-              <div data-id={2}>关于分销</div>
-              <div data-id={3}>关于分销</div>
+              {
+                  this.state.data.map((item, index) => {
+                      return (
+                          <div key={index} data-id={item.id}>{ item.typeName }</div>
+                      );
+                  })
+              }
           </div>
           <div className="footer-btn">
               {
@@ -123,6 +175,6 @@ export default connect(
         userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({  }, dispatch),
+    actions: bindActionCreators({ getKfList }, dispatch),
   })
 )(HomePageContainer);

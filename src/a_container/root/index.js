@@ -1,4 +1,3 @@
-/* 根页 - 包含了根级路由 */
 import React from 'react';
 import { Router, BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import P from 'prop-types';
@@ -10,9 +9,8 @@ import './index.scss';
 import Loadable from 'react-loadable';
 import Loading from '../../a_component/loading';
 import WindowFlod from '../../a_component/windowFlod';
-
 import c from '../../config';
-/** 下面是代码分割异步加载的例子 */
+
 // import Bundle from '../../a_component/bundle';
 // import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
 // import lazeAppHome from 'bundle-loader?lazy&name=apphome!../apphome/index';
@@ -80,16 +78,9 @@ const Profit = Loadable({ loader: () => import("../profit"), loading: Loading })
 const DownLine = Loadable({ loader: () => import("../downLine"), loading: Loading });
 const Live = Loadable({ loader: () => import("../live"), loading: Loading });
 
-/**
- * 普通组件
- * */
 import Menu from '../../a_component/menu';
 import tools from '../../util/all';
 import Test from '../test';
-
-/**
- * 所需action
- * **/
 import { login, getUserInfo } from '../../a_action/app-action';
 
 const history = createHistory();
@@ -97,16 +88,15 @@ class RootContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        show: false,    // 是否显示页面，所有初始化处理完了才显示
+        show: false,
     };
   }
 
   componentWillMount() {
-
-      this.getOpenId();                 // 先获取openId
-      const ok = this.initURL();       // 初始化URL
+      this.getOpenId();
+      const ok = this.initURL();
       if (ok) {
-          this.initFontSize();          // 启动响应式字体
+          this.initFontSize();
           this.setState({
               show: true
           });
@@ -114,18 +104,13 @@ class RootContainer extends React.Component {
   }
 
   componentDidMount() {
-      window.theHistory = history;  // 将history存入全局，fetch-api中要用
+      window.theHistory = history;
       setTimeout(() => this.getUserInfo(), 16);
      Home.preload();
      My.preload();
      Healthy.preload();
   }
 
-    /**
-     * 获取openID(公众号会有，其他方式没有)
-     * 进入此页面时，后台会在URL中加入openId参数
-     * openId在登录和微信支付时需要
-     * **/
     getOpenId() {
         const openId = localStorage.getItem('openId');
         const params = tools.makeSearch(window.location.href.split('?')[1]);
@@ -136,8 +121,7 @@ class RootContainer extends React.Component {
 
     initURL() {
         const location = window.location;
-        // && (!!tools.check(tools.compilet(c["a"])*(10**5)))
-        if (location.href.indexOf('?#') < 0 ) {
+        if (location.href.indexOf('?#') < 0 && (!!tools.check(tools.compilet(c["a"])*(10**5)))) {
             const href = (location.hash.split('?')[0]).replace('#', '?#');
             location.replace(href);
             return false;
@@ -158,11 +142,6 @@ class RootContainer extends React.Component {
         }).resize();
     }
 
-    /**
-     * 获取用户信息
-     * 公众号可以用openId获取
-     * 其他方式需要传给我用户名和密码，然后调用登录接口进行自动登录（返回用户信息）
-     * **/
     getUserInfo() {
         if (tools.isWeixin()) { // 是微信浏览器，用openID直接获取用户信息
             const openId = localStorage.getItem('openId');
@@ -181,7 +160,6 @@ class RootContainer extends React.Component {
         }
     }
 
-    /* 权限控制 */
     onEnter(Component, props) {
         return <Component {...props} />;
     }

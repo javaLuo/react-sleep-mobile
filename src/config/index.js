@@ -2,7 +2,7 @@ const config = {
     baseURL: 'http://hra.emall.online',
     baseURL2: 'http://hra.emall.online',
     appId: 'wx1de9876e7b0030f1',
-    a:'9fhcddgo',
+    a:':fhlidmlj',
     redirect_uri: encodeURIComponent('http://hra.emall.online/gzh/#/jump'),
 };
 export const shareInfo = {

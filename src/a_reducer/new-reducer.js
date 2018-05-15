@@ -6,6 +6,7 @@ const initState = {
     homeRecommend: [], // 首页 - 热销产品
     liveHot: [],    // 首页 - 推荐视频
     activityList: [],   // 首页 - 活动列表
+    stationDetail: {},  // 当前服务站详情页数据
 };
 
 // ============================================
@@ -35,6 +36,13 @@ const getActivityList = (state, action) => {
     });
 };
 
+const inputStation = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        stationDetail: payload || [],
+    });
+};
+
 
 // ============================================
 // reducer function
@@ -48,6 +56,8 @@ const reducerFn = (state = initState, action) => {
             return getLiveListCache(state, action);
         case 'NEW::activityList':
             return getActivityList(state, action);
+        case 'SHOP::inputStation':
+            return inputStation(state, action);
         default:
             return actDefault(state, action);
     }

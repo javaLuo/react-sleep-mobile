@@ -30,6 +30,7 @@ import $ from 'jquery';
 
 import { mallStationListAll, saveServiceInfo, saveMapAddr, stationNearBy } from '../../../../a_action/shop-action';
 import { getAreaList, saveUserLngLat } from '../../../../a_action/app-action';
+import { inputStation } from '../../../../a_action/new-action';
 // ==================
 // Definition
 // ==================
@@ -266,10 +267,10 @@ class HomePageContainer extends React.Component {
     }
 
     // 前往详情页
-    onGoDetail(id) {
-        this.props.history.push(`/shop/exprdetail/${id}`);
+    onGoDetail(data) {
+        this.props.actions.inputStation(data);
+        this.props.history.push(`/shop/exprdetail`);
     }
-
     render() {
         return (
             <div className="page-expr-shop">
@@ -338,8 +339,8 @@ class HomePageContainer extends React.Component {
                                     return (
                                         <li key={index} className="card-box page-flex-row">
                                             <div className="l flex-auto">
-                                                <div className="title" onClick={() => this.onGoDetail(station.id)}>{station.name}</div>
-                                                <div className="info page-flex-row flex-ai-center" onClick={() => this.onGoDetail(station.id)}><img src={ImgAddr} /><span>{station.address}</span></div>
+                                                <div className="title" onClick={() => this.onGoDetail(station)}>{station.name}</div>
+                                                <div className="info page-flex-row flex-ai-center" onClick={() => this.onGoDetail(station)}><img src={ImgAddr} /><span>{station.address}</span></div>
                                                 <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${station.phone || ''}`}>联系门店</a></span></div>
                                             </div>
                                             <div className="r flex-none" onClick={() => this.onGoMap(station)}>
@@ -385,6 +386,6 @@ export default connect(
         userXY: state.app.userXY,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallStationListAll, saveServiceInfo, getAreaList, saveMapAddr, stationNearBy, saveUserLngLat }, dispatch),
+        actions: bindActionCreators({ mallStationListAll, saveServiceInfo, getAreaList, saveMapAddr, stationNearBy, saveUserLngLat, inputStation }, dispatch),
     })
 )(HomePageContainer);
