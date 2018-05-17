@@ -96,11 +96,11 @@ class Register extends React.Component {
             return;
         }
         if (!this.props.userinfo) {
-            Toast.fail('请先登录', 1);
+            Toast.info('请先登录', 1);
             return;
         }
         if (!tools.checkPhone(this.props.userinfo.mobile)) {
-            Toast.fail('您没有绑定手机号', 1);
+            Toast.info('您没有绑定手机号', 1);
             return;
         }
         me.setState({
@@ -126,7 +126,7 @@ class Register extends React.Component {
                     myVcode: res.data.text,
                 });
             } else {
-                Toast.fail(res.message || '验证码获取失败',1);
+                Toast.info(res.message || '验证码获取失败',1);
             }
         });
     }
@@ -149,19 +149,19 @@ class Register extends React.Component {
     onSubmit() {
         const u = this.props.userinfo;
         if(!u || !u.mobile) {
-            Toast.fail('请先绑定手机号',1);
+            Toast.info('请先绑定手机号',1);
             return;
         }
         if(this.state.password1.length < 6){
-            Toast.fail('密码不能少于6位', 1);
+            Toast.info('密码不能少于6位', 1);
             return;
         }
         // if (this.state.password1 !== this.state.password2){
-        //     Toast.fail('两次密码不一致', 1);
+        //     Toast.info('两次密码不一致', 1);
         //     return;
         // }
         if (!this.state.vcode) {
-            Toast.fail('请填写验证码', 1);
+            Toast.info('请填写验证码', 1);
             return;
         }
 
@@ -176,7 +176,7 @@ class Register extends React.Component {
                 Toast.success('设置密码成功', 1);
                 this.props.history.go(-1);
             } else {
-                Toast.fail(res.message || '设置失败',1);
+                Toast.info(res.message || '设置失败',1);
             }
         });
     }

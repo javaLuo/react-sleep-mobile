@@ -75,7 +75,7 @@ class Register extends React.Component {
                 this.initWxConfig(res[0].data, res[1].data, t);
             }
         }).catch(() => {
-            Toast.fail('初始化分享失败', 1);
+            Toast.info('初始化分享失败', 1);
         });
     }
 
@@ -174,7 +174,7 @@ class Register extends React.Component {
         console.log('d1是什么：', d1, this.state.type);
         return (
             <div className="page-daiyankah5">
-                <iframe className="body-box" wmode="transparent" src={item.speakCardUrl}/>
+                <iframe className="body-box" wmode="transparent" src={d1.speakCardUrl}/>
                 <div className="thefooter">
                     <Button type="primary"  style={{ backgroundColor: d1.colorTwo || '#0074FF' }} onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
                 </div>

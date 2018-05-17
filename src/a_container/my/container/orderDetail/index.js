@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
                 order: res.data,
             });
         } else {
-            Toast.fail('获取订单详情失败',1);
+            Toast.info('获取订单详情失败',1);
         }
       });
   }
@@ -77,7 +77,7 @@ class HomePageContainer extends React.Component {
     onPay() {
         const obj = this.props.orderInfo;
         if (!obj) {
-            Toast.fail('获取订单信息失败',1);
+            Toast.info('获取订单信息失败',1);
             return true;
         }
         sessionStorage.setItem('pay-info', JSON.stringify(obj));
@@ -90,7 +90,7 @@ class HomePageContainer extends React.Component {
     onDel() {
         const obj = this.props.orderInfo;
         if (!obj) {
-            Toast.fail('获取订单信息失败',1);
+            Toast.info('获取订单信息失败',1);
             return true;
         }
         alert('确认删除订单？', '删除之后将无法再查看订单', [
@@ -103,7 +103,7 @@ class HomePageContainer extends React.Component {
                             this.props.history.go(-1);
                             Toast.success('订单已删除',1);
                         } else {
-                            Toast.fail(res.message || '订单取消失败',1);
+                            Toast.info(res.message || '订单取消失败',1);
                         }
                         resolve();
                     }).catch(() => {
@@ -118,7 +118,7 @@ class HomePageContainer extends React.Component {
     onLook() {
         const obj = this.props.orderInfo;
         if (!obj) {
-            Toast.fail('获取订单信息失败',1);
+            Toast.info('获取订单信息失败',1);
             return true;
         }
         if(obj.modelType === 'M') { // 优惠卡，跳优惠卡页面

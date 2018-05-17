@@ -288,7 +288,7 @@ class HomePageContainer extends React.Component {
                 // ${encodeURIComponent(Config.baseURL + '/gzh/#/shop/payChose/1')}
             }
         }).catch(() => {
-            Toast.fail('支付失败，请重试',1);
+            Toast.info('支付失败，请重试',1);
         });
     }
 
@@ -303,7 +303,7 @@ class HomePageContainer extends React.Component {
     onSubmit() {
         const payInfo = this.state.pay_info;
         if (!payInfo) {
-            Toast.fail('未获取到订单信息,请重试',1);
+            Toast.info('未获取到订单信息,请重试',1);
             return false;
         }
         if (this.state.loading) {
@@ -325,11 +325,11 @@ class HomePageContainer extends React.Component {
                                 this.payResult(msg);
                             });
                         } else {
-                            Toast.fail('支付遇到错误，请重试.',1);
+                            Toast.info('支付遇到错误，请重试.',1);
                             this.returnPage();
                         }
                     }).catch(() => {
-                        Toast.fail('支付遇到错误，请重试..',1);
+                        Toast.info('支付遇到错误，请重试..',1);
                         this.returnPage();
                     });
                 }
@@ -347,11 +347,11 @@ class HomePageContainer extends React.Component {
                         if (res) {
                             this.getQRCode(this.s3data2);
                         } else {
-                            Toast.fail('支付遇到错误，请重试.',1);
+                            Toast.info('支付遇到错误，请重试.',1);
                             this.returnPage();
                         }
                     }).catch(() => {
-                        Toast.fail('支付遇到错误，请重试..',1);
+                        Toast.info('支付遇到错误，请重试..',1);
                         this.returnPage();
                     });
                 }
@@ -390,7 +390,7 @@ class HomePageContainer extends React.Component {
      * **/
     payResult(msg) {
         if (!msg) {
-            Toast.fail('支付失败, 请重试',1);
+            Toast.info('支付失败, 请重试',1);
             this.returnPage();
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
             // 支付成功后在后台添加对应数量的评估卡 (现在由后台自动生成)
@@ -401,7 +401,7 @@ class HomePageContainer extends React.Component {
             // 支付被取消
             this.returnPage();
         } else {  // 支付遇到错误
-            Toast.fail('支付失败, 请重试',1);
+            Toast.info('支付失败, 请重试',1);
             this.returnPage();
         }
     }

@@ -66,7 +66,7 @@ class HomePageContainer extends React.Component {
             });
             Toast.hide();
           } else {
-            Toast.fail(res.message);
+            Toast.info(res.message);
           }
       }).catch(() => {
           Toast.hide();

@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '收益详情';
       if (!this.props.proDetail) {
-          Toast.fail('未获取到收益详情信息',1);
+          Toast.info('未获取到收益详情信息',1);
       }
       const p = this.props.location.pathname.split('/');
       const userType = p[p.length - 1];

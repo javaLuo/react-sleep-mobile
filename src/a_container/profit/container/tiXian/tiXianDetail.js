@@ -61,10 +61,10 @@ class HomePageContainer extends React.Component {
                 });
                 Toast.hide();
             } else {
-                Toast.fail(res.message);
+                Toast.info(res.message);
             }
         }).catch(() => {
-            Toast.fail('查询失败，请重试', 1);
+            Toast.info('查询失败，请重试', 1);
         });
     }
 

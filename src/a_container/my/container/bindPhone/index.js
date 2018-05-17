@@ -93,7 +93,7 @@ class Register extends React.Component {
             return;
         }
         if (!tools.checkPhone(this.state.phone)) {
-            Toast.fail('请输入正确的手机号', 1);
+            Toast.info('请输入正确的手机号', 1);
             return;
         }
         me.setState({
@@ -119,7 +119,7 @@ class Register extends React.Component {
                     myVcode: res.data.text,
                 });
             } else {
-                Toast.fail(res.message || '验证码获取失败',1);
+                Toast.info(res.message || '验证码获取失败',1);
             }
         });
     }
@@ -127,11 +127,11 @@ class Register extends React.Component {
     // 提交
     onSubmit() {
         if(!tools.checkPhone(this.state.phone)){
-            Toast.fail('请输入正确的手机号', 1);
+            Toast.info('请输入正确的手机号', 1);
             return;
         }
         if (!this.state.vcode) {
-            Toast.fail('请输入验证码', 1);
+            Toast.info('请输入验证码', 1);
             return;
         }
         // 验证码由后台验证
@@ -152,7 +152,7 @@ class Register extends React.Component {
                             Toast.success('绑定成功', 1);
                             this.props.history.go(-1);
                         } else {
-                            Toast.fail(res.message || '绑定失败', 1);
+                            Toast.info(res.message || '绑定失败', 1);
                         }
                     });
                     resolve();

@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
     onBindDealear() {
         const u = this.props.userinfo;
         if (!u){
-            Toast.fail('请先登录',1);
+            Toast.info('请先登录',1);
             this.props.history.replace('/login');
             return false;
         }
@@ -79,7 +79,7 @@ class HomePageContainer extends React.Component {
     onSetPassword() {
         const u = this.props.userinfo;
         if (!u){
-            Toast.fail('请先登录',1);
+            Toast.info('请先登录',1);
             this.props.history.replace('/login');
             return false;
         }
@@ -101,7 +101,7 @@ class HomePageContainer extends React.Component {
     onBindPhone() {
       const u = this.props.userinfo;
       if (!u) {
-          Toast.fail('请先登录',1);
+          Toast.info('请先登录',1);
           this.props.history.replace('/login');
           return false;
       } else if (u.mobile) {
@@ -115,14 +115,14 @@ class HomePageContainer extends React.Component {
     onUnBdingWx() {
       const u = this.props.userinfo;
         if (!u && !u.openid) {
-            Toast.fail('未获取到您的微信信息',1);
+            Toast.info('未获取到您的微信信息',1);
             return false;
         }
       this.props.actions.unBindWx({ userId: u.id }).then((res) => {
           if (res.status === 200) {
               Toast.success('解绑成功',1);
           } else {
-              Toast.fail(res.message,1);
+              Toast.info(res.message,1);
           }
       });
     }

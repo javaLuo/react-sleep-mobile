@@ -65,11 +65,11 @@ class Register extends React.Component {
             return;
         }
         if (!this.props.userinfo) {
-            Toast.fail('请先登录', 1);
+            Toast.info('请先登录', 1);
             return;
         }
         if (!tools.checkPhone(this.props.userinfo.mobile)) {
-            Toast.fail('您没有绑定手机号', 1);
+            Toast.info('您没有绑定手机号', 1);
             return;
         }
         me.setState({
@@ -94,7 +94,7 @@ class Register extends React.Component {
                     myVcode: res.data.text,
                 });
             } else {
-                Toast.fail(res.message || '验证码获取失败',1);
+                Toast.info(res.message || '验证码获取失败',1);
             }
         });
     }
@@ -102,14 +102,14 @@ class Register extends React.Component {
     // 提交
     onSubmit() {
         if (!this.state.vcode) {
-            Toast.fail('请填写验证码', 1);
+            Toast.info('请填写验证码', 1);
             return;
         }
 
         const pathname = this.props.location.pathname.split('/');
         const v = pathname[pathname.length - 1].split('_');
         if (!v || !Number(v[0])) {
-            Toast.fail('提现金额异常');
+            Toast.info('提现金额异常');
             return;
         }
 
@@ -127,13 +127,13 @@ class Register extends React.Component {
                 Toast.success('提现申请成功', 1);
                 this.props.history.replace('/profit'); // 回到收益明细页（因为信息改变了，在这个页才能更新信息）
             } else {
-                Toast.fail(res.message || '提现申请失败',1);
+                Toast.info(res.message || '提现申请失败',1);
             }
             this.setState({
                 loading: false
             });
         }).catch(() => {
-            Toast.fail('网络错误，请重试');
+            Toast.info('网络错误，请重试');
             this.setState({
                 loading: false
             });

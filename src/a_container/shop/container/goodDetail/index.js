@@ -16,7 +16,7 @@ import WaterWave from 'water-wave';
 // ==================
 import tools from '../../../../util/all';
 import Config from '../../../../config';
-import { Carousel, List, Modal, Button, Toast, Picker, Icon} from 'antd-mobile';
+import { List, Modal, Toast, Picker} from 'antd-mobile';
 import StepperLuo from '../../../../a_component/StepperLuo';
 import ImgTest from '../../../../assets/test/new.png';
 import ImgKiss from '../../../../assets/shop/good@3x.png';
@@ -27,7 +27,7 @@ import ImgGwc from './assets/gwc@2x.png';
 // 本页面所需action
 // ==================
 
-import { productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit } from '../../../../a_action/shop-action';
+import { productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit, pushCarInterface, pushDingDan } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -73,7 +73,7 @@ class HomePageContainer extends React.Component {
             }, () => this.getWx());
             Toast.hide();
         } else {
-            Toast.fail(res.message, 1);
+            Toast.info(res.message, 1);
             setTimeout(() => this.props.history.go(-1), 1000);
 
         }
@@ -217,9 +217,14 @@ class HomePageContainer extends React.Component {
       // 检查当前用户是否有权限购买当前物品
       this.props.actions.appUserCheckBuy({ productType: String(this.state.data.typeName.code) }).then((res) => {
             if (res.status === 200) { // 有权限
-                const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
-                const nowProduct = this.state.data;
-                this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、计费方式，当前商品完整信息）
+                //const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
+                const nowProduct = _.cloneDeep(this.state.data);
+                nowProduct.shopCart = {
+                    number: this.state.formCount,   // 商品数量
+                    feeType: this.state.formJifei || undefined, // 计费方式 是一个数组
+                };
+                // this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、计费方式，当前商品完整信息）
+                this.props.actions.pushDingDan([nowProduct]);
                 // 实物商品提前查询默认收货地址
                 if (this.state.data.typeId !== 5) {
                     this.props.actions.getDefaultAttr();
@@ -257,6 +262,20 @@ class HomePageContainer extends React.Component {
 
     goEva() {
       this.props.history.push("/shop/eva");
+    }
+
+    // 当前商品加入到购物车
+    onPushCar() {
+      if(!this.state.data || !this.state.data.id) {
+          return;
+      }
+      this.props.actions.pushCarInterface({ productId: this.state.data.id, number: this.state.formCount || 1 }).then((res) => {
+          if(res.status === 200) {
+              Toast.success('加入购物车成功', 1);
+          } else {
+              Toast.info(res.message, 1);
+          }
+        });
     }
 
   render() {
@@ -303,7 +322,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/* List */}
           <List>
-              <Item extra={d && d.typeId === 1 ? '仅限1台' : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+              <Item extra={d && d.typeId === 1 ? '仅限1台' : <StepperLuo min={1} max={99} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (
@@ -399,12 +418,12 @@ class HomePageContainer extends React.Component {
                   <div>客服</div>
                   <WaterWave color="#888888" press="down"/>
               </Link>
-              <div className="btn-normal">
+              <div className="btn-normal" onClick={() => this.props.history.push('/shop/shoppingcar')}>
                   <img src={ImgGwc} />
                   <div>购物车</div>
                   <WaterWave color="#888888" press="down"/>
               </div>
-              <div className="btn-add-gwc">加入购物车<WaterWave color="#cccccc" press="down"/></div>
+              <div className="btn-add-gwc" onClick={() => this.onPushCar()}>加入购物车<WaterWave color="#cccccc" press="down"/></div>
               <div className="btn-submit" onClick={() => this.onSubmit()}>立即下单<WaterWave color="#cccccc" press="down"/></div>
           </div>
       </div>
@@ -433,6 +452,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit}, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit, pushCarInterface, pushDingDan}, dispatch),
   })
 )(HomePageContainer);

@@ -115,7 +115,7 @@ class HomePageContainer extends React.Component {
                     this.props.actions.saveUserLngLat([result.position.lng, result.position.lat]);
                     this.getData2(result.position.lng, result.position.lat);
                 } else {
-                    Toast.fail('定位失败', 1);
+                    Toast.info('定位失败', 1);
                     this.getData(1, this.state.pageSize, this.state.search, 'flash'); // 定位失败就执行普通的查询好了
                 }
             });
@@ -150,10 +150,10 @@ class HomePageContainer extends React.Component {
                 }
                 Toast.hide();
             } else {
-                Toast.fail('查询失败，请重试',1);
+                Toast.info('查询失败，请重试',1);
             }
         }).catch(() => {
-            Toast.fail('查询失败，请重试', 1);
+            Toast.info('查询失败，请重试', 1);
         }).finally(() => {
             this.loading = false;
         });
@@ -181,10 +181,10 @@ class HomePageContainer extends React.Component {
 
                 Toast.hide();
             } else {
-                Toast.fail('查询失败，请重试',1);
+                Toast.info('查询失败，请重试',1);
             }
         }).catch(() => {
-            Toast.fail('查询失败，请重试', 1);
+            Toast.info('查询失败，请重试', 1);
         }).finally(() => {
             this.loading = false;
         });

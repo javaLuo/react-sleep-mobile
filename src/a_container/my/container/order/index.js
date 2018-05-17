@@ -102,7 +102,7 @@ class HomePageContainer extends React.Component {
           this.setState({
               all: this.state.all,
           });
-          Toast.fail('网络错误，请重试',1);
+          Toast.info('网络错误，请重试',1);
       });
   }
 
@@ -145,7 +145,7 @@ class HomePageContainer extends React.Component {
                             Toast.success('订单已取消',1);
                             setTimeout(() => this.getData(father.conditions, 1, 'flash'));
                         } else {
-                            Toast.fail(res.message || '订单取消失败',1);
+                            Toast.info(res.message || '订单取消失败',1);
                         }
                         resolve();
                     }).catch(() => {

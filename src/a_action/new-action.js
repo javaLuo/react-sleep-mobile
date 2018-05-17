@@ -14,7 +14,7 @@ export const getRecommend = () => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试',1);
+        Toast.info('网络错误，请重试',1);
     }
 };
 
@@ -30,7 +30,7 @@ export const getActivityList = () => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试',1);
+        Toast.info('网络错误，请重试',1);
     }
 };
 
@@ -40,7 +40,7 @@ export const listByActivityId = (params) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/activity/listByActivityId', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试',1);
+        Toast.info('网络错误，请重试',1);
     }
 };
 
@@ -57,7 +57,7 @@ export const speakCardPropList = (params) => async(dispatch) => {
         }
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试',1);
+        Toast.info('网络错误，请重试',1);
     }
 };
 
@@ -67,7 +67,7 @@ export const getKfList = (params) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/assistant/list', params);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试',1);
+        Toast.info('网络错误，请重试',1);
     }
 };
 // 首页 - 查询推荐的服务站
@@ -76,7 +76,7 @@ export const getGoodServiceStations = (params) => async(dispatch) => {
         const res = await Fetchapi.newPost('mall/station/recommend/list', params, 'post', true);
         return res;
     } catch(err) {
-        Toast.fail('网络错误，请重试',1);
+        Toast.info('网络错误，请重试',1);
     }
 };
 

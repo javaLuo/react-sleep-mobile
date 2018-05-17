@@ -49,10 +49,10 @@ class HomePageContainer extends React.Component {
     // 提交
     onSubmit() {
         if (!this.props.reportInfo.ticketNo) {
-            Toast.fail('请选择评估卡', 1);
+            Toast.info('请选择评估卡', 1);
             return false;
         } else if (!tools.checkPhone(this.state.phone)) {
-            Toast.fail('请输入正确的手机号', 1);
+            Toast.info('请输入正确的手机号', 1);
             return false;
         }
         const params = {
@@ -66,10 +66,10 @@ class HomePageContainer extends React.Component {
                 setTimeout(() => this.props.history.replace('/healthy/myreport'), 16);
 
             } else {
-                Toast.fail(res.message);
+                Toast.info(res.message);
             }
         }).catch(() => {
-            Toast.fail(res.message);
+            Toast.info(res.message);
         });
     }
 

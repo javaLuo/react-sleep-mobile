@@ -63,7 +63,7 @@ class HomePageContainer extends React.Component {
       } else if (obj.file.status === 'uploading') {
           Toast.loading('上传中...', 0);
       } else {
-          Toast.fail('上传失败', 1);
+          Toast.info('上传失败', 1);
       }
   }
 
@@ -91,7 +91,7 @@ class HomePageContainer extends React.Component {
   updateUserInfo(obj) {
     const u = this.props.userinfo;
     if (!u){
-        Toast.fail('未获取到用户信息',1);
+        Toast.info('未获取到用户信息',1);
         return false;
     }
 

@@ -159,7 +159,7 @@ class HomePageContainer extends React.Component {
                   });
               }
           } else {
-              Toast.fail('定位城市失败', 1);
+              Toast.info('定位城市失败', 1);
               return false;
           }
       });
@@ -180,7 +180,7 @@ class HomePageContainer extends React.Component {
                   this.props.actions.saveUserLngLat([result.position.lng, result.position.lat]);
                   this.down2();
               } else {
-                  Toast.fail('定位失败');
+                  Toast.info('定位失败');
               }
           });
       }
@@ -201,7 +201,7 @@ class HomePageContainer extends React.Component {
             this.down2();
         }else{
             //获取经纬度失败
-            Toast.fail('找不到该服务站', 1);
+            Toast.info('找不到该服务站', 1);
         }
     });
   }

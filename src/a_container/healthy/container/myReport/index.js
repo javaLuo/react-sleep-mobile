@@ -69,7 +69,7 @@ class HomePageContainer extends React.Component {
             this.setState({
                 data: type==='flash' ? [] : this.state.data,
             });
-            Toast.fail(res.message, 1);
+            Toast.info(res.message, 1);
         });
     }
 

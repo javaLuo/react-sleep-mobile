@@ -112,7 +112,7 @@ class HomePageContainer extends React.Component {
                         Toast.info('删除成功',1);
                         this.onDown();
                     } else {
-                        Toast.fail(res.message || '删除失败');
+                        Toast.info(res.message || '删除失败');
                     }
                     resolve();
                 }).catch(() => {
@@ -145,7 +145,7 @@ class HomePageContainer extends React.Component {
                         Toast.info('设置成功',1);
                         this.onDown();
                     } else {
-                        Toast.fail(res.message || '设置失败');
+                        Toast.info(res.message || '设置失败');
                     }
                     resolve();
                 }).catch(() => {

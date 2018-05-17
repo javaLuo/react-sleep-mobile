@@ -81,11 +81,11 @@ class HomePageContainer extends React.Component {
                 }
                 this.props.actions.saveMyCardInfo(( type === 'update' ? [...this.props.myCard.data, ...res.data.result] : res.data.result ), pageNum, pageSize, res.data.total);
             } else {
-                Toast.fail(res.message || '数据加载失败', 1);
+                Toast.info(res.message || '数据加载失败', 1);
                 this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize, this.props.myCard.total);
             }
       }).catch(() => {
-          Toast.fail('网络错误，请稍后');
+          Toast.info('网络错误，请稍后');
           this.props.actions.saveMyCardInfo(this.props.myCard.data, this.props.myCard.pageNum, this.props.myCard.pageSize,this.props.myCard.total);
       });
   }
@@ -290,7 +290,7 @@ class HomePageContainer extends React.Component {
                             Toast.success('删除成功');
                             this.getData(this.props.myCard.pageNum, this.props.myCard.pageSize, 'flash');
                         } else{
-                            Toast.fail(res.message || '删除失败，请重试');
+                            Toast.info(res.message || '删除失败，请重试');
                         }
                         resolve();
                     }).catch(() => {

@@ -123,7 +123,7 @@ class HomePageContainer extends React.Component {
                 Toast.success('添加成功');
                 this.props.history.go(-1);
             } else {
-                Toast.fail(res.message || '添加失败');
+                Toast.info(res.message || '添加失败');
             }
         }).catch(() => {
             Toast.hide();

@@ -186,11 +186,11 @@ class Register extends React.Component {
                         this.payResult(msg);
                     });
                 } else {
-                    Toast.fail('支付遇到错误，请重试.',1);
+                    Toast.info('支付遇到错误，请重试.',1);
                     this.returnPage();
                 }
             }).catch(() => {
-                Toast.fail('支付遇到错误，请重试..',1);
+                Toast.info('支付遇到错误，请重试..',1);
                 this.returnPage();
             });
         }
@@ -231,7 +231,7 @@ class Register extends React.Component {
     // 支付结果处理
     payResult(msg) {
         if (!msg) {
-            Toast.fail('支付失败, 请重试',1);
+            Toast.info('支付失败, 请重试',1);
             this.returnPage();
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
             // 支付成功后在后台添加对应数量的评估卡 (现在由后台自动生成)
@@ -242,7 +242,7 @@ class Register extends React.Component {
             // 支付被取消
             this.returnPage();
         } else {  // 支付遇到错误
-            Toast.fail('支付失败, 请重试',1);
+            Toast.info('支付失败, 请重试',1);
             this.returnPage();
         }
     }

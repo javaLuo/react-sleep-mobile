@@ -85,7 +85,7 @@ class Register extends React.Component {
                 this.initWxConfig(res[0].data, res[1].data, t);
             }
         }).catch(() => {
-            Toast.fail('初始化分享失败', 1);
+            Toast.info('初始化分享失败', 1);
         });
     }
 

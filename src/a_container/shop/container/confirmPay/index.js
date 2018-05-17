@@ -16,7 +16,6 @@ import './index.scss';
 // ==================
 import { List, Toast, DatePicker, Picker } from 'antd-mobile';
 import ImgDiZhi from '../../../../assets/dizhi@3x.png';
-import StepperLuo from '../../../../a_component/StepperLuo';
 // ==================
 // 本页面所需action
 // ==================
@@ -33,21 +32,15 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        formCount: this.props.orderParams.params.count, // 购买数量
-        formServiceTime: new Date(new Date().getTime() + 86400000),  // 服务时间
-        formJifei: this.props.orderParams.params.feeType ? [this.props.orderParams.params.feeType] : undefined,    // 计费方式
-        formPaiDan: [1],  // 派单方式，1自动，2手动，默认自动
-        formServerMan: undefined,    // 安装工ID
         serverList: [], // 当前区域下的安装工列表
         station: null,  // 用户的经销商的推荐人的服务站
+
+        data: this.props.willPayObjs,   // 选择的商品数据副本
     };
   }
 
   componentWillMount() {
-      // 如果没有选择商品就跳转到我的订单
-      if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-        this.props.history.replace('/my/order');
-      }
+
   }
 
   componentDidMount() {
@@ -56,8 +49,15 @@ class HomePageContainer extends React.Component {
       // sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
       this.queryCustomerList();
-      this.getStationInfoById();
   }
+
+    componentWillReceiveProps(nextP) {
+        if(nextP.willPayObjs !== this.props.willPayObjs) {
+            this.setState({
+                data: nextP.willPayObjs
+            });
+        }
+    }
 
   // 获取安装工信息
     queryCustomerList() {
@@ -104,23 +104,25 @@ class HomePageContainer extends React.Component {
   // 确认支付被点击，生成订单
     onSubmit() {
       console.log('收集的信息：', this.props.orderParams);
+      const arr = this.state.data;
       const d = this.props.orderParams.nowProduct || { typeMode: {} };
-      if(d.typeId !== 5 && !this.props.orderParams.params.addrId) {  // 除评估卡以外的产品需要收货地址
+      if(data.find((item) => item.typeId !== 5) && !this.props.orderParams.params.addrId) {  // 除评估卡以外的产品需要收货地址
           Toast.info('请选择收货地址', 1);
           return;
       }
-        if(d.typeId === 1 && !this.state.formJifei) { // 水机需要选择计费方式
+        if(data.find((item) => item.typeId === 1 && !item.shopCart.feeType)) { // 水机需要选择计费方式
             Toast.info('请选择计费方式', 1);
             return;
         }
-      if(d.typeId === 1 && !this.state.formServiceTime) { // 水机需要选择安装时间
+      if(data.find((item) => item.typeId === 1 && !item.shopCart.formServiceTime)) { // 水机需要选择安装时间
           Toast.info('请选择安装时间', 1);
           return;
       }
-    if(Number(this.state.formPaiDan) === 2 && !this.state.formServerMan) { // 如果选择的是手动派单，但没选安装工
-       Toast.info('请选择为您服务的安装工', 1);
-       return;
-    }
+      if(data.find((item) => item.shopCart.formPaiDan === 2 && !item.shopCart.formServerMan)) {
+          Toast.info('请选择为您服务的安装工', 1);
+          return;
+      }
+
     // 获取安装工信息，如果有的话，没有返回null
         let serverMan = null;
         if (Number(this.state.formPaiDan) === 2) {
@@ -152,10 +154,10 @@ class HomePageContainer extends React.Component {
               /** 普通商品跳转到付款选择页，活动物品直接跳转到订单详情 **/
               this.props.history.replace('/shop/payChose/1');
           } else {
-              Toast.fail(res.message || '订单创建失败',1);
+              Toast.info(res.message || '订单创建失败',1);
           }
       }).catch(() => {
-          Toast.fail(res.message || '订单创建失败',1);
+          Toast.info(res.message || '订单创建失败',1);
       });
       return true;
     }
@@ -176,35 +178,57 @@ class HomePageContainer extends React.Component {
     }
 
     // 服务时间被选择
-    onDateChange(date) {
-      this.setState({
-          formServiceTime: date,
-      });
+    onDateChange(v, d) {
+        const arr = _.cloneDeep(this.state.data);
+        for(let i=0;i<arr.length;i++) {
+            if(arr[i].id === d.id) {
+                arr[i].shopCart.formServiceTime = v;
+            }
+        }
+        this.setState({
+            data: arr,
+        });
     }
 
     // 计费方式选择
-    onJiFeiChose(v) {
+    onJiFeiChose(v, d) {
+      const arr = _.cloneDeep(this.state.data);
+      for(let i=0;i<arr.length;i++) {
+          if(arr[i].id === d.id) {
+              arr[i].shopCart.feeType = v;
+          }
+      }
       this.setState({
-          formJifei: v,
+          data: arr,
       });
     }
 
     // 派单方式选择
-    onPaiDanChose(v) {
-      console.log('派单选择了什么', v);
+    onPaiDanChose(v, d) {
+        const arr = _.cloneDeep(this.state.data);
+        for(let i=0;i<arr.length;i++) {
+            if(arr[i].id === d.id) {
+                arr[i].shopCart.formPaiDan = v;
+            }
+        }
         this.setState({
-            formPaiDan: v,
+            data: arr,
         });
         if (Number(v) === 2) {
             this.queryCustomerList();
         }
     }
     // 服务人员选择
-    onServeChose(v) {
-      console.log('选择了什么：', v);
-      this.setState({
-          formServerMan: v,
-      });
+    onServeChose(v, d) {
+        const arr = _.cloneDeep(this.state.data);
+        for(let i=0;i<arr.length;i++) {
+            if(arr[i].id === d.id) {
+                arr[i].shopCart.formServerMan = v;
+            }
+        }
+        this.setState({
+            data: arr,
+        });
     }
 
     // 选择这一个
@@ -236,14 +260,14 @@ class HomePageContainer extends React.Component {
         }
     }
   render() {
-      const d = this.props.orderParams.nowProduct || {typeModel: {}}; // 当前商品对象
       const addr = this.props.orderParams.addr;   // 当前选择的收货地址
-      const nowParams = this.props.orderParams.params;  // 当前订单的参数
-      console.log(d, nowParams);
+      const data = this.state.data;
+      console.log('D到底是什么；', data);
     return (
       <div className="flex-auto page-box confirm-pay">
           {
-              d && d.typeId !== 5 ? (
+              /** 只要有非体检卡的商品，都需要收货地址 **/
+              data.find((item) => item.typeId !== 5) ? (
                   <List className="mb">
                       <Item
                           thumb={<img src={ImgDiZhi} />}
@@ -266,133 +290,131 @@ class HomePageContainer extends React.Component {
                   </List>
               ) : null
           }
-          <List className="mb">
-              <Item
-                  className={'this-item'}
-                thumb={d.productImg ? <img src={d.productImg.split(',')[0]} /> : null}
-                multipleLine
-              >
-                  {d.name}<Brief><span style={{ color: '#fc4800' }}>￥{d && (d.typeModel.price + (d.typeModel.openAccountFee || 0))}</span></Brief>
-              </Item>
-          </List>
-          <List>
-              <Item extra={d && d.typeId === 1 ? '仅限1台' : <StepperLuo min={1} max={this.canBuyHowMany(d && d.typeId)} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+          <div className="body-list">
               {
-                  /** 只有水机有计费方式选择(typeId === 1) **/
-                  d && d.typeId === 1 ? (
-                      <Picker
-                          data={this.makeJiFeiData(d)}
-                          extra={''}
-                          value={this.state.formJifei}
-                          cols={1}
-                          onOk={(v) => this.onJiFeiChose(v)}
-                      >
-                          <Item arrow="horizontal" className="special-item">计费方式</Item>
-                      </Picker>
-                  ) : null
-              }
-              {
-                  /** 只有水机有服务时间(typeId === 1) **/
-                  d && d.typeId === 1 ? (
-                      <DatePicker
-                          mode="date"
-                          title="安装时间"
-                          extra="Optional"
-                          value={this.state.formServiceTime}
-                          minDate={new Date(new Date().getTime() + 86400000)}
-                          onChange={date => this.onDateChange(date)}
-                      >
-                        <Item extra={`￥${d.typeModel.openAccountFee}`} arrow={'horizontal'}>安装时间</Item>
-                      </DatePicker>
-                  ) : null
-              }
-              {
-                  /**
-                   * 只有水机有派单方式(typeId === 1)
-                   * 只有选择了地址才会出现派单方式
-                   * **/
-                  d && d.typeId === 1 ? (
-                      <Picker
-                          data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}  // , { label: '手动指派', value: 2 }
-                          extra={''}
-                          value={this.state.formPaiDan}
-                          cols={1}
-                          onOk={(v) => this.onPaiDanChose(v)}
-                      >
-                          <Item arrow="horizontal" className="special-item">派单方式</Item>
-                      </Picker>
-                  ) : null
-              }
-              {
-                  /**
-                   * 安装工
-                   * 只有派单方式选择手动才会出现
-                   * **/
-                  Number(this.state.formPaiDan) === 2 ? (
-                      <Picker
-                          data={this.state.serverList.map((item) => ({ label: `${item.name || item.realName} ${tools.addMosaic(item.phone)}`, value: item.id }))}
-                          value={this.state.formServerMan}
-                          cols={1}
-                          onOk={(v) => this.onServeChose(v)}
-                      >
-                          <div className="am-list-item special-item am-list-item-middle hoho">
-                              <div className="am-list-line">
-                                  <div className="am-list-content">服务人员</div>
-                                  <div className="am-list-extra">{this.state.formServerMan ? (() => {
-                                      const d = this.getInfoByServerManId(this.state.formServerMan[0]);
-                                      return d && `${d.name} ${d.phone}`;
-                                  })() : '请选择'}</div>
-                                  <div className="am-list-arrow am-list-arrow-horizontal" aria-hidden="true" />
+                  data.map((d, index) => {
+                      return (
+                          <div key={index} className="obj-box">
+                              <div className="one">
+                                  <div className="pic">
+                                      <img src={d.productImg.split(',')[0]} />
+                                  </div>
+                                  <div className="infos">
+                                      <div className="t all_warp">{d.name}</div>
+                                      <div className="num">
+                                          <span className="money">￥{d.typeModel.price + (d.typeModel.openAccountFee || 0)}</span>
+                                          <span>x{d.shopCart.number}</span>
+                                      </div>
+                                  </div>
                               </div>
+                              <List>
+                                  {
+                                      /** 只有水机有计费方式选择(typeId === 1) **/
+                                      d && d.typeId === 1 ? (
+                                          <Picker
+                                              data={this.makeJiFeiData(d)}
+                                              extra={''}
+                                              value={d.shopCart.feeType || undefined}
+                                              cols={1}
+                                              onOk={(v) => this.onJiFeiChose(v, d)}
+                                          >
+                                              <Item arrow="horizontal" className="special-item">计费方式</Item>
+                                          </Picker>
+                                      ) : null
+                                  }
+                                  {
+                                      /** 只有水机有服务时间(typeId === 1) **/
+                                      d && d.typeId === 1 ? (
+                                          <DatePicker
+                                              mode="date"
+                                              title="安装时间"
+                                              extra="Optional"
+                                              value={d.shopCart.formServiceTime || new Date(new Date().getTime() + 86400000)}
+                                              minDate={new Date(new Date().getTime() + 86400000)}
+                                              onChange={date => this.onDateChange(date, d)}
+                                          >
+                                              <Item extra={`￥${d.typeModel.openAccountFee}`} arrow={'horizontal'}>安装时间</Item>
+                                          </DatePicker>
+                                      ) : null
+                                  }
+                                  {
+                                      /**
+                                       * 只有水机有派单方式(typeId === 1)
+                                       * 只有选择了地址才会出现派单方式
+                                       * **/
+                                      d && d.typeId === 1 ? (
+                                          <Picker
+                                              data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}  // , { label: '手动指派', value: 2 }
+                                              extra={''}
+                                              value={d.shopCart.formPaiDan || 1}
+                                              cols={1}
+                                              onOk={(v) => this.onPaiDanChose(v, d)}
+                                          >
+                                              <Item arrow="horizontal" className="special-item">派单方式</Item>
+                                          </Picker>
+                                      ) : null
+                                  }
+                                  {
+                                      /**
+                                       * 安装工
+                                       * 只有派单方式选择手动才会出现
+                                       * **/
+                                      Number(d.shopCart.formPaiDan) === 2 ? (
+                                          <Picker
+                                              data={this.state.serverList.map((item) => ({ label: `${item.name || item.realName} ${tools.addMosaic(item.phone)}`, value: item.id }))}
+                                              value={d.shopCart.formServerMan}
+                                              cols={1}
+                                              onOk={(v) => this.onServeChose(v, d)}
+                                          >
+                                              <div className="am-list-item special-item am-list-item-middle hoho">
+                                                  <div className="am-list-line">
+                                                      <div className="am-list-content">服务人员</div>
+                                                      <div className="am-list-extra">{d.shopCart.formServerMan ? (() => {
+                                                          const worker = this.getInfoByServerManId(d.shopCart.formServerMan[0]);
+                                                          return worker && `${worker.name} ${worker.phone}`;
+                                                      })() : '请选择'}</div>
+                                                      <div className="am-list-arrow am-list-arrow-horizontal" aria-hidden="true" />
+                                                  </div>
+                                              </div>
+                                          </Picker>
+                                      ) : null
+                                  }
+                                  {
+                                      // d.typeModel.openAccountFee
+                                      d && d.typeId === 1 ? (
+                                          [<Item
+                                              key="0"
+                                              extra={`￥${(d.typeModel.price * d.shopCart.number + d.typeModel.openAccountFee).toFixed(2)}`}
+                                              align={'top'}
+                                              className={"this-speacl-item"}
+                                          >首年度预缴</Item>,
+                                              <div className={"year-info-box"} key="1">
+                                                  <div className="year-info mb">采用流量计费方式：额外免费享受180元的净水服务费额度；</div>
+                                                  <div className="year-info">采用包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期为14个月。</div>
+                                              </div>
+                                          ]
+                                      ) : null
+                                  }
+                                  {
+                                      /** 水机和评估卡没有运费(typeId === 1，5) **/
+                                      d && ![1,5].includes(d.typeId) ? (
+                                          <Item extra={`￥${d.typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
+                                      ) : null
+                                  }
+                              </List>
                           </div>
-                      </Picker>
-                  ) : null
+                      );
+                  })
               }
-              {
-                  // d.typeModel.openAccountFee
-                  d && d.typeId === 1 ? (
-                      [<Item
-                          key="0"
-                          extra={`￥${(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}`}
-                          align={'top'}
-                          className={"this-speacl-item"}
-                      >首年度预缴</Item>,
-                      <div className={"year-info-box"} key="1">
-                          <div className="year-info mb">采用流量计费方式：额外免费享受180元的净水服务费额度；</div>
-                          <div className="year-info">采用包年计费方式：额外享受2个月的免费净水服务费，即首次预缴净水服务费后，首个净水服务周期为14个月。</div>
-                      </div>
-                      ]
-                  ) : null
-              }
-              {
-                  /** 水机和评估卡没有运费(typeId === 1，5) **/
-                  d && ![1,5].includes(d.typeId) ? (
-                      <Item extra={`￥${d.typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
-                  ) : null
-              }
-          </List>
-          {
-              // 健康食品、生物科技有这个提示 1-水机 2-养未来，3-冷敷贴，5-体检
-              d && [2, 3].includes(d.typeId) && this.state.station ? (
-                  <div className="other-info">(此款项是代{ this.state.station }收取)</div>
-              ) : null
-          }
-          {
-              // 健康食品、生物科技有这个提示 1-水机 2-养未来，3-冷敷贴，5-体检
-              d && [5].includes(d.typeId) && this.state.station ? (
-                  [
-                      <div className="other-info" key={1}>(此款项是代{ this.state.station }收取)</div>,
-                      <ul className="other-info-ul" key={2}>
-                          <li>如需开票，请联系：</li>
-                          <li>{ this.state.station }：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">联系门店</a></li>
-                          <li>客服热线：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">4001519999</a></li>
-                      </ul>
-                  ]
-              ) : null
-          }
+          </div>
           <div className="zw46"/>
           <div className="thefooter page-flex-row">
-              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)}</div>
+              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(() => {
+                  // (d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)
+                  return this.state.data.reduce((res, item)=>{
+                      return res + (Number(item.typeModel.price * item.shopCart.number + item.typeModel.shipFee + item.typeModel.openAccountFee) || 0);
+                  },0).toFixed(2);
+              })()}</div>
               <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>确认支付</div>
           </div>
       </div>
@@ -409,6 +431,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   orderParams: P.any,
+    willPayObjs: P.any,
     userinfo: P.any,
 };
 
@@ -420,8 +443,30 @@ export default connect(
   (state) => ({
       userinfo: state.app.userinfo,
     orderParams: state.shop.orderParams,
+      willPayObjs: state.shop.willPayObjs,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo, getStationInfoById }, dispatch),
   })
 )(HomePageContainer);
+
+
+// {
+//     // 健康食品、生物科技有这个提示 1-水机 2-养未来，3-冷敷贴，5-体检
+//     d && [2, 3].includes(d.typeId) && this.state.station ? (
+//         <div className="other-info">(此款项是代{ this.state.station }收取)</div>
+//     ) : null
+// }
+// {
+//     // 健康食品、生物科技有这个提示 1-水机 2-养未来，3-冷敷贴，5-体检
+//     d && [5].includes(d.typeId) && this.state.station ? (
+//         [
+//             <div className="other-info" key={1}>(此款项是代{ this.state.station }收取)</div>,
+//             <ul className="other-info-ul" key={2}>
+//                 <li>如需开票，请联系：</li>
+//                 <li>{ this.state.station }：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">联系门店</a></li>
+//                 <li>客服热线：<a href="tel:4001519999" target="_blank" rel="nofollow noopener noreferrer">4001519999</a></li>
+//             </ul>
+//         ]
+//     ) : null
+// }

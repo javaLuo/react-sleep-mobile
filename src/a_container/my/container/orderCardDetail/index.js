@@ -73,7 +73,7 @@ class HomePageContainer extends React.Component {
                   });
               }
           } else {
-              Toast.fail(res.message || '查询评估卡信息失败');
+              Toast.info(res.message || '查询评估卡信息失败');
           }
       });
   }

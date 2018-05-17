@@ -81,7 +81,7 @@ class HomePageContainer extends React.Component {
             me.setState({
                 data: this.state.data,
             });
-            Toast.fail('查询失败，请重试', 1);
+            Toast.info('查询失败，请重试', 1);
         });
     }
 

@@ -8,21 +8,20 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-
+import _ from 'lodash';
 import './index.scss';
 
 // ==================
 // 所需的所有组件
 // ==================
 
-import { Checkbox, SwipeAction } from 'antd-mobile';
-import ImgTest from '../../../../assets/test/new.png';
+import { Checkbox, SwipeAction, Toast } from 'antd-mobile';
 import StepLuo from '../../../../a_component/StepperLuo';
 // ==================
 // 本页面所需action
 // ==================
 
-import {  } from '../../../../a_action/shop-action';
+import { getCarInterface, pushDingDan, getDefaultAttr } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -31,7 +30,9 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+        data: [], // 有效的产品
+        checkedAll: false, // 全选按钮是否被选中
+        downData: [],   // 已失效的
     };
   }
 
@@ -41,162 +42,256 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '购物车';
+      this.getData();
   }
 
+    getData() {
+      this.props.actions.getCarInterface().then((res) => {
+          if(res.status === 200) {
+              const data = res.data.productTypes.map((item) => {
+                  const newItem = Object.assign({}, item, { checked: false });
+                  newItem.productList.forEach((listItem) => {
+                      listItem.checked = false;
+                  });
+                  return newItem;
+              });
+              this.setState({
+                  data,
+                  downData: res.data.expiryList || [],
+              });
+          } else{
+              Toast.info(res.message, 1);
+          }
+      });
+    }
 
+    /**
+     * 点选了复选框
+     * @id: 被点选对象的ID
+     * @lv: 被点选对象的层级，0 - 类别被点击， 1 - 具体的产品被点击, -1 全选按钮被点击
+     * */
+    onCheckbox(id, lv) {
+      const d = _.cloneDeep(this.state.data);
+      let checkedAll = this.state.checkedAll;
+      if(lv === 0) {
+          d.forEach((item) => {
+              if(item.id === id) {
+                  item.checked = !item.checked;
+                  item.productList.forEach((listItem) => {
+                      listItem.checked = item.checked;
+                  });
+              }
+          });
+      } else if (lv === 1) {
+          outer:
+          for(let i=0;i<d.length;i++) {
+              for(let j=0;j<d[i].productList.length;j++) {
+                  if(d[i].productList[j].id === id) {
+                      d[i].productList[j].checked = !d[i].productList[j].checked;
+                      const num = d[i].productList.filter((item) => item.checked);
+                      if (num.length === d[i].productList.length) {
+                          d[i].checked = true;
+                      } else if (num.length === 0) {
+                          d[i].checked = false;
+                      }
+                      break outer;
+                  }
+              }
+          }
+      } else if (lv === -1) {
+          checkedAll = !this.state.checkedAll;
+
+          d.forEach((item) => {
+              item.checked = checkedAll;
+              item.productList.forEach((listItem) => {
+                  listItem.checked = checkedAll;
+              });
+          });
+      }
+
+      if(lv !== -1){ // 非全选按钮被点击时，需要最终判断是否需要勾选全选按钮
+          const obj1 = d.filter((item) => item.checked);    // 所有父级被勾选的
+          if(obj1.length < d.length) {
+              checkedAll = false;
+          } else {
+              checkedAll = true;
+          }
+      }
+        this.setState({
+            checkedAll,
+            data: d,
+        });
+    }
+
+    // 价格脏检查
+    checkPay(data) {
+        let pay = 0;
+        data.forEach((item) => {
+            item.productList.filter((item) => item.checked).forEach((listItem) => {
+                // 数量*单价+开户费
+                pay += listItem.shopCart.number * listItem.typeModel.price + listItem.typeModel.openAccountFee;
+            });
+        });
+        pay = Math.floor(pay*100) / 100;
+        return pay;
+    }
+
+    // 修改商品的数量
+    changeNum(num, id) {
+        const d = _.cloneDeep(this.state.data);
+        outer:
+        for(let i=0; i<d.length; i++){
+            for(let j=0;j<d[i].productList.length;j++){
+                if(d[i].productList[j].id === id) {
+                    d[i].productList[j].shopCart.number = num;
+                    break outer;
+                }
+            }
+        }
+        this.setState({
+            data: d,
+        });
+    }
+
+    // 结算
+    onSubmit() {
+       // 筛选出勾选的商品
+        const arr = [];
+        for(let i=0;i<this.state.data.length;i++){
+            const obj = this.state.data[i].productList.filter((item) => item.checked);
+            arr.push(...obj);
+        }
+        if(!arr.length){
+            Toast.info('您没有勾选商品', 1);
+            return;
+        }
+        this.props.actions.getDefaultAttr(); // 查默认收货地址
+        this.props.actions.pushDingDan(arr); // 所选商品放进待结算数组
+        this.props.history.push('/shop/confirmpay');
+    }
   render() {
-    const u = this.props.userinfo;
     return (
       <div className="shopping-car">
           <div className={"bodys"}>
-          <div className="type-box">
-              <div className="title">
-                  <Checkbox onChange={() => {}}>
-                    <span className="word">净水服务</span>
-                  </Checkbox>
-              </div>
-              <div className="list">
-                  <SwipeAction
-                    autoClose
-                    right={[
-                        {
-                            text: '删除',
-                            onPress: () => console.log('删除'),
-                            style: { color: 'white', padding: '10px' }
-                        }
-                    ]}
-                  >
-                      <div className="one">
-                          <Checkbox onChange={() => {}} />
-                          <div className="pic">
-                              <img src={ImgTest} />
-                          </div>
-                          <div className="infos">
-                              <div className="t all_warp">翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水</div>
-                              <div className="num">
-                                  <span className="money">￥1000.00</span>
-                                  <StepLuo
-                                    min={1}
-                                    max={5}
-                                    value={1}
-                                    onChange={() => {}}
-                                  />
+              {
+                  this.state.data.map((item, index) => {
+                      return (
+                          <div key={index} className="type-box">
+                              <div className="title">
+                                  <Checkbox checked={item.checked} onChange={() => this.onCheckbox(item.id, 0)}>
+                                      <img className="icon" src={item.typeIcon} />
+                                      <span className="word">{item.name}</span>
+                                  </Checkbox>
                               </div>
-                              <div className={"foot-info"}>商品已下架</div>
-                          </div>
-                      </div>
-                  </SwipeAction>
-                  <SwipeAction
-                      autoClose
-                      right={[
-                          {
-                              text: '删除',
-                              onPress: () => console.log('删除'),
-                              style: { color: 'white' }
-                          }
-                      ]}
-                  >
-                      <div className="one">
-                          <Checkbox onChange={() => {}} />
-                          <div className="pic">
-                              <img src={ImgTest} />
-                          </div>
-                          <div className="infos">
-                              <div className="t all_warp">翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水</div>
-                              <div className="num">
-                                  <span className="money">￥1000.00</span>
-                                  <StepLuo
-                                      min={1}
-                                      max={5}
-                                      value={1}
-                                      onChange={() => {}}
-                                  />
+                              <div className="list">
+                                  {
+                                      item.productList && item.productList.map((listItem, listIndex) => {
+                                          return (
+                                              <SwipeAction
+                                                  key={listIndex}
+                                                  autoClose
+                                                  right={[
+                                                      {
+                                                          text: '删除',
+                                                          onPress: () => console.log('删除'),
+                                                          style: { color: 'white', padding: '10px' }
+                                                      }
+                                                  ]}
+                                              >
+                                                  <div className="one">
+                                                      <Checkbox checked={listItem.checked} onChange={() => this.onCheckbox(listItem.id, 1)} />
+                                                      <div className="pic">
+                                                          <img src={listItem.productImg.split(',')[0]} />
+                                                      </div>
+                                                      <div className="infos">
+                                                          <div className="t all_warp">{listItem.name}</div>
+                                                          <div className="num">
+                                                              <span className="money">￥{listItem.typeModel.price}</span>
+                                                              <StepLuo
+                                                                  min={1}
+                                                                  max={99}
+                                                                  value={Math.min(listItem.shopCart.number, 99)}
+                                                                  onChange={(num) => this.changeNum(num, listItem.id)}
+                                                              />
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </SwipeAction>
+                                          );
+                                      })
+                                  }
                               </div>
-                              <div className={"foot-info"}>商品已下架</div>
                           </div>
-                      </div>
-                  </SwipeAction>
+                      );
+                  })
+              }
+              {/** 下面是已失效的商品 **/}
+              <div className={"downs-t"}>
+                  <span className="t">失效商品</span>
+                  <span>清空失效商品</span>
               </div>
-          </div>
-          <div className="type-box">
-              <div className="title">
-                  <Checkbox onChange={() => {}}>
-                      <span className="word">健康体检</span>
-                  </Checkbox>
-              </div>
-              <div className="list">
-                  <SwipeAction
-                      autoClose
-                      right={[
-                          {
-                              text: '删除',
-                              onPress: () => console.log('删除'),
-                              style: { color: 'white' }
-                          }
-                      ]}
-                  >
-                      <div className="one">
-                          <Checkbox onChange={() => {}} />
-                          <div className="pic">
-                              <img src={ImgTest} />
-                          </div>
-                          <div className="infos">
-                              <div className="t all_warp">翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水</div>
-                              <div className="num">
-                                  <span className="money">￥1000.00</span>
-                                  <StepLuo
-                                      min={1}
-                                      max={5}
-                                      value={1}
-                                      onChange={() => {}}
-                                  />
+              {
+                  this.state.downData.map((item, index) => {
+                      return (
+                          <div key={index} className="type-box">
+                              <div className="title-down">
+                                <img className="icon" src={item.typeIcon} />
+                                <span className="word">{item.name}</span>
                               </div>
-                              <div className={"foot-info"}>商品已下架</div>
-                          </div>
-                      </div>
-                  </SwipeAction>
-                  <SwipeAction
-                      autoClose
-                      right={[
-                          {
-                              text: '删除',
-                              onPress: () => console.log('删除'),
-                              style: { color: 'white' }
-                          }
-                      ]}
-                  >
-                      <div className="one">
-                          <Checkbox onChange={() => {}} />
-                          <div className="pic">
-                              <img src={ImgTest} />
-                          </div>
-                          <div className="infos">
-                              <div className="t all_warp">翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水翼猫智能系统净水</div>
-                              <div className="num">
-                                  <span className="money">￥1000.00</span>
-                                  <StepLuo
-                                      min={1}
-                                      max={5}
-                                      value={1}
-                                      onChange={() => {}}
-                                  />
+                              <div className="list">
+                                  {
+                                      item.productList && item.productList.map((listItem, listIndex) => {
+                                          return (
+                                              <SwipeAction
+                                                  key={listIndex}
+                                                  autoClose
+                                                  right={[
+                                                      {
+                                                          text: '删除',
+                                                          onPress: () => console.log('删除'),
+                                                          style: { color: 'white', padding: '10px' }
+                                                      }
+                                                  ]}
+                                              >
+                                                  <div className="one">
+                                                      <div className="downed">失效</div>
+                                                      <div className="pic">
+                                                          <img src={listItem.productImg.split(',')[0]} />
+                                                      </div>
+                                                      <div className="infos">
+                                                          <div className="t all_warp">{listItem.name}</div>
+                                                          <div className="num">
+                                                              <span className="money">￥{listItem.typeModel.price}</span>
+                                                              <StepLuo
+                                                                  min={1}
+                                                                  max={99}
+                                                                  value={Math.min(listItem.shopCart.number, 99)}
+                                                                  onChange={() => {}}
+                                                              />
+                                                          </div>
+                                                          <div className={"foot-info"}>商品已下架</div>
+                                                      </div>
+                                                  </div>
+                                              </SwipeAction>
+                                          );
+                                      })
+                                  }
                               </div>
-                              <div className={"foot-info"}>商品已下架</div>
                           </div>
-                      </div>
-                  </SwipeAction>
-              </div>
-          </div>
+                      );
+                  })
+              }
           </div>
           <div className={"footer-control"}>
               <Checkbox
-                onChange={() => {}}
+                  checked={this.state.checkedAll}
+                onChange={() => this.onCheckbox(null, -1)}
               >
                   <span style={{ paddingLeft: '10px' }}>全选</span>
               </Checkbox>
               <div style={{ flex : 'auto' }}/>
-              <div className="all">合计：<span>￥ 9999999</span></div>
-              <div className="all2">结算(999999)</div>
+              <div className="all">合计：<span>￥ {this.checkPay(this.state.data)}</span></div>
+              <div className="all2" onClick={() => this.onSubmit()}>结算({this.checkPay(this.state.data)})</div>
           </div>
       </div>
     );
@@ -223,6 +318,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({  }, dispatch),
+    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr }, dispatch),
   })
 )(HomePageContainer);

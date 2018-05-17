@@ -101,10 +101,10 @@ class HomePageContainer extends React.Component {
                     this.props.history.push('/healthy/mypre');
                 }, 16);
             } else {
-                Toast.fail(res.message || '网络错误，请重试',1);
+                Toast.info(res.message || '网络错误，请重试',1);
             }
         }).catch(() => {
-            Toast.fail('网络错误，请重试',1);
+            Toast.info('网络错误，请重试',1);
         });
    }
 

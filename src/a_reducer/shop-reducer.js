@@ -22,7 +22,7 @@ const initState = {
         },
         addr: null,             // 所选择的收货地址信息，用于展示
     },
-    shoppingCar: [],    // 购物车，从购物车进入付款页时，需要把所选的所有商品都弄进来
+    willPayObjs: [],    // 确认订单逻辑有变，全部依据此变量。从购物车选择或直接商品详情页 进入 订单确认页，都把选择的商品存入此变量
     allPayTypes: [],    // 所有的支付方式，支付宝微信什么的
     allChargeTypes:[],  // 所有的收费方式，包年包流量什么的
     homePics: [],   // 首页轮播图
@@ -295,6 +295,13 @@ const getLiveTypes = (state, action) => {
         liveTypes: payload,
     });
 };
+
+const pushDingDan = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        willPayObjs: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -354,8 +361,8 @@ const reducerFn = (state = initState, action) => {
             return saveMapAddr(state, action);
         case 'LIVE::getLiveTypes':
             return getLiveTypes(state, action);
-        case 'APP::pushCar':
-            return pushCar(state, action);
+        case 'APP::pushDingDan':
+            return pushDingDan(state, action);
         default:
             return actDefault(state, action);
     }

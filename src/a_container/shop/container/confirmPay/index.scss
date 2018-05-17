@@ -16,6 +16,66 @@
       color: #fff;
     }
   }
+  .body-list{
+    .obj-box{
+      &+.obj-box{
+        margin-top:10px;
+      }
+      .one{
+        width: 100%;
+        display: flex;
+        box-sizing: border-box;
+        padding: 10px;
+        background-color: #fff;
+        .am-checkbox-wrapper{
+          flex: none;
+          display: flex;
+          align-items: center;
+          padding-right: 10px;
+        }
+        .pic{
+          width: 100px;
+          display: flex;
+          flex: none;
+          align-items: center;
+          justify-content: center;
+          img{
+            max-width: 100px;
+            max-height :150px;
+          }
+        }
+        .infos{
+          flex: 1;
+          margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+          .t{
+            flex: 1;
+            font-size: 14px;
+          }
+          .num{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex: none;
+            .money{
+              font-size: 12px;
+              color: rgb(137,136,142);
+            }
+            .stepper-luo{
+              transform: scale(.8,.8);
+              transform-origin:100% 50%;
+            }
+          }
+          .foot-info{
+            font-size: 12px;
+            color: rgb(249,42,25);
+            flex: none;
+          }
+        }
+      }
+    }
+  }
   .normal-item.am-list-item {
     .am-list-thumb {
       margin: 0 0 0 15px;

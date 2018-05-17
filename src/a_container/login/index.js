@@ -99,7 +99,7 @@ class Login extends React.Component {
           }
 
       } else {
-        Toast.fail(res.message || '登录失败', 1);
+        Toast.info(res.message || '登录失败', 1);
       }
       this.setState({
           loading: false

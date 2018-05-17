@@ -13,45 +13,50 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
+        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9218">
-              <caret line="419" column="160" lean-forward="false" selection-start-line="419" selection-start-column="148" selection-end-line="419" selection-end-column="160" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#65#91#0" expanded="true" />
-                <element signature="e#357#385#0" expanded="true" />
-                <element signature="e#1167#1271#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="242">
+              <caret line="18" column="57" lean-forward="false" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2Detail/index.js">
+      <file leaf-file-name="shop-reducer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_reducer/shop-reducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1907">
-              <caret line="65" column="5" lean-forward="false" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#103#129#0" expanded="true" />
-                <element signature="e#403#455#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="484">
+              <caret line="24" column="80" lean-forward="false" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.js">
+        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+            <state relative-caret-position="290">
+              <caret line="141" column="54" lean-forward="true" selection-start-line="141" selection-start-column="54" selection-end-line="141" selection-end-column="54" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#103#129#0" expanded="true" />
-                <element signature="e#958#1073#0" expanded="true" />
+                <element signature="e#69#95#0" expanded="true" />
+                <element signature="e#368#430#0" expanded="true" />
+                <element signature="e#547#665#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="229" column="56" lean-forward="false" selection-start-line="229" selection-start-column="20" selection-end-line="229" selection-end-column="56" />
+              <folding>
+                <element signature="e#69#95#0" expanded="true" />
+                <element signature="e#362#403#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,39 +66,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>foot</find>
-      <find>OrderDetail</find>
-      <find>shop/payChose</find>
-      <find>getPayInfo</find>
-      <find>initWxConfig</find>
-      <find>pay_obj</find>
+      <find>Toast</find>
+      <find>Toast.fail</find>
+      <find>.map</find>
+      <find>onCheckbox</find>
+      <find>onPushCar</find>
+      <find>downs</find>
+      <find>this.props.actions.pushCar</find>
+      <find>pushCar</find>
+      <find>formJifei</find>
+      <find>onJiFeiChose</find>
+      <find>onDateChange</find>
+      <find>queryCustomerList</find>
+      <find>onServeChose</find>
+      <find>formCount</find>
+      <find>shipPrice</find>
+      <find>reduce</find>
+      <find>pushDingDan</find>
+      <find>getDefaultAttr</find>
+      <find>setDefaultAttr</find>
+      <find>nowParams</find>
+      <find>orderParams</find>
+      <find>getStationInfoById</find>
+      <find>makeJiFeiData</find>
+      <find>计费方式</find>
+      <find>计费</find>
+      <find>onPaiDanChose</find>
+      <find>obj-box</find>
+      <find>serverList</find>
       <find>onSubmit</find>
-      <find>nothing</find>
-      <find>Tabs</find>
-      <find>onChose</find>
-      <find>type</find>
-      <find>daiyanh5del.scss</find>
-      <find>d.</find>
-      <find>DaiYanH5Share</find>
-      <find>mallApList</find>
-      <find>防止</find>
-      <find>speakCardPropList</find>
-      <find>propagandaList</find>
-      <find>getDaiyanh5List</find>
-      <find>getDataByQid</find>
-      <find>questions</find>
-      <find>ImgBar1</find>
-      <find>getAnswers</find>
-      <find>onTypeClick</find>
-      <find>服务站</find>
-      <find>onGoMap</find>
-      <find>IconRoad</find>
-      <find>ImgDaoHang</find>
-      <find>inputStation</find>
-      <find>onGoDetail</find>
+      <find>formPaiDan</find>
     </findStrings>
     <replaceStrings>
-      <replace>font-size: .32rem;</replace>
       <replace>font-size: .28rem;</replace>
       <replace>return true;</replace>
       <replace>Toast.fail('网络错误，请重试',1)</replace>
@@ -123,6 +127,7 @@
       <replace>_fff_</replace>
       <replace>定位中...'</replace>
       <replace>shop/payChose/1</replace>
+      <replace>Toast.info</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\flycat\react-sleep-mobile\src</dir>
@@ -140,18 +145,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/exprShop2Detail/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/component/list/index.scss" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/css/css.css" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/component/list/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/eva/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/eva/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/home/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/bindPhone/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/bindDealer/index.js" />
@@ -160,9 +160,6 @@
         <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/preCheck/index.js" />
         <option value="$PROJECT_DIR$/src/a_component/windowFlod/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js" />
         <option value="$PROJECT_DIR$/build/dist/1.046478.chunk.js" />
         <option value="$PROJECT_DIR$/src/a_component/windowFlod/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/payChose/index.js" />
@@ -171,13 +168,8 @@
         <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5del.scss" />
         <option value="$PROJECT_DIR$/src/a_container/share/daiyanh5Share.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5del.js" />
         <option value="$PROJECT_DIR$/src/a_container/share/daiyanh5Share.js" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
-        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5.js" />
-        <option value="$PROJECT_DIR$/src/a_reducer/shop-reducer.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyan.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/kf/component/list/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/kf/component/list/index.js" />
@@ -191,6 +183,19 @@
         <option value="$PROJECT_DIR$/src/a_container/root/index.js" />
         <option value="$PROJECT_DIR$/src/config/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5del.js" />
+        <option value="$PROJECT_DIR$/src/a_action/app-action.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/myCustomer/component/list/index.js" />
+        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
+        <option value="$PROJECT_DIR$/src/a_reducer/shop-reducer.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.scss" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss" />
+        <option value="$PROJECT_DIR$/src/css/css.css" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
       </list>
     </option>
   </component>
@@ -206,8 +211,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="364" />
-    <option name="width" value="1449" />
+    <option name="x" value="465" />
+    <option name="y" value="7" />
+    <option name="width" value="1464" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
@@ -225,7 +231,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -249,13 +255,42 @@
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_container" type="462c0819:PsiDirectoryNode" />
+              <item name="shop" type="462c0819:PsiDirectoryNode" />
+              <item name="container" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="a_reducer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -513,32 +548,37 @@
       <workItem from="1526260267275" duration="14234000" />
       <workItem from="1526346013428" duration="1487000" />
       <workItem from="1526347976641" duration="1821000" />
+      <workItem from="1526352123654" duration="570000" />
+      <workItem from="1526352764081" duration="1558000" />
+      <workItem from="1526435768611" duration="8000" />
+      <workItem from="1526437886193" duration="22100000" />
+      <workItem from="1526519189709" duration="4574000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1701329000" />
+    <option name="totallyTimeSpent" value="1730139000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="364" y="0" width="1449" height="1040" extended-state="0" />
+    <frame x="465" y="7" width="1464" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22609909" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21063536" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14118896" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32414553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32362458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -553,96 +593,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/a_component/StepperLuo/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1095">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_component/StepperLuo/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="55" column="29" lean-forward="true" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#74#100#0" expanded="false" />
-            <element signature="e#334#386#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="66" column="43" lean-forward="true" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4260">
-          <caret line="13" column="21" lean-forward="true" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#75#101#0" expanded="false" />
-            <element signature="e#374#431#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/paySuccess/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#78#104#0" expanded="false" />
-            <element signature="e#377#420#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="225" column="17" lean-forward="true" selection-start-line="225" selection-start-column="17" selection-end-line="225" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/dist/1.046478.chunk.js" />
-    <entry file="file://$PROJECT_DIR$/src/a_component/windowFlod/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="30" column="1" lean-forward="true" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="203" column="33" lean-forward="true" selection-start-line="203" selection-start-column="33" selection-end-line="203" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/payChose/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="362" column="68" lean-forward="true" selection-start-line="362" selection-start-column="68" selection-end-line="362" selection-end-column="68" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
@@ -654,15 +605,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="82" column="4" lean-forward="true" selection-start-line="82" selection-start-column="4" selection-end-line="114" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -670,13 +612,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/css.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="56" column="123" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="123" />
         </state>
       </provider>
     </entry>
@@ -691,15 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="140" column="39" lean-forward="true" selection-start-line="140" selection-start-column="22" selection-end-line="140" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -707,9 +633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2697">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -738,14 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="902">
           <caret line="41" column="22" lean-forward="false" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5del.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="172" column="33" lean-forward="true" selection-start-line="172" selection-start-column="33" selection-end-line="172" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -756,19 +671,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2083">
-          <caret line="266" column="22" lean-forward="true" selection-start-line="266" selection-start-column="22" selection-end-line="266" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webpack.production.config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -779,18 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13">
-          <caret line="102" column="36" lean-forward="false" selection-start-line="102" selection-start-column="36" selection-end-line="102" selection-end-column="36" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#75#101#0" expanded="false" />
-            <element signature="e#333#389#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -798,22 +692,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_reducer/shop-reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="282" column="2" lean-forward="false" selection-start-line="282" selection-start-column="2" selection-end-line="282" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyan.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="553">
           <caret line="83" column="22" lean-forward="false" selection-start-line="83" selection-start-column="22" selection-end-line="83" selection-end-column="22" />
-          <folding>
-            <element signature="e#77#103#0" expanded="false" />
-            <element signature="e#378#437#0" expanded="false" />
-            <element signature="e#789#847#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -821,10 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="58" />
-          <folding>
-            <element signature="e#73#99#0" expanded="false" />
-            <element signature="e#1367#1443#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,10 +717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="48" column="31" lean-forward="true" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#13#39#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -857,23 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1518">
           <caret line="81" column="41" lean-forward="false" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17006">
-          <caret line="775" column="18" lean-forward="false" selection-start-line="775" selection-start-column="18" selection-end-line="775" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_action/app-action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5522">
-          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="258" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -881,19 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1848">
           <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="15" selection-end-line="86" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
-          <folding>
-            <element signature="e#333#369#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -901,9 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -917,22 +758,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/root/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3358">
-          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-            <element signature="e#6502#6544#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/config/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
           <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -940,19 +769,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="586">
           <caret line="156" column="4" lean-forward="false" selection-start-line="156" selection-start-column="4" selection-end-line="162" selection-end-column="5" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="22" column="42" lean-forward="false" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2Detail/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1907">
+        <state relative-caret-position="22">
           <caret line="65" column="5" lean-forward="false" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#103#129#0" expanded="true" />
-            <element signature="e#403#455#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -960,23 +790,183 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9218">
           <caret line="419" column="160" lean-forward="false" selection-start-line="419" selection-start-column="148" selection-end-line="419" selection-end-column="160" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/payChose/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="362" column="68" lean-forward="false" selection-start-line="362" selection-start-column="68" selection-end-line="362" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="121" column="16" lean-forward="false" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="185" column="29" lean-forward="false" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myDaiYan/daiyanh5del.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="187" column="72" lean-forward="false" selection-start-line="187" selection-start-column="72" selection-end-line="187" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_action/app-action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/root/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="40" column="59" lean-forward="true" selection-start-line="40" selection-start-column="59" selection-end-line="40" selection-end-column="59" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#65#91#0" expanded="true" />
-            <element signature="e#357#385#0" expanded="true" />
-            <element signature="e#1167#1271#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/exprShop2/index.js">
+    <entry file="file://$PROJECT_DIR$/src/a_component/StepperLuo/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_component/windowFlod/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="140" column="39" lean-forward="false" selection-start-line="140" selection-start-column="22" selection-end-line="140" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myCustomer/component/list/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3432">
+          <caret line="156" column="0" lean-forward="true" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#106#132#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-88">
+          <caret line="31" column="50" lean-forward="false" selection-start-line="31" selection-start-column="50" selection-end-line="31" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="199" column="20" lean-forward="false" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_reducer/shop-reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="24" column="80" lean-forward="false" selection-start-line="24" selection-start-column="80" selection-end-line="24" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/css/css.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="13" column="58" lean-forward="false" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="229" column="56" lean-forward="false" selection-start-line="229" selection-start-column="20" selection-end-line="229" selection-end-column="56" />
+          <folding>
+            <element signature="e#69#95#0" expanded="true" />
+            <element signature="e#362#403#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/shoppingCar/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="18" column="57" lean-forward="false" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="786">
+          <caret line="114" column="22" lean-forward="true" selection-start-line="114" selection-start-column="22" selection-end-line="114" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="141" column="54" lean-forward="true" selection-start-line="141" selection-start-column="54" selection-end-line="141" selection-end-column="54" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#103#129#0" expanded="true" />
-            <element signature="e#958#1073#0" expanded="true" />
+            <element signature="e#69#95#0" expanded="true" />
+            <element signature="e#368#430#0" expanded="true" />
+            <element signature="e#547#665#0" expanded="true" />
           </folding>
         </state>
       </provider>

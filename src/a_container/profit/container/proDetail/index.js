@@ -160,7 +160,7 @@ class HomePageContainer extends React.Component {
           this.setState({
               data: this.state.data,
           });
-          Toast.fail('网络错误，请稍后重试',1);
+          Toast.info('网络错误，请稍后重试',1);
       });
     }
 

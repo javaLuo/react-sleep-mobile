@@ -58,7 +58,7 @@ class HomePageContainer extends React.Component {
                 order: res.data,
             });
         } else {
-            Toast.fail('获取订单详情失败',1);
+            Toast.info('获取订单详情失败',1);
         }
       });
   }
@@ -84,7 +84,7 @@ class HomePageContainer extends React.Component {
                             this.props.history.go(-1);
                             Toast.success('操作成功', 1);
                         } else {
-                            Toast.fail(res.message);
+                            Toast.info(res.message);
                         }
                         resolve();
                     }).catch(() => {

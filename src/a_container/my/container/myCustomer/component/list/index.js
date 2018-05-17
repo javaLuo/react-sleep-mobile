@@ -79,27 +79,32 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>添加</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu()}>{u.aliasName || '备注'}：<span>添加</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker
                             data={[
                                 { label: '0星', value: 0 },
-                                { label: '0.5星', value: 0.5 },
                                 { label: '1星', value: 1 },
-                                { label: '1.5星', value: 1.5 },
                                 { label: '2星', value: 2 },
-                                { label: '2.5星', value: 2.5 },
                                 { label: '3星', value: 3 },
-                                { label: '3.5星', value: 3.5 },
                                 { label: '4星', value: 4 },
-                                { label: '4.5星', value: 4.5 },
                                 { label: '5星', value: 5 },
                             ]}
                             cols={1}
                             onChange={() => {}}
                         >
-                            <div className="lit black star">星级标注：<img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IcomStar1} /><img src={IconUp}/></div>
+                            <div className="lit black star">星级标注：{(() => {
+                                const m = [];
+                                for(let i=0;i<5;i++) {
+                                    if(i<u.asteriskLevel){
+                                        m.push(<img key={i} src={IcomStar1}/>);
+                                    }else{
+                                        m.push(<img key={i} src={IcomStar0}/>);
+                                    }
+                                }
+                                return m;
+                            })()}<img src={IconUp} /></div>
                         </Picker>
                         {/*<div className="lit mt">身份：{tools.getNameByUserType(u.userType)}</div>*/}
                         <div className="lit fxq"><span className="que" onClick={() => this.onQue(u)}>?</span>分销权：<div>{this.makePower(u.incomePermission)}</div></div>

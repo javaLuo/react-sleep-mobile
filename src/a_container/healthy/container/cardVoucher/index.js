@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
                   data: res.data.result || [],
               });
           } else {
-              Toast.fail(res.message || '获取体检券失败，请重试',1);
+              Toast.info(res.message || '获取体检券失败，请重试',1);
           }
       });
     }
@@ -256,7 +256,7 @@ class HomePageContainer extends React.Component {
                             Toast.success('删除成功',1);
                             this.getData();
                         } else {
-                            Toast.fail(res.message || '删除失败，请重试',1);
+                            Toast.info(res.message || '删除失败，请重试',1);
                         }
                         resolve();
                     }).catch(() => {

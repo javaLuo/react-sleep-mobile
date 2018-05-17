@@ -76,11 +76,11 @@ class Register extends React.Component {
     // 提交
     onSubmit() {
         if(!this.state.userName){
-            Toast.fail('账号不能为空', 1);
+            Toast.info('账号不能为空', 1);
             return;
         }
         if(!this.state.password){
-            Toast.fail('密码不能为空', 1);
+            Toast.info('密码不能为空', 1);
             return;
         }
         if(!this.state.formChecked){
@@ -119,13 +119,13 @@ class Register extends React.Component {
                                 this.props.history.go(-1);
                             });
                         } else {
-                            Toast.fail(res.message || '绑定失败',1);
+                            Toast.info(res.message || '绑定失败',1);
                         }
                         this.setState({
                             loading: false,
                         });
                     }).catch(() => {
-                        Toast.fail('网络错误，请重试',1);
+                        Toast.info('网络错误，请重试',1);
                         this.setState({
                             loading: false,
                         });

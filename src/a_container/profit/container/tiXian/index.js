@@ -119,10 +119,10 @@ class HomePageContainer extends React.Component {
                     ]);
                 }
             } else {
-                Toast.fail(res.message || '当前金额不可提现',1);
+                Toast.info(res.message || '当前金额不可提现',1);
             }
         }).catch(() => {
-            Toast.fail('网络错误，请稍后重试',1);
+            Toast.info('网络错误，请稍后重试',1);
         });
     }
 

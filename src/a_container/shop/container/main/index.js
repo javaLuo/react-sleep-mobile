@@ -14,14 +14,13 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { SearchBar, Tabs, Carousel } from 'antd-mobile';
-import Img1 from '../../../../assets/test/new.png';
+import { Tabs, Carousel, Toast } from 'antd-mobile';
 import ImgCar from '../../../../assets/shop/jrgwc@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { getProDuctList, listProductType, mallApList } from '../../../../a_action/shop-action';
+import { getProDuctList, listProductType, mallApList, pushCarInterface } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -65,11 +64,22 @@ class HomePageContainer extends React.Component {
       this.props.history.push(`/shop/gooddetail/${id}`);
     }
 
+    // 将商品添加进购物车
+    onPushCar(e, id) {
+      e.stopPropagation();
+      this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
+          if(res.status === 200) {
+              Toast.success('加入购物车成功');
+          } else {
+              Toast.info(res.message);
+          }
+      });
+    }
   render() {
       const d = [...this.props.allProducts].sort((a, b) => a-b);
       const u = this.props.userinfo;
     return (
-      <div className="flex-auto page-box shop-main">
+      <div className="shop-main">
           {/* 顶部轮播 */}
           {
               (this.state.barPics.length) ? (
@@ -121,7 +131,7 @@ class HomePageContainer extends React.Component {
                                                       <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
                                                       <div className="p-t">{vvv.typeModel && vvv.typeModel.name}</div>
                                                       <div className="p-m">￥{vvv.typeModel && vvv.typeModel.price}</div>
-                                                      <div className="p-i">
+                                                      <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
                                                           <span>已售：{vvv.buyCount || 0}</span>
                                                           <img src={ImgCar} />
                                                       </div>
@@ -138,7 +148,7 @@ class HomePageContainer extends React.Component {
                                                       <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
                                                       <div className="p-t">{vvv.typeModel && vvv.typeModel.name}</div>
                                                       <div className="p-m">￥{vvv.typeModel && vvv.typeModel.price}</div>
-                                                      <div className="p-i">
+                                                      <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
                                                           <span>已售：{vvv.buyCount || 0}</span>
                                                           <img src={ImgCar} />
                                                       </div>
@@ -182,6 +192,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getProDuctList, listProductType, mallApList }, dispatch),
+    actions: bindActionCreators({ getProDuctList, listProductType, mallApList, pushCarInterface }, dispatch),
   })
 )(HomePageContainer);

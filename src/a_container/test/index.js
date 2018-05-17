@@ -118,7 +118,7 @@ class TestContainer extends React.PureComponent {
                 });
                 this.step3(result.position.lng, result.position.lat);
             } else {
-                Toast.fail('定位失败', 1);
+                Toast.info('定位失败', 1);
             }
         });
     }

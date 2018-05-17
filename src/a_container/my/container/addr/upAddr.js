@@ -135,7 +135,7 @@ class HomePageContainer extends React.Component {
                 Toast.success('修改成功');
                 this.props.history.go(-1);
             } else {
-                Toast.fail(res.message || '修改失败');
+                Toast.info(res.message || '修改失败');
             }
         }).catch(() => {
             Toast.hide();

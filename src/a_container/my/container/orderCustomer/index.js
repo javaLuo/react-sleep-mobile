@@ -49,7 +49,7 @@ class HomePageContainer extends React.Component {
               console.log('订单信息：', res.data.result);
           }
       }).catch(() =>{
-          Toast.fail('网络错误，请重试',1);
+          Toast.info('网络错误，请重试',1);
       });
   }
 
@@ -96,7 +96,7 @@ class HomePageContainer extends React.Component {
                             this.getData();
                             Toast.success('操作成功', 1);
                         } else {
-                            Toast.fail(res.message);
+                            Toast.info(res.message);
                         }
                         resolve();
                     }).catch(() => {

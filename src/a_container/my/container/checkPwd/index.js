@@ -54,11 +54,11 @@ class Register extends React.Component {
     onSubmit() {
         const u = this.props.userinfo;
         if(!u || !u.mobile) {
-            Toast.fail('您没有绑定手机号',1);
+            Toast.info('您没有绑定手机号',1);
             return;
         }
         if(!this.state.password1.length){
-            Toast.fail('请输入您的经销商App密码', 1);
+            Toast.info('请输入您的经销商App密码', 1);
             return;
         }
 
@@ -73,7 +73,7 @@ class Register extends React.Component {
                 Toast.success('校验成功', 1);
                 this.props.history.go(-1);
             } else {
-                Toast.fail(res.message || '校验失败',1);
+                Toast.info(res.message || '校验失败',1);
             }
         });
     }
