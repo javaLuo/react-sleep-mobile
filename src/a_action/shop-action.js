@@ -97,10 +97,26 @@ export const getAllChargeTypes = () => async(dispatch) => {
     }
 };
 
-// 下单
+// 下单 - 单个下单
 export const placeAndOrder = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/create', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/order/create/one', params, 'post', true, 1);
+        if (res.status === 200) {
+            dispatch({
+                type: 'SHOP::placeAndOrder',
+                payload: res.data.result,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 下单 - 多个商品下单
+export const placeAndOrderMany = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/create/many', params, 'post', true, 1);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::placeAndOrder',
@@ -836,7 +852,17 @@ export const pushCarInterface = (params = {}) => async(dispatch) => {
 // 查询购物车列表
 export const getCarInterface = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/shopCart/list', params, 'post', true);
+        const res = await Fetchapi.newPost('mall/shopCart/list', params,);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 根据ID查询服务站详情
+export const getStationDelForId = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/station/recommend/detail', params);
         return res;
     } catch(err) {
         Toast.info('网络错误，请重试',1);

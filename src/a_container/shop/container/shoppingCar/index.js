@@ -129,7 +129,7 @@ class HomePageContainer extends React.Component {
         data.forEach((item) => {
             item.productList.filter((item) => item.checked).forEach((listItem) => {
                 // 数量*单价+开户费
-                pay += listItem.shopCart.number * listItem.typeModel.price + listItem.typeModel.openAccountFee;
+                pay += listItem.shopCart.number * listItem.productModel.price + listItem.productModel.openAccountFee;
             });
         });
         pay = Math.floor(pay*100) / 100;
@@ -206,7 +206,7 @@ class HomePageContainer extends React.Component {
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
                                                           <div className="num">
-                                                              <span className="money">￥{listItem.typeModel.price}</span>
+                                                              <span className="money">￥{listItem.productModel.price}</span>
                                                               <StepLuo
                                                                   min={1}
                                                                   max={99}
@@ -261,7 +261,7 @@ class HomePageContainer extends React.Component {
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
                                                           <div className="num">
-                                                              <span className="money">￥{listItem.typeModel.price}</span>
+                                                              <span className="money">￥{listItem.productModel.price}</span>
                                                               <StepLuo
                                                                   min={1}
                                                                   max={99}

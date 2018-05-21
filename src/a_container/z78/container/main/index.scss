@@ -1,0 +1,148 @@
+.jxs-page{
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  .iframe-body{
+    flex: 1;
+    iframe{
+      display: block;
+      width: 100%;
+      height :100%;
+      border: none;
+      padding:0;
+      margin: 0;
+      overflow: auto;
+    }
+  }
+  .footer{
+    flex: none;
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+    position: relative;
+    z-index: 10;
+    &>div{
+      flex: 1;
+      background-color: #fff;
+      text-align: center;
+      transition: all 200ms;
+      color: #222;
+      &.check{
+        background-color: rgb(65,132,243);
+        color: #fff;
+      }
+    }
+  }
+  .modal1{
+    position: fixed;
+    z-index: 9;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0 -5px 8px rgba(0,0,0,.1);
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    bottom: -100%;
+    opacity: 0;
+    transition: all 200ms;
+    &.show{
+      opacity: 1;
+      bottom: 50px;
+    }
+    .title{
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .t{
+        color: rgb(249,42,25);
+        font-size: 12px;
+      }
+      .close{
+        padding-left: 15px;
+        img{
+          height: 14px;
+          width: auto;
+        }
+      }
+    }
+    .modal-form{
+      margin-top: 10px;
+      .form-in{
+        display: flex;
+        height: 34px;
+        line-height: 34px;
+        margin-top: 5px;
+        .label{
+          flex: none;
+          text-indent: -1ch;
+          width: 70px;
+          padding-left: 10px;
+          text-align: justify;
+          i{
+            display: inline-block;
+            width: 100%;
+          }
+          span{
+            color: #f00;
+          }
+        }
+        .input-box{
+          flex: 1;
+          margin-left: 10px;
+          input{
+            width: 100%;
+            border: none;
+          }
+        }
+      }
+    }
+    .submit-btn{
+      width: 240px;
+      max-width: 90%;
+      margin: 20px auto 0 auto;
+      background-color: rgb(255,57,41);
+      color: #fff;
+      transition: all 200ms;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 4px;
+      &:active{
+        background-color: #f00;
+      }
+    }
+    .info{
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      margin-top: 10px;
+    }
+    .fucker-info{
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 0 40px;
+      box-sizing: border-box;
+      .photo{
+        width: 40px;
+        height: auto;
+        flex: none;
+      }
+      .infos{
+        flex: 1;
+      }
+      .phone-call{
+        flex: none;
+        img{
+          width: 34px;
+          height: auto;
+        }
+      }
+    }
+  }
+}

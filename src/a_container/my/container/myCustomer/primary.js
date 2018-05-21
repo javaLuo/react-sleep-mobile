@@ -24,7 +24,7 @@ import Li from './component/list';
 // ==================
 
 import { getCustomersCompany, saveSonInInfo } from '../../../../a_action/shop-action';
-
+import { updateUserInfo } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -67,6 +67,30 @@ class HomePageContainer extends React.Component {
         this.props.history.push(`/my/mycustomer/${item.id}/${item.userType}`);
     }
 
+    onChangeStar(u, v) {
+        const params = Object.assign({}, u, {asteriskLevel: v});
+        this.props.actions.updateUserInfo(params).then((res) => {
+            if(res.status===200) {
+                Toast.success('修改成功', 1);
+                this.getData(this.state.id);
+            } else {
+                Toast.info(res.message, 1);
+            }
+        });
+    }
+
+    onChangeBeiZhu(u, v) {
+        const params = Object.assign({}, u, {aliasName: v});
+        this.props.actions.updateUserInfo(params).then((res) => {
+            if(res.status===200) {
+                Toast.success('修改成功', 1);
+                this.getData(this.state.id);
+            } else {
+                Toast.info(res.message, 1);
+            }
+        });
+    }
+
     render() {
         const u = this.props.userinfo || {};
         return (
@@ -92,6 +116,8 @@ class HomePageContainer extends React.Component {
                                 type={'normal'}
                                 jiantou={true}
                                 onCallBack={(obj) => this.onPrimaryClick(obj)}
+                                onChangeStar={(id, v) => this.onChangeStar(id, v)}
+                                onChangeBeiZhu={(id, v) => this.onChangeBeiZhu(id, v)}
                             />;
                         }) : <li key={0} className="data-nothing">
                             <img src={Img404}/>
@@ -126,6 +152,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getCustomersCompany, saveSonInInfo }, dispatch),
+        actions: bindActionCreators({ getCustomersCompany, saveSonInInfo, updateUserInfo }, dispatch),
     })
 )(HomePageContainer);

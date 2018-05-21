@@ -15,7 +15,7 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import Main from './container/main';
+import Main from './container/main/index';
 import UserInfo from './container/userInfo';
 import PerInfo from './container/perInfo';
 

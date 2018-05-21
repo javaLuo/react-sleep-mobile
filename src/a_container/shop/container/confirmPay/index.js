@@ -85,7 +85,7 @@ class HomePageContainer extends React.Component {
       if (!this.props.userinfo) {
           return;
       }
-      const d = this.props.orderParams.nowProduct || {typeModel: {}}; // 当前商品对象
+      const d = this.props.orderParams.nowProduct || {productModel: {}}; // 当前商品对象
 
       this.props.actions.getStationInfoById(tools.clearNull({ userId: this.props.userinfo.id,  productId: d.id })).then((res) => {
           if (res.status === 200) {
@@ -135,8 +135,8 @@ class HomePageContainer extends React.Component {
           feeType: this.state.formJifei ? this.state.formJifei[0] : undefined,  // 计费方式
           orderCode: d.typeCode,    // 商品ID
           orderFrom: 2,             // 支付方式： 2微信支付
-          openAccountFee: d.typeModel.openAccountFee,   // 开户费
-          fee: d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee,
+          openAccountFee: d.productModel.openAccountFee,   // 开户费
+          fee: d.productModel.price * this.state.formCount + d.productModel.shipFee + d.productModel.openAccountFee,
           customerId: serverMan && serverMan.id,
           customerName: serverMan && serverMan.name,
           customerPhone: serverMan && serverMan.phone,
@@ -171,7 +171,7 @@ class HomePageContainer extends React.Component {
     }
     // 构建计费方式所需数据
     makeJiFeiData(data) {
-        const d = data && data.typeModel && data.typeModel.chargeTypes ? data.typeModel.chargeTypes : [];
+        const d = data && data.productModel && data.productModel.chargeTypes ? data.productModel.chargeTypes : [];
         return d.map((item) => {
             return { label: item.chargeName, value: item.id };
         });
@@ -302,7 +302,7 @@ class HomePageContainer extends React.Component {
                                   <div className="infos">
                                       <div className="t all_warp">{d.name}</div>
                                       <div className="num">
-                                          <span className="money">￥{d.typeModel.price + (d.typeModel.openAccountFee || 0)}</span>
+                                          <span className="money">￥{d.productModel.price + (d.productModel.openAccountFee || 0)}</span>
                                           <span>x{d.shopCart.number}</span>
                                       </div>
                                   </div>
@@ -333,7 +333,7 @@ class HomePageContainer extends React.Component {
                                               minDate={new Date(new Date().getTime() + 86400000)}
                                               onChange={date => this.onDateChange(date, d)}
                                           >
-                                              <Item extra={`￥${d.typeModel.openAccountFee}`} arrow={'horizontal'}>安装时间</Item>
+                                              <Item extra={`￥${d.productModel.openAccountFee}`} arrow={'horizontal'}>安装时间</Item>
                                           </DatePicker>
                                       ) : null
                                   }
@@ -380,11 +380,11 @@ class HomePageContainer extends React.Component {
                                       ) : null
                                   }
                                   {
-                                      // d.typeModel.openAccountFee
+                                      // d.productModel.openAccountFee
                                       d && d.typeId === 1 ? (
                                           [<Item
                                               key="0"
-                                              extra={`￥${(d.typeModel.price * d.shopCart.number + d.typeModel.openAccountFee).toFixed(2)}`}
+                                              extra={`￥${(d.productModel.price * d.shopCart.number + d.productModel.openAccountFee).toFixed(2)}`}
                                               align={'top'}
                                               className={"this-speacl-item"}
                                           >首年度预缴</Item>,
@@ -398,7 +398,7 @@ class HomePageContainer extends React.Component {
                                   {
                                       /** 水机和评估卡没有运费(typeId === 1，5) **/
                                       d && ![1,5].includes(d.typeId) ? (
-                                          <Item extra={`￥${d.typeModel ? d.typeModel.shipFee : '0'}`}>运费</Item>
+                                          <Item extra={`￥${d.productModel ? d.productModel.shipFee : '0'}`}>运费</Item>
                                       ) : null
                                   }
                               </List>
@@ -410,9 +410,9 @@ class HomePageContainer extends React.Component {
           <div className="zw46"/>
           <div className="thefooter page-flex-row">
               <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(() => {
-                  // (d.typeModel ? d.typeModel.price * this.state.formCount + d.typeModel.shipFee + d.typeModel.openAccountFee : 0).toFixed(2)
+                  // (d.productModel ? d.productModel.price * this.state.formCount + d.productModel.shipFee + d.productModel.openAccountFee : 0).toFixed(2)
                   return this.state.data.reduce((res, item)=>{
-                      return res + (Number(item.typeModel.price * item.shopCart.number + item.typeModel.shipFee + item.typeModel.openAccountFee) || 0);
+                      return res + (Number(item.productModel.price * item.shopCart.number + item.productModel.shipFee + item.productModel.openAccountFee) || 0);
                   },0).toFixed(2);
               })()}</div>
               <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>确认支付</div>

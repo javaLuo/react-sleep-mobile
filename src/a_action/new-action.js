@@ -80,6 +80,16 @@ export const getGoodServiceStations = (params) => async(dispatch) => {
     }
 };
 
+// 客服页 - 获取当前用户的经销商手机号
+export const getMobileDistributor = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/distributorMobile', params);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
 // 进入体验店
 // 保存用户当前位置
 export function inputStation(data) {
@@ -88,3 +98,33 @@ export function inputStation(data) {
         payload: data,
     };
 }
+
+// 客户留言
+export const customerMessage = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/customerMessage/save', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 根据地区获取该地区经理信息
+export const getAreaManagerByArea = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/areaManager/list', params);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 所有的加盟类型 dicType=joinType&pageNum=1&pageSize=10
+export const getAllJMType = () => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/dictionary/listByDicId', {dicType: 'joinType', pageNum: 1, pageSize: 10});
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};

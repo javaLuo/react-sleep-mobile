@@ -35,7 +35,7 @@ import ImgLingDang from '../../../../assets/lingdang@3x.png';
 // ==================
 
 import { getMyCustomers } from '../../../../a_action/shop-action';
-
+import { updateUserInfo } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -115,6 +115,31 @@ class HomePageContainer extends React.Component {
             powerModalShow: false,
         });
     }
+
+    onChangeStar(u, v) {
+        const params = Object.assign({}, u, {asteriskLevel: v});
+      this.props.actions.updateUserInfo(params).then((res) => {
+          if(res.status===200) {
+              Toast.success('修改成功', 1);
+              this.getData(this.state.id);
+          } else {
+              Toast.info(res.message, 1);
+          }
+      });
+    }
+
+    onChangeBeiZhu(u, v) {
+        const params = Object.assign({}, u, {aliasName: v});
+        this.props.actions.updateUserInfo(params).then((res) => {
+            if(res.status===200) {
+                Toast.success('修改成功', 1);
+                this.getData(this.state.id);
+            } else {
+                Toast.info(res.message, 1);
+            }
+        });
+    }
+
   render() {
       const t = this.state.type;
       const d = this.state.data || {};
@@ -162,6 +187,8 @@ class HomePageContainer extends React.Component {
                                                   data={item}
                                                   type={obj.type}
                                                   onQueClick={(d) => this.onQueClick(d)}
+                                                  onChangeStar={(id, v) => this.onChangeStar(id, v)}
+                                                  onChangeBeiZhu={(id, v) => this.onChangeBeiZhu(id, v)}
                                               />;
                                           }) : <li key={0} className="data-nothing">
                                               <img src={Img404}/>
@@ -226,6 +253,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getMyCustomers }, dispatch),
+    actions: bindActionCreators({ getMyCustomers, updateUserInfo,  }, dispatch),
   })
 )(HomePageContainer);

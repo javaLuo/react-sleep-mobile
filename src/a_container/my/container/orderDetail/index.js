@@ -155,7 +155,7 @@ class HomePageContainer extends React.Component {
 
   render() {
       console.log('这尼玛是个什么：', this.props.orderInfo);
-      const data = this.props.orderInfo.product || { typeModel: {} };
+      const data = this.props.orderInfo.product || {productModel: {} };
       const o = this.state.order;
       const addr = o.shopAddress;
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
@@ -208,7 +208,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
                       <div className="t">{ data.name || '' }</div>
-                      <div className="i">￥<span>{data && (data.typeModel.price + (data.typeModel.openAccountFee || 0))}</span></div>
+                      <div className="i">￥<span>{data && (data.productModel.price + (data.productModel.openAccountFee || 0))}</span></div>
                   </div>
               </div>
           </div>

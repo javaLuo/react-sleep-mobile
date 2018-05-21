@@ -28,7 +28,7 @@ import IconRoad from '../../../../assets/daohang@3x.png';
 // 本页面所需action
 // ==================
 
-import { saveMapAddr } from '../../../../a_action/shop-action';
+import { saveMapAddr, getStationDelForId } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -37,7 +37,7 @@ class HomePageContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],   // 所有数据
+            data: {},   // 数据
             sourceData: [], // 所有省市数据（层级）
             pageNum: 1,
             pageSize: 10,
@@ -46,7 +46,6 @@ class HomePageContainer extends React.Component {
             userLng: null, // 用户坐标X
             userLat: null, // 用户坐标Y
             resType: 1, // 0查询的是最近的，1普通的查询
-            downNow: false, // 当前查询是否已全部加载完毕
         };
         this.map = null;            // 地图实例
         this.geolocation = null;    // 定位插件实例
@@ -55,6 +54,7 @@ class HomePageContainer extends React.Component {
 
     componentDidMount() {
         document.title = '体验服务中心详情';
+        this.getData();
     }
 
     componentWillUnmount() {
@@ -65,6 +65,19 @@ class HomePageContainer extends React.Component {
 
     }
 
+    getData(){
+        const id = this.props.location.pathname.split('/').slice(-1);
+        this.props.actions.getStationDelForId({ id: Number(id) }).then((res) => {
+            if (res.status === 200) {
+                this.setState({
+                    data: res.data,
+                });
+            } else {
+                Toast.info(res.message, 1);
+            }
+        });
+    }
+
     // 去导航，把所有信息都TMD的传过去
     onGoMap(item) {
         this.props.actions.saveMapAddr(item);
@@ -72,7 +85,7 @@ class HomePageContainer extends React.Component {
     }
 
     render() {
-        const d = this.props.stationDetail || {};
+        const d = this.state.data || {};
         return (
             <div className="page-expr-detail">
                 <div className="box1">
@@ -223,6 +236,6 @@ export default connect(
         stationDetail: state.n.stationDetail,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ saveMapAddr }, dispatch),
+        actions: bindActionCreators({ saveMapAddr, getStationDelForId }, dispatch),
     })
 )(HomePageContainer);

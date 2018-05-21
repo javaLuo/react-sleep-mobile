@@ -178,7 +178,7 @@ class HomePageContainer extends React.Component {
                   </div>
                   <div className="goods flex-auto page-flex-col flex-jc-sb">
                       <div className="t">{ data.name || '' }</div>
-                      <div className="i">￥<span>{data && (data.typeModel.price + (data.typeModel.openAccountFee || 0))}</span></div>
+                      <div className="i">￥<span>{data && (data.productModel.price + (data.productModel.openAccountFee || 0))}</span></div>
                   </div>
               </div>
           </div>

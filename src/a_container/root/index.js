@@ -77,6 +77,7 @@ const Forgot = Loadable({ loader: () => import("../register/forgot"), loading: L
 const Profit = Loadable({ loader: () => import("../profit"), loading: Loading });
 const DownLine = Loadable({ loader: () => import("../downLine"), loading: Loading });
 const Live = Loadable({ loader: () => import("../live"), loading: Loading });
+const Z78 = Loadable({ loader: () => import("../z78"), loading: Loading });
 
 import Menu from '../../a_component/menu';
 import tools from '../../util/all';
@@ -161,6 +162,7 @@ class RootContainer extends React.Component {
     }
 
     onEnter(Component, props) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         return <Component {...props} />;
     }
 
@@ -190,6 +192,7 @@ class RootContainer extends React.Component {
                   <Route path="/daiyanh5share/:id" render={(props) => this.onEnter(DaiYanH5Share, props)} />
                   <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
                   <Route path="/live" render={(props) => this.onEnter(Live, props)} />
+                  <Route path="/z78" render={(props) => this.onEnter(Z78, props)} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />

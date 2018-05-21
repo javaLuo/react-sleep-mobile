@@ -59,6 +59,7 @@ class HomePageContainer extends React.Component {
     setTimeout(() => {
         this.scrollDom = new IScroll('#scroll1', {
             scrollX: true,
+            disablePointer: true,
             snap: true
         });
         // 滚动结束时，判断当前是哪一页
@@ -265,15 +266,16 @@ class HomePageContainer extends React.Component {
                             <div className="info">1.分享用户：分享用户是指通过扫描非普通用户创建、升级的用户。</div>
                             <div className="info">2.商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
                             <div className="info">3.商城产品分销权：分享用户不享有翼猫健康商城产品的分销权限，不享有分销收益。</div>
-                            <div className="info">4.用户升级：分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，待装机完成即可升级为分销用户。</div>
+                            <div className="info">4.用户升级：分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，于支付完成后即可升级为分销用户。</div>
                         </div>
                     );
                     case 2: return (
                         <div className="card1">
                             <div className="title"><span>用户说明</span></div>
-                            <div className="info">1. 分销用户：分销用户是指分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，待装机完成后升级为分销用户。</div>
+                            <div className="info">1. 分销用户：分销用户是指分享用户在翼猫健康商城中消费任一款翼猫智能净水设备，于支付完成后升级为分销用户。</div>
                             <div className="info">2. 商城产品购买权：可以在线购买翼猫健康商城中的所有产品。</div>
-                            <div className="info">3. 商城产品分销权：分销用户根据产品分销权可以帮助翼猫经销商分销相应的产品，并享受收益；<br/>分销用户帮助经销商分销水机产品，需使用经销商水机配额；分销用户自己购买产品不享受分销收益，仅享受其直接客户购买产品时产生的收益。</div>
+                            <div className="info">3. 商城产品分销权：分销用户根据产品分销权可以帮助翼猫经销商分销相应的产品，并享受收益；<br/>分销用户帮助经销商分销水机产品，需使用经销商水机配额；<br/>分销用户可享受自己购买产品的收益，并可享受其直接的分享客户（即“我的e家”-“我的客户”中身份为分享用户的客户）购买产品的收益。</div>
+                            <div className="info">4.用户升级：可通过缴纳经销代理费，成为翼猫经销商，享受产品经销收益。缴费方式请您到附近的翼猫体验服务站咨询，稍后我们支持在线升级为翼猫经销商。</div>
                         </div>
                     );
                     case 3: return (

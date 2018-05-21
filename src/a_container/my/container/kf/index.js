@@ -26,7 +26,7 @@ import ImgFill2 from './assets/Fill2@3x.png';
 // 本页面所需action
 // ==================
 
-import { getKfList } from '../../../../a_action/new-action';
+import { getKfList, getMobileDistributor } from '../../../../a_action/new-action';
 
 // ==================
 // Definition
@@ -36,6 +36,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: [],   // 原始数据
+        mobile: '4001519999',   // 经销商电话
         tempData: [
             {type: 1, date: new Date()},
             {type: 2},
@@ -48,6 +49,7 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '客服助手';
       this.getData();
+      this.getMobileDistributor();
   }
     componentWillUnmount(){
       Toast.hide();
@@ -69,9 +71,23 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    // 获取经销商电话
+    getMobileDistributor() {
+        const u = this.props.userinfo;
+        if (!u || !u.id) {
+            return;
+        }
+        this.props.actions.getMobileDistributor({ userId: u.id }).then((res) => {
+            if(res.status === 200) {
+                this.setState({
+                    mobile: res.data,
+                });
+            }
+        });
+    }
   // 滑动到最下面
     static scrollToDown() {
-        $("#word-body").scrollTop($("#word-body")[0].scrollHeight);
+        $("#word-body").stop().animate({scrollTop : $("#word-body")[0].scrollHeight + 'px'}, 300);
     }
 
     onTypeClick(e) {
@@ -145,7 +161,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div className="footer-btn">
               {
-                  [3, 7].includes(this.props.userinfo && this.props.userinfo.userType) ? (<a className="btn btn1"><img src={ImgFill1} /><span>销售咨询</span></a>) : null
+                  [3, 7].includes(this.props.userinfo && this.props.userinfo.userType) ? (<a className="btn btn1" href={`tel:${this.state.mobile}`}><img src={ImgFill1} /><span>销售咨询</span></a>) : null
               }
 
               <a className="btn btn2" href="tel:4001519999"><img src={ImgFill2} /><span>客服热线</span></a>
@@ -175,6 +191,6 @@ export default connect(
         userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getKfList }, dispatch),
+    actions: bindActionCreators({ getKfList, getMobileDistributor }, dispatch),
   })
 )(HomePageContainer);

@@ -268,8 +268,8 @@ class HomePageContainer extends React.Component {
 
     // 前往详情页
     onGoDetail(data) {
-        this.props.actions.inputStation(data);
-        this.props.history.push(`/shop/exprdetail`);
+        //this.props.actions.inputStation(data);
+        this.props.history.push(`/shop/exprdetail/${data.id}`);
     }
     render() {
         return (

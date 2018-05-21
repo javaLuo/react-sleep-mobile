@@ -292,9 +292,9 @@ class HomePageContainer extends React.Component {
                                                       </div>
                                                       <div className="goods flex-auto">
                                                           <div className="t">{v.product ? v.product.name : ''}</div>
-                                                          <div className="i">价格：￥{v.product ? (v.product.typeModel.price * v.count + (v.product.typeModel.openAccountFee || 0) + (v.product.typeModel.shipFee || 0)) : ''}</div>
+                                                          <div className="i">价格：￥{v.product ? (v.product.productModel.price * v.count + (v.product.productModel.openAccountFee || 0) + (v.product.productModel.shipFee || 0)) : ''}</div>
                                                           <div className="i">数量：{v.count}</div>
-                                                          <div className="i">总计：￥{v.product ? (v.product.typeModel.price * v.count + (v.product.typeModel.openAccountFee || 0) + (v.product.typeModel.shipFee || 0)) : ''}</div>
+                                                          <div className="i">总计：￥{v.product ? (v.product.productModel.price * v.count + (v.product.productModel.openAccountFee || 0) + (v.product.productModel.shipFee || 0)) : ''}</div>
                                                       </div>
                                                   </div>
                                                   <div className="controls page-flex-row flex-jc-end">

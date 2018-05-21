@@ -69,7 +69,7 @@ class HomePageContainer extends React.Component {
             this.setState({
                 data: res.data,
                 show: true,
-                formJifei: (res.data && res.data.typeModel && res.data.typeModel.chargeTypes) ? [res.data.typeModel.chargeTypes[0].id] : undefined, // 默认选择第1个
+                formJifei: (res.data && res.data.productModel && res.data.productModel.chargeTypes) ? [res.data.productModel.chargeTypes[0].id] : undefined, // 默认选择第1个
             }, () => this.getWx());
             Toast.hide();
         } else {
@@ -84,7 +84,7 @@ class HomePageContainer extends React.Component {
 
   // 构建计费方式所需数据
     makeJiFeiData(data) {
-      const d = data && data.typeModel && data.typeModel.chargeTypes ? data.typeModel.chargeTypes : [];
+      const d = data && data.productModel && data.productModel.chargeTypes ? data.productModel.chargeTypes : [];
       return d.map((item) => {
           return { label: item.chargeName, value: item.id };
       });
@@ -175,7 +175,7 @@ class HomePageContainer extends React.Component {
             const u = this.props.userinfo;
             wx.onMenuShareAppMessage({
                 title: this.state.data.name || '翼猫健康',
-                desc: this.state.data.typeModel ? this.state.data.typeModel.modelDetail : '来自翼猫微信商城',
+                desc: this.state.data.productModel ? this.state.data.productModel.modelDetail : '来自翼猫微信商城',
                 imgUrl: this.state.data.productImg ? this.state.data.productImg.split(',')[0] : null,
                 link: window.location.href,
                 type: 'link',
@@ -185,7 +185,7 @@ class HomePageContainer extends React.Component {
             });
             wx.onMenuShareTimeline({
                 title: this.state.data.name || '翼猫健康',
-                desc: this.state.data.typeModel ? this.state.data.typeModel.modelDetail : '来自翼猫微信商城',
+                desc: this.state.data.productModel ? this.state.data.productModel.modelDetail : '来自翼猫微信商城',
                 imgUrl: this.state.data.productImg ? this.state.data.productImg.split(',')[0] : null,
                 link: window.location.href,
                 success: () => {
@@ -269,6 +269,10 @@ class HomePageContainer extends React.Component {
       if(!this.state.data || !this.state.data.id) {
           return;
       }
+      if(this.state.data.activityType === 2){
+          Toast.info('活动产品不能加入购物车', 1);
+          return;
+      }
       this.props.actions.pushCarInterface({ productId: this.state.data.id, number: this.state.formCount || 1 }).then((res) => {
           if(res.status === 200) {
               Toast.success('加入购物车成功', 1);
@@ -295,13 +299,13 @@ class HomePageContainer extends React.Component {
           <div className="goodinfo">
               <div className="title">{d && d.name}</div>
               <div className="info">
-                  <div className="cost">￥ <span>{d && d.typeModel ? (d.typeModel.price + d.typeModel.openAccountFee) : "--"}</span></div>
+                  <div className="cost">￥ <span>{d && d.productModel ? (d.productModel.price + d.productModel.openAccountFee) : "--"}</span></div>
               </div>
               <div className="server page-flex-row">
-                  <div>运费：￥{d && d.typeModel ? (d.typeModel.shipFee || 0) : 0}</div>
+                  <div>运费：￥{d && d.productModel ? (d.productModel.shipFee || 0) : 0}</div>
                   { /** 只有评估卡显示有效期 **/
                       d && d.typeId === 5 ? (
-                          <div>有效期：{ `${(d && d.typeModel) ? (d.typeModel.timeLimitNum || '') : ''}${(d && d.typeModel) ? this.getNameByTimeLimitType(d.typeModel.timeLimitType) : ''}` }</div>
+                          <div>有效期：{ `${(d && d.productModel) ? (d.productModel.timeLimitNum || '') : ''}${(d && d.productModel) ? this.getNameByTimeLimitType(d.productModel.timeLimitType) : ''}` }</div>
                       ) : null
                   }
                   <div>
@@ -322,7 +326,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/* List */}
           <List>
-              <Item extra={d && d.typeId === 1 ? '仅限1台' : <StepperLuo min={1} max={99} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+              <Item extra={d && d.typeId === 1 && d.activityType === 2 ? '仅限1台' : <StepperLuo min={1} max={99} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (

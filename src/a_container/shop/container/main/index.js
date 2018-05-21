@@ -129,8 +129,8 @@ class HomePageContainer extends React.Component {
                                               return (
                                                   <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
                                                       <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
-                                                      <div className="p-t">{vvv.typeModel && vvv.typeModel.name}</div>
-                                                      <div className="p-m">￥{vvv.typeModel && vvv.typeModel.price}</div>
+                                                      <div className="p-t">{vvv.productModel && vvv.productModel.name}</div>
+                                                      <div className="p-m">￥{vvv.productModel && vvv.productModel.price}</div>
                                                       <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
                                                           <span>已售：{vvv.buyCount || 0}</span>
                                                           <img src={ImgCar} />
@@ -146,8 +146,8 @@ class HomePageContainer extends React.Component {
                                               return (
                                                   <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
                                                       <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
-                                                      <div className="p-t">{vvv.typeModel && vvv.typeModel.name}</div>
-                                                      <div className="p-m">￥{vvv.typeModel && vvv.typeModel.price}</div>
+                                                      <div className="p-t">{vvv.productModel && vvv.productModel.name}</div>
+                                                      <div className="p-m">￥{vvv.productModel && vvv.productModel.price}</div>
                                                       <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
                                                           <span>已售：{vvv.buyCount || 0}</span>
                                                           <img src={ImgCar} />

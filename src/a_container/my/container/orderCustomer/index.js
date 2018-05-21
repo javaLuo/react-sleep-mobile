@@ -153,9 +153,9 @@ class HomePageContainer extends React.Component {
                                               </div>
                                               <div className="goods flex-auto">
                                                   <div className="t">{item.product ? item.product.name : ''}</div>
-                                                  <div className="i">价格：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                                  <div className="i">价格：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                                   <div className="i">数量：{item.count}</div>
-                                                  <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                                  <div className="i">总计：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                               </div>
                                           </div>
                                           <div className="controls page-flex-row flex-jc-end">
@@ -187,9 +187,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">价格：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">价格：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                               <div className="i">数量：{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
@@ -221,9 +221,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">价格：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">价格：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                               <div className="i">数量：{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
@@ -255,9 +255,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">价格：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">价格：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                               <div className="i">数量：{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">
@@ -289,9 +289,9 @@ class HomePageContainer extends React.Component {
                                           </div>
                                           <div className="goods flex-auto">
                                               <div className="t">{item.product ? item.product.name : ''}</div>
-                                              <div className="i">价格：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">价格：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                               <div className="i">数量：{item.count}</div>
-                                              <div className="i">总计：￥{item.product ? (item.product.typeModel.price * item.count + (item.product.typeModel.openAccountFee || 0) + (item.product.typeModel.shipFee || 0)) : ''}</div>
+                                              <div className="i">总计：￥{item.product ? (item.product.productModel.price * item.count + (item.product.productModel.openAccountFee || 0) + (item.product.productModel.shipFee || 0)) : ''}</div>
                                           </div>
                                       </div>
                                       <div className="controls page-flex-row flex-jc-end">

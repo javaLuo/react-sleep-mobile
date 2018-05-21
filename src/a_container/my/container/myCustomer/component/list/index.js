@@ -63,9 +63,14 @@ class List extends React.PureComponent {
                 if(!tools.checkStr(v)){
                     Toast.info('只能输入汉字/字母/数字', 1);return false;
                 }
-                //this.updateUserInfo({nickName: v});
+                this.props.onChangeBeiZhu && this.props.onChangeBeiZhu(this.props.data, v);
             }},
         ]);
+    }
+
+    onChangeStar(e) {
+        console.log('传来了个什么啊：', e);
+        this.props.onChangeStar && this.props.onChangeStar(this.props.data, e[0]);
     }
 
     makeDom(u, type) {
@@ -79,7 +84,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => this.onBeizhu()}>{u.aliasName || '备注'}：<span>添加</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.aliasName || '添加'}</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker
@@ -92,7 +97,7 @@ class List extends React.PureComponent {
                                 { label: '5星', value: 5 },
                             ]}
                             cols={1}
-                            onChange={() => {}}
+                            onChange={(e) => this.onChangeStar(e)}
                         >
                             <div className="lit black star">星级标注：{(() => {
                                 const m = [];
@@ -161,6 +166,8 @@ List.propTypes = {
     jiantou: P.bool,
     onCallBack: P.func,
     onQueClick: P.func,
+    onChangeStar: P.func,   // 星标改变回调
+    onChangeBeiZhu: P.func, // 修改备注名称
 };
 
 export default List;

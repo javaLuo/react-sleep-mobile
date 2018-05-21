@@ -167,8 +167,8 @@ class HomePageContainer extends React.Component {
     }
     // 保存当前服务站信息，并进入服务站详情页
     inputStation(data) {
-      this.props.actions.inputStation(data);
-      this.props.history.push('/shop/exprdetail');
+      //this.props.actions.inputStation(data);
+      this.props.history.push(`/shop/exprdetail/${data.id}`);
     }
   render() {
     const u = this.props.userinfo;
