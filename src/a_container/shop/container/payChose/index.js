@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import QRCode from 'qrcode';
 import Config from '../../../../config';
 import './index.scss';
 // ==================
@@ -23,13 +22,12 @@ import ImgZhiFuBao from '../../../../assets/zhifubao@3x.png';
 // 本页面所需action
 // ==================
 
-import { getAllPayTypes, wxPay, wxPay2, wxInit, payResultNeed, saveOrderInfo } from '../../../../a_action/shop-action';
+import { wxPay, wxInit, payResultNeed, saveOrderInfo } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
 // ==================
 const Item = List.Item;
-const Brief = Item.Brief;
 const RadioItem = Radio.RadioItem;
 class HomePageContainer extends React.Component {
   constructor(props) {
@@ -41,27 +39,13 @@ class HomePageContainer extends React.Component {
         pay_obj: {},        // 商品信息
         modalShow: false,   // 是否显示操作提示框
         loading: false, // 是否正在支付中
-        qrcode: '',     // 二维码支付时获取到的二维码内容
-        qrdata: '',
-        qrmodelShow: false, // 二维码模态框是否显示
     };
     this.s3data = null;      // 统一下单请求返回的数据
-    this.s3data2 = null;    // 统一下单请求（二维码支付）返回的数据
   }
 
   componentWillMount() {
       if (!this.getPayInfo()){
-          /**
-           * 没有订单信息，可能是支付完成后IOS中自动打开的网页回调
-           * IOS的微信H5支付中，会打开一个新回跳页面，要处理一下
-           * 是safari、不是安卓、不是微信、无回跳标识
-           * **/
-          const pageStart = sessionStorage.getItem('pay-start');
-          if (tools.isSafari() && !tools.isAndroid() && !tools.isWeixin() && !pageStart) {
-              location.href = 'com.myapp://';
-          } else {
-              this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
-          }
+          this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
       }
       this.getObjInfo();
   }
@@ -76,21 +60,10 @@ class HomePageContainer extends React.Component {
       }
   }
 
-  componentWillUnmount() {
-
-  }
-
     // 选择支付方式时触发
     onChange(type) {
       this.setState({
           payType: type,
-      });
-    }
-
-    // qrcode模态框关闭
-    onCloseQrCode() {
-      this.setState({
-          qrmodelShow: false,
       });
     }
 
@@ -180,10 +153,10 @@ class HomePageContainer extends React.Component {
             if (!s2) { return false; }
 
             const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-                body: this.state.pay_obj.name || '翼猫科技商品',        // 商品描述
-                total_fee: Number(this.state.pay_info.fee * 100) || 0 , // 总价格（分）
+                body: '翼猫科技微信商城',                               // 商品描述
+                total_fee: Number(this.state.pay_info.orderAmountTotal * 100) || 0 , // 总价格（分）
                 spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
-                out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,  // 商户订单号，通过后台生成订单接口获取
+                out_trade_no: this.state.pay_info.mainOrderId ? String(this.state.pay_info.mainOrderId) : `${new Date().getTime()}`,  // 商户订单号，通过后台生成订单接口获取
                 code: null,                                             // 授权code, 后台为了拿openid
                 trade_type: 'JSAPI',
             });
@@ -191,40 +164,6 @@ class HomePageContainer extends React.Component {
             if(s3.status !== 200) { return false; }
             Toast.hide();
             this.s3data = s3.data;
-            return true;
-        }catch(e) {
-            return false;
-        }
-    }
-
-    /**
-     * 微信支付
-     * 后台返回支付二维码
-     * **/
-    async startPay2() {
-        try {
-            const s1 = await this.props.actions.wxInit();             // 1. 向后台获取timestamp,nonceStr,signature等微信JS-SDK初始化所需参数
-            console.log('第1：获取wxInit：', s1);
-            if(s1.status !== 200) { return false; }
-            const s2 = await this.initWxConfig(s1.data);              // 2. 初始化js-sdk
-            console.log('第2：初始化js-sdk：', s2);
-            if (!s2) { return false; }
-
-            // const s3 = await this.props.actions.wxPay2({               // 3. 向后台发起统一下单请求
-            //     orderId: String(this.state.pay_info.id),      // 商户订单号，通过后台生成订单接口获取
-            // });
-            const s3 = await this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-                body: this.state.pay_obj.name || '翼猫科技商品',       // 商品描述
-                total_fee: Number(this.state.pay_info.fee * 100) || 0 , // 总价格（分）
-                spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
-                out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
-                code: null,                                             // 授权code, 后台为了拿openid
-                trade_type: 'NATIVE',
-            });
-            console.log('第3：统一下单返回：', s3);
-            if(s3.status !== 200) { return false; }
-            Toast.hide();
-            this.s3data2 = s3.data;
             return true;
         }catch(e) {
             return false;
@@ -273,9 +212,9 @@ class HomePageContainer extends React.Component {
         sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
         this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
             body: this.state.pay_obj.name || '翼猫科技商品',                                 // 商品描述
-            total_fee: Number(this.state.pay_info.fee * 100) || 1 , // 总价格（分）
+            total_fee: Number(this.state.pay_info.orderAmountTotal * 100) || 1 , // 总价格（分）
             spbill_create_ip: typeof returnCitySN !== 'undefined' ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
-            out_trade_no: this.state.pay_info.id ? String(this.state.pay_info.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
+            out_trade_no: this.state.pay_info.mainOrderId ? String(this.state.pay_info.mainOrderId) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
             code: null,                                             // 授权code, 后台为了拿openid
             trade_type: 'MWEB',
         }).then((res) => {
@@ -338,28 +277,6 @@ class HomePageContainer extends React.Component {
                 // this.props.history.push('/shop/pay');
                 this.wxH5Pay();
             }
-        } else if (this.state.payType === 'wxpay2') {
-            if (tools.isWeixin()) {             /** 是微信浏览器中打开的，请求支付二维码 **/
-                if (this.s3data2) {              // 已经获取过统一下单了，直接调起支付就行 （即用户取消支付、支付失败后，重新点击支付）
-                    this.getQRCode(this.s3data2);
-                } else {                        // 没有发起过统一下单，需重头开始，初始化JS-SDK什么的
-                    this.startPay2().then((res) => {
-                        if (res) {
-                            this.getQRCode(this.s3data2);
-                        } else {
-                            Toast.info('支付遇到错误，请重试.',1);
-                            this.returnPage();
-                        }
-                    }).catch(() => {
-                        Toast.info('支付遇到错误，请重试..',1);
-                        this.returnPage();
-                    });
-                }
-                // location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Config.appId}&redirect_uri=${Config.redirect_uri}&response_type=code&scope=snsapi_base&state=0#wechat_redirect `;
-            } else {                            /** 普通浏览器、原生APP中发起支付， 使用微信H5支付 **/
-            // this.props.history.push('/shop/pay');
-            this.wxH5Pay();
-            }
         } else if(this.state.payType === 'alipay'){ /** 选择的支付宝支付 **/
             /**
              * 说明
@@ -368,20 +285,8 @@ class HomePageContainer extends React.Component {
              * 2.从我的订单跳转付款，程序没有商品相关信息，订单信息中带有商品信息
              * **/
             sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
-            location.assign(`${Config.baseURL}/mall/alipay/tradewap?orderId=${payInfo.id}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.fee}`);
+            location.assign(`${Config.baseURL}/mall/alipay/tradewap?orderId=${payInfo.mainOrderId}&subject=${this.props.orderParams.nowProduct ? this.props.orderParams.nowProduct.name : payInfo.product.name}&totalAmount=${payInfo.orderAmountTotal}`);
         }
-    }
-
-    async getQRCode(data) {
-        const res = await  QRCode.toDataURL(data);
-        console.log('生成出来了没有：', res);
-        location.href = data;
-        this.setState({
-            qrcode: res,
-            qrdata: data,
-            qrmodelShow: true
-        });
-        return res;
     }
 
     /**
@@ -393,8 +298,6 @@ class HomePageContainer extends React.Component {
             Toast.info('支付失败, 请重试',1);
             this.returnPage();
         } else if (msg.errMsg === 'chooseWXPay:ok') {     // 支付成功
-            // 支付成功后在后台添加对应数量的评估卡 (现在由后台自动生成)
-            // this.makeCards();
             Toast.success('支付成功',1);
             this.successReturn();
         } else if (msg.errMsg === 'chooseWXPay:cancel'){
@@ -425,46 +328,27 @@ class HomePageContainer extends React.Component {
          * 参数1：成功后生成的卡片信息，现在由后台生成，获取不到
          * 参数2：当前的订单信息
          * **/
-        // this.props.actions.payResultNeed({}, this.state.pay_info);
-        // setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
-            console.log('到这了没有');
-        const pay_data = this.getPayInfo();
-        pay_data.product = this.getObjInfo().nowProduct;
-        this.props.actions.saveOrderInfo(pay_data);
-        console.log('支付完成即将跳转到这里了是不是：', pay_data);
 
         sessionStorage.removeItem('pay-obj');
         sessionStorage.removeItem('pay-info');
         sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
 
-        this.props.history.replace('/my/order');
-        // 现在由于可以多个商品一起支付，所以不知道该跳到哪个商品
-        // 之前的支付成功页，没有接口提供对应的数据（只能从订单列表才能获得支付后的数据）
-        // 所以无论如何，此处直接跳转到订单页即可
-        // this.props.history.replace(`/my/orderdetail`);
+        // 支付完成 跳转到支付成功页
+        this.props.history.replace(`/shop/payresult/${this.state.pay_info.mainOrderId}`);
+
     }
 
   render() {
     return (
       <div className="flex-auto page-box pay-chose">
-          {/*<List className="product-list">*/}
-              {/*<Item*/}
-                  {/*thumb={(this.state.pay_obj.nowProduct && this.state.pay_obj.nowProduct.productImg) ? <img src={this.state.pay_obj.nowProduct.productImg.split(',')[0]} /> : null}*/}
-                  {/*multipleLine*/}
-              {/*>*/}
-                  {/*{this.state.pay_obj.nowProduct ? this.state.pay_obj.nowProduct.name : '--'}<Brief>数量：{this.state.pay_obj.nowProduct ? this.state.pay_info.count : '--'}</Brief>*/}
-              {/*</Item>*/}
-          {/*</List>*/}
           <List>
               <RadioItem key="wxpay" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay'} onChange={() => this.onChange('wxpay')}>微信支付</RadioItem>
               {
                   tools.isWeixin() ? null : <RadioItem key="alipay" thumb={<img  src={ImgZhiFuBao} />} checked={this.state.payType === 'alipay'} onChange={() => this.onChange('alipay')}>支付宝支付</RadioItem>
               }
-              {/*<RadioItem key="wxpay2" thumb={<img  src={ImgWeiXin} />} checked={this.state.payType === 'wxpay2'} onChange={() => this.onChange('wxpay2')}>微信扫码支付</RadioItem>*/}
           </List>
           <div className="thefooter page-flex-row">
-              <Button loading={this.state.loading} type="primary" onClick={() => this.onSubmit()}>{this.state.loading ? <span>支付中 ￥{this.state.pay_info.fee}</span> : <span>确认支付 ￥{this.state.pay_info.fee}</span>}</Button>
-
+              <Button loading={this.state.loading} type="primary" onClick={() => this.onSubmit()}>{this.state.loading ? <span>支付中 ￥{this.state.pay_info.orderAmountTotal}</span> : <span>确认支付 ￥{this.state.pay_info.orderAmountTotal}</span>}</Button>
           </div>
           {/** 支付结果 点成功跳到结果页，点遇到问题跳到订单页 **/}
           <Modal
@@ -477,20 +361,6 @@ class HomePageContainer extends React.Component {
               <div className="box">
                   <Button type="primary" onClick={() => this.successReturn()}>已完成支付</Button>
                   <Button type="warning" onClick={() => this.returnPage()}>支付遇到问题</Button>
-              </div>
-          </Modal>
-          {/** 展示支付二维码 **/}
-          <Modal
-              visible={this.state.qrmodelShow}
-              transparent
-              maskClosable={false}
-              onClose={() => this.onCloseQrCode()}
-              title="支付二维码"
-              footer={[{ text: '支付遇到问题', onPress: () => this.returnPage() }, { text: '支付成功', onPress: () => this.successReturn() }]}
-          >
-              <div className="pay-qrcode">
-                  <img src={this.state.qrcode} />
-                  {this.state.qrcode ? <a href={this.state.qrdata}>点我支付</a> : null}
               </div>
           </Modal>
       </div>
@@ -507,7 +377,6 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   orderParams: P.any,
-  allPayTypes: P.array,
 };
 
 // ==================
@@ -516,10 +385,9 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-      allPayTypes: state.shop.allPayTypes,
       orderParams: state.shop.orderParams,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getAllPayTypes, wxPay, wxPay2, wxInit, payResultNeed, saveOrderInfo }, dispatch),
+    actions: bindActionCreators({ wxPay, wxInit, payResultNeed, saveOrderInfo }, dispatch),
   })
 )(HomePageContainer);

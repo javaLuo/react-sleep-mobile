@@ -41,7 +41,7 @@ class Za78 extends React.Component {
     return (
       <div>
           <Switch>
-              <Route exact path={`${this.props.match.url}/`} component={Main} />
+              <Route exact path={`${this.props.match.url}/:id`} component={Main} />
           </Switch>
       </div>
     );

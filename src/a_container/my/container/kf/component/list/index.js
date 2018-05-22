@@ -42,7 +42,7 @@ class StepperLuo extends React.PureComponent {
                 <div className="type4">
                     <div className="head-pic"><img className="head" src={ImgRobot} /></div>
                     <div className="word-box-l all_warp">
-                        <div className="t">{ nowq.typeName || "问题分类" }</div>
+                        <div className="t">{ nowq.productType || "问题分类" }</div>
                         <ul className="qs">
                             { nowq.customerAssistantList && nowq.customerAssistantList.map((item, index) => {
                                 return <li key={index} className="q" onClick={() => this.getAnswers(item.questions, item.answers)}>{ item.questions }</li>;

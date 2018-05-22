@@ -154,7 +154,7 @@ class HomePageContainer extends React.Component {
               {
                   this.state.data.map((item, index) => {
                       return (
-                          <div key={index} data-id={item.id}>{ item.typeName }</div>
+                          <div key={index} data-id={item.id}>{ item.productType }</div>
                       );
                   })
               }

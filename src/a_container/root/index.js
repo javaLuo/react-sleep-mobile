@@ -192,7 +192,7 @@ class RootContainer extends React.Component {
                   <Route path="/daiyanh5share/:id" render={(props) => this.onEnter(DaiYanH5Share, props)} />
                   <Route path="/downline" render={(props) => this.onEnter(DownLine, props)} />
                   <Route path="/live" render={(props) => this.onEnter(Live, props)} />
-                  <Route path="/z78" render={(props) => this.onEnter(Z78, props)} />
+                  <Route path="/z" render={(props) => this.onEnter(Z78, props)} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/forgot" component={Forgot} />
                   <Route exact path="/login" component={Login} />

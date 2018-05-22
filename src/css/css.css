@@ -34,7 +34,7 @@ sup{top: -.5em;}
 sub{bottom: -.25em;}
 
 /* 美化滚动条 */
-::-webkit-scrollbar
+*::-webkit-scrollbar
 {
     width: 0;
     height: 0;

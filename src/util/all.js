@@ -37,6 +37,7 @@ const allobj = {
         const s = date.getSeconds().toString().padStart(2,'0');
         return `${date.getFullYear()}-${m}-${d} ${h}:${min}:${s}`;
     },
+
     /**
      * 标准日期转字符串年月日，时分
      * */

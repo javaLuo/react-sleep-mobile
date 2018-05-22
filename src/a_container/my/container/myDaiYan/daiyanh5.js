@@ -60,7 +60,7 @@ class Register extends React.Component {
 
     makeTabBar(data) {
         return data.map((item, index) => {
-            return { title: item.typeName, sub: index };
+            return { title: item.productType, sub: index };
         });
     }
 

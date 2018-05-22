@@ -20,7 +20,7 @@ import ImgDiZhi from '../../../../assets/dizhi@3x.png';
 // 本页面所需action
 // ==================
 
-import { shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo } from '../../../../a_action/shop-action';
+import { shopStartPayOrder, placeAndOrder, placeAndOrderMany, queryCustomerList, saveOrderInfo } from '../../../../a_action/shop-action';
 import { getStationInfoById } from '../../../../a_action/app-action';
 
 // ==================
@@ -103,10 +103,10 @@ class HomePageContainer extends React.Component {
     }
   // 确认支付被点击，生成订单
     onSubmit() {
-      console.log('收集的信息：', this.props.orderParams);
-      const arr = this.state.data;
-      const d = this.props.orderParams.nowProduct || { typeMode: {} };
-      if(data.find((item) => item.typeId !== 5) && !this.props.orderParams.params.addrId) {  // 除评估卡以外的产品需要收货地址
+      console.log('收集的信息：', this.props.orderParams); // 这个里面现在只有收货地址了
+      const data = this.state.data;
+
+      if(data.find((item) => item.typeId !== 5) && !this.props.orderParams.addr) {  // 除评估卡以外的产品需要收货地址
           Toast.info('请选择收货地址', 1);
           return;
       }
@@ -114,59 +114,112 @@ class HomePageContainer extends React.Component {
             Toast.info('请选择计费方式', 1);
             return;
         }
-      if(data.find((item) => item.typeId === 1 && !item.shopCart.formServiceTime)) { // 水机需要选择安装时间
-          Toast.info('请选择安装时间', 1);
-          return;
-      }
-      if(data.find((item) => item.shopCart.formPaiDan === 2 && !item.shopCart.formServerMan)) {
+
+      if(data.find((item) => Number(item.shopCart.formPaiDan) === 2 && !item.shopCart.formServerMan)) {
           Toast.info('请选择为您服务的安装工', 1);
           return;
       }
 
-    // 获取安装工信息，如果有的话，没有返回null
-        let serverMan = null;
-        if (Number(this.state.formPaiDan) === 2) {
-            serverMan = this.getInfoByServerManId(this.state.formServerMan[0]);
-        }
-
-      const params = {
-          count: this.state.formCount,  // 购买数量
-          serviceTime: tools.dateToStr(this.state.formServiceTime), // 安装时间
-          feeType: this.state.formJifei ? this.state.formJifei[0] : undefined,  // 计费方式
-          orderCode: d.typeCode,    // 商品ID
-          orderFrom: 2,             // 支付方式： 2微信支付
-          openAccountFee: d.productModel.openAccountFee,   // 开户费
-          fee: d.productModel.price * this.state.formCount + d.productModel.shipFee + d.productModel.openAccountFee,
-          customerId: serverMan && serverMan.id,
-          customerName: serverMan && serverMan.name,
-          customerPhone: serverMan && serverMan.phone,
-      };
-      // 保存购买数量、服务时间、开户费、总费用
-      this.props.actions.shopStartPayOrder(params);
-
-      const p = Object.assign({productId: d.id},this.props.orderParams.params, params);
-      Toast.loading('正在创建订单',0);
-      this.props.actions.placeAndOrder(tools.clearNull(p)).then((res) => {
-          if (res.status === 200) {
-              Toast.hide();
-              sessionStorage.setItem('pay-info', JSON.stringify(res.data));                 // 将返回的订单信息存入sessionStorage
-              sessionStorage.setItem('pay-obj', JSON.stringify(this.props.orderParams));    // 将当前所选择的商品信息存入session
-              /** 普通商品跳转到付款选择页，活动物品直接跳转到订单详情 **/
-              this.props.history.replace('/shop/payChose/1');
-          } else {
-              Toast.info(res.message || '订单创建失败',1);
+        /**
+         * 只有1个商品（可能是从商城来的，也可能是从购物车只选择了一个商品来的
+         * 走单一接口
+         * **/
+        console.log('开始支付了：', data);
+      if(data.length === 1) {
+          const d = data[0];
+          // 获取安装工信息，如果有的话，没有返回null
+          let serverMan = null;
+          if (Number(d.shopCart.formPaiDan) === 2) {
+              serverMan = this.getInfoByServerManId(d.shopCart.formServerMan[0]);
           }
-      }).catch(() => {
-          Toast.info(res.message || '订单创建失败',1);
-      });
+          const params = {
+              productId: d.id,  // ID
+              number: d.shopCart.number,  // 购买数量
+              // 订单价格 单价*数量+开户费 (订单本身价格没有包括物流费)
+              orderAmountTotal: d.productModel.price * d.shopCart.number + d.productModel.openAccountFee,
+              payType: 1,   // 1微信支付 2支付宝，3其他，我怎么知道他用什么支付，直接填1好了
+              orderFrom: 2, // 订单来源 1APP，2公众号 3经销商App 这里是公众号所以填2
+              addrId: (d.typeId !== 5 && this.props.orderParams.addr) ? this.props.orderParams.addr.id : null, // 除评估卡，其他的商品需要收货地址ID
+              // 是水机才需要安装时间
+              serviceTime: d.typeId === 1 ? tools.dateToStr(d.shopCart.formServiceTime || new Date(new Date().getTime() + 86400000)) : null, // 安装时间
+              feeType: Number(d.shopCart.feeType),  // 计费方式
+              customerId: serverMan && serverMan.id,    // 安装工ID
+              customerName: serverMan && serverMan.name,    // 安装工名字
+              customerPhone: serverMan && serverMan.phone,  // 安装工电话
+              remark: null, // 备注？ UI上没设计这个
+              logisticsFee: d.productModel.shipFee, // 物流运费
+          };
+
+          // 开始下单
+          this.props.actions.placeAndOrder(tools.clearNull(params)).then((res) => {
+              if (res.status === 200) {
+                  Toast.hide();
+                  sessionStorage.setItem('pay-info', JSON.stringify(res.data));  // 将返回的订单信息存入sessionStorage
+                  sessionStorage.setItem('pay-obj', JSON.stringify(data));       // 将当前所选择的商品信息存入session
+                  this.props.history.replace('/shop/payChose/1');               // 跳转到支付页
+              } else {
+                  Toast.info(res.message ,1);
+              }
+          });
+      } else if(data.length > 1) { // 是从购物车来的，选择了多个商品
+          // 所有商品Set信息
+          const shopCartSet = data.map((item, index) => {
+              let serverMan = null;
+              if (Number(item.shopCart.formPaiDan) === 2) {
+                  serverMan = this.getInfoByServerManId(item.shopCart.formServerMan[0]);
+              }
+              return tools.clearNull({
+                  id: item.id,
+                  productId: item.productModel ? item.productModel.id : '缺少productModel对象信息',
+                  number: item.shopCart.number,
+                  serviceTime: item.typeId === 1 ? tools.dateToStr(item.shopCart.formServiceTime || new Date(new Date().getTime() + 86400000)) : null,
+                  feeType: Number(item.shopCart.feeType) || null,
+                  customerId: serverMan && serverMan.id,    // 安装工ID
+                  customerName: serverMan && serverMan.name,    // 安装工名字
+                  customerPhone: serverMan && serverMan.phone,  // 安装工电话
+              });
+          });
+          // 总价格
+          const orderAmountTotal = data.reduce((res, item) => {
+              // 上次结果 + 当前商品单价*数量+开户费
+              return res+item.productModel.price * item.shopCart.number + item.productModel.openAccountFee;
+          }, 0);
+
+          // 最高运费
+          const logisticsFee = data.reduce((res, item) => {
+              return Math.max(res, item.productModel.shipFee);
+          }, 0);
+
+          // 构建参数
+          const params = {
+              shopCartSet,
+              orderAmountTotal,
+              payType: 1,
+              orderFrom: 2,
+              addrId: (data.find((item) => item.typeId !== 5) && this.props.orderParams.addr) ? this.props.orderParams.addr.id : null,
+              remark: null,
+              logisticsFee,
+          };
+
+          // 开始下单
+          this.props.actions.placeAndOrderMany(tools.clearNull(params)).then((res) => {
+              if (res.status === 200) {
+                  Toast.hide();
+                  sessionStorage.setItem('pay-info', JSON.stringify(res.data));  // 将返回的订单信息存入sessionStorage
+                  sessionStorage.setItem('pay-obj', JSON.stringify(data));       // 将当前所选择的商品信息存入session
+                  this.props.history.replace('/shop/payChose/1');               // 跳转到支付页
+              } else {
+                  Toast.info(res.message ,1);
+              }
+          });
+      }
+
       return true;
     }
 
     // 根据ID查询完整的安装工信息
     getInfoByServerManId(id) {
-      console.log('什么情况：', id, this.state.formServerMan);
       const t = this.state.serverList.find((item) => item.id === id);
-      console.log('得到的安装工222：', t);
       return t || null;
     }
     // 构建计费方式所需数据
@@ -314,7 +367,7 @@ class HomePageContainer extends React.Component {
                                           <Picker
                                               data={this.makeJiFeiData(d)}
                                               extra={''}
-                                              value={d.shopCart.feeType || undefined}
+                                              value={d.shopCart.feeType ? (Array.isArray(d.shopCart.feeType) ? d.shopCart.feeType : [d.shopCart.feeType]) : undefined}
                                               cols={1}
                                               onOk={(v) => this.onJiFeiChose(v, d)}
                                           >
@@ -344,9 +397,9 @@ class HomePageContainer extends React.Component {
                                        * **/
                                       d && d.typeId === 1 ? (
                                           <Picker
-                                              data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}  // , { label: '手动指派', value: 2 }
+                                              data={[{ label: '自动派单', value: 1 }, { label: '手动指派', value: 2 }]}
                                               extra={''}
-                                              value={d.shopCart.formPaiDan || 1}
+                                              value={d.shopCart.formPaiDan ? d.shopCart.formPaiDan : [1]}
                                               cols={1}
                                               onOk={(v) => this.onPaiDanChose(v, d)}
                                           >
@@ -446,7 +499,7 @@ export default connect(
       willPayObjs: state.shop.willPayObjs,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ shopStartPayOrder, placeAndOrder, queryCustomerList, saveOrderInfo, getStationInfoById }, dispatch),
+    actions: bindActionCreators({ shopStartPayOrder, placeAndOrder, placeAndOrderMany, queryCustomerList, saveOrderInfo, getStationInfoById }, dispatch),
   })
 )(HomePageContainer);
 

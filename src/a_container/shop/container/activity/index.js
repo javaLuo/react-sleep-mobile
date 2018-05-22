@@ -78,7 +78,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-activiey">
           {/* 上方iframe */}
-          <iframe className="activity-iframe" src={'https://' + d.acUrl}>
+          <iframe className="activity-iframe" src={d.acUrl}>
 
           </iframe>
           {/* 其他推荐 */}

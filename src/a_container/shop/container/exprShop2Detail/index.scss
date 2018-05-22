@@ -1,12 +1,12 @@
 .page-expr-detail{
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
   .box1{
     height: calc(100vh - 50px);
-    overflow:auto;
+    overflow:auto !important;
   }
   .box2{
-    flex: none;
     height: 50px;
     width: 100%;
     display: flex;
@@ -51,10 +51,31 @@
     &+.info-box{
       margin-top: 10px;
     }
+    &.no-padding{
+      padding: 10px 0;
+      .t{
+        padding: 0 10px;
+      }
+      .i{
+        padding: 0 10px;
+      }
+    }
     .t{
       font-size: 16px;
       color: rgb(37,41,46);
       margin-bottom: 5px;
+    }
+    .i{
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    .pic{
+      img{
+        display: block;
+        width: 100%;
+        height: auto;
+      }
     }
     .star-row{
       display: flex;
@@ -96,31 +117,6 @@
         span:first-child{
           flex: none;
         }
-      }
-    }
-    .server-row{
-      display: flex;
-      &>div{
-        flex: none;
-        img{
-          display: block;
-          height: 20px;
-          width: auto;
-          margin: 0 auto 5px auto;
-        }
-        &+div{
-          margin-left: 20px;
-        }
-      }
-    }
-    .img-row{
-      width: 100%;
-      overflow: auto;
-      display: flex;
-      img{
-        height: 70px;
-        width: auto;
-        margin-right: 10px;
       }
     }
   }

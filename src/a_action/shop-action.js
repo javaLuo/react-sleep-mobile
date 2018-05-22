@@ -100,7 +100,7 @@ export const getAllChargeTypes = () => async(dispatch) => {
 // 下单 - 单个下单
 export const placeAndOrder = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/create/one', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/order/create/one', params, 'post', true);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::placeAndOrder',
@@ -116,7 +116,7 @@ export const placeAndOrder = (params = {}) => async(dispatch) => {
 // 下单 - 多个商品下单
 export const placeAndOrderMany = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/order/create/many', params, 'post', true, 1);
+        const res = await Fetchapi.newPost('mall/order/create/many', params, 'post', true);
         if (res.status === 200) {
             dispatch({
                 type: 'SHOP::placeAndOrder',
@@ -869,6 +869,15 @@ export const getStationDelForId = (params = {}) => async(dispatch) => {
     }
 };
 
+// 删除购物车的商品
+export const deleteShopCar = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/shopCart/delete', params);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
 
 /**
  * 从购物车选择付款，先把所选商品的相关信息存入一个变量

@@ -105,6 +105,16 @@ export const updateUserInfo = (params = {}) => async(dispatch) => {
     }
 };
 
+// 修改客户信息
+export const updateUserInfo2 = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/update', params, 'post', true);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
 // 重置密码
 export const resetPwd = (params = {}) => async(dispatch) => {
     try {

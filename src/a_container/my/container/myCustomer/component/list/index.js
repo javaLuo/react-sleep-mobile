@@ -79,6 +79,41 @@ class List extends React.PureComponent {
         }
         switch(type) {
             // 分销客户
+            case 'share': return (
+                <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
+                    <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
+                    <div className="name flex-auto">
+                        <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
+                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.aliasName || '添加'}</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black">e家号：{u.id}</div>
+                        <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
+                        <Picker
+                            data={[
+                                { label: '0星', value: 0 },
+                                { label: '1星', value: 1 },
+                                { label: '2星', value: 2 },
+                                { label: '3星', value: 3 },
+                                { label: '4星', value: 4 },
+                                { label: '5星', value: 5 },
+                            ]}
+                            cols={1}
+                            onChange={(e) => this.onChangeStar(e)}
+                        >
+                            <div className="lit black star">星级标注：{(() => {
+                                const m = [];
+                                for(let i=0;i<5;i++) {
+                                    if(i<u.asteriskLevel){
+                                        m.push(<img key={i} src={IcomStar1}/>);
+                                    }else{
+                                        m.push(<img key={i} src={IcomStar0}/>);
+                                    }
+                                }
+                                return m;
+                            })()}<img src={IconUp} /></div>
+                        </Picker>
+                    </div>
+                </li>
+            );
             case 'distribution': return (
                 <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
@@ -111,7 +146,6 @@ class List extends React.PureComponent {
                                 return m;
                             })()}<img src={IconUp} /></div>
                         </Picker>
-                        {/*<div className="lit mt">身份：{tools.getNameByUserType(u.userType)}</div>*/}
                         <div className="lit fxq"><span className="que" onClick={() => this.onQue(u)}>?</span>分销权：<div>{this.makePower(u.incomePermission)}</div></div>
                     </div>
                 </li>
@@ -123,17 +157,6 @@ class List extends React.PureComponent {
                     <div className="title all_nowarp">{u.nickName}</div>
                     <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                     <div className="lit">身份：未绑定用户</div>
-                    </div>
-                </li>
-            );
-            case 'share': return (
-                <li className="customer-li page-flex-row" onClick={() => this.onCallBack()}>
-                    <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
-                    <div className="name flex-auto">
-                        <div className="all_nowarp">{u.nickName}</div>
-                        <div className="lit black">e家号：{u.id}</div>
-                        <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
-                        <div className="lit">身份：{tools.getNameByUserType(u.userType)}<span style={{ float: 'right' }}>{u.ambassadorTime}</span></div>
                     </div>
                 </li>
             );

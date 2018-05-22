@@ -55,7 +55,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/confirmpay`} component={ConfirmPay} />
               <Route exact path={`${this.props.match.url}/paychose/:type`} component={PayChose} />
               <Route exact path={`${this.props.match.url}/pay`} component={Pay} />
-              <Route exact path={`${this.props.match.url}/payresult`} component={PayResult} />
+              <Route exact path={`${this.props.match.url}/payresult/:id`} component={PayResult} />
               <Route exact path={`${this.props.match.url}/becomedealer`} component={BecomeDealer} />
               <Route exact path={`${this.props.match.url}/exprshop`} component={ExprShop2} />
               <Route exact path={`${this.props.match.url}/exprshop2`} component={ExprShop2} />

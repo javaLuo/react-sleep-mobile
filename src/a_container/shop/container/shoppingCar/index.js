@@ -21,7 +21,7 @@ import StepLuo from '../../../../a_component/StepperLuo';
 // 本页面所需action
 // ==================
 
-import { getCarInterface, pushDingDan, getDefaultAttr } from '../../../../a_action/shop-action';
+import { getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -65,6 +65,27 @@ class HomePageContainer extends React.Component {
       });
     }
 
+    deleteShopCar(ids) {
+
+      let allId;
+      console.log('allID:', ids);
+      if(!ids){
+          return;
+      }
+      if(Array.isArray(ids)) {  // 多个
+          allId = ids.join(',');
+      } else {
+          allId = ids;
+      }
+      this.props.actions.deleteShopCar({shopCartIds: allId}).then((res) => {
+          if(res.status === 200) {
+              Toast.success('删除成功');
+              this.getData();
+          } else {
+              Toast.info(res.message);
+          }
+      });
+    }
     /**
      * 点选了复选框
      * @id: 被点选对象的ID
@@ -193,7 +214,7 @@ class HomePageContainer extends React.Component {
                                                   right={[
                                                       {
                                                           text: '删除',
-                                                          onPress: () => console.log('删除'),
+                                                          onPress: () => this.deleteShopCar(listItem.id),
                                                           style: { color: 'white', padding: '10px' }
                                                       }
                                                   ]}
@@ -226,10 +247,14 @@ class HomePageContainer extends React.Component {
                   })
               }
               {/** 下面是已失效的商品 **/}
-              <div className={"downs-t"}>
-                  <span className="t">失效商品</span>
-                  <span>清空失效商品</span>
-              </div>
+              {
+                  this.state.downData && this.state.downData.length ? (
+                      <div className={"downs-t"}>
+                          <span className="t">失效商品</span>
+                          <span onClick={() => this.deleteShopCar(this.state.downData.map((item) => item.id))}>清空失效商品</span>
+                      </div>
+                  ) : null
+              }
               {
                   this.state.downData.map((item, index) => {
                       return (
@@ -318,6 +343,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr }, dispatch),
+    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar }, dispatch),
   })
 )(HomePageContainer);

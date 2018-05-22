@@ -127,7 +127,7 @@ class HomePageContainer extends React.Component {
                                 <img src={ImgStar1} />
                                 <img src={ImgStar1} />
                             </div>
-                            <div className="word">满意度：{d.satisfaction || '0.00%'}</div>
+                            <div className="word">满意度：{d.satisfaction ? `${d.satisfaction}%`: '0.00%'}</div>
                         </div>
                         <div className="addr-info">
                             <img src={ImgAddr} />
@@ -137,67 +137,27 @@ class HomePageContainer extends React.Component {
                     <div className="info-box">
                         <div className="t">关于门店</div>
                         <div className="about-row">
-                            <div><span>成立时间：</span><span>{d.establishedTime}</span></div>
-                            <div><span>门店规模：</span><span>{d.storeArea}</span></div>
-                            <div><span>员工数量：</span><span>{d.employeeNum}</span></div>
+                            <div><span>成立时间：</span><span>{d.establishedTime && d.establishedTime.split(' ')[0]}</span></div>
+                            <div><span>门店规模：</span><span>{d.storeArea || 0}</span></div>
+                            <div><span>员工数量：</span><span>{d.employeeNum || 0}人</span></div>
                             <div><span>营业时间：</span><span>{d.businessHoursStart} - {d.businessHoursEnd}</span></div>
                         </div>
                     </div>
-                    <div className="info-box">
-                        <div className="t">服务项目</div>
-                        <div className="server-row">
-                            <div>
-                                <img src={IconHeart} />
-                                <div>产品体验</div>
-                            </div>
-                            <div>
-                                <img src={IconServer} />
-                                <div>售后服务</div>
-                            </div>
-                            <div>
-                                <img src={IconHealthy} />
-                                <div>健康评估</div>
-                            </div>
-                        </div>
-                    </div>
-                    {/*<div className="info-box">*/}
-                        {/*<div className="t">门店介绍</div>*/}
-                        {/*<div>暂无</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="info-box">*/}
-                        {/*<div className="t">服务理念</div>*/}
-                        {/*<div>暂无</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="info-box">*/}
-                        {/*<div className="t">媒体报道</div>*/}
-                        {/*<div className="img-row">*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="info-box">*/}
-                        {/*<div className="t">门店荣誉</div>*/}
-                        {/*<div className="img-row">*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="info-box">*/}
-                        {/*<div className="t">资质/授权</div>*/}
-                        {/*<div className="img-row">*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                            {/*<img src={ImgTest} />*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
+                    {
+                        d.stationColumnList ? d.stationColumnList.map((item, index) => {
+                            return (
+                                <div key={index} className="info-box no-padding">
+                                    <div className={"t"}>{ item.title }</div>
+                                    <div className={"i"}>{ item.textContent }</div>
+                                    <div className={"pic"}>
+                                        { item.imgs ? item.imgs.split(',').map((v,i) => {
+                                            return <img key={i} src={v} />;
+                                        }) : null }
+                                    </div>
+                                </div>
+                            );
+                        }) : null
+                    }
                 </div>
                 <div className="box2">
                     <div className="box2-btn a">

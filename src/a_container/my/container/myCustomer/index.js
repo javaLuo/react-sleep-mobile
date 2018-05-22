@@ -35,7 +35,7 @@ import ImgLingDang from '../../../../assets/lingdang@3x.png';
 // ==================
 
 import { getMyCustomers } from '../../../../a_action/shop-action';
-import { updateUserInfo } from '../../../../a_action/app-action';
+import { updateUserInfo2 } from '../../../../a_action/app-action';
 // ==================
 // Definition
 // ==================
@@ -118,7 +118,7 @@ class HomePageContainer extends React.Component {
 
     onChangeStar(u, v) {
         const params = Object.assign({}, u, {asteriskLevel: v});
-      this.props.actions.updateUserInfo(params).then((res) => {
+      this.props.actions.updateUserInfo2(params).then((res) => {
           if(res.status===200) {
               Toast.success('修改成功', 1);
               this.getData(this.state.id);
@@ -130,7 +130,7 @@ class HomePageContainer extends React.Component {
 
     onChangeBeiZhu(u, v) {
         const params = Object.assign({}, u, {aliasName: v});
-        this.props.actions.updateUserInfo(params).then((res) => {
+        this.props.actions.updateUserInfo2(params).then((res) => {
             if(res.status===200) {
                 Toast.success('修改成功', 1);
                 this.getData(this.state.id);
@@ -253,6 +253,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getMyCustomers, updateUserInfo,  }, dispatch),
+    actions: bindActionCreators({ getMyCustomers, updateUserInfo2, }, dispatch),
   })
 )(HomePageContainer);

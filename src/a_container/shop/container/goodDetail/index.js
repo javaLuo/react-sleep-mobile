@@ -215,7 +215,7 @@ class HomePageContainer extends React.Component {
       }
 
       // 检查当前用户是否有权限购买当前物品
-      this.props.actions.appUserCheckBuy({ productType: String(this.state.data.typeName.code) }).then((res) => {
+      this.props.actions.appUserCheckBuy({ productType: String(this.state.data.productType.code) }).then((res) => {
             if (res.status === 200) { // 有权限
                 //const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
                 const nowProduct = _.cloneDeep(this.state.data);
@@ -273,7 +273,12 @@ class HomePageContainer extends React.Component {
           Toast.info('活动产品不能加入购物车', 1);
           return;
       }
-      this.props.actions.pushCarInterface({ productId: this.state.data.id, number: this.state.formCount || 1 }).then((res) => {
+      const params = {
+          productId: this.state.data.id,
+          number: this.state.formCount || 1,
+          feeType : this.state.formJifei ? this.state.formJifei[0] : null,
+      };
+      this.props.actions.pushCarInterface(tools.clearNull(params)).then((res) => {
           if(res.status === 200) {
               Toast.success('加入购物车成功', 1);
           } else {
@@ -290,8 +295,8 @@ class HomePageContainer extends React.Component {
           <div className="title-pic">
               {/* 顶部轮播 */}
               <VideoLuo
-                videoPic={'https://isluo.com/kernel/index/img/welcome/theback.jpg'}
-                videoSrc={'https://isluo.com/work/paomo/video/paomo_gem.mp4'}
+                videoPic={null}
+                videoSrc={d.coverVideo}
                 imgList={d.productImg ? d.productImg.split(',') : []}
               />
           </div>
@@ -346,73 +351,38 @@ class HomePageContainer extends React.Component {
                       <Item onClick={() => this.onSeeExpreShop()} arrow="horizontal" multipleLine>{d && d.typeId === 1 ? '可安装净水系统的区域查询': '查看适用体验店'}</Item>
                   ) : null
               }
-              <Item extra={<span style={{ color: '#ff3929' }}>好评 0.00%</span>} arrow="horizontal">评价详情 (888)</Item>
+              {/*<Item extra={<span style={{ color: '#ff3929' }}>好评 0.00%</span>} arrow="horizontal">评价详情 (888)</Item>*/}
           </List>
-          <ul className="pj-ul" onClick={() => this.goEva()}>
-              <li>
-                  <div className="l">
-                      <div className="l1">
-                          <img className="pic" src={ImgTest} />
-                          <div className="info">
-                              <div className="name all_nowarp">{ tools.addMosaic('某某某某某某某') }</div>
-                              <div className="time">2018-02-09</div>
-                          </div>
-                      </div>
-                      <div className={"stars"}>
-                          <img src={ImgKiss} />
-                          <img src={ImgKiss} />
-                          <img src={ImgKiss} />
-                      </div>
-                      <div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>
+          {/*<ul className="pj-ul" onClick={() => this.goEva()}>*/}
+              {/*<li>*/}
+                  {/*<div className="l">*/}
+                      {/*<div className="l1">*/}
+                          {/*<img className="pic" src={ImgTest} />*/}
+                          {/*<div className="info">*/}
+                              {/*<div className="name all_nowarp">{ tools.addMosaic('某某某某某某某') }</div>*/}
+                              {/*<div className="time">2018-02-09</div>*/}
+                          {/*</div>*/}
+                      {/*</div>*/}
+                      {/*<div className={"stars"}>*/}
+                          {/*<img src={ImgKiss} />*/}
+                          {/*<img src={ImgKiss} />*/}
+                          {/*<img src={ImgKiss} />*/}
+                      {/*</div>*/}
+                      {/*<div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>*/}
+                  {/*</div>*/}
+                  {/*<div className="r">*/}
+                      {/*<img src={ImgTest} />*/}
+                      {/*<img src={ImgTest} />*/}
+                  {/*</div>*/}
+              {/*</li>*/}
+          {/*</ul>*/}
+          {
+              d && d.productDetail ? (
+                  <div className="editor-box">
+                      <div dangerouslySetInnerHTML={{ __html: d.productDetail.replace(/<video/g, '<video playsInline controls')}} />
                   </div>
-                  <div className="r">
-                      <img src={ImgTest} />
-                      <img src={ImgTest} />
-                  </div>
-              </li>
-              <li>
-                  <div className="l">
-                      <div className="l1">
-                          <img className="pic" src={ImgTest} />
-                          <div className="info">
-                              <div className="name all_nowarp">{ tools.addMosaic('某某某某某') }</div>
-                              <div className="time">2018-02-09</div>
-                          </div>
-                      </div>
-                      <div className={"stars"}>
-                          <img src={ImgKiss} />
-                          <img src={ImgKiss} />
-                          <img src={ImgKiss} />
-                      </div>
-                      <div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>
-                  </div>
-                  <div className="r">
-                      <img src={ImgTest} />
-                      <img src={ImgTest} />
-                  </div>
-              </li>
-              <li>
-                  <div className="l">
-                      <div className="l1">
-                          <img className="pic" src={ImgTest} />
-                          <div className="info">
-                              <div className="name all_nowarp">{ tools.addMosaic('某某某某某某') }</div>
-                              <div className="time">2018-02-09</div>
-                          </div>
-                      </div>
-                      <div className={"stars"}>
-                          <img src={ImgKiss} />
-                          <img src={ImgKiss} />
-                          <img src={ImgKiss} />
-                      </div>
-                      <div className="words all_nowarp2">哎呀这东西就是好它好呀它好呀它好好好好好因为卖家说要返我两毛钱</div>
-                  </div>
-                  <div className="r">
-                      <img src={ImgTest} />
-                      <img src={ImgTest} />
-                  </div>
-              </li>
-          </ul>
+              ) : null
+          }
           <div className="detail-box">
               {(d && d.detailImg) ? d.detailImg.split(',').map((item, index) => <img key={index} src={item} />) : null}
           </div>

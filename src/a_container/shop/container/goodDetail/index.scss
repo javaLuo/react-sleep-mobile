@@ -168,12 +168,30 @@
 
   .detail-box{
     width: 100%;
+
     img{
       width: 100%;
       height: auto;
     }
     padding-bottom: 47px;
     background-color: #fff;
+  }
+
+  .editor-box{
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    padding: 0 10px;
+    img,p,div,audio,video{
+      max-width: 100%;
+      white-space:normal;
+      word-break:break-all;
+      word-wrap:break-word;
+    }
+    video{
+      background-color: #f0f0f0;
+      border-radius: 3px;
+    }
   }
   .play{
     position: fixed;

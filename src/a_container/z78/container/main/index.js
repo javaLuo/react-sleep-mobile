@@ -228,16 +228,10 @@ class HomePageContainer extends React.Component {
     }
 
     render() {
-        console.log('OK:', this.state.allJM);
-        if(this.state.allJM && this.state.form1Type){
-            console.log('AAAAAAAAAAAA:', this.state.allJM.find((item) => item.id === this.state.form1Type[0]));
-
-        }
-       // console.log('唉，你显示啊：', this.state.allJM, this.state.form1Type && this.state.form1Type[0], this.state.allJM && this.state.allJM.find((item) => item.id === this.state.form1Type[0]));
         return (
             <div className='jxs-page'>
                 <div className="iframe-body">
-                    <iframe wmode="transparent" src={"https://blog.isluo.com"} />
+                    <iframe wmode="transparent" src={"http://hra.emall.online/cms/c?id=70"} />
                 </div>
                 <div className="footer">
                     <div className={this.state.btn1Show ? 'check' : null} onClick={() => this.onBtnClick(1)}>留言咨询</div>

@@ -28,7 +28,7 @@ import $ from 'jquery';
 // 本页面所需action
 // ==================
 
-import { mallStationListAll, saveServiceInfo, saveMapAddr, stationNearBy } from '../../../../a_action/shop-action';
+import { mallStationListAll, saveServiceInfo, saveMapAddr, stationNearBy, mallApList } from '../../../../a_action/shop-action';
 import { getAreaList, saveUserLngLat } from '../../../../a_action/app-action';
 import { inputStation } from '../../../../a_action/new-action';
 // ==================
@@ -49,6 +49,9 @@ class HomePageContainer extends React.Component {
             userLat: null, // 用户坐标Y
             resType: 1, // 0查询的是最近的，1普通的查询
             downNow: false, // 当前查询是否已全部加载完毕
+
+            barPics: [],    // 头部轮播图
+            imgHeight: '178px',
         };
         this.map = null;            // 地图实例
         this.geolocation = null;    // 定位插件实例
@@ -89,6 +92,17 @@ class HomePageContainer extends React.Component {
                 this.onUp();
             }
         }
+    }
+
+    // 获取头部轮播图
+    getPics() {
+        this.props.actions.mallApList({ typeCode: 'station' }).then((res)=> {
+            if(res.status === 200) {
+                this.setState({
+                    barPics: res.data,
+                });
+            }
+        });
     }
 
     /** 第1阶段 地图初始化，各种插件 **/
@@ -275,29 +289,36 @@ class HomePageContainer extends React.Component {
         return (
             <div className="page-expr-shop">
                 <div id="container" className="hideMap"/>
-                <Carousel
-                    className="my-carousel"
-                    autoplay={true}
-                    infinite={true}
-                    swipeSpeed={35}
-                >
-                    {[1,2,3].map((item, index) => (
-                        <a
-                            key={index}
-                            style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                            target="_blank"
+                {/* 顶部轮播 */}
+                {
+                    (this.state.barPics.length) ? (
+                        <Carousel
+                            className="my-carousel"
+                            autoplay={true}
+                            infinite={true}
+                            swipeSpeed={35}
                         >
-                            <img
-                                src={'https://isluo.com/kernel/index/img/welcome/theback.jpg'}
-                                style={{ width: '100%', verticalAlign: 'top' }}
-                                onLoad={() => {
-                                    window.dispatchEvent(new Event('resize'));
-                                    this.setState({ imgHeight: 'auto' });
-                                }}
-                            />
-                        </a>
-                    ))}
-                </Carousel>
+                            {this.state.barPics.map((item, index) => (
+                                <a
+                                    key={index}
+                                    href={u ? `${item.url}&e=${u.id}` : item.url}
+                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                    target="_blank"
+                                >
+                                    <img
+                                        src={item.adImg}
+                                        style={{ width: '100%', verticalAlign: 'top' }}
+                                        onLoad={() => {
+                                            // fire window resize event to change height
+                                            window.dispatchEvent(new Event('resize'));
+                                            this.setState({ imgHeight: 'auto' });
+                                        }}
+                                    />
+                                </a>
+                            ))}
+                        </Carousel>
+                    ) : <div style={{ height: this.state.imgHeight }} />
+                }
                 <ul className="infos">
                     <li>
                         <img src={Img1} />
@@ -386,6 +407,6 @@ export default connect(
         userXY: state.app.userXY,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ mallStationListAll, saveServiceInfo, getAreaList, saveMapAddr, stationNearBy, saveUserLngLat, inputStation }, dispatch),
+        actions: bindActionCreators({ mallStationListAll, saveServiceInfo, getAreaList, saveMapAddr, stationNearBy, saveUserLngLat, inputStation, mallApList }, dispatch),
     })
 )(HomePageContainer);

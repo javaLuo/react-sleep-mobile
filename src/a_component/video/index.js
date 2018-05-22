@@ -9,7 +9,7 @@ class VideoLuo extends React.PureComponent {
         super(props);
         this.state = {
             page: 0,    // 当前scroll到哪一页了
-            btnCheck: !this.props.videoSrc,    // 当前选择 0视频1图片
+            btnCheck: ~~!this.props.videoSrc,    // 当前选择 0视频1图片
             playing: false, // 视频是否在播放中
         };
         this.video = null;
@@ -25,6 +25,11 @@ class VideoLuo extends React.PureComponent {
             disablePointer: true,
             click: true,
         });
+
+        this.setState({
+            btnCheck: ~~!this.props.videoSrc,
+        });
+
         // 滚动结束时，判断当前是哪一页
         this.scrollDom.on('scrollEnd', () => {
             let playing = this.state.playing;
@@ -41,6 +46,11 @@ class VideoLuo extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextP) {
+        if(nextP.videoSrc !== this.props.videoSrc){
+            this.setState({
+                btnCheck: ~~!nextP.videoSrc,
+            });
+        }
         if(this.props.imgList !== nextP.imgList) {
             setTimeout(() => {
                 this.scrollDom.refresh();
@@ -81,6 +91,7 @@ class VideoLuo extends React.PureComponent {
     }
 
     render() {
+        console.log('是TM级：', this.props.videoSrc, this.state.btnCheck, ~~!this.props.videoSrc);
         return (
             <div className="react-video-luo" >
                 <div className="video-luo-scroll" id="scroll-video" ref={(e) => this.dom = e}>
@@ -96,7 +107,7 @@ class VideoLuo extends React.PureComponent {
                                         height="100%"
                                         preload="true"
                                         src={this.props.videoSrc}
-                                        poster = {this.props.videoPic}
+                                        poster = {this.props.videoPic || null}
                                     />
                                     <div className="mask" onClick={() => this.maskClick()}>
                                         <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>

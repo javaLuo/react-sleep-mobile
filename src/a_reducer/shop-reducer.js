@@ -8,18 +8,6 @@ const initState = {
     allProductsActive: [],    // 所有的产品
     allProductTypes: [],// 所有的产品类型
     orderParams: {      // 下单流程所需
-        nowProduct: null,   // 当前的商品对象，包括ID、名称、型号等
-        params: {       // 当前下单所需参数，购买数量，支付方式等等
-            count: 0,           // 购买数量
-            feeType: null,      // 收费类型ID
-            serviceTime: null,  // 服务时间(水机安装时间)
-            openAccountFee: 0,  // 开户费
-            fee: 0,             // 总价
-            payType: null,      // 支付方式ID
-            isPay: false,        // 是否支付
-            orderFrom: 2,       // 来源： 1:App, 2:微信，3：经销商
-            addrId: null,       // 收货地址ID（除了评估卡，都有）
-        },
         addr: null,             // 所选择的收货地址信息，用于展示
     },
     willPayObjs: [],    // 确认订单逻辑有变，全部依据此变量。从购物车选择或直接商品详情页 进入 订单确认页，都把选择的商品存入此变量

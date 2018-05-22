@@ -29,7 +29,6 @@ class Menu extends React.Component {
     setChecked(location) {
         const p = location.pathname.split('/');
         const path = p[1];
-        console.log('当前PATH：', path, p);
 
         this.setState({
             pathNow: path,

@@ -77,7 +77,6 @@ class HomePageContainer extends React.Component {
             });
         },0);
         if(!sessionStorage.getItem('win.resize')) {
-            console.log('执行啊');
             window.addEventListener("resize", () => this.realSvg());
             sessionStorage.setItem('win.resize', 't');
         }
@@ -93,6 +92,9 @@ class HomePageContainer extends React.Component {
     }
 
     realSvg() {
+        if(!document.getElementById('svg-box')){
+            return;
+        }
         const p1 = document.getElementById('path1');
         const p2 = document.getElementById('path2');
         const w = document.getElementById('svg-box').clientWidth;

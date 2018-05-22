@@ -69,7 +69,7 @@ class Register extends React.Component {
         return data.map((item, index) => {
             return (
                 <div key={index} className="abox">
-                    <div className="title">{item.typeName}</div>
+                    <div className="title">{item.productType}</div>
                     <ul className="the-ul">
                     {
                         item.productSpeakCards && item.productSpeakCards.map((v, i) => {
