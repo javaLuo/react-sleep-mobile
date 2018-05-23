@@ -10,28 +10,30 @@ import { bindActionCreators } from 'redux';
 import config from '../../config';
 import P from 'prop-types';
 import './index.scss';
+import tools from '../../util/all';
+
 // ==================
 // 所需的所有组件
 // ==================
 import { Icon } from "antd";
+import { Toast } from 'antd-mobile';
 import WaterWave from 'water-wave';
 import { Carousel } from 'antd-mobile';
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
 import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
-import ImgShangCheng from '../../assets/home/homge_shangcheng@3x.png';
+import ImgShangCheng from '../../assets/home/home_shangcheng@3x.png';
 import ImgTest from '../../assets/test/new.png';
-import ImgStar0 from '../../assets/home/star_0@3x.png';
-import ImgStar05 from '../../assets/home/star_0.5@3x.png';
 import ImgStar1 from '../../assets/home/star_1@3x.png';
 import ImgLikeThis from '../../assets/home/likethis@3x.png';
 import ImgLooked from '../../assets/home/looked@3x.png';
 import ImgTime from '../../assets/home/thetime@3x.png';
+import ImgCar from '../../assets/shop/jrgwc@3x.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { mallApList, getOrdersCount, getLiveListCache, getLiveTypes } from '../../a_action/shop-action';
+import { mallApList, getOrdersCount, getLiveListCache, getLiveTypes, pushCarInterface } from '../../a_action/shop-action';
 import { getRecommend, getActivityList, getGoodServiceStations, inputStation } from '../../a_action/new-action';
 // ==================
 // Definition
@@ -170,6 +172,20 @@ class HomePageContainer extends React.Component {
       //this.props.actions.inputStation(data);
       this.props.history.push(`/shop/exprdetail/${data.id}`);
     }
+
+    // 将商品添加进购物车
+    onPushCar(e, id) {
+        e.stopPropagation();
+        this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
+            if(res.status === 200) {
+                Toast.success('加入购物车成功');
+                this.props.actions.shopCartCount();
+            } else {
+                Toast.info(res.message);
+            }
+        });
+    }
+
   render() {
     const u = this.props.userinfo;
     const barData = [
@@ -235,7 +251,7 @@ class HomePageContainer extends React.Component {
                           }
                           return (<li key={index} style={w === '100%' ? { width: w, marginLeft: 0 } : { width: w }}>
                               <Link to={`/shop/activity/${item.id}`}>
-                                  <img src={item.acImg} />
+                                  <img className="all_radius" src={item.acImg} />
                                   <WaterWave color="#cccccc" press="down"/>
                               </Link>
                           </li>);
@@ -247,27 +263,27 @@ class HomePageContainer extends React.Component {
           <div className="home-content-one" style={{ display: this.props.homeRecommend.length ? 'block' : 'none' }}>
               <div className="title">热销产品</div>
               <ul className="hot-1">
-                  { this.props.homeRecommend.filter((item, index) => index < 2).map((item, index) => {
+                  { this.props.homeRecommend.filter((item, index) => index < 2).map((vv, ii) => {
                       return (
-                          <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                                  <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
-                                  <div className="t all_nowarp">{item.name}</div>
-                                  <div className="num">已售: {item.buyCount}</div>
-                                  <div className="m"><i>￥</i>{item.price}</div>
-                              <WaterWave color="#cccccc" press="down"/>
+                          <li key={ii} onClick={() => this.onRecommendClick(vv.id)}>
+                                  <div className="pic"><img className="all_radius" src={vv.productImg && vv.productImg.split(',')[0]}/></div>
+                                  <div className="t all_nowarp2">{vv.name}</div>
+                                  <div className="num">已售: {vv.buyCount}</div>
+                                  <div className="m" onClick={(e) => this.onPushCar(e,vv.id)}><i>￥{tools.point2(vv.productModel.price+vv.productModel.openAccountFee)}</i><img src={ImgCar} /></div>
+                                  <WaterWave color="#cccccc" press="down"/>
                           </li>
                       );
                   }) }
               </ul>
-              <ul className="hot-2" style={{ display: this.props.homeRecommend.length>3 ? 'flex' : 'none' }}>
+              <ul className="hot-2" style={{ display: this.props.homeRecommend.length>2 ? 'flex' : 'none' }}>
                   {
-                      this.props.homeRecommend.filter((item, index) => index > 2).map((item, index) => {
+                      this.props.homeRecommend.filter((item, index) => index >= 2).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                                      <div className="pic"><img src={item.productImg && item.productImg.split(',')[0]}/></div>
-                                      <div className="t all_nowarp">{item.name}</div>
+                                      <div className="pic"><img className="all_radius" src={item.productImg && item.productImg.split(',')[0]}/></div>
+                                      <div className="t all_nowarp2">{item.name}</div>
                                       <div className="num">已售: {item.buyCount}</div>
-                                      <div className="m"><i>￥</i>{item.price}</div>
+                                      <div className="m" onClick={(e) => this.onPushCar(e,item.id)}><i>￥{tools.point2(item.productModel.price+item.productModel.openAccountFee)}</i><img src={ImgCar} /></div>
                                   <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
@@ -284,7 +300,7 @@ class HomePageContainer extends React.Component {
                       this.props.liveHot.filter((item, index) => index===0).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
-                                  <div className="pic"><img src={item.coverImage}/></div>
+                                  <div className="pic"><img className="all_radius" src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
                                   <WaterWave color="#cccccc" press="down"/>
                               </li>
@@ -297,7 +313,7 @@ class HomePageContainer extends React.Component {
                       this.props.liveHot.filter((item, index) => index>0).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
-                                  <div className="pic"><img src={item.coverImage}/></div>
+                                  <div className="pic"><img className="all_radius" src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
                                   <WaterWave color="#cccccc" press="down"/>
                               </li>
@@ -339,49 +355,25 @@ class HomePageContainer extends React.Component {
               <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 热门资讯 **/}
-          <div className="home-content-one">
-              <div className="title">热门资讯</div>
-              <ul className="new-1">
-                  <li className="type1">
-                      <div>
-                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>
-                          <div className="info">
-                              <span className="a">行业</span>
-                              <span className="b"><img src={ImgLooked} />20000</span>
-                              <span className="c"><img src={ImgLikeThis} />1500</span>
-                              <span className="d"><img src={ImgTime} />2018-04-11</span>
-                          </div>
-                      </div>
-                      <div className="new_pic" ><img src={ImgTest}/></div>
-                      <WaterWave color="#cccccc" press="down"/>
-                  </li>
-                  <li className="type1">
-                      <div>
-                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>
-                          <div className="info">
-                              <span className="a">行业</span>
-                              <span className="b"><img src={ImgLooked} />20000</span>
-                              <span className="c"><img src={ImgLikeThis} />1500</span>
-                              <span className="d"><img src={ImgTime} />2018-04-11</span>
-                          </div>
-                      </div>
-                      <div className="new_pic" ><img src={ImgTest}/></div>
-                  </li>
-                  <li className="type1">
-                      <div>
-                          <div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>
-                          <div className="info">
-                              <span className="a">行业</span>
-                              <span className="b"><img src={ImgLooked} />20000</span>
-                              <span className="c"><img src={ImgLikeThis} />1500</span>
-                              <span className="d"><img src={ImgTime} />2018-04-11</span>
-                          </div>
-                      </div>
-                      <div className="new_pic" ><img src={ImgTest}/></div>
-                  </li>
-              </ul>
-              <div className="foot"><WaterWave color="#cccccc" press="down"/><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>
-          </div>
+          {/*<div className="home-content-one">*/}
+              {/*<div className="title">热门资讯</div>*/}
+              {/*<ul className="new-1">*/}
+                  {/*<li className="type1">*/}
+                      {/*<div>*/}
+                          {/*<div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>*/}
+                          {/*<div className="info">*/}
+                              {/*<span className="a">行业</span>*/}
+                              {/*<span className="b"><img src={ImgLooked} />20000</span>*/}
+                              {/*<span className="c"><img src={ImgLikeThis} />1500</span>*/}
+                              {/*<span className="d"><img src={ImgTime} />2018-04-11</span>*/}
+                          {/*</div>*/}
+                      {/*</div>*/}
+                      {/*<div className="new_pic" ><img src={ImgTest}/></div>*/}
+                      {/*<WaterWave color="#cccccc" press="down"/>*/}
+                  {/*</li>*/}
+              {/*</ul>*/}
+              {/*<div className="foot"><WaterWave color="#cccccc" press="down"/><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>*/}
+          {/*</div>*/}
       </div>
     );
   }
@@ -417,6 +409,6 @@ export default connect(
       activityList: state.n.activityList,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList, getGoodServiceStations, inputStation }, dispatch),
+    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList, getGoodServiceStations, inputStation, pushCarInterface }, dispatch),
   })
 )(HomePageContainer);

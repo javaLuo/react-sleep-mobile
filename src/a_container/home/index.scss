@@ -133,6 +133,8 @@
           width: 100%;
           box-sizing: border-box;
           font-size: 16px;
+          height: 40px;
+          line-height: 20px;
           margin-top: 10px;
         }
         .num{
@@ -142,9 +144,17 @@
         .m{
           font-size: 14px;
           color: rgb(252,31,32);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           i{
             font-style: normal;
             font-size: 12px;
+          }
+          img{
+            height: 20px;
+            width: auto;
+            padding-left: 15px;
           }
         }
       }
@@ -188,6 +198,8 @@
           box-sizing: border-box;
           font-size: 16px;
           margin-top: 10px;
+          height: 40px;
+          line-height: 20px;
         }
         .num{
           color: rgb(137,136,142);
@@ -196,9 +208,17 @@
         .m{
           font-size: 14px;
           color: rgb(252,31,32);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           i{
             font-style: normal;
             font-size: 12px;
+          }
+          img{
+            height: 20px;
+            width: auto;
+            padding-left: 15px;
           }
         }
       }

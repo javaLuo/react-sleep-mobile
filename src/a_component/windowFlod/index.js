@@ -20,9 +20,13 @@ class WindowFlod extends React.Component {
     }
 
     render() {
+        console.log('这个里面是多少：', this.props.shoppingCarNum);
         return (
             <div className={this.shoudBeShow()}>
-                <div className={"btn"} onClick={() => this.props.history.push('/shop/shoppingcar')}><img src={ImgGwc} /></div>
+                <div className={"btn"} onClick={() => this.props.history.push('/shop/shoppingcar')}>
+                    <img src={ImgGwc} />
+                    <div className={this.props.shoppingCarNum > 0 ? 'shopping-num show' : 'shopping-num'}>{ this.props.shoppingCarNum }</div>
+                </div>
                 <div className={"line"}/>
                 <div className={"btn"} onClick={() => this.props.history.push('/my/kf')}><img src={ImgKf} /></div>
             </div>
@@ -33,6 +37,7 @@ class WindowFlod extends React.Component {
 WindowFlod.propTypes = {
     location: P.any,
     history: P.any,
+    shoppingCarNum: P.number, // 购物车中商品的数量
 };
 
 export default WindowFlod;

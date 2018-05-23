@@ -128,3 +128,19 @@ export const getAllJMType = () => async(dispatch) => {
         Toast.info('网络错误，请重试',1);
     }
 };
+
+// 购物车的数量
+export const shopCartCount = (params) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/shopCart/shopCartCount', params, 'post', true);
+        if (res.status === 200) {
+            dispatch({
+                type: 'SHOP::shopCartCount',
+                payload: res.data,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};

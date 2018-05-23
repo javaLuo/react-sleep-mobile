@@ -11,51 +11,6 @@ import Loading from '../../a_component/loading';
 import WindowFlod from '../../a_component/windowFlod';
 import c from '../../config';
 
-// import Bundle from '../../a_component/bundle';
-// import lazeHome from 'bundle-loader?lazy&name=home!../home/index';
-// import lazeAppHome from 'bundle-loader?lazy&name=apphome!../apphome/index';
-// import lazeHealthy from 'bundle-loader?lazy&name=healthy!../healthy';
-// import lazeMy from 'bundle-loader?lazy&name=my!../my';
-// import lazeNotFound from 'bundle-loader?lazy&name=notfound!../notfound';
-// import lazeLogin from 'bundle-loader?lazy&name=login!../login';
-// import lazeRegister from 'bundle-loader?lazy&name=register!../register';
-// import lazeShare from 'bundle-loader?lazy&name=share!../share';
-// import lazeShareTicketList from 'bundle-loader?lazy&name=shareticketlist!../share/shareTicketList';
-// import lazeShareTicket from 'bundle-loader?lazy&name=shareticket!../share/shareTicket';
-// import lazeShareFreeCard from 'bundle-loader?lazy&name=sharefreecard!../share/shareFreeCard';
-// import lazeShareHra from 'bundle-loader?lazy&name=sharehra!../share/shareHra';
-// import lazeWxShare from 'bundle-loader?lazy&name=wxshare!../share/wxShare';
-// import lazeDaiYanShare from 'bundle-loader?lazy&name=daiyanshare!../share/daiyanShare';
-// import lazeJump from 'bundle-loader?lazy&name=jump!../jump';
-// import lazeShop from 'bundle-loader?lazy&name=shop!../shop';
-// import lazeForgot from 'bundle-loader?lazy&name=forgot!../register/forgot';
-// import lazeProfit from 'bundle-loader?lazy&name=profit!../profit';
-// import lazeDownLine from 'bundle-loader?lazy&name=downline!../downLine';
-// import lazeLive from 'bundle-loader?lazy&name=lazelive!../live';
-//
-// const Home = (props) => (<Bundle load={lazeHome}>{(Home) => <Home {...props} />}</Bundle>);                     // 首页
-// const AppHome = (props) => (<Bundle load={lazeAppHome}>{(AppHome) => <AppHome {...props} />}</Bundle>);         // App首页
-//
-// const Healthy = (props) => (<Bundle load={lazeHealthy}>{(Healthy) => <Healthy {...props} />}</Bundle>);         // 健康管理模块
-// const My = (props) => (<Bundle load={lazeMy}>{(My) => <My {...props} />}</Bundle>);                             // 我的e家模块
-// const Login = (props) => (<Bundle load={lazeLogin}>{(Login) => <Login {...props} />}</Bundle>);                 // 登录页
-// const Register = (props) => (<Bundle load={lazeRegister}>{(Register) => <Register {...props} />}</Bundle>);     // 注册页
-// const Forgot = (props) => (<Bundle load={lazeForgot}>{(Forgot) => <Forgot {...props} />}</Bundle>);            // 忘记密码页
-// const Share = (props) => (<Bundle load={lazeShare}>{(Share) => <Share {...props} />}</Bundle>);                 // 分享出去展现的页面
-// const ShareTicketList = (props) => (<Bundle load={lazeShareTicketList}>{(ShareTicketList) => <ShareTicketList {...props} />}</Bundle>);    // 卡片分享点击进入查看5张体检券
-// const ShareTicket = (props) => (<Bundle load={lazeShareTicket}>{(ShareTicket) => <ShareTicket {...props} />}</Bundle>);    // 体检券直接分享
-// const ShareFreeCard = (props) => (<Bundle load={lazeShareFreeCard}>{(ShareFreeCard) => <ShareFreeCard {...props} />}</Bundle>);    // 优惠卡直接分享
-// const ShareHra = (props) => (<Bundle load={lazeShareHra}>{(ShareHra) => <ShareHra {...props} />}</Bundle>);    // 优惠卡直接分享
-// const WxShare = (props) => (<Bundle load={lazeWxShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);         // 分享出去展现的页面
-// const DaiYanShare = (props) => (<Bundle load={lazeDaiYanShare}>{(WxShare) => <WxShare {...props} />}</Bundle>);         // 分享出去展现的页面
-// const Shop = (props) => (<Bundle load={lazeShop}>{(Share) => <Share {...props} />}</Bundle>);                   // 商城、商品详情等模块
-// const Jump = (props) => (<Bundle load={lazeJump}>{(Jump) => <Jump {...props} />}</Bundle>);                    // 微信支付跳转页
-// const NotFound = (props) => (<Bundle load={lazeNotFound}>{(NotFound) => <NotFound {...props} />}</Bundle>);     // 404页
-// const Profit = (props) => (<Bundle load={lazeProfit}>{(Profit) => <Profit {...props} />}</Bundle>);             // 收益管理模块
-// const DownLine = (props) => (<Bundle load={lazeDownLine}>{(DownLine) => <DownLine {...props} />}</Bundle>);             // 收益管理模块
-// const Live = (props) => (<Bundle load={lazeLive}>{(Live) => <Live {...props} />}</Bundle>);             // 直播模块
-
-
 const Home = Loadable({ loader: () => import("../home/index"), loading: Loading });
 const AppHome = Loadable({ loader: () => import("../apphome/index"), loading: Loading });
 const Healthy = Loadable({ loader: () => import("../healthy"), loading: Loading });
@@ -83,6 +38,7 @@ import Menu from '../../a_component/menu';
 import tools from '../../util/all';
 import Test from '../test';
 import { login, getUserInfo } from '../../a_action/app-action';
+import { shopCartCount } from '../../a_action/new-action';
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -106,7 +62,7 @@ class RootContainer extends React.Component {
 
   componentDidMount() {
       window.theHistory = history;
-      setTimeout(() => this.getUserInfo(), 16);
+      setTimeout(() => {this.getUserInfo();this.props.actions.shopCartCount();});
      Home.preload();
      My.preload();
      Healthy.preload();
@@ -203,6 +159,7 @@ class RootContainer extends React.Component {
                 <WindowFlod
                     location={props.location}
                     history={props.history}
+                    shoppingCarNum={this.props.shoppingCarNum}
                 />
             </div>
           );
@@ -221,6 +178,7 @@ RootContainer.propTypes = {
   children: P.any,
   location: P.any,
     actions: P.any,
+    shoppingCarNum: P.number,
 };
 
 // ==================
@@ -229,8 +187,9 @@ RootContainer.propTypes = {
 
 export default connect(
   (state) => ({
+      shoppingCarNum: state.shop.shoppingCarNum,
   }), 
   (dispatch) => ({
-      actions: bindActionCreators({ login, getUserInfo }, dispatch),
+      actions: bindActionCreators({ login, getUserInfo, shopCartCount }, dispatch),
   })
 )(RootContainer);

@@ -6,29 +6,33 @@
   flex-direction: column;
   .iframe-body{
     flex: 1;
+    overflow: auto;
     iframe{
       display: block;
       width: 100%;
-      height :100%;
       border: none;
       padding:0;
       margin: 0;
-      overflow: auto;
     }
   }
   .footer{
     flex: none;
     height: 50px;
     line-height: 50px;
+    box-sizing: border-box;
     display: flex;
     position: relative;
-    z-index: 10;
+    border-top: solid 1px #f0f0f0;
+    z-index: 99;
     &>div{
       flex: 1;
       background-color: #fff;
       text-align: center;
       transition: all 200ms;
       color: #222;
+      &+div{
+        border-left: solid 1px #f0f0f0;
+      }
       &.check{
         background-color: rgb(65,132,243);
         color: #fff;

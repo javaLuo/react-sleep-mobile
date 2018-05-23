@@ -1,6 +1,13 @@
 .shop-main{
   min-height: 100vh;
   background-color: #f0f0f0;
+  .my-carousel{
+    background-color: #f0f0f0;
+    img{
+      object-fit: cover;
+      height: calc(100vw * 0.43);
+    }
+  }
   .title-pic{
     position: relative;
     background-color: #fff;
@@ -71,6 +78,8 @@
             font-size: 15px;
             box-sizing: border-box;
             padding: 5px;
+            height: 46px;
+            line-height: 23px;
           }
           .p-m{
             font-size: 16px;
@@ -86,7 +95,7 @@
             box-sizing: border-box;
             padding: 5px;
             img{
-              height: 16px;
+              height: 20px;
               padding-left: 10px;
             }
           }

@@ -87,7 +87,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className={'healthy-main show'}>
           <div className="bar-list">
-              <div className="bar-title">健康风险评估<WaterWave color="#cccccc" press="down"/></div>
+              <div className="bar-title">翼猫健康风险评估服务<WaterWave color="#cccccc" press="down"/></div>
               <div className="item hide tran1 page-flex-row" onClick={() => this.props.history.push('/healthy/mycard')}>
                   <img className="icon" src={ImgBar1} />
                   <div className="title">我的评估卡</div>

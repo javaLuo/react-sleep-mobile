@@ -36,7 +36,6 @@ class HomePageContainer extends React.Component {
         payType: 'wxpay',    // 支付方式 wxpay微信支付（公众号或H5）、alipay支付宝网页支付
         wxReady: true,      // 默认微信JS-SDK是OK的，因为无论对错，wx.ready都会被触发
         pay_info: {},       // 订单信息
-        pay_obj: {},        // 商品信息
         modalShow: false,   // 是否显示操作提示框
         loading: false, // 是否正在支付中
     };
@@ -47,7 +46,6 @@ class HomePageContainer extends React.Component {
       if (!this.getPayInfo()){
           this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
       }
-      this.getObjInfo();
   }
 
   componentDidMount() {
@@ -83,23 +81,6 @@ class HomePageContainer extends React.Component {
             });
             console.log('当前订单信息：', pay);
             return pay;
-        }
-    }
-
-    /**
-     * 工具 - 获取商品信息
-     * **/
-    getObjInfo() {
-        let obj = sessionStorage.getItem('pay-obj');
-        if (!obj) {
-            return false;
-        } else {
-            obj = JSON.parse(obj);
-            this.setState({
-                pay_obj: obj,
-            });
-            console.log('当前商品信息：', obj);
-            return obj;
         }
     }
 
@@ -211,7 +192,7 @@ class HomePageContainer extends React.Component {
     wxH5Pay() {
         sessionStorage.setItem('pay-start', 1);   // 页面跳转，标识是支付的过程中返回到此页面
         this.props.actions.wxPay({               // 3. 向后台发起统一下单请求
-            body: this.state.pay_obj.name || '翼猫科技商品',                                 // 商品描述
+            body: '翼猫科技商品',                                 // 商品描述
             total_fee: Number(this.state.pay_info.orderAmountTotal * 100) || 1 , // 总价格（分）
             spbill_create_ip: typeof returnCitySN !== 'undefined' ? returnCitySN["cip"] : '',                  // 用户终端IP，通过腾讯服务拿的
             out_trade_no: this.state.pay_info.mainOrderId ? String(this.state.pay_info.mainOrderId) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取

@@ -40,7 +40,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillMount() {
-
+    Toast.hide();
   }
 
   componentDidMount() {
@@ -120,6 +120,11 @@ class HomePageContainer extends React.Component {
           return;
       }
 
+      /**
+       * 价格公式
+       * 单个产品： （单价+开户费）* 数量 + 运费
+       * 多个产品： (单价+开户费)*数量 + （单价+开户费）* 数量 + ... + 最高运费
+       * **/
         /**
          * 只有1个商品（可能是从商城来的，也可能是从购物车只选择了一个商品来的
          * 走单一接口
@@ -135,8 +140,8 @@ class HomePageContainer extends React.Component {
           const params = {
               productId: d.id,  // ID
               number: d.shopCart.number,  // 购买数量
-              // 订单价格 单价*数量+开户费 (订单本身价格没有包括物流费)
-              orderAmountTotal: d.productModel.price * d.shopCart.number + d.productModel.openAccountFee,
+              // 订单价格
+              orderAmountTotal: tools.point2((d.productModel.price + d.productModel.openAccountFee) * d.shopCart.number + d.productModel.shipFee),
               payType: 1,   // 1微信支付 2支付宝，3其他，我怎么知道他用什么支付，直接填1好了
               orderFrom: 2, // 订单来源 1APP，2公众号 3经销商App 这里是公众号所以填2
               addrId: (d.typeId !== 5 && this.props.orderParams.addr) ? this.props.orderParams.addr.id : null, // 除评估卡，其他的商品需要收货地址ID
@@ -151,6 +156,7 @@ class HomePageContainer extends React.Component {
           };
 
           // 开始下单
+          Toast.loading('请稍后...',0);
           this.props.actions.placeAndOrder(tools.clearNull(params)).then((res) => {
               if (res.status === 200) {
                   Toast.hide();
@@ -160,6 +166,8 @@ class HomePageContainer extends React.Component {
               } else {
                   Toast.info(res.message ,1);
               }
+          }).catch(() => {
+              Toast.hide();
           });
       } else if(data.length > 1) { // 是从购物车来的，选择了多个商品
           // 所有商品Set信息
@@ -169,8 +177,8 @@ class HomePageContainer extends React.Component {
                   serverMan = this.getInfoByServerManId(item.shopCart.formServerMan[0]);
               }
               return tools.clearNull({
-                  id: item.id,
-                  productId: item.productModel ? item.productModel.id : '缺少productModel对象信息',
+                  id: item.shopCart.id,
+                  productId: item.id,
                   number: item.shopCart.number,
                   serviceTime: item.typeId === 1 ? tools.dateToStr(item.shopCart.formServiceTime || new Date(new Date().getTime() + 86400000)) : null,
                   feeType: Number(item.shopCart.feeType) || null,
@@ -179,10 +187,10 @@ class HomePageContainer extends React.Component {
                   customerPhone: serverMan && serverMan.phone,  // 安装工电话
               });
           });
-          // 总价格
-          const orderAmountTotal = data.reduce((res, item) => {
+          // 商品总价格
+          const orderAmountTotal_temp = data.reduce((res, item) => {
               // 上次结果 + 当前商品单价*数量+开户费
-              return res+item.productModel.price * item.shopCart.number + item.productModel.openAccountFee;
+              return res + (item.productModel.price + item.productModel.openAccountFee) * item.shopCart.number;
           }, 0);
 
           // 最高运费
@@ -193,7 +201,7 @@ class HomePageContainer extends React.Component {
           // 构建参数
           const params = {
               shopCartSet,
-              orderAmountTotal,
+              orderAmountTotal: tools.point2(orderAmountTotal_temp + logisticsFee),
               payType: 1,
               orderFrom: 2,
               addrId: (data.find((item) => item.typeId !== 5) && this.props.orderParams.addr) ? this.props.orderParams.addr.id : null,
@@ -202,6 +210,7 @@ class HomePageContainer extends React.Component {
           };
 
           // 开始下单
+          Toast.loading('请稍后...',0);
           this.props.actions.placeAndOrderMany(tools.clearNull(params)).then((res) => {
               if (res.status === 200) {
                   Toast.hide();
@@ -211,10 +220,29 @@ class HomePageContainer extends React.Component {
               } else {
                   Toast.info(res.message ,1);
               }
+          }).catch(() => {
+              Toast.hide();
           });
       }
 
       return true;
+    }
+
+    getAllNeedPay(data) {
+        try{
+            // 商品总价格
+            const orderAmountTotal_temp = data.reduce((res, item) => {
+                // 上次结果 + 当前商品单价*数量+开户费
+                return res + (item.productModel.price + item.productModel.openAccountFee) * item.shopCart.number;
+            }, 0);
+            // 最高运费
+            const logisticsFee = data.reduce((res, item) => {
+                return Math.max(res, item.productModel.shipFee);
+            }, 0);
+            return orderAmountTotal_temp + logisticsFee;
+        }catch(e){
+            return 0;
+        }
     }
 
     // 根据ID查询完整的安装工信息
@@ -462,13 +490,8 @@ class HomePageContainer extends React.Component {
           </div>
           <div className="zw46"/>
           <div className="thefooter page-flex-row">
-              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {(() => {
-                  // (d.productModel ? d.productModel.price * this.state.formCount + d.productModel.shipFee + d.productModel.openAccountFee : 0).toFixed(2)
-                  return this.state.data.reduce((res, item)=>{
-                      return res + (Number(item.productModel.price * item.shopCart.number + item.productModel.shipFee + item.productModel.openAccountFee) || 0);
-                  },0).toFixed(2);
-              })()}</div>
-              <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>确认支付</div>
+              <div className="flex-auto" style={{ padding: '0 .2rem' }}>合计：￥ {tools.point2(this.getAllNeedPay(data))}</div>
+              <div className="flex-none submit-btn" onClick={() => this.onSubmit()}>提交订单</div>
           </div>
       </div>
     );

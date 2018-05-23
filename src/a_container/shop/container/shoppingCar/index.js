@@ -15,24 +15,26 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { Checkbox, SwipeAction, Toast } from 'antd-mobile';
+import { Checkbox, SwipeAction, Toast, Modal } from 'antd-mobile';
 import StepLuo from '../../../../a_component/StepperLuo';
 // ==================
 // 本页面所需action
 // ==================
 
 import { getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar } from '../../../../a_action/shop-action';
-
+import { shopCartCount } from '../../../../a_action/new-action';
 // ==================
 // Definition
 // ==================
+const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
         data: [], // 有效的产品
+        downData: [],   // 已失效的产品
         checkedAll: false, // 全选按钮是否被选中
-        downData: [],   // 已失效的
+
     };
   }
 
@@ -80,11 +82,43 @@ class HomePageContainer extends React.Component {
       this.props.actions.deleteShopCar({shopCartIds: allId}).then((res) => {
           if(res.status === 200) {
               Toast.success('删除成功');
+              this.props.actions.shopCartCount();
               this.getData();
           } else {
               Toast.info(res.message);
           }
       });
+    }
+
+    deleteShopCar2(ids) {
+        let allId;
+        if(!ids){
+            return;
+        }
+        if(Array.isArray(ids)) {  // 多个
+            allId = ids.join(',');
+        } else {
+            allId = ids;
+        }
+
+        alert('确认清空？', '清空后不可恢复', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            { text: '确认', onPress: () => new Promise((resolve, rej) => {
+                this.props.actions.deleteShopCar({shopCartIds: allId}).then((res) => {
+                    if (res.status === 200) {
+                        Toast.success('删除成功',1);
+                        this.props.actions.shopCartCount();
+                        this.getData();
+                    } else {
+                        Toast.info(res.message);
+                    }
+                    resolve();
+                }).catch(() => {
+                    rej();
+                });
+            }) },
+        ]);
+
     }
     /**
      * 点选了复选框
@@ -145,16 +179,22 @@ class HomePageContainer extends React.Component {
     }
 
     // 价格脏检查
+    /**
+     * 价格公式
+     * 单个产品： （单价+开户费）* 数量 + 运费
+     * 多个产品： (单价+开户费)*数量 + （单价+开户费）* 数量 + ... + 最高运费
+     * **/
     checkPay(data) {
         let pay = 0;
+        let shipFee = 0;
         data.forEach((item) => {
             item.productList.filter((item) => item.checked).forEach((listItem) => {
                 // 数量*单价+开户费
-                pay += listItem.shopCart.number * listItem.productModel.price + listItem.productModel.openAccountFee;
+                pay += (listItem.productModel.price + listItem.productModel.openAccountFee) * listItem.shopCart.number;
+                shipFee = Math.max(shipFee, listItem.productModel.shipFee);
             });
         });
-        pay = Math.floor(pay*100) / 100;
-        return pay;
+        return pay + shipFee;
     }
 
     // 修改商品的数量
@@ -183,7 +223,7 @@ class HomePageContainer extends React.Component {
             arr.push(...obj);
         }
         if(!arr.length){
-            Toast.info('您没有勾选商品', 1);
+            Toast.info('您还没有选择商品哦', 1);
             return;
         }
         this.props.actions.getDefaultAttr(); // 查默认收货地址
@@ -214,7 +254,7 @@ class HomePageContainer extends React.Component {
                                                   right={[
                                                       {
                                                           text: '删除',
-                                                          onPress: () => this.deleteShopCar(listItem.id),
+                                                          onPress: () => this.deleteShopCar(listItem.shopCart ? listItem.shopCart.id : 0),
                                                           style: { color: 'white', padding: '10px' }
                                                       }
                                                   ]}
@@ -222,16 +262,16 @@ class HomePageContainer extends React.Component {
                                                   <div className="one">
                                                       <Checkbox checked={listItem.checked} onChange={() => this.onCheckbox(listItem.id, 1)} />
                                                       <div className="pic">
-                                                          <img src={listItem.productImg.split(',')[0]} />
+                                                          <img src={listItem.productImg ? listItem.productImg.split(',')[0] : null} />
                                                       </div>
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
                                                           <div className="num">
-                                                              <span className="money">￥{listItem.productModel.price}</span>
+                                                              <span className="money">￥{listItem.productModel ? listItem.productModel.price : 0}</span>
                                                               <StepLuo
                                                                   min={1}
                                                                   max={99}
-                                                                  value={Math.min(listItem.shopCart.number, 99)}
+                                                                  value={Math.min(listItem.shopCart ? listItem.shopCart.number : 1, 99)}
                                                                   onChange={(num) => this.changeNum(num, listItem.id)}
                                                               />
                                                           </div>
@@ -251,7 +291,7 @@ class HomePageContainer extends React.Component {
                   this.state.downData && this.state.downData.length ? (
                       <div className={"downs-t"}>
                           <span className="t">失效商品</span>
-                          <span onClick={() => this.deleteShopCar(this.state.downData.map((item) => item.id))}>清空失效商品</span>
+                          <span onClick={() => this.deleteShopCar2(this.state.downData.map((item) => item.id))}>清空失效商品</span>
                       </div>
                   ) : null
               }
@@ -281,16 +321,16 @@ class HomePageContainer extends React.Component {
                                                   <div className="one">
                                                       <div className="downed">失效</div>
                                                       <div className="pic">
-                                                          <img src={listItem.productImg.split(',')[0]} />
+                                                          <img src={listItem.productImg && listItem.productImg.split(',')[0]} />
                                                       </div>
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
                                                           <div className="num">
-                                                              <span className="money">￥{listItem.productModel.price}</span>
+                                                              <span className="money">￥{listItem.productModel ? listItem.productModel.price : 0}</span>
                                                               <StepLuo
                                                                   min={1}
                                                                   max={99}
-                                                                  value={Math.min(listItem.shopCart.number, 99)}
+                                                                  value={Math.min(listItem.shopCart ? listItem.shopCart.number : 1, 99)}
                                                                   onChange={() => {}}
                                                               />
                                                           </div>
@@ -316,7 +356,7 @@ class HomePageContainer extends React.Component {
               </Checkbox>
               <div style={{ flex : 'auto' }}/>
               <div className="all">合计：<span>￥ {this.checkPay(this.state.data)}</span></div>
-              <div className="all2" onClick={() => this.onSubmit()}>结算({this.checkPay(this.state.data)})</div>
+              <div className="all2" onClick={() => this.onSubmit()}>结算</div>
           </div>
       </div>
     );
@@ -343,6 +383,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar }, dispatch),
+    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar, shopCartCount }, dispatch),
   })
 )(HomePageContainer);

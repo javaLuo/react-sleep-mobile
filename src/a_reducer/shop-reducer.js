@@ -56,6 +56,7 @@ const initState = {
     daiyanh5List: [], // H5代言卡选择页数据
     mapAddr: null,  // 进入地图时当前选择的地址
     liveTypes: [],  // 所有的LIVE分类
+    shoppingCarNum: 0, // 购物车中的商品数量
 };
 
 // ============================================
@@ -290,6 +291,14 @@ const pushDingDan = (state, action) => {
         willPayObjs: payload,
     });
 };
+
+const shopCartCount = (state, action) => {
+    const { payload } = action;
+    console.log('到这了shoppingCarNum:', payload);
+    return Object.assign({}, state, {
+        shoppingCarNum: payload,
+    });
+};
 // ============================================
 // reducer function
 
@@ -351,6 +360,8 @@ const reducerFn = (state = initState, action) => {
             return getLiveTypes(state, action);
         case 'APP::pushDingDan':
             return pushDingDan(state, action);
+        case 'SHOP::shopCartCount':
+            return shopCartCount(state, action);
         default:
             return actDefault(state, action);
     }

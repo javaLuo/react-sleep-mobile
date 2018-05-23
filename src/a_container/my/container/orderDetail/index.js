@@ -80,9 +80,7 @@ class HomePageContainer extends React.Component {
             Toast.info('获取订单信息失败',1);
             return true;
         }
-        sessionStorage.setItem('pay-info', JSON.stringify(obj));
-        console.log('代入的obj', obj.product);
-        sessionStorage.setItem('pay-obj', JSON.stringify({ nowProduct: obj.product}));
+        sessionStorage.setItem('pay-info', JSON.stringify({ orderAmountTotal: obj.fee, mainOrderId: obj.mainOrderId }));
         this.props.history.push('/shop/payChose/1');
     }
 

@@ -63,3 +63,4 @@ sub{bottom: -.25em;}
 .all_trans{transition:all 200ms;-webkit-transition:all 200ms;}/* 过渡效果 */
 .all_active{transition: all 200ms;-webkit-transition:all 200ms;}
 .all_active:active{background-color: #eee !important;}
+.all_radius{border-radius: 3px;}

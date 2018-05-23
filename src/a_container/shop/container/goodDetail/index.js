@@ -28,7 +28,7 @@ import ImgGwc from './assets/gwc@2x.png';
 // ==================
 
 import { productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit, pushCarInterface, pushDingDan } from '../../../../a_action/shop-action';
-
+import { shopCartCount } from '../../../../a_action/new-action';
 // ==================
 // Definition
 // ==================
@@ -281,6 +281,7 @@ class HomePageContainer extends React.Component {
       this.props.actions.pushCarInterface(tools.clearNull(params)).then((res) => {
           if(res.status === 200) {
               Toast.success('加入购物车成功', 1);
+              this.props.actions.shopCartCount();
           } else {
               Toast.info(res.message, 1);
           }
@@ -304,7 +305,7 @@ class HomePageContainer extends React.Component {
           <div className="goodinfo">
               <div className="title">{d && d.name}</div>
               <div className="info">
-                  <div className="cost">￥ <span>{d && d.productModel ? (d.productModel.price + d.productModel.openAccountFee) : "--"}</span></div>
+                  <div className="cost">￥ <span>{d && d.productModel ? tools.point2(d.productModel.price + d.productModel.openAccountFee) : "--"}</span></div>
               </div>
               <div className="server page-flex-row">
                   <div>运费：￥{d && d.productModel ? (d.productModel.shipFee || 0) : 0}</div>
@@ -398,7 +399,7 @@ class HomePageContainer extends React.Component {
                   <WaterWave color="#888888" press="down"/>
               </div>
               <div className="btn-add-gwc" onClick={() => this.onPushCar()}>加入购物车<WaterWave color="#cccccc" press="down"/></div>
-              <div className="btn-submit" onClick={() => this.onSubmit()}>立即下单<WaterWave color="#cccccc" press="down"/></div>
+              <div className="btn-submit" onClick={() => this.onSubmit()}>{d.activityType === 2 ? '立即申请' : '立即购买'}<WaterWave color="#cccccc" press="down"/></div>
           </div>
       </div>
     );
@@ -426,6 +427,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit, pushCarInterface, pushDingDan}, dispatch),
+    actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit, pushCarInterface, pushDingDan, shopCartCount}, dispatch),
   })
 )(HomePageContainer);

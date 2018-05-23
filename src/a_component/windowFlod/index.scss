@@ -1,6 +1,6 @@
 .window-flod{
   position: fixed;
-  top: 50%;
+  bottom: 1.2rem;
   right: 10px;
   border-radius: 4px;
   width: 45px;
@@ -8,11 +8,11 @@
   background-color: rgba(0,0,0, .8) !important;
   overflow: hidden;
   opacity: 0;
-  transform: translateY(-50%) scale(0,0);
+  transform: scale(0,0);
   transition: all 300ms;
   &.show{
     opacity: 1;
-    transform: translateY(-50%) scale(1,1);
+    transform: scale(1,1);
   }
   .line{
     width: 70%;
@@ -24,6 +24,26 @@
     width: 100%;
     box-sizing: border-box;
     padding: 10px;
+    position: relative;
+    .shopping-num{
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      border: solid 1px rgba(255,0,0,1);
+      font-size: 12px;
+      padding:0 1px;
+      color: #f00;
+      min-width: 20px;
+      text-align: center;
+      border-radius: 20px;
+      transform: scale(0, 0);
+      opacity: 0;
+      transition: all 200ms;
+      &.show{
+        opacity: 1;
+        transform: scale(0.8, 0.8);
+      }
+    }
     img{
       display: block;
       width: auto;
