@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import _ from 'lodash';
 import './index.scss';
-
+import tools from '../../../../util/all';
 // ==================
 // 所需的所有组件
 // ==================
@@ -143,10 +143,12 @@ class HomePageContainer extends React.Component {
               for(let j=0;j<d[i].productList.length;j++) {
                   if(d[i].productList[j].id === id) {
                       d[i].productList[j].checked = !d[i].productList[j].checked;
+                      // 判断父级分类checkbox是否需要勾选
                       const num = d[i].productList.filter((item) => item.checked);
+                      console.log('你在逗我吗：', num, d[i].productList);
                       if (num.length === d[i].productList.length) {
                           d[i].checked = true;
-                      } else if (num.length === 0) {
+                      } else {
                           d[i].checked = false;
                       }
                       break outer;
@@ -262,7 +264,7 @@ class HomePageContainer extends React.Component {
                                                   <div className="one">
                                                       <Checkbox checked={listItem.checked} onChange={() => this.onCheckbox(listItem.id, 1)} />
                                                       <div className="pic">
-                                                          <img src={listItem.productImg ? listItem.productImg.split(',')[0] : null} />
+                                                          <img src={listItem.detailImg ? listItem.detailImg.split(',')[0] : null} />
                                                       </div>
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
@@ -321,7 +323,7 @@ class HomePageContainer extends React.Component {
                                                   <div className="one">
                                                       <div className="downed">失效</div>
                                                       <div className="pic">
-                                                          <img src={listItem.productImg && listItem.productImg.split(',')[0]} />
+                                                          <img src={listItem.detailImg && listItem.detailImg.split(',')[0]} />
                                                       </div>
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
@@ -355,8 +357,10 @@ class HomePageContainer extends React.Component {
                   <span style={{ paddingLeft: '10px' }}>全选</span>
               </Checkbox>
               <div style={{ flex : 'auto' }}/>
-              <div className="all">合计：<span>￥ {this.checkPay(this.state.data)}</span></div>
-              <div className="all2" onClick={() => this.onSubmit()}>结算</div>
+              <div className="all">合计：<span>￥ {tools.point2(this.checkPay(this.state.data))}</span></div>
+              <div className="all2" onClick={() => this.onSubmit()}>结算({ this.state.data.reduce((res, item)=>{
+                  return res + item.productList.filter((v) => v.checked).length;
+              }, 0) })</div>
           </div>
       </div>
     );

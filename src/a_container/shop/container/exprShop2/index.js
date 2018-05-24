@@ -67,6 +67,7 @@ class HomePageContainer extends React.Component {
             this.makeAreaData(this.props.areaData);
         }
         $(window).on('scroll', () => this.scrollEvent());
+        this.getPics();
     }
 
     componentWillUnmount() {
@@ -301,7 +302,7 @@ class HomePageContainer extends React.Component {
                             {this.state.barPics.map((item, index) => (
                                 <a
                                     key={index}
-                                    href={u ? `${item.url}&e=${u.id}` : item.url}
+                                    href={item.url}
                                     style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                                     target="_blank"
                                 >

@@ -70,7 +70,7 @@ class HomePageContainer extends React.Component {
       e.stopPropagation();
       this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
           if(res.status === 200) {
-              Toast.success('加入购物车成功');
+              Toast.success('加入购物车成功',1);
               this.props.actions.shopCartCount();
           } else {
               Toast.info(res.message);
@@ -138,7 +138,7 @@ class HomePageContainer extends React.Component {
                                         res.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
                                             return (
                                                 <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                    <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
+                                                    <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
                                                     <div className="p-t all_nowarp2">{vvv.productModel && `${vvv.name}${vvv.productModel.name}`}</div>
                                                     <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
                                                     <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
@@ -155,7 +155,7 @@ class HomePageContainer extends React.Component {
                                         res.filter((vv, ii) => ii % 2).map((vvv, iii) => {
                                             return (
                                                 <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                    <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
+                                                    <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
                                                     <div className="p-t all_nowarp2">{vvv.productModel && `${vvv.name}${vvv.productModel.name}`}</div>
                                                     <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
                                                     <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
@@ -177,7 +177,7 @@ class HomePageContainer extends React.Component {
                                               v.productList.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
                                                   return (
                                                       <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                          <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
+                                                          <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
                                                           <div className="p-t all_nowarp2">{vvv.productModel && `${vvv.name}${vvv.productModel.name}`}</div>
                                                           <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
                                                           <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
@@ -194,7 +194,7 @@ class HomePageContainer extends React.Component {
                                               v.productList.filter((vv, ii) => ii % 2).map((vvv, iii) => {
                                                   return (
                                                       <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                          <img src={vvv.productImg && vvv.productImg.split(',')[0]} />
+                                                          <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
                                                           <div className="p-t all_nowarp2">{vvv.productModel && `${vvv.name}${vvv.productModel.name}`}</div>
                                                           <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
                                                           <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>

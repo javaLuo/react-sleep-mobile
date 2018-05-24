@@ -176,7 +176,7 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareAppMessage({
                 title: this.state.data.name || '翼猫健康',
                 desc: this.state.data.productModel ? this.state.data.productModel.modelDetail : '来自翼猫微信商城',
-                imgUrl: this.state.data.productImg ? this.state.data.productImg.split(',')[0] : null,
+                imgUrl: this.state.data.detailImg ? this.state.data.detailImg.split(',')[0] : null,
                 link: window.location.href,
                 type: 'link',
                 success: () => {
@@ -186,7 +186,7 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareTimeline({
                 title: this.state.data.name || '翼猫健康',
                 desc: this.state.data.productModel ? this.state.data.productModel.modelDetail : '来自翼猫微信商城',
-                imgUrl: this.state.data.productImg ? this.state.data.productImg.split(',')[0] : null,
+                imgUrl: this.state.data.detailImg ? this.state.data.detailImg.split(',')[0] : null,
                 link: window.location.href,
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -384,9 +384,6 @@ class HomePageContainer extends React.Component {
                   </div>
               ) : null
           }
-          <div className="detail-box">
-              {(d && d.detailImg) ? d.detailImg.split(',').map((item, index) => <img key={index} src={item} />) : null}
-          </div>
           <div className="play">
               <Link className="btn-normal" to="/my/kf">
                   <img src={ImgKf} />

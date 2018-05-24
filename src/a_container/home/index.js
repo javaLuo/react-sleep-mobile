@@ -23,7 +23,6 @@ import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
 import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
 import ImgShangCheng from '../../assets/home/home_shangcheng@3x.png';
-import ImgTest from '../../assets/test/new.png';
 import ImgStar1 from '../../assets/home/star_1@3x.png';
 import ImgLikeThis from '../../assets/home/likethis@3x.png';
 import ImgLooked from '../../assets/home/looked@3x.png';
@@ -34,7 +33,7 @@ import ImgCar from '../../assets/shop/jrgwc@3x.png';
 // ==================
 
 import { mallApList, getOrdersCount, getLiveListCache, getLiveTypes, pushCarInterface } from '../../a_action/shop-action';
-import { getRecommend, getActivityList, getGoodServiceStations, inputStation } from '../../a_action/new-action';
+import { getRecommend, getActivityList, getGoodServiceStations, inputStation, shopCartCount } from '../../a_action/new-action';
 // ==================
 // Definition
 // ==================
@@ -178,7 +177,7 @@ class HomePageContainer extends React.Component {
         e.stopPropagation();
         this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
             if(res.status === 200) {
-                Toast.success('加入购物车成功');
+                Toast.success('加入购物车成功',1);
                 this.props.actions.shopCartCount();
             } else {
                 Toast.info(res.message);
@@ -266,7 +265,7 @@ class HomePageContainer extends React.Component {
                   { this.props.homeRecommend.filter((item, index) => index < 2).map((vv, ii) => {
                       return (
                           <li key={ii} onClick={() => this.onRecommendClick(vv.id)}>
-                                  <div className="pic"><img className="all_radius" src={vv.productImg && vv.productImg.split(',')[0]}/></div>
+                                  <div className="pic"><img className="all_radius" src={vv.detailImg && vv.detailImg.split(',')[0]}/></div>
                                   <div className="t all_nowarp2">{vv.name}</div>
                                   <div className="num">已售: {vv.buyCount}</div>
                                   <div className="m" onClick={(e) => this.onPushCar(e,vv.id)}><i>￥{tools.point2(vv.productModel.price+vv.productModel.openAccountFee)}</i><img src={ImgCar} /></div>
@@ -280,7 +279,7 @@ class HomePageContainer extends React.Component {
                       this.props.homeRecommend.filter((item, index) => index >= 2).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.onRecommendClick(item.id)}>
-                                      <div className="pic"><img className="all_radius" src={item.productImg && item.productImg.split(',')[0]}/></div>
+                                      <div className="pic"><img className="all_radius" src={item.detailImg && item.detailImg.split(',')[0]}/></div>
                                       <div className="t all_nowarp2">{item.name}</div>
                                       <div className="num">已售: {item.buyCount}</div>
                                       <div className="m" onClick={(e) => this.onPushCar(e,item.id)}><i>￥{tools.point2(item.productModel.price+item.productModel.openAccountFee)}</i><img src={ImgCar} /></div>
@@ -409,6 +408,6 @@ export default connect(
       activityList: state.n.activityList,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList, getGoodServiceStations, inputStation, pushCarInterface }, dispatch),
+    actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList, getGoodServiceStations, inputStation, pushCarInterface, shopCartCount }, dispatch),
   })
 )(HomePageContainer);

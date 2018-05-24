@@ -84,7 +84,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.aliasName || '添加'}</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.userAsterisk && u.userAsterisk.aliasName ? u.userAsterisk.aliasName : '添加'}</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker
@@ -102,7 +102,7 @@ class List extends React.PureComponent {
                             <div className="lit black star">星级标注：{(() => {
                                 const m = [];
                                 for(let i=0;i<5;i++) {
-                                    if(i<u.asteriskLevel){
+                                    if(i< (u.userAsterisk && u.userAsterisk.asteriskLevel ? u.userAsterisk.asteriskLevel : 0)){
                                         m.push(<img key={i} src={IcomStar1}/>);
                                     }else{
                                         m.push(<img key={i} src={IcomStar0}/>);
@@ -119,7 +119,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.aliasName || '添加'}</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.userAsterisk && u.userAsterisk.aliasName ? u.userAsterisk.aliasName : '添加'}</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker
@@ -137,7 +137,7 @@ class List extends React.PureComponent {
                             <div className="lit black star">星级标注：{(() => {
                                 const m = [];
                                 for(let i=0;i<5;i++) {
-                                    if(i<u.asteriskLevel){
+                                    if(i< (u.userAsterisk && u.userAsterisk.asteriskLevel ? u.userAsterisk.asteriskLevel : 0)){
                                         m.push(<img key={i} src={IcomStar1}/>);
                                     }else{
                                         m.push(<img key={i} src={IcomStar0}/>);

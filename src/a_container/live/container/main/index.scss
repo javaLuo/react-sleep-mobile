@@ -123,4 +123,9 @@
   .backColor{
     background-color: #fff !important;
   }
+  .am-tabs-default-bar-tab{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 }

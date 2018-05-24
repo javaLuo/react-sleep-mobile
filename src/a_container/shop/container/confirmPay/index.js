@@ -378,7 +378,7 @@ class HomePageContainer extends React.Component {
                           <div key={index} className="obj-box">
                               <div className="one">
                                   <div className="pic">
-                                      <img src={d.productImg.split(',')[0]} />
+                                      <img src={d.detailImg && d.detailImg.split(',')[0]} />
                                   </div>
                                   <div className="infos">
                                       <div className="t all_warp">{d.name}</div>

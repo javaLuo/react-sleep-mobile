@@ -152,13 +152,11 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
-      console.log('这尼玛是个什么：', this.props.orderInfo);
       const data = this.props.orderInfo.product || {productModel: {} };
       const o = this.state.order;
       const addr = o.shopAddress;
       const type = data.typeId; // 是什么类型产品 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
       const activeStatus = this.getType(o);
-      console.log('所以这是个什么；', activeStatus);
     return (
       <div className="page-order-detail">
           {/** 订单状态 **/}
@@ -199,8 +197,8 @@ class HomePageContainer extends React.Component {
               <div className="info page-flex-row" onClick={() => this.onGotoProduct(data, o.modelType)}>
                   <div className="pic flex-none">
                       {
-                          (data.productImg) ? (
-                              <img src={data.productImg.split(',')[0]} />
+                          (data.detailImg) ? (
+                              <img src={data.detailImg.split(',')[0]} />
                           ) : null
                       }
                   </div>

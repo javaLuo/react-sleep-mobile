@@ -68,7 +68,10 @@ class HomePageContainer extends React.Component {
     }
 
     onChangeStar(u, v) {
-        const params = Object.assign({}, u, {asteriskLevel: v});
+        const params = {
+            asteriskUserId: u.id,
+            asteriskLevel: v,
+        };
         this.props.actions.updateUserInfo2(params).then((res) => {
             if(res.status===200) {
                 Toast.success('修改成功', 1);
@@ -80,7 +83,10 @@ class HomePageContainer extends React.Component {
     }
 
     onChangeBeiZhu(u, v) {
-        const params = Object.assign({}, u, {aliasName: v});
+        const params = {
+            asteriskUserId: u.id,
+            aliasName: v,
+        };
         this.props.actions.updateUserInfo2(params).then((res) => {
             if(res.status===200) {
                 Toast.success('修改成功', 1);

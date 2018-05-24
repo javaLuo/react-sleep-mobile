@@ -166,22 +166,11 @@
     }
   }
 
-  .detail-box{
-    width: 100%;
-
-    img{
-      width: 100%;
-      height: auto;
-    }
-    padding-bottom: 47px;
-    background-color: #fff;
-  }
-
   .editor-box{
     width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 10px 10px 47px 10px;
     background-color: #fff;
     img,p,div,audio,video{
       max-width: 100%;
@@ -202,6 +191,7 @@
     width: 100%;
     z-index: 10;
     display: flex;
+    font-size: 14px;
     .btn-normal{
       width: 50px;
       flex: none;

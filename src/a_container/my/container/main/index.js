@@ -29,7 +29,7 @@ import IconWaitGet from './assets/icon-waitGet@3x.png';
 
 import IconBz from './assets/icon-bz.png';
 import IconJkds from './assets/icon-jkds.png';
-import IconSy from './assets/icon-sy.png';
+import IconSy from './assets/icon-sy@3x.png';
 import IconWddyk from './assets/icon-wddyk.png';
 import IconWdh5xck from './assets/icon-wdh5xck.png';
 import IconWdkh from './assets/icon-wdkh.png';
@@ -391,11 +391,11 @@ class HomePageContainer extends React.Component {
                         <div>我的h5宣传卡</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
-                    <div>
-                        <img src={IconWdsc} />
-                        <div>我的收藏</div>
-                        <WaterWave color="#cccccc" press="down"/>
-                    </div>
+                    {/*<div>*/}
+                        {/*<img src={IconWdsc} />*/}
+                        {/*<div>我的收藏</div>*/}
+                        {/*<WaterWave color="#cccccc" press="down"/>*/}
+                    {/*</div>*/}
                     <div onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=')}>
                         <img src={IconYhxy} />
                         <div>用户协议</div>
@@ -411,6 +411,7 @@ class HomePageContainer extends React.Component {
                         <div>帮助</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
+                    <div />
                 </div>
             </div>
         );

@@ -147,8 +147,8 @@ class HomePageContainer extends React.Component {
                                           <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                               <div className="pic flex-none">
                                                   {
-                                                      (item.product && item.product.productImg) ?
-                                                          <img src={item.product.productImg.split(',')[0]} /> : null
+                                                      (item.product && item.product.detailImg) ?
+                                                          <img src={item.product.detailImg.split(',')[0]} /> : null
                                                   }
                                               </div>
                                               <div className="goods flex-auto">
@@ -181,8 +181,8 @@ class HomePageContainer extends React.Component {
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
-                                                  (item.product && item.product.productImg) ?
-                                                      <img src={item.product.productImg.split(',')[0]} /> : null
+                                                  (item.product && item.product.detailImg) ?
+                                                      <img src={item.product.detailImg.split(',')[0]} /> : null
                                               }
                                           </div>
                                           <div className="goods flex-auto">
@@ -215,8 +215,8 @@ class HomePageContainer extends React.Component {
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
-                                                  (item.product && item.product.productImg) ?
-                                                      <img src={item.product.productImg.split(',')[0]} /> : null
+                                                  (item.product && item.product.detailImg) ?
+                                                      <img src={item.product.detailImg.split(',')[0]} /> : null
                                               }
                                           </div>
                                           <div className="goods flex-auto">
@@ -249,8 +249,8 @@ class HomePageContainer extends React.Component {
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
-                                                  (item.product && item.product.productImg) ?
-                                                      <img src={item.product.productImg.split(',')[0]} /> : null
+                                                  (item.product && item.product.detailImg) ?
+                                                      <img src={item.product.detailImg.split(',')[0]} /> : null
                                               }
                                           </div>
                                           <div className="goods flex-auto">
@@ -283,8 +283,8 @@ class HomePageContainer extends React.Component {
                                       <div className="info page-flex-row" onClick={() => this.onSeeDetail(item)}>
                                           <div className="pic flex-none">
                                               {
-                                                  (item.product && item.product.productImg) ?
-                                                      <img src={item.product.productImg.split(',')[0]} /> : null
+                                                  (item.product && item.product.detailImg) ?
+                                                      <img src={item.product.detailImg.split(',')[0]} /> : null
                                               }
                                           </div>
                                           <div className="goods flex-auto">

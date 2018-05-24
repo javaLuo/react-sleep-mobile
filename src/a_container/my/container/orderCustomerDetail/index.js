@@ -171,8 +171,8 @@ class HomePageContainer extends React.Component {
               <div className="info page-flex-row" onClick={() => this.onGotoProduct(data, this.props.orderInfo.modelType)}>
                   <div className="pic flex-none">
                       {
-                          (data.productImg) ? (
-                              <img src={data.productImg.split(',')[0]} />
+                          (data.detailImg) ? (
+                              <img src={data.detailImg.split(',')[0]} />
                           ) : null
                       }
                   </div>

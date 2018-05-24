@@ -1,4 +1,4 @@
-/* 我的代言卡 - 选择哪一种 */
+ /* 我的代言卡 - 选择哪一种 */
 
 // ==================
 // 所需的各种插件
@@ -60,7 +60,7 @@ class Register extends React.Component {
 
     makeTabBar(data) {
         return data.map((item, index) => {
-            return { title: item.productType, sub: index };
+            return { title: item.typeName, sub: index };
         });
     }
 

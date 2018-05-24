@@ -17,7 +17,7 @@ body{
     touch-action: manipulation;					/* 允许触摸驱动的平移和拖拽缩放 */
     -webkit-text-size-adjust:100%;				/* 关闭IOS横屏时，自动缩放字体大小的功能 */
     font-family: "Segoe UI","Lucida Grande",'Microsoft YaHei', sans-serif;
-    font-size:.32rem;
+    font-size:14px;
     color: #25292e;
 }
 ul,li{position:relative;display:block;}			/* 全部默认相对定位 */

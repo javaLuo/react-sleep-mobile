@@ -285,15 +285,15 @@ class HomePageContainer extends React.Component {
                                                   <div className="info page-flex-row" onClick={() => this.onSeeDetail(v)}>
                                                       <div className="pic flex-none">
                                                           {
-                                                              (v.product && v.product.productImg) ?
-                                                                  <img src={v.product.productImg.split(',')[0]} /> : null
+                                                              (v.product && v.product.detailImg) ?
+                                                                  <img src={v.product.detailImg.split(',')[0]} /> : null
                                                           }
                                                       </div>
                                                       <div className="goods flex-auto">
                                                           <div className="t">{v.product ? v.product.name : ''}</div>
-                                                          <div className="i">价格：￥{v.product ? (v.product.productModel.price * v.count + (v.product.productModel.openAccountFee || 0) + (v.product.productModel.shipFee || 0)) : ''}</div>
+                                                          <div className="i">价格：￥{v.product ? (tools.point2((v.product.productModel.price + (v.product.productModel.openAccountFee || 0)) + (v.product.productModel.shipFee || 0))) : ''}</div>
                                                           <div className="i">数量：{v.count}</div>
-                                                          <div className="i">总计：￥{v.product ? (v.product.productModel.price * v.count + (v.product.productModel.openAccountFee || 0) + (v.product.productModel.shipFee || 0)) : ''}</div>
+                                                          <div className="i">总计：￥{v.product ? (tools.point2((v.product.productModel.price + (v.product.productModel.openAccountFee || 0)) * v.count  + (v.product.productModel.shipFee || 0))) : ''}</div>
                                                       </div>
                                                   </div>
                                                   <div className="controls page-flex-row flex-jc-end">

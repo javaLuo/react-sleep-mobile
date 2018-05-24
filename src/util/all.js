@@ -2,7 +2,7 @@
 const allobj = {
     /** 数字保留两位小数 **/
     point2(num){
-        return num * 100 / 100;
+        return Math.floor(num * 100) / 100;
     },
     /**
      * 将标准格式字符串进行日期格式化
