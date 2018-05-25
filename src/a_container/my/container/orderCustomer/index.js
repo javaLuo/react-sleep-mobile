@@ -14,8 +14,8 @@ import './index.scss';
 // 所需的所有组件
 // ==================
 
-import { Tabs, Button, Modal, Toast, Badge } from 'antd-mobile';
-
+import { Tabs, Modal, Toast, Badge } from 'antd-mobile';
+import Img404 from '../../../../assets/not-found.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -137,7 +137,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          data.map((item, index) => {
+                          data.length ? data.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                           <div className="title page-flex-row flex-jc-sb">
@@ -163,7 +163,10 @@ class HomePageContainer extends React.Component {
                                           </div>
                                   </li>
                               );
-                          })
+                          }) : <li className="data-nothing">
+                              <img src={Img404}/>
+                              <div>亲，这里什么也没有哦~</div>
+                          </li>
                       }
                   </ul>
               </div>
@@ -171,7 +174,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          dataA.map((item, index) => {
+                          dataA.length ? dataA.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -197,7 +200,10 @@ class HomePageContainer extends React.Component {
                                       </div>
                                   </li>
                               );
-                          })
+                          }) : <li className="data-nothing">
+                              <img src={Img404}/>
+                              <div>亲，这里什么也没有哦~</div>
+                          </li>
                       }
                   </ul>
               </div>
@@ -205,7 +211,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          dataB.map((item, index) => {
+                          dataB.length ? dataB.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -231,7 +237,10 @@ class HomePageContainer extends React.Component {
                                       </div>
                                   </li>
                               );
-                          })
+                          }) : <li className="data-nothing">
+                              <img src={Img404}/>
+                              <div>亲，这里什么也没有哦~</div>
+                          </li>
                       }
                   </ul>
               </div>
@@ -239,7 +248,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          dataC.map((item, index) => {
+                          dataC.length ? dataC.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -265,7 +274,10 @@ class HomePageContainer extends React.Component {
                                       </div>
                                   </li>
                               );
-                          })
+                          }) : <li className="data-nothing">
+                              <img src={Img404}/>
+                              <div>亲，这里什么也没有哦~</div>
+                          </li>
                       }
                   </ul>
               </div>
@@ -273,7 +285,7 @@ class HomePageContainer extends React.Component {
               <div className="tabs-div">
                   <ul>
                       {
-                          dataD.map((item, index) => {
+                          dataD.length ? dataD.map((item, index) => {
                               return (
                                   <li className="card-box" key={index}>
                                       <div className="title page-flex-row flex-jc-sb">
@@ -299,7 +311,10 @@ class HomePageContainer extends React.Component {
                                       </div>
                                   </li>
                               );
-                          })
+                          }) : <li className="data-nothing">
+                              <img src={Img404}/>
+                              <div>亲，这里什么也没有哦~</div>
+                          </li>
                       }
                   </ul>
               </div>

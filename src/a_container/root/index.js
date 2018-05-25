@@ -78,7 +78,7 @@ class RootContainer extends React.Component {
 
     initURL() {
         const location = window.location;
-        if (location.href.indexOf('?#') < 0 && (!!tools.check(tools.compilet(c["a"])*(10**5)))) {
+        if (location.href.indexOf('?#') < 0 && (!!tools.check(tools.compilet(c["a"])*(10**5))) && location.href.indexOf('/z/') < 0) {
             const href = (location.hash.split('?')[0]).replace('#', '?#');
             location.replace(href);
             return false;

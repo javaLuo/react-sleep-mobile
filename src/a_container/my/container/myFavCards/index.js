@@ -20,7 +20,7 @@ import ImgShareArr from '../../../../assets/share-arr.png';
 import Img404 from '../../../../assets/not-found.png';
 import ImgGuoQi from '../../../../assets/share/yiguoqi@3x.png';
 import ImgShiYong from '../../../../assets/share/yishiyong@3x.png';
-import { Toast, SwipeAction,List,Modal } from 'antd-mobile';
+import { Toast,List,Modal } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================

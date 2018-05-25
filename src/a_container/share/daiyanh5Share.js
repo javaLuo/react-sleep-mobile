@@ -98,7 +98,7 @@ class Register extends React.Component {
         const d1 = this.state.d1;
         return (
             <div className="page-daiyankah5share">
-                <iframe className="body-box" wmode="transparent" src={item.speakCardUrl}/>
+                <iframe className="body-box" wmode="transparent" src={d1.speakCardUrl}/>
                 <div className="code-box">
                     <div className="codes page-flex-row flex-jc-center">
                         <div>

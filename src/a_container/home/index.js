@@ -41,10 +41,12 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        show: 0,
         imgHeight: '178px',
         activeCount: 0,
         stations: [],   // 5个推荐的体验店
     };
+    this.show = 0;
   }
 
   componentWillMount(){
@@ -53,18 +55,25 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '翼猫健康e家';
-
     // 获取轮播图
     if (!this.props.homePics || this.props.homePics.length === 0) {
-      this.props.actions.mallApList({ typeCode: 'slideshow' });
+      this.props.actions.mallApList({ typeCode: 'slideshow' }).finally(()=>{
+          this.getShow();
+      });
+    } else {
+        this.getShow();
     }
     // 获取热销产品
     if(!this.props.homeRecommend || !this.props.homeRecommend.length) {
         this.getRecommend();
+    } else {
+        this.getShow();
     }
     // 获取推荐视频
     if (!this.props.liveHot || !this.props.liveHot.length) {
         this.getLiveHot();
+    }else {
+        this.getShow();
     }
     // 获取视频分类
       if (!this.props.liveTypes || !this.props.liveTypes.length) {
@@ -73,6 +82,8 @@ class HomePageContainer extends React.Component {
       // 获取热门活动
       if (!this.props.activityList || !this.props.activityList.length) {
         this.getActivityList();
+      }else {
+          this.getShow();
       }
       // 获取有多少人参加活动
     this.getOrdersCount();
@@ -81,9 +92,20 @@ class HomePageContainer extends React.Component {
       this.getGoodServiceStations();
   }
 
+  getShow(){
+      this.show = this.show+1;
+      if(this.show >= 5){
+          this.setState({
+              show: true,
+          });
+      }
+  }
+
   // 获取热销产品
     getRecommend() {
-      this.props.actions.getRecommend();
+      this.props.actions.getRecommend().finally(()=>{
+          this.getShow();
+      });
     }
 
     // 获取推荐服务站
@@ -94,11 +116,15 @@ class HomePageContainer extends React.Component {
                 stations: res.data,
             });
         }
+      }).finally(() => {
+          this.getShow();
       });
     }
     // 获取热门活动
     getActivityList() {
-        this.props.actions.getActivityList();
+        this.props.actions.getActivityList().finally(() => {
+            this.getShow();
+        });
     }
 
     // 获取视频热门直播
@@ -109,7 +135,9 @@ class HomePageContainer extends React.Component {
           pageNum: 1,
           pageSize: 10,
       };
-      this.props.actions.getLiveListCache(params);
+      this.props.actions.getLiveListCache(params).finally(() => {
+          this.getShow();
+      });
     }
     // 获取视频分类
     getLiveTypes() {
@@ -194,7 +222,7 @@ class HomePageContainer extends React.Component {
         { title: '体验店', pic: ImgTiYan, key: 4 },
     ];
     return (
-      <div className="flex-auto page-box home-page">
+      <div className={this.state.show  ? 'home-page show' : 'home-page'}>
           {/* 顶部轮播 */}
           {
               (this.props.homePics && this.props.homePics.length) ? (
@@ -245,10 +273,14 @@ class HomePageContainer extends React.Component {
                   {
                       this.props.activityList.map((item, index) => {
                           let w = 'calc(50% - 5px)';
+                          let marginLeft = '10px';
+                          if((index+1)%2) {
+                              marginLeft='0';
+                          }
                           if (this.props.activityList.length % 2 && index === this.props.activityList.length -1) { // 奇数最后一个
                               w = '100%';
                           }
-                          return (<li key={index} style={w === '100%' ? { width: w, marginLeft: 0 } : { width: w }}>
+                          return (<li key={index} style={{ width: w, marginLeft }}>
                               <Link to={`/shop/activity/${item.id}`}>
                                   <img className="all_radius" src={item.acImg} />
                                   <WaterWave color="#cccccc" press="down"/>

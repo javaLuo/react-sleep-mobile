@@ -1,5 +1,10 @@
 .healthy-main{
   overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 200ms;
+  &.show{
+    opacity: 1;
+  }
   .tran1{
     transition:all 100ms;
   }

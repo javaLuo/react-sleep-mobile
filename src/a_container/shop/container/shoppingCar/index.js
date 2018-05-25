@@ -17,6 +17,8 @@ import tools from '../../../../util/all';
 
 import { Checkbox, SwipeAction, Toast, Modal } from 'antd-mobile';
 import StepLuo from '../../../../a_component/StepperLuo';
+import Img404 from '../../../../assets/not-found.png';
+
 // ==================
 // 本页面所需action
 // ==================
@@ -237,7 +239,7 @@ class HomePageContainer extends React.Component {
       <div className="shopping-car">
           <div className={"bodys"}>
               {
-                  this.state.data.map((item, index) => {
+                  this.state.data.length ? this.state.data.map((item, index) => {
                       return (
                           <div key={index} className="type-box">
                               <div className="title">
@@ -286,7 +288,10 @@ class HomePageContainer extends React.Component {
                               </div>
                           </div>
                       );
-                  })
+                  }) : <div className="data-nothing">
+                      <img src={Img404}/>
+                      <div>亲，这里什么也没有哦~</div>
+                  </div>
               }
               {/** 下面是已失效的商品 **/}
               {

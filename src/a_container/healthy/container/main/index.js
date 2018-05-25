@@ -40,12 +40,9 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '健康服务';
-      setTimeout(() =>{
-              this.setState({
-                  show: true
-              });
-          }
-      ,0);
+      this.setState({
+          show: true
+      });
   }
 
   // 健康知识库点击
@@ -85,7 +82,7 @@ class HomePageContainer extends React.Component {
 
   render() {
     return (
-      <div className={'healthy-main show'}>
+      <div className={this.state.show ? 'healthy-main show' : 'healthy-main'}>
           <div className="bar-list">
               <div className="bar-title">翼猫健康风险评估服务<WaterWave color="#cccccc" press="down"/></div>
               <div className="item hide tran1 page-flex-row" onClick={() => this.props.history.push('/healthy/mycard')}>

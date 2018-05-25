@@ -30,14 +30,18 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        show: false,
         barPics: [],    // 顶部轮播图
     };
+    this.show = 0;
   }
 
   componentDidMount() {
     // 如果state中没有所有的产品信息，就重新获取
     if (!this.props.allProducts.length) {
-        this.props.actions.getProDuctList();
+        this.props.actions.getProDuctList().finally(()=> this.getShow());
+    } else {
+     this.getShow();
     }
     this.getPics(); // 获取顶部轮播图
   }
@@ -51,9 +55,17 @@ class HomePageContainer extends React.Component {
                   imgHeight: '178px',
               });
           }
-      });
+      }).finally(() => this.getShow());
     }
 
+    getShow(){
+      this.show++;
+      if(this.show>=2){
+          this.setState({
+             show: true,
+          });
+      }
+    }
   // 工具 - 通过型号ID查型号名称
   getTypeNameById(id) {
     const result = this.props.allProductTypes.find((item) => Number(item.id) === Number(id));
@@ -79,12 +91,11 @@ class HomePageContainer extends React.Component {
     }
   render() {
       const d = [...this.props.allProducts].sort((a, b) => a-b);
-      console.log('D是什么：', d);
       const u = this.props.userinfo;
     return (
-      <div className="shop-main">
+      <div className={this.state.show ? 'shop-main show' : 'shop-main'}>
           {/* 顶部轮播 */}
-          {
+           {
               (this.state.barPics.length) ? (
                   <Carousel
                       className="my-carousel"
