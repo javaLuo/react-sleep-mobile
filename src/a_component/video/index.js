@@ -4,6 +4,8 @@ import P from 'prop-types';
 import './index.scss';
 import ImgPlay from './assets/play.png';
 import IScroll from 'iscroll';
+import tools from '../../util/all';
+
 class VideoLuo extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -95,54 +97,64 @@ class VideoLuo extends React.PureComponent {
         return (
             <div className="react-video-luo" >
                 <div className="video-luo-scroll" id="scroll-video" ref={(e) => this.dom = e}>
-                    <ul className="video-luo-ul" style={{ width: `${(this.props.imgList.length + ~~!!this.props.videoSrc) * 100}%` }}>
-                        {
-                            this.props.videoSrc ? (
-                                <li>
-                                    <video
-                                        ref={(dom) => this.video = dom}
-                                        playsInline
-                                        loop
-                                        width="100%"
-                                        height="100%"
-                                        preload="true"
-                                        src={this.props.videoSrc}
-                                        poster = {this.props.videoPic || null}
-                                    />
-                                    <div className="mask" onClick={() => this.maskClick()}>
-                                        <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
-                                    </div>
-                                </li>
-                            ) : null
-                        }
-                        {
-                            this.props.imgList.map((item, index) => {
-                              return (
-                                  <li key={index}>
-                                      <div className="pic-box"><img src={item} /></div>
-                                  </li>
-                              );
-                            })
-                        }
-                    </ul>
+                <ul className="video-luo-ul" style={{ width: `${(this.props.imgList.length + ~~!!this.props.videoSrc) * 100}%` }}>
+                {
+                this.props.videoSrc ? (
+                <li>
+                    <video
+                        ref={(dom) => this.video = dom}
+                        loop
+                        webkit-playsinline=""
+                        playsInline="true"
+                        x5-video-player-type="h5"
+                        x5-playsinline=""
+                        x-webkit-airplay="allow"
+                        preload="true"
+                        poster = {this.props.videoPic || null}
+                        src={this.props.videoSrc}
+                        onPause={()=>{
+                            this.setState({
+                                playing: false,
+                            });
+                        }}
+                    />
+
+                <div className="mask" onClick={() => this.maskClick()}>
+                <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
+                </div>
+                </li>
+                ) : null
+                }
+                {
+                this.props.imgList.map((item, index) => {
+                return (
+                <li key={index}>
+                <div className="pic-box"><img src={item} /></div>
+                </li>
+                );
+                })
+                }
+                </ul>
                 </div>
                 <div className="video-foot">
-                    {
-                        this.props.videoSrc ? (
-                            [
-                                <div key="1" className={this.state.btnCheck === 0 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(0)}><i />视频</div>,
-                                <div key="2" className={this.state.btnCheck === 1 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(1)}>图片</div>
-                            ]
-                        ) : null
-                    }
+                {
+                this.props.videoSrc ? (
+                [
+                <div key="1" className={this.state.btnCheck === 0 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(0)}><i />视频</div>,
+                <div key="2" className={this.state.btnCheck === 1 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(1)}>图片</div>
+                ]
+                ) : null
+                }
 
-                    {
-                        this.state.btnCheck ? (
-                            <div className="pic-num">{`${this.state.page + ~~!this.props.videoSrc}/${this.props.imgList.length}`}</div>
-                        ) : null
-                    }
+                {
+                this.state.btnCheck ? (
+                <div className="pic-num">{`${this.state.page + ~~!this.props.videoSrc}/${this.props.imgList.length}`}</div>
+                ) : null
+                }
 
                 </div>
+
+
             </div>
         );
     }

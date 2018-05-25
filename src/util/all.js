@@ -286,6 +286,21 @@ const allobj = {
             case '7': return '分销用户';
             default: return '';
         }
+    },
+    /**
+     * 判断是安卓还是IOS
+     * **/
+    checkSystem() {
+        const u = navigator.userAgent;
+        const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        const isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if(isAndroid){
+            return 'android';
+        } else if (isiOS){
+            return 'ios';
+        } else {
+            return 'i dont know';
+        }
     }
 };
 

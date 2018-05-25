@@ -74,7 +74,7 @@ class HomePageContainer extends React.Component {
             Toast.hide();
         } else {
             Toast.info(res.message, 1);
-            setTimeout(() => this.props.history.go(-1), 1000);
+           // setTimeout(() => this.props.history.go(-1), 1000);
 
         }
     }).catch(() => {
@@ -292,14 +292,19 @@ class HomePageContainer extends React.Component {
       const d = this.state.data || {};
       console.log('D是什么：', d);
     return (
-      <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page'}>
+      <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page show'}>
           <div className="title-pic">
               {/* 顶部轮播 */}
-              <VideoLuo
-                videoPic={null}
-                videoSrc={d.coverVideo}
-                imgList={d.productImg ? d.productImg.split(',') : []}
-              />
+              {
+
+                      <VideoLuo
+                          videoPic={null}
+                          videoSrc={d.coverVideo}
+                          imgList={d.productImg ? d.productImg.split(',') : []}
+                      />
+
+              }
+
           </div>
           {/* 商品信息说明 */}
           <div className="goodinfo">

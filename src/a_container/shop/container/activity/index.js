@@ -15,7 +15,7 @@ import './index.scss';
 // ==================
 
 import { Toast } from 'antd-mobile';
-import ImgTest from '../../../../assets/test/new.png';
+import ImgLogo from '../../../../assets/logo-img.png';
 
 // ==================
 // 本页面所需action
@@ -90,7 +90,7 @@ class HomePageContainer extends React.Component {
                           return (
                               <li key={index}>
                                   <Link to={`/shop/activity/${item.id}`}>
-                                      <img src={item.productImg} />
+                                      <img src={item.product.detailImg || ImgLogo} />
                                   </Link>
                               </li>
                           );
