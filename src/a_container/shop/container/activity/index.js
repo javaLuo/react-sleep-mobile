@@ -89,7 +89,7 @@ class HomePageContainer extends React.Component {
                       d.recommendProductList && d.recommendProductList.map((item, index) => {
                           return (
                               <li key={index}>
-                                  <Link to={`/shop/activity/${item.id}`}>
+                                  <Link to={`/shop/gooddetail/${item.productId}`}>
                                       <img src={item.product.detailImg || ImgLogo} />
                                   </Link>
                               </li>

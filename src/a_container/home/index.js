@@ -113,7 +113,7 @@ class HomePageContainer extends React.Component {
       this.props.actions.getGoodServiceStations({ pageNum: 1, pageSize: 5 }).then((res) => {
         if(res.status === 200) {
             this.setState({
-                stations: res.data,
+                stations: res.data.result || [],
             });
         }
       }).finally(() => {

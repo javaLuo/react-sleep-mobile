@@ -5,7 +5,7 @@ import './index.scss';
 import ImgPlay from './assets/play.png';
 import IScroll from 'iscroll';
 import tools from '../../util/all';
-
+import ImgLogo from '../../assets/logo-img.png';
 class VideoLuo extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -104,13 +104,15 @@ class VideoLuo extends React.PureComponent {
                     <video
                         ref={(dom) => this.video = dom}
                         loop
-                        webkit-playsinline=""
-                        playsInline="true"
                         x5-video-player-type="h5"
-                        x5-playsinline=""
+                        x5-video-player-fullscreen="true"
+                        x5-video-orientation="portrait"
                         x-webkit-airplay="allow"
+                        playsInline
+                        webkit-playsinline="true"
                         preload="true"
-                        poster = {this.props.videoPic || null}
+
+                        poster = {this.props.videoPic || ImgLogo}
                         src={this.props.videoSrc}
                         onPause={()=>{
                             this.setState({

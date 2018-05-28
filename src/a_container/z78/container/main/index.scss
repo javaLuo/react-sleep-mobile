@@ -6,13 +6,16 @@
   flex-direction: column;
   .iframe-body{
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
+    height: calc(100vw - 50px);
     iframe{
       display: block;
       width: 100%;
+      height: 100%;
       border: none;
       padding:0;
       margin: 0;
+      overflow: auto;
     }
   }
   .footer{
@@ -137,12 +140,14 @@
         width: 40px;
         height: auto;
         flex: none;
+        margin-right: 5px;
       }
       .infos{
         flex: 1;
       }
       .phone-call{
         flex: none;
+        margin-left: 5px;
         img{
           width: 34px;
           height: auto;

@@ -175,8 +175,8 @@ class HomePageContainer extends React.Component {
         });
         const params = {
             province: e && e[0],
-            city: e && e[1],
-            region: e && e[2],
+          //  city: e && e[1],
+          //  region: e && e[2],
         };
         this.props.actions.getAreaManagerByArea(params).then((res) => {
             if(res.status === 200) {
