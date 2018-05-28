@@ -10,10 +10,22 @@
   border-top: solid 1px #efefef;
   background-color: #fff !important;
   z-index: 99;
+
+  @keyframes btn-change {
+    0% { transform: scale(1,1) }
+    50%{ transform: scale(.7,.7) }
+    100%{ transform: scale(1,1) }
+  }
+
   .menu-item{
     flex: 1;
     a{
+      display: block;
       color: #222328;
+    }
+    &.check{
+      animation-name: btn-change;
+      animation-duration: 300ms;
     }
     &.check, &:active{
       a{

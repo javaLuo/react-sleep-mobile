@@ -259,12 +259,11 @@ class Register extends React.Component {
      * **/
     successReturn() {
         /**
-         * 支付流程完成，跳转到结果页
+         * 支付流程完成，跳转到结果页 (现在是直接回到我的优惠卡页)
          * 参数1：成功后生成的卡片信息，现在由后台生成，获取不到
          * 参数2：当前的订单信息
          * **/
         this.props.history.replace('/my/myfavcards');
-        // this.props.actions.payResultNeed({}, this.s3data);
         // setTimeout(() => this.props.history.replace('/shop/payresult'), 16);
     }
 

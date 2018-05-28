@@ -94,7 +94,7 @@ class HomePageContainer extends React.Component {
 
   getShow(){
       this.show = this.show+1;
-      if(this.show >= 5){
+      if(this.show >= 3){
           this.setState({
               show: true,
           });

@@ -5,6 +5,13 @@
   .box1{
     height: calc(100vh - 50px);
     overflow:auto !important;
+    .my-carousel{
+      background-color: #f0f0f0;
+      img{
+        object-fit: cover;
+        height: calc(100vw * 0.43);
+      }
+    }
   }
   .box2{
     height: 50px;
@@ -71,10 +78,20 @@
       margin-bottom: 5px;
     }
     .pic{
+      display: flex;
+      width: 100vw;
+      overflow: auto;
+      box-sizing: border-box;
+      padding: 0 10px;
       img{
         display: block;
-        width: 100%;
-        height: auto;
+        flex: none;
+        margin: 0 3px;
+        height: 80px;
+        border-radius: 3px;
+        &+img{
+          margin-left: 5px;
+        }
       }
     }
     .star-row{

@@ -104,9 +104,8 @@ class VideoLuo extends React.PureComponent {
                     <video
                         ref={(dom) => this.video = dom}
                         loop
-                        x5-video-player-type="h5"
-                        x5-video-player-fullscreen="true"
-                        x5-video-orientation="portrait"
+                        // x5-playsinline="true"   // 不全屏，但会顶层
+                        x5-video-player-type="h5" // 不顶层， 但会全屏
                         x-webkit-airplay="allow"
                         playsInline
                         webkit-playsinline="true"

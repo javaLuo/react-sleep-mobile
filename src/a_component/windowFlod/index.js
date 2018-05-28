@@ -20,7 +20,6 @@ class WindowFlod extends React.Component {
     }
 
     render() {
-        console.log('这个里面是多少：', this.props.shoppingCarNum);
         return (
             <div className={this.shoudBeShow()}>
                 <div className={"btn"} onClick={() => this.props.history.push('/shop/shoppingcar')}>

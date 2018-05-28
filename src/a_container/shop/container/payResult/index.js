@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
 import tools from '../../../../util/all';
+import { Toast } from 'antd-mobile';
 // ==================
 // 所需的所有组件
 // ==================
@@ -21,7 +22,7 @@ import ImgFail from '../../../../assets/quxiao@3x.png';
 // 本页面所需action
 // ==================
 
-import { mallOrderHraCard, mallOrderQuery } from '../../../../a_action/shop-action';
+import { mallOrderHraCard, mallOrderQuery, payOrderQuery } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -45,7 +46,6 @@ class HomePageContainer extends React.Component {
       sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
 
       const id = String(this.props.location.pathname.split('/').slice(-1));
-      console.log('没有？', this.props.location.pathname);
       if(!Number(id)){
           this.props.history.replace('/my/order');
       }
@@ -53,17 +53,20 @@ class HomePageContainer extends React.Component {
   }
 
   componentWillUnmount() {
-
+    Toast.hide();
   }
 
   /** 获取当前订单最新信息 **/
   getOrderData(id){
-      this.props.actions.mallOrderQuery({ orderId: id }).then((res) => {
+      Toast.loading('请稍后...', 0);
+      this.props.actions.payOrderQuery({ mainOrderId: id, tradeType: 'JSAPI' }).then((res) => {
           if (res.status === 200) {
               this.setState({
                   orderData: res.data,
               });
           }
+      }).finally(() => {
+          Toast.hide();
       });
   };
 
@@ -72,26 +75,25 @@ class HomePageContainer extends React.Component {
       <div className="flex-auto page-box page-pay-result">
           <div className="head">
           {
-          [2,4].includes(this.state.orderData.conditions) ? <img src={ImgIcon} /> : <img src={ImgFail} />
+          ['SUCCESS'].includes(this.state.orderData.state) ? <img src={ImgIcon} /> : <img src={ImgFail} />
           }
           <div>{(() => {
-          switch(String(this.state.orderData.conditions)){
-          case '0': return '付款失败';
-          case '1': return '等待受理';
-          case '2': return '购买成功';  // 待发货
-          case '3': return '处理中';
-          case '4': return '购买成功';
-          case '-1': return '审核成功';
-          case '-2': return '未通过';
-          case '-3': return '已取消';
+          switch(String(this.state.orderData.state)){
+          case 'SUCCESS': return '支付成功';
+          case 'REFUND': return '转入退款';
+          case 'NOTPAY': return '未支付';
+          case 'CLOSED': return '已关闭';
+          case 'REVOKED': return '已撤销';
+          case 'USERPAYING': return '支付处理中';
+          case 'PAYERROR': return '支付失败';
           default: return '--';
           }
           })()}</div>
           </div>
           <div className="pay-info">
-          <div>订单号：{this.state.orderData.id || ''}</div>
+          <div>订单号：{this.state.orderData.mainOrderId || ''}</div>
           <div>下单时间：{this.state.orderData.createTime || ''}</div>
-          <div>付款时间：{this.state.orderData.payTime }</div>
+          <div>付款时间：{this.state.orderData.payTime || ''}</div>
           <div>数量：{this.state.orderData.count}</div>
           <div>实付款：{this.state.orderData.fee ? `￥ ${this.state.orderData.fee}` : ''}</div>
           </div>
@@ -122,6 +124,6 @@ export default connect(
   (state) => ({
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallOrderHraCard, mallOrderQuery }, dispatch),
+    actions: bindActionCreators({ mallOrderHraCard, mallOrderQuery, payOrderQuery }, dispatch),
   })
 )(HomePageContainer);
