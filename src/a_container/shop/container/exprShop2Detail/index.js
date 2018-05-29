@@ -46,6 +46,8 @@ class HomePageContainer extends React.Component {
             userLng: null, // 用户坐标X
             userLat: null, // 用户坐标Y
             resType: 1, // 0查询的是最近的，1普通的查询
+            showImgModal: false,
+            showImgSrc: null,
         };
         this.map = null;            // 地图实例
         this.geolocation = null;    // 定位插件实例
@@ -82,6 +84,14 @@ class HomePageContainer extends React.Component {
     onGoMap(item) {
         this.props.actions.saveMapAddr(item);
         setTimeout(() => this.props.history.push('/downline/map'));
+    }
+
+    onImgBig(e) {
+        console.log({t:e.target.classList[0]});
+        this.setState({
+            showImgSrc: e.target.src,
+            showImgModal: true,
+        });
     }
 
     render() {
@@ -151,7 +161,7 @@ class HomePageContainer extends React.Component {
                                     <div className={"i"}>{ item.textContent }</div>
                                     <div className={"pic"}>
                                         { item.imgs ? item.imgs.split(',').map((v,i) => {
-                                            return <img key={i} src={v} />;
+                                            return <img onClick={(e) => this.onImgBig(e)} key={i} src={v} />;
                                         }) : null }
                                     </div>
                                 </div>
@@ -170,6 +180,9 @@ class HomePageContainer extends React.Component {
                             <img src={IconRoad} />
                             <span>导航</span>
                     </div>
+                </div>
+                <div className={this.state.showImgModal ? 'mark show' : 'mark'} onClick={()=> this.setState({ showImgModal: false })}>
+                    <img src={this.state.showImgSrc} />
                 </div>
             </div>
         );

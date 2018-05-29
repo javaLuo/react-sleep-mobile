@@ -115,8 +115,9 @@ class HomePageContainer extends React.Component {
 
     // 来啊 陀螺仪
     motionHandler = (event) => {
+        const beta = event.beta > 90 ? 1 : -1;
         const gamma = event.gamma; // -180 ~ 180
-        this.headImg.style.transform = `rotate(${-gamma}deg)`;
+        this.headImg.style.transform = `rotate(${beta * gamma/2}deg)`;
     };
 
     // svg执行
@@ -399,7 +400,7 @@ class HomePageContainer extends React.Component {
                     </div>
                     <div onClick={() => this.onH5DaiYanClick()}>
                         <img src={IconWdh5xck} />
-                        <div>我的h5宣传卡</div>
+                        <div>我的宣传卡</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
                     {/*<div>*/}

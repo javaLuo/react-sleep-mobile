@@ -39,7 +39,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的H5宣传卡';
+        document.title = '我的宣传卡';
         if(!this.props.daiyanh5List.length) {
             this.getData();
         }

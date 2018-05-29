@@ -5,7 +5,7 @@
   background-repeat: no-repeat;
   display :flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   .logo{
     position: absolute;
     top: .3rem;
@@ -22,8 +22,7 @@
   }
   .body-box{
     padding: 1.3rem .2rem .2rem .2rem;
-    flex: auto;
-    overflow: auto;
+    flex: 1;
     .head-box{
       position: relative;
       margin-top: 0;

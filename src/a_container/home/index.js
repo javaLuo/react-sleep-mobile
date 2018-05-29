@@ -88,6 +88,9 @@ class HomePageContainer extends React.Component {
       // 获取有多少人参加活动
     this.getOrdersCount();
 
+    // 获取购物车数量
+      this.props.actions.shopCartCount();
+
     // 获取推荐服务站
       this.getGoodServiceStations();
   }

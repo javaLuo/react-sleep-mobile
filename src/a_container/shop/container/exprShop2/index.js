@@ -97,7 +97,7 @@ class HomePageContainer extends React.Component {
 
     // 获取头部轮播图
     getPics() {
-        this.props.actions.mallApList({ typeCode: 'station' }).then((res)=> {
+        this.props.actions.mallApList({ typeCode: 'ticket' }).then((res)=> {
             if(res.status === 200) {
                 this.setState({
                     barPics: res.data,

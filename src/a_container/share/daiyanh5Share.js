@@ -1,4 +1,4 @@
-/* 我的H5代言卡详情 */
+/* 我的代言卡详情 */
 
 // ==================
 // 所需的各种插件
@@ -40,7 +40,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的H5宣传卡分享';
+        document.title = '我的宣传卡分享';
         this.getCode();
         this.getShareInfo();
     }

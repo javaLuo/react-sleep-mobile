@@ -2,7 +2,13 @@
 const allobj = {
     /** 数字保留两位小数 **/
     point2(num){
-        return Math.floor(num * 100) / 100;
+        const fixed = 2;
+        let pos = num.toString().indexOf('.'),
+            decimal_places = num.toString().length - pos - 1,
+            _int = num * Math.pow(10, decimal_places),
+            divisor_1 = Math.pow(10, decimal_places - fixed),
+            divisor_2 = Math.pow(10, fixed);
+        return Math.round(_int / divisor_1) / divisor_2;
     },
     /**
      * 将标准格式字符串进行日期格式化

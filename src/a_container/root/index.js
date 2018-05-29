@@ -62,7 +62,7 @@ class RootContainer extends React.Component {
 
   componentDidMount() {
       window.theHistory = history;
-      setTimeout(() => {this.getUserInfo();this.props.actions.shopCartCount();});
+      this.getUserInfo();
      Home.preload();
      My.preload();
      Healthy.preload();

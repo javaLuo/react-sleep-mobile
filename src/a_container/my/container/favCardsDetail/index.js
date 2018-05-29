@@ -274,8 +274,8 @@ class Register extends React.Component {
                 <div className="img-box">
                     <img className="img" src={Img} />
                 </div>
-                <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : '仅需支付50元材料费，即可使用该卡'}</div>
-                <div className="other-info">(此款项是代提供健康评估服务的服务中心收取)</div>
+                <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : ' '}</div>
+                <div className="other-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '(此款项是代提供健康评估服务的服务中心收取)' : ' '}</div>
                 <div className="footer-zw"/>
                 {
                     (d.ticketType === 'M' && d.ticketStatus === 3 && d.handselStatus !== 1) ? (
