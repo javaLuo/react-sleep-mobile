@@ -42,7 +42,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         show: 0,
-        imgHeight: '178px',
+        imgHeight: 'calc(100vw * 0.43)',
         activeCount: 0,
         stations: [],   // 5个推荐的体验店
     };
@@ -251,13 +251,13 @@ class HomePageContainer extends React.Component {
                           </a>
                       ))}
                   </Carousel>
-              ) : <div style={{ height: `${this.state.imgHeight}` }} />
+              ) : <div style={{ height: `calc(100vw * 0.43)` }} />
           }
           {/** 上方4个圆导航按钮 **/}
           <div className="link-bar page-flex-row">
               {
                   barData.map((item, index) => <div key={index} onClick={() => this.onLinkClick(item.key)}>
-                      <img src={item.pic} />
+                      <img className={`ball-animation ball${index}`} src={item.pic} />
                       <div>{item.title}</div>
                       <WaterWave color="#cccccc" press="down"/>
                   </div>)

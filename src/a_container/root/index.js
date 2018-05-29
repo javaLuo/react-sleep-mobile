@@ -118,7 +118,9 @@ class RootContainer extends React.Component {
     }
 
     onEnter(Component, props) {
-        // document.body.scrollTop = document.documentElement.scrollTop = 0;
+      if(!['home','shop'].includes(props.location.pathname.split('/')[1])){
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
+      }
         return <Component {...props} />;
     }
 

@@ -4,7 +4,6 @@
   left:0;
   width: 100%;
   height: 46px;
-  padding: 5px 0;
   box-sizing: border-box;
   display: flex;
   border-top: solid 1px #efefef;
@@ -18,6 +17,7 @@
   }
 
   .menu-item{
+    padding: 5px 0;
     flex: 1;
     a{
       display: block;

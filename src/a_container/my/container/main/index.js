@@ -76,10 +76,15 @@ class HomePageContainer extends React.Component {
                 show: true,
             });
         },0);
-        if(!sessionStorage.getItem('win.resize')) {
-            window.addEventListener("resize", () => this.realSvg());
-            sessionStorage.setItem('win.resize', 't');
+        window.addEventListener("resize", this.realSvg, false);
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", this.motionHandler, false);
         }
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.realSvg, false);
+        window.removeEventListener("deviceorientation", this.motionHandler, false);
     }
 
     svgInit() {
@@ -91,7 +96,7 @@ class HomePageContainer extends React.Component {
         p2.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
     }
 
-    realSvg() {
+    realSvg = () => {
         if(!document.getElementById('svg-box')){
             return;
         }
@@ -106,7 +111,13 @@ class HomePageContainer extends React.Component {
             p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
             p2.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
         }
-    }
+    };
+
+    // 来啊 陀螺仪
+    motionHandler = (event) => {
+        const gamma = event.gamma; // -180 ~ 180
+        this.headImg.style.transform = `rotate(${-gamma}deg)`;
+    };
 
     // svg执行
     toggleSvg() {
@@ -284,7 +295,7 @@ class HomePageContainer extends React.Component {
                             </svg>
                         </div>
                         <div className="pic" onClick={() => this.props.history.push(u ? '/my/userinfo' : '/login')}>
-                            <img src={u && u.headImg ? u.headImg : ImgBar1} />
+                            <img ref={(dom)=>this.headImg = dom} src={u && u.headImg ? u.headImg : ImgBar1} />
                         </div>
                         <div className="name" style={this.state.svgPlay ? { color: '#fff' } : null}>{(u && u.nickName) ? u.nickName : '未设置昵称'}</div>
                         <div className="e-num" style={this.state.svgPlay ? { color: '#fff' } : null}>e家号：{ u ? u.id : '-' }</div>

@@ -2,8 +2,32 @@
   font-size: 14px;
   opacity: 0;
   transition: opacity 200ms;
+  @keyframes ball {
+    0%{ transform: scale(.5,.5) rotate(30deg); opacity: 0 }
+    70%{ transform: scale(1.1,1.1); opacity: 1 }
+    100%{ transform: scale(1,1) rotate(0deg); opacity:1 }
+  }
   &.show{
     opacity: 1;
+    .link-bar{
+      .ball-animation{
+        animation-name: ball;
+        animation-duration: 256ms;
+        animation-fill-mode: backwards;
+        &.ball0{
+          animation-delay: 80ms;
+        }
+        &.ball1{
+          animation-delay: 160ms;
+        }
+        &.ball2{
+          animation-delay: 240ms;
+        }
+        &.ball3{
+          animation-delay: 320ms;
+        }
+      }
+    }
   }
   .my-carousel{
     background-color: #f0f0f0;
