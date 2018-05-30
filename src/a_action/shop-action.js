@@ -433,6 +433,35 @@ export const getMyCustomers = (params = {}) => async(dispatch) => {
     }
 };
 
+// 获取我的客户订单总数
+export const getAuditCount = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/auditCount', params, 'post', true );
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 个人中心获取各订单数量
+export const getShipOrderCount = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/shipOrderCount', params, 'post', true );
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 获取我的推广用户列表
+export const updateShopCarCount = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/shopCart/updateCount', params );
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
 
 // 获取我的推广用户列表共有多少个
 export const getMyCustomersCount = (params = {}) => async(dispatch) => {

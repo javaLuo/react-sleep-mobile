@@ -108,7 +108,7 @@ class HomePageContainer extends React.Component {
               </div>
               <div className="item hide tran4 page-flex-row" onClick={() => this.props.history.push('/healthy/myreport')}>
                   <img className="icon" src={ImgBar4} />
-                  <div className="title">检查报告</div>
+                  <div className="title">评估报告</div>
                   <div className="arrow"><img src={ImgRight} /></div>
                   <div className="line"/>
                   <WaterWave color="#cccccc" press="down"/>

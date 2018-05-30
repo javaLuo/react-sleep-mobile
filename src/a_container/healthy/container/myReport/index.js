@@ -41,7 +41,7 @@ class HomePageContainer extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的检查报告';
+        document.title = '评估报告';
         this.getData();
     }
 

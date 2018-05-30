@@ -23,7 +23,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar } from '../../../../a_action/shop-action';
+import { getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar, updateShopCarCount } from '../../../../a_action/shop-action';
 import { shopCartCount } from '../../../../a_action/new-action';
 // ==================
 // Definition
@@ -209,6 +209,10 @@ class HomePageContainer extends React.Component {
             for(let j=0;j<d[i].productList.length;j++){
                 if(d[i].productList[j].id === id) {
                     d[i].productList[j].shopCart.number = num;
+                    this.props.actions.updateShopCarCount({
+                        shopCartId: d[i].productList[j].shopCart.id,
+                        addCount: num,
+                    });
                     break outer;
                 }
             }
@@ -228,6 +232,10 @@ class HomePageContainer extends React.Component {
         }
         if(!arr.length){
             Toast.info('您还没有选择商品哦', 1);
+            return;
+        }
+        if(this.checkPay(this.state.data) > 10000) {
+            Toast.info('单笔单日金额不可超过1万，请重新选择商品', 2);
             return;
         }
         this.props.actions.getDefaultAttr(); // 查默认收货地址
@@ -265,13 +273,13 @@ class HomePageContainer extends React.Component {
                                               >
                                                   <div className="one">
                                                       <Checkbox checked={listItem.checked} onChange={() => this.onCheckbox(listItem.id, 1)} />
-                                                      <div className="pic">
+                                                      <div className="pic" onClick={()=> this.props.history.push(`/shop/gooddetail/${listItem.id}`)}>
                                                           <img src={listItem.detailImg ? listItem.detailImg.split(',')[0] : null} />
                                                       </div>
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
                                                           <div className="num">
-                                                              <span className="money">￥{listItem.productModel ? listItem.productModel.price : 0}</span>
+                                                              <span className="money">￥{listItem.productModel ? listItem.productModel.price + listItem.productModel.openAccountFee: 0}</span>
                                                               <StepLuo
                                                                   min={1}
                                                                   max={99}
@@ -306,48 +314,20 @@ class HomePageContainer extends React.Component {
                   this.state.downData.map((item, index) => {
                       return (
                           <div key={index} className="type-box">
-                              <div className="title-down">
-                                <img className="icon" src={item.typeIcon} />
-                                <span className="word">{item.name}</span>
-                              </div>
                               <div className="list">
-                                  {
-                                      item.productList && item.productList.map((listItem, listIndex) => {
-                                          return (
-                                              <SwipeAction
-                                                  key={listIndex}
-                                                  autoClose
-                                                  right={[
-                                                      {
-                                                          text: '删除',
-                                                          onPress: () => console.log('删除'),
-                                                          style: { color: 'white', padding: '10px' }
-                                                      }
-                                                  ]}
-                                              >
-                                                  <div className="one">
-                                                      <div className="downed">失效</div>
-                                                      <div className="pic">
-                                                          <img src={listItem.detailImg && listItem.detailImg.split(',')[0]} />
-                                                      </div>
-                                                      <div className="infos">
-                                                          <div className="t all_warp">{listItem.name}</div>
-                                                          <div className="num">
-                                                              <span className="money">￥{listItem.productModel ? listItem.productModel.price : 0}</span>
-                                                              <StepLuo
-                                                                  min={1}
-                                                                  max={99}
-                                                                  value={Math.min(listItem.shopCart ? listItem.shopCart.number : 1, 99)}
-                                                                  onChange={() => {}}
-                                                              />
-                                                          </div>
-                                                          <div className={"foot-info"}>商品已下架</div>
-                                                      </div>
-                                                  </div>
-                                              </SwipeAction>
-                                          );
-                                      })
-                                  }
+                                      <div className="one">
+                                          <div className="downed">失效</div>
+                                          <div className="pic">
+                                              <img src={item.product.detailImg && item.product.detailImg.split(',')[0]} />
+                                          </div>
+                                          <div className="infos">
+                                              <div className="t all_warp">{item.product.name}</div>
+                                              <div className="num">
+                                                  <span className="money">￥{item.product.productModel ? item.product.productModel.price + item.product.productModel.openAccountFee : 0}</span>
+                                              </div>
+                                              <div className={"foot-info"}>{item.expiryReason}</div>
+                                          </div>
+                                      </div>
                               </div>
                           </div>
                       );
@@ -392,6 +372,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar, shopCartCount }, dispatch),
+    actions: bindActionCreators({ getCarInterface, pushDingDan, getDefaultAttr, deleteShopCar, shopCartCount, updateShopCarCount }, dispatch),
   })
 )(HomePageContainer);

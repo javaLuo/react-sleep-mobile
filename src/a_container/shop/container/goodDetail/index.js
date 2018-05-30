@@ -45,6 +45,7 @@ class HomePageContainer extends React.Component {
         imgHeight: 200,
         show: false,
         titleChose: 1,  // 1视频，2图片
+        carNum: 0, // 购物车数量
     };
   }
 
@@ -56,7 +57,7 @@ class HomePageContainer extends React.Component {
       if(!isNaN(id)) {
           this.getData(id);
       }
-
+      this.props.actions.shopCartCount();
   }
 
   componentWillUnmount() {
@@ -273,6 +274,10 @@ class HomePageContainer extends React.Component {
           Toast.info('活动产品不能加入购物车', 1);
           return;
       }
+        if(this.props.shoppingCarNum >= 200) {
+            Toast.info('您购物车内的商品数量过多，清理后方可加入购物车', 2);
+            return;
+        }
       const params = {
           productId: this.state.data.id,
           number: this.state.formCount || 1,
@@ -290,7 +295,6 @@ class HomePageContainer extends React.Component {
 
   render() {
       const d = this.state.data || {};
-      console.log('D是什么：', d);
     return (
       <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page show'}>
           <div className="title-pic">
@@ -398,6 +402,7 @@ class HomePageContainer extends React.Component {
               <div className="btn-normal" onClick={() => this.props.history.push('/shop/shoppingcar')}>
                   <img src={ImgGwc} />
                   <div>购物车</div>
+                  <div className={this.props.shoppingCarNum ? "shopping-num show" : "shopping-num"}>{this.props.shoppingCarNum}</div>
                   <WaterWave color="#888888" press="down"/>
               </div>
               <div className="btn-add-gwc" onClick={() => this.onPushCar()}>加入购物车<WaterWave color="#cccccc" press="down"/></div>
@@ -417,6 +422,7 @@ HomePageContainer.propTypes = {
   history: P.any,
   actions: P.any,
   userinfo: P.any,
+    shoppingCarNum: P.any,
 };
 
 // ==================
@@ -427,6 +433,7 @@ export default connect(
   (state) => ({
       allChargeTypes: state.shop.allChargeTypes,    // 所有的收费方式
       userinfo: state.app.userinfo,
+      shoppingCarNum: state.shop.shoppingCarNum,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ productById, shopStartPreOrder, appUserCheckBuy, getDefaultAttr, wxInit, pushCarInterface, pushDingDan, shopCartCount}, dispatch),

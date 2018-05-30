@@ -54,7 +54,7 @@ class List extends React.PureComponent {
         return res;
     }
 
-    onBeizhu() {
+    onBeizhu(str) {
         prompt('输入新备注', '', [
             { text: '取消' },
             { text: '确定', onPress: value => {
@@ -65,7 +65,7 @@ class List extends React.PureComponent {
                 }
                 this.props.onChangeBeiZhu && this.props.onChangeBeiZhu(this.props.data, v);
             }},
-        ]);
+        ],null,str);
     }
 
     onChangeStar(e) {
@@ -84,7 +84,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.userAsterisk && u.userAsterisk.aliasName ? u.userAsterisk.aliasName : '添加'}</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu(u.userAsterisk && u.userAsterisk.aliasName)}>备注：<span>{u.userAsterisk && u.userAsterisk.aliasName ? u.userAsterisk.aliasName : '添加'}</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker
@@ -119,7 +119,7 @@ class List extends React.PureComponent {
                     <div className="photo flex-none"><img src={u.headImg || ImgDefault} /></div>
                     <div className="name flex-auto">
                         <div className="title all_nowarp">{u.nickName}<span>{u.ambassadorTime}</span></div>
-                        <div className="lit black" onClick={() => this.onBeizhu()}>备注：<span>{u.userAsterisk && u.userAsterisk.aliasName ? u.userAsterisk.aliasName : '添加'}</span><img className="up" src={IconUp}/></div>
+                        <div className="lit black" onClick={() => this.onBeizhu(u.userAsterisk && u.userAsterisk.aliasName)}>备注：<span>{u.userAsterisk && u.userAsterisk.aliasName ? u.userAsterisk.aliasName : '添加'}</span><img className="up" src={IconUp}/></div>
                         <div className="lit black">e家号：{u.id}</div>
                         <div className="lit black">联系方式：<a href={`tel:${u.mobile || ''}`}>{u.mobile || ''}</a></div>
                         <Picker

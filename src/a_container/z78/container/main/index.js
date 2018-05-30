@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
+import config from '../../../../config';
 // ==================
 // 所需的所有组件
 // ==================
@@ -45,11 +46,13 @@ class HomePageContainer extends React.Component {
             form1Words: "", // 留言内容
             form2Area: undefined,   // form2 加盟区域
             areaFuckerInfo: null,   // 区域经理信息
+            url: null, // URL地址
         };
     }
 
     componentDidMount() {
         document.title = '经销商加盟';
+        this.init();
         if (!this.props.userinfo) {
             this.getUserInfo();
         }
@@ -67,6 +70,22 @@ class HomePageContainer extends React.Component {
         this.getAllJMType();
     }
 
+    init(){
+        const id = this.props.location.pathname.split('/').slice(-1);
+        let url = '';
+        switch(Number(id)){
+            case 1: url = `${config.baseURL}/cms/c?id=1`;break;
+            case 2: url = `${config.baseURL}/cms/c?id=2`;break;
+            case 3: url = `${config.baseURL}/cms/c?id=3`;break;
+            case 4: url = `${config.baseURL}/cms/c?id=4`;break;
+            case 5: url = `${config.baseURL}/cms/c?id=5`;break;
+            case 6: url = `${config.baseURL}/cms/c?id=6`;break;
+            default:
+        }
+        this.setState({
+           url,
+        });
+    }
     // 获取所有省市区
     getArea() {
         this.props.actions.getAreaList();
@@ -195,6 +214,10 @@ class HomePageContainer extends React.Component {
            Toast.info("请输入姓名", 1);
            return;
        }
+       if (!tools.checkStr(this.state.form1Name)){
+           Toast.info("姓名不能包含特殊字符", 1);
+           return;
+       }
        if(!tools.checkPhone(this.state.form1Phone)){
            Toast.info("请输入有效手机号", 1);
            return;
@@ -231,7 +254,7 @@ class HomePageContainer extends React.Component {
         return (
             <div className='jxs-page'>
                 <div className="iframe-body">
-                    <iframe wmode="transparent" src={"http://hra.emall.online/cms/c?id=70"} />
+                    <iframe wmode="transparent" src={this.state.url} />
                 </div>
                 <div className="footer">
                     <div className={this.state.btn1Show ? 'check' : null} onClick={() => this.onBtnClick(1)}>留言咨询</div>
@@ -251,7 +274,7 @@ class HomePageContainer extends React.Component {
                         </div>
                         <div className="form-in">
                             <div className={"label"}><span>*</span>手机号:<i /></div>
-                            <div className={"input-box"}><input type="text" maxLength="11"  placeholder={"请输入您的姓名"} value={this.state.form1Phone} onInput={(e) => this.onForm1Phone(e)}/></div>
+                            <div className={"input-box"}><input type="tel" maxLength="11" placeholder={"请输入您的手机号"} value={this.state.form1Phone} onInput={(e) => this.onForm1Phone(e)}/></div>
                         </div>
                         <Picker
                             data={this.state.sourceData}
@@ -318,7 +341,7 @@ class HomePageContainer extends React.Component {
                                     <div>{this.state.areaFuckerInfo.technicalName}</div>
                                     <div>{this.state.areaFuckerInfo.technicalArea}</div>
                                 </div>
-                                <a className={"phone-call"} href={`tel${this.state.areaFuckerInfo.mobile}`}><img src={ImgPhone} /></a>
+                                <a className={"phone-call"} href={`tel:${this.state.areaFuckerInfo.mobile}`}><img src={ImgPhone} /></a>
                             </div>
                         ) : (
                             <div className={"fucker-info"}>

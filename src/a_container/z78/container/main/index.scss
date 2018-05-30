@@ -16,6 +16,9 @@
       padding:0;
       margin: 0;
       overflow: auto;
+      img{
+        width: 100% !important;
+      }
     }
   }
   .footer{
@@ -25,7 +28,7 @@
     box-sizing: border-box;
     display: flex;
     position: relative;
-    border-top: solid 1px #f0f0f0;
+    border-top: solid 1px #f2f2f2;
     z-index: 8;
     &>div{
       flex: 1;
@@ -34,7 +37,7 @@
       transition: all 200ms;
       color: #222;
       &+div{
-        border-left: solid 1px #f0f0f0;
+        border-left: solid 1px #f2f2f2;
       }
       &.check{
         background-color: rgb(65,132,243);

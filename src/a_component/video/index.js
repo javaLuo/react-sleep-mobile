@@ -13,6 +13,7 @@ class VideoLuo extends React.PureComponent {
             page: 0,    // 当前scroll到哪一页了
             btnCheck: ~~!this.props.videoSrc,    // 当前选择 0视频1图片
             playing: false, // 视频是否在播放中
+            android: false, // 是否是安卓
         };
         this.video = null;
         this.dom = null;
@@ -29,6 +30,7 @@ class VideoLuo extends React.PureComponent {
         });
 
         this.setState({
+            android: tools.checkSystem() === 'android',
             btnCheck: ~~!this.props.videoSrc,
         });
 
@@ -84,45 +86,49 @@ class VideoLuo extends React.PureComponent {
     maskClick() {
         if(this.state.playing) {    // 播放中
             this.video && this.video.pause();
+            this.setState({
+                playing: false,
+            });
         } else {
             this.video && this.video.play();
+            this.setState({
+                playing: true,
+            });
         }
-        this.setState({
-            playing: !this.state.playing
+
+    }
+
+    // 视频被暂停
+    onPause() {
+        setTimeout(()=>{
+            this.setState({
+                playing: false,
+            });
         });
     }
 
     render() {
-        console.log('是TM级：', this.props.videoSrc, this.state.btnCheck, ~~!this.props.videoSrc);
         return (
             <div className="react-video-luo" >
                 <div className="video-luo-scroll" id="scroll-video" ref={(e) => this.dom = e}>
                 <ul className="video-luo-ul" style={{ width: `${(this.props.imgList.length + ~~!!this.props.videoSrc) * 100}%` }}>
                 {
                 this.props.videoSrc ? (
-                <li>
+                <li className={this.state.android ? 'android-video-li' : null}>
                     <video
                         ref={(dom) => this.video = dom}
                         loop
-                        // x5-playsinline="true"   // 不全屏，但会顶层
-                        x5-video-player-type="h5" // 不顶层， 但会全屏
-                        x-webkit-airplay="allow"
                         playsInline
                         webkit-playsinline="true"
                         preload="true"
-
+                        className={this.state.android && !this.state.playing ? 'hide' : null}
                         poster = {this.props.videoPic || ImgLogo}
                         src={this.props.videoSrc}
-                        onPause={()=>{
-                            this.setState({
-                                playing: false,
-                            });
-                        }}
+                        onPause={()=>this.onPause()}
                     />
-
-                <div className="mask" onClick={() => this.maskClick()}>
-                <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
-                </div>
+                    <div className="mask" onClick={() => this.maskClick()}>
+                        <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
+                    </div>
                 </li>
                 ) : null
                 }
@@ -137,12 +143,12 @@ class VideoLuo extends React.PureComponent {
                 }
                 </ul>
                 </div>
-                <div className="video-foot">
+                <div className={this.state.android && this.state.playing ? 'video-foot android-down' : 'video-foot'}>
                 {
                 this.props.videoSrc ? (
                 [
-                <div key="1" className={this.state.btnCheck === 0 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(0)}><i />视频</div>,
-                <div key="2" className={this.state.btnCheck === 1 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(1)}>图片</div>
+                    <div key="1" className={this.state.btnCheck === 0 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(0)}><i />视频</div>,
+                    <div key="2" className={this.state.btnCheck === 1 ? 'btn check' : 'btn'} onClick={() => this.onBtnClick(1)}>图片</div>
                 ]
                 ) : null
                 }

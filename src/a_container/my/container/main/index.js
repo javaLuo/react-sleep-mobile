@@ -13,9 +13,8 @@ import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-import { Toast } from 'antd-mobile';
+import { Toast, Badge } from 'antd-mobile';
 import WaterWave from 'water-wave';
-
 import ImgRight from '../../../../assets/xiangyou@3x.png';
 import ImgBar1 from '../../../../assets/default-head.jpg';
 import IconUser from './assets/icon-user@3x.png';
@@ -47,7 +46,7 @@ import tools from '../../../../util/all';
 // ==================
 
 import { getUserInfo, myAmbassador } from '../../../../a_action/app-action';
-import { getMyCustomersCount } from '../../../../a_action/shop-action';
+import { getMyCustomersCount, getAuditCount, getShipOrderCount } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -58,7 +57,13 @@ class HomePageContainer extends React.Component {
         this.state = {
             show: false,    // 是否显示
             howManyCustomer: 0, // 有多少个推广用户
+            howManyCustomerDinDan:0, // 客户订单有多少个
             svgPlay: false, // svg是否执行
+            ios: 10,    // IOS版本
+            fuckNum: {
+                fCount: 0, // 待发货
+                sCount: 0, // 待收货
+            },
         };
     }
 
@@ -70,6 +75,8 @@ class HomePageContainer extends React.Component {
             this.getMyAmbassador();
             this.getMyCustomers();
         }
+        this.getAuditCount();
+        this.getShipOrderCount();
         this.svgInit();
         setTimeout(() => {
             this.setState({
@@ -80,6 +87,14 @@ class HomePageContainer extends React.Component {
         if (window.DeviceOrientationEvent) {
             window.addEventListener("deviceorientation", this.motionHandler, false);
         }
+        let ver = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+        if(ver){
+            ver = parseInt(ver[1], 10);
+            this.setState({
+                ios: ver || 10,
+            });
+        }
+
     }
 
     componentWillUnmount() {
@@ -87,13 +102,26 @@ class HomePageContainer extends React.Component {
         window.removeEventListener("deviceorientation", this.motionHandler, false);
     }
 
+    // 订单数量
+    getShipOrderCount() {
+        this.props.actions.getShipOrderCount().then((res)=>{
+            if(res.status === 200) {
+                this.setState({
+                    fuckNum: res.data,
+                });
+            }
+        });
+    }
+
     svgInit() {
         const p1 = document.getElementById('path1');
         const p2 = document.getElementById('path2');
         const w = document.getElementById('svg-box').clientWidth;
         const h = document.getElementById('svg-box').clientHeight;
-        p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.666 * h} Q ${-0.75 * w} ${0.333*h} ${-0.5*w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
-        p2.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+        // p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.666 * h} Q ${-0.75 * w} ${0.333*h} ${-0.5*w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
+        // 静止线
+        p1.setAttribute("d", `M ${-w * 2} ${h} L ${-w * 2} ${0.666 * h} Q ${-0.75 * w * 2} ${0.333*h} ${-0.5 * w * 2} ${0.666*h} T ${-w} ${0.666*h} Q ${-0.75 * w} ${0.333*h} ${-0.5 * w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
+        p2.setAttribute("d", `M ${-w * 2} ${h} L ${-w * 2} ${0.933 * h} Q ${-1.75*w} ${0.833*h} ${-1.5 * w} ${0.933*h} T ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-0.5 * w} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.833*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.033*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
     }
 
     realSvg = () => {
@@ -105,11 +133,15 @@ class HomePageContainer extends React.Component {
         const w = document.getElementById('svg-box').clientWidth;
         const h = document.getElementById('svg-box').clientHeight;
         if(!this.state.svgPlay){
-            p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.666 * h} Q ${-0.75 * w} ${0.333*h} ${-0.5*w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
-            p2.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+            // 静止线
+            p1.setAttribute("d", `M ${-w * 2} ${h} L ${-w * 2} ${0.666 * h} Q ${-1.75 * w} ${0.333*h} ${-1.5 * w} ${0.666*h} T ${-w} ${0.666*h} Q ${-0.75 * w} ${0.333*h} ${-0.5 * w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
+            p2.setAttribute("d", `M ${-w * 2} ${h} L ${-w * 2} ${0.933 * h} Q ${-1.75*w} ${0.833*h} ${-1.5 * w} ${0.933*h} T ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-0.5 * w} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.833*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.033*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
         } else {
-            p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
-            p2.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+            // 动态线
+            p1.setAttribute("d", `M ${-2*w} ${h} L ${-2*w} ${0.933 * h} Q ${-1.75*w} ${0.833*h} ${-1.5 * w} ${0.933*h} T ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.833*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.033*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+           // p2.setAttribute("d", `M ${-2*w} ${h} L ${-2*w} ${0.933 * h} Q ${-1.75*w} ${0.833*h} ${-1.5 * w} ${0.933*h} T ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-0.5 * w} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+            p2.setAttribute("d", `M ${-w * 2} ${h} L ${-w * 2} ${0.933 * h} Q ${-1.75*w} ${0.833*h} ${-1.5 * w} ${0.933*h} T ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-0.5 * w} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.833*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.033*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+
         }
     };
 
@@ -131,12 +163,16 @@ class HomePageContainer extends React.Component {
         const h = document.getElementById('svg-box').clientHeight;
         if(this.state.svgPlay) { // 停止
             p1.classList.remove('water');
+            p1.classList.remove('water_ios');
             p2.classList.remove('water2');
-            p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.666 * h} Q ${-0.75 * w} ${0.333*h} ${-0.5*w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
+            p2.classList.remove('water_ios_2');
+            // 静止线
+            p1.setAttribute("d", `M ${-w * 2} ${h} L ${-w * 2} ${0.666 * h} Q ${-0.75 * w * 2} ${0.333*h} ${-0.5 * w * 2} ${0.666*h} T ${-w} ${0.666*h} Q ${-0.75 * w} ${0.333*h} ${-0.5 * w} ${0.666*h} T 0 ${0.666*h} Q ${0.5*w} ${0.333*h} ${w} ${0.666*h} Q ${w} ${0.666*h} ${w} ${0.666*h} L ${w} ${h} Z`);
         } else {    // 开始
-            p1.setAttribute("d", `M ${-w} ${h} L ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.8*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.07*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
-            p1.classList.add('water');
-            p2.classList.add('water2');
+            // 动态线
+            p1.setAttribute("d", `M ${-2*w} ${h} L ${-2*w} ${0.933 * h} Q ${-1.75*w} ${0.833*h} ${-1.5 * w} ${0.933*h} T ${-w} ${0.933 * h} Q ${-0.75*w} ${0.833*h} ${-w*0.5} ${0.933*h} T 0 ${0.933 * h} Q ${0.25*w} ${0.833*h} ${0.5*w} ${0.933 * h} Q ${0.75*w} ${1.033*h} ${w} ${0.933 * h} L ${w} ${h} Z`);
+            p1.classList.add(this.state.ios > 10 ? 'water_ios' : 'water');
+            p2.classList.add(this.state.ios > 10 ? 'water_ios_2' : 'water2');
         }
     }
 
@@ -166,6 +202,17 @@ class HomePageContainer extends React.Component {
                 }
             });
         }
+    }
+
+    // 获取客户订单数
+    getAuditCount() {
+            this.props.actions.getAuditCount().then((res) => {
+                if (res.status === 200) {
+                    this.setState({
+                        howManyCustomerDinDan: res.data || 0,
+                    });
+                }
+            });
     }
 
     // 获取健康大使信息
@@ -338,16 +385,24 @@ class HomePageContainer extends React.Component {
                         <div>待付款</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
-                    <div>
-                        <img src={IconWaitSend} />
-                        <div>待发货</div>
-                        <WaterWave color="#cccccc" press="down"/>
-                    </div>
-                    <div>
-                        <img src={IconWaitGet} />
-                        <div>待收货</div>
-                        <WaterWave color="#cccccc" press="down"/>
-                    </div>
+
+                        <div>
+                            <Badge size="small" text={this.state.fuckNum.fCount}>
+                            <img src={IconWaitSend} />
+                            <div>待发货</div>
+                            <WaterWave color="#cccccc" press="down"/>
+                            </Badge>
+                        </div>
+
+
+                        <div>
+                            <Badge size="small" text={this.state.fuckNum.sCount}>
+                            <img src={IconWaitGet} />
+                            <div>待收货</div>
+                            <WaterWave color="#cccccc" press="down"/>
+                            </Badge>
+                        </div>
+
                     <div>
                         <img src={IconDown} />
                         <div>已完成</div>
@@ -380,7 +435,7 @@ class HomePageContainer extends React.Component {
                     <div onClick={() => this.onMyOrderCustomerClick()}>
                         <img src={IconWdkhdd} />
                         <div>我的客户订单</div>
-                        <div>{this.state.howManyCustomer}</div>
+                        <div>{this.state.howManyCustomerDinDan}</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
                     <div onClick={() => this.props.history.push(u ? '/profit' : '/login')}>
@@ -452,6 +507,6 @@ export default connect(
         ambassador: state.app.ambassador,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount }, dispatch),
+        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAuditCount, getShipOrderCount }, dispatch),
     })
 )(HomePageContainer);

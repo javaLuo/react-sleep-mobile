@@ -1,13 +1,13 @@
 .shop-main{
   min-height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #f2f2f2;
   opacity: 0;
   transition: opacity 200ms;
   &.show{
     opacity: 1;
   }
   .my-carousel{
-    background-color: #f0f0f0;
+    background-color: #f2f2f2;
     img{
       object-fit: cover;
       height: calc(100vw * 0.43);
@@ -51,7 +51,7 @@
     }
   }
   .body-box{
-    background-color: #f0f0f0;
+    background-color: #f2f2f2;
     .tab-box{
       display: flex;
       box-sizing: border-box;

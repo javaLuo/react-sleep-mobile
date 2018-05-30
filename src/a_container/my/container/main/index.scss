@@ -20,27 +20,48 @@
 
     @keyframes water {
       0% { transform: translateX(0)}
-      100% { transform: translateX(50%)}
+      100% { transform: translateX(66.666%)}
     }
     @keyframes water2 {
-      0% { transform: translateX(25%)}
-      100% { transform: translateX(75%)}
+      0% { transform: translateX(0%)}
+      100% { transform: translateX(66.666%)}
     }
-    .water{
-      animation-name: water;
-      animation-timing-function: linear;
-      animation-duration: 500ms;
-      animation-iteration-count: infinite;
-      animation-fill-mode: none;
+    @keyframes water_ios11 {
+      0% { transform: translateX(0)}
+      100% { transform: translateX(100%)}
     }
-    .water2{
-      animation-name: water;
+    @keyframes water_ios11_2 {
+      0% { transform: translateX(0%)}
+      100% { transform: translateX(100%)}
+    }
+    .water_ios{
+      animation-name: water_ios11;
       animation-timing-function: linear;
       animation-duration: 1000ms;
       animation-iteration-count: infinite;
       animation-fill-mode: none;
     }
-
+    .water_ios_2{
+      animation-name: water_ios11_2;
+      animation-timing-function: linear;
+      animation-duration: 800ms;
+      animation-iteration-count: infinite;
+      animation-fill-mode: none;
+    }
+    .water{
+      animation-name: water;
+      animation-timing-function: linear;
+      animation-duration: 1500ms;
+      animation-iteration-count: infinite;
+      animation-fill-mode: none;
+    }
+    .water2{
+      animation-name: water2;
+      animation-timing-function: linear;
+      animation-duration: 1200ms;
+      animation-iteration-count: infinite;
+      animation-fill-mode: none;
+    }
     .svg-box{
       position: absolute;
       top:0;
@@ -139,7 +160,7 @@
     color: #111;
     justify-content: space-between;
     background-color: #fff;
-    border-bottom: solid 1px #f0f0f0;
+    border-bottom: solid 1px #f2f2f2;
     img{
       height: 14px;
     }
@@ -158,6 +179,10 @@
         height: 18px;
         width: auto;
         margin-bottom: 10px;
+      }
+      .am-badge-text{
+        margin-left: 10px;
+        margin-top: -3px;
       }
     }
   }

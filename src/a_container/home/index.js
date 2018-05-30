@@ -206,6 +206,10 @@ class HomePageContainer extends React.Component {
     // 将商品添加进购物车
     onPushCar(e, id) {
         e.stopPropagation();
+        if(this.props.shoppingCarNum >= 200) {
+            Toast.info('您购物车内的商品数量过多，清理后方可加入购物车', 2);
+            return;
+        }
         this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
             if(res.status === 200) {
                 Toast.success('加入购物车成功',1);
@@ -427,6 +431,7 @@ HomePageContainer.propTypes = {
     liveHot: P.any,
     liveTypes: P.any,
     activityList: P.any,
+    shoppingCarNum: P.any,
 };
 
 // ==================
@@ -441,6 +446,7 @@ export default connect(
       liveHot: state.n.liveHot,
       liveTypes: state.shop.liveTypes,
       activityList: state.n.activityList,
+      shoppingCarNum: state.shop.shoppingCarNum,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({mallApList, getOrdersCount, getRecommend, getLiveListCache, getLiveTypes, getActivityList, getGoodServiceStations, inputStation, pushCarInterface, shopCartCount }, dispatch),

@@ -59,8 +59,11 @@ class HomePageContainer extends React.Component {
       Toast.loading('请稍后...', 0);
       this.props.actions.getKfList().then((res) => {
           if(res.status === 200) {
+              const temp = [...this.state.tempData];
+              temp.push({ type: 4, qid: 9999});
               this.setState({
-                  data: res.data
+                  data: res.data,
+                  tempData: temp,
               });
               Toast.hide();
           } else {

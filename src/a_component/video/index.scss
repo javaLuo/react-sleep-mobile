@@ -13,6 +13,11 @@
       display: block;
       min-width: 100%;
       height: 100%;
+      .android-video-li{
+        background-image:url(../../assets/logo-img.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
       &>li{
         display: inline-block;
         flex: none;
@@ -28,9 +33,9 @@
           height: auto;
           max-width: 100%;
           max-height: 100%;
-          z-index: 0;
-          object-fit: fill;
-          overflow: hidden;
+          &.hide{
+            display: none;
+          }
         }
         .pic-box{
           display: flex;
@@ -71,6 +76,13 @@
     display: flex;
     z-index: 10;
     justify-content: center;
+    transition: all 200ms;
+    &.android-down{
+      bottom: -32px;
+      .btn{
+        border:solid 1px #ddd;
+      }
+    }
     .btn{
       min-width: 60px;
       padding: 3px 0;

@@ -131,7 +131,6 @@ class Register extends React.Component {
             if (!s2) { return false; }
 
             const s3 = await this.props.actions.createMcard({         // 3. 创建订单
-                userId: this.props.userinfo.id,
                 orderFrom: 2,
                 ticketNo: this.props.freeCardInfo.ticketNo,
             });
@@ -139,10 +138,10 @@ class Register extends React.Component {
             if(s3.status !== 200) { return false; }
             this.s3data = s3.data;
             const s4 = await this.props.actions.wxPay({               // 4. 向后台发起统一下单请求
-                body: 'yimaokeji-card',                                 // 商品描述
-                total_fee: Number(s3.data.fee * 100) , // 总价格（分）
+                body: '翼猫微信商城优惠卡',                                 // 商品描述
+                total_fee: s3.data.orderAmountTotal , // 总价格（分）
                 spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                     // 用户终端IP，通过腾讯服务拿的
-                out_trade_no: s3.data.id ? String(s3.data.id) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
+                out_trade_no: s3.data.mainOrderId ? String(s3.data.mainOrderId) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
                 code: null,                                             // 授权code, 后台为了拿openid
                 trade_type: 'JSAPI',
             });

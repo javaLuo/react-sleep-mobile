@@ -205,11 +205,7 @@ class Register extends React.Component {
                         }
                         {
                             t ? (
-                                <Button
-                                    type="primary"
-                                    className="this-btn"
-                                    onClick={() => this.setState({ pageType: false })}
-                                >更换手机号</Button>
+                                null
                             ) : (
                                 <Button
                                     type="primary"
@@ -263,3 +259,10 @@ export default connect(
         actions: bindActionCreators({ getVerifyCode, getUserInfo, updateUserInfo, bindPhone }, dispatch),
     })
 )(Register);
+
+
+{/*<Button*/}
+{/*type="primary"*/}
+{/*className="this-btn"*/}
+{/*onClick={() => this.setState({ pageType: false })}*/}
+{/*>更换手机号</Button>*/}

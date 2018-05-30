@@ -82,22 +82,27 @@ class HomePageContainer extends React.Component {
               <iframe  wmode="transparent" src={d.acUrl} />
           </div>
           {/* 其他推荐 */}
-          <div className="others">
-              <div className="title">为你推荐</div>
-              <ul className="others-ul">
-                  {
-                      d.recommendProductList && d.recommendProductList.map((item, index) => {
-                          return (
-                              <li key={index}>
-                                  <Link to={`/shop/gooddetail/${item.productId}`}>
-                                      <img src={item.product.detailImg || ImgLogo} />
-                                  </Link>
-                              </li>
-                          );
-                      })
-                  }
-              </ul>
-          </div>
+          {
+              d.recommendProductList && d.recommendProductList.length ? (
+                  <div className="others">
+                      <div className="title">为你推荐</div>
+                      <ul className="others-ul">
+                          {
+                              d.recommendProductList && d.recommendProductList.map((item, index) => {
+                                  return (
+                                      <li key={index}>
+                                          <Link to={`/shop/gooddetail/${item.productId}`}>
+                                              <img src={item.product.detailImg || ImgLogo} />
+                                          </Link>
+                                      </li>
+                                  );
+                              })
+                          }
+                      </ul>
+                  </div>
+              ) : null
+          }
+
       </div>
     );
   }

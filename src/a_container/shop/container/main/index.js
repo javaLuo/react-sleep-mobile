@@ -43,6 +43,7 @@ class HomePageContainer extends React.Component {
     } else {
      this.getShow();
     }
+      this.props.actions.shopCartCount();
     this.getPics(); // 获取顶部轮播图
   }
 
@@ -80,6 +81,10 @@ class HomePageContainer extends React.Component {
     // 将商品添加进购物车
     onPushCar(e, id) {
       e.stopPropagation();
+        if(this.props.shoppingCarNum >= 200) {
+            Toast.info('您购物车内的商品数量过多，清理后方可加入购物车', 2);
+            return;
+        }
       this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
           if(res.status === 200) {
               Toast.success('加入购物车成功',1);
@@ -240,6 +245,7 @@ HomePageContainer.propTypes = {
   allProducts: P.array,
   allProductTypes: P.array,
     userinfo: P.any,
+    shoppingCarNum: P.any,
 };
 
 // ==================
@@ -251,6 +257,7 @@ export default connect(
       allProducts: state.shop.allProducts,
       allProductTypes: state.shop.allProductTypes,
       userinfo: state.app.userinfo,
+      shoppingCarNum: state.shop.shoppingCarNum,
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ getProDuctList, listProductType, mallApList, pushCarInterface, shopCartCount }, dispatch),
