@@ -237,7 +237,7 @@ class HomePageContainer extends React.Component {
       <div className="page-chose-service">
           <List>
               <Picker
-                  data={[{label: '不限', value: ''},...this.state.sourceData]}
+                  data={this.state.sourceData}
                   extra={'区域搜索'}
                   value={this.state.search}
                   format={(v) => v.join('>')}

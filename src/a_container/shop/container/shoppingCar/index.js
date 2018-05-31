@@ -47,6 +47,11 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
       document.title = '购物车';
       this.getData();
+      this.props.actions.shopCartCount().then((res) => {
+          if(res.status === 200 && res.data === 200) {
+              Toast.info('您购物车内的商品数量过多 ，请及时处理', 2);
+          }
+      });
   }
 
     getData() {

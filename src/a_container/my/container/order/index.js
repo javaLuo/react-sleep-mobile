@@ -21,7 +21,7 @@ import Img404 from '../../../../assets/not-found.png';
 // 本页面所需action
 // ==================
 
-import { mallOrderList, mallOrderDel, shopStartPayOrder, mallOrderHraCard, saveOrderInfo } from '../../../../a_action/shop-action';
+import { mallOrderList, mallOrderDel, shopStartPayOrder, mallOrderHraCard, saveOrderInfo, getShipOrderCount } from '../../../../a_action/shop-action';
 
 // ==================
 // Definition
@@ -33,6 +33,10 @@ class HomePageContainer extends React.Component {
     this.state = {
         data: [], // 所有的订单数据
         pageSize: 10,
+        fuckNum: {
+            fCount: 0, // 待发货
+            sCount: 0, // 待收货
+        },
         all: [
             /** Tab标题，当前页，数据，分类号，是否需要刷新（删除订单会影响到其他分类的数据） **/
             { title: '全部', pageNum: 1, data:[], conditions: null, needUp: false, total: 0},
@@ -50,10 +54,24 @@ class HomePageContainer extends React.Component {
       sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
     this.getData(null, 1, 'flash');
+    this.getShipOrderCount();
   }
 
     componentWillUnmount() {
       Toast.hide();
+    }
+
+    /**
+     * 获取待发货代收货数量
+     * **/
+    getShipOrderCount() {
+        this.props.actions.getShipOrderCount().then((res)=>{
+            if(res.status === 200) {
+                this.setState({
+                    fuckNum: res.data,
+                });
+            }
+        });
     }
 
     /**
@@ -138,7 +156,6 @@ class HomePageContainer extends React.Component {
                         if (res.status === 200) {
                             const all = _.cloneDeep(this.state.all);
                             all.forEach((item) => item.needUp = true);
-                            console.log('不是变了吗：', all);
                             this.setState({
                                 all,
                             });
@@ -252,7 +269,13 @@ class HomePageContainer extends React.Component {
                 this.state.all.map((item) => {
                     let title = item.title;
                     if (item.badge){    // 需要显示小徽标
-                        title = <Badge text={item.total}>{item.title}</Badge>;
+                        let num = 0;
+                        if(item.title === '待发货') {
+                            num = this.state.fuckNum.fCount;
+                        } else if (item.title === '待收货') {
+                            num = this.state.fuckNum.sCount;
+                        }
+                        title = <Badge text={num}>{item.title}</Badge>;
                     }
                     return {
                       title,
@@ -338,6 +361,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ mallOrderList, mallOrderDel, shopStartPayOrder, mallOrderHraCard, saveOrderInfo }, dispatch),
+    actions: bindActionCreators({ mallOrderList, mallOrderDel, shopStartPayOrder, mallOrderHraCard, saveOrderInfo, getShipOrderCount }, dispatch),
   })
 )(HomePageContainer);

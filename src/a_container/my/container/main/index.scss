@@ -175,14 +175,29 @@
       color: rgb(37,41,46);
       padding: 10px 0;
       background-color: #fff;
+      position: relative;
       img{
         height: 18px;
         width: auto;
         margin-bottom: 10px;
       }
-      .am-badge-text{
-        margin-left: 10px;
-        margin-top: -3px;
+      .badge{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        background-color: #f00;
+        border-radius: 20px;
+        min-width: 20px;
+        font-size: 12px;
+        padding: 1px;
+        color: #fff;
+        transform: scale(0,0);
+        transition: all 200ms;
+        opacity: 0;
+        &.show{
+          transform: scale(1,1);
+          opacity: 1;
+        }
       }
     }
   }

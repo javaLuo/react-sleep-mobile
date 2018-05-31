@@ -253,7 +253,7 @@ class HomePageContainer extends React.Component {
     render() {
         return (
             <div className='jxs-page'>
-                <div className="iframe-body">
+                <div className="activity-iframe">
                     <iframe wmode="transparent" src={this.state.url} />
                 </div>
                 <div className="footer">
@@ -299,7 +299,7 @@ class HomePageContainer extends React.Component {
                         >
                             <div className="form-in">
                                 <div className={"label"}>加盟类型:<i /></div>
-                                <div className={"input-box"}><input readOnly={true} value={this.state.form1Type ? this.state.allJM.find((item) => item.id === this.state.form1Type[0]).dicValue : ""} type="text" placeholder={"请选择类型"}/></div>
+                                <div className={"input-box"}><input readOnly={true} value={this.state.form1Type ? this.state.allJM.find((item) => item.id === this.state.form1Type[0]).dicCode : ""} type="text" placeholder={"请选择类型"}/></div>
                             </div>
                         </Picker>
                         <div className="form-in">

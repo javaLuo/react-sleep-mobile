@@ -340,7 +340,7 @@ class HomePageContainer extends React.Component {
                 </ul>
                 <List>
                     <Picker
-                        data={[{label: '不限', value: ''},...this.state.sourceData]}
+                        data={this.state.sourceData}
                         extra={'区域搜索'}
                         value={this.state.search}
                         format={(v) => v.join('>')}
@@ -350,9 +350,14 @@ class HomePageContainer extends React.Component {
                         <Item thumb={<Icon type="search" style={{ color: '#888888' }} size={'sm'}/>}>&#12288;</Item>
                     </Picker>
                 </List>
-                <div className="fujin">
-                    <span>附近的门店</span>
-                </div>
+                {
+                    this.state.resType ? (
+                        <div className="fujin">
+                            <span>附近的门店</span>
+                        </div>
+                    ) : null
+                }
+
                 <div>
                         <ul>
                             {

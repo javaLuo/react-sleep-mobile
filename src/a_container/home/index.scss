@@ -137,6 +137,7 @@
         width: calc(50% - 5px);
         max-width: 200px;
         transition: all 200ms;
+        background-color: #f8f8f8;
         &+li{
           margin-left: 10px;
         }
@@ -165,16 +166,22 @@
           height: 40px;
           line-height: 20px;
           margin-top: 10px;
+          padding: 0 2px;
+
         }
         .num{
           color: rgb(137,136,142);
           font-size: 12px;
+          box-sizing: border-box;
+          padding: 0 2px;
         }
         .m{
           font-size: 14px;
           color: rgb(252,31,32);
           display: flex;
           align-items: center;
+          box-sizing: border-box;
+          padding: 0 2px 2px 2px;
           justify-content: space-between;
           i{
             font-style: normal;
@@ -199,6 +206,7 @@
       margin-top: 10px;
       &>li{
         box-sizing: border-box;
+        background-color: #f8f8f8;
         flex: none;
         max-width: 150px;
         width: 40%;
@@ -227,6 +235,7 @@
         .t{
           width: 100%;
           box-sizing: border-box;
+          padding: 0 2px;
           font-size: 16px;
           margin-top: 10px;
           height: 40px;
@@ -235,6 +244,8 @@
         .num{
           color: rgb(137,136,142);
           font-size: 12px;
+          box-sizing: border-box;
+          padding: 0 2px;
         }
         .m{
           font-size: 14px;
@@ -242,6 +253,8 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          box-sizing: border-box;
+          padding: 0 2px 2px 2px;
           i{
             font-style: normal;
             font-size: 12px;

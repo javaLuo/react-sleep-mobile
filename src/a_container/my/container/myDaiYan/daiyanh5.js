@@ -96,13 +96,21 @@ class Register extends React.Component {
         const d = this.props.daiyanh5List;
         return (
             <div className="page-daiyanh5">
-                <Tabs
-                    swipeable={false}
-                    tabs={this.makeTabBar(d) || [{ title: '暂无数据', sub: 0 }]}
-                    renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}
-                >
-                    { this.makeTabBody(d) }
-                </Tabs>
+                {
+                    d && d.length ? (
+                        <Tabs
+                            swipeable={false}
+                            tabs={this.makeTabBar(d) || [{ title: '暂无数据', sub: 0 }]}
+                            renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}
+                        >
+                            { this.makeTabBody(d) }
+                        </Tabs>
+                    ) : <div key={0} className="data-nothing">
+                        <img src={Img404}/>
+                        <div>亲，这里什么也没有哦~</div>
+                    </div>
+                }
+
             </div>
         );
     }

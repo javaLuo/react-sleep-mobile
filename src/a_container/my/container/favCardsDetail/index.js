@@ -139,7 +139,7 @@ class Register extends React.Component {
             this.s3data = s3.data;
             const s4 = await this.props.actions.wxPay({               // 4. 向后台发起统一下单请求
                 body: '翼猫微信商城优惠卡',                                 // 商品描述
-                total_fee: s3.data.orderAmountTotal , // 总价格（分）
+                total_fee: s3.data.orderAmountTotal * 100 , // 总价格（分）
                 spbill_create_ip: (typeof returnCitySN !== 'undefined') ? returnCitySN["cip"] : '',                     // 用户终端IP，通过腾讯服务拿的
                 out_trade_no: s3.data.mainOrderId ? String(s3.data.mainOrderId) : `${new Date().getTime()}`,      // 商户订单号，通过后台生成订单接口获取
                 code: null,                                             // 授权code, 后台为了拿openid
@@ -273,8 +273,15 @@ class Register extends React.Component {
                 <div className="img-box">
                     <img className="img" src={Img} />
                 </div>
-                <div className="fav-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '仅需支付50元材料费，即可使用该卡' : ' '}</div>
-                <div className="other-info">{(d.ticketType === 'M' && d.ticketStatus === 3) ? '(此款项是代提供健康评估服务的服务中心收取)' : ' '}</div>
+                {
+                    d.ticketType === 'M' && d.ticketStatus === 3 ? (
+                        [
+                            <div key="0" className="fav-info">仅需支付50元材料费，即可使用该卡</div>,
+                            <div key="1" className="other-info">(此款项是代提供健康评估服务的服务中心收取)</div>
+                        ]
+                    ) : null
+                }
+
                 <div className="footer-zw"/>
                 {
                     (d.ticketType === 'M' && d.ticketStatus === 3 && d.handselStatus !== 1) ? (

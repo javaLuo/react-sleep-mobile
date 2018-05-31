@@ -387,20 +387,16 @@ class HomePageContainer extends React.Component {
                     </div>
 
                         <div>
-                            <Badge size="small" text={this.state.fuckNum.fCount}>
                             <img src={IconWaitSend} />
                             <div>待发货</div>
                             <WaterWave color="#cccccc" press="down"/>
-                            </Badge>
+                            <div className={this.state.fuckNum.fCount ? 'badge show' : 'badge'}>{this.state.fuckNum.fCount}</div>
                         </div>
-
-
                         <div>
-                            <Badge size="small" text={this.state.fuckNum.sCount}>
                             <img src={IconWaitGet} />
                             <div>待收货</div>
                             <WaterWave color="#cccccc" press="down"/>
-                            </Badge>
+                            <div className={this.state.fuckNum.sCount ? 'badge show' : 'badge'}>{this.state.fuckNum.sCount}</div>
                         </div>
 
                     <div>
