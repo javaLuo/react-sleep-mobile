@@ -327,7 +327,7 @@ class HomePageContainer extends React.Component {
                     </li>
                     <li>
                         <img src={Img2} />
-                        <span>3000家体验服务中心精准覆盖至各省、市及区县</span>
+                        <span>近3000家体验服务中心精准覆盖至各省、市及区县</span>
                     </li>
                     <li>
                         <img src={Img3} />
@@ -351,7 +351,7 @@ class HomePageContainer extends React.Component {
                     </Picker>
                 </List>
                 {
-                    this.state.resType ? (
+                    !this.state.resType ? (
                         <div className="fujin">
                             <span>附近的门店</span>
                         </div>

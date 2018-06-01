@@ -17,6 +17,7 @@ import tools from '../../../../util/all';
 // ==================
 import { List, Toast, Carousel } from 'antd-mobile';
 import ImgStar1 from '../../../../assets/home/star_1@3x.png';
+import ImgStar0 from '../../../../assets/home/star_0@3x.png';
 import ImgAddr from '../../../../assets/dizhi@3x.png';
 import IconHeart from './assets/icon_heart@3x.png';
 import IconServer from './assets/icon_server@3x.png';
@@ -94,6 +95,20 @@ class HomePageContainer extends React.Component {
         });
     }
 
+    // 根据满意度算星星
+    howManyStars(n) {
+        const num = Number(n) || 0;
+        const m = [];
+        for(let i=0;i<5;i++) {
+            if(i<= num/100 * 5){
+                m.push(<img key={i} src={ImgStar1}/>);
+            }else{
+                m.push(<img key={i} src={ImgStar0}/>);
+            }
+        }
+        return m;
+    }
+
     render() {
         const d = this.state.data || {};
         return (
@@ -131,11 +146,7 @@ class HomePageContainer extends React.Component {
                         <div className="t">{d.name}</div>
                         <div className="star-row">
                             <div>
-                                <img src={ImgStar1} />
-                                <img src={ImgStar1} />
-                                <img src={ImgStar1} />
-                                <img src={ImgStar1} />
-                                <img src={ImgStar1} />
+                                {this.howManyStars(d.satisfaction)}
                             </div>
                             <div className="word">满意度：{d.satisfaction ? `${d.satisfaction}%`: '0.00%'}</div>
                         </div>
@@ -144,15 +155,19 @@ class HomePageContainer extends React.Component {
                             <span>{d.address && `${d.province}${d.city}${d.region}${d.address}`}</span>
                         </div>
                     </div>
-                    <div className="info-box">
-                        <div className="t">关于门店</div>
-                        <div className="about-row">
-                            <div><span>成立时间：</span><span>{d.establishedTime && d.establishedTime.split(' ')[0]}</span></div>
-                            <div><span>门店规模：</span><span>{d.storeArea || 0}</span></div>
-                            <div><span>员工数量：</span><span>{d.employeeNum || 0}人</span></div>
-                            <div><span>营业时间：</span><span>{d.businessHoursStart} - {d.businessHoursEnd}</span></div>
-                        </div>
-                    </div>
+                    {
+                        d.storeArea ? (
+                            <div className="info-box">
+                                <div className="t">关于门店</div>
+                                <div className="about-row">
+                                    <div><span>成立时间：</span><span>{d.establishedTime && d.establishedTime.split(' ')[0]}</span></div>
+                                    <div><span>门店规模：</span><span>{d.storeArea || 0}m<sup>2</sup></span></div>
+                                    <div><span>员工数量：</span><span>{d.employeeNum || 0}人</span></div>
+                                    <div><span>营业时间：</span><span>{d.businessHoursStart} - {d.businessHoursEnd}</span></div>
+                                </div>
+                            </div>
+                        ) : null
+                    }
                     {
                         d.stationColumnList ? d.stationColumnList.map((item, index) => {
                             return (

@@ -217,14 +217,19 @@ class HomePageContainer extends React.Component {
                     this.props.actions.updateShopCarCount({
                         shopCartId: d[i].productList[j].shopCart.id,
                         addCount: num,
+                    }).then((res)=>{
+                        if(res.status === 200) {
+                            this.setState({
+                                data: d,
+                            });
+                        } else if(res.status !== 0) {
+                            Toast.info(res.message, 1);
+                        }
                     });
                     break outer;
                 }
             }
         }
-        this.setState({
-            data: d,
-        });
     }
 
     // 结算
@@ -349,7 +354,9 @@ class HomePageContainer extends React.Component {
               <div style={{ flex : 'auto' }}/>
               <div className="all">合计：<span>￥ {tools.point2(this.checkPay(this.state.data))}</span></div>
               <div className="all2" onClick={() => this.onSubmit()}>结算({ this.state.data.reduce((res, item)=>{
-                  return res + item.productList.filter((v) => v.checked).length;
+                  return res + item.productList.filter((v) => v.checked).reduce((res2, item2)=>{
+                      return res2 + item2.shopCart.number || 0;
+                  },0);
               }, 0) })</div>
           </div>
       </div>

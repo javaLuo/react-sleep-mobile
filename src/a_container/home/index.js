@@ -24,6 +24,7 @@ import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
 import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
 import ImgShangCheng from '../../assets/home/home_shangcheng@3x.png';
 import ImgStar1 from '../../assets/home/star_1@3x.png';
+import ImgStar0 from '../../assets/home/star_0@3x.png';
 import ImgLikeThis from '../../assets/home/likethis@3x.png';
 import ImgLooked from '../../assets/home/looked@3x.png';
 import ImgTime from '../../assets/home/thetime@3x.png';
@@ -89,7 +90,7 @@ class HomePageContainer extends React.Component {
     this.getOrdersCount();
 
     // 获取购物车数量
-      this.props.actions.shopCartCount();
+      setTimeout(()=> this.props.actions.shopCartCount(), 1000);
 
     // 获取推荐服务站
       this.getGoodServiceStations();
@@ -218,6 +219,20 @@ class HomePageContainer extends React.Component {
                 Toast.info(res.message);
             }
         });
+    }
+
+    // 根据满意度算星星
+    howManyStars(n) {
+        const num = Number(n) || 0;
+        const m = [];
+        for(let i=0;i<5;i++) {
+            if(i<= num/100 * 5){
+                m.push(<img key={i} src={ImgStar1}/>);
+            }else{
+                m.push(<img key={i} src={ImgStar0}/>);
+            }
+        }
+        return m;
     }
 
   render() {
@@ -371,7 +386,7 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.inputStation(item)}>
                                   <div>
                                       <div className="total all_nowarp">{item.name}</div>
-                                      <div className="star"><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /><img src={ImgStar1} /></div>
+                                      <div className="star">{this.howManyStars(item.satisfaction)}</div>
                                       {(() => {
                                           switch(index) {
                                               case 0 : return <div className="type">

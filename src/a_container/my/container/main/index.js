@@ -342,7 +342,7 @@ class HomePageContainer extends React.Component {
                                 <path id="path1" className="path1" fill="#fff" />
                             </svg>
                         </div>
-                        <div className="pic" onClick={() => this.props.history.push(u ? '/my/userinfo' : '/login')}>
+                        <div className="pic" onClick={() => this.props.history.push(u ? '/my/perinfo' : '/login')}>
                             <img ref={(dom)=>this.headImg = dom} src={u && u.headImg ? u.headImg : ImgBar1} />
                         </div>
                         <div className="name" style={this.state.svgPlay ? { color: '#fff' } : null}>{(u && u.nickName) ? u.nickName : '未设置昵称'}</div>

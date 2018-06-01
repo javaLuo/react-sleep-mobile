@@ -49,6 +49,12 @@ class HomePageContainer extends React.Component {
       // sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
       this.queryCustomerList();
+      setTimeout(()=>{
+          if(this.props.userinfo) {
+              console.log('111111111111', this.props.userinfo);
+              this.getAllStations(this.state.data, this.props.userinfo.id);
+          }
+      });
   }
 
     componentWillReceiveProps(nextP) {
@@ -57,6 +63,34 @@ class HomePageContainer extends React.Component {
                 data: nextP.willPayObjs
             });
         }
+    }
+
+    // 2、5遍历获取需要查服务站的，查出来再存到数据里，艹
+    getAllStations(data, userId){
+      Promise.all(data.filter((item, index) => [2,3,5].includes(item.typeId)).map((item, index)=>{
+         return new Promise((resolve, rej) => {
+             this.props.actions.getStationInfoById(tools.clearNull({ userId,  productId: item.id })).then((res) => {
+                 if (res.status === 200) {
+                     resolve({name: res.data, id: item.id});
+                 } else{
+                     rej(res.data);
+                 }
+             });
+         });
+      })).then((res)=>{
+        console.log('来啊，看都有什么：', res);
+        const d = [...data];
+        d.forEach((item, index)=>{
+            for(let i=0; i<res.length; i++) {
+                if(item.id === res[i].id){
+                    item.shopCart.station = res[i].name;
+                }
+            }
+        });
+        this.setState({
+            data: d,
+        });
+      });
     }
 
   // 获取安装工信息
@@ -483,6 +517,32 @@ class HomePageContainer extends React.Component {
                                       ) : null
                                   }
                               </List>
+                              {
+                                  /** 2养未来、3冷敷贴，5体检卡，要查经销商的服务站 **/
+                                  d && [2,3,5].includes(d.typeId) ? (
+                                      <div className="station-box">{(()=>{
+                                          switch(d.typeId){
+                                              case 2:
+                                              case 3: return (
+                                                  <div className="shit-station">
+                                                      <div className="ti">(此款项是代{d.shopCart.station}收取)</div>
+                                                  </div>
+                                              );
+                                              case 5: return (
+                                                  <div className="shit-station">
+                                                      <div className="ti">(此款项是代{d.shopCart.station}收取)</div>
+                                                      <div className="station-info">
+                                                          <div>如需开票，请联系</div>
+                                                          <div>{d.shopCart.station}: <a href="tel:4001519999">联系门店</a></div>
+                                                          <div>客服热线: <a href="tel:4001519999">4001519999</a></div>
+                                                      </div>
+                                                  </div>
+                                              );
+                                              default: return null;
+                                          }
+                                      })()}</div>
+                                  ) : null
+                              }
                           </div>
                       );
                   })

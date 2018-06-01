@@ -66,7 +66,7 @@ class Register extends React.Component {
 
     makeData(data) {
         if (!data) { return null; }
-        return data.map((item, index) => {
+        return data.filter((item)=> item.productSpeakCards && item.productSpeakCards.length).map((item, index) => {
             return (
                 <div key={index} className="abox">
                     <div className="title">{item.typeName}</div>

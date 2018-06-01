@@ -74,12 +74,12 @@ class HomePageContainer extends React.Component {
         const id = this.props.location.pathname.split('/').slice(-1);
         let url = '';
         switch(Number(id)){
-            case 1: url = `${config.baseURL}/cms/c?id=1`;break;
-            case 2: url = `${config.baseURL}/cms/c?id=2`;break;
-            case 3: url = `${config.baseURL}/cms/c?id=3`;break;
-            case 4: url = `${config.baseURL}/cms/c?id=4`;break;
-            case 5: url = `${config.baseURL}/cms/c?id=5`;break;
-            case 6: url = `${config.baseURL}/cms/c?id=6`;break;
+            case 1: url = `${config.baseURL}/cms/c?id=1`;document.title = '净水用户最新福利';break;
+            case 2: url = `${config.baseURL}/cms/c?id=2`;document.title = '微创版经销商加盟';break;
+            case 3: url = `${config.baseURL}/cms/c?id=3`;document.title = '个人版经销商加盟';break;
+            case 4: url = `${config.baseURL}/cms/c?id=4`;document.title = '企业合作加盟';break;
+            case 5: url = `${config.baseURL}/cms/c?id=5`;document.title = '区域代理商加盟';break;
+            case 6: url = `${config.baseURL}/cms/c?id=6`;document.title = '公司介绍';break;
             default:
         }
         this.setState({
@@ -291,7 +291,7 @@ class HomePageContainer extends React.Component {
                         </Picker>
                         <Picker
                             data={this.state.allJM.map((item) => {
-                                return { label: item.dicValue, value: item.id };
+                                return { label: item.dicValue, value: item.dicCode };
                             })}
                             value={this.state.form1Type}
                             cols={1}
@@ -299,7 +299,7 @@ class HomePageContainer extends React.Component {
                         >
                             <div className="form-in">
                                 <div className={"label"}>加盟类型:<i /></div>
-                                <div className={"input-box"}><input readOnly={true} value={this.state.form1Type ? this.state.allJM.find((item) => item.id === this.state.form1Type[0]).dicCode : ""} type="text" placeholder={"请选择类型"}/></div>
+                                <div className={"input-box"}><input readOnly={true} value={this.state.form1Type ? this.state.allJM.find((item) => item.dicCode === this.state.form1Type[0]).dicValue : ""} type="text" placeholder={"请选择类型"}/></div>
                             </div>
                         </Picker>
                         <div className="form-in">
@@ -345,7 +345,7 @@ class HomePageContainer extends React.Component {
                             </div>
                         ) : (
                             <div className={"fucker-info"}>
-                                <div style={{margin: '0 auto'}}>暂无招商经理</div>
+                                <div style={{margin: '0 auto'}}>请选择你想加盟的区域，获取招商经理信息</div>
                             </div>
                         )
                     }

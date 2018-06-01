@@ -5,6 +5,8 @@
     min-height: calc(100vh - 44px);
     background-color: #fff;
     flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
     .one{
       box-sizing: border-box;
       padding: 5px;

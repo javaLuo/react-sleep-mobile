@@ -45,7 +45,7 @@ class Register extends React.Component {
     }
 
     componentDidMount() {
-        document.title = '我的代言卡';
+        document.title = '我的宣传卡';
         const t = this.getType();
         if (t) {
             this.initAll(t);
@@ -140,7 +140,7 @@ class Register extends React.Component {
             wx.onMenuShareTimeline({
                 title: `${u.nickName}${d1.title}`,
                 desc: d1.content,
-                link: `${Config.baseURL}/gzh/?#/daiyanshare/${str}`,
+                link: `${Config.baseURL}/gzh/?#/daiyanh5share/${str}`,
                 imgUrl: d1.titleImage,
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -176,7 +176,7 @@ class Register extends React.Component {
             <div className="page-daiyankah5">
                 <iframe className="body-box" wmode="transparent" src={d1.speakCardUrl}/>
                 <div className="thefooter">
-                    <Button type="primary"  style={{ backgroundColor: d1.colorTwo || '#0074FF' }} onClick={(e) => this.onStartShare(e)}>分享我的代言卡</Button>
+                    <Button type="primary"  style={{ backgroundColor: d1.colorTwo || '#0074FF' }} onClick={(e) => this.onStartShare(e)}>分享我的宣传卡</Button>
                 </div>
                 <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
                     <img className="share" src={ImgShareArr} />

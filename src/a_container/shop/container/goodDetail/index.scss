@@ -5,7 +5,7 @@
     opacity: 1;
   }
   .title-pic{
-    height: 4.64rem;
+    height: 6rem;
     width: 100%;
     position: relative;
     background-color: #f2f2f2;
@@ -186,12 +186,12 @@
     }
     .shopping-num{
       position: absolute;
-      top: 2px;
+      top: -2px;
       right: 2px;
-      border: solid 1px rgba(255,0,0,1);
       font-size: 12px;
       padding:0 1px;
-      color: #f00;
+      color: #fff;
+      background-color: #ff5b05;
       min-width: 20px;
       text-align: center;
       border-radius: 20px;
@@ -201,7 +201,7 @@
       transition: all 200ms;
       &.show{
         opacity: 1;
-        transform: scale(0.8, 0.8);
+        transform: scale(1, 1);
       }
     }
   }
