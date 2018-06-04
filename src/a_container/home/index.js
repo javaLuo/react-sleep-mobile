@@ -25,10 +25,15 @@ import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
 import ImgShangCheng from '../../assets/home/home_shangcheng@3x.png';
 import ImgStar1 from '../../assets/home/star_1@3x.png';
 import ImgStar0 from '../../assets/home/star_0@3x.png';
-import ImgLikeThis from '../../assets/home/likethis@3x.png';
-import ImgLooked from '../../assets/home/looked@3x.png';
-import ImgTime from '../../assets/home/thetime@3x.png';
+// import ImgLikeThis from '../../assets/home/likethis@3x.png';
+// import ImgLooked from '../../assets/home/looked@3x.png';
+// import ImgTime from '../../assets/home/thetime@3x.png';
 import ImgCar from '../../assets/shop/jrgwc@3x.png';
+import ImgStation1 from './assets/s-5.png';
+import ImgStation2 from './assets/s-59.png';
+import ImgStation3 from './assets/s-256.png';
+import ImgStation4 from './assets/s-344.png';
+import ImgStation5 from './assets/s-375.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -98,7 +103,7 @@ class HomePageContainer extends React.Component {
 
   getShow(){
       this.show = this.show+1;
-      if(this.show >= 3){
+      if(this.show >= 2){
           this.setState({
               show: true,
           });
@@ -380,30 +385,60 @@ class HomePageContainer extends React.Component {
           <div className="home-content-one">
               <div className="title">翼猫体验店</div>
               <ul className="tyd-1">
-                  {
-                      this.state.stations.map((item, index) => {
-                          return (
-                              <li key={index} onClick={() => this.inputStation(item)}>
-                                  <div>
-                                      <div className="total all_nowarp">{item.name}</div>
-                                      <div className="star">{this.howManyStars(item.satisfaction)}</div>
-                                      {(() => {
-                                          switch(index) {
-                                              case 0 : return <div className="type">
-                                                  <div>推荐</div>
-                                              </div>;
-                                              case 1: return <div className="type">
-                                                  <div>人气</div>
-                                              </div>;
-                                              default: return null;
-                                          }
-                                      })()}
-                                      <WaterWave color="#cccccc" press="down"/>
-                                  </div>
-                              </li>
-                          );
-                      })
-                  }
+                  {/*{*/}
+                      {/*this.state.stations.map((item, index) => {*/}
+                          {/*return (*/}
+                              {/*<li key={index} onClick={() => this.inputStation(item)}>*/}
+                                  {/*<div>*/}
+                                      {/*<div className="total all_nowarp">{item.name}</div>*/}
+                                      {/*<div className="star">{this.howManyStars(item.satisfaction)}</div>*/}
+                                      {/*{(() => {*/}
+                                          {/*switch(index) {*/}
+                                              {/*case 0 : return <div className="type">*/}
+                                                  {/*<div>推荐</div>*/}
+                                              {/*</div>;*/}
+                                              {/*case 1: return <div className="type">*/}
+                                                  {/*<div>人气</div>*/}
+                                              {/*</div>;*/}
+                                              {/*default: return null;*/}
+                                          {/*}*/}
+                                      {/*})()}*/}
+                                      {/*<WaterWave color="#cccccc" press="down"/>*/}
+                                  {/*</div>*/}
+                              {/*</li>*/}
+                          {/*);*/}
+                      {/*})*/}
+                  {/*}*/}
+                  <li onClick={() => this.inputStation({id: 5})}>
+                      <div>
+                          <div className="star">{this.howManyStars(100)}</div>
+                          <img className="station-img" src={ImgStation1} />
+                      </div>
+                  </li>
+                  <li onClick={() => this.inputStation({id: 59})}>
+                      <div>
+                          <div className="star">{this.howManyStars(100)}</div>
+                          <img className="station-img" src={ImgStation2} />
+                      </div>
+                  </li>
+                  <li onClick={() => this.inputStation({id: 344})}>
+                      <div>
+                          <div className="star">{this.howManyStars(100)}</div>
+                          <img className="station-img" src={ImgStation3} />
+                      </div>
+                  </li>
+                  <li onClick={() => this.inputStation({id: 256})}>
+                      <div>
+                          <div className="star">{this.howManyStars(100)}</div>
+                          <img className="station-img" src={ImgStation4} />
+                      </div>
+                  </li>
+                  <li onClick={() => this.inputStation({id: 375})}>
+                      <div>
+                          <div className="star">{this.howManyStars(100)}</div>
+                          <img className="station-img" src={ImgStation5} />
+                      </div>
+                  </li>
               </ul>
               <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>

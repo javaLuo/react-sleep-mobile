@@ -19,13 +19,18 @@ import tools from '../../../../util/all';
 import ImgClose from './assets/close@3x.png';
 import ImgPeople from './assets/people@3x.png';
 import ImgPhone from './assets/phone@3x.png';
-
+import ImgShareJinShui from './assets/share-jinshui.jpg';
+import ImgShareWeiChuang from './assets/share-weichuang.jpg';
+import ImgShareGeRen from './assets/share-geren.jpg';
+import ImgShareQiYe from './assets/share-qiye.jpg';
+import ImgShareQuYu from './assets/share-quyu.jpg';
+import ImgShareGongSi from './assets/share-gongsi.jpg';
 // ==================
 // 本页面所需action
 // ==================
 
 import { getUserInfo, myAmbassador, getAreaList } from '../../../../a_action/app-action';
-import { getMyCustomersCount,  } from '../../../../a_action/shop-action';
+import { getMyCustomersCount, wxInit } from '../../../../a_action/shop-action';
 import { customerMessage,getAreaManagerByArea, getAllJMType } from '../../../../a_action/new-action';
 // ==================
 // Definition
@@ -72,20 +77,122 @@ class HomePageContainer extends React.Component {
 
     init(){
         const id = this.props.location.pathname.split('/').slice(-1);
+        const uid = this.props.userinfo ? this.props.userinfo.id : null;
         let url = '';
         switch(Number(id)){
-            case 1: url = `${config.baseURL}/cms/c?id=1`;document.title = '净水用户最新福利';break;
-            case 2: url = `${config.baseURL}/cms/c?id=2`;document.title = '微创版经销商加盟';break;
-            case 3: url = `${config.baseURL}/cms/c?id=3`;document.title = '个人版经销商加盟';break;
-            case 4: url = `${config.baseURL}/cms/c?id=4`;document.title = '企业合作加盟';break;
-            case 5: url = `${config.baseURL}/cms/c?id=5`;document.title = '区域代理商加盟';break;
-            case 6: url = `${config.baseURL}/cms/c?id=6`;document.title = '公司介绍';break;
+            case 1: url = `${config.baseURL}/cms/c?id=1&e=${uid}`;document.title = '净水用户最新福利';break;
+            case 2: url = `${config.baseURL}/cms/c?id=2&e=${uid}`;document.title = '微创版经销商加盟';break;
+            case 3: url = `${config.baseURL}/cms/c?id=3&e=${uid}`;document.title = '个人版经销商加盟';break;
+            case 4: url = `${config.baseURL}/cms/c?id=4&e=${uid}`;document.title = '企业合作加盟';break;
+            case 5: url = `${config.baseURL}/cms/c?id=5&e=${uid}`;document.title = '区域代理商加盟';break;
+            case 6: url = `${config.baseURL}/cms/c?id=6&e=${uid}`;document.title = '公司介绍';break;
             default:
         }
         this.setState({
-           url,
+            url,
+        });
+
+        this.props.actions.wxInit().then((res)=>{
+            if(res.status === 200) {
+                this.initWxConfig(res.data, Number(id));
+            }
+        });
+
+
+    }
+
+    // 初始化微信JS-SDK
+    initWxConfig(d2, typeId) {
+        console.log('给老子触发');
+        const me = this;
+        if(typeof wx === 'undefined') {
+            console.log('weixin sdk load failed!');
+            return false;
+        }
+        console.log('触发');
+        let title = "";
+        let info = "";
+        let img = null;
+
+        switch(typeId){
+            case 1:
+                title='翼猫净水用户福利来袭，买净水服务就送三重豪礼';
+                info='享受安装、维护、更换滤芯、系统升级等服务，获得价值1000元HRA优惠卡，拥有一个免费的在线商城';
+                img=ImgShareJinShui;
+                break;
+            case 2:
+                title='牵手翼猫、共享未来、成为“微创版经销商”，轻松实现小额创业';
+                info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
+                img=ImgShareWeiChuang;
+                break;
+            case 3:
+                title='成为翼猫“个人版经销商”，为您提供三大财富工具，帮您轻松拓客与成交';
+                info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
+                img=ImgShareGeRen;
+                break;
+            case 4:
+                title='成为翼猫“企业版经销商”，实现传统企业转型，助力小微企业发展';
+                info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
+                img=ImgShareQiYe;
+                break;
+            case 5:
+                title='加入一个大健康平台，拥有一家盈利型公司，翼猫科技“区域代理商”招募中';
+                info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
+                img=ImgShareQuYu;
+                break;
+            case 6:
+                title='翼猫科技定位“互联网+大健康”产业，把握市场趋势，顺势而为！';
+                info="大健康、大趋势、大未来，翼猫着力打造智能健康物联网综合服务平台！";
+                img=ImgShareJinShui;
+                break;
+            default:
+        }
+        console.log('到这了没有：', d2);
+        wx.config({
+            debug: false,
+            appId: d2.appid,
+            timestamp: d2.timestamp,
+            nonceStr: d2.noncestr,
+            signature: d2.signature,
+            jsApiList: [
+                'onMenuShareTimeline',      // 分享到朋友圈
+                'onMenuShareAppMessage',    // 分享给微信好友
+                'onMenuShareQQ',            // 分享到QQ
+            ]
+        });
+        wx.ready(() => {
+            console.log('微信JS-SDK初始化成功');
+            /**
+             * 拼接数据
+             * userid - 用户ID
+             * name - 名字
+             * head - 头像
+             * t - 当前数据ID
+             * **/
+            wx.onMenuShareAppMessage({
+                title: title,
+                desc: info,
+                imgUrl: img,
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: title,
+                desc: info,
+                imgUrl: img,
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+        });
+        wx.error((e) => {
+            console.log('微信JS-SDK初始化失败：', e);
         });
     }
+
     // 获取所有省市区
     getArea() {
         this.props.actions.getAreaList();
@@ -379,6 +486,6 @@ export default connect(
         areaData: state.app.areaData,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAreaList, customerMessage, getAreaManagerByArea, getAllJMType }, dispatch),
+        actions: bindActionCreators({ wxInit, getUserInfo, myAmbassador, getMyCustomersCount, getAreaList, customerMessage, getAreaManagerByArea, getAllJMType }, dispatch),
     })
 )(HomePageContainer);

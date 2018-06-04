@@ -21,6 +21,10 @@ import ImgLogo from '../../../../assets/logo-img.png';
 // 本页面所需action
 // ==================
 import { listByActivityId } from '../../../../a_action/new-action';
+import { wxInit } from '../../../../a_action/shop-action';
+import ImgBian from './assets/bian.jpg';
+import ImgLao from './assets/lao.jpg';
+import ImgXin from './assets/xin.jpg';
 // ==================
 // Definition
 // ==================
@@ -64,6 +68,11 @@ class HomePageContainer extends React.Component {
             this.setState({
                 data: res.data || {},
             });
+              this.props.actions.wxInit().then((res2)=>{
+                  if(res2.status === 200) {
+                      this.initWxConfig(res.data, res2.data);
+                  }
+              });
             Toast.hide();
           } else {
             Toast.info(res.message);
@@ -72,6 +81,71 @@ class HomePageContainer extends React.Component {
           Toast.hide();
       });
   }
+
+    // 初始化微信JS-SDK
+    initWxConfig(d2, aData) {
+        console.log('给老子触发');
+        const me = this;
+        if(typeof wx === 'undefined') {
+            console.log('weixin sdk load failed!');
+            return false;
+        }
+        console.log('触发');
+        let title = aData.title;
+        let info = `最新活动：${aData.title}`;
+
+        let img = null;
+        switch(aData.id){
+            case 30: img = ImgLao;break;
+            case 31: img = ImgXin;break;
+            case 33: img = ImgBian;break;
+        }
+
+        console.log('到这了没有：', d2);
+        wx.config({
+            debug: false,
+            appId: d2.appid,
+            timestamp: d2.timestamp,
+            nonceStr: d2.noncestr,
+            signature: d2.signature,
+            jsApiList: [
+                'onMenuShareTimeline',      // 分享到朋友圈
+                'onMenuShareAppMessage',    // 分享给微信好友
+                'onMenuShareQQ',            // 分享到QQ
+            ]
+        });
+        wx.ready(() => {
+            console.log('微信JS-SDK初始化成功');
+            /**
+             * 拼接数据
+             * userid - 用户ID
+             * name - 名字
+             * head - 头像
+             * t - 当前数据ID
+             * **/
+            wx.onMenuShareAppMessage({
+                title: title,
+                desc: info,
+                imgUrl: img,
+                type: 'link',
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: title,
+                desc: info,
+                imgUrl: img,
+                success: () => {
+                    Toast.info('分享成功', 1);
+                }
+            });
+        });
+        wx.error((e) => {
+            console.log('微信JS-SDK初始化失败：', e);
+        });
+    }
 
   render() {
       const d = this.state.data;
@@ -128,6 +202,6 @@ export default connect(
       userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ listByActivityId }, dispatch),
+    actions: bindActionCreators({ listByActivityId, wxInit }, dispatch),
   })
 )(HomePageContainer);

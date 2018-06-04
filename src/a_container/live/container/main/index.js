@@ -287,7 +287,7 @@ class LiveContainer extends React.Component {
                                                               <li key={i} onClick={() => this.clickLv2(item.id, v.id)} className={dtemp.childNow === v.id ? 'check' : ''}>
                                                                   <img className="logo" src={v.image} />
                                                                   <div className="name all_nowarp">{v.name}</div>
-                                                                  <div className="much all_nowarp">{dtemp.data ? dtemp.data.filter((vv) => vv.liveTypeSubId === v.id).length: 0}个视频</div>
+                                                                  {/*<div className="much all_nowarp">{dtemp.data ? dtemp.data.filter((vv) => vv.liveTypeSubId === v.id).length: 0}个视频</div>*/}
                                                               </li>
                                                           );
                                                       })

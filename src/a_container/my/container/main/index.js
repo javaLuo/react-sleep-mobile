@@ -459,12 +459,12 @@ class HomePageContainer extends React.Component {
                         {/*<div>我的收藏</div>*/}
                         {/*<WaterWave color="#cccccc" press="down"/>*/}
                     {/*</div>*/}
-                    <div onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=')}>
+                    <div onClick={() => window.open(`http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=${this.props.userinfo.id}`)}>
                         <img src={IconYhxy} />
                         <div>用户协议</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
-                    <div onClick={() => window.open('http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=')}>
+                    <div onClick={() => window.open(`http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=${this.props.userinfo.id}`)}>
                         <img src={IconYsxy} />
                         <div>隐私协议</div>
                         <WaterWave color="#cccccc" press="down"/>

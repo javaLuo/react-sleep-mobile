@@ -63,7 +63,7 @@ class StepperLuo extends React.PureComponent {
             return (
                 <div className={"type6"}>
                     <div className="head-pic"><img className="head" src={ImgRobot} /></div>
-                    <div className="word-box-l all_warp">{d.a}</div>
+                    <div className="word-box-l all_warp" dangerouslySetInnerHTML={{__html: d.a}} />
                 </div>
             );
         }
