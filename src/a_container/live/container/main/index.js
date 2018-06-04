@@ -39,7 +39,7 @@ class LiveContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '视频直播';
+      document.title = '视频中心';
       if(!this.props.liveTypes.length) {
           this.getLiveTypes();
       } else {

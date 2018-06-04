@@ -182,7 +182,7 @@ class HomePageContainer extends React.Component {
               if (u && u.id) {  // 有用户信息
                   str = `&e=${u.id}`;
               }
-              window.open(`http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1${str}`);
+              window.open(`http://e.yimaokeji.com/index.php?t=mhtml${str}`);
               break;
           // 跳视频直播
           case 3:
@@ -243,10 +243,10 @@ class HomePageContainer extends React.Component {
   render() {
     const u = this.props.userinfo;
     const barData = [
-        { title: '翼猫商城', pic: ImgShangCheng, key: 1 },
-        { title: '健康资讯', pic: ImgZiXun, key: 2 },
-        { title: '视频直播', pic: ImgZhiBo, key: 3 },
-        { title: '体验店', pic: ImgTiYan, key: 4 },
+        { title: '健康商城', pic: ImgShangCheng, key: 1 },
+        { title: '媒体中心', pic: ImgZiXun, key: 2 },
+        { title: '视频中心', pic: ImgZhiBo, key: 3 },
+        { title: '线下体验店', pic: ImgTiYan, key: 4 },
     ];
     return (
       <div className={this.state.show  ? 'home-page show' : 'home-page'}>
@@ -352,7 +352,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/** 视频直播 **/}
           <div className="home-content-one" style={{ display: this.props.liveHot.length ? 'block' : 'none' }}>
-              <div className="title">视频直播</div>
+              <div className="title">推荐直播</div>
               <ul className="zb-1">
                   {
                       this.props.liveHot.filter((item, index) => index===0).map((item, index) => {
@@ -383,7 +383,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/** 翼猫体验店 **/}
           <div className="home-content-one">
-              <div className="title">翼猫体验店</div>
+              <div className="title">全国标杆线下体验店展播</div>
               <ul className="tyd-1">
                   {/*{*/}
                       {/*this.state.stations.map((item, index) => {*/}

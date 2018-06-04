@@ -37,6 +37,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
+      document.title = '健康商城';
     // 如果state中没有所有的产品信息，就重新获取
     if (!this.props.allProducts.length) {
         this.props.actions.getProDuctList().finally(()=> this.getShow());
