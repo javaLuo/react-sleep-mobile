@@ -252,6 +252,17 @@ export const getStationInfoById = (params = {}) => async(dispatch) => {
     }
 };
 
+
+// 获取微信小程序专属二维码
+export const getWxacode = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('app/user/wxacode/build', params);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
 // 微信网页授权 - 保存code
 export function saveWxCode(code) {
     return {

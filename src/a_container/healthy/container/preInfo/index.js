@@ -52,6 +52,7 @@ class HomePageContainer extends React.Component {
           formSex: String(p.sex),
           formTall: p.height,
           formWeight: p.weight,
+          formDate: p.birthDate ? tools.formatStrToDate(p.birthDate) : undefined,
       });
   }
 
@@ -66,6 +67,7 @@ class HomePageContainer extends React.Component {
               formSex: String(p.sex),
               formTall: p.height,
               formWeight: p.weight,
+              formDate: p.birthDate ? tools.formatStrToDate(p.birthDate) : undefined,
           });
       }
   }
@@ -177,7 +179,7 @@ class HomePageContainer extends React.Component {
                   mode="date"
                   value={this.state.formDate}
                   minDate={new Date('1900-01-01')}
-                  onChange={date => this.setState({ formDate: date })}
+                  onChange={date => {console.log(date);this.setState({ formDate: date });}}
               >
                   <Item arrow="horizontal">出生日期</Item>
               </DatePicker>

@@ -181,7 +181,7 @@ class HomePageContainer extends React.Component {
                                       obj.type === 'unbind' ? (
                                           <div className="f-info">
                                               <div className="icon1"><img src={ImgLingDang} /></div>
-                                              <div className="info">您有部分客户仍未绑定 [翼猫健康e家] 公众号。赶快分享您的专属个人二维码，邀请他们加入翼猫健康e家，为您发展更多客户吧！</div>
+                                              <div className="info">未绑定客户是指您在“经销商app”中添加的客户，该客户还未关注“翼猫健康e家”公众号，且未绑定客户手机号。如果通知到您的净水客户关注并绑定手机，他可以帮助您分销商城产品。</div>
                                           </div>
                                       ) : null
                                   }

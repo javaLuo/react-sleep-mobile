@@ -71,6 +71,12 @@ const allobj = {
         const s = date.getSeconds().toString().padStart(2,'0');
         return `${h}:${min}:${s}`;
     },
+
+    // YYYYMMDD 转 date
+    formatStrToDate(str){
+        return new Date(str.substr(0, 4), Number(str.substr(4, 2)) - 1, str.substr(6, 2));
+    },
+
     // 将数字或字符串*100，保留两位小数点返回,非法返回''
     percent(str) {
         if (!str && str !== 0) { return ''; }

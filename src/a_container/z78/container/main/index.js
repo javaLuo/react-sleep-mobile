@@ -57,9 +57,10 @@ class HomePageContainer extends React.Component {
 
     componentDidMount() {
         document.title = '经销商加盟';
-        this.init();
         if (!this.props.userinfo) {
             this.getUserInfo();
+        } else {
+            this.init();
         }
         if (!this.props.areaData.length) {
             this.getArea();
@@ -203,7 +204,11 @@ class HomePageContainer extends React.Component {
         const u = this.props.userinfo;
         const openId = localStorage.getItem('openId');
         if (!u && openId) {
-            this.props.actions.getUserInfo({ openId });
+            this.props.actions.getUserInfo({ openId }).then(()=>{
+                this.init();
+            });
+        } else {
+            this.init();
         }
     }
 

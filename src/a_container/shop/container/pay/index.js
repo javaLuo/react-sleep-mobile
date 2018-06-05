@@ -173,7 +173,7 @@ class HomePageContainer extends React.Component {
     returnPage() {
         sessionStorage.removeItem('wx_code');
         sessionStorage.removeItem('pay-info');
-        this.props.history.push('/my/order');
+        this.props.history.push('/my/order/0');
     }
 
     // 成功跳转

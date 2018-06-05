@@ -161,7 +161,7 @@
         .t{
           width: 100%;
           box-sizing: border-box;
-          font-size: 16px;
+          font-size: 14px;
           height: 40px;
           line-height: 20px;
           margin-top: 10px;
@@ -235,7 +235,7 @@
           width: 100%;
           box-sizing: border-box;
           padding: 0 2px;
-          font-size: 16px;
+          font-size: 14px;
           margin-top: 10px;
           height: 40px;
           line-height: 20px;
@@ -262,6 +262,8 @@
             height: 20px;
             width: auto;
             padding-left: 15px;
+            margin-right: 3px;
+            margin-bottom: 3px;
           }
         }
       }
@@ -379,8 +381,8 @@
         .star{
           position: absolute;
           width: 100%;
-          bottom: 0;
-          left: 2px;
+          bottom: 2px;
+          left: 4px;
           box-sizing: border-box;
           img{
             width: 11px;

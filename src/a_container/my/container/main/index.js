@@ -369,37 +369,37 @@ class HomePageContainer extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="bar" onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>
+                <div className="bar" onClick={() => this.props.history.push(u ? '/my/order/0' : '/login')}>
                     <div className="title">我的订单</div>
                     <div className="arrow"><img src={ImgRight} /></div>
                     <WaterWave color="#cccccc" press="down"/>
                 </div>
-                <div className="bar-box-dd" onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>
-                    <div>
+                <div className="bar-box-dd">
+                    <div onClick={() => this.props.history.push(u ? '/my/order/0' : '/login')}>
                         <img src={IconAll} />
                         <div>全部</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
-                    <div>
+                    <div onClick={() => this.props.history.push(u ? '/my/order/1' : '/login')}>
                         <img src={IconWaitPay} />
                         <div>待付款</div>
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
 
-                        <div>
+                        <div onClick={() => this.props.history.push(u ? '/my/order/2' : '/login')}>
                             <img src={IconWaitSend} />
                             <div>待发货</div>
                             <WaterWave color="#cccccc" press="down"/>
                             <div className={this.state.fuckNum.fCount ? 'badge show' : 'badge'}>{this.state.fuckNum.fCount}</div>
                         </div>
-                        <div>
+                        <div onClick={() => this.props.history.push(u ? '/my/order/3' : '/login')}>
                             <img src={IconWaitGet} />
                             <div>待收货</div>
                             <WaterWave color="#cccccc" press="down"/>
                             <div className={this.state.fuckNum.sCount ? 'badge show' : 'badge'}>{this.state.fuckNum.sCount}</div>
                         </div>
 
-                    <div>
+                    <div onClick={() => this.props.history.push(u ? '/my/order/4' : '/login')}>
                         <img src={IconDown} />
                         <div>已完成</div>
                         <WaterWave color="#cccccc" press="down"/>

@@ -53,7 +53,16 @@ class HomePageContainer extends React.Component {
       sessionStorage.removeItem('pay-obj');
       sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
-    this.getData(null, 1, 'flash');
+      const tabsIndex = Number(this.props.location.pathname.split('/').slice(-1));
+      let conditions = null;
+      switch(tabsIndex) {
+          case 0 : conditions = null;break;
+          case 1 : conditions = 0;break;
+          case 2 : conditions = 2;break;
+          case 3 : conditions = 3;break;
+          case 4 : conditions = 4;break;
+      }
+    this.getData(conditions, 1, 'flash');
     this.getShipOrderCount();
   }
 
@@ -265,6 +274,7 @@ class HomePageContainer extends React.Component {
       <div className="page-order" style={{ minHeight: '100vh' }}>
           <Tabs
             swipeable={false}
+            initialPage={Number(this.props.location.pathname.split('/').slice(-1))}
             tabs={
                 this.state.all.map((item) => {
                     let title = item.title;

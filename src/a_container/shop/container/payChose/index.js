@@ -44,7 +44,7 @@ class HomePageContainer extends React.Component {
 
   componentWillMount() {
       if (!this.getPayInfo()){
-          this.props.history.replace('/my/order');  // 没有订单信息，直接进入我的订单
+          this.props.history.replace('/my/order/0');  // 没有订单信息，直接进入我的订单
       }
   }
 
@@ -297,7 +297,7 @@ class HomePageContainer extends React.Component {
         sessionStorage.removeItem('pay-obj');
         sessionStorage.removeItem('pay-info');
         sessionStorage.removeItem('pay-start');   // 清除支付回跳标识
-        this.props.history.replace('/my/order');
+        this.props.history.replace('/my/order/0');
     }
 
     /**

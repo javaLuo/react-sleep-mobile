@@ -81,7 +81,7 @@ class HomePageContainer extends React.Component {
             })
           }
         <List className="no-padding-left">
-          <Item arrow="horizontal" thumb={<img src={ImgDingDan} />} multipleLine onClick={() => this.props.history.push(u ? '/my/order' : '/login')}>我的订单</Item>
+          <Item arrow="horizontal" thumb={<img src={ImgDingDan} />} multipleLine onClick={() => this.props.history.push(u ? '/my/order/0' : '/login')}>我的订单</Item>
           <Item arrow="horizontal" thumb={<img src={ImgTiJianKa} />} multipleLine onClick={() => this.props.history.push(u ? '/healthy/mycard' : '/login')}>我的评估卡</Item>
           <Item arrow="horizontal" thumb={<img src={ImgWeiXin} />} multipleLine extra={'翼猫健康e家'} onClick={() => this.props.history.push('/wxshare')}>微信公众号</Item>
         </List>

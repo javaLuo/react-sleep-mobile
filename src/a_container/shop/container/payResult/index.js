@@ -47,7 +47,7 @@ class HomePageContainer extends React.Component {
 
       const id = String(this.props.location.pathname.split('/').slice(-1));
       if(!Number(id)){
-          this.props.history.replace('/my/order');
+          this.props.history.replace('/my/order/0');
       }
       this.getOrderData(id);
   }
@@ -98,7 +98,7 @@ class HomePageContainer extends React.Component {
           <div>实付款：{this.state.orderData.fee ? `￥ ${this.state.orderData.fee}` : ''}</div>
           </div>
           <div className="thefooter">
-          <Button type="primary" onClick={() => this.props.history.replace('/my/order')}>返回我的订单</Button>
+          <Button type="primary" onClick={() => this.props.history.replace('/my/order/0')}>返回我的订单</Button>
           </div>
       </div>
     );

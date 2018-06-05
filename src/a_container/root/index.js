@@ -90,12 +90,7 @@ class RootContainer extends React.Component {
         $(window).on("resize",function(){
             const windowWidth = $(window).width();
             const htmlSize = windowWidth / 7.5;
-
-            if(windowWidth<=750){
-                $("html").css("font-size",htmlSize+"px");
-            }else{
-                $("html").css("font-size","100px");
-            }
+            $("html").css("font-size",htmlSize+"px");
         }).resize();
     }
 

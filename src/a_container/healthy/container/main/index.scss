@@ -32,28 +32,32 @@
     .bar-title{
       background-color: #fff;
       position: relative;
-      padding: .3rem;
-      font-size: .36rem;
+      padding: 0 10px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
       border-bottom: solid 1px #f2f2f2;
     }
     .item{
-      padding: .3rem 0;
+      padding: 0;
       align-items: center;
       background-color: #fff;
       position: relative;
+      height: 50px;
+      display: flex;
       &.hide{
         opacity: 0;
         transform: translateX(50px);
       }
       .icon{
-        padding: 0 .3rem;
-        width: .38rem;
+        padding: 0 10px;
+        width: 16px;
         height: auto;
         box-sizing: initial;
       }
       .title{
         flex:auto;
-        font-size: .36rem;;
+        font-size: 14px;
         letter-spacing: 1px;
         .i{
           font-size: .28rem;;
@@ -67,11 +71,9 @@
         text-align: right;
       }
       .arrow{
-        padding: 0 .28rem;
-        img{
-          width: .14rem;
-          height: auto;
-        }
+        padding: 0 10px;
+        width: auto;
+        height: 14px;
       }
       .line{
         position: absolute;
