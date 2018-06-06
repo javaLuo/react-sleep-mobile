@@ -29,6 +29,7 @@ import ImgStar0 from '../../assets/home/star_0@3x.png';
 // import ImgLooked from '../../assets/home/looked@3x.png';
 // import ImgTime from '../../assets/home/thetime@3x.png';
 import ImgCar from '../../assets/shop/jrgwc@3x.png';
+import ImgBannerOne from '../../assets/home/banner_one.png';
 import ImgStation1 from './assets/s-5.png';
 import ImgStation2 from './assets/s-59.png';
 import ImgStation3 from './assets/s-256.png';
@@ -294,6 +295,7 @@ class HomePageContainer extends React.Component {
           <div className="home-content-one">
               <div className="title">最新活动</div>
               <div className="active-bar" onClick={() => this.props.history.push('/shop/shopactive')}>
+                  <img className="active-img" src={ImgBannerOne} />
                   <div>已有<span>{this.state.activeCount}</span>人参与</div>
               </div>
               <ul className="active-list" style={{ display: this.props.activityList.length ? 'flex' : 'none' }}>

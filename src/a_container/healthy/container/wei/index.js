@@ -39,9 +39,9 @@ class HomePageContainer extends React.Component {
   }
 
   getData(){
-      const u = this.props.userinfo;
-      if(u && u.id) {
-          this.props.actions.getWxacode({ userId: u.id }).then((res)=>{
+      const uid = Number(this.props.location.pathname.split('/').slice(-1));
+      if(uid) {
+          this.props.actions.getWxacode({ userId: uid }).then((res)=>{
               if(res.status === 200) {
                   this.setState({
                       codeImg: res.data,
@@ -86,7 +86,6 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
-    userinfo: P.any,
     actions: P.any,
 };
 
@@ -96,7 +95,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
   (state) => ({
-      userinfo: state.app.userinfo,
+
   }), 
   (dispatch) => ({
     actions: bindActionCreators({ getWxacode }, dispatch),

@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
 import tools from '../../../../util/all';
+import _ from 'lodash';
 // ==================
 // 所需的所有组件
 // ==================
@@ -118,7 +119,7 @@ class HomePageContainer extends React.Component {
       this.props.actions.mallStationList(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
                 me.setState({
-                    data: flash === 'flash' ? (res.data.result || []) : [...this.state.data, ...(res.data.result || [])],
+                    data: flash === 'flash' ? (res.data || []) : [...this.state.data, ...(res.data || [])],
                     pageNum,
                     pageSize,
                     search,
@@ -269,7 +270,22 @@ class HomePageContainer extends React.Component {
                   <ul>
                   {
                       this.state.data.length ? this.state.data.map((item, index) => {
-                          const station = this.state.resType ? (item.station || {}) : item;
+                          const station = _.cloneDeep(item);
+                          /**
+                           * 知道为什么要这么干吗，
+                           * 因为这里有两个接口，是两个java程序员写的
+                           * 操蛋的字段完全不一样
+                           * 现在已经好了一些了，之前连数据结构也不一样
+                           * **/
+                          if(!station.name){
+                              station.name = station.stationTel;
+                          }
+                          if(!station.address){
+                              station.address = station.stationAddress;
+                          }
+                          if(!station.phone){
+                              station.phone = station.stationTel;
+                          }
                           return (
                               <li key={index} className="card-box page-flex-row" onClick={() => this.onChose(station)}>
                                   <div className="l flex-auto">

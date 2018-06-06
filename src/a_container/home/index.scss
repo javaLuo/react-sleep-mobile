@@ -82,20 +82,21 @@
     .active-bar{
       position: relative;
       box-sizing: border-box;
-      margin:-6px auto 0 auto;
-      padding-top: 25%;
-      background-image: url(../../assets/home/banner_one.png);
-      background-size: 100% auto;
-      background-position: top center;
-      background-repeat: no-repeat;
+      margin:-6px auto 10px auto;
       border-radius: 3px;
+      .active-img{
+        width: 100%;
+        height: auto;
+        display: block;
+      }
       &>div{
         position: absolute;
-        bottom: 20%;
+        bottom: 8%;
         left: 50%;
         transform: translateX(-50%);
         color: #fff;
         font-size: .2rem;
+        z-index: 2;
         span{
           padding: 0 2px;
         }

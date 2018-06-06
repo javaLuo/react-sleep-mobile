@@ -376,7 +376,7 @@ export const mallQuanDel = (params = {}) => async(dispatch) => {
 // 搜索所有已上线服务站
 export const mallStationList = (params = {}) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/station/list', params );
+        const res = await Fetchapi.newPost('mall/station/list', params, 'post', true );
         return res;
     } catch(err) {
         Toast.info('网络错误，请重试',1);

@@ -1,4 +1,4 @@
-/* 商城 - 体验活动主页 */
+ /* 商城 - 体验活动主页 */
 
 // ==================
 // 所需的各种插件
@@ -292,7 +292,7 @@ class HomePageContainer extends React.Component {
                                                               <span className="money">￥{listItem.productModel ? listItem.productModel.price + listItem.productModel.openAccountFee: 0}</span>
                                                               <StepLuo
                                                                   min={1}
-                                                                  max={99}
+                                                                  max={200}
                                                                   value={Math.min(listItem.shopCart ? listItem.shopCart.number : 1, 99)}
                                                                   onChange={(num) => this.changeNum(num, listItem.id)}
                                                               />

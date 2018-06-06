@@ -82,6 +82,7 @@ class HomePageContainer extends React.Component {
     }
 
   render() {
+      const u = this.props.userinfo || {};
     return (
       <div className={this.state.show ? 'healthy-main show' : 'healthy-main'}>
           <div className="bar-list">
@@ -114,7 +115,7 @@ class HomePageContainer extends React.Component {
                   <div className="line"/>
                   <WaterWave color="#cccccc" press="down"/>
               </div>
-              <div className="item hide tran5 page-flex-row" onClick={() =>this.props.history.push('/healthy/wei')}>
+              <div className="item hide tran5 page-flex-row" onClick={() =>this.props.history.push(`/healthy/wei/${u.id}`)}>
                   <img className="icon" src={ImgWei} />
                   <div className="title">评估报告(小程序)</div>
                   <img className="arrow" src={ImgRight} />

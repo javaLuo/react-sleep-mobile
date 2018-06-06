@@ -94,7 +94,7 @@ class Register extends React.Component {
     }
 
     render() {
-        const u = this.props.userinfo || {};
+        const d = this.state.data;
         const d1 = this.state.d1;
         return (
             <div className="page-daiyankah5share">
@@ -103,7 +103,7 @@ class Register extends React.Component {
                     <div className="codes page-flex-row flex-jc-center">
                         <div>
                             <img src={this.state.imgCode || ImgQrCode}/>
-                            <img className="head" src={u.headImg} />
+                            <img className="head" src={decodeURIComponent(d.head)} />
                         </div>
                     </div>
                     <div className="t">长按识别二维码<br/>了解更多精彩</div>

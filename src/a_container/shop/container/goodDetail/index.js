@@ -341,7 +341,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/* List */}
           <List>
-              <Item extra={d && d.typeId === 1 && d.activityType === 2 ? '仅限1台' : <StepperLuo min={1} max={99} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
+              <Item extra={d && d.typeId === 1 && d.activityType === 2 ? '仅限1台' : <StepperLuo min={1} max={200} value={this.state.formCount} onChange={(v) => this.onCountChange(v)}/>}>购买数量</Item>
               {
                   /** 只有水机有计费方式选择(typeId === 1) **/
                   d && d.typeId === 1 ? (
