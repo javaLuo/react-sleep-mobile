@@ -66,7 +66,6 @@
         position:relative;
         padding: .2rem;
         box-sizing: border-box;
-        background-image: url(../../assets/kapian@3x.png);
         background-size: 100% 100%;
         background-color: #ccc;
         border-radius: 8px;
@@ -74,8 +73,18 @@
         height: 2.8rem;
         color: #fff;
         margin-top: .5rem;
+        background-image: url(../../assets/favcards/ka3@3x.png);
+        &.a{
+          background-image: url(../../assets/favcards/ka1@3x.png);
+        }
+        &.b{
+          background-image: url(../../assets/favcards/ka2@3x.png);
+        }
         &.no-normal{
-          background-image: none;
+          background-image: url(../../assets/favcards/ka_no@3x.png) !important;
+          .i{
+            color: #fff !important;
+          }
         }
         .card-state{
           position: absolute;
@@ -92,9 +101,21 @@
             color: #9394a4;
             margin-top: .2rem;
           }
-          img{
-            width: .14rem;
+          .tip{
+            position: absolute;
+            top:0;
+            right:0;
+            width: 1.6rem;
+            height: auto;
           }
+        }
+        .row-center{
+          font-size: 12px;
+          color: #fff;
+          text-align: center;
+          flex: auto;
+          width: 100%;
+          margin-top: .07rem;
         }
         .row2{
           .t{

@@ -164,7 +164,8 @@ class HomePageContainer extends React.Component {
          * 走单一接口
          * **/
         console.log('开始支付了：', data);
-      if(data.length === 1) {
+        const type = Number(this.props.location.pathname.split('/').slice(-1));
+      if(type === 1) { // 单独下单进来的，调用单独下单接口
           const d = data[0];
           // 获取安装工信息，如果有的话，没有返回null
           let serverMan = null;
@@ -198,12 +199,12 @@ class HomePageContainer extends React.Component {
                   sessionStorage.setItem('pay-obj', JSON.stringify(data));       // 将当前所选择的商品信息存入session
                   this.props.history.replace('/shop/payChose/1');               // 跳转到支付页
               } else {
-                  Toast.info(res.message ,1);
+                  Toast.info(res.message ,2);
               }
           }).catch(() => {
               Toast.hide();
           });
-      } else if(data.length > 1) { // 是从购物车来的，选择了多个商品
+      } else if(type === 2) { // 是从购物车来的，选择了多个商品或1个商品，但所有商品都跟购物车有关联，购买后将从购物车消失
           // 所有商品Set信息
           const shopCartSet = data.map((item, index) => {
               let serverMan = null;
@@ -252,7 +253,7 @@ class HomePageContainer extends React.Component {
                   sessionStorage.setItem('pay-obj', JSON.stringify(data));       // 将当前所选择的商品信息存入session
                   this.props.history.replace('/shop/payChose/1');               // 跳转到支付页
               } else {
-                  Toast.info(res.message ,1);
+                  Toast.info(res.message ,2); // 这里需要2秒，因为提示信息比较长，那些XX看不完
               }
           }).catch(() => {
               Toast.hide();

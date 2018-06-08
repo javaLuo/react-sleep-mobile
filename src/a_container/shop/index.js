@@ -52,7 +52,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/`} component={Main} />
               <Route exact path={`${this.props.match.url}/gooddetail/:id`} component={GoodDetail} />
               <Route exact path={`${this.props.match.url}/waterxd`} component={WaterXD} />
-              <Route exact path={`${this.props.match.url}/confirmpay`} component={ConfirmPay} />
+              <Route exact path={`${this.props.match.url}/confirmpay/:id`} component={ConfirmPay} />
               <Route exact path={`${this.props.match.url}/paychose/:type`} component={PayChose} />
               <Route exact path={`${this.props.match.url}/pay`} component={Pay} />
               <Route exact path={`${this.props.match.url}/payresult/:id`} component={PayResult} />

@@ -18,9 +18,9 @@ import tools from '../../util/all';
 import ImgQrCode from '../../assets/share/qrcode_for_gh.jpg';   // 二维码图标
 import ImgZhiWen from '../../assets/share/zhiwen@3x.png';    // 指纹图标
 import ImgTitle from '../../assets/share/youhuika@3x.png';
-import ImgOut24Hour from '../../assets/share/tuihui@3x.png'; // 超过24小时未领取图标
-import ImgOutTime from '../../assets/share/guoqi24@3x.png'; // 卡本身过期图标
-import ImgLingQu from '../../assets/share/lingqu@3x.png'; // 已被领取
+import ImgOut24Hour from '../../assets/favcards/chaoshi@3x.png'; // 超过24小时未领取图标
+import ImgOutTime from '../../assets/favcards/yiguoqi@3x.png'; // 卡本身过期图标
+import ImgLingQu from '../../assets/favcards/yilingqu@3x.png'; // 已被领取
 // ==================
 // 本页面所需action
 // ==================
@@ -50,14 +50,25 @@ class HomePageContainer extends React.Component {
     getData() {
         const path = this.props.location.pathname.split('/');
         let p = path[path.length - 1].split('_fff_');
+        /**
+         * userId: p[0],
+         name: p[1],
+         head: p[2],
+         date: p[3],  有效期
+         dateTime: p[4], 分享日期
+         type: P[5] 1金卡，2紫卡，3普通卡
+         str: p[6] 金卡为公司名，紫卡为“分销版”，普通卡没有
+         * **/
         this.setState({
             data: {
                 userId: p[0],
                 name: decodeURIComponent(p[1]),
                 head: decodeURIComponent(p[2]),
-                no: p[3],
-                date: decodeURIComponent(p[4]),
-                dateTime: Number(p[5]),
+                date: decodeURIComponent(p[3]),
+                dateTime: Number(p[4]),
+                type: Number(p[5]),
+                str: decodeURIComponent(p[6]),
+
             }
         });
 
@@ -101,28 +112,45 @@ class HomePageContainer extends React.Component {
                             <div className="name">{d.name || '-'}</div>
                             <div className="name-info">送您一张健康风险评估卡</div>
                         </div>
-                        <div className={type !== 0 ? "cardbox page-flex-col flex-jc-sb no-normal" : "cardbox page-flex-col flex-jc-sb"}>
+                        <div
+                             className={(()=>{
+                                 const classNames = ['cardbox', 'page-flex-col','flex-jc-sb'];
+                                 if(type !== 0){
+                                     classNames.push('no-normal');
+                                 }
+                                 switch(d.type){
+                                     case 1: classNames.push('a');break;
+                                     case 2: classNames.push('b');break;
+                                 }
+                                 return classNames.join(' ');
+                             })()}
+                        >
                             <div className="row1 flex-none page-flex-row flex-jc-sb">
                                 <div>
-                                    <div className="t"></div>
+                                    <div className="t" />
                                 </div>
+                                {(() => {
+                                    switch(type) {
+                                        case 1: return <img className="tip" src={ImgLingQu} />;
+                                        case 2: return <img className="tip" src={ImgOutTime} />;
+                                        case 3: return <img className="tip" src={ImgOut24Hour} />;
+                                        default: return null;
+                                    }
+                                })()}
                             </div>
-                            <div className="row-center page-flex-row flex-jc-end">
-                            </div>
+                            <div className="row-center">{(()=>{
+                                switch(d.type){
+                                    case 1: return `翼猫科技与${d.str}联合推出`;
+                                    case 2: return '分销版';
+                                    default: return '';
+                                }
+                            })()}</div>
                             <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                 <div>
                                     <div className="i">有效期至：{d.date}</div>
                                 </div>
                                 <div className="flex-none">￥1000</div>
                             </div>
-                            {(() => {
-                                switch(type) {
-                                    case 1: return <img className="card-state" src={ImgLingQu} />;
-                                    case 2: return <img className="card-state" src={ImgOutTime} />;
-                                    case 3: return <img className="card-state" src={ImgOut24Hour} />;
-                                    default: return null;
-                                }
-                            })()}
                         </div>
                         <div className={"info-box"}>
                             {

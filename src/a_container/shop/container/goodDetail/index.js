@@ -230,7 +230,7 @@ class HomePageContainer extends React.Component {
                 if (this.state.data.typeId !== 5) {
                     this.props.actions.getDefaultAttr();
                 }
-                this.props.history.push('/shop/confirmpay');
+                this.props.history.push('/shop/confirmpay/1');
             } else {
                 alert('温馨提示', '您当前还没有购买该产品的权限哦', [
                     { text: '知道了', onPress: () => console.log('cancel') },

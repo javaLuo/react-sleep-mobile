@@ -313,6 +313,36 @@ const allobj = {
         } else {
             return 'i dont know';
         }
+    },
+
+    /** 算两个经纬度的距离 **/
+    getFlatternDistance(lng1,lat1,lng2,lat2){
+        const f = (lat1 + lat2)/2 * Math.PI/180;
+        const g = (lat1 - lat2)/2 * Math.PI/180;
+        const l = (lng1 - lng2)/2 * Math.PI/180;
+
+        let sg = Math.sin(g);
+        let sl = Math.sin(l);
+        let sf = Math.sin(f);
+
+        let s,c,w,r,d,h1,h2;
+        const a = 6378137.0; // 地球半径
+        const fl = 1/298.257;
+
+        sg = sg*sg;
+        sl = sl*sl;
+        sf = sf*sf;
+
+        s = sg*(1-sl) + (1-sf)*sl;
+        c = (1-sg)*(1-sl) + sf*sl;
+
+        w = Math.atan(Math.sqrt(s/c));
+        r = Math.sqrt(s*c)/w;
+        d = 2*w*a;
+        h1 = (3*r -1)/2/c;
+        h2 = (3*r +1)/2/s;
+
+        return d*(1 + fl*(h1*sf*(1-sg) - h2*(1-sf)*sg)) / 1000;
     }
 };
 

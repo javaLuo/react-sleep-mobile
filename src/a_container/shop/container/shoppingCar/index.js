@@ -64,6 +64,22 @@ class HomePageContainer extends React.Component {
                   });
                   return newItem;
               });
+              const resData = _.cloneDeep(data);
+              /**
+               * 遍历，多个分成单个，服了
+               * **/
+              data.forEach((item)=>{
+                  const productList = [];
+                  item.productList.forEach((item2)=>{
+                      item2.shopCart.forEach((item3)=>{
+                          const temp2 = _.cloneDeep(item2);
+                          temp2.shopCart = item3;
+                          productList.push(temp2);
+                      });
+                  });
+                  item.productList = productList;
+              });
+              console.log('这变成了啥：', data);
               this.setState({
                   data,
                   downData: res.data.expiryList || [],
@@ -250,8 +266,18 @@ class HomePageContainer extends React.Component {
         }
         this.props.actions.getDefaultAttr(); // 查默认收货地址
         this.props.actions.pushDingDan(arr); // 所选商品放进待结算数组
-        this.props.history.push('/shop/confirmpay');
+        this.props.history.push('/shop/confirmpay/2');
     }
+
+    // 根据ID查对应的计费方式名字
+    getFeeTypeName(id, arr){
+        if(!id || !arr){
+            return null;
+        }
+        const obj = arr.find((item)=>item.id === id);
+        return obj ? obj.chargeName : null;
+    }
+
   render() {
     return (
       <div className="shopping-car">
@@ -288,12 +314,13 @@ class HomePageContainer extends React.Component {
                                                       </div>
                                                       <div className="infos">
                                                           <div className="t all_warp">{listItem.name}</div>
+                                                          <div className="i all_warp">{this.getFeeTypeName(listItem.shopCart.feeType, listItem.productModel.chargeTypes)}</div>
                                                           <div className="num">
                                                               <span className="money">￥{listItem.productModel ? listItem.productModel.price + listItem.productModel.openAccountFee: 0}</span>
                                                               <StepLuo
                                                                   min={1}
                                                                   max={200}
-                                                                  value={Math.min(listItem.shopCart ? listItem.shopCart.number : 1, 99)}
+                                                                  value={Math.min(listItem.shopCart ? listItem.shopCart.number : 1, 200)}
                                                                   onChange={(num) => this.changeNum(num, listItem.id)}
                                                               />
                                                           </div>

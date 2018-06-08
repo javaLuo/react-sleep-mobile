@@ -13,14 +13,20 @@
       position: relative;
       padding: .2rem;
       box-sizing: border-box;
-      background-image: url(../../../../assets/pingguka@3x.png);
       background-size: 100% 100%;
       border-radius: 8px;
       width: 7.1rem;
       height: 3.2rem;
       color: #fff;
+      background-image: url(../../../../assets/favcards/ka3@3x.png);
+      &.a{
+        background-image: url(../../../../assets/favcards/ka1@3x.png);
+      }
+      &.b{
+        background-image: url(../../../../assets/favcards/ka2@3x.png);
+      }
       &.abnormal{
-        background-image: url(../../../../assets/share/pingguka_one@3x.png);
+        background-image: url(../../../../assets/favcards/ka_no@3x.png) !important;
         .i{
           color: #fff !important;
         }
@@ -32,15 +38,15 @@
         .i{
           font-size: .26rem;
           color: #9394a4;
-          margin-top: .1rem;
         }
         .right-info{
           font-size: .36rem;
         }
         .tip{
           position: absolute;
-          right: 1.5rem;
-          width: 1.2rem;
+          top:0;
+          right:0;
+          width: 1.6rem;
           height: auto;
         }
         .flex-none{
@@ -50,9 +56,12 @@
         }
       }
       .row-center{
-        img{
-          width: .14rem;
-        }
+        font-size: 12px;
+        color: #fff;
+        text-align: center;
+        flex: auto;
+        width: 100%;
+        margin-top: .07rem;
       }
       .row2{
         .t{

@@ -78,7 +78,7 @@ class HomePageContainer extends React.Component {
 
     mapInit() {
         if (this.props.userXY) { // 已经定位过就不用重新定位了
-            this.getData2(this.props.userXY[0], this.props.userXY[1]);
+            this.getData(1, 10, undefined, this.props.userXY[0], this.props.userXY[1], 'flash');
             return;
         }
         Toast.loading('定位中...', 0);
@@ -97,16 +97,16 @@ class HomePageContainer extends React.Component {
                 console.log('定位用户当前坐标：', status, result);
                 if (status === 'complete') {
                     this.props.actions.saveUserLngLat([result.position.lng, result.position.lat]);
-                    this.getData2(result.position.lng, result.position.lat);
+                    this.getData(1, this.state.pageSize, this.state.search, result.position.lng, result.position.lat, 'flash');
                 } else {
                     Toast.info('定位失败', 1);
-                    this.getData(1, this.state.pageSize, this.state.search, 'flash'); // 定位失败就执行普通的查询好了
+                    this.getData(1, this.state.pageSize, this.state.search, null, null, 'flash'); // 定位失败就执行普通的查询好了
                 }
             });
         });
     }
 
-  getData(pageNum, pageSize, search, flash = 'flash') {
+  getData(pageNum, pageSize, search, lng = null, lat = null, flash = 'flash') {
     const me = this;
     const params = {
         pageNum,
@@ -114,48 +114,41 @@ class HomePageContainer extends React.Component {
         province: search && search[0],
         city: search && search[1],
         region: search && search[2],
+        lng,
+        lat,
     };
       Toast.loading('搜索中...', 0);
       this.props.actions.mallStationList(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
+                const d = Array.isArray(res.data) ? res.data : res.data.result;
                 me.setState({
-                    data: flash === 'flash' ? (res.data || []) : [...this.state.data, ...(res.data || [])],
+                    data: flash === 'flash' ? (d || []) : [...this.state.data, ...(d || [])],
                     pageNum,
                     pageSize,
                     search,
-                    resType: 1,
+                    resType: search && search[0] ? 1 : 0, // 选了省市区就不显示最近的
                 });
                 Toast.hide();
             } else {
-                Toast.info('查询失败，请重试',1);
+                let s = false; // f没变，t变了
+                const old = this.state.search || [];
+                const now = search || [];
+                if(old[0] === now[0] && old[1] === now[1] && old[2] === now[2]) {
+                    s = false;
+                } else {
+                    s= true;
+                }
+                me.setState({
+                    data: s ? [] : this.state.data,
+                    search,
+                    resType: search && search[0] ? 1 : 0, // 选了省市区就不显示最近的
+                });
+                Toast.info(res.message,1);
             }
       }).catch(() => {
           Toast.info('查询失败，请重试', 1);
       });
   }
-
-    getData2(lng, lat) {
-        const me = this;
-        const params = {
-            lng,
-            lat,
-        };
-        Toast.loading('搜索中...', 0);
-        this.props.actions.stationNearBy(tools.clearNull(params)).then((res) => {
-            if (res.status === 200) {
-                res.data.sort((a, b) => a.distance - b.distance);
-                me.setState({
-                    data: res.data,
-                    resType: 0,
-                });
-                Toast.hide();
-            } else {
-                Toast.info('查询失败，请重试',1);
-            }
-        }).catch(() => {
-            Toast.info('查询失败，请重试', 1);
-        });
-    }
 
   // 获取所有省市区
   getArea() {
@@ -164,24 +157,16 @@ class HomePageContainer extends React.Component {
 
     // 开始搜索
     onSearch(e) {
-      this.getData(1, this.state.pageSize, e, 'flash');
+      this.getData(1, this.state.pageSize, e,this.props.userXY && this.props.userXY[0], this.props.userXY && this.props.userXY[1], 'flash');
     }
 
     // 下拉刷新
     onDown() {
-        if (this.state.resType) { // 非0执行普通搜索
-            this.getData(1, this.state.pageSize, this.state.search, 'flash');
-        } else {    // 0执行最近搜索
-            this.getData2(this.props.userXY[0], this.props.userXY[1]);
-        }
+        this.getData(1, this.state.pageSize, this.state.search, this.props.userXY && this.props.userXY[0], this.props.userXY && this.props.userXY[1], 'flash');
     }
     // 上拉加载
     onUp() {
-        if (this.state.resType) { // 非0执行普通搜索
-            this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, 'update');
-        } else {    // 0执行最近搜索
-            this.getData2(this.props.userXY[0], this.props.userXY[1]);
-        }
+        this.getData(this.state.pageNum + 1, this.state.pageSize, this.state.search, this.props.userXY && this.props.userXY[0], this.props.userXY && this.props.userXY[1], 'update');
     }
 
     // 通过区域原始数据组装Picker所需数据
@@ -215,7 +200,7 @@ class HomePageContainer extends React.Component {
     // 城市选择
     onCityChose(data) {
       console.log('Area:', data);
-        this.getData(1, this.state.pageSize, data, 'flash');
+        this.getData(1, this.state.pageSize, data, this.props.userXY && this.props.userXY[0], this.props.userXY && this.props.userXY[1], 'flash');
     }
 
     // 选择
@@ -278,7 +263,7 @@ class HomePageContainer extends React.Component {
                            * 现在已经好了一些了，之前连数据结构也不一样
                            * **/
                           if(!station.name){
-                              station.name = station.stationTel;
+                              station.name = station.stationName;
                           }
                           if(!station.address){
                               station.address = station.stationAddress;
@@ -290,11 +275,11 @@ class HomePageContainer extends React.Component {
                               <li key={index} className="card-box page-flex-row" onClick={() => this.onChose(station)}>
                                   <div className="l flex-auto">
                                       <div className="title">{station.name}</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a href={`tel:${station.phone || ''}`}>{tools.addMosaic(station.phone)}</a></span></div>
                                       <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
+                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a  onClick={(e)=> e.stopPropagation()} href={`tel:${station.phone || ''}`}>联系门店</a></span></div>
                                   </div>
                                   <div className="r flex-none" onClick={(e) => this.onGoMap(e, station)}>
-                                      { station.distance ? <div className="lang">{`${station.distance.toFixed(2)}km`}</div> : null}
+                                      { this.props.userXY && station.lng && station.lat ? <div className="lang">{`${tools.getFlatternDistance(this.props.userXY[0], this.props.userXY[1], station.lng, station.lat).toFixed(2)}km`}</div> : null}
                                       <div className="addr">
                                           <img src={ImgDaoHang} />
                                           <div>导航</div>

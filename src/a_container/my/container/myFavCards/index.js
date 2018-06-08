@@ -18,8 +18,8 @@ import Luo from 'iscroll-luo';
 import ImgRight from '../../../../assets/xiangyou2@3x.png';
 import ImgShareArr from '../../../../assets/share-arr.png';
 import Img404 from '../../../../assets/not-found.png';
-import ImgGuoQi from '../../../../assets/share/yiguoqi@3x.png';
-import ImgShiYong from '../../../../assets/share/yishiyong@3x.png';
+import ImgGuoQi from '../../../../assets/favcards/guoqi@3x.png';
+import ImgShiYong from '../../../../assets/favcards/shiyong@3x.png';
 import { Toast,List,Modal } from 'antd-mobile';
 import Config from '../../../../config';
 
@@ -202,17 +202,18 @@ class HomePageContainer extends React.Component {
                   onPress: () => new Promise((resolve, rej) => {
                       /**
                        * 拼凑要带过去的数据
-                       * 用户ID_共几张_价格_有效期_头像
+                       * 用户ID_昵称_头像_有效期_分享日期_卡类型_类型信息
                        * userId: p[0],
                        name: p[1],
                        head: p[2],
-                       no: p[3],
-                       date: p[4],
-                       type: p[5] 1未使用，2已使用，3已禁用，4过期
+                       date: p[3],  有效期
+                       dateTime: p[4], 分享日期
+                       type: P[5] 1金卡，2紫卡，3普通卡
+                       str: p[6] 金卡为公司名，紫卡为“分销版”，普通卡没有
                        * **/
                       const u = this.props.userinfo;
                       const dateTime = new Date().getTime();
-                      const str = `${u.id}_fff_${encodeURIComponent(u.nickName)}_fff_${encodeURIComponent(u.headImg)}_fff_${obj.ticketNo}_fff_${encodeURIComponent(obj.validEndTime.split(' ')[0])}_fff_${dateTime}`;
+                      const str = `${u.id}_fff_${encodeURIComponent(u.nickName)}_fff_${encodeURIComponent(u.headImg)}_fff_${encodeURIComponent(obj.validEndTime.split(' ')[0])}_fff_${dateTime}_fff_${obj.ticketStyle}_fff_${encodeURIComponent(obj.ticketContent)}`;
                       wx.onMenuShareAppMessage({
                           title: `${u.nickName}赠送您一张翼猫HRA健康风险评估优惠卡`,
                           desc: '请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。',
@@ -311,7 +312,17 @@ class HomePageContainer extends React.Component {
                           } else {
                               return this.state.data.map((item, index) => {
                                   return (
-                                      <div key={index} className={this.checkCardStatus(item) === 1 ? 'cardbox page-flex-col flex-jc-sb' : 'cardbox abnormal page-flex-col flex-jc-sb'} onClick={() => this.onCardClick(item)}>
+                                      <div key={index} className={(()=>{
+                                          const classNames = ['cardbox', 'page-flex-col','flex-jc-sb'];
+                                          if(this.checkCardStatus(item) !== 1){
+                                              classNames.push('abnormal');
+                                          }
+                                          switch(item.ticketStyle){
+                                              case 1: classNames.push('a');break;
+                                              case 2: classNames.push('b');break;
+                                          }
+                                          return classNames.join(' ');
+                                      })()} onClick={() => this.onCardClick(item)}>
                                           <div className="row1 flex-none page-flex-row flex-jc-sb" >
                                               <div>
                                                   <div className="t" />
@@ -323,11 +334,16 @@ class HomePageContainer extends React.Component {
                                                   } else if (type === 3) {   // 已使用
                                                       return <img className="tip" src={ImgShiYong} />;
                                                   }
-                                                  return <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
+                                                    return <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
                                               })()}
                                           </div>
-                                          <div className="row-center page-flex-row flex-jc-end">
-                                          </div>
+                                          <div className="row-center all_nowarp">{(()=>{
+                                              switch(item.ticketStyle){
+                                                  case 1: return `翼猫科技与${item.ticketContent}联合推出`;
+                                                  case 2: return '分销版';
+                                                  default: return '';
+                                              }
+                                          })()}</div>
                                           <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
                                               <div>
                                                   <div className="t">卡号：{tools.cardFormart(item.ticketNo)}</div>

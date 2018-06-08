@@ -354,7 +354,7 @@ class HomePageContainer extends React.Component {
           </div>
           {/** 视频直播 **/}
           <div className="home-content-one" style={{ display: this.props.liveHot.length ? 'block' : 'none' }}>
-              <div className="title">推荐直播</div>
+              <div className="title">推荐视频</div>
               <ul className="zb-1">
                   {
                       this.props.liveHot.filter((item, index) => index===0).map((item, index) => {
