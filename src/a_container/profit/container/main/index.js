@@ -56,7 +56,7 @@ class HomePageContainer extends React.Component {
       });
   }
 
-    componentWillUpdate(nextP, nextS) {
+    UNSAFE_componentWillUpdate(nextP, nextS) {
       if (this.state.data !== nextS.data) {
           this.dom && this.dom.setOption(this.makeOption(nextS.data), true);
       }

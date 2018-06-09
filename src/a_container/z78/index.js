@@ -32,11 +32,6 @@ class Za78 extends React.Component {
     this.state = {
     };
   }
-
-    componentWillMount(){
-
-    }
-
   render() {
     return (
       <div>

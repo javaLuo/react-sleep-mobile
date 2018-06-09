@@ -65,7 +65,7 @@ class IscrollLuo extends React.Component {
   }
 
   // 组件挂载完毕之前触发 初始化一些参数
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if(this.props.options) {
       this.setState({
         options: Object.assign({}, this.state.options, this.props.options),
@@ -119,7 +119,7 @@ class IscrollLuo extends React.Component {
   }
 
   /* children内容改变时触发,表示已完成了刷新或加载 */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceivePops(nextProps) {
     if(this.props.children !== nextProps.children) {
       this.setState({
         data: nextProps.children,

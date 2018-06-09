@@ -19,7 +19,7 @@ class Menu extends React.Component {
         this.setChecked(this.props.location);
     }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
         if (nextP.location !== this.props.location) {
             this.setChecked(nextP.location);
         }

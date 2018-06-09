@@ -49,7 +49,7 @@ class RootContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       this.getOpenId();
       const ok = this.initURL();
       if (ok) {

@@ -49,7 +49,7 @@ class VideoLuo extends React.PureComponent {
         });
     }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
         if(nextP.videoSrc !== this.props.videoSrc){
             this.setState({
                 btnCheck: ~~!nextP.videoSrc,

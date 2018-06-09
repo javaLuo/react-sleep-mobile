@@ -36,7 +36,7 @@ class HomePageContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
 
   }
   componentDidMount() {

@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
         Toast.hide();
     }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
 
     }
 
@@ -127,6 +127,7 @@ class HomePageContainer extends React.Component {
                                         key={index}
                                         style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                     >
                                         <img
                                             src={item}

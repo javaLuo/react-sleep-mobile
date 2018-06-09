@@ -42,7 +42,7 @@ class Healthy extends React.Component {
     };
   }
 
-    componentWillMount(){
+    UNSAFE_componentWillMount(){
 
     }
 

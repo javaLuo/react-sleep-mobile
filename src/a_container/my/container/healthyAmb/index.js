@@ -60,7 +60,7 @@ class Register extends React.Component {
                     <div className="logo-info">{ a.nickName || a.realName }</div>
                     <List className="this-list">
                         <Item extra={a.id || ''}>e家号</Item>
-                        <Item extra={<a href={`tel:${a.mobile || ''}`} target="_blank">{a.mobile}</a>}>手机号</Item>
+                        <Item extra={<a href={`tel:${a.mobile || ''}`} target="_blank" rel="noopener noreferrer">{a.mobile}</a>}>手机号</Item>
                         <Item extra={a.stationName}>体验店</Item>
                     </List>
                 </div>

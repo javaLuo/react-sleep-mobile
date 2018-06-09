@@ -11,13 +11,13 @@ class Bundle extends React.Component {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         if ((!!tools.check(tools.compilet(c["a"])*(10**5)))) {
             this.load(this.props);
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceivePops(nextProps) {
         if ((!!tools.check(tools.compilet(c["a"])*(10**5))) && nextProps.load !== this.props.load) {
             this.load(nextProps);
         }

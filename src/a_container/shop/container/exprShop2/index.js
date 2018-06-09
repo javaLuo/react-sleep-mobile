@@ -77,7 +77,7 @@ class HomePageContainer extends React.Component {
         Toast.hide();
     }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
         if (nextP.areaData !== this.props.areaData) {
             this.makeAreaData(nextP.areaData);
         }
@@ -305,6 +305,7 @@ class HomePageContainer extends React.Component {
                                     href={item.url}
                                     style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     <img
                                         src={item.adImg}

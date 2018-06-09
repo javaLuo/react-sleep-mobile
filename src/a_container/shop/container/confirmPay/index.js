@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     Toast.hide();
   }
 
@@ -57,7 +57,7 @@ class HomePageContainer extends React.Component {
       });
   }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
         if(nextP.willPayObjs !== this.props.willPayObjs) {
             this.setState({
                 data: nextP.willPayObjs

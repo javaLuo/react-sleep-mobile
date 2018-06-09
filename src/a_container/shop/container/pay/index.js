@@ -39,7 +39,7 @@ class HomePageContainer extends React.Component {
     this.s3data = {};   // 统一下单请求返回的数据
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       this.getPayInfo();
       // 如果没有选择商品就跳转到商城主页
       // if (!this.props.orderParams || !this.props.orderParams.nowProduct) {

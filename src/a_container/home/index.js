@@ -56,7 +56,7 @@ class HomePageContainer extends React.Component {
     this.show = 0;
   }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
 
   }
 
@@ -266,6 +266,7 @@ class HomePageContainer extends React.Component {
                               href={u ? `${item.url}&e=${u.id}` : item.url}
                               style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                               target="_blank"
+                              rel="noopener noreferrer"
                           >
                             <img
                                 src={item.adImg}

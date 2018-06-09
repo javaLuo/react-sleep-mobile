@@ -50,7 +50,7 @@ class LiveContainer extends React.Component {
   /**
    * 改变时
    * */
-  componentWillReceiveProps(nextP) {
+  UNSAFE_componentWillReceivePops(nextP) {
       if (nextP.liveTypes !== this.props.liveTypes && nextP.liveTypes.length) { // 更新的types
           this.initAllScroll(nextP.liveTypes);
       }

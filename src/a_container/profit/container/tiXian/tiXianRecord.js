@@ -48,7 +48,7 @@ class HomePageContainer extends React.Component {
         this.getData(this.state.pageNum, this.state.pageSize, 'flash');
     }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
 
     }
 

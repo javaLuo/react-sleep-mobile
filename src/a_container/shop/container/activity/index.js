@@ -36,7 +36,7 @@ class HomePageContainer extends React.Component {
     };
   }
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
 
   }
 
@@ -48,7 +48,7 @@ class HomePageContainer extends React.Component {
       }
   }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
       if(nextP.location !== this.props.location) {
           const id = Number(nextP.location.pathname.split('/').pop());
           this.getData(id);

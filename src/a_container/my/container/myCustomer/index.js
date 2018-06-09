@@ -52,7 +52,7 @@ class HomePageContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       const p = this.props.location.pathname.split('/');
       this.setState({
           id: Number(p[p.length - 2]) || null,

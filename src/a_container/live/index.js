@@ -33,7 +33,7 @@ class Live extends React.Component {
     };
   }
 
-    componentWillMount(){
+    UNSAFE_componentWillMount(){
 
     }
 

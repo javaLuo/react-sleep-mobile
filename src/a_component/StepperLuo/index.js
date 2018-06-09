@@ -25,7 +25,7 @@ class StepperLuo extends React.PureComponent {
         });
     }
 
-    componentWillReceiveProps() {
+    UNSAFE_componentWillReceivePops() {
 
     }
 

@@ -42,7 +42,7 @@ class HomePageContainer extends React.Component {
     this.s3data = null;      // 统一下单请求返回的数据
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
       if (!this.getPayInfo()){
           this.props.history.replace('/my/order/0');  // 没有订单信息，直接进入我的订单
       }

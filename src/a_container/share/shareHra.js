@@ -40,7 +40,7 @@ class Register extends React.PureComponent {
         };
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // 处理location中的数据 id_nickName_headImg
         const pathname = this.props.location.pathname.split('/');
         const p = pathname[pathname.length - 1];

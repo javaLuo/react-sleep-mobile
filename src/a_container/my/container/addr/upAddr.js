@@ -62,7 +62,7 @@ class HomePageContainer extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextP) {
+    UNSAFE_componentWillReceivePops(nextP) {
         if (nextP.areaData !== this.props.areaData) {
             this.makeAreaData(nextP.areaData || []);
         }

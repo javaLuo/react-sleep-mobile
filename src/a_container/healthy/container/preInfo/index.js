@@ -56,7 +56,7 @@ class HomePageContainer extends React.Component {
       });
   }
 
-  componentWillReceiveProps(nextP) {
+  UNSAFE_componentWillReceivePops(nextP) {
       if (nextP.preInfo !== this.props.preInfo) {
 
           const p = nextP.preInfo;

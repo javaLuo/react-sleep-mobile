@@ -43,7 +43,7 @@ class Register extends React.Component {
         this.timer = null;  // 获取验证码的tiemr
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         const u = this.props.userinfo || {};
         this.setState({
             pageType: !!u.mobile,
