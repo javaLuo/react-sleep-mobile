@@ -64,10 +64,6 @@ class My extends React.Component {
     };
   }
 
-    UNSAFE_componentWillMount(){
-
-    }
-
   render() {
     return (
       <div>

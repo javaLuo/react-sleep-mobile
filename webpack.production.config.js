@@ -3,7 +3,7 @@ var fs = require('fs');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');     // 为了单独打包css
 var HtmlWebpackPlugin = require('html-webpack-plugin');             // 生成html
-const PreloadWebpackPlugin = require("preload-webpack-plugin"); // 预加载所有chunk
+// const PreloadWebpackPlugin = require("preload-webpack-plugin"); // 预加载所有chunk
 module.exports = {
     entry: {
         app: path.resolve(__dirname, 'src', 'index')
@@ -92,7 +92,7 @@ module.exports = {
             },
             compress: {
                 warnings: false, // 删除没有用的代码时是否发出警告
-                drop_console: false, // 是否删除所有的console
+                drop_console: true, // 是否删除所有的console
             },
         }),
 
@@ -107,7 +107,7 @@ module.exports = {
             hash: true,
             inject: true,                           // 是否将js放在body的末尾
         }),
-        new PreloadWebpackPlugin(),
+       // new PreloadWebpackPlugin(),
     ],
     // 解析器， webpack提供的各种方便的工具函数
     resolve: {

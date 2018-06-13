@@ -39,25 +39,22 @@ class HomePageContainer extends React.Component {
     };
   }
 
-  UNSAFE_componentWillMount() {
+  componentWillUnmount() {
     Toast.hide();
   }
 
   componentDidMount() {
       document.title = '订单确认';
-      // sessionStorage.removeItem('pay-obj');
-      // sessionStorage.removeItem('pay-info');
       sessionStorage.removeItem('pay-start');
       this.queryCustomerList();
       setTimeout(()=>{
           if(this.props.userinfo) {
-              console.log('111111111111', this.props.userinfo);
               this.getAllStations(this.state.data, this.props.userinfo.id);
           }
       });
   }
 
-    UNSAFE_componentWillReceivePops(nextP) {
+    UNSAFE_componentWillReceiveProps(nextP) {
         if(nextP.willPayObjs !== this.props.willPayObjs) {
             this.setState({
                 data: nextP.willPayObjs

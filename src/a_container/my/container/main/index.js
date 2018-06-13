@@ -84,22 +84,22 @@ class HomePageContainer extends React.Component {
             });
         },0);
         window.addEventListener("resize", this.realSvg, false);
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener("deviceorientation", this.motionHandler, false);
-        }
-        let ver = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
-        if(ver){
-            ver = parseInt(ver[1], 10);
-            this.setState({
-                ios: ver || 10,
-            });
-        }
+        // if (window.DeviceOrientationEvent) {
+        //     window.addEventListener("deviceorientation", this.motionHandler, false);
+        // }
+        // let ver = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+        // if(ver){
+        //     ver = parseInt(ver[1], 10);
+        //     this.setState({
+        //         ios: ver || 10,
+        //     });
+        // }
 
     }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.realSvg, false);
-        window.removeEventListener("deviceorientation", this.motionHandler, false);
+        // window.removeEventListener("deviceorientation", this.motionHandler, false);
     }
 
     // 订单数量
@@ -336,7 +336,7 @@ class HomePageContainer extends React.Component {
             <div className={this.state.show ? 'my-main show' : 'my-main'}>
                 <div className="head-box">
                     <div className="pic-box">
-                        <div id="svg-box" className="svg-box"  onClick={() => this.toggleSvg()}>
+                        <div id="svg-box" className="svg-box">
                             <svg className="svg1" width="100%" height="100%" style={this.state.svgPlay ? { backgroundColor: '#0D3B81' } : null}>
                                 <path id="path2" className="path2" fill="#fff" />
                                 <path id="path1" className="path1" fill="#fff" />

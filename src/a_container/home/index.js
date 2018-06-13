@@ -17,7 +17,6 @@ import tools from '../../util/all';
 // ==================
 import { Icon } from "antd";
 import { Toast } from 'antd-mobile';
-import WaterWave from 'water-wave';
 import { Carousel } from 'antd-mobile';
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
@@ -53,34 +52,21 @@ class HomePageContainer extends React.Component {
         activeCount: 0,
         stations: [],   // 5个推荐的体验店
     };
-    this.show = 0;
-  }
-
-  UNSAFE_componentWillMount(){
-
   }
 
   componentDidMount() {
       document.title = '翼猫健康e家';
     // 获取轮播图
     if (!this.props.homePics || this.props.homePics.length === 0) {
-      this.props.actions.mallApList({ typeCode: 'slideshow' }).finally(()=>{
-          this.getShow();
-      });
-    } else {
-        this.getShow();
+      this.props.actions.mallApList({ typeCode: 'slideshow' });
     }
     // 获取热销产品
     if(!this.props.homeRecommend || !this.props.homeRecommend.length) {
         this.getRecommend();
-    } else {
-        this.getShow();
     }
     // 获取推荐视频
     if (!this.props.liveHot || !this.props.liveHot.length) {
         this.getLiveHot();
-    }else {
-        this.getShow();
     }
     // 获取视频分类
       if (!this.props.liveTypes || !this.props.liveTypes.length) {
@@ -89,8 +75,6 @@ class HomePageContainer extends React.Component {
       // 获取热门活动
       if (!this.props.activityList || !this.props.activityList.length) {
         this.getActivityList();
-      }else {
-          this.getShow();
       }
       // 获取有多少人参加活动
     this.getOrdersCount();
@@ -100,22 +84,15 @@ class HomePageContainer extends React.Component {
 
     // 获取推荐服务站
       this.getGoodServiceStations();
-  }
 
-  getShow(){
-      this.show = this.show+1;
-      if(this.show >= 2){
-          this.setState({
-              show: true,
-          });
-      }
+      this.setState({
+          show: true,
+      });
   }
 
   // 获取热销产品
     getRecommend() {
-      this.props.actions.getRecommend().finally(()=>{
-          this.getShow();
-      });
+      this.props.actions.getRecommend();
     }
 
     // 获取推荐服务站
@@ -126,15 +103,11 @@ class HomePageContainer extends React.Component {
                 stations: res.data.result || [],
             });
         }
-      }).finally(() => {
-          this.getShow();
       });
     }
     // 获取热门活动
     getActivityList() {
-        this.props.actions.getActivityList().finally(() => {
-            this.getShow();
-        });
+        this.props.actions.getActivityList();
     }
 
     // 获取视频热门直播
@@ -145,9 +118,7 @@ class HomePageContainer extends React.Component {
           pageNum: 1,
           pageSize: 10,
       };
-      this.props.actions.getLiveListCache(params).finally(() => {
-          this.getShow();
-      });
+      this.props.actions.getLiveListCache(params);
     }
     // 获取视频分类
     getLiveTypes() {
@@ -288,7 +259,6 @@ class HomePageContainer extends React.Component {
                   barData.map((item, index) => <div key={index} onClick={() => this.onLinkClick(item.key)}>
                       <img className={`ball-animation ball${index}`} src={item.pic} />
                       <div>{item.title}</div>
-                      <WaterWave color="#cccccc" press="down"/>
                   </div>)
               }
           </div>
@@ -313,7 +283,6 @@ class HomePageContainer extends React.Component {
                           return (<li key={index} style={{ width: w, marginLeft }}>
                               <Link to={`/shop/activity/${item.id}`}>
                                   <img className="all_radius" src={item.acImg} />
-                                  <WaterWave color="#cccccc" press="down"/>
                               </Link>
                           </li>);
                       })
@@ -331,7 +300,6 @@ class HomePageContainer extends React.Component {
                                   <div className="t all_nowarp2">{vv.name}</div>
                                   <div className="num">已售: {vv.buyCount}</div>
                                   <div className="m" onClick={(e) => this.onPushCar(e,vv.id)}><i>￥{tools.point2(vv.productModel.price+vv.productModel.openAccountFee)}</i><img src={ImgCar} /></div>
-                                  <WaterWave color="#cccccc" press="down"/>
                           </li>
                       );
                   }) }
@@ -345,13 +313,12 @@ class HomePageContainer extends React.Component {
                                       <div className="t all_nowarp2">{item.name}</div>
                                       <div className="num">已售: {item.buyCount}</div>
                                       <div className="m" onClick={(e) => this.onPushCar(e,item.id)}><i>￥{tools.point2(item.productModel.price+item.productModel.openAccountFee)}</i><img src={ImgCar} /></div>
-                                  <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
                       })
                   }
               </ul>
-              <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={'/shop'}>查看全部 <Icon type="caret-right" /></Link></div>
+              <div className="foot"><Link to={'/shop'}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 视频直播 **/}
           <div className="home-content-one" style={{ display: this.props.liveHot.length ? 'block' : 'none' }}>
@@ -363,7 +330,6 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
                                   <div className="pic"><img className="all_radius" src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
-                                  <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
                       })
@@ -376,13 +342,12 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
                                   <div className="pic"><img className="all_radius" src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
-                                  <WaterWave color="#cccccc" press="down"/>
                               </li>
                           );
                       })
                   }
               </ul>
-              <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={'/live'}>查看全部 <Icon type="caret-right" /></Link></div>
+              <div className="foot"><Link to={'/live'}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 翼猫体验店 **/}
           <div className="home-content-one">
@@ -406,7 +371,6 @@ class HomePageContainer extends React.Component {
                                               {/*default: return null;*/}
                                           {/*}*/}
                                       {/*})()}*/}
-                                      {/*<WaterWave color="#cccccc" press="down"/>*/}
                                   {/*</div>*/}
                               {/*</li>*/}
                           {/*);*/}
@@ -443,7 +407,7 @@ class HomePageContainer extends React.Component {
                       </div>
                   </li>
               </ul>
-              <div className="foot"><WaterWave color="#cccccc" press="down"/><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
+              <div className="foot"><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
           {/** 热门资讯 **/}
           {/*<div className="home-content-one">*/}
@@ -460,10 +424,9 @@ class HomePageContainer extends React.Component {
                           {/*</div>*/}
                       {/*</div>*/}
                       {/*<div className="new_pic" ><img src={ImgTest}/></div>*/}
-                      {/*<WaterWave color="#cccccc" press="down"/>*/}
                   {/*</li>*/}
               {/*</ul>*/}
-              {/*<div className="foot"><WaterWave color="#cccccc" press="down"/><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>*/}
+              {/*<div className="foot"><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>*/}
           {/*</div>*/}
       </div>
     );

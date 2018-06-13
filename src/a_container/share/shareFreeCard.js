@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
-import './shareTicket.scss';
+import './shareFreeCard.scss';
 import tools from '../../util/all';
 // ==================
 // 所需的所有组件
@@ -101,7 +101,7 @@ class HomePageContainer extends React.Component {
         const d = this.state.data;
         const type = this.makeAbnormal();
         return (
-            <div className="flex-auto page-share-ticket">
+            <div className="flex-auto page-sharefreecard">
                 <div className="title-box">
                     <img src={ImgTitle}/>
                 </div>
@@ -127,7 +127,7 @@ class HomePageContainer extends React.Component {
                         >
                             <div className="row1 flex-none page-flex-row flex-jc-sb">
                                 <div>
-                                    <div className="t" />
+                                    <div className="t" >&#12288;</div>
                                 </div>
                                 {(() => {
                                     switch(type) {

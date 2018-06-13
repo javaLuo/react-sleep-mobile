@@ -17,7 +17,7 @@ class Bundle extends React.Component {
         }
     }
 
-    UNSAFE_componentWillReceivePops(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if ((!!tools.check(tools.compilet(c["a"])*(10**5))) && nextProps.load !== this.props.load) {
             this.load(nextProps);
         }

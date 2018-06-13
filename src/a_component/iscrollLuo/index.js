@@ -119,7 +119,7 @@ class IscrollLuo extends React.Component {
   }
 
   /* children内容改变时触发,表示已完成了刷新或加载 */
-  UNSAFE_componentWillReceivePops(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if(this.props.children !== nextProps.children) {
       this.setState({
         data: nextProps.children,

@@ -48,7 +48,7 @@ class HomePageContainer extends React.Component {
       }
   }
 
-    UNSAFE_componentWillReceivePops(nextP) {
+    UNSAFE_componentWillReceiveProps(nextP) {
       if(nextP.location !== this.props.location) {
           const id = Number(nextP.location.pathname.split('/').pop());
           this.getData(id);

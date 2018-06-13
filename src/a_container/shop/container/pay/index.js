@@ -41,11 +41,6 @@ class HomePageContainer extends React.Component {
 
   UNSAFE_componentWillMount() {
       this.getPayInfo();
-      // 如果没有选择商品就跳转到商城主页
-      // if (!this.props.orderParams || !this.props.orderParams.nowProduct) {
-      //     Toast.info('您没有选择商品');
-      //    this.props.history.replace('/shop');
-      // }
   }
   componentDidMount() {
       Toast.loading('请稍后……');

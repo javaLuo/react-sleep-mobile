@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
         Toast.hide();
     }
 
-    UNSAFE_componentWillReceivePops(nextP) {
+    UNSAFE_componentWillReceiveProps(nextP) {
 
     }
 

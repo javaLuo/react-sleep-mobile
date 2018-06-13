@@ -38,11 +38,6 @@ class Healthy extends React.Component {
     };
   }
 
-    UNSAFE_componentWillMount(){
-
-    }
-
-
   render() {
     return (
         <div>

@@ -43,19 +43,16 @@ class Register extends React.Component {
         this.timer = null;  // 获取验证码的tiemr
     }
 
-    UNSAFE_componentWillMount() {
-        const u = this.props.userinfo || {};
-        this.setState({
-            pageType: !!u.mobile,
-        });
-    }
-
     componentWillUnmount() {
         clearInterval(this.timer);
     }
 
     componentDidMount() {
         document.title = '绑定手机号';
+        const u = this.props.userinfo || {};
+        this.setState({
+            pageType: !!u.mobile,
+        });
     }
 
     // 验证码模态框关闭

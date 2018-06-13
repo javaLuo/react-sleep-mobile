@@ -49,7 +49,7 @@ class HomePageContainer extends React.Component {
       }
   }
 
-    UNSAFE_componentWillReceivePops(nextP) {
+    UNSAFE_componentWillReceiveProps(nextP) {
         if (nextP.areaData !== this.props.areaData) {
             console.log('触发了没啊：', nextP.areaData);
             this.makeAreaData(nextP.areaData);

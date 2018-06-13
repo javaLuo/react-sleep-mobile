@@ -11,6 +11,9 @@ import Loading from '../../a_component/loading';
 import WindowFlod from '../../a_component/windowFlod';
 import c from '../../config';
 
+const fundebug = require("fundebug-javascript");
+fundebug.apikey = c.funApiKey;
+
 const Home = Loadable({ loader: () => import("../home/index"), loading: Loading });
 const AppHome = Loadable({ loader: () => import("../apphome/index"), loading: Loading });
 const Healthy = Loadable({ loader: () => import("../healthy"), loading: Loading });
@@ -33,10 +36,11 @@ const Profit = Loadable({ loader: () => import("../profit"), loading: Loading })
 const DownLine = Loadable({ loader: () => import("../downLine"), loading: Loading });
 const Live = Loadable({ loader: () => import("../live"), loading: Loading });
 const Z78 = Loadable({ loader: () => import("../z78"), loading: Loading });
+const Test = Loadable({ loader: () => import("../test"), loading: Loading });
 
 import Menu from '../../a_component/menu';
 import tools from '../../util/all';
-import Test from '../test';
+
 import { login, getUserInfo } from '../../a_action/app-action';
 import { shopCartCount } from '../../a_action/new-action';
 
@@ -66,6 +70,15 @@ class RootContainer extends React.Component {
      Home.preload();
      My.preload();
      Healthy.preload();
+  }
+
+  componentDidCatch(error, info) {
+      fundebug.notifyError(error, {
+          metaData: {
+              info,
+          }
+      });
+      alert('您的数据存在异常');
   }
 
     getOpenId() {

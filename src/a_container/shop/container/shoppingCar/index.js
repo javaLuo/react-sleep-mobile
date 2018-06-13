@@ -40,10 +40,6 @@ class HomePageContainer extends React.Component {
     };
   }
 
-  UNSAFE_componentWillMount(){
-
-  }
-
   componentDidMount() {
       document.title = '购物车';
       this.getData();
