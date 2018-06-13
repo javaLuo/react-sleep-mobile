@@ -1,9 +1,7 @@
 .page-myfavcards{
   height: 100vh;
-  .luo-box{
-    height: 100%;
     .tabs-div{
-      height: 100%;
+      height: calc(100vh - 44px);
       .the-ul{
         padding: .2rem;
         box-sizing: border-box;
@@ -100,7 +98,6 @@
         }
       }
     }
-  }
   .share-modal{
     position: fixed;
     z-index: 99;

@@ -314,7 +314,6 @@ class HomePageContainer extends React.Component {
   render() {
     return (
       <div className="page-myfavcards">
-          <div className="luo-box">
               <Tabs
                   tabs={this.state.data.map((item)=> ({ title: item.badge ? <Badge text={item.total || 0}>{item.title}</Badge> : item.title, }))}
                   swipeable={false}
@@ -401,7 +400,6 @@ class HomePageContainer extends React.Component {
                       })
                   }
               </Tabs>
-          </div>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
               <div className="title">点击右上角进行赠送</div>
