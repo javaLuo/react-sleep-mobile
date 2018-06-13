@@ -42,7 +42,6 @@ import Menu from '../../a_component/menu';
 import tools from '../../util/all';
 
 import { login, getUserInfo } from '../../a_action/app-action';
-import { shopCartCount } from '../../a_action/new-action';
 
 const history = createHistory();
 class RootContainer extends React.Component {
@@ -200,6 +199,6 @@ export default connect(
       shoppingCarNum: state.shop.shoppingCarNum,
   }), 
   (dispatch) => ({
-      actions: bindActionCreators({ login, getUserInfo, shopCartCount }, dispatch),
+      actions: bindActionCreators({ login, getUserInfo }, dispatch),
   })
 )(RootContainer);

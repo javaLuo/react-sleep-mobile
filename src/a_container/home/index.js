@@ -16,8 +16,8 @@ import tools from '../../util/all';
 // 所需的所有组件
 // ==================
 import { Icon } from "antd";
-import { Toast } from 'antd-mobile';
-import { Carousel } from 'antd-mobile';
+import { Toast, Carousel } from 'antd-mobile';
+
 import ImgZiXun from '../../assets/home/home_zixun@3x.png';
 import ImgZhiBo from '../../assets/home/home_zhibo@3x.png';
 import ImgTiYan from '../../assets/home/home_tiyan@3x.png';

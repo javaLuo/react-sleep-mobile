@@ -1,99 +1,102 @@
 .page-myfavcards{
   height: 100vh;
   .luo-box{
-    height: calc(100% - 47px);
-  }
-  .the-ul{
-    padding: .2rem;
-    box-sizing: border-box;
-    &>div+div {
-      margin-top: .2rem;
-    }
-    .cardbox{
-      position: relative;
-      padding: .2rem;
-      box-sizing: border-box;
-      background-size: 100% 100%;
-      border-radius: 8px;
-      width: 7.1rem;
-      height: 3.2rem;
-      color: #fff;
-      background-image: url(../../../../assets/favcards/ka3@3x.png);
-      &.a{
-        background-image: url(../../../../assets/favcards/ka1@3x.png);
-      }
-      &.b{
-        background-image: url(../../../../assets/favcards/ka2@3x.png);
-      }
-      &.abnormal{
-        background-image: url(../../../../assets/favcards/ka_no@3x.png) !important;
-        .i{
-          color: #fff !important;
+    height: 100%;
+    .tabs-div{
+      height: 100%;
+      .the-ul{
+        padding: .2rem;
+        box-sizing: border-box;
+        &>div+div {
+          margin-top: .2rem;
         }
-      }
-      .row1{
-        .t{
-          font-size: .36rem;
-        }
-        .i{
-          font-size: .26rem;
-          color: #9394a4;
-        }
-        .right-info{
-          font-size: .36rem;
-        }
-        .tip{
-          position: absolute;
-          top:0;
-          right:0;
-          width: 1.6rem;
-          height: auto;
-        }
-        .flex-none{
-          img{
-            width: .14rem;
+        .cardbox{
+          position: relative;
+          padding: .2rem;
+          box-sizing: border-box;
+          background-size: 100% 100%;
+          border-radius: 8px;
+          width: 7.1rem;
+          height: 3.2rem;
+          color: #fff;
+          background-image: url(../../../../assets/favcards/ka3@3x.png);
+          &.a{
+            background-image: url(../../../../assets/favcards/ka1@3x.png);
           }
-        }
-      }
-      .row-center{
-        font-size: 12px;
-        color: #fff;
-        text-align: center;
-        flex: auto;
-        width: 100%;
-        margin-top: .04rem;
-      }
-      .row2{
-        .t{
-          font-size: .32rem;
-          span{
-            margin-left: .45rem;
+          &.b{
+            background-image: url(../../../../assets/favcards/ka2@3x.png);
           }
-        }
-        .money{
-          font-size: .32rem;
-          margin-bottom: .1rem;
-        }
-      }
-      .i{
-        font-size: .28rem;
-        color: #f2f2f2;
-        margin-top: .1rem;
-      }
-      .share-btn{
-        position: relative;
-        background-color: #fff;
-        color: #222;
-        text-align: center;
-        font-size: .26rem;
-        padding: .02rem .22rem;
-        border-radius: .4rem;
-        &.check{
-          color: #40a9ff;
-        }
-        img{
-          width: .3rem;
-          bottom: 0;
+          &.abnormal{
+            background-image: url(../../../../assets/favcards/ka_no@3x.png) !important;
+            .i{
+              color: #fff !important;
+            }
+          }
+          .row1{
+            .t{
+              font-size: .36rem;
+            }
+            .i{
+              font-size: .26rem;
+              color: #9394a4;
+            }
+            .right-info{
+              font-size: .36rem;
+            }
+            .tip{
+              position: absolute;
+              top:0;
+              right:0;
+              width: 1.6rem;
+              height: auto;
+            }
+            .flex-none{
+              img{
+                width: .14rem;
+              }
+            }
+          }
+          .row-center{
+            font-size: 12px;
+            color: #fff;
+            text-align: center;
+            flex: auto;
+            width: 100%;
+            margin-top: .04rem;
+          }
+          .row2{
+            .t{
+              font-size: .32rem;
+              span{
+                margin-left: .45rem;
+              }
+            }
+            .money{
+              font-size: .32rem;
+              margin-bottom: .1rem;
+            }
+          }
+          .i{
+            font-size: .28rem;
+            color: #f2f2f2;
+            margin-top: .1rem;
+          }
+          .share-btn{
+            position: relative;
+            background-color: #fff;
+            color: #222;
+            text-align: center;
+            font-size: .26rem;
+            padding: .02rem .22rem;
+            border-radius: .4rem;
+            &.check{
+              color: #40a9ff;
+            }
+            img{
+              width: .3rem;
+              bottom: 0;
+            }
+          }
         }
       }
     }

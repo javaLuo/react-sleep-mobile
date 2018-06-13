@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import './index.scss';
 import tools from '../../../../util/all';
+import _ from 'lodash';
 // ==================
 // 所需的所有组件
 // ==================
@@ -20,7 +21,7 @@ import ImgShareArr from '../../../../assets/share-arr.png';
 import Img404 from '../../../../assets/not-found.png';
 import ImgGuoQi from '../../../../assets/favcards/guoqi@3x.png';
 import ImgShiYong from '../../../../assets/favcards/shiyong@3x.png';
-import { Toast,List,Modal } from 'antd-mobile';
+import { Tabs, Toast,List,Modal,Badge } from 'antd-mobile';
 import Config from '../../../../config';
 
 // ==================
@@ -31,19 +32,24 @@ import { wxInit, queryListFree, saveFreeCardInfo, ticketHandsel } from '../../..
 // ==================
 // Definition
 // ==================
+
 const Item = List.Item;
 const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        data: [],
+        data: [
+            { title: '全部', data: [], type: null, badge: false, pageNum: 1, total: 0 },
+            { title: '未使用', data: [], type: 1, badge: true, pageNum: 1, total: 0 },
+            { title: '已使用', data: [], type: 2, badge: true, pageNum: 1, total: 0 },
+            { title: '待付款', data: [], type: 3, badge: true, pageNum: 1, total: 0 },
+            { title: '已过期', data: [], type: 4, badge: true, pageNum: 1, total: 0 },
+        ],
+        pageSize: 10,
         wxReady: true, // 微信是否已初始化
         shareShow: false,   // 分享提示框是否显示
         which: -1,  // 当前选中哪一个进行分享
-        pageNum: 1,
-        pageSize: 10,
-        total: 0,   // 总数
         search: null,
     };
   }
@@ -58,7 +64,7 @@ class HomePageContainer extends React.Component {
           search = arr[1];
       }
       console.log('searh是什么：', this.props.location, search);
-      this.getData(this.state.pageNum, this.state.pageSize, 'flash', search);
+      this.getData(1, this.state.pageSize, 'flash', search, null);
       this.setState({
           search,
       });
@@ -68,12 +74,16 @@ class HomePageContainer extends React.Component {
     componentWillUnmount() {
       Toast.hide();
     }
-  /**
-   * 获取评估卡列表
-   * type=falsh 刷新
-   * type=update 累加
-   * **/
-  getData(pageNum = 1, pageSize = 10, type = 'flash', search = null) {
+
+    /**
+     * 获取数据
+     * @param pageNum
+     * @param pageSize
+     * @param type flash刷新，update加载更多
+     * @param search 来自我的订单优惠卡查询，会有值
+     * @param which 是哪一个tab页获取数据
+     */
+  getData(pageNum = 1, pageSize = 10, type = 'flash', search = null, which = null) {
       console.log('searh是什么2：', this.props.location, search);
       const u = this.props.userinfo || {};
       const params = {
@@ -81,11 +91,11 @@ class HomePageContainer extends React.Component {
           pageNum,
           pageSize,
           orderId: search,
+          ticketStatus: which,
       };
       Toast.loading('请稍后...', 0);
       this.props.actions.queryListFree(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
-                console.log('我的优惠卡：', res.data.result);
                 if (!res.data || !res.data.result || res.data.result.length === 0) {
                     if (type === 'update') {
                         Toast.info('没有更多数据了', 1);
@@ -93,29 +103,45 @@ class HomePageContainer extends React.Component {
                       Toast.hide();
                   }
                     this.setState({
-                        data: type === 'flash' ? [] : this.state.data,
-                        total: type === 'flash' ? 0 : this.state.total,
+                        data: this.state.data,
                     });
                     return;
                 }
+
+                // 获得是哪一个tab的数据
+                const temp = _.cloneDeep(this.state.data);
+                for(let i=0; i<temp.length; i++){
+                    if(temp[i].type === which) {
+                        temp[i].data = type === 'flash' ? res.data.result : [...temp[i].data, ...res.data.result];
+                        temp[i].pageNum = pageNum;
+                        temp[i].total = res.data.total;
+                        break;
+                    }
+                }
                 this.setState({
-                    data: type === 'flash' ? res.data.result : [...this.state.data, ...res.data.result],
-                    total: res.data.total,
-                    pageNum,
-                    pageSize,
+                    data: temp,
                 });
                 Toast.hide();
             } else {
                 Toast.info(res.message || '数据加载失败', 1);
                 this.setState({
-                    data: type === 'flash' ? [] : this.state.data,
-                    total: type === 'flash' ? 0 : this.state.total,
+                    data: this.state.data,
                 });
             }
       }).catch(() => {
           Toast.hide();
       });
   }
+
+  // Tab切换时触发
+    onTabsChange(tab, index) {
+      const which = index === 0 ? null : index;
+      const t = this.state.data.find((item) => item.type === which);
+      console.log('来了吗：', tab, index, t, which);
+      if(t.data.length === 0) {
+          this.getData(1, this.state.pageSize, 'flash', this.state.search, which);
+      }
+    }
 
   // 失败
     onFail() {
@@ -190,10 +216,9 @@ class HomePageContainer extends React.Component {
     }
 
     // 点击分享按钮，需判断是否是原生系统
-    onStartShare(obj, index, e) {
+    onStartShare(obj, indexSrc, e) {
       e.stopPropagation();
       const me = this;
-      console.log('要分享的信息：', obj);
       if(tools.isWeixin() && obj.handsel) { // 是微信中并且卡的状态正常才能分享
           alert('确认赠送?', '赠送后您的卡将转移给对方，您将无法再查看该卡，该赠送24小时内有效', [
               { text: '取消', onPress: () => console.log('cancel') },
@@ -237,7 +262,7 @@ class HomePageContainer extends React.Component {
                       });
                       this.setState({
                           shareShow: true,
-                          which: index,
+                          which: indexSrc,
                       });
                       resolve();
                   }),
@@ -256,12 +281,14 @@ class HomePageContainer extends React.Component {
     }
 
     // 下拉刷新
-    onDown() {
-        this.getData(1, this.state.pageSize, 'flash', this.state.search);
+    onDown(which) {
+        this.getData(1, this.state.pageSize, 'flash', this.state.search, which);
     }
     // 上拉加载
-    onUp() {
-      this.getData(this.state.pageNum + 1, this.state.pageSize, 'update', this.state.search);
+    onUp(which) {
+      // 先得到该第几页了
+      const t = this.state.data.find((item)=>item.type === which) || {};
+      this.getData(Number(t.pageNum + 1) || 1, this.state.pageSize, 'update', this.state.search, which);
     }
 
     // 工具 - 判断当前评估卡状态（正常1、过期2、已使用3）
@@ -287,83 +314,93 @@ class HomePageContainer extends React.Component {
   render() {
     return (
       <div className="page-myfavcards">
-          <List>
-              <Item extra={`总计：${this.state.total}张`}>优惠卡</Item>
-          </List>
           <div className="luo-box">
-          <Luo
-            id="luo1"
-            className="touch-none"
-            onDown={() => this.onDown()}
-            onUp={() => this.onUp()}
-            iscrollOptions={{
-                disableMouse: true,
-
-            }}
-          >
-              <div className="the-ul">
+              <Tabs
+                  tabs={this.state.data.map((item)=> ({ title: item.badge ? <Badge text={item.total || 0}>{item.title}</Badge> : item.title, }))}
+                  swipeable={false}
+                  onChange={(tab, index) => this.onTabsChange(tab, index)}
+              >
                   {
-                      (() => {
-                         if (this.state.data.length === 0) {
-                              return <div key={0} className="data-nothing">
-                                  <img src={Img404}/>
-                                  <div>亲，这里什么也没有哦~</div>
-                              </div>;
-                          } else {
-                              return this.state.data.map((item, index) => {
-                                  return (
-                                      <div key={index} className={(()=>{
-                                          const classNames = ['cardbox', 'page-flex-col','flex-jc-sb'];
-                                          if(this.checkCardStatus(item) !== 1){
-                                              classNames.push('abnormal');
-                                          }
-                                          switch(item.ticketStyle){
-                                              case 1: classNames.push('a');break;
-                                              case 2: classNames.push('b');break;
-                                          }
-                                          return classNames.join(' ');
-                                      })()} onClick={() => this.onCardClick(item)}>
-                                          <div className="row1 flex-none page-flex-row flex-jc-sb" >
-                                              <div>
-                                                  <div className="t" />
-                                              </div>
-                                              {(() => {
-                                                  const type = this.checkCardStatus(item);
-                                                  if (type === 2) {   // 已过期
-                                                      return <img className="tip" src={ImgGuoQi} />;
-                                                  } else if (type === 3) {   // 已使用
-                                                      return <img className="tip" src={ImgShiYong} />;
-                                                  }
-                                                    return <div className="flex-none">{item.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
-                                              })()}
-                                          </div>
-                                          <div className="row-center all_nowarp">{(()=>{
-                                              switch(item.ticketStyle){
-                                                  case 1: return `翼猫科技与${item.ticketContent}联合推出`;
-                                                  case 2: return '分销版';
-                                                  default: return '';
-                                              }
-                                          })()}</div>
-                                          <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item, index, e)}>
-                                              <div>
-                                                  <div className="t">卡号：{tools.cardFormart(item.ticketNo)}</div>
-                                                  <div className="i">有效期至：{item.validEndTime ? item.validEndTime.split(' ')[0] : ''}</div>
-                                              </div>
-                                              <div>
-                                                  <div className="money">￥1000</div>
-                                                  {
-                                                      tools.isWeixin() && item.handsel ? <div className={ this.state.which === index ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
-                                                  }
-                                              </div>
-                                          </div>
-                                      </div>
-                                  );
-                              });
-                          }
-                      })()
+                      this.state.data.map((item, index)=>{
+                        return (
+                            <div key={index} className="tabs-div">
+                                <Luo
+                                    id={`luo-${index}`}
+                                    className="touch-none"
+                                    onDown={() => this.onDown(item.type)}
+                                    onUp={() => this.onUp(item.type)}
+                                    iscrollOptions={{
+                                        disableMouse: true,
+                                    }}
+                                >
+                                    <div className="the-ul">
+                                        {
+                                            (() => {
+                                                if (item.data.length === 0) {
+                                                    return <div key={0} className="data-nothing">
+                                                        <img src={Img404}/>
+                                                        <div>亲，这里什么也没有哦~</div>
+                                                    </div>;
+                                                } else {
+                                                    return item.data.map((item_son, index_son) => {
+                                                        return (
+                                                            <div key={index_son} className={(()=>{
+                                                                const classNames = ['cardbox', 'page-flex-col','flex-jc-sb'];
+                                                                if(this.checkCardStatus(item_son) !== 1){
+                                                                    classNames.push('abnormal');
+                                                                }
+                                                                switch(item_son.ticketStyle){
+                                                                    case 1: classNames.push('a');break;
+                                                                    case 2: classNames.push('b');break;
+                                                                }
+                                                                return classNames.join(' ');
+                                                            })()} onClick={() => this.onCardClick(item_son)}>
+                                                                <div className="row1 flex-none page-flex-row flex-jc-sb" >
+                                                                    <div>
+                                                                        <div className="t" />
+                                                                    </div>
+                                                                    {(() => {
+                                                                        const type = this.checkCardStatus(item_son);
+                                                                        if (type === 2) {   // 已过期
+                                                                            return <img className="tip" src={ImgGuoQi} />;
+                                                                        } else if (type === 3) {   // 已使用
+                                                                            return <img className="tip" src={ImgShiYong} />;
+                                                                        }
+                                                                        return <div className="flex-none">{item_son.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
+                                                                    })()}
+                                                                </div>
+                                                                <div className="row-center all_nowarp">{(()=>{
+                                                                    switch(item_son.ticketStyle){
+                                                                        case 1: return `翼猫科技与${item_son.ticketContent}联合推出`;
+                                                                        case 2: return '分销版';
+                                                                        default: return '';
+                                                                    }
+                                                                })()}</div>
+                                                                <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item_son, `${index}_${index_son}`, e)}>
+                                                                    <div>
+                                                                        <div className="t">卡号：{tools.cardFormart(item_son.ticketNo)}</div>
+                                                                        <div className="i">有效期至：{item_son.validEndTime ? item_son.validEndTime.split(' ')[0] : ''}</div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div className="money">￥1000</div>
+                                                                        {
+                                                                            item_son.handsel ? <div className={ this.state.which === `${index}_${index_son}` ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    });
+                                                }
+                                            })()
+                                        }
+                                    </div>
+                                </Luo>
+                            </div>
+                        );
+                      })
                   }
-              </div>
-          </Luo>
+              </Tabs>
           </div>
           <div className={this.state.shareShow ? 'share-modal' : 'share-modal hide'} onClick={() => this.setState({ shareShow: false })}>
               <img className="share" src={ImgShareArr} />
