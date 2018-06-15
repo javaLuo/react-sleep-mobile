@@ -40,10 +40,10 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: [
-            { title: '全部', data: [], type: null, badge: false, pageNum: 1, total: 0 },
             { title: '未使用', data: [], type: 1, badge: true, pageNum: 1, total: 0 },
             { title: '已使用', data: [], type: 2, badge: true, pageNum: 1, total: 0 },
             { title: '待付款', data: [], type: 3, badge: true, pageNum: 1, total: 0 },
+            { title: '已赠出', data: [], type: 5, badge: true, pageNum: 1, total: 0 },
             { title: '已过期', data: [], type: 4, badge: true, pageNum: 1, total: 0 },
         ],
         pageSize: 10,
@@ -64,7 +64,7 @@ class HomePageContainer extends React.Component {
           search = arr[1];
       }
       console.log('searh是什么：', this.props.location, search);
-      this.getData(1, this.state.pageSize, 'flash', search, null);
+      this.getData(1, this.state.pageSize, 'flash', search, 1);
       this.setState({
           search,
       });
@@ -83,7 +83,7 @@ class HomePageContainer extends React.Component {
      * @param search 来自我的订单优惠卡查询，会有值
      * @param which 是哪一个tab页获取数据
      */
-  getData(pageNum = 1, pageSize = 10, type = 'flash', search = null, which = null) {
+  getData(pageNum = 1, pageSize = 10, type = 'flash', search = null, which = 1) {
       console.log('searh是什么2：', this.props.location, search);
       const u = this.props.userinfo || {};
       const params = {
@@ -135,7 +135,7 @@ class HomePageContainer extends React.Component {
 
   // Tab切换时触发
     onTabsChange(tab, index) {
-      const which = index === 0 ? null : index;
+      const which = tab.type;
       const t = this.state.data.find((item) => item.type === which);
       console.log('来了吗：', tab, index, t, which);
       if(t.data.length === 0) {
@@ -315,7 +315,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-myfavcards">
               <Tabs
-                  tabs={this.state.data.map((item)=> ({ title: item.badge ? <Badge text={item.total || 0}>{item.title}</Badge> : item.title, }))}
+                  tabs={this.state.data.map((item)=> ({ title: item.badge ? <Badge text={item.total || 0}>{item.title}</Badge> : item.title, type: item.type }))}
                   swipeable={false}
                   onChange={(tab, index) => this.onTabsChange(tab, index)}
               >
@@ -370,8 +370,9 @@ class HomePageContainer extends React.Component {
                                                                 </div>
                                                                 <div className="row-center all_nowarp">{(()=>{
                                                                     switch(item_son.ticketStyle){
-                                                                        case 1: return `翼猫科技与${item_son.ticketContent}联合推出`;
-                                                                        case 2: return '分销版';
+                                                                        case 1: return `翼猫科技与${item_son.ticketContent}联名卡`;
+                                                                        case 2: return '乐享卡';
+                                                                        case 3: return '乐购卡';
                                                                         default: return '';
                                                                     }
                                                                 })()}</div>

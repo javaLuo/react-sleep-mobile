@@ -255,7 +255,6 @@ class HomePageContainer extends React.Component {
       if (!t){
           return;
       }
-      console.log('你倒是触发啊：', t, this.state.all);
       if (!t.data.length || t.needUp){  // 如果这一页没有数据，或其他Tab之前有删除订单操作，就自动请求一次
           this.getData(t.conditions, 1, 'flash');
       }

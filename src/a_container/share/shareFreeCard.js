@@ -140,8 +140,9 @@ class HomePageContainer extends React.Component {
                             </div>
                             <div className="row-center">{(()=>{
                                 switch(d.type){
-                                    case 1: return `翼猫科技与${d.str}联合推出`;
-                                    case 2: return '分销版';
+                                    case 1: return `翼猫科技与${d.str}联名卡`;
+                                    case 2: return '乐享卡';
+                                    case 3: return '乐购卡';
                                     default: return '';
                                 }
                             })()}</div>
