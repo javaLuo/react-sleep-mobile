@@ -38,7 +38,7 @@ import IconWdhk from './assets/icon-wdyhk.png';
 import IconWzym from './assets/icon-wzym.png';
 import IconYhxy from './assets/icon-yhxy.png';
 import IconYsxy from './assets/icon-ysxy.png';
-
+import Pop from '../../../../a_component/PopUps/popLin2';
 import tools from '../../../../util/all';
 
 // ==================
@@ -64,6 +64,7 @@ class HomePageContainer extends React.Component {
                 fCount: 0, // 待发货
                 sCount: 0, // 待收货
             },
+            popShow: false, // 提示绑定手机号的弹窗是否出现
         };
     }
 
@@ -74,6 +75,15 @@ class HomePageContainer extends React.Component {
         } else {
             this.getMyAmbassador();
             this.getMyCustomers();
+
+            // 判断是否是第1次进入“我的E家”
+            const user_first = localStorage.getItem('user_first');
+            if(!user_first && !this.props.userinfo.mobile){
+                this.setState({
+                    popShow: true,
+                });
+                localStorage.setItem('user_first', 'true');
+            }
         }
         this.getAuditCount();
         this.getShipOrderCount();
@@ -83,6 +93,7 @@ class HomePageContainer extends React.Component {
                 show: true,
             });
         },0);
+
         window.addEventListener("resize", this.realSvg, false);
         // if (window.DeviceOrientationEvent) {
         //     window.addEventListener("deviceorientation", this.motionHandler, false);
@@ -476,6 +487,11 @@ class HomePageContainer extends React.Component {
                     </div>
                     <div />
                 </div>
+                <Pop
+                    show={this.state.popShow}
+                    onClose={() => this.setState({popShow: false})}
+                    onSubmit={()=> this.onBindPhone()}
+                />
             </div>
         );
     }

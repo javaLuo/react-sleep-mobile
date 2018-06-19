@@ -315,7 +315,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-myfavcards">
               <Tabs
-                  tabs={this.state.data.map((item)=> ({ title: item.badge ? <Badge text={item.total || 0}>{item.title}</Badge> : item.title, type: item.type }))}
+                  tabs={this.state.data.map((item)=> ({ title: <Badge className="tabs-bars-div"><div>{ item.title }</div><div>{ item.data.length }</div></Badge>, type: item.type }))}
                   swipeable={false}
                   onChange={(tab, index) => this.onTabsChange(tab, index)}
               >

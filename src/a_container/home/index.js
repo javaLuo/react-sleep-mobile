@@ -376,36 +376,48 @@ class HomePageContainer extends React.Component {
                           {/*);*/}
                       {/*})*/}
                   {/*}*/}
-                  <li onClick={() => this.inputStation({id: 5})}>
-                      <div>
-                          <div className="star">{this.howManyStars(100)}</div>
-                          <img className="station-img" src={ImgStation1} />
-                      </div>
-                  </li>
-                  <li onClick={() => this.inputStation({id: 59})}>
-                      <div>
-                          <div className="star">{this.howManyStars(100)}</div>
-                          <img className="station-img" src={ImgStation2} />
-                      </div>
-                  </li>
-                  <li onClick={() => this.inputStation({id: 344})}>
-                      <div>
-                          <div className="star">{this.howManyStars(100)}</div>
-                          <img className="station-img" src={ImgStation3} />
-                      </div>
-                  </li>
-                  <li onClick={() => this.inputStation({id: 256})}>
-                      <div>
-                          <div className="star">{this.howManyStars(100)}</div>
-                          <img className="station-img" src={ImgStation4} />
-                      </div>
-                  </li>
-                  <li onClick={() => this.inputStation({id: 375})}>
-                      <div>
-                          <div className="star">{this.howManyStars(100)}</div>
-                          <img className="station-img" src={ImgStation5} />
-                      </div>
-                  </li>
+                  {
+                      this.state.stations.map((item, index) => {
+                          return (
+                              <li key={index} onClick={() => this.inputStation(item)}>
+                                  <div>
+                                      <div className="star">{this.howManyStars(item.satisfaction)}</div>
+                                      <img className="station-img" src={ImgStation1} />
+                                  </div>
+                              </li>
+                          );
+                      })
+                  }
+                  {/*<li onClick={() => this.inputStation({id: 5})}>*/}
+                      {/*<div>*/}
+                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
+                          {/*<img className="station-img" src={ImgStation1} />*/}
+                      {/*</div>*/}
+                  {/*</li>*/}
+                  {/*<li onClick={() => this.inputStation({id: 59})}>*/}
+                      {/*<div>*/}
+                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
+                          {/*<img className="station-img" src={ImgStation2} />*/}
+                      {/*</div>*/}
+                  {/*</li>*/}
+                  {/*<li onClick={() => this.inputStation({id: 344})}>*/}
+                      {/*<div>*/}
+                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
+                          {/*<img className="station-img" src={ImgStation3} />*/}
+                      {/*</div>*/}
+                  {/*</li>*/}
+                  {/*<li onClick={() => this.inputStation({id: 256})}>*/}
+                      {/*<div>*/}
+                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
+                          {/*<img className="station-img" src={ImgStation4} />*/}
+                      {/*</div>*/}
+                  {/*</li>*/}
+                  {/*<li onClick={() => this.inputStation({id: 375})}>*/}
+                      {/*<div>*/}
+                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
+                          {/*<img className="station-img" src={ImgStation5} />*/}
+                      {/*</div>*/}
+                  {/*</li>*/}
               </ul>
               <div className="foot"><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>

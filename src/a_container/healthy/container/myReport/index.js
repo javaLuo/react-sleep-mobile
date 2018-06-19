@@ -37,6 +37,7 @@ class HomePageContainer extends React.Component {
             data: [],
             pageNum: 1,
             pageSize: 10,
+            noDown: false,
         };
     }
 
@@ -61,8 +62,14 @@ class HomePageContainer extends React.Component {
                 });
                 if (type === 'update') {
                     Toast.info('没有更多数据了', 1);
+                    this.setState({
+                        noDown: true,
+                    });
                 } else {
                     Toast.hide();
+                    this.setState({
+                        noDown: false,
+                    });
                 }
             }
         }).catch(() => {
@@ -94,8 +101,10 @@ class HomePageContainer extends React.Component {
                 <Luo
                     id="luo1"
                     className="touch-none"
-                    onPullDownRefresh={() => this.onDown()}
-                    onPullUpLoadMore={() => this.onUp()}
+                    onDown={() => this.onDown()}
+                    onUp={() => this.onUp()}
+                    noUp={this.state.noDown}
+                    noUpStr={'已全部加载完毕'}
                     iscrollOptions={{
                         disableMouse: true,
                     }}

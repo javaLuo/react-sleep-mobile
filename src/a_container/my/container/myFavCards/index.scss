@@ -1,7 +1,7 @@
 .page-myfavcards{
   height: 100vh;
     .tabs-div{
-      height: calc(100vh - 44px);
+      height: calc(100vh - 56px);
       .the-ul{
         padding: .2rem;
         box-sizing: border-box;
@@ -98,6 +98,15 @@
         }
       }
     }
+  .tabs-bars-div{
+    text-align: center;
+    &>div+div{
+      padding-top: 8px;
+    }
+  }
+  .am-tabs-default-bar-tab{
+    height: 56px;
+  }
   .share-modal{
     position: fixed;
     z-index: 99;
