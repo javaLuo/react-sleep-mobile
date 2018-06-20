@@ -100,11 +100,11 @@ class HomePageContainer extends React.Component {
       }
       this.props.actions.deleteShopCar({shopCartIds: allId}).then((res) => {
           if(res.status === 200) {
-              Toast.success('删除成功');
+              Toast.success('删除成功', 1);
               this.props.actions.shopCartCount();
               this.getData();
           } else {
-              Toast.info(res.message);
+              Toast.info(res.message, 1);
           }
       });
     }

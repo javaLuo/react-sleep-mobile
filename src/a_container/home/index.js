@@ -34,6 +34,7 @@ import ImgStation2 from './assets/s-59.png';
 import ImgStation3 from './assets/s-256.png';
 import ImgStation4 from './assets/s-344.png';
 import ImgStation5 from './assets/s-375.png';
+import FlyBall from '../../a_component/FlyBall';
 // ==================
 // 本页面所需action
 // ==================
@@ -51,6 +52,7 @@ class HomePageContainer extends React.Component {
         imgHeight: 'calc(100vw * 0.43)',
         activeCount: 0,
         stations: [],   // 5个推荐的体验店
+        ballData: null,
     };
   }
 
@@ -184,16 +186,23 @@ class HomePageContainer extends React.Component {
     // 将商品添加进购物车
     onPushCar(e, id) {
         e.stopPropagation();
+
         if(this.props.shoppingCarNum >= 200) {
             Toast.info('您购物车内的商品数量过多，清理后方可加入购物车', 2);
             return;
         }
+        // 小球动画
+        const win = document.getElementById("window_flod");
+        console.log('鼠标坐标值', e.clientX, e.clientY, win.offsetLeft, win.offsetTop);
+        this.setState({
+            ballData: [e.clientX, e.clientY, win.offsetLeft + 10, win.offsetTop],
+        });
         this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
             if(res.status === 200) {
-                Toast.success('加入购物车成功',1);
+                // Toast.success('加入购物车成功',1);
                 this.props.actions.shopCartCount();
             } else {
-                Toast.info(res.message);
+                Toast.info(res.message, 1);
             }
         });
     }
@@ -320,7 +329,7 @@ class HomePageContainer extends React.Component {
               </ul>
               <div className="foot"><Link to={'/shop'}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
-          {/** 视频直播 **/}
+          {/** 视频直播1 **/}
           <div className="home-content-one" style={{ display: this.props.liveHot.length ? 'block' : 'none' }}>
               <div className="title">推荐视频</div>
               <ul className="zb-1">
@@ -440,6 +449,7 @@ class HomePageContainer extends React.Component {
               {/*</ul>*/}
               {/*<div className="foot"><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>*/}
           {/*</div>*/}
+          <FlyBall data={this.state.ballData}/>
       </div>
     );
   }

@@ -46,7 +46,7 @@ import tools from '../../../../util/all';
 // ==================
 
 import { getUserInfo, myAmbassador } from '../../../../a_action/app-action';
-import { getMyCustomersCount, getAuditCount, getShipOrderCount } from '../../../../a_action/shop-action';
+import { getMyCustomersCount, getAuditCount, getShipOrderCount, getAddrList } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -59,6 +59,7 @@ class HomePageContainer extends React.Component {
             howManyCustomer: 0, // 有多少个推广用户
             howManyCustomerDinDan:0, // 客户订单有多少个
             svgPlay: false, // svg是否执行
+            addrNum: 0, // 收货地址数量
             ios: 10,    // IOS版本
             fuckNum: {
                 fCount: 0, // 待发货
@@ -75,7 +76,7 @@ class HomePageContainer extends React.Component {
         } else {
             this.getMyAmbassador();
             this.getMyCustomers();
-
+            this.getAddrNum();
             // 判断是否是第1次进入“我的E家”
             const user_first = localStorage.getItem('user_first');
             if(!user_first && !this.props.userinfo.mobile){
@@ -119,6 +120,21 @@ class HomePageContainer extends React.Component {
             if(res.status === 200) {
                 this.setState({
                     fuckNum: res.data,
+                });
+            }
+        });
+    }
+
+    // 获取收货地址数量
+    getAddrNum() {
+        const params = {
+            pageNum: 1,
+            pageSize: 1,
+        };
+        this.props.actions.getAddrList(params).then((res) => {
+            if (res.status === 200 && res.data) { // 查询成功
+                this.setState({
+                    addrNum: res.total,
                 });
             }
         });
@@ -375,7 +391,7 @@ class HomePageContainer extends React.Component {
                         <div className="one" onClick={() => this.onAddrClick()}>
                             <img src={IconAddr} />
                             <div className="t">收货地址</div>
-                            <div className="i" />
+                            <div className="i">{this.state.addrNum || ''}</div>
                             <WaterWave color="#cccccc" press="down"/>
                         </div>
                     </div>
@@ -519,6 +535,6 @@ export default connect(
         ambassador: state.app.ambassador,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAuditCount, getShipOrderCount }, dispatch),
+        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAuditCount, getShipOrderCount, getAddrList }, dispatch),
     })
 )(HomePageContainer);

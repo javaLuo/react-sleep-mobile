@@ -23,7 +23,7 @@ import Img404 from '../../../../assets/not-found.png';
 import ImgDaoHang from '../../../../assets/daohang_blue@3x.png';
 import ImgR from '../../../../assets/to-r@3x.png';
 import ImgL from '../../../../assets/to-l@3x.png';
-
+import ImgRight from '../../../../assets/xiangyou@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -258,8 +258,7 @@ class HomePageContainer extends React.Component {
                           const station = _.cloneDeep(item);
                           /**
                            * 知道为什么要这么干吗，
-                           * 因为这里有两个接口，是两个java程序员写的
-                           * 操蛋的字段完全不一样
+                           * 因为这里有两个接口字段完全不一样
                            * 现在已经好了一些了，之前连数据结构也不一样
                            * **/
                           if(!station.name){
@@ -272,17 +271,22 @@ class HomePageContainer extends React.Component {
                               station.phone = station.stationTel;
                           }
                           return (
-                              <li key={index} className="card-box page-flex-row" onClick={() => this.onChose(station)}>
-                                  <div className="l flex-auto">
-                                      <div className="title">{station.name}</div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
-                                      <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a  onClick={(e)=> e.stopPropagation()} href={`tel:${station.phone || ''}`}>联系门店</a></span></div>
+                              <li key={index} className="card-box" >
+                                  <div className={"title"} onClick={()=> this.props.history.push(`/shop/exprdetail/${station.id}`)}>
+                                          <div>{station.name}</div>
+                                          <img src={ImgRight} />
                                   </div>
-                                  <div className="r flex-none" onClick={(e) => this.onGoMap(e, station)}>
-                                      { this.props.userXY && station.lng && station.lat ? <div className="lang">{`${tools.getFlatternDistance(this.props.userXY[0], this.props.userXY[1], station.lng, station.lat).toFixed(2)}km`}</div> : null}
-                                      <div className="addr">
-                                          <img src={ImgDaoHang} />
-                                          <div>导航</div>
+                                  <div className="infos" onClick={() => this.onChose(station)}>
+                                      <div className="l flex-auto">
+                                          <div className="info page-flex-row flex-ai-center"><img src={ImgAddr} /><span>{station.address}</span></div>
+                                          <div className="info page-flex-row flex-ai-center"><img src={ImgPhone} /><span><a  onClick={(e)=> e.stopPropagation()} href={`tel:${station.phone || ''}`}>联系门店</a></span></div>
+                                      </div>
+                                      <div className="r flex-none" onClick={(e) => this.onGoMap(e, station)}>
+                                          { this.props.userXY && station.lng && station.lat ? <div className="lang">{`${tools.getFlatternDistance(this.props.userXY[0], this.props.userXY[1], station.lng, station.lat).toFixed(2)}km`}</div> : null}
+                                          <div className="addr">
+                                              <img src={ImgDaoHang} />
+                                              <div>导航</div>
+                                          </div>
                                       </div>
                                   </div>
                               </li>

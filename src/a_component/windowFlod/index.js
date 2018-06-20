@@ -21,7 +21,7 @@ class WindowFlod extends React.Component {
 
     render() {
         return (
-            <div className={this.shoudBeShow()}>
+            <div id="window_flod" className={this.shoudBeShow()}>
                 <div className={"btn"} onClick={() => this.props.history.push('/shop/shoppingcar')}>
                     <img src={ImgGwc} style={{ marginLeft: '-3px' }}/>
                     <div className={this.props.shoppingCarNum > 0 ? 'shopping-num show' : 'shopping-num'}>{ this.props.shoppingCarNum }</div>

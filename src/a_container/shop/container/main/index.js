@@ -95,9 +95,21 @@ class HomePageContainer extends React.Component {
           }
       });
     }
+
+    // 点击进入某一个分类
+    barClick(id){
+        this.props.history.push(`/shop/shoptype/${id}`);
+    }
+
   render() {
       const d = [...this.props.allProducts].sort((a, b) => a-b);
       const u = this.props.userinfo;
+      const res = []; // 全部
+      d.forEach((item, index) => {
+          if(item.productList){
+              res.push(...item.productList);
+          }
+      });
     return (
       <div className={this.state.show ? 'shop-main show' : 'shop-main'}>
           {/* 顶部轮播 */}
@@ -131,105 +143,59 @@ class HomePageContainer extends React.Component {
                   </Carousel>
               ) : <div style={{ height: this.state.imgHeight }} />
           }
+          <div className="type-bar">
+              {
+                  d.map((item, index)=>{
+                      return (
+                          <div key={index} onClick={()=>this.barClick(item.id)}>
+                              <img src={item.typeIcon} />
+                              <div>{item.name}</div>
+                          </div>
+                      );
+                  })
+              }
+              <div style={{ paddingRight: '10px' }}>
+                  <img src={ImgCar} />
+                  <div>分类</div>
+              </div>
+          </div>
           <div className="body-box">
-              <Tabs
-                tabs={[{ title:'全部', id: 0}, ...d.map((item, index) => {
-                    return { title: item.name, id: item.id };
-                })]}
-                swipeable={false}
-                renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}
-                onChange={(tab, index) => {}}
-              >
-                      {(() => {
-                        const res = [];
-                        d.forEach((item, index) => {
-                            if(item.productList){
-                                res.push(...item.productList);
-                            }
-                        });
-
-                        const arr = [];
-                        arr.push(
-                            <div key={0} className="tab-box">
-                                <div>
-                                    {
-                                        res.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
-                                            return (
-                                                <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                    <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                    <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                    <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                    <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                        <span>已售：{vvv.buyCount || 0}</span>
-                                                        <img src={ImgCar} />
-                                                    </div>
-                                                </div>
-                                            );
-                                        })
-                                    }
-                                </div>
-                                <div>
-                                    {
-                                        res.filter((vv, ii) => ii % 2).map((vvv, iii) => {
-                                            return (
-                                                <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                    <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                    <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                    <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                    <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                        <span>已售：{vvv.buyCount || 0}</span>
-                                                        <img src={ImgCar} />
-                                                    </div>
-                                                </div>
-                                            );
-                                        })
-                                    }
-                                </div>
-                            </div>);
-
-                          arr.push(...d.map((v, i) => {
+              <div key={0} className="tab-box">
+                  <div>
+                      {
+                          res.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
                               return (
-                                  <div key={i} className="tab-box">
-                                      <div>
-                                          {
-                                              v.productList.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
-                                                  return (
-                                                      <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                          <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                          <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                          <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                          <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                              <span>已售：{vvv.buyCount || 0}</span>
-                                                              <img src={ImgCar} />
-                                                          </div>
-                                                      </div>
-                                                  );
-                                              })
-                                          }
-                                      </div>
-                                      <div>
-                                          {
-                                              v.productList.filter((vv, ii) => ii % 2).map((vvv, iii) => {
-                                                  return (
-                                                      <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                          <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                          <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                          <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                          <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                              <span>已售：{vvv.buyCount || 0}</span>
-                                                              <img src={ImgCar} />
-                                                          </div>
-                                                      </div>
-                                                  );
-                                              })
-                                          }
+                                  <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
+                                      <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
+                                      <div className="p-t all_nowarp2">{vvv.name}</div>
+                                      <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
+                                      <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
+                                          <span>已售：{vvv.buyCount || 0}</span>
+                                          <img src={ImgCar} />
                                       </div>
                                   </div>
                               );
-                          }));
-                          return arr;
-                      })()}
-              </Tabs>
+                          })
+                      }
+                  </div>
+                  <div>
+                      {
+                          res.filter((vv, ii) => ii % 2).map((vvv, iii) => {
+                              return (
+                                  <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
+                                      <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
+                                      <div className="p-t all_nowarp2">{vvv.name}</div>
+                                      <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
+                                      <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
+                                          <span>已售：{vvv.buyCount || 0}</span>
+                                          <img src={ImgCar} />
+                                      </div>
+                                  </div>
+                              );
+                          })
+                      }
+                  </div>
+              </div>
           </div>
       </div>
     );

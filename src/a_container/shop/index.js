@@ -30,6 +30,7 @@ import Activity from './container/activity';
 import ExprDetail from './container/exprShop2Detail';
 import Eva from './container/eva';
 import ShoppingCar from './container/shoppingCar';
+import ShopType from './container/shopType';
 // ==================
 // 本页面所需action
 // ==================
@@ -65,6 +66,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/exprdetail/:id`} component={ExprDetail} />
               <Route exact path={`${this.props.match.url}/eva`} component={Eva} />
               <Route exact path={`${this.props.match.url}/shoppingcar`} component={ShoppingCar} />
+              <Route exact path={`${this.props.match.url}/shoptype/:id`} component={ShopType} />
           </Switch>
       </div>
     );

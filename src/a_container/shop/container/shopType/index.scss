@@ -1,4 +1,4 @@
-.shop-main{
+.shop-type-main{
   min-height: 100vh;
   background-color: #f2f2f2;
   opacity: 0;
@@ -50,59 +50,56 @@
       }
     }
   }
-  .body-box{
-    background-color: #f2f2f2;
-    .tab-box{
-      display: flex;
+  .tab-box{
+    display: flex;
+    box-sizing: border-box;
+    &>div{
+      width: 50%;
+      flex: none;
       box-sizing: border-box;
-      &>div{
-        width: 50%;
-        flex: none;
+      &:first-child{
+        padding: 10px 5px 10px 10px;
+      }
+      &:nth-child(2){
+        padding: 10px 10px 10px 5px;
+      }
+      .a-product{
+        border: solid 1px #eeeeee;
         box-sizing: border-box;
-        &:first-child{
-          padding: 10px 5px 10px 10px;
+        overflow: hidden;
+        border-radius: 4px;
+        background-color: #ffffff;
+        &+div{
+          margin-top: 10px;
         }
-        &:nth-child(2){
-          padding: 10px 10px 10px 5px;
+        &>img{
+          width: 100%;
+          height: auto;
+          min-height: 100px;
         }
-        .a-product{
-          border: solid 1px #eeeeee;
+        .p-t{
+          font-size: 15px;
           box-sizing: border-box;
-          overflow: hidden;
-          border-radius: 4px;
-          background-color: #ffffff;
-          &+div{
-            margin-top: 10px;
-          }
-          &>img{
-            width: 100%;
-            height: auto;
-            min-height: 100px;
-          }
-          .p-t{
-            font-size: 15px;
-            box-sizing: border-box;
-            padding: 5px;
-            height: 46px;
-            line-height: 23px;
-          }
-          .p-m{
-            font-size: 16px;
-            color: #f92a19;
-            box-sizing: border-box;
-            padding: 5px;
-          }
-          .p-i{
-            color: #89888e;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            padding: 5px;
-            img{
-              height: 20px;
-              padding-left: 10px;
-            }
+          padding: 5px;
+          height: 46px;
+          line-height: 23px;
+        }
+        .p-m{
+          font-size: 16px;
+          color: #f92a19;
+          box-sizing: border-box;
+          padding: 5px;
+        }
+        .p-i{
+          color: #89888e;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-sizing: border-box;
+          padding: 5px;
+          img{
+            height: 20px;
+            padding-left: 10px;
           }
         }
       }
