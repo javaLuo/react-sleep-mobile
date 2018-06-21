@@ -17,6 +17,7 @@ import tools from '../../../../util/all';
 
 import { Tabs, Carousel, Toast } from 'antd-mobile';
 import ImgCar from '../../../../assets/shop/jrgwc@3x.png';
+import FlyBall from "../../../../a_component/FlyBall";
 // ==================
 // 本页面所需action
 // ==================
@@ -32,6 +33,7 @@ class HomePageContainer extends React.Component {
     this.state = {
         show: false,
         barPics: [],    // 顶部轮播图
+        ballData: null,
     };
     this.show = 0;
   }
@@ -86,19 +88,22 @@ class HomePageContainer extends React.Component {
             Toast.info('您购物车内的商品数量过多，清理后方可加入购物车', 2);
             return;
         }
+        const win = document.getElementById("window_flod");
+        this.setState({
+            ballData: [e.clientX, e.clientY, win.offsetLeft + 10, win.offsetTop],
+        });
       this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
           if(res.status === 200) {
-              Toast.success('加入购物车成功',1);
               this.props.actions.shopCartCount();
           } else {
-              Toast.info(res.message);
+              Toast.info(res.message, 1);
           }
       });
     }
 
     // 点击进入某一个分类
     barClick(id){
-        this.props.history.push(`/shop/shoptype/${id}`);
+        this.props.history.push(`/shop/shoptypeall/${id}`);
     }
 
   render() {
@@ -154,7 +159,7 @@ class HomePageContainer extends React.Component {
                       );
                   })
               }
-              <div style={{ paddingRight: '10px' }}>
+              <div onClick={()=>this.barClick(0)}>
                   <img src={ImgCar} />
                   <div>分类</div>
               </div>
@@ -197,6 +202,7 @@ class HomePageContainer extends React.Component {
                   </div>
               </div>
           </div>
+          <FlyBall data={this.state.ballData}/>
       </div>
     );
   }

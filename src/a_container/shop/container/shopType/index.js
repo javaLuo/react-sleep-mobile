@@ -88,7 +88,6 @@ class HomePageContainer extends React.Component {
         }
         this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
             if(res.status === 200) {
-                Toast.success('加入购物车成功',1);
                 this.props.actions.shopCartCount();
             } else {
                 Toast.info(res.message);

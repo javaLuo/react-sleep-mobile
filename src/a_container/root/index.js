@@ -77,7 +77,10 @@ class RootContainer extends React.Component {
               info,
           }
       });
-      alert('您的数据存在异常');
+      const d = document.createElement("div");
+      d.style="position: fixed;top:0;left:0;width: 100%;height:100%;font-size: 14px;z-index: 10;color: #cc3333";
+      d.innerText = window.location.href + ' | ' + String(error) + ' | ' + JSON.stringify(info);
+      document.body.appendChild(d);
   }
 
     getOpenId() {

@@ -370,7 +370,7 @@ class HomePageContainer extends React.Component {
                                                                 </div>
                                                                 <div className="row-center all_nowarp">{(()=>{
                                                                     switch(item_son.ticketStyle){
-                                                                        case 1: return `翼猫科技与${item_son.ticketContent}联名卡`;
+                                                                        case 1: return item_son.ticketContent;
                                                                         case 2: return '乐享卡';
                                                                         case 3: return '乐购卡';
                                                                         default: return '';

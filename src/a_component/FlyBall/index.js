@@ -52,7 +52,7 @@ class FlyBall extends React.PureComponent {
 
     render() {
         return (
-            <svg>
+            <svg className="flyball-svg">
                 <path id="ball_path" fill="none" strokeWidth={2} stroke="red" />
             </svg>
         );

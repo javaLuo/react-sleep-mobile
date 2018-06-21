@@ -12,8 +12,11 @@ class WindowFlod extends React.Component {
     }
 
     shoudBeShow() {
-        console.log(this.props.location.pathname.split('/').slice(1,2));
+        console.log("不是吧：", this.props.location.pathname.split('/').slice(1,2));
+        const pathname = this.props.location.pathname;
         if(['home', 'my', 'healthy', 'shop'].includes(this.props.location.pathname.split('/').slice(-1)[0])){
+            return 'window-flod show';
+        } else if (pathname.includes("shoptypeall")) { // 商城分类页也要
             return 'window-flod show';
         }
         return 'window-flod';

@@ -20,7 +20,6 @@ import WaterXD from './container/waterXD';
 import ConfirmPay from './container/confirmPay';
 import PayChose from './container/payChose';
 import BecomeDealer from './container/becomeDealer';
-import ExprShop from './container/exprShop';
 import ExprShop2 from './container/exprShop2';
 import Pay from './container/pay';
 import PayResult from './container/payresult';
@@ -31,6 +30,7 @@ import ExprDetail from './container/exprShop2Detail';
 import Eva from './container/eva';
 import ShoppingCar from './container/shoppingCar';
 import ShopType from './container/shopType';
+import ShopTypeAll from './container/shopTypeAll';
 // ==================
 // 本页面所需action
 // ==================
@@ -67,6 +67,7 @@ class Shop extends React.Component {
               <Route exact path={`${this.props.match.url}/eva`} component={Eva} />
               <Route exact path={`${this.props.match.url}/shoppingcar`} component={ShoppingCar} />
               <Route exact path={`${this.props.match.url}/shoptype/:id`} component={ShopType} />
+              <Route exact path={`${this.props.match.url}/shoptypeall/:id`} component={ShopTypeAll} />
           </Switch>
       </div>
     );
