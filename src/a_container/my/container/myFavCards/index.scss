@@ -145,4 +145,113 @@
       color: #4285f4;
     }
   }
+  .footer{
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: solid 1px #f2f2f2;
+    z-index: 8;
+    &>div{
+      flex: 1;
+      background-color: #fff;
+      text-align: center;
+      transition: all 200ms;
+      color: #222;
+      &+div{
+        border-left: solid 1px #f2f2f2;
+      }
+    }
+  }
+  .modal1{
+    position: fixed;
+    z-index: 15;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    box-shadow: 0 -5px 8px rgba(0,0,0,.1);
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    bottom: -100%;
+    opacity: 0;
+    transition: all 200ms;
+    &.show{
+      opacity: 1;
+      bottom: 0;
+    }
+    .title{
+      text-align: center;
+      color: #000;
+      font-size: 15px;
+      span{
+        color: #40a9ff;
+      }
+    }
+    .form-box{
+      box-sizing: border-box;
+      padding: 10px 40px;
+      .label-span{
+        padding: 0 10px;
+      }
+      .err{
+        font-size: 12px;
+        color: #cc3333;
+        margin: 5px 0;
+        text-align: center;
+      }
+      .fuckUpBox{
+        display: flex;
+        align-items: center;
+        height: 30px;
+        margin-top: 5px;
+        .btn{
+          height: 30px;
+          width: 30px;
+          line-height: 30px;
+          text-align: center;
+          font-size: 18px;
+          flex: none;
+          border: solid 1px #f0f0f0;
+        }
+        .input{
+          margin: 0 10px;
+          flex: 1;
+          height: 30px;
+          text-align: center;
+          box-sizing: border-box;
+          border: solid 1px #f0f0f0;
+        }
+      }
+    }
+    .modal-footer{
+      height: 50px;
+      line-height: 50px;
+      box-sizing: border-box;
+      display: flex;
+      width: 100%;
+      background-color: #fff;
+      border-top: solid 1px #f2f2f2;
+      z-index: 8;
+      &>div{
+        flex: 1;
+        background-color: #fff;
+        text-align: center;
+        transition: all 200ms;
+        color: #222;
+        &+div{
+          border-left: solid 1px #f2f2f2;
+        }
+        &.check{
+          background-color: rgb(65,132,243);
+          color: #fff;
+        }
+      }
+    }
+  }
 }

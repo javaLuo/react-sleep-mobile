@@ -72,56 +72,61 @@
     }
   }
   .tab-box{
-    display: flex;
     box-sizing: border-box;
-    &>div{
-      width: 50%;
-      flex: none;
+    padding: 10px;
+    .one{
+      width: 100%;
+      display: flex;
       box-sizing: border-box;
-      &:first-child{
-        padding: 10px 5px 10px 10px;
+      padding: 10px;
+      background-color: #fff;
+      &+.one{
+        margin-top :10px;
       }
-      &:nth-child(2){
-        padding: 10px 10px 10px 5px;
+      .am-checkbox-wrapper{
+        flex: none;
+        display: flex;
+        align-items: center;
+        padding-right: 10px;
       }
-      .a-product{
-        border: solid 1px #eeeeee;
-        box-sizing: border-box;
-        overflow: hidden;
-        border-radius: 4px;
-        background-color: #ffffff;
-        &+div{
-          margin-top: 10px;
+      .pic{
+        width: 100px;
+        display: flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        img{
+          max-width: 100px;
+          max-height :150px;
         }
-        &>img{
-          width: 100%;
-          height: auto;
-          min-height: 100px;
+      }
+      .infos{
+        flex: 1;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        .t{
+          flex: 1;
+          font-size: 14px;
         }
-        .p-t{
-          font-size: 15px;
-          box-sizing: border-box;
-          padding: 5px;
-          height: 46px;
-          line-height: 23px;
-        }
-        .p-m{
-          font-size: 16px;
-          color: #f92a19;
-          box-sizing: border-box;
-          padding: 5px;
-        }
-        .p-i{
-          color: #89888e;
+        .num{
           display: flex;
           justify-content: space-between;
           align-items: center;
-          box-sizing: border-box;
-          padding: 5px;
-          img{
-            height: 20px;
-            padding-left: 10px;
+          flex: none;
+          .money{
+            font-size: 15px;
+            color: #F92A19;
           }
+          img{
+            width: 18px;
+            height: auto;
+          }
+        }
+        .foot-info{
+          font-size: 12px;
+          color: rgb(249,42,25);
+          flex: none;
         }
       }
     }

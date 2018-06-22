@@ -120,10 +120,17 @@ class HomePageContainer extends React.Component {
         });
     }
 
+    // 点击一个商品，进入商品详情页
+    onProClick(id) {
+        this.props.history.push(`/shop/gooddetail/${id}`);
+    }
+
+
     render() {
         const d = [...this.props.allProducts].sort((a, b) => a-b); // 原始分类的数据
         // 根据左侧的选择，某一类分类数据
-        const tabData = this.state.barId === 0 ? this.state.hotData : (d.find((item)=> item.id === this.state.barId) || []);
+        const tabData = this.state.barId === 0 ? this.state.hotData : (d.find((item)=> item.id === this.state.barId) || {productList:[]});
+        console.log('TABDATA:', tabData,  this.state.barId, d);
         // 当前选择的这一分类的二级分类标签
         const tabTags = tabData.productTagList ? [...tabData.productTagList].sort((a,b)=> a-b ) : [];
 
@@ -168,40 +175,24 @@ class HomePageContainer extends React.Component {
                                         });
                                         return tData.length ? (
                                             <div key={i} className="tab-box">
-                                                <div>
-                                                    {
-                                                        tData.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
-                                                            return (
-                                                                <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
+                                                {
+                                                    tData.map((vvv, iii) => {
+                                                        return (
+                                                            <div className="one" key={iii} onClick={()=> this.onProClick(vvv.id)}>
+                                                                <div className="pic">
                                                                     <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                                    <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                                    <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                                    <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                                        <span className="all_nowarp">已售：{vvv.buyCount || 0}</span>
+                                                                </div>
+                                                                <div className="infos">
+                                                                    <div className="t all_warp">{vvv.name}</div>
+                                                                    <div className="num" onClick={(e) => this.onPushCar(e,vvv.id)} >
+                                                                        <span className="money">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</span>
                                                                         <img src={ImgCar} />
                                                                     </div>
                                                                 </div>
-                                                            );
-                                                        })
-                                                    }
-                                                </div>
-                                                <div>
-                                                    {
-                                                        tData.filter((vv, ii) => ii % 2).map((vvv, iii) => {
-                                                            return (
-                                                                <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                                    <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                                    <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                                    <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                                    <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                                        <span className="all_nowarp">已售：{vvv.buyCount || 0}</span>
-                                                                        <img src={ImgCar} />
-                                                                    </div>
-                                                                </div>
-                                                            );
-                                                        })
-                                                    }
-                                                </div>
+                                                            </div>
+                                                        );
+                                                    })
+                                                }
                                             </div>
                                         ) : (<div key={i} className="tab-box">
                                             <div className="data-nothing" style={{ margin: '20px auto' }}>
@@ -215,41 +206,25 @@ class HomePageContainer extends React.Component {
                             </Tabs>
                         ) : (
                             tabData.productList.length ? (
-                                <div key={0} className="tab-box" style={{ height: '100vh', overflowY:"auto", alignItems: 'flex-start' }}>
-                                    <div>
-                                        {
-                                            tabData.productList.filter((vv, ii) => !(ii % 2)).map((vvv, iii) => {
-                                                return (
-                                                    <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
+                                <div key={0} className="tab-box">
+                                    {
+                                        tabData.productList.map((vvv, iii) => {
+                                            return (
+                                                <div className="one" key={iii} onClick={()=> this.onProClick(vvv.id)}>
+                                                    <div className="pic">
                                                         <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                        <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                        <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                        <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                            <span className="all_nowarp">已售：{vvv.buyCount || 0}</span>
+                                                    </div>
+                                                    <div className="infos">
+                                                        <div className="t all_warp">{vvv.name}</div>
+                                                        <div className="num" onClick={(e) => this.onPushCar(e,vvv.id)} >
+                                                            <span className="money">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</span>
                                                             <img src={ImgCar} />
                                                         </div>
                                                     </div>
-                                                );
-                                            })
-                                        }
-                                    </div>
-                                    <div>
-                                        {
-                                            tabData.productList.filter((vv, ii) => ii % 2).map((vvv, iii) => {
-                                                return (
-                                                    <div className="a-product" key={iii} onClick={() => this.onProClick(vvv.id)}>
-                                                        <img src={vvv.detailImg && vvv.detailImg.split(',')[0]} />
-                                                        <div className="p-t all_nowarp2">{vvv.name}</div>
-                                                        <div className="p-m">￥{vvv.productModel && tools.point2(vvv.productModel.price + vvv.productModel.openAccountFee)}</div>
-                                                        <div className="p-i" onClick={(e) => this.onPushCar(e,vvv.id)}>
-                                                            <span className="all_nowarp">已售：{vvv.buyCount || 0}</span>
-                                                            <img src={ImgCar} />
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })
-                                        }
-                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    }
                                 </div>
                             ) : (<div key={0} className="tab-box">
                                     <div className="data-nothing" style={{ margin: '20px auto' }}>

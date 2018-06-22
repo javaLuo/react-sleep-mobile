@@ -34,7 +34,7 @@ class HomePageContainer extends React.Component {
         super(props);
         this.state = {
             data: {},
-            productData: {}, // 分享的卡片信息
+            many: false, // 卡是单独赠送还是批量赠送
             imgCode: '',  // 分享的二维码、
             isExpired: false, // 卡是否超过24小时未领取
             isReceived: false,  // 卡是否已被领取
@@ -51,6 +51,7 @@ class HomePageContainer extends React.Component {
         const path = this.props.location.pathname.split('/');
         let p = path[path.length - 1].split('_fff_');
         /**
+         * 单个
          * userId: p[0],
          name: p[1],
          head: p[2],
@@ -58,30 +59,59 @@ class HomePageContainer extends React.Component {
          dateTime: p[4], 分享日期
          type: P[5] 1金卡，2紫卡，3普通卡
          str: p[6] 金卡为公司名，紫卡为“分销版”，普通卡没有
+         cardNo: p[7] 分享的卡的No, 分享页面需要传给后台生成动态二维码
          * **/
-        this.setState({
-            data: {
-                userId: p[0],
-                name: decodeURIComponent(p[1]),
-                head: decodeURIComponent(p[2]),
-                date: decodeURIComponent(p[3]),
-                dateTime: Number(p[4]),
-                type: Number(p[5]),
-                str: decodeURIComponent(p[6]),
+        /**
+         * 批量
+         userId: p[0], 用户ID
+         name: p[1], 昵称
+         head: p[2], 头像
+         dateTime: p[3], 分享的日期
+         num: p[4], 分享的数量
+         * **/
+        if(p.length > 6){ // 单个
+            this.setState({
+                many: false,
+                data: {
+                    userId: p[0],
+                    name: decodeURIComponent(p[1]),
+                    head: decodeURIComponent(p[2]),
+                    date: decodeURIComponent(p[3]),
+                    dateTime: Number(p[4]),
+                    type: Number(p[5]),
+                    str: decodeURIComponent(p[6]),
+                    cardNo: p[7],
+                }
+            });
+        } else { // 批量
+            this.setState({
+                many: true,
+                data: {
+                    userId: p[0],
+                    name: decodeURIComponent(p[1]),
+                    head: decodeURIComponent(p[2]),
+                    dateTime: Number(p[3]),
+                    num: Number(p[4])
+                }
+            });
+        }
 
-            }
-        });
+        // userId，分享类型，分享的卡ID，
+         if(p.length > 6) { //单张
+             this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 2, shareNo: p[7], dateTime: p[4]}).then((res) => {
+                 if (res.status === 200) {
+                     this.setState({
+                         imgCode: res.data.qrcode,
+                         isExpired: res.data.isExpired,
+                         isReceived: res.data.isReceived,
+                         isTicketExpired: res.data.isTicketExpired,
+                     });
+                 }
+             });
+         } else { // 批量
 
-        this.props.actions.shareBuild({ userId: Number(p[0]), shareType: 2, shareNo: p[3], dateTime: p[5]}).then((res) => {
-            if (res.status === 200) {
-                this.setState({
-                    imgCode: res.data.qrcode,
-                    isExpired: res.data.isExpired,
-                    isReceived: res.data.isReceived,
-                    isTicketExpired: res.data.isTicketExpired,
-                });
-            }
-        });
+         }
+
     }
 
     // 各异常状态 0正常，1卡过期，2领取时间超24小时
@@ -110,7 +140,7 @@ class HomePageContainer extends React.Component {
                         <div className="head-box">
                             <div className="pic"><img src={d.head} /></div>
                             <div className="name">{d.name || '-'}</div>
-                            <div className="name-info">送您一张健康风险评估卡</div>
+                            <div className="name-info">{`送您${d.num || 1}张健康风险评估卡`}</div>
                         </div>
                         <div
                              className={(()=>{
@@ -148,7 +178,8 @@ class HomePageContainer extends React.Component {
                             })()}</div>
                             <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                 <div>
-                                    <div className="i">有效期至：{d.date}</div>
+                                    {this.state.many ? null : <div className="i">有效期至：{d.date}</div>}
+
                                 </div>
                                 <div className="flex-none">￥1000</div>
                             </div>

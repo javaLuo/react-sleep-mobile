@@ -18,6 +18,7 @@ import tools from '../../../../util/all';
 import { Tabs, Carousel, Toast } from 'antd-mobile';
 import ImgCar from '../../../../assets/shop/jrgwc@3x.png';
 import FlyBall from "../../../../a_component/FlyBall";
+import ImgFenLei from '../../../../assets/one_yikatong@3x.png';
 // ==================
 // 本页面所需action
 // ==================
@@ -160,7 +161,7 @@ class HomePageContainer extends React.Component {
                   })
               }
               <div onClick={()=>this.barClick(0)}>
-                  <img src={ImgCar} />
+                  <img src={ImgFenLei} />
                   <div>分类</div>
               </div>
           </div>
