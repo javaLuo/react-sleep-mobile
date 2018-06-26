@@ -204,9 +204,9 @@ export const wxPay2 = (params = {}) => async(dispatch) => {
 };
 
 // 微信初始化 - 获取appID,签名，随机串，时间戳
-export const wxInit = (params = {}) => async(dispatch) => {
+export const wxInit = (params = null) => async(dispatch) => {
     try {
-        const res = await Fetchapi.newPost('mall/wxpay/init', { url: `${Config.baseURL}/gzh/?` });
+        const res = await Fetchapi.newPost('mall/wxpay/init', { url: params || `${Config.baseURL}/gzh/?` });
         return res;
     } catch(err) {
         Toast.info('网络错误，请重试',1);

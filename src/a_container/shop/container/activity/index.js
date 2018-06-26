@@ -22,9 +22,7 @@ import ImgLogo from '../../../../assets/logo-img.png';
 // ==================
 import { listByActivityId } from '../../../../a_action/new-action';
 import { wxInit } from '../../../../a_action/shop-action';
-import ImgBian from './assets/bian.jpg';
-import ImgLao from './assets/lao.jpg';
-import ImgXin from './assets/xin.jpg';
+
 // ==================
 // Definition
 // ==================
@@ -33,6 +31,7 @@ class HomePageContainer extends React.Component {
     super(props);
     this.state = {
         data: {},
+        shareImg: '',
     };
   }
 
@@ -42,7 +41,11 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
       document.title = '活动详情';
-      const id = Number(this.props.location.pathname.split('/').pop());
+      const p = this.props.location.pathname.split('/').pop().split('_');
+      const id = Number(p[0]);
+      this.setState({
+         shareImg: decodeURIComponent(p[1]),
+      });
       if(id){
           this.getData(id);
       }
@@ -50,7 +53,11 @@ class HomePageContainer extends React.Component {
 
     UNSAFE_componentWillReceiveProps(nextP) {
       if(nextP.location !== this.props.location) {
-          const id = Number(nextP.location.pathname.split('/').pop());
+          const p = this.props.location.pathname.split('/').pop().split('_');
+          this.setState({
+              shareImg: decodeURIComponent(p[1]),
+          });
+          const id = Number(p[0]);
           this.getData(id);
       }
     }
@@ -70,7 +77,7 @@ class HomePageContainer extends React.Component {
             });
               this.props.actions.wxInit().then((res2)=>{
                   if(res2.status === 200) {
-                      this.initWxConfig(res.data, res2.data);
+                      this.initWxConfig(res2.data, res.data);
                   }
               });
             Toast.hide();
@@ -94,13 +101,6 @@ class HomePageContainer extends React.Component {
         let title = aData.title;
         let info = `最新活动：${aData.title}`;
 
-        let img = null;
-        switch(aData.id){
-            case 30: img = ImgLao;break;
-            case 31: img = ImgXin;break;
-            case 33: img = ImgBian;break;
-        }
-
         console.log('到这了没有：', d2);
         wx.config({
             debug: false,
@@ -111,7 +111,6 @@ class HomePageContainer extends React.Component {
             jsApiList: [
                 'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
-                'onMenuShareQQ',            // 分享到QQ
             ]
         });
         wx.ready(() => {
@@ -126,7 +125,7 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareAppMessage({
                 title: title,
                 desc: info,
-                imgUrl: img,
+                imgUrl: this.state.shareImg,
                 type: 'link',
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -136,14 +135,14 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareTimeline({
                 title: title,
                 desc: info,
-                imgUrl: img,
+                imgUrl: this.state.shareImg,
                 success: () => {
                     Toast.info('分享成功', 1);
                 }
             });
         });
         wx.error((e) => {
-            console.log('微信JS-SDK初始化失败：', e);
+            Toast.info(e.errMsg, 1);
         });
     }
 

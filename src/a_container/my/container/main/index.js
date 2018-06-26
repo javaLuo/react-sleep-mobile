@@ -312,7 +312,7 @@ class HomePageContainer extends React.Component {
         const u = this.props.userinfo;
         if (!u){
             Toast.info('请先登录',1);
-            this.props.history.replace('/login');
+            // this.props.history.replace('/login');
             return false;
         }
         if (u.disUser && [0,1,2,5,6].indexOf(u.userType) >= 0){ // 已绑定经销商
@@ -327,7 +327,7 @@ class HomePageContainer extends React.Component {
         const u = this.props.userinfo;
         if (!u) {
             Toast.info('请先登录',1);
-            this.props.history.replace('/login');
+           // this.props.history.replace('/login');
             return false;
         } else if (u.mobile) {
             Toast.info('已绑定过手机号',1);
@@ -357,7 +357,7 @@ class HomePageContainer extends React.Component {
                             <img ref={(dom)=>this.headImg = dom} src={u && u.headImg ? u.headImg : ImgBar1} />
                         </div>
                         <div className="name" style={this.state.svgPlay ? { color: '#fff' } : null}>{(u && u.nickName) ? u.nickName : '未设置昵称'}</div>
-                        <div className="e-num" style={this.state.svgPlay ? { color: '#fff' } : null}>e家号：{ u ? u.id : '-' }</div>
+                        <div className="e-num" style={this.state.svgPlay ? { color: '#fff' } : null}>e家号：{ u ? u.id : '未登录' }</div>
                     </div>
                     <div className="info-box">
                         <div className="one" onClick={() => this.onBindDealear()}>

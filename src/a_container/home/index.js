@@ -40,7 +40,6 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        show: 0,
         imgHeight: 'calc(100vw * 0.43)',
         activeCount: 0,
         stations: [],   // 5个推荐的体验店
@@ -78,10 +77,6 @@ class HomePageContainer extends React.Component {
 
     // 获取推荐服务站
       this.getGoodServiceStations();
-
-      this.setState({
-          show: true,
-      });
   }
 
   // 获取热销产品
@@ -217,7 +212,7 @@ class HomePageContainer extends React.Component {
         { title: '线下体验店', pic: ImgTiYan, key: 4 },
     ];
     return (
-      <div className={this.state.show  ? 'home-page show' : 'home-page'}>
+      <div className='home-page'>
           {/* 顶部轮播 */}
           {
               (this.props.homePics && this.props.homePics.length) ? (
@@ -277,7 +272,7 @@ class HomePageContainer extends React.Component {
                               w = '100%';
                           }
                           return (<li key={index} style={{ width: w, marginLeft }}>
-                              <Link to={`/shop/activity/${item.id}`}>
+                              <Link to={`/shop/activity/${item.id}_${encodeURIComponent(item.acImg)}`}>
                                   <img className="all_radius" src={item.acImg} />
                               </Link>
                           </li>);
@@ -372,7 +367,7 @@ class HomePageContainer extends React.Component {
                   {
                       this.state.stations.filter((item, index) => index>=1).map((item, index) => {
                           return (
-                              <li key={index} onClick={() => this.zbClick(item.liveId)}>
+                              <li key={index} onClick={() => this.inputStation(item)}>
                                   <div>
                                       <div className="pic">
                                           <img className="all_radius" src={item.imgs && item.imgs.split(',')[0]}/>

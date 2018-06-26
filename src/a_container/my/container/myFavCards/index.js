@@ -210,7 +210,7 @@ class HomePageContainer extends React.Component {
                 title: '翼猫健康e家',
                 desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
                 link: `${Config.baseURL}/gzh`,
-                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                imgUrl: 'https://isluo.com/imgs/catlogoheiheihei.png',
                 type: 'link',
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -220,7 +220,7 @@ class HomePageContainer extends React.Component {
                 title: '翼猫健康e家',
                 desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
                 link: `${Config.baseURL}/gzh`,
-                imgUrl: 'http://isluo.com/work/logo/share_card.png',
+                imgUrl: 'https://isluo.com/imgs/catlogoheiheihei.png',
                 success: () => {
                     Toast.info('分享成功', 1);
                 }

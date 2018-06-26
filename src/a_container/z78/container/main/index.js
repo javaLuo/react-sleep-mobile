@@ -60,7 +60,7 @@ class HomePageContainer extends React.Component {
         if (!this.props.userinfo) {
             this.getUserInfo();
         } else {
-            this.init();
+            this.init(1);
         }
         if (!this.props.areaData.length) {
             this.getArea();
@@ -76,7 +76,8 @@ class HomePageContainer extends React.Component {
         this.getAllJMType();
     }
 
-    init(){
+    init(a){
+        console.log("触发：", a);
         const id = this.props.location.pathname.split('/').slice(-1);
         const uid = this.props.userinfo ? this.props.userinfo.id : null;
         let url = '';
@@ -93,7 +94,7 @@ class HomePageContainer extends React.Component {
             url,
         });
 
-        this.props.actions.wxInit().then((res)=>{
+        this.props.actions.wxInit(window.location.href).then((res)=>{
             if(res.status === 200) {
                 this.initWxConfig(res.data, Number(id));
             }
@@ -113,42 +114,35 @@ class HomePageContainer extends React.Component {
         console.log('触发');
         let title = "";
         let info = "";
-        let img = null;
 
         switch(typeId){
             case 1:
                 title='翼猫净水用户福利来袭，买净水服务就送三重豪礼';
                 info='享受安装、维护、更换滤芯、系统升级等服务，获得价值1000元HRA优惠卡，拥有一个免费的在线商城';
-                img=ImgShareJinShui;
                 break;
             case 2:
                 title='牵手翼猫、共享未来、成为“微创版经销商”，轻松实现小额创业';
                 info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
-                img=ImgShareWeiChuang;
                 break;
             case 3:
                 title='成为翼猫“个人版经销商”，为您提供三大财富工具，帮您轻松拓客与成交';
                 info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
-                img=ImgShareGeRen;
                 break;
             case 4:
                 title='成为翼猫“企业版经销商”，实现传统企业转型，助力小微企业发展';
                 info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
-                img=ImgShareQiYe;
                 break;
             case 5:
                 title='加入一个大健康平台，拥有一家盈利型公司，翼猫科技“区域代理商”招募中';
                 info="创业不易，选对平台很重要，翼猫科技为您提供三大财富工具，帮您轻松拓客与成交！";
-                img=ImgShareQuYu;
                 break;
             case 6:
                 title='翼猫科技定位“互联网+大健康”产业，把握市场趋势，顺势而为！';
                 info="大健康、大趋势、大未来，翼猫着力打造智能健康物联网综合服务平台！";
-                img=ImgShareJinShui;
                 break;
             default:
         }
-        console.log('到这了没有：', d2);
+        console.log('到这了没有：', JSON.stringify(d2));
         wx.config({
             debug: false,
             appId: d2.appid,
@@ -158,7 +152,6 @@ class HomePageContainer extends React.Component {
             jsApiList: [
                 'onMenuShareTimeline',      // 分享到朋友圈
                 'onMenuShareAppMessage',    // 分享给微信好友
-                'onMenuShareQQ',            // 分享到QQ
             ]
         });
         wx.ready(() => {
@@ -173,7 +166,7 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareAppMessage({
                 title: title,
                 desc: info,
-                imgUrl: img,
+                imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
                 type: 'link',
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -183,14 +176,14 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareTimeline({
                 title: title,
                 desc: info,
-                imgUrl: img,
+                imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
                 success: () => {
                     Toast.info('分享成功', 1);
                 }
             });
         });
         wx.error((e) => {
-            console.log('微信JS-SDK初始化失败：', e);
+            Toast.info(e.errMsg, 1);
         });
     }
 
@@ -205,10 +198,10 @@ class HomePageContainer extends React.Component {
         const openId = localStorage.getItem('openId');
         if (!u && openId) {
             this.props.actions.getUserInfo({ openId }).then(()=>{
-                this.init();
+                this.init(2);
             });
         } else {
-            this.init();
+            this.init(3);
         }
     }
 

@@ -206,7 +206,7 @@ class HomePageContainer extends React.Component {
                             </Tabs>
                         ) : (
                             tabData.productList.length ? (
-                                <div key={0} className="tab-box">
+                                <div key={0} className="tab-box only-tab-box">
                                     {
                                         tabData.productList.map((vvv, iii) => {
                                             return (

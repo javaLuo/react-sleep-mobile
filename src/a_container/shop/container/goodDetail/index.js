@@ -215,35 +215,47 @@ class HomePageContainer extends React.Component {
           return false;
       }
 
+      const nowProduct = _.cloneDeep(this.state.data); // 当前商品信息
+      nowProduct.shopCart = {
+          number: this.state.formCount,   // 商品数量
+          feeType: this.state.formJifei || undefined, // 计费方式 是一个数组
+      };
+      this.props.actions.pushDingDan([nowProduct]);
+      // 实物商品提前查询默认收货地址
+      if (this.state.data.typeId !== 5) {
+          this.props.actions.getDefaultAttr();
+      }
+      this.props.history.push('/shop/confirmpay/1');
+
       // 检查当前用户是否有权限购买当前物品
-      this.props.actions.appUserCheckBuy({ productType: String(this.state.data.productType.code) }).then((res) => {
-            if (res.status === 200) { // 有权限
-                //const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
-                const nowProduct = _.cloneDeep(this.state.data);
-                nowProduct.shopCart = {
-                    number: this.state.formCount,   // 商品数量
-                    feeType: this.state.formJifei || undefined, // 计费方式 是一个数组
-                };
-                // this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、计费方式，当前商品完整信息）
-                this.props.actions.pushDingDan([nowProduct]);
-                // 实物商品提前查询默认收货地址
-                if (this.state.data.typeId !== 5) {
-                    this.props.actions.getDefaultAttr();
-                }
-                this.props.history.push('/shop/confirmpay/1');
-            } else {
-                alert('温馨提示', '您当前还没有购买该产品的权限哦', [
-                    { text: '知道了', onPress: () => console.log('cancel') },
-                    {
-                        text: '查看权限规则',
-                        onPress: () => new Promise((resolve, rej) => {
-                            this.props.history.push('/my/atcat');
-                            resolve();
-                        }),
-                    },
-                ]);
-            }
-      });
+      // this.props.actions.appUserCheckBuy({ productType: String(this.state.data.productType.code) }).then((res) => {
+      //       if (res.status === 200) { // 有权限
+      //           //const params = { count: this.state.formCount, feeType: this.state.formJifei ? this.state.formJifei[0] : undefined };
+      //           const nowProduct = _.cloneDeep(this.state.data);
+      //           nowProduct.shopCart = {
+      //               number: this.state.formCount,   // 商品数量
+      //               feeType: this.state.formJifei || undefined, // 计费方式 是一个数组
+      //           };
+      //           // this.props.actions.shopStartPreOrder(params, nowProduct); // 保存当前用户选择的信息（所选数量、计费方式，当前商品完整信息）
+      //           this.props.actions.pushDingDan([nowProduct]);
+      //           // 实物商品提前查询默认收货地址
+      //           if (this.state.data.typeId !== 5) {
+      //               this.props.actions.getDefaultAttr();
+      //           }
+      //           this.props.history.push('/shop/confirmpay/1');
+      //       } else {
+      //           alert('温馨提示', '您当前还没有购买该产品的权限哦', [
+      //               { text: '知道了', onPress: () => console.log('cancel') },
+      //               {
+      //                   text: '查看权限规则',
+      //                   onPress: () => new Promise((resolve, rej) => {
+      //                       this.props.history.push('/my/atcat');
+      //                       resolve();
+      //                   }),
+      //               },
+      //           ]);
+      //       }
+      // });
   }
 
   // 允许购买的最大数量

@@ -1,10 +1,5 @@
 .home-page{
   font-size: 14px;
-  opacity: 0;
-  transition: opacity 200ms;
-  &.show{
-    opacity: 1;
-  }
   .my-carousel{
     background-color: #f2f2f2;
     img{

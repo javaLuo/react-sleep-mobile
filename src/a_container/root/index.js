@@ -66,9 +66,9 @@ class RootContainer extends React.Component {
   componentDidMount() {
       window.theHistory = history;
       this.getUserInfo();
-     Home.preload();
-     My.preload();
-     Healthy.preload();
+     //Home.preload();
+     //My.preload();
+     //Healthy.preload();
   }
 
   componentDidCatch(error, info) {
