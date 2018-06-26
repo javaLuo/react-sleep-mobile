@@ -48,7 +48,7 @@ import CustomerNex from './container/customerNex';
 import Kf from './container/kf';
 import DaiYanH5 from './container/myDaiYan/daiyanh5';
 import DaiYanH5Del from './container/myDaiYan/daiyanh5del';
-
+import FavRecord from './container/favRecord';
 // ==================
 // 本页面所需action
 // ==================
@@ -100,6 +100,7 @@ class My extends React.Component {
               <Route exact path={`${this.props.match.url}/ordercustomerdetail`} component={OrderCustomerDetail} />
               <Route exact path={`${this.props.match.url}/customernex`} component={CustomerNex} />
               <Route exact path={`${this.props.match.url}/kf`} component={Kf} />
+              <Route exact path={`${this.props.match.url}/favrecord`} component={FavRecord} />
           </Switch>
       </div>
     );

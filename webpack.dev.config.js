@@ -82,11 +82,10 @@ module.exports = {
     ],
     resolve: {
         extensions: ['.js', '.jsx', '.less', '.css', '.scss'], //后缀名自动补全
-        // alias: {
-        //     'react': 'anujs',
-        //     'react-dom': 'anujs',
-        //     'prop-types': 'anujs/lib/ReactPropTypes',
-        //     'create-react-class': 'anujs/lib/createClass',
-        // },
+        alias: {
+            'react': 'anujs',
+            'react-dom': 'anujs',
+            'prop-types': 'anujs/lib/ReactPropTypes',
+        },
     }
 };

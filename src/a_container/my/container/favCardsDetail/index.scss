@@ -7,15 +7,15 @@
     .img{
       display: block;
       margin: 0 auto;
-      width: 90%;
+      width: 96%;
       height: auto;
     }
   }
   .fav-info{
-    text-align: center;
-    font-size: .36rem;
-    color: #ccc;
-    padding: .2rem 0;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #222;
+    padding: 5px 10px;
   }
   .thefooter{
     position: fixed;
@@ -29,12 +29,18 @@
       height: 100%;
       border-radius: 0;
     }
+    .am-button-disabled{
+      opacity: 1;
+      background-color: #ccc;
+      &:before{
+        border: none;
+      }
+    }
   }
   .other-info{
-    padding: .2rem;
+    padding: 5px 10px;
     box-sizing: border-box;
-    font-size: .28rem;
-    color: #ccc;
-    text-align: center;
+    font-size: 14px;
+    color: #888;
   }
 }

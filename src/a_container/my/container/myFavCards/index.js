@@ -490,13 +490,15 @@ class HomePageContainer extends React.Component {
       this.getData(Number(t.pageNum + 1) || 1, this.state.pageSize, 'update', this.state.search, which);
     }
 
-    // 工具 - 判断当前评估卡状态（正常1、过期2、已使用3）
+    // 工具 - 判断当前评估卡状态（正常(待支付、待使用)1、过期2、已使用3、已赠送5）
     checkCardStatus(item) {
       try{
           if (item.ticketStatus === 4) {   // 已过期
               return 2;
           } else if (item.ticketStatus === 2) {   // 已使用
               return 3;
+          } else if (item.ticketStatus === 5) { // 已赠送
+              return 5;
           }
           return 1;
       }catch(e){
@@ -506,8 +508,12 @@ class HomePageContainer extends React.Component {
 
     // 点击一张评估卡
     onCardClick(item) {
-      this.props.actions.saveFreeCardInfo(item);    // 保存该张卡信息，下个页面要用
-      setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
+        if(item.ticketStatus === 5){ // 已赠送的进入卡记录
+            this.props.history.push(`/my/favrecord`);
+        } else {
+            this.props.actions.saveFreeCardInfo(item);    // 保存该张卡信息，下个页面要用
+            setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
+        }
     }
 
     /**

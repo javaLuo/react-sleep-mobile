@@ -43,7 +43,6 @@
       color: rgb(137,136,142);
       text-align: center;
       padding: 8px 0;
-      margin-top :10px;
       a{
         display: block;
         width: 100%;
@@ -260,6 +259,10 @@
             object-fit: cover;
           }
         }
+        .name{
+          font-size: 14px;
+          padding:10px 0 0 0;
+        }
         .total{
           position: absolute;
           top: .2rem;
@@ -291,18 +294,22 @@
         max-width: 150px;
         flex: none;
         width: 38%;
-        height: 1.8rem;
         &+li{
           margin-left: 10px;
         }
         .pic{
           width: 100%;
-          height: 100%;
+          height: 1.6rem;
           img{
             width: 100%;
             height: 100%;
             object-fit: cover;
           }
+        }
+        .name{
+          font-size: 12px;
+          line-height: 20px;
+          padding-top: 5px;
         }
         .total{
           position: absolute;
@@ -325,48 +332,111 @@
       }
     }
     .tyd-1{
-      display: flex;
-      flex-wrap: wrap;
+      margin-bottom: 10px;
       &>li{
-        flex-direction: column;
-        padding: 5px;
+        width: 100%;
         box-sizing: border-box;
-        position: relative;
-        display: block;
-        &>div{
-          position: relative;
-          box-shadow: 0 2px 5px rgb(217,217,217);
-          img{
-            display: block;
-            width: 100%;
-            height: auto;
-          }
-        }
-        &:nth-child(-n+2) {
-          width: 50%;
-         }
-        &:nth-child(n+3) {
-          width: 33.333%;
-          margin-top: 5px;
-        }
-        .total{
-          font-size: 16px;
-          flex: none;
-          padding: 0 5px;
-          box-sizing: border-box;
-        }
-        .star{
-          position: absolute;
+        .pic{
           width: 100%;
-          bottom: 2px;
-          left: 4px;
-          box-sizing: border-box;
+          height: 3.5rem;
+          position: relative;
           img{
-            width: 11px;
-            display: inline-block;
-            height: auto;
-            margin-right: 2px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
           }
+          .star{
+            position: absolute;
+            bottom: 6px;
+            left: 6px;
+            max-width: 100%;
+            &>img{
+              width: 11px;
+              height: auto;
+              margin-right: 2px;
+            }
+          }
+          .province{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 4px 10px;
+            background-color: #FB7384;
+            color: #fff;
+            &::before{
+              content: "";
+              position: absolute;
+              top: 0;
+              left: -10px;
+              box-sizing: border-box;
+              border: solid 5px transparent;
+              border-right: solid 5px #FB7384;
+            }
+          }
+        }
+        .name{
+          font-size: 14px;
+          padding:10px 0 0 0;
+        }
+      }
+    }
+    .tyd-2{
+      width: 100%;
+      overflow-y:hidden;
+      overflow-x: auto;
+      display: flex;
+      margin-bottom: 0;
+      &>li{
+        box-sizing: border-box;
+        max-width: 150px;
+        flex: none;
+        width: 38%;
+        &+li{
+          margin-left: 10px;
+        }
+        .pic{
+          width: 100%;
+          height: 1.6rem;
+          position: relative;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          .star{
+            position: absolute;
+            bottom: 2px;
+            left: 4px;
+            max-width: 100%;
+            &>img{
+              width: 10px;
+              height: auto;
+              margin-right: 2px;
+            }
+          }
+          .province{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 2px 5px;
+            background-color: #FB7384;
+            color: #fff;
+            font-size: 12px;
+            &::before{
+              content: "";
+              position: absolute;
+              top: 0;
+              left: -10px;
+              box-sizing: border-box;
+              border: solid 5px transparent;
+              border-right: solid 5px #FB7384;
+            }
+          }
+        }
+        .name{
+          font-size: 12px;
+          line-height: 20px;
+          padding:5px 0 0 0;
         }
       }
     }

@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import P from 'prop-types';
 import './index.scss';
-import WaterWave from 'water-wave';
-import { urls } from '../../util/data';
 
 class Menu extends React.Component {
     constructor(props) {
@@ -44,21 +42,18 @@ class Menu extends React.Component {
                         <div className="menu-icon icon1" />
                         <div className="title">首页</div>
                     </Link>
-                    <WaterWave color="#cccccc" press="down"/>
                 </div>
                 <div className={this.state.pathNow === 'healthy' ? "menu-item check" : 'menu-item'}>
                     <Link to="/healthy">
                         <div className="menu-icon icon3" />
                         <div className="title">健康服务</div>
                     </Link>
-                    <WaterWave color="#cccccc" press="down"/>
                 </div>
                 <div className={this.state.pathNow === 'my' ? "menu-item check" : 'menu-item'}>
                     <Link to="/my">
                         <div className="menu-icon icon4" />
                         <div className="title">我的e家</div>
                     </Link>
-                    <WaterWave color="#cccccc" press="down"/>
                 </div>
             </div>,
             <div className="menu-zw" key="1"/>

@@ -112,5 +112,10 @@ module.exports = {
     // 解析器， webpack提供的各种方便的工具函数
     resolve: {
         extensions: ['.js', '.jsx', '.less', '.css', '.scss'], //后缀名自动补全
+        alias: {
+            'react': 'anujs',
+            'react-dom': 'anujs',
+            'prop-types': 'anujs/lib/ReactPropTypes',
+        },
     }
 };

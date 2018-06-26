@@ -24,16 +24,8 @@ import ImgTiYan from '../../assets/home/home_tiyan@3x.png';
 import ImgShangCheng from '../../assets/home/home_shangcheng@3x.png';
 import ImgStar1 from '../../assets/home/star_1@3x.png';
 import ImgStar0 from '../../assets/home/star_0@3x.png';
-// import ImgLikeThis from '../../assets/home/likethis@3x.png';
-// import ImgLooked from '../../assets/home/looked@3x.png';
-// import ImgTime from '../../assets/home/thetime@3x.png';
 import ImgCar from '../../assets/shop/jrgwc@3x.png';
 import ImgBannerOne from '../../assets/home/banner_one.png';
-import ImgStation1 from './assets/s-5.png';
-import ImgStation2 from './assets/s-59.png';
-import ImgStation3 from './assets/s-256.png';
-import ImgStation4 from './assets/s-344.png';
-import ImgStation5 from './assets/s-375.png';
 import FlyBall from '../../a_component/FlyBall';
 // ==================
 // 本页面所需action
@@ -57,7 +49,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-      document.title = '翼猫健康e家';
+      document.title = '翼猫健康e家.';
     // 获取轮播图
     if (!this.props.homePics || this.props.homePics.length === 0) {
       this.props.actions.mallApList({ typeCode: 'slideshow' });
@@ -100,7 +92,7 @@ class HomePageContainer extends React.Component {
     // 获取推荐服务站
     getGoodServiceStations() {
       this.props.actions.getGoodServiceStations({ pageNum: 1, pageSize: 5 }).then((res) => {
-        if(res.status === 200) {
+        if(res && res.status === 200) {
             this.setState({
                 stations: res.data.result || [],
             });
@@ -134,7 +126,7 @@ class HomePageContainer extends React.Component {
   // 获取活动有多少人参加
     getOrdersCount() {
       this.props.actions.getOrdersCount().then((res) => {
-          if (res.status === 200) {
+          if (res && res.status === 200) {
               this.setState({
                   activeCount: res.data,
               });
@@ -160,7 +152,6 @@ class HomePageContainer extends React.Component {
               break;
           // 跳视频直播
           case 3:
-              // window.open('http://tv.yimaokeji.com/watch/1447826');
               this.props.history.push('/live');
               break;
           // 跳翼猫体验店查询
@@ -191,15 +182,12 @@ class HomePageContainer extends React.Component {
             Toast.info('您购物车内的商品数量过多，清理后方可加入购物车', 2);
             return;
         }
-        // 小球动画
         const win = document.getElementById("window_flod");
-        console.log('鼠标坐标值', e.clientX, e.clientY, win.offsetLeft, win.offsetTop);
         this.setState({
             ballData: [e.clientX, e.clientY, win.offsetLeft + 10, win.offsetTop],
         });
         this.props.actions.pushCarInterface({ productId: id, number: 1 }).then((res) => {
-            if(res.status === 200) {
-                // Toast.success('加入购物车成功',1);
+            if(res && res.status === 200) {
                 this.props.actions.shopCartCount();
             } else {
                 Toast.info(res.message, 1);
@@ -207,7 +195,6 @@ class HomePageContainer extends React.Component {
         });
     }
 
-    // 根据满意度算星星
     howManyStars(n) {
         const num = Number(n) || 0;
         const m = [];
@@ -339,6 +326,7 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
                                   <div className="pic"><img className="all_radius" src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
+                                  <div className="all_nowarp name">{item.name}</div>
                               </li>
                           );
                       })
@@ -351,6 +339,7 @@ class HomePageContainer extends React.Component {
                               <li key={index} onClick={() => this.zbClick(item.liveId)}>
                                   <div className="pic"><img className="all_radius" src={item.coverImage}/></div>
                                   <div className="total">{this.getLiveTypeById(item.liveTypeId).name}</div>
+                                  <div className="all_nowarp2 name">{item.name}</div>
                               </li>
                           );
                       })
@@ -362,93 +351,43 @@ class HomePageContainer extends React.Component {
           <div className="home-content-one">
               <div className="title">全国标杆线下体验店展播</div>
               <ul className="tyd-1">
-                  {/*{*/}
-                      {/*this.state.stations.map((item, index) => {*/}
-                          {/*return (*/}
-                              {/*<li key={index} onClick={() => this.inputStation(item)}>*/}
-                                  {/*<div>*/}
-                                      {/*<div className="total all_nowarp">{item.name}</div>*/}
-                                      {/*<div className="star">{this.howManyStars(item.satisfaction)}</div>*/}
-                                      {/*{(() => {*/}
-                                          {/*switch(index) {*/}
-                                              {/*case 0 : return <div className="type">*/}
-                                                  {/*<div>推荐</div>*/}
-                                              {/*</div>;*/}
-                                              {/*case 1: return <div className="type">*/}
-                                                  {/*<div>人气</div>*/}
-                                              {/*</div>;*/}
-                                              {/*default: return null;*/}
-                                          {/*}*/}
-                                      {/*})()}*/}
-                                  {/*</div>*/}
-                              {/*</li>*/}
-                          {/*);*/}
-                      {/*})*/}
-                  {/*}*/}
                   {
-                      this.state.stations.map((item, index) => {
+                      this.state.stations.filter((item, index)=> index<1).map((item, index) => {
                           return (
                               <li key={index} onClick={() => this.inputStation(item)}>
                                   <div>
-                                      <div className="star">{this.howManyStars(item.satisfaction)}</div>
-                                      <img className="station-img" src={ImgStation1} />
+                                      <div className="pic">
+                                          <img className="all_radius" src={item.imgs && item.imgs.split(',')[0]}/>
+                                          <div className="star">{this.howManyStars(item.satisfaction)}</div>
+                                          <div className="province">{item.province && item.province.replace("省", "")}</div>
+                                      </div>
+                                      <div className="all_nowarp2 name">{item.name}</div>
                                   </div>
                               </li>
                           );
                       })
                   }
-                  {/*<li onClick={() => this.inputStation({id: 5})}>*/}
-                      {/*<div>*/}
-                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
-                          {/*<img className="station-img" src={ImgStation1} />*/}
-                      {/*</div>*/}
-                  {/*</li>*/}
-                  {/*<li onClick={() => this.inputStation({id: 59})}>*/}
-                      {/*<div>*/}
-                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
-                          {/*<img className="station-img" src={ImgStation2} />*/}
-                      {/*</div>*/}
-                  {/*</li>*/}
-                  {/*<li onClick={() => this.inputStation({id: 344})}>*/}
-                      {/*<div>*/}
-                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
-                          {/*<img className="station-img" src={ImgStation3} />*/}
-                      {/*</div>*/}
-                  {/*</li>*/}
-                  {/*<li onClick={() => this.inputStation({id: 256})}>*/}
-                      {/*<div>*/}
-                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
-                          {/*<img className="station-img" src={ImgStation4} />*/}
-                      {/*</div>*/}
-                  {/*</li>*/}
-                  {/*<li onClick={() => this.inputStation({id: 375})}>*/}
-                      {/*<div>*/}
-                          {/*<div className="star">{this.howManyStars(100)}</div>*/}
-                          {/*<img className="station-img" src={ImgStation5} />*/}
-                      {/*</div>*/}
-                  {/*</li>*/}
+              </ul>
+              <ul className="tyd-2" style={{ display: this.state.stations.length>=1 ? 'flex' : 'none' }}>
+                  {
+                      this.state.stations.filter((item, index) => index>=1).map((item, index) => {
+                          return (
+                              <li key={index} onClick={() => this.zbClick(item.liveId)}>
+                                  <div>
+                                      <div className="pic">
+                                          <img className="all_radius" src={item.imgs && item.imgs.split(',')[0]}/>
+                                          <div className="star">{this.howManyStars(item.satisfaction)}</div>
+                                          <div className="province">{item.province && item.province.replace("省", "")}</div>
+                                      </div>
+                                      <div className="all_nowarp2 name">{item.name}</div>
+                                  </div>
+                              </li>
+                          );
+                      })
+                  }
               </ul>
               <div className="foot"><Link to={"/shop/exprshop2"}>查看全部 <Icon type="caret-right" /></Link></div>
           </div>
-          {/** 热门资讯 **/}
-          {/*<div className="home-content-one">*/}
-              {/*<div className="title">热门资讯</div>*/}
-              {/*<ul className="new-1">*/}
-                  {/*<li className="type1">*/}
-                      {/*<div>*/}
-                          {/*<div className="t all_warp">balabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabalabala<span className={'top'}>置顶</span></div>*/}
-                          {/*<div className="info">*/}
-                              {/*<span className="a">行业</span>*/}
-                              {/*<span className="b"><img src={ImgLooked} />20000</span>*/}
-                              {/*<span className="c"><img src={ImgLikeThis} />1500</span>*/}
-                              {/*<span className="d"><img src={ImgTime} />2018-04-11</span>*/}
-                          {/*</div>*/}
-                      {/*</div>*/}
-                      {/*<div className="new_pic" ><img src={ImgTest}/></div>*/}
-                  {/*</li>*/}
-              {/*</ul>*/}
-              {/*<div className="foot"><a href={"http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1&e=10008"} target={"_blank"}>查看更多 <Icon type="caret-right" /></a></div>*/}
-          {/*</div>*/}
           <FlyBall data={this.state.ballData}/>
       </div>
     );
