@@ -9,18 +9,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import P from 'prop-types';
 import tools from '../../../../util/all';
-import Config from '../../../../config';
 import './index.scss';
 // ==================
 // 所需的所有组件
 // ==================
-
+import {Toast} from 'antd-mobile';
 import ImgTest from '../../../../assets/test/new.png';
 // ==================
 // 本页面所需action
 // ==================
 
-import { } from '../../../../a_action/shop-action';
+import { getLifeCycle } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -29,118 +28,100 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            isPay: false,
+            ticketNo: '',
+            ticketStatus: 0, // 卡的最终状态 0数据还没查出来 1未使用，2已使用，3已禁用，4已过期
+            data: [], // status: 1领取、2支付、3使用
         };
     }
 
     componentWillUnmount() {
-
+        Toast.hide();
     }
 
     componentDidMount() {
         document.title = '赠送记录';
+        const ticketNo = this.props.location.pathname.split("/").slice(-1);
+        this.setState({
+            ticketNo,
+        });
+        this.getData(ticketNo);
+    }
+
+    // 获取数据
+    getData(ticketNo){
+        const u = this.props.userinfo;
+            Toast.loading("请稍后...", 0);
+        this.props.actions.getLifeCycle({ id: u.id, ticketNo }).then((res)=>{
+            if(res.status === 200) {
+                this.setState({
+                    isPay: res.data.isPay,
+                    ticketStatus: res.data.ticketStatus,
+                    data: res.data.resultList,
+                });
+                Toast.hide();
+            } else {
+                Toast.info(res.message, 1);
+            }
+        }).catch(()=>{
+            Toast.hide();
+        });
     }
 
     // 返回标签状态咯
-    makeType() {
-
+    makeType(status, index) {
+        if(index === 0) { // 第1步，就显示个点
+            return <div className="dot" />;
+        }
+        switch(String(status)){
+            case "1" : return <div className="type-card red">领取</div>;
+            case "2" : return <div className="type-card yellow">支付</div>;
+            case "3" : return <div className="type-card black">使用</div>;
+            default: return null;
+        }
     }
 
+    // 返回最终状态咯
+    cardTypeDown() {
+        if(!this.state.isPay) {
+            return <div className="foot blue">卡待支付</div>;
+        }
+        switch(this.state.ticketStatus){
+            case 1: return <div className="foot blue">卡待使用</div>;
+            case 2: return <div className="foot geer">卡已使用</div>;
+            case 3: return <div className="foot geer">卡已禁用</div>;
+            case 4: return <div className="foot geer">卡已过期</div>;
+            default: return null;
+        }
+    }
     render() {
         return (
             <div className="page-fav-record">
-                <div className="title">卡号：M0000 0000 0000 000</div>
-                <div className="left">
-                    <div className="t-box">
-                        <div className="t-info">
-                            <div className="t-info-1">2018-05-05 17:00</div>
-                            <div className="t-info-2">
-                                <img src={ImgTest} />
-                                <div className="soming">
-                                    <div>昵称昵昵称称昵称</div>
-                                    <div>e家号: 15001</div>
+                <div className="title">卡号：{tools.cardFormart(this.state.ticketNo)}</div>
+                {
+                    this.state.data.map((item, index)=>{
+                        return (
+                            <div className={index%2 === 0 ? 'left' : 'right'} key={index}>
+                                <div className="t-box">
+                                    <div className="t-info">
+                                        <div className="t-info-1">{item.time}</div>
+                                        <div className="t-info-2">
+                                            <img src={item.headImg} />
+                                            <div className="soming">
+                                                <div>{item.nickName}</div>
+                                                <div>e家号: {item.id}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {
+                                        this.makeType(item.status, index)
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        <div className="dot" />
-                    </div>
-                </div>
-                <div className="right">
-                    <div className="t-box">
-                        <div className="t-info">
-                            <div className="t-info-1">2018-05-05 17:00</div>
-                            <div className="t-info-2">
-                                <img src={ImgTest} />
-                                <div className="soming">
-                                    <div>昵称昵昵称称昵称</div>
-                                    <div>e家号: 15001</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="type-card red">领取</div>
-                    </div>
-                </div>
-                <div className="left">
-                    <div className="t-box">
-                        <div className="t-info">
-                            <div className="t-info-1">2018-05-05 17:00</div>
-                            <div className="t-info-2">
-                                <img src={ImgTest} />
-                                <div className="soming">
-                                    <div>昵称昵昵称称昵称</div>
-                                    <div>e家号: 15001</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="type-card red">领取</div>
-                    </div>
-                </div>
-                <div className="right">
-                    <div className="t-box">
-                        <div className="t-info">
-                            <div className="t-info-1">2018-05-05 17:00</div>
-                            <div className="t-info-2">
-                                <img src={ImgTest} />
-                                <div className="soming">
-                                    <div>昵称昵昵称称昵称</div>
-                                    <div>e家号: 15001</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="type-card red">领取</div>
-                    </div>
-                </div>
-                <div className="left">
-                    <div className="t-box">
-                        <div className="t-info">
-                            <div className="t-info-1">2018-05-05 17:00</div>
-                            <div className="t-info-2">
-                                <img src={ImgTest} />
-                                <div className="soming">
-                                    <div>昵称昵昵称称昵称</div>
-                                    <div>e家号: 15001</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="type-card red">领取</div>
-                    </div>
-                </div>
-                <div className="right">
-                    <div className="t-box">
-                        <div className="t-info">
-                            <div className="t-info-1">2018-05-05 17:00</div>
-                            <div className="t-info-2">
-                                <img src={ImgTest} />
-                                <div className="soming">
-                                    <div>昵称昵昵称称昵称</div>
-                                    <div>e家号: 15001</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="type-card red">领取</div>
-                    </div>
-                </div>
-                <div className="foot">卡已使用</div>
+                        );
+                    })
+                }
+                <div className="foot">{this.cardTypeDown()}</div>
             </div>
         );
     }
@@ -166,6 +147,6 @@ export default connect(
         userinfo: state.app.userinfo,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({}, dispatch),
+        actions: bindActionCreators({ getLifeCycle }, dispatch),
     })
 )(Register);

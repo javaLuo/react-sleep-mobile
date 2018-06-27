@@ -162,7 +162,13 @@
       border-radius: 4px;
       font-size: 12px;
       &.red{
-        background-color: #f00;
+        background-color: #EC4863;
+      }
+      &.yellow{
+        background-color: #FFAD19;
+      }
+      &.black{
+        background-color: #25292E;
       }
     }
   }

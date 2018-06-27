@@ -208,6 +208,7 @@
     font-size :12px;
     flex-wrap: wrap;
     &>div{
+      position: relative;
       flex-basis: 25%;
       padding: 10px 0;
       min-height: 75px;
@@ -217,6 +218,21 @@
       }
       &:nth-child(n+9){
         margin-top: 10px;
+      }
+      .dot{
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: 10px;
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        background-color: #f00;
+        transform: scale(0,0);
+        transition: all 200ms;
+        &.show{
+          transform: scale(1,1);
+        }
       }
     }
     img{

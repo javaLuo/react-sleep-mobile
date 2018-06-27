@@ -125,7 +125,7 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareAppMessage({
                 title: title,
                 desc: info,
-                imgUrl: this.state.shareImg,
+                imgUrl: this.state.shareImg || 'https://isluo.com/imgs/catlogoheiheihei.png',
                 type: 'link',
                 success: () => {
                     Toast.info('分享成功', 1);
@@ -135,7 +135,7 @@ class HomePageContainer extends React.Component {
             wx.onMenuShareTimeline({
                 title: title,
                 desc: info,
-                imgUrl: this.state.shareImg,
+                imgUrl: this.state.shareImg || 'https://isluo.com/imgs/catlogoheiheihei.png',
                 success: () => {
                     Toast.info('分享成功', 1);
                 }

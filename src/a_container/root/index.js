@@ -4,7 +4,6 @@ import P from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createHistory from 'history/createHashHistory';
-import $ from 'jquery';
 import './index.scss';
 import Loadable from 'react-loadable';
 import Loading from '../../a_component/loading';
@@ -56,11 +55,11 @@ class RootContainer extends React.Component {
       this.getOpenId();
       const ok = this.initURL();
       if (ok) {
-          this.initFontSize();
           this.setState({
               show: true
           });
       }
+      this.initFontSize();
   }
 
   componentDidMount() {
@@ -102,11 +101,10 @@ class RootContainer extends React.Component {
     }
 
     initFontSize() {
-        $(window).on("resize",function(){
-            const windowWidth = $(window).width();
-            const htmlSize = windowWidth / 7.5;
-            $("html").css("font-size",htmlSize+"px");
-        }).resize();
+      window.addEventListener("resize", function(){
+          document.getElementsByTagName("html")[0].style.fontSize = `${document.body.clientWidth/7.5}px`;
+      }, false);
+      document.getElementsByTagName("html")[0].style.fontSize = `${document.body.clientWidth/7.5}px`;
     }
 
     getUserInfo() {
@@ -167,7 +165,11 @@ class RootContainer extends React.Component {
                   <Route path="/test" component={Test} />
                   <Route component={NotFound} />
                 </Switch>
-                <Menu location={props.location} history={props.history}/>
+                <Menu
+                    location={props.location}
+                    history={props.history}
+                    dotShow={this.props.haveFavCardDot}
+                />
                 <WindowFlod
                     location={props.location}
                     history={props.history}
@@ -191,6 +193,7 @@ RootContainer.propTypes = {
   location: P.any,
     actions: P.any,
     shoppingCarNum: P.number,
+    haveFavCardDot: P.bool, // 是否有新的优惠卡可以领
 };
 
 // ==================
@@ -200,6 +203,7 @@ RootContainer.propTypes = {
 export default connect(
   (state) => ({
       shoppingCarNum: state.shop.shoppingCarNum,
+      haveFavCardDot: state.shop.haveFavCardDot,
   }), 
   (dispatch) => ({
       actions: bindActionCreators({ login, getUserInfo }, dispatch),

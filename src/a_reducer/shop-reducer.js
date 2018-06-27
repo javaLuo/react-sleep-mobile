@@ -57,6 +57,7 @@ const initState = {
     mapAddr: null,  // 进入地图时当前选择的地址
     liveTypes: [],  // 所有的LIVE分类
     shoppingCarNum: 0, // 购物车中的商品数量
+    haveFavCardDot: false, // 是否有新的优惠卡可以领
 };
 
 // ============================================

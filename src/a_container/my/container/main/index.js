@@ -33,7 +33,7 @@ import IconWddyk from './assets/icon-wddyk.png';
 import IconWdh5xck from './assets/icon-wdh5xck.png';
 import IconWdkh from './assets/icon-wdkh.png';
 import IconWdkhdd from './assets/icon-wdkhdd.png';
-import IconWdsc from './assets/icon-wdsc.png';
+// import IconWdsc from './assets/icon-wdsc.png';
 import IconWdhk from './assets/icon-wdyhk.png';
 import IconWzym from './assets/icon-wzym.png';
 import IconYhxy from './assets/icon-yhxy.png';
@@ -453,6 +453,7 @@ class HomePageContainer extends React.Component {
                     <div onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                         <img src={IconWdhk} />
                         <div>我的优惠卡</div>
+                        <div className={this.props.haveFavCardDot ? "dot show" : "dot"} />
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
                     <div onClick={() => this.onDaiYanClick()}>
@@ -507,6 +508,7 @@ HomePageContainer.propTypes = {
     actions: P.any,
     userinfo: P.any,
     ambassador: P.any,
+    haveFavCardDot: P.any,
 };
 
 // ==================
@@ -517,6 +519,7 @@ export default connect(
     (state) => ({
         userinfo: state.app.userinfo,
         ambassador: state.app.ambassador,
+        haveFavCardDot: state.shop.haveFavCardDot,
     }),
     (dispatch) => ({
         actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAuditCount, getShipOrderCount }, dispatch),

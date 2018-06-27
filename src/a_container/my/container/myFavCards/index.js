@@ -509,7 +509,7 @@ class HomePageContainer extends React.Component {
     // 点击一张评估卡
     onCardClick(item) {
         if(item.ticketStatus === 5){ // 已赠送的进入卡记录
-            this.props.history.push(`/my/favrecord`);
+            this.props.history.push(`/my/favrecord/${item.ticketNo}`);
         } else {
             this.props.actions.saveFreeCardInfo(item);    // 保存该张卡信息，下个页面要用
             setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
@@ -651,12 +651,12 @@ class HomePageContainer extends React.Component {
                                                                         default: return '';
                                                                     }
                                                                 })()}</div>
-                                                                <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end" onClick={(e) => this.onStartShare(item_son, `${index}_${index_son}`, e)}>
+                                                                <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                                                                     <div>
                                                                         <div className="t">卡号：{tools.cardFormart(item_son.ticketNo)}</div>
                                                                         <div className="i">有效期至：{item_son.validEndTime ? item_son.validEndTime.split(' ')[0] : ''}</div>
                                                                     </div>
-                                                                    <div>
+                                                                    <div onClick={(e) => this.onStartShare(item_son, `${index}_${index_son}`, e)}>
                                                                         <div className="money">￥1000</div>
                                                                         {
                                                                             item_son.handsel ? <div className={ this.state.whichShare === `${index}_${index_son}` ? 'flex-none share-btn check' : 'flex-none share-btn'}>赠送</div> : null

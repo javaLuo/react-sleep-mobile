@@ -54,6 +54,7 @@ class Menu extends React.Component {
                         <div className="menu-icon icon4" />
                         <div className="title">我的e家</div>
                     </Link>
+                    <div className={this.props.dotShow ? 'dot show' : 'dot'}/>
                 </div>
             </div>,
             <div className="menu-zw" key="1"/>
@@ -64,6 +65,7 @@ class Menu extends React.Component {
 Menu.propTypes = {
     history: P.any,
     location: P.any,
+    dotShow: P.bool,
 };
 
 export default Menu;
