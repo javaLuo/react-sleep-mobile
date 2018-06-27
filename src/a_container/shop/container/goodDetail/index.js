@@ -258,21 +258,6 @@ class HomePageContainer extends React.Component {
       // });
   }
 
-  // 允许购买的最大数量
-    canBuyHowMany(type) {
-      // 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
-        switch(Number(type)) {
-            case 0: return 5;
-            case 1: return 1;
-            case 2: return 3;
-            case 3: return 2;
-            case 4: return 1;
-            case 5: return 5;
-            case 6: return 5;
-            default: return 5;
-        }
-    }
-
     goEva() {
       this.props.history.push("/shop/eva");
     }
@@ -310,18 +295,18 @@ class HomePageContainer extends React.Component {
     return (
       <div className={this.state.show ? 'gooddetail-page show' : 'gooddetail-page show'}>
           <div className="title-pic">
-              {/* 顶部轮播 */}
+              {/* 顶部画廊 */}
               {
 
                       <VideoLuo
-                          videoPic={null}
-                          videoSrc={d.coverVideo}
+                          videoPic={null} // null
+                          videoSrc={"https://isluo.com/work/paomo/video/paomo_gem.mp4"} // d.coverVideo
                           imgList={d.productImg ? d.productImg.split(',') : []}
                       />
 
               }
-
           </div>
+          {/*<div style={{ height: '1500px' }}>ZW</div>*/}
           {/* 商品信息说明 */}
           <div className="goodinfo">
               <div className="title">{d && d.name}</div>

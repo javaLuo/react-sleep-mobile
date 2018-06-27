@@ -14,8 +14,10 @@ class VideoLuo extends React.PureComponent {
             btnCheck: ~~!this.props.videoSrc,    // 当前选择 0视频1图片
             playing: false, // 视频是否在播放中
             android: false, // 是否是安卓
+            littleVideo: false, // 视频是否变成小窗口模式
         };
         this.video = null;
+        this.videoBox = null;
         this.dom = null;
         this.scrollDom = null;
     }
@@ -25,7 +27,7 @@ class VideoLuo extends React.PureComponent {
             scrollX: true,
             snap: true,
             momentum: false,
-            disablePointer: true,
+            disablePointer: false,
             click: true,
         });
 
@@ -47,6 +49,10 @@ class VideoLuo extends React.PureComponent {
                 playing,
             });
         });
+
+        if(this.props.videoSrc) { // 如果有视频开启视口监听
+            window.addEventListener("scroll", this.scrollPort, false);
+        }
     }
 
     UNSAFE_componentWillReceiveProps(nextP) {
@@ -67,8 +73,25 @@ class VideoLuo extends React.PureComponent {
         this.scrollDom = null;
     }
 
+    scrollPort = () => {
+        const d = this.videoBox.getBoundingClientRect();
+        if(d.bottom < 0 && this.state.playing && !this.state.littleVideo) { // 移出去了 且 正在播放 且 没有变成小窗模式
+            this.setState({
+                littleVideo: true,
+            }, ()=>{
+                document.getElementById("video-luo-ul").style.transform = "none";
+            });
+        } else if (d.bottom > 0 && this.state.littleVideo) { // 移回来了 且 当前是小窗口模式
+            this.setState({
+                littleVideo: false,
+            }, ()=>{
+                document.getElementById("video-luo-ul").style.transform = "none";
+            });
+        }
+        document.getElementById("video-luo-ul").style.transform = "none";
+    };
+
     onBtnClick(id) {
-        console.log('点了：', id, this.state.page);
         let page = this.state.page;
         if(page !== 0 && id === 0) { // 跳到视频页
             page = 0;
@@ -88,11 +111,15 @@ class VideoLuo extends React.PureComponent {
             this.video && this.video.pause();
             this.setState({
                 playing: false,
+            },()=>{
+                document.getElementById("video-luo-ul").style.transform = "none";
             });
         } else {
             this.video && this.video.play();
             this.setState({
                 playing: true,
+            },()=>{
+                document.getElementById("video-luo-ul").style.transform = "none";
             });
         }
 
@@ -107,27 +134,41 @@ class VideoLuo extends React.PureComponent {
         });
     }
 
+    // 关闭小窗口
+    closeClick(e) {
+        e.stopPropagation();
+        this.video && this.video.pause();
+        this.setState({
+            playing: false,
+            littleVideo: false,
+        });
+    }
+
     render() {
         return (
             <div className="react-video-luo" >
                 <div className="video-luo-scroll" id="scroll-video" ref={(e) => this.dom = e}>
-                <ul className="video-luo-ul" style={{ width: `${(this.props.imgList.length + ~~!!this.props.videoSrc) * 100}%` }}>
+                <ul id="video-luo-ul" className="video-luo-ul" style={{ width: `${(this.props.imgList.length + ~~!!this.props.videoSrc) * 100}%` }}>
                 {
                 this.props.videoSrc ? (
-                <li className={this.state.android ? 'android-video-li' : null}>
-                    <video
-                        ref={(dom) => this.video = dom}
-                        loop
-                        playsInline
-                        webkit-playsinline="true"
-                        preload="true"
-                        className={this.state.android && !this.state.playing ? 'hide' : null}
-                        poster = {this.props.videoPic || ImgLogo}
-                        src={this.props.videoSrc}
-                        onPause={()=>this.onPause()}
-                    />
-                    <div className="mask" onClick={() => this.maskClick()}>
-                        <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
+                <li className={this.state.android ? 'android-video-li' : null} ref={(dom)=>this.videoBox = dom}>
+                    <div className={this.state.littleVideo ? "video-li-box little" : "video-li-box"}>
+                        <video
+                            ref={(dom) => this.video = dom}
+                            loop
+                            playsInline
+                            webkit-playsinline="true"
+                            preload="true"
+                            className={this.state.android && !this.state.playing ? 'hide' : null}
+                            poster = {this.props.videoPic || ImgLogo}
+                            src={this.props.videoSrc}
+                            onPause={()=>this.onPause()}
+                        />
+                        <div className="mask" onClick={() => this.maskClick()}>
+                            <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
+                            {this.state.littleVideo ? <div className="close" onClick={(e)=> this.closeClick(e)}>x</div> : null}
+
+                        </div>
                     </div>
                 </li>
                 ) : null
