@@ -475,6 +475,11 @@ class HomePageContainer extends React.Component {
             // this.makeCards();
             Toast.success('支付成功',1);
             this.onDown(3);
+            this.onDown(1);
+            this.setState({
+                btn2Show: false,
+                modal2Num: 1,
+            });
         } else if (msg.errMsg === 'chooseWXPay:cancel'){
             // 支付被取消
             this.s4data = null;
@@ -522,11 +527,11 @@ class HomePageContainer extends React.Component {
     }
 
     // 点击一张评估卡
-    onCardClick(item) {
-        if(item.ticketStatus === 5){ // 已赠送的进入卡记录
-            this.props.history.push(`/my/favrecord/${item.ticketNo}`);
+    onCardClick(item, item_son) {
+        if(item.type === 5){ // 已赠送的进入卡记录
+            this.props.history.push(`/my/favrecord/${item_son.ticketNo}`);
         } else {
-            this.props.actions.saveFreeCardInfo(item);    // 保存该张卡信息，下个页面要用
+            this.props.actions.saveFreeCardInfo(item_son);    // 保存该张卡信息，下个页面要用
             setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
         }
     }
@@ -641,21 +646,18 @@ class HomePageContainer extends React.Component {
                                                                     case 2: classNames.push('b');break;
                                                                 }
                                                                 return classNames.join(' ');
-                                                            })()} onClick={() => this.onCardClick(item_son)}>
+                                                            })()} onClick={() => this.onCardClick(item, item_son)}>
                                                                 <div className="row1 flex-none page-flex-row flex-jc-sb" >
                                                                     <div>
                                                                         <div className="t" />
                                                                     </div>
                                                                     {(() => {
-                                                                        const type = this.checkCardStatus(item_son);
-                                                                        if (type === 2) {   // 已过期
-                                                                            return <img className="tip" src={ImgGuoQi} />;
-                                                                        } else if (type === 3) {   // 已使用
-                                                                            return <img className="tip" src={ImgShiYong} />;
-                                                                        } else if (type === 5) { // 已赠送(赠送出去并已被领取)
-                                                                            return <div className="flex-none">赠送记录 <img src={ImgRight} /></div>;
+                                                                        switch(item.type){
+                                                                            case 4: return <img className="tip" src={ImgGuoQi} />; // 已过期
+                                                                            case 2: return <img className="tip" src={ImgShiYong} />; // 已使用
+                                                                            case 5: return <div className="flex-none">赠送记录 <img src={ImgRight} /></div>; // 已赠送
+                                                                            default: return <div className="flex-none">{item_son.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
                                                                         }
-                                                                        return <div className="flex-none">{item_son.handselStatus === 1 ? '赠送中 ' : null}<img src={ImgRight} /></div>;
                                                                     })()}
                                                                 </div>
                                                                 <div className="row-center all_nowarp">{(()=>{

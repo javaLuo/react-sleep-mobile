@@ -41,7 +41,7 @@ class Register extends React.Component {
 
     componentDidMount() {
         document.title = '赠送记录';
-        const ticketNo = this.props.location.pathname.split("/").slice(-1);
+        const ticketNo = this.props.location.pathname.split("/").slice(-1)[0];
         this.setState({
             ticketNo,
         });
@@ -121,7 +121,7 @@ class Register extends React.Component {
                         );
                     })
                 }
-                <div className="foot">{this.cardTypeDown()}</div>
+                {this.cardTypeDown()}
             </div>
         );
     }

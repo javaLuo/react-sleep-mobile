@@ -18,6 +18,7 @@
         background-image:url(../../assets/logo-img.png);
         background-position: center center;
         background-repeat: no-repeat;
+        background-size: 40% auto;
       }
       &>li{
         position: relative;
@@ -39,6 +40,7 @@
             right: 10px;
             width: 128px;
             height: auto;
+            max-height: 128px;
             z-index: 99;
             .mask{
               .play-icon{

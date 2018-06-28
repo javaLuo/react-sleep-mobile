@@ -32,7 +32,7 @@ class VideoLuo extends React.PureComponent {
         });
 
         this.setState({
-            android: tools.checkSystem() === 'android',
+           // android: tools.checkSystem() === 'android',
             btnCheck: ~~!this.props.videoSrc,
         });
 
@@ -50,7 +50,7 @@ class VideoLuo extends React.PureComponent {
             });
         });
 
-        if(this.props.videoSrc && !this.state.android) { // 如果有视频 且 不是安卓 则开启视口监听
+        if(this.props.videoSrc) { // 如果有视频 则开启视口监听
             window.addEventListener("scroll", this.scrollPort, false);
         }
     }
@@ -159,7 +159,6 @@ class VideoLuo extends React.PureComponent {
                             playsInline
                             webkit-playsinline="true"
                             preload="true"
-                            className={this.state.android && !this.state.playing ? 'hide' : null}
                             poster = {this.props.videoPic || ImgLogo}
                             src={this.props.videoSrc}
                             onPause={()=>this.onPause()}
@@ -167,7 +166,6 @@ class VideoLuo extends React.PureComponent {
                         <div className="mask" onClick={() => this.maskClick()}>
                             <img className="play-icon all_trans" src={ImgPlay} style={{ opacity: ~~!this.state.playing }}/>
                             {this.state.littleVideo ? <div className="close" onClick={(e)=> this.closeClick(e)}>x</div> : null}
-
                         </div>
                     </div>
                 </li>
@@ -184,7 +182,7 @@ class VideoLuo extends React.PureComponent {
                 }
                 </ul>
                 </div>
-                <div className={this.state.android && this.state.playing ? 'video-foot android-down' : 'video-foot'}>
+                <div className="video-foot">
                 {
                 this.props.videoSrc ? (
                 [
