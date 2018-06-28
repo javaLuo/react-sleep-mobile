@@ -57,7 +57,7 @@ const initState = {
     mapAddr: null,  // 进入地图时当前选择的地址
     liveTypes: [],  // 所有的LIVE分类
     shoppingCarNum: 0, // 购物车中的商品数量
-    haveFavCardDot: false, // 是否有新的优惠卡可以领
+    FreeCareNum: 0, // 多少张待领取的卡
 };
 
 // ============================================
@@ -295,9 +295,14 @@ const pushDingDan = (state, action) => {
 
 const shopCartCount = (state, action) => {
     const { payload } = action;
-    console.log('到这了shoppingCarNum:', payload);
     return Object.assign({}, state, {
         shoppingCarNum: payload,
+    });
+};
+const hasFreeCare = (state, action) => {
+    const { payload } = action;
+    return Object.assign({}, state, {
+        FreeCareNum: payload,
     });
 };
 // ============================================
@@ -363,6 +368,8 @@ const reducerFn = (state = initState, action) => {
             return pushDingDan(state, action);
         case 'SHOP::shopCartCount':
             return shopCartCount(state, action);
+        case "SHOP::hasFreeCare":
+            return hasFreeCare(state, action);
         default:
             return actDefault(state, action);
     }

@@ -1,9 +1,9 @@
 const config = {
-    baseURL: 'http://hra.emall.online',
-    appId: 'wx1de9876e7b0030f1',
+    baseURL: 'https://hratest.yimaokeji.com', //https://hratest.yimaokeji.com
+    appId: 'wxbcdeefee228834d6',
     a:':fhlidmlj',
     funApiKey: '2845eb5f5743bc042554e472fff8e1d711a3650e07edc6fd4d4400548d5c90fc',
-    redirect_uri: encodeURIComponent('http://hra.emall.online/gzh/#/jump'),
+    redirect_uri: encodeURIComponent('https://hratest.yimaokeji.com/#/jump'),
 };
 export const shareInfo = {
   card: {

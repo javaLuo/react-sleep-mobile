@@ -46,7 +46,7 @@ import tools from '../../../../util/all';
 // ==================
 
 import { getUserInfo, myAmbassador } from '../../../../a_action/app-action';
-import { getMyCustomersCount, getAuditCount, getShipOrderCount } from '../../../../a_action/shop-action';
+import { getMyCustomersCount, getAuditCount, getShipOrderCount, hasFreeCare } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -88,6 +88,7 @@ class HomePageContainer extends React.Component {
         this.getAuditCount();
         this.getShipOrderCount();
         this.svgInit();
+        this.getHasFreeCare();
         setTimeout(() => {
             this.setState({
                 show: true,
@@ -111,6 +112,11 @@ class HomePageContainer extends React.Component {
     componentWillUnmount() {
         window.removeEventListener("resize", this.realSvg, false);
         // window.removeEventListener("deviceorientation", this.motionHandler, false);
+    }
+
+    // 获取有多少待领取的优惠卡
+    getHasFreeCare(){
+        this.props.actions.hasFreeCare();
     }
 
     // 订单数量，收货地址数量
@@ -453,7 +459,7 @@ class HomePageContainer extends React.Component {
                     <div onClick={() => this.props.history.push(u ? '/my/myfavcards' : '/login')}>
                         <img src={IconWdhk} />
                         <div>我的优惠卡</div>
-                        <div className={this.props.haveFavCardDot ? "dot show" : "dot"} />
+                        <div className={this.props.FreeCareNum > 0 ? "dot show" : "dot"} />
                         <WaterWave color="#cccccc" press="down"/>
                     </div>
                     <div onClick={() => this.onDaiYanClick()}>
@@ -508,7 +514,7 @@ HomePageContainer.propTypes = {
     actions: P.any,
     userinfo: P.any,
     ambassador: P.any,
-    haveFavCardDot: P.any,
+    FreeCareNum: P.number,
 };
 
 // ==================
@@ -519,9 +525,9 @@ export default connect(
     (state) => ({
         userinfo: state.app.userinfo,
         ambassador: state.app.ambassador,
-        haveFavCardDot: state.shop.haveFavCardDot,
+        FreeCareNum: state.shop.FreeCareNum,
     }),
     (dispatch) => ({
-        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAuditCount, getShipOrderCount }, dispatch),
+        actions: bindActionCreators({ getUserInfo, myAmbassador, getMyCustomersCount, getAuditCount, getShipOrderCount, hasFreeCare }, dispatch),
     })
 )(HomePageContainer);

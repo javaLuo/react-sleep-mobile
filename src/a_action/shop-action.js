@@ -928,6 +928,32 @@ export const getLifeCycle = (params = {}) => async(dispatch) => {
     }
 };
 
+// 优惠卡批量下单
+export const createMcardList = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/order/create/mcardList', params);
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
+// 目前有多少张待领的优惠卡
+export const hasFreeCare = (params = {}) => async(dispatch) => {
+    try {
+        const res = await Fetchapi.newPost('mall/ticket/hasFreeCare', params);
+        if (res.status === 200) {
+            dispatch({
+                type: 'SHOP::hasFreeCare',
+                payload: res.data || 0,
+            });
+        }
+        return res;
+    } catch(err) {
+        Toast.info('网络错误，请重试',1);
+    }
+};
+
 /**
  * 从购物车选择付款，先把所选商品的相关信息存入一个变量
  * 付款页进入的标识是2

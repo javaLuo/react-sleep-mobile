@@ -50,7 +50,7 @@ class VideoLuo extends React.PureComponent {
             });
         });
 
-        if(this.props.videoSrc) { // 如果有视频开启视口监听
+        if(this.props.videoSrc && !this.state.android) { // 如果有视频 且 不是安卓 则开启视口监听
             window.addEventListener("scroll", this.scrollPort, false);
         }
     }

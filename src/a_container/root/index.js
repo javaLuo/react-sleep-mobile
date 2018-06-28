@@ -41,7 +41,7 @@ import Menu from '../../a_component/menu';
 import tools from '../../util/all';
 
 import { login, getUserInfo } from '../../a_action/app-action';
-
+import { hasFreeCare } from '../../a_action/shop-action';
 const history = createHistory();
 class RootContainer extends React.Component {
   constructor(props) {
@@ -65,6 +65,7 @@ class RootContainer extends React.Component {
   componentDidMount() {
       window.theHistory = history;
       this.getUserInfo();
+      this.getHasFreeCare();
      //Home.preload();
      //My.preload();
      //Healthy.preload();
@@ -88,6 +89,11 @@ class RootContainer extends React.Component {
         if (params.openid) {
             localStorage.setItem('openId', params.openid);
         }
+    }
+
+    // 获取有多少待领取的优惠卡
+    getHasFreeCare(){
+      this.props.actions.hasFreeCare();
     }
 
     initURL() {
@@ -168,7 +174,8 @@ class RootContainer extends React.Component {
                 <Menu
                     location={props.location}
                     history={props.history}
-                    dotShow={this.props.haveFavCardDot}
+                    dotShow={this.props.FreeCareNum > 0}
+                    FreeCareNum={this.props.FreeCareNum}
                 />
                 <WindowFlod
                     location={props.location}
@@ -193,7 +200,7 @@ RootContainer.propTypes = {
   location: P.any,
     actions: P.any,
     shoppingCarNum: P.number,
-    haveFavCardDot: P.bool, // 是否有新的优惠卡可以领
+    FreeCareNum: P.number,
 };
 
 // ==================
@@ -203,9 +210,9 @@ RootContainer.propTypes = {
 export default connect(
   (state) => ({
       shoppingCarNum: state.shop.shoppingCarNum,
-      haveFavCardDot: state.shop.haveFavCardDot,
+      FreeCareNum: state.shop.FreeCareNum,
   }), 
   (dispatch) => ({
-      actions: bindActionCreators({ login, getUserInfo }, dispatch),
+      actions: bindActionCreators({ login, getUserInfo, hasFreeCare }, dispatch),
   })
 )(RootContainer);

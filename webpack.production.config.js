@@ -1,9 +1,8 @@
 var path = require('path');
-var fs = require('fs');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');     // 为了单独打包css
 var HtmlWebpackPlugin = require('html-webpack-plugin');             // 生成html
-// const PreloadWebpackPlugin = require("preload-webpack-plugin"); // 预加载所有chunk
+
 module.exports = {
     entry: {
         app: path.resolve(__dirname, 'src', 'index')
@@ -59,18 +58,6 @@ module.exports = {
         ]
     },
     plugins: [
-        // https://doc.webpack-china.org/plugins/define-plugin/
-        // new webpack.DefinePlugin({
-        //     'process.env': {
-        //         NODE_ENV: JSON.stringify('production') //定义生产环境
-        //     }
-        // }),
-
-        /**
-            CommonsChunkPlugin 插件，是一个可选的用于建立一个独立文件(又称作 chunk)的功能，
-            这个文件包括多个入口 chunk 的公共模块。通过将公共模块拆出来，最终合成的文件能够
-            在最开始的时候加载一次，便存起来到缓存中供后续使用。这个带来速度上的提升，因为浏览器会迅速将公共的代码从缓存中取出来，而不是每次访问一个新页面时，再去加载一个更大的文件。
-        **/ 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendors',            // 公共chunk名
             filename: 'vendors.[chunkhash:6].js',     // 生成的文件名
@@ -88,7 +75,7 @@ module.exports = {
         // Uglify 加密压缩源代码
         new webpack.optimize.UglifyJsPlugin({
             output: {
-                comments: true, // 删除代码中所有注释
+                comments: false, // 删除代码中所有注释
             },
             compress: {
                 warnings: false, // 删除没有用的代码时是否发出警告
@@ -99,15 +86,13 @@ module.exports = {
         // 作用域提升，优化打包
         new webpack.optimize.ModuleConcatenationPlugin(),
 
-        // 此插件详细教程 http://www.cnblogs.com/haogj/p/5160821.html
         new HtmlWebpackPlugin({                     //根据模板插入css/js等生成最终HTML
             filename: '../index.html',              //生成的html存放路径，相对于 output.path
             template: './src/index.html',           //html模板路径
-            favicon: 'favicon.ico',                 // 自动把根目录下的favicon.ico图片加入html
             hash: true,
             inject: true,                           // 是否将js放在body的末尾
+            minify: true
         }),
-       // new PreloadWebpackPlugin(),
     ],
     // 解析器， webpack提供的各种方便的工具函数
     resolve: {

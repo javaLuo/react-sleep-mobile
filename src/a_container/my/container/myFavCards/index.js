@@ -29,7 +29,7 @@ import Config from '../../../../config';
 // 本页面所需action
 // ==================
 
-import { wxInit, queryListFree, saveFreeCardInfo, ticketHandsel } from '../../../../a_action/shop-action';
+import { wxInit, queryListFree, saveFreeCardInfo, ticketHandsel, createMcardList, wxPay } from '../../../../a_action/shop-action';
 // ==================
 // Definition
 // ==================
@@ -47,9 +47,10 @@ class HomePageContainer extends React.Component {
             { title: '已赠出', data: [], type: 5, badge: true, pageNum: 1, total: 0 },
             { title: '已过期', data: [], type: 4, badge: true, pageNum: 1, total: 0 },
         ],
-
+        nPay: 0, // 可以批量支付的数量
         loading: false, // 是否正在支付中
         wxReady: true, // 微信是否已初始化
+        ticketPrice: 50, // 优惠卡的价格 以得到数据的第1个为准 没有就是50
         tabIndex: 0, // 当前选择了哪一个tab页 非受控
         pageSize: 10,
         shareShow: false,   // 分享提示框是否显示
@@ -76,7 +77,6 @@ class HomePageContainer extends React.Component {
           search = arr[1];
       }
       console.log('searh是什么：', this.props.location, search);
-      this.getData(1, this.state.pageSize, 'flash', search, 1);
       this.getData(1, this.state.pageSize, 'flash', search, 3);
       this.setState({
           search,
@@ -109,30 +109,38 @@ class HomePageContainer extends React.Component {
 
       this.props.actions.queryListFree(tools.clearNull(params)).then((res) => {
             if (res.status === 200) {
-                if (!res.data || !res.data.result || res.data.result.length === 0) {
+
+                // 获得是哪一个tab的数据
+                const temp = _.cloneDeep(this.state.data);
+                let ticketPrice = this.state.ticketPrice;
+                // 更新各数量
+                temp[0].total = res.data.total;
+                temp[1].total = res.data.yPay;
+                temp[2].total = res.data.yUse;
+                temp[3].total = res.data.yGive;
+                temp[4].total = res.data.yPast;
+
+                if (!res.data || !res.data.ticketList || !res.data.ticketList.result || res.data.ticketList.result.length === 0) {
                     if (type === 'update') {
                         Toast.info('没有更多数据了', 1);
                     } else{
                       Toast.hide();
                   }
-                    this.setState({
-                        data: this.state.data,
-                    });
-                    return;
-                }
-
-                // 获得是哪一个tab的数据
-                const temp = _.cloneDeep(this.state.data);
-                for(let i=0; i<temp.length; i++){
-                    if(temp[i].type === which) {
-                        temp[i].data = type === 'flash' ? res.data.result : [...temp[i].data, ...res.data.result];
-                        temp[i].pageNum = pageNum;
-                        temp[i].total = res.data.total;
-                        break;
+                } else {
+                    for(let i=0; i<temp.length; i++){
+                        if(temp[i].type === which) {
+                            temp[i].data = type === 'flash' ? res.data.ticketList.result : [...temp[i].data, ...res.data.ticketList.result];
+                            temp[i].pageNum = pageNum;
+                            break;
+                        }
                     }
+                    ticketPrice = res.data.ticketList.result[0].ticketPrice;
                 }
+                console.log("所以TMD怎么回事", temp[1].total);
                 this.setState({
                     data: temp,
+                    ticketPrice,
+                    nPay: res.data.nPay,
                 });
                 Toast.hide();
             } else {
@@ -185,50 +193,55 @@ class HomePageContainer extends React.Component {
 
     // 初始化微信JS-SDK
     initWxConfig(data) {
+      console.log('what fuck?', data);
         if(typeof wx === 'undefined') {
             this.onFail();
             return false;
         }
         console.log('到这里了', data);
-        wx.config({
-            debug: false,
-            appId: Config.appId,
-            timestamp: data.timestamp,
-            nonceStr: data.noncestr,
-            signature: data.signature,
-            jsApiList: [
-                'onMenuShareTimeline',      // 分享到朋友圈
-                'onMenuShareAppMessage',    // 分享给微信好友
-                'onMenuShareQQ',             // 分享到QQ
-                'chooseWXPay',              // 微信支付
-            ]
-        });
-        wx.ready(() => {
-            console.log('微信JS-SDK初始化成功');
-            // 如果没有点选，就分享主页
-            wx.onMenuShareAppMessage({
-                title: '翼猫健康e家',
-                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
-                link: `${Config.baseURL}/gzh`,
-                imgUrl: 'https://isluo.com/imgs/catlogoheiheihei.png',
-                type: 'link',
-                success: () => {
-                    Toast.info('分享成功', 1);
-                }
+        return new Promise((res, rej)=>{
+            wx.config({
+                debug: false,
+                appId: data.appid,
+                timestamp: data.timestamp,
+                nonceStr: data.noncestr,
+                signature: data.signature,
+                jsApiList: [
+                    'onMenuShareTimeline',      // 分享到朋友圈
+                    'onMenuShareAppMessage',    // 分享给微信好友
+                    'onMenuShareQQ',             // 分享到QQ
+                    'chooseWXPay',              // 微信支付
+                ]
             });
-            wx.onMenuShareTimeline({
-                title: '翼猫健康e家',
-                desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
-                link: `${Config.baseURL}/gzh`,
-                imgUrl: 'https://isluo.com/imgs/catlogoheiheihei.png',
-                success: () => {
-                    Toast.info('分享成功', 1);
-                }
+            wx.ready(() => {
+                console.log('微信JS-SDK初始化成功');
+                // 如果没有点选，就分享主页
+                wx.onMenuShareAppMessage({
+                    title: '翼猫健康e家',
+                    desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                    link: `${Config.baseURL}/gzh`,
+                    imgUrl: 'https://isluo.com/imgs/catlogoheiheihei.png',
+                    type: 'link',
+                    success: () => {
+                        Toast.info('分享成功', 1);
+                    }
+                });
+                wx.onMenuShareTimeline({
+                    title: '翼猫健康e家',
+                    desc: '欢迎关注 - 翼猫健康e家 专注疾病早期筛查',
+                    link: `${Config.baseURL}/gzh`,
+                    imgUrl: 'https://isluo.com/imgs/catlogoheiheihei.png',
+                    success: () => {
+                        Toast.info('分享成功', 1);
+                    }
+                });
+                res(true);
             });
-        });
-        wx.error((e) => {
-            console.log('微信JS-SDK初始化失败：', e);
-            this.onFail();
+            wx.error((e) => {
+                console.log('微信JS-SDK初始化失败：', e);
+                rej(false);
+                this.onFail();
+            });
         });
     }
 
@@ -348,9 +361,10 @@ class HomePageContainer extends React.Component {
             console.log('第2：初始化js-sdk：', s2);
             if (!s2) { return false; }
 
-            const s3 = await this.props.actions.createMcard({         // 3. 创建订单
+            const s3 = await this.props.actions.createMcardList({         // 3. 创建订单
                 orderFrom: 2,
-               // ticketNo: this.props.freeCardInfo.ticketNo, // 批量支付就没有卡号了
+                num: this.state.modal2Num,
+                fee: tools.point2(this.state.modal2Num * this.state.ticketPrice),
             });
             console.log('第3：创建订单：', s3);
             if(s3.status !== 200) { return false; }
@@ -373,10 +387,10 @@ class HomePageContainer extends React.Component {
         }
     }
 
-    // 开始批量支付
+    // 创建订单
     onPay() {
-        const max = this.findTotalByType(3);
-        if(max < this.state.modal2Num || this.state.modal2Num * 50 > 10000) {
+        const max = this.state.nPay;
+        if(max < this.state.modal2Num || tools.point2(this.state.modal2Num * this.state.ticketPrice) > 10000) {
             return;
         }
 
@@ -397,6 +411,7 @@ class HomePageContainer extends React.Component {
         this.setState({
             loading: true
         });
+        Toast.loading('请稍后...', 0 );
         if (this.s4data) {              // 已经获取过统一下单了，直接调起支付就行 （即用户取消支付、支付失败后，重新点击支付）
             this.onWxPay(this.s4data).then((msg) => {
                 this.payResult(msg);
@@ -566,7 +581,7 @@ class HomePageContainer extends React.Component {
         } else if(type === 2) { // +
             num = this.state.modal1Num + 1;
         }
-        const max = this.findTotalByType(3);
+        const max = this.state.nPay;
         if(num > max){
             num = max;
         }
@@ -588,7 +603,7 @@ class HomePageContainer extends React.Component {
     return (
       <div className="page-myfavcards">
               <Tabs
-                  tabs={this.state.data.map((item)=> ({ title: <Badge className="tabs-bars-div"><div>{ item.title }</div><div>{ item.data.length }</div></Badge>, type: item.type }))}
+                  tabs={this.state.data.map((item)=> ({ title: <Badge className="tabs-bars-div"><div>{ item.title }</div><div>{ item.total }</div></Badge>, type: item.type }))}
                   swipeable={false}
                   onChange={(tab, index) => this.onTabsChange(tab, index)}
               >
@@ -726,7 +741,7 @@ class HomePageContainer extends React.Component {
 
           {/** Modal2 **/}
           <div className={this.state.btn2Show ? 'modal1 show' : 'modal1'}>
-              <div className="title">未支付的优惠卡数量：<span>{this.findTotalByType(3)}</span>张</div>
+              <div className="title">可支付的优惠卡数量：<span>{this.findTotalByType(3)}</span>张</div>
               <div className="form-box">
                   <Checkbox
                       checked={this.state.modal2Check}
@@ -743,7 +758,7 @@ class HomePageContainer extends React.Component {
                   ><span className={"label-span"}>全部支付</span></Checkbox>
                   <div className="err">
                       {(()=>{
-                          const max = this.findTotalByType(3);
+                          const max = this.state.nPay;
                           if(this.state.modal2Num > max) {
                               return '超过有效数量，请重新输入';
                           } else if(this.state.modal2Num * 50 > 10000) {
@@ -757,7 +772,7 @@ class HomePageContainer extends React.Component {
                       <div className="btn" onClick={()=>this.onModal2Num(2)}>+</div>
                   </div>
                   <div style={{ marginTop: '5px' }}>支付数量：{this.state.modal2Num}</div>
-                  <div>合计金额：<span style={{ color: this.state.modal2Num * 50 > 10000 ? '#cc3333' : "#222222" }}>{(this.state.modal2Num * 50).toFixed(2)}</span></div>
+                  <div>合计金额：<span style={{ color: tools.point2(this.state.modal2Num * this.state.ticketPrice) > 10000 ? '#cc3333' : "#222222" }}>{tools.point2(this.state.modal2Num * this.state.ticketPrice).toFixed(2)}</span></div>
               </div>
               <div className="modal-footer">
                   <div onClick={() => this.setState({
@@ -792,6 +807,6 @@ export default connect(
     userinfo: state.app.userinfo,
   }), 
   (dispatch) => ({
-    actions: bindActionCreators({ wxInit, queryListFree, saveFreeCardInfo, ticketHandsel }, dispatch),
+    actions: bindActionCreators({ wxInit, queryListFree, saveFreeCardInfo, ticketHandsel, createMcardList, wxPay }, dispatch),
   })
 )(HomePageContainer);

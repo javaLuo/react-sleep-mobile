@@ -75,9 +75,7 @@ module.exports = {
             threadPool: happyThreadPool,
             verbose: true
         }),
-        // new webpack.optimize.OccurenceOrderPlugin(),     // 这个插件只有webpack1才需要
         new webpack.HotModuleReplacementPlugin(),           // 热更新插件
-        // new webpack.optimize.ModuleConcatenationPlugin(),   // 作用域提升，优化打包
         new webpack.NoEmitOnErrorsPlugin()  // 在编译出现错误时，自动跳过输出阶段。这样可以确保编译出的资源中不会包含错误。
     ],
     resolve: {

@@ -354,7 +354,7 @@ class HomePageContainer extends React.Component {
                                       <div className="pic">
                                           <img className="all_radius" src={item.imgs && item.imgs.split(',')[0]}/>
                                           <div className="star">{this.howManyStars(item.satisfaction)}</div>
-                                          <div className="province">{item.province && item.province.replace("省", "")}</div>
+                                          <div className="province" >{item.province && item.province.replace("省", "")}</div>
                                       </div>
                                       <div className="all_nowarp2 name">{item.name}</div>
                                   </div>
