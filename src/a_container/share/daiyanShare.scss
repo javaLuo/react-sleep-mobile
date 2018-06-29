@@ -1,30 +1,30 @@
-.page-daiyankashare{
-  background-color: #040B1E !important;
+.page-daiyankashare {
+  background-color: #040b1e !important;
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
   min-height: 100vh !important;
-  .logo{
+  .logo {
     position: absolute;
-    top: .3rem;
-    left: .3rem;
+    top: 0.3rem;
+    left: 0.3rem;
     width: 1.25rem;
   }
-  .title-box{
-    padding: .3rem;
+  .title-box {
+    padding: 0.3rem;
     position: relative;
     text-align: center;
-    img{
+    img {
       width: 1.2rem;
     }
   }
-  .body-box{
-    padding: 1.3rem .2rem .2rem .2rem;
-    .head-box{
+  .body-box {
+    padding: 1.3rem 0.2rem 0.2rem 0.2rem;
+    .head-box {
       position: relative;
       margin-top: 0;
       z-index: 2;
-      .pic{
+      .pic {
         position: relative;
         width: 1.2rem;
         height: 1.2rem;
@@ -33,109 +33,108 @@
         border-radius: 1.2rem;
         margin: 0 auto;
         border: solid 1px #fff;
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: cover;
         }
       }
-      .name{
-        font-size: .36rem;
+      .name {
+        font-size: 0.36rem;
         color: #fff;
         text-align: center;
         z-index: 2;
       }
-      .name-info{
-        font-size: .3rem;
+      .name-info {
+        font-size: 0.3rem;
         color: #fff;
         text-align: center;
         z-index: 2;
       }
     }
-    .img-box{
+    .img-box {
       position: relative;
       margin-top: -1.6rem;
       min-height: 40vh;
       z-index: 1;
       height: auto;
-      .img{
+      .img {
         display: block;
-        margin:0 auto;
+        margin: 0 auto;
         width: 85%;
         height: auto;
       }
-      .code{
+      .code {
         position: absolute;
-        bottom: .3rem;
-        right: .2rem;
+        bottom: 0.3rem;
+        right: 0.2rem;
         width: 2.2rem;
         height: 2.2rem;
-        img{
+        img {
           width: 100%;
           height: 100%;
         }
-
       }
     }
-    .code-box{
-      .t{
-        font-size: .3rem;
+    .code-box {
+      .t {
+        font-size: 0.3rem;
         color: #fff;
         text-align: center;
         letter-spacing: 1px;
-        margin-top: .2rem;
+        margin-top: 0.2rem;
       }
-      .codes{
-        margin-top: .2rem;
-        &>div{
+      .codes {
+        margin-top: 0.2rem;
+        & > div {
           position: relative;
-          flex:none;
-          width:2.2rem;
+          flex: none;
+          width: 2.2rem;
           height: 2.2rem;
-          margin: 0 .3rem;
-          img{
+          margin: 0 0.3rem;
+          img {
             width: 100%;
             height: 100%;
           }
-          .head{
+          .head {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: .5rem;
-            height: .5rem;
-            margin-top: -.25rem;
-            margin-left: -.25rem;
-            border-radius:3px;
+            width: 0.5rem;
+            height: 0.5rem;
+            margin-top: -0.25rem;
+            margin-left: -0.25rem;
+            border-radius: 3px;
           }
         }
       }
     }
   }
-  .share-modal{
+  .share-modal {
     position: fixed;
     z-index: 99;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: rgba(0,0,0,.5);
-    &.hide{
+    background-color: rgba(0, 0, 0, 0.5);
+    &.hide {
       display: none;
     }
-    .share{
+    .share {
       position: absolute;
-      top: .15rem;
-      right: .15rem;
+      top: 0.15rem;
+      right: 0.15rem;
       width: 1rem;
       height: auto;
     }
-    .title{
+    .title {
       position: absolute;
       top: 50%;
       left: 50%;
       color: #fff;
-      font-size: .32rem;
+      font-size: 0.32rem;
       transform: translate(-50%, -50%);
     }
   }

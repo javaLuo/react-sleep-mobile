@@ -12,7 +12,7 @@
     "extends": "plugin:react/recommended",
     "parser": "babel-eslint",
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 8,
         "ecmaFeatures": {
             "impliedStrict": true,
             "experimentalObjectRestSpread": true,
@@ -21,19 +21,18 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
     "rules": {
-        "semi": [
-            "warn",
-            "always"
-        ],
-        "no-cond-assign": "error",
-        "no-debugger": "error",
-        "no-dupe-args": "error",
-        "no-caller": "error",
-        "no-unmodified-loop-condition": "error",
-        "no-with": "error",
-        "no-catch-shadow": "error"
+      "semi": "warn",
+      "no-cond-assign": "error",
+      "no-debugger": "error",
+      "no-dupe-args": "error",
+      "no-caller": "error",
+      "no-unmodified-loop-condition": "error",
+      "no-with": "error",
+      "no-catch-shadow": "error",
+      "prettier/prettier": "warn"
     }
 }

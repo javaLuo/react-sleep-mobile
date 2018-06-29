@@ -1,59 +1,59 @@
-.page-fav-record{
+.page-fav-record {
   background-color: #f7f7f7 !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
   min-height: 100vh;
-  .title{
+  .title {
     flex: none;
     padding: 10px 20px;
     border-radius: 6px;
-    background-color: #4285F4;
+    background-color: #4285f4;
     color: #fff;
     margin-bottom: 40px;
   }
-  .foot{
+  .foot {
     flex: none;
     padding: 5px 20px;
     border-radius: 6px;
-    background-color: #4285F4;
+    background-color: #4285f4;
     color: #fff;
     margin-bottom: 20px;
     z-index: 2;
   }
-  .left{
+  .left {
     position: relative;
     width: 100%;
     display: flex;
-    .t-box{
+    .t-box {
       position: relative;
       display: flex;
       justify-content: flex-end;
       width: 50%;
       padding: 0 30px 40px 10px;
       box-sizing: border-box;
-      &:after{
+      &:after {
         content: "";
         position: absolute;
         width: 2px;
         height: 100%;
         right: 0;
         top: 10px;
-        background-color: #DDDDDD;
+        background-color: #dddddd;
       }
-      .t-info{
+      .t-info {
         background-color: #fff;
         border-radius: 6px;
         font-size: 13px;
         box-sizing: border-box;
         padding: 5px;
-        .t-info-1{
+        .t-info-1 {
           margin-bottom: 10px;
         }
-        .t-info-2{
+        .t-info-2 {
           display: flex;
-          img{
+          img {
             width: 42px;
             height: 42px;
             object-fit: cover;
@@ -61,30 +61,30 @@
             margin-right: 5px;
             flex: none;
           }
-          .soming{
+          .soming {
             flex: 1;
             font-size: 12px;
-            &>div:first-child{
+            & > div:first-child {
               margin-bottom: 5px;
             }
           }
         }
       }
     }
-    .dot{
+    .dot {
       position: absolute;
-      top:4px;
+      top: 4px;
       right: 0;
       margin-right: -3.5px;
       width: 8px;
       height: 8px;
       border-radius: 5px;
-      background-color: #DDDDDD;
+      background-color: #dddddd;
     }
-    .type-card{
+    .type-card {
       position: absolute;
       top: 0;
-      right:-25px;
+      right: -25px;
       width: 50px;
       height: 22px;
       text-align: center;
@@ -93,45 +93,45 @@
       z-index: 2;
       border-radius: 4px;
       font-size: 12px;
-      &.red{
+      &.red {
         background-color: #f00;
       }
     }
   }
 
-  .right{
+  .right {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    .t-box{
+    .t-box {
       position: relative;
       display: flex;
       justify-content: flex-start;
       width: 50%;
       padding: 0 10px 40px 30px;
       box-sizing: border-box;
-      &:after{
+      &:after {
         content: "";
         position: absolute;
         width: 2px;
         height: 100%;
         left: -2px;
         top: 10px;
-        background-color: #DDDDDD;
+        background-color: #dddddd;
       }
-      .t-info{
+      .t-info {
         background-color: #fff;
         border-radius: 6px;
         font-size: 13px;
         box-sizing: border-box;
         padding: 5px;
-        .t-info-1{
+        .t-info-1 {
           margin-bottom: 10px;
         }
-        .t-info-2{
+        .t-info-2 {
           display: flex;
-          img{
+          img {
             width: 42px;
             height: 42px;
             object-fit: cover;
@@ -139,20 +139,20 @@
             margin-right: 5px;
             flex: none;
           }
-          .soming{
+          .soming {
             flex: 1;
             font-size: 12px;
-            &>div:first-child{
+            & > div:first-child {
               margin-bottom: 5px;
             }
           }
         }
       }
     }
-    .type-card{
+    .type-card {
       position: absolute;
       top: 0;
-      left:-25px;
+      left: -25px;
       width: 50px;
       height: 22px;
       text-align: center;
@@ -161,14 +161,14 @@
       z-index: 2;
       border-radius: 4px;
       font-size: 12px;
-      &.red{
-        background-color: #EC4863;
+      &.red {
+        background-color: #ec4863;
       }
-      &.yellow{
-        background-color: #FFAD19;
+      &.yellow {
+        background-color: #ffad19;
       }
-      &.black{
-        background-color: #25292E;
+      &.black {
+        background-color: #25292e;
       }
     }
   }

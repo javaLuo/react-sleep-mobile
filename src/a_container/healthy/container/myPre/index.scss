@@ -1,80 +1,80 @@
-.page-my-pre{
+.page-my-pre {
   height: 100vh;
   background-color: #f3f3f3;
-  .the-ul{
+  .the-ul {
     background-color: #f3f3f3 !important;
   }
-  .one-box{
-    &+.one-box{
-      margin-top: .2rem;
+  .one-box {
+    & + .one-box {
+      margin-top: 0.2rem;
     }
-    .pre-box{
-      padding: .2rem;
+    .pre-box {
+      padding: 0.2rem;
       background-color: #fff;
-      .l{
-        div{
-          font-size: .32rem;;
-          &+div{
-            margin-top: .2rem;
+      .l {
+        div {
+          font-size: 0.32rem;
+          & + div {
+            margin-top: 0.2rem;
           }
         }
       }
-      .r{
-        .down{
+      .r {
+        .down {
           color: #4788f4;
-          font-size: .32rem;;
+          font-size: 0.32rem;
         }
-        .look{
+        .look {
           color: #fff;
           background-color: #4285f4;
-          font-size: .28rem;;
-          padding: .1rem .2rem;
-          border-radius: .6rem;
+          font-size: 0.28rem;
+          padding: 0.1rem 0.2rem;
+          border-radius: 0.6rem;
         }
       }
     }
 
-    .card-box{
-      padding: .2rem;
+    .card-box {
+      padding: 0.2rem;
       border-top: solid 1px #f3f3f3;
       background-color: #fff;
-      .l{
-        .title{
+      .l {
+        .title {
           color: #222328;
-          font-size: .32rem;
+          font-size: 0.32rem;
           letter-spacing: 1px;
         }
-        .info{
-          margin-top: .2rem;
-          font-size: .32rem;;
+        .info {
+          margin-top: 0.2rem;
+          font-size: 0.32rem;
           color: #89888e;
-          img{
-            width: .28rem;
-            margin-right: .2rem;
+          img {
+            width: 0.28rem;
+            margin-right: 0.2rem;
           }
-          a{
+          a {
             color: #89888e;
           }
         }
       }
-      .r{
-        .addr{
+      .r {
+        .addr {
           text-align: center;
           color: #4788f5;
-          font-size: .28rem;;
+          font-size: 0.28rem;
           letter-spacing: 1px;
-          img{
-            height: .8rem;
-            margin-bottom: .1rem;
+          img {
+            height: 0.8rem;
+            margin-bottom: 0.1rem;
           }
         }
       }
     }
   }
-  .nodata{
+  .nodata {
     text-align: center;
     color: #aaa;
-    padding: .2rem;
-    font-size: .28rem;
+    padding: 0.2rem;
+    font-size: 0.28rem;
   }
 }

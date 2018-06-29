@@ -1,8 +1,8 @@
-.stepper-luo{
+.stepper-luo {
   display: flex;
   height: 36px;
   align-items: center;
-  .stepper-btn{
+  .stepper-btn {
     position: relative;
     flex: none;
     width: 30px;
@@ -10,10 +10,10 @@
     text-align: center;
     border: solid 1px #ccc;
     border-radius: 30px;
-    &:active{
+    &:active {
       background-color: #ccc;
     }
-    .line-1{
+    .line-1 {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -22,7 +22,7 @@
       background-color: #888;
       transform: translate(-50%, -50%);
     }
-    .line-2{
+    .line-2 {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -32,7 +32,7 @@
       transform: translate(-50%, -50%);
     }
   }
-  .stepper-value{
+  .stepper-value {
     min-width: 30px;
     padding: 0 10px;
     text-align: center;

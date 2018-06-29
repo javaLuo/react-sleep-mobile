@@ -1,67 +1,67 @@
-.shop-active-page{
-  .top-bar{
+.shop-active-page {
+  .top-bar {
     position: relative;
     width: 100%;
     padding-top: 56%;
     background-image: url(../../../../assets/shop/banner_two.png);
     background-size: cover;
     background-position: top center;
-    &>div{
+    & > div {
       position: absolute;
       top: 42.6%;
       left: 50%;
       transform: translateX(-50%);
       color: #fff;
-      font-size: .26rem;
-      span{
+      font-size: 0.26rem;
+      span {
         color: #fff200;
         padding: 0 4px;
       }
     }
   }
-  .the-list{
-    .title{
-      height: .88rem;
-      line-height: .88rem;
-      font-size: .32rem;
-      padding:0 10px;
+  .the-list {
+    .title {
+      height: 0.88rem;
+      line-height: 0.88rem;
+      font-size: 0.32rem;
+      padding: 0 10px;
       border-top: solid 1px #f3f3f3;
       background-color: #fff;
-      a{
+      a {
         display: block;
         height: 100%;
         color: #222;
-        span{
+        span {
           vertical-align: middle;
         }
-        svg{
+        svg {
           float: right;
         }
       }
     }
-    .list{
+    .list {
       border-top: solid 1px #f3f3f3;
       border-bottom: solid 1px #f3f3f3;
-      &>li{
+      & > li {
         background-color: #fff;
         padding: 0 10px;
-        &+li{
-          &>a{
+        & + li {
+          & > a {
             border-top: solid 1px #f2f2f2;
           }
         }
-        &>a{
+        & > a {
           color: #222;
           display: flex;
-          padding:10px 0;
+          padding: 10px 0;
           box-sizing: initial;
-          .pic{
+          .pic {
             width: 2.12rem;
             height: 100%;
             max-width: 200px;
             background-color: #f2f2f2;
             border-radius: 4px;
-            img{
+            img {
               width: 100%;
               height: 100%;
               display: block;
@@ -69,46 +69,46 @@
               border-radius: 4px;
               box-sizing: initial !important;
             }
-            .default{
+            .default {
               height: 40px;
               width: 40px;
               object-fit: fill;
-              opacity: .3;
+              opacity: 0.3;
             }
           }
-          .detail{
+          .detail {
             margin-left: 10px;
             overflow: hidden;
-            .t{
-              font-size: .32rem;;
+            .t {
+              font-size: 0.32rem;
             }
-            .i{
-              font-size: .28rem;;
+            .i {
+              font-size: 0.28rem;
               color: #888;
-              .all_nowarp2{
-                padding-top: .1rem;
-                line-height: .31rem;
+              .all_nowarp2 {
+                padding-top: 0.1rem;
+                line-height: 0.31rem;
               }
             }
-            .k{
+            .k {
               display: flex;
               justify-content: space-between;
               align-items: center;
-              div{
-                font-size: .24rem;
+              div {
+                font-size: 0.24rem;
                 color: #89888e;
-                i{
+                i {
                   font-style: normal;
-                  font-size: .36rem;
+                  font-size: 0.36rem;
                 }
               }
-              .btn{
+              .btn {
                 background-color: #4285f4;
                 color: #fff;
-                padding: 0 .2rem;
+                padding: 0 0.2rem;
                 border-radius: 2rem;
-                margin-top: .01rem;
-                font-size: .3rem;
+                margin-top: 0.01rem;
+                font-size: 0.3rem;
               }
             }
           }

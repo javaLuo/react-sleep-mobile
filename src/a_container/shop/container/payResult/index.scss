@@ -1,52 +1,52 @@
-.page-pay-result{
-  .head{
-    padding: .3rem;
+.page-pay-result {
+  .head {
+    padding: 0.3rem;
     background-color: #fff;
     text-align: center;
-    font-size: .36rem;
-    img{
-      width: .8rem;
+    font-size: 0.36rem;
+    img {
+      width: 0.8rem;
       height: auto;
-      margin-bottom: .2rem
+      margin-bottom: 0.2rem;
     }
   }
-  .cards{
+  .cards {
     background-color: #fff;
-    margin-top: .2rem;
-    font-size: .32rem;
+    margin-top: 0.2rem;
+    font-size: 0.32rem;
     color: #222328;
-    .title{
+    .title {
       padding: 10px 15px;
 
-      .i{
+      .i {
         color: #ccc;
       }
     }
-    .list-btn{
-      padding: .1rem .15rem;
-      font-size: .26rem;
+    .list-btn {
+      padding: 0.1rem 0.15rem;
+      font-size: 0.26rem;
       color: #fff;
       background-color: #4285f4;
       border-radius: 50px;
     }
   }
-  .pay-info{
+  .pay-info {
     padding: 15px;
-    margin-top: .2rem;
-    margin-bottom: .2rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
     color: #aaa;
-    font-size: .32rem;
-    line-height:.6rem;
+    font-size: 0.32rem;
+    line-height: 0.6rem;
     background-color: #fff;
   }
-  .thefooter{
+  .thefooter {
     position: fixed;
-    bottom:0;
-    left:0;
+    bottom: 0;
+    left: 0;
     height: 47px;
     width: 100%;
     z-index: 10;
-    a{
+    a {
       width: 100%;
       height: 100%;
       border-radius: 0;

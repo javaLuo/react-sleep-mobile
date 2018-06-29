@@ -1,38 +1,38 @@
-.page-primary{
+.page-primary {
   min-height: 100vh;
-  .footer-btn{
+  .footer-btn {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 45px;
-    background-color: #999C9F;
+    background-color: #999c9f;
     color: #fff;
     text-align: center;
     line-height: 45px;
     font-size: 16px;
-    img{
+    img {
       position: absolute;
       top: 50%;
       right: 12px;
-      transform:  translateY(-50%);
+      transform: translateY(-50%);
       height: 14px;
     }
-    &:active{
-      background-color: #B7BFC1;
+    &:active {
+      background-color: #b7bfc1;
     }
   }
-  .data-title{
-    padding: .28rem;
+  .data-title {
+    padding: 0.28rem;
     color: #aaa;
-    font-size: .32rem;
+    font-size: 0.32rem;
     border-bottom: solid 1px #f2f2f2;
   }
-  .nothing{
-    padding: .2rem;
+  .nothing {
+    padding: 0.2rem;
     text-align: center;
     color: #aaa;
-    font-size: .28rem;
+    font-size: 0.28rem;
     background-color: transparent !important;
   }
 }

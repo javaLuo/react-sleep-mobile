@@ -1,64 +1,62 @@
-.page-tixian{
-
-  .tixian-info{
+.page-tixian {
+  .tixian-info {
     padding: 0 15px 15px 15px;
-    font-size: .32rem;
+    font-size: 0.32rem;
     background-color: #fff;
-    span{
+    span {
       color: #40a9ff;
     }
   }
-  .info{
+  .info {
     padding: 15px;
     color: #aaa;
-    font-size: .32rem;
-    line-height: .6rem;
+    font-size: 0.32rem;
+    line-height: 0.6rem;
     letter-spacing: 1px;
     text-align: justify;
   }
-  .submit-box{
-    padding: .2rem 0;
-    .submit-btn{
+  .submit-box {
+    padding: 0.2rem 0;
+    .submit-btn {
       display: block;
       width: 5.2rem;
-      height: .88rem;
-      line-height: .88rem;
-      border-radius: .44rem;
+      height: 0.88rem;
+      line-height: 0.88rem;
+      border-radius: 0.44rem;
       color: #fff;
-      font-size: .32rem;
+      font-size: 0.32rem;
       border: none;
       letter-spacing: 1px;
       margin: 0 auto;
     }
   }
-  .mt{
-    margin-top: .2rem;
+  .mt {
+    margin-top: 0.2rem;
   }
-  .am-list-body{
-    &:before{
+  .am-list-body {
+    &:before {
       display: none !important;
     }
-    &::after{
+    &::after {
       display: none !important;
     }
   }
-  .my-list{
+  .my-list {
     box-sizing: border-box;
     padding: 7px 15px;
     min-height: 45px;
     display: flex;
-    font-size: .36rem;
+    font-size: 0.36rem;
     align-items: center;
     color: #000;
     background-color: #fff;
-    .l{
-
+    .l {
     }
-    .r{
-      color: #338CF8;
+    .r {
+      color: #338cf8;
       text-align: right;
-      &.money{
-        font-size: .5rem;
+      &.money {
+        font-size: 0.5rem;
       }
     }
   }

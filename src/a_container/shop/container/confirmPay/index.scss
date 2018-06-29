@@ -1,5 +1,5 @@
-.confirm-pay{
-  .thefooter{
+.confirm-pay {
+  .thefooter {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -9,81 +9,81 @@
     border-top: solid 1px #e0e0e0;
     background-color: #fff;
     z-index: 10;
-    .submit-btn{
-      padding: 0 .4rem;
+    .submit-btn {
+      padding: 0 0.4rem;
       border-left: solid 1px #e0e0e0;
       background-color: #4285f4;
       color: #fff;
     }
   }
-  .body-list{
-    .obj-box{
-      &+.obj-box{
-        margin-top:10px;
+  .body-list {
+    .obj-box {
+      & + .obj-box {
+        margin-top: 10px;
       }
-      .one{
+      .one {
         width: 100%;
         display: flex;
         box-sizing: border-box;
         padding: 10px;
         background-color: #fff;
-        .am-checkbox-wrapper{
+        .am-checkbox-wrapper {
           flex: none;
           display: flex;
           align-items: center;
           padding-right: 10px;
         }
-        .pic{
+        .pic {
           width: 100px;
           display: flex;
           flex: none;
           align-items: center;
           justify-content: center;
-          img{
+          img {
             max-width: 100px;
-            max-height :150px;
+            max-height: 150px;
           }
         }
-        .infos{
+        .infos {
           flex: 1;
           margin-left: 10px;
           display: flex;
           flex-direction: column;
-          .t{
+          .t {
             flex: 1;
             font-size: 14px;
           }
-          .num{
+          .num {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex: none;
-            .money{
+            .money {
               font-size: 12px;
-              color: rgb(137,136,142);
+              color: rgb(137, 136, 142);
             }
-            .stepper-luo{
-              transform: scale(.8,.8);
-              transform-origin:100% 50%;
+            .stepper-luo {
+              transform: scale(0.8, 0.8);
+              transform-origin: 100% 50%;
             }
           }
-          .foot-info{
+          .foot-info {
             font-size: 12px;
-            color: rgb(249,42,25);
+            color: rgb(249, 42, 25);
             flex: none;
           }
         }
       }
-      .station-box{
+      .station-box {
         box-sizing: border-box;
         padding: 10px;
         font-size: 12px;
         color: #888;
-        .shit-station{
-          .ti{
+        .shit-station {
+          .ti {
             text-align: center;
           }
-          .station-info{
+          .station-info {
             margin-top: 5px;
           }
         }
@@ -94,65 +94,65 @@
     .am-list-thumb {
       margin: 0 0 0 15px;
     }
-    .am-list-brief{
-      font-size: .32rem;
+    .am-list-brief {
+      font-size: 0.32rem;
     }
     img {
       width: 12px;
       height: auto;
     }
   }
-  .this-item.am-list-item img{
+  .this-item.am-list-item img {
     width: auto;
     height: auto;
     max-height: 60px;
     border-radius: 4px;
   }
-  .year-info-box{
+  .year-info-box {
     border-bottom: solid 1px #eee;
     position: relative;
     padding: 0 15px 10px 15px;
     margin-top: -5px;
-    z-index: 3
+    z-index: 3;
   }
-  .year-info{
+  .year-info {
     white-space: normal !important;
     color: #888;
   }
-  .this-speacl-item{
-    .am-list-line{
-      &::after{
+  .this-speacl-item {
+    .am-list-line {
+      &::after {
         display: none !important;
       }
     }
   }
-  .mb{
-    margin-bottom: .2rem;
+  .mb {
+    margin-bottom: 0.2rem;
   }
-  .zw46{
+  .zw46 {
     height: 46px;
     width: 100%;
   }
-  .hoho{
+  .hoho {
     transition: all 200ms;
-    &:active{
+    &:active {
       background-color: #dddddd;
     }
   }
-  .other-info{
-    padding: .2rem;
+  .other-info {
+    padding: 0.2rem;
     box-sizing: border-box;
-    font-size: .28rem;
+    font-size: 0.28rem;
     color: #888;
     text-align: center;
   }
-  .other-info-ul{
-    padding: 0 .2rem;
+  .other-info-ul {
+    padding: 0 0.2rem;
     box-sizing: border-box;
-    font-size: .28rem;
+    font-size: 0.28rem;
     color: #888;
-    &>li{
-      margin-bottom: .1rem;
+    & > li {
+      margin-bottom: 0.1rem;
     }
   }
 }

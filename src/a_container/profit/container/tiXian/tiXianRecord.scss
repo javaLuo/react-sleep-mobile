@@ -1,41 +1,41 @@
-.page-tixianrecord{
-  .iscroll-box{
+.page-tixianrecord {
+  .iscroll-box {
     height: 100vh;
   }
-  .card-box{
-    padding: .2rem;
+  .card-box {
+    padding: 0.2rem;
     background-color: #fff;
-    &+.card-box{
-      margin-top: .2rem;
+    & + .card-box {
+      margin-top: 0.2rem;
     }
-    .l{
-      .title{
+    .l {
+      .title {
         color: rgb(37, 41, 46);
-        font-size: .32rem;
+        font-size: 0.32rem;
         letter-spacing: 1px;
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
-      .info{
-        margin-top: .1rem;
-        font-size: .28rem;;
+      .info {
+        margin-top: 0.1rem;
+        font-size: 0.28rem;
         color: rgb(153, 156, 160);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .type{
-          font-size: .3rem;
+        .type {
+          font-size: 0.3rem;
           color: rgb(37, 41, 46);
         }
       }
     }
-    .r{
+    .r {
       display: flex;
       align-items: center;
-      margin-left: .3rem;
-      img{
-        width: .14rem;
+      margin-left: 0.3rem;
+      img {
+        width: 0.14rem;
         height: auto;
       }
     }

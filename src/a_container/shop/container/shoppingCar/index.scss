@@ -1,12 +1,12 @@
-.shopping-car{
+.shopping-car {
   height: 100vh;
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  .bodys{
+  .bodys {
     flex: auto;
     overflow: auto;
-    .downs-t{
+    .downs-t {
       height: 40px;
       display: flex;
       background-color: #fff;
@@ -15,37 +15,37 @@
       align-items: center;
       margin-top: 10px;
       justify-content: space-between;
-      .t{
+      .t {
         color: #888;
       }
     }
   }
-  .type-box{
-    &+.type-box{
+  .type-box {
+    & + .type-box {
       margin-top: 10px;
     }
-    .title{
+    .title {
       height: 40px;
       padding: 0 10px;
       box-sizing: border-box;
       background-color: #fff;
       border-bottom: solid 1px #f2f2f2;
-      &>label{
+      & > label {
         display: flex;
         align-items: center;
         width: 100%;
         height: 100%;
-        .icon{
+        .icon {
           height: 18px;
           width: auto;
           margin-left: 10px;
         }
-        .word{
+        .word {
           margin-left: 10px;
         }
       }
     }
-    .title-down{
+    .title-down {
       height: 40px;
       padding: 0 10px;
       box-sizing: border-box;
@@ -53,31 +53,31 @@
       border-bottom: solid 1px #f2f2f2;
       display: flex;
       align-items: center;
-      .icon{
+      .icon {
         height: 18px;
         width: auto;
       }
-      .word{
+      .word {
         margin-left: 10px;
       }
     }
-    .list{
-      &>div+div{
+    .list {
+      & > div + div {
         border-top: solid 1px #f2f2f2;
       }
-      .one{
+      .one {
         width: 100%;
         display: flex;
         box-sizing: border-box;
         padding: 10px;
         background-color: #fff;
-        .am-checkbox-wrapper{
+        .am-checkbox-wrapper {
           flex: none;
           display: flex;
           align-items: center;
           padding-right: 10px;
         }
-        .downed{
+        .downed {
           align-self: center;
           font-size: 12px;
           background-color: #ccc;
@@ -86,77 +86,77 @@
           margin-right: 10px;
           border-radius: 20px;
         }
-        .pic{
+        .pic {
           width: 100px;
           display: flex;
           flex: none;
           align-items: center;
           justify-content: center;
-          img{
+          img {
             max-width: 100px;
-            max-height :150px;
+            max-height: 150px;
           }
         }
-        .infos{
+        .infos {
           flex: 1;
           margin-left: 10px;
           display: flex;
           flex-direction: column;
-          .t{
+          .t {
             flex: none;
             font-size: 14px;
           }
-          .i{
+          .i {
             flex: 1;
             font-size: 12px;
             color: #888;
           }
-          .num{
+          .num {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex: none;
-            .money{
+            .money {
               font-size: 12px;
-              color: rgb(137,136,142);
+              color: rgb(137, 136, 142);
             }
-            .stepper-luo{
-              transform: scale(.8,.8);
-              transform-origin:100% 50%;
+            .stepper-luo {
+              transform: scale(0.8, 0.8);
+              transform-origin: 100% 50%;
             }
           }
-          .foot-info{
+          .foot-info {
             font-size: 12px;
-            color: rgb(249,42,25);
+            color: rgb(249, 42, 25);
             flex: none;
           }
         }
       }
-      .am-swipe-btn-text{
+      .am-swipe-btn-text {
         background-color: #f00;
         border-radius: 40px;
       }
     }
   }
-  .footer-control{
+  .footer-control {
     height: 50px;
     flex: none;
     display: flex;
     line-height: 50px;
     background-color: #fff;
-    &>label{
+    & > label {
       padding: 0 10px;
     }
-    .all{
-      padding:0 10px;
-      span{
-        color: rgb(65,132,243);
+    .all {
+      padding: 0 10px;
+      span {
+        color: rgb(65, 132, 243);
       }
     }
-    .all2{
+    .all2 {
       padding: 0 20px;
       color: #fff;
-      background-color: rgb(65,132,243);
+      background-color: rgb(65, 132, 243);
     }
   }
 }

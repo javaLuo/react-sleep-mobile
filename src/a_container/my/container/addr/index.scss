@@ -1,38 +1,40 @@
-.addr-page{
-  .luo-box{
+.addr-page {
+  .luo-box {
     height: calc(100vh - 46px);
   }
-  .list{
-    &>li{
+  .list {
+    & > li {
       box-sizing: border-box;
       padding: 10px 0;
       letter-spacing: 1px;
       background-color: #fff;
-      &+li{
+      & + li {
         margin-top: 10px;
       }
-      .name{
-        span{float: right;}
+      .name {
+        span {
+          float: right;
+        }
       }
-      .addr{
+      .addr {
         margin-top: 10px;
       }
-      .controls{
+      .controls {
         margin-top: 5px;
         padding: 5px 0 0 0;
         color: #666;
-        .icon{
+        .icon {
           height: 18px;
           margin-right: 4px;
           color: #e0e0e0;
-          &.check{
+          &.check {
             color: #0e80d2;
           }
         }
-        .btns{
-          div{
+        .btns {
+          div {
             padding: 10px;
-            img{
+            img {
               height: 18px;
               width: auto;
               margin-right: 4px;
@@ -40,20 +42,20 @@
           }
         }
       }
-      svg{
+      svg {
         vertical-align: middle;
       }
     }
   }
-  .page-footer{
+  .page-footer {
     position: fixed;
     bottom: 0;
-    left:0;
+    left: 0;
     width: 100%;
     height: 46px;
     background-color: #fff;
     z-index: 10;
-    a{
+    a {
       border-radius: 0;
     }
   }

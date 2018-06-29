@@ -1,26 +1,26 @@
-.react-video-luo{
+.react-video-luo {
   position: relative;
   display: block;
   width: 100%;
   height: 100%;
-  .video-luo-scroll{
+  .video-luo-scroll {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow:hidden;
-    .video-luo-ul{
+    overflow: hidden;
+    .video-luo-ul {
       position: relative;
       display: block;
       min-width: 100%;
       height: 100%;
-      overflow:hidden;
-      .android-video-li{
-        background-image:url(../../assets/logo-img.png);
+      overflow: hidden;
+      .android-video-li {
+        background-image: url(../../assets/logo-img.png);
         background-position: center center;
         background-repeat: no-repeat;
         background-size: 40% auto;
       }
-      &>li{
+      & > li {
         position: relative;
         display: inline-block;
         flex: none;
@@ -28,13 +28,13 @@
         height: 100%;
         background-color: #000;
 
-        .video-li-box{
+        .video-li-box {
           position: relative;
           display: flex;
           width: 100%;
           height: 100%;
 
-          &.little{
+          &.little {
             position: fixed;
             top: 10px;
             right: 10px;
@@ -42,13 +42,13 @@
             height: auto;
             max-height: 128px;
             z-index: 99;
-            .mask{
-              .play-icon{
+            .mask {
+              .play-icon {
                 width: 20px;
               }
             }
           }
-          video{
+          video {
             position: relative;
             display: block;
             margin: 0 auto;
@@ -56,19 +56,19 @@
             height: auto;
             max-width: 100%;
             max-height: 100%;
-            &.hide{
+            &.hide {
               display: none;
             }
           }
-          .mask{
+          .mask {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,.2);
+            background-color: rgba(0, 0, 0, 0.2);
             z-index: 9;
-            .play-icon{
+            .play-icon {
               position: absolute;
               top: 50%;
               left: 50%;
@@ -76,10 +76,10 @@
               width: 60px;
               height: auto;
             }
-            .close{
+            .close {
               position: absolute;
               top: 0;
-              right:0;
+              right: 0;
               width: 20px;
               height: 20px;
               text-align: center;
@@ -87,17 +87,17 @@
               color: #fff;
               font-size: 14px;
               z-index: 99;
-              background-color: rgba(0,0,0,.5);
+              background-color: rgba(0, 0, 0, 0.5);
             }
           }
         }
-        .pic-box{
+        .pic-box {
           display: flex;
           width: 100%;
           height: 100%;
           justify-content: center;
           align-items: center;
-          img{
+          img {
             max-width: 100%;
             max-height: 100%;
           }
@@ -105,7 +105,7 @@
       }
     }
   }
-  .video-foot{
+  .video-foot {
     position: absolute;
     width: 100%;
     left: 0;
@@ -114,13 +114,13 @@
     z-index: 10;
     justify-content: center;
     transition: all 200ms;
-    &.android-down{
+    &.android-down {
       bottom: -32px;
-      .btn{
-        border:solid 1px #ddd;
+      .btn {
+        border: solid 1px #ddd;
       }
     }
-    .btn{
+    .btn {
       min-width: 60px;
       padding: 3px 0;
       background-color: #fff;
@@ -129,15 +129,15 @@
       justify-content: center;
       border-radius: 40px;
       font-size: 12px;
-      opacity: .6;
-      &.check{
+      opacity: 0.6;
+      &.check {
         opacity: 1;
       }
-      &+.btn{
+      & + .btn {
         margin-left: 4px;
       }
     }
-    .pic-num{
+    .pic-num {
       position: absolute;
       right: 10px;
       bottom: 0;
@@ -145,9 +145,9 @@
       color: #fff;
       padding: 3px 8px;
       border-radius: 40px;
-      background-color: rgba(0,0,0,.7);
+      background-color: rgba(0, 0, 0, 0.7);
     }
-    i{
+    i {
       display: inline-block;
       width: 10px;
       height: 10px;

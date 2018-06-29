@@ -1,84 +1,84 @@
-.page-order-customer{
+.page-order-customer {
   height: 100vh;
-  .tabs-div{
+  .tabs-div {
     height: 100%;
-    .card-box{
-      padding: .2rem;
+    .card-box {
+      padding: 0.2rem;
       background-color: #fff;
-      &+.card-box{
-        margin-top: .2rem;
+      & + .card-box {
+        margin-top: 0.2rem;
       }
-      .title{
-        height: .8rem;
-        line-height: .8rem;
-        font-size: .32rem;
+      .title {
+        height: 0.8rem;
+        line-height: 0.8rem;
+        font-size: 0.32rem;
         color: #222328;
-        .type{
+        .type {
           color: #4285f4;
         }
       }
-      .info{
-        padding: .2rem 0;
+      .info {
+        padding: 0.2rem 0;
         border-top: solid 1px #f3f3f3;
         border-bottom: solid 1px #f3f3f3;
-        .pic{
+        .pic {
           width: 2.12rem;
-          height:1.48rem;
+          height: 1.48rem;
           background-color: #ccc;
-          margin-right: .2rem;
+          margin-right: 0.2rem;
           border-radius: 4px;
           overflow: hidden;
-          img{
+          img {
             width: 100%;
             height: 100%;
             object-fit: cover;
           }
         }
-        .goods{
-          line-height: .37rem;
-          .t{
-            font-size: .32rem;
-            margin-bottom: .1rem;
+        .goods {
+          line-height: 0.37rem;
+          .t {
+            font-size: 0.32rem;
+            margin-bottom: 0.1rem;
           }
-          .i{
-            font-size: .28rem;;
+          .i {
+            font-size: 0.28rem;
             color: #89888e;
           }
         }
       }
-      .controls{
+      .controls {
         position: relative;
-        margin-top: .2rem;
-        a{
-          padding: .16rem 0;
+        margin-top: 0.2rem;
+        a {
+          padding: 0.16rem 0;
           width: 2rem;
           text-align: center;
-          font-size: .28rem;;
+          font-size: 0.28rem;
           border: solid 1px #aaa;
-          border-radius: .6rem;
-          margin-left: .2rem;
+          border-radius: 0.6rem;
+          margin-left: 0.2rem;
           color: #aaa;
-          &:active{
+          &:active {
             background-color: #aaa;
             color: #fff;
           }
-          &.blue{
+          &.blue {
             border: solid 1px #4285f4;
             color: #4285f4;
-            &:active{
+            &:active {
               background-color: #4285f4;
               color: #fff;
             }
           }
-          &.blue-btn{
+          &.blue-btn {
             border: none;
             color: #fff;
             background-color: #4285f4;
-            &:active{
+            &:active {
               background-color: #0e80d2;
             }
           }
-          &:active{
+          &:active {
             border: solid 1px #4285f4;
             color: #4285f4;
           }

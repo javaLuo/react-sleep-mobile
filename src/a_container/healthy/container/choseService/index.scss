@@ -1,84 +1,84 @@
-.page-chose-service{
-  .am-search{
-    .am-search-clear{
+.page-chose-service {
+  .am-search {
+    .am-search-clear {
       margin-top: 6px;
       margin-right: 2px;
     }
   }
-  .fujin{
+  .fujin {
     display: flex;
     height: 45px;
     align-items: center;
     justify-content: center;
     color: #89888e;
     font-size: 16px;
-    span{
+    span {
       padding: 0 8px;
     }
-    img{
+    img {
       width: 1.4rem;
     }
   }
-  .bar-list{
-    padding: 0 0 .28rem 0;
-    .item{
-      height:.98rem;
+  .bar-list {
+    padding: 0 0 0.28rem 0;
+    .item {
+      height: 0.98rem;
       align-items: center;
       background-color: #fff;
       position: relative;
-      .icon{
-        padding: 0 .3rem;
-        width: .32rem;
+      .icon {
+        padding: 0 0.3rem;
+        width: 0.32rem;
         height: auto;
       }
-      .title{
-        flex:auto;
-        font-size: .32rem;;
-        letter-spacing: 1px;
-        padding-left: .2rem;
-        .i{
-          font-size: .28rem;;
-          color: #89888e;
-        }
-      }
-      .title2{
-        flex:none;
-        font-size: .32rem;;
-        letter-spacing: 1px;
-        padding-left: .2rem;
-        width: 2rem;
-        .i{
-          font-size: .28rem;;
-          color: #89888e;
-        }
-      }
-      .info{
+      .title {
         flex: auto;
-        font-size: .32rem;;
+        font-size: 0.32rem;
+        letter-spacing: 1px;
+        padding-left: 0.2rem;
+        .i {
+          font-size: 0.28rem;
+          color: #89888e;
+        }
+      }
+      .title2 {
+        flex: none;
+        font-size: 0.32rem;
+        letter-spacing: 1px;
+        padding-left: 0.2rem;
+        width: 2rem;
+        .i {
+          font-size: 0.28rem;
+          color: #89888e;
+        }
+      }
+      .info {
+        flex: auto;
+        font-size: 0.32rem;
         color: #89888e;
         text-align: right;
       }
-      .info2{
+      .info2 {
         flex: auto;
-        font-size: .32rem;;
+        font-size: 0.32rem;
         color: #89888e;
         text-align: left;
       }
-      .arrow{
-        padding: 0 .28rem;
-        img{
-          width: .14rem;
+      .arrow {
+        padding: 0 0.28rem;
+        img {
+          width: 0.14rem;
           height: auto;
         }
       }
-      .arrow2{
-        padding: 0 .28rem;
-        img{
-          width: .34rem;
+      .arrow2 {
+        padding: 0 0.28rem;
+        img {
+          width: 0.34rem;
           height: auto;
         }
       }
-      .line{
+      .line {
         position: absolute;
         bottom: 0;
         height: 1px;
@@ -86,45 +86,45 @@
         left: 3%;
         background-color: #f3f3f3;
       }
-      &.mt{
-        margin-top: .28rem;
+      &.mt {
+        margin-top: 0.28rem;
       }
     }
   }
-  .card-ul{
-    margin-bottom: .2rem;
+  .card-ul {
+    margin-bottom: 0.2rem;
   }
-  .card-box{
+  .card-box {
     background-color: #fff;
-    &+.card-box{
-      margin-top: .2rem;
+    & + .card-box {
+      margin-top: 0.2rem;
     }
-    .title{
+    .title {
       padding: 5px 10px 5px 10px;
       border-bottom: solid 1px #f0f0f0;
       display: flex;
       justify-content: space-between;
       box-sizing: border-box;
       align-items: center;
-      img{
+      img {
         height: 12px;
       }
     }
-    .infos{
+    .infos {
       padding: 10px;
       display: flex;
-      .l{
-        .info{
+      .l {
+        .info {
           font-size: 14px;
           color: #89888e;
-          img{
+          img {
             width: 14px;
             height: auto;
-            margin-right: .2rem;
+            margin-right: 0.2rem;
           }
         }
       }
-      .r{
+      .r {
         position: relative;
         width: 2rem;
         margin-left: 4px;
@@ -132,15 +132,15 @@
         flex-direction: column;
         align-items: center;
         border-left: solid 1px #f2f2f2;
-        &:active{
+        &:active {
           background-color: #f2f2f2;
         }
-        .lang{
+        .lang {
           flex: none;
-          margin-bottom: .1rem;
+          margin-bottom: 0.1rem;
           color: #89888e;
         }
-        .addr{
+        .addr {
           flex: 1;
           display: flex;
           align-items: center;
@@ -150,7 +150,7 @@
           color: #4788f5;
           font-size: 14px;
           letter-spacing: 1px;
-          img{
+          img {
             height: 25px;
             margin-bottom: 5px;
           }
@@ -158,9 +158,9 @@
       }
     }
   }
-  .iscroll-box{
+  .iscroll-box {
     height: calc(100vh - 46px);
-    &.min{
+    &.min {
       height: calc(100vh - 91px);
     }
   }

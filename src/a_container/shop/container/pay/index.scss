@@ -1,85 +1,85 @@
-.page-pay{
-  .title-pic{
+.page-pay {
+  .title-pic {
     min-height: 3rem;
     position: relative;
     background-color: #f2f2f2;
-    img{
+    img {
       display: block;
       width: 100%;
       object-fit: cover;
     }
-    .default{
+    .default {
       position: absolute;
       top: 50%;
       left: 50%;
       width: 50px;
       height: auto;
       transform: translate(-50%, -50%);
-      opacity: .3;
+      opacity: 0.3;
     }
   }
-  .am-list-item .am-list-line .am-list-extra{
+  .am-list-item .am-list-line .am-list-extra {
     flex-basis: auto;
   }
-  .my-carousel{
+  .my-carousel {
     height: 200px !important;
     overflow: hidden;
-    img{
+    img {
       height: 200px !important;
       width: 100%;
       object-fit: cover;
     }
   }
-  .goodinfo{
-    padding: .26rem;
-    .title{
-      font-size: .36rem;
+  .goodinfo {
+    padding: 0.26rem;
+    .title {
+      font-size: 0.36rem;
     }
-    .info{
+    .info {
       position: relative;
-      margin-top: .2rem;
-      font-size: .3rem;
-      line-height: .4rem;
+      margin-top: 0.2rem;
+      font-size: 0.3rem;
+      line-height: 0.4rem;
       color: #89888e;
-      .cost{
-        font-size: .32rem;;
+      .cost {
+        font-size: 0.32rem;
         font-weight: 600;
         color: #fc4800;
-        margin-top: .6rem;
-        span{
-          font-size: .44rem;
+        margin-top: 0.6rem;
+        span {
+          font-size: 0.44rem;
         }
       }
     }
-    .server{
-      font-size: .26rem;;
+    .server {
+      font-size: 0.26rem;
       color: #888;
-      margin-top: .2rem;
+      margin-top: 0.2rem;
       justify-content: space-between;
     }
   }
-  .detail-box{
+  .detail-box {
     width: 100%;
-    img{
+    img {
       width: 100%;
       height: auto;
     }
-    padding-bottom: .4rem;
+    padding-bottom: 0.4rem;
   }
-  .play{
+  .play {
     position: fixed;
-    bottom:0;
-    left:0;
+    bottom: 0;
+    left: 0;
     height: 47px;
     width: 100%;
     z-index: 10;
-    a{
+    a {
       width: 100%;
       height: 100%;
       border-radius: 0;
     }
   }
 }
-.jifei-btn+.jifei-btn{
+.jifei-btn + .jifei-btn {
   margin-top: 10px;
 }

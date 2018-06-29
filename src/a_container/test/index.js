@@ -1,39 +1,33 @@
 /* Test */
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import './index.scss';
-import P from 'prop-types';
-import ImgTest from '../../assets/test/new.png';
-import anime from 'animejs';
-import tools from '../../util/all';
-import ImgCode from './code.jpg';
+import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import "./index.scss";
+import P from "prop-types";
+import ImgTest from "../../assets/test/new.png";
+import anime from "animejs";
+import tools from "../../util/all";
+import ImgCode from "./code.jpg";
 class TestContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-        };
-    }
+  componentDidMount() {
+    document.title = "Test";
+  }
 
-    componentDidMount() {
-        document.title = 'Test';
+  componentWillUnmount() {}
 
-    }
-
-    componentWillUnmount(){
-
-    }
-
-
-    render() {
-        return (
-            <div className="page-test">
-                <img src={ImgCode} />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="page-test">
+        <img src={ImgCode} />
+      </div>
+    );
+  }
 }
 
 // ==================
@@ -41,7 +35,7 @@ class TestContainer extends React.PureComponent {
 // ==================
 
 TestContainer.propTypes = {
-    actions: P.any,
+  actions: P.any
 };
 
 // ==================
@@ -49,10 +43,8 @@ TestContainer.propTypes = {
 // ==================
 
 export default connect(
-    (state) => ({
-
-    }),
-    (dispatch) => ({
-        actions: bindActionCreators({ }, dispatch),
-    })
+  state => ({}),
+  dispatch => ({
+    actions: bindActionCreators({}, dispatch)
+  })
 )(TestContainer);

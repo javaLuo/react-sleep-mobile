@@ -1,58 +1,58 @@
-.page-pre-check{
-  .bar-list{
-    padding: 0 0 .28rem 0;
-    .item{
-      padding: .3rem 0;
+.page-pre-check {
+  .bar-list {
+    padding: 0 0 0.28rem 0;
+    .item {
+      padding: 0.3rem 0;
       align-items: center;
       background-color: #fff;
       position: relative;
-      .icon{
-        padding: 0 .3rem;
-        width: .32rem;
+      .icon {
+        padding: 0 0.3rem;
+        width: 0.32rem;
         height: auto;
       }
-      .title{
-        flex:auto;
-        font-size: .36rem;;
+      .title {
+        flex: auto;
+        font-size: 0.36rem;
         letter-spacing: 1px;
-        padding-left: .2rem;
-        .i{
-          font-size: .28rem;;
+        padding-left: 0.2rem;
+        .i {
+          font-size: 0.28rem;
           color: #89888e;
         }
       }
-      .info{
+      .info {
         flex: auto;
-        font-size: .32rem;;
+        font-size: 0.32rem;
         color: #89888e;
         text-align: right;
       }
-      .info2{
+      .info2 {
         flex: auto;
-        font-size: .32rem;;
+        font-size: 0.32rem;
         color: #89888e;
         text-align: left;
-        input{
+        input {
           width: 100%;
           height: 100%;
           border: none;
         }
       }
-      .arrow{
-        padding: 0 .28rem;
-        img{
-          width: .14rem;
+      .arrow {
+        padding: 0 0.28rem;
+        img {
+          width: 0.14rem;
           height: auto;
         }
       }
-      .arrow2{
-        padding: 0 .28rem;
-        img{
-          width: .34rem;
+      .arrow2 {
+        padding: 0 0.28rem;
+        img {
+          width: 0.34rem;
           height: auto;
         }
       }
-      .line{
+      .line {
         position: absolute;
         bottom: 0;
         height: 1px;
@@ -60,57 +60,57 @@
         left: 3%;
         background-color: #f3f3f3;
       }
-      &.mt{
-        margin-top: .28rem;
+      &.mt {
+        margin-top: 0.28rem;
       }
     }
   }
-  .card-ul{
-    margin-bottom: .2rem;
+  .card-ul {
+    margin-bottom: 0.2rem;
   }
-  .card-box{
-    padding: .2rem;
+  .card-box {
+    padding: 0.2rem;
     background-color: #fff;
-    &+.card-box{
-      margin-top: .2rem;
+    & + .card-box {
+      margin-top: 0.2rem;
     }
-    .l{
-      .title{
+    .l {
+      .title {
         color: #222328;
-        font-size: .32rem;
+        font-size: 0.32rem;
         letter-spacing: 1px;
       }
-      .info{
-        margin-top: .2rem;
-        font-size: .32rem;;
+      .info {
+        margin-top: 0.2rem;
+        font-size: 0.32rem;
         color: #89888e;
-        img{
-          width: .28rem;
-          margin-right: .2rem;
+        img {
+          width: 0.28rem;
+          margin-right: 0.2rem;
         }
       }
     }
-    .r{
-      .addr{
+    .r {
+      .addr {
         text-align: center;
         color: #4788f5;
-        font-size: .28rem;;
+        font-size: 0.28rem;
         letter-spacing: 1px;
-        img{
-          height: .8rem;
-          margin-bottom: .1rem;
+        img {
+          height: 0.8rem;
+          margin-bottom: 0.1rem;
         }
       }
     }
   }
-  .thefooter{
+  .thefooter {
     position: fixed;
-    bottom:0;
-    left:0;
+    bottom: 0;
+    left: 0;
     height: 47px;
     width: 100%;
     z-index: 10;
-    a{
+    a {
       width: 100%;
       height: 100%;
       border-radius: 0;

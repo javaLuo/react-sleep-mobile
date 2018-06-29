@@ -1,106 +1,182 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');     // 为了单独打包css
-var HtmlWebpackPlugin = require('html-webpack-plugin');             // 生成html
+const path = require("path");
+const webpack = require("webpack"); // webpack核心
+const ExtractTextPlugin = require("extract-text-webpack-plugin"); // 为了单独打包css
+const HtmlWebpackPlugin = require("html-webpack-plugin"); // 生成html
+const CleanWebpackPlugin = require("clean-webpack-plugin"); // 每次打包前清除旧的build文件夹
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin"); // 代码压缩插件，webpack本身自带了，引入这个是为了配置参数
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin"); // 生成一个server-worker用于缓存
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin"); // 自动生成各尺寸的favicon图标
+const CopyWebpackPlugin = require("copy-webpack-plugin"); // 复制文件用
+
+const PUBLIC_PATH = "/gzh/";
 
 module.exports = {
-    entry: {
-        app: path.resolve(__dirname, 'src', 'index')
-    },
+    mode: "production",
+    entry: ["babel-polyfill", path.resolve(__dirname, "src", "index")],
     output: {
-        path: path.resolve(__dirname, 'build/dist'),    // 将文件打包到此目录下
-        publicPath: '/gzh/dist/',                                // 在生成的html中，文件的引入路径会相对于此地址，生成的css中，以及各类图片的URL都会相对于此地址
-        filename: '[name].[chunkhash:6].js',
-        chunkFilename: '[name].[chunkhash:6].chunk.js',
+        path: path.resolve(__dirname, "build"), // 将文件打包到此目录下
+        publicPath: PUBLIC_PATH, // 在生成的html中，文件的引入路径会相对于此地址，生成的css中，以及各类图片的URL都会相对于此地址
+        filename: "dist/[name].[chunkhash:8].js",
+        chunkFilename: "dist/[name].[chunkhash:8].chunk.js"
     },
+    context: __dirname,
     module: {
         rules: [
-            {   // .js .jsx用babel解析
+            {
+                // .js .jsx用babel解析
                 test: /\.js?$/,
                 include: path.resolve(__dirname, "src"),
-                loader: 'babel-loader'
+                use: ["babel-loader"]
             },
-            {   // .css 解析
+            {
+                // .css 解析
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-                    use: ['css-loader', 'postcss-loader']
+                    fallback: "style-loader",
+                    use: [
+                        "css-loader",
+                        "postcss-loader"
+                    ]
                 })
             },
-            {   // .less 解析
+            {
+                // .scss
+                test: /\.scss$/,
+                use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+                include: path.resolve(__dirname, "src")
+            },
+            {
+                // .less 解析
                 test: /\.less$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-                    use: ['css-loader', 'postcss-loader', 'less-loader']
+                    fallback: "style-loader",
+                    use: [
+                        "css-loader",
+                        "postcss-loader",
+                        "less-loader"
+                    ]
                 }),
                 include: path.resolve(__dirname, "src")
             },
-            {   // .scss 解析
-                test: /\.scss$/,
+            {
+                // .less 解析 (用于解析antd的LESS文件)
+                test: /\.less$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    //如果需要，可以在 sass-loader 之前将 resolve-url-loader 链接进来
-                    use: ['css-loader', 'postcss-loader', 'sass-loader']
-                })
+                    fallback: "style-loader",
+                    use: ["css-loader", "postcss-loader", {loader: "less-loader", options:{javascriptEnabled: true}}]
+                }),
+                include: path.resolve(__dirname, "node_modules")
             },
-            {   // 文件解析
+            {
+                // 文件解析
                 test: /\.(eot|woff|svg|ttf|woff2|appcache|mp3|mp4|pdf)(\?|$)/,
                 include: path.resolve(__dirname, "src"),
-                loader: 'file-loader?name=assets/[name].[ext]'
+                use: ["file-loader?name=dist/assets/[name].[ext]"]
             },
-            {   // 图片解析
+            {
+                // 图片解析
                 test: /\.(png|jpg|gif)$/,
                 include: path.resolve(__dirname, "src"),
-                loader: 'url-loader?limit=8192&name=assets/[name].[ext]'
+                use: ["url-loader?limit=8192&name=dist/assets/[name].[ext]"]
             }
         ]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',            // 公共chunk名
-            filename: 'vendors.[chunkhash:6].js',     // 生成的文件名
-            minChunks: function(module, count) {
-               return module.resource && module.resource.indexOf(path.resolve(__dirname, 'src')) < 0;
+        /**
+         * 在window环境中注入全局变量
+         * 这里这么做是因为src/registerServiceWorker.js中有用到，为了配置PWA
+         * **/
+        new webpack.DefinePlugin({
+            "process.env": JSON.stringify({
+                PUBLIC_URL: PUBLIC_PATH.replace(/\/$/, "")
+            })
+        }),
+        /**
+         * 打包前删除上一次打包留下的旧代码
+         * **/
+        new CleanWebpackPlugin(["build"]),
+        /**
+         * 压缩代码
+         * webpack已经内置了，这里是因为想要配置一些参数
+         * **/
+        new UglifyJsPlugin({
+            uglifyOptions: {
+                compress: {
+                    drop_console: true // 是否删除代码中所有的console
+                }
             }
         }),
-
-        // 配置了这个插件，再配合上面loader中的配置，将所有样式文件打包为一个单独的css文件
+        /**
+         * 提取CSS等样式生成单独的CSS文件
+         * **/
         new ExtractTextPlugin({
-            filename:'[name].[chunkhash:6].css',  // 生成的文件名
-            allChunks: true,        // 从所有chunk中提取
+            filename: "dist/[name].[chunkhash:8].css", // 生成的文件名
+            allChunks: true // 从所有chunk中提取
         }),
-
-        // Uglify 加密压缩源代码
-        new webpack.optimize.UglifyJsPlugin({
-            output: {
-                comments: false, // 删除代码中所有注释
+        /**
+         * 文件复制
+         * 这里是用于把manifest.json打包时复制到/build下 （PWA）
+         * **/
+        new CopyWebpackPlugin([
+            { from: "./public/manifest.json", to: "./manifest.json" }
+        ]),
+        /**
+         * 生成一个server-work用于缓存资源（PWA）
+         * */
+        new SWPrecacheWebpackPlugin({
+            dontCacheBustUrlsMatching: /\.\w{8}\./,
+            filename: "service-worker.js",
+            logger(message) {
+                if (message.indexOf("Total precache size is") === 0) {
+                    return;
+                }
+                if (message.indexOf("Skipping static resource") === 0) {
+                    return;
+                }
+                console.log(message);
             },
-            compress: {
-                warnings: false, // 删除没有用的代码时是否发出警告
-                drop_console: false, // 是否删除所有的console
+            minify: true, // 压缩
+            navigateFallback: PUBLIC_PATH, // 遇到不存在的URL时，跳转到主页
+            navigateFallbackWhitelist: [/^(?!\/__).*/], // 忽略从/__开始的网址，参考 https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
+            staticFileGlobsIgnorePatterns: [
+                /\.map$/,
+                /asset-manifest\.json$/,
+                /\.cache$/
+            ] // 不缓存sourcemaps,它们太大了
+        }),
+        /**
+         * 自动生成HTML，并注入各参数
+         * **/
+        new HtmlWebpackPlugin({
+            filename: "index.html", //生成的html存放路径，相对于 output.path
+            template: "./public/index.ejs", //html模板路径
+            templateParameters: {
+                // 自动替换index.ejs中的参数
+                dll: "",
+                manifest: "<link rel='manifest' href='manifest.json'>"
             },
+            hash: false,
+            inject: true // 是否将js放在body的末尾
         }),
 
-        // 作用域提升，优化打包
-        new webpack.optimize.ModuleConcatenationPlugin(),
-
-        new HtmlWebpackPlugin({                     //根据模板插入css/js等生成最终HTML
-            filename: '../index.html',              //生成的html存放路径，相对于 output.path
-            template: './src/index.html',           //html模板路径
-            hash: true,
-            inject: true,                           // 是否将js放在body的末尾
-            minify: true
-        }),
+        new FaviconsWebpackPlugin({
+            logo: "./public/favicon.png",
+            prefix: "icons/",
+            icons: {
+                appleIcon: true,
+                android: false,
+                firefox: false,
+                appleStartup: false
+            }
+        })
     ],
-    // 解析器， webpack提供的各种方便的工具函数
     resolve: {
-        extensions: ['.js', '.jsx', '.less', '.css', '.scss'], //后缀名自动补全
+        extensions: [".js", ".jsx", ".less", ".css"],
         alias: {
+            '@': path.resolve(__dirname, "src"),
             'react': 'anujs',
-            'react-dom': 'anujs',
-            'prop-types': 'anujs/lib/ReactPropTypes',
-        },
+            'react-dom':'anujs',
+            'prop-types':'anujs/lib/ReactPropTypes'
+        }
     }
 };

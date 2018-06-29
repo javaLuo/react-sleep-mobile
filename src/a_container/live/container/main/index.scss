@@ -1,19 +1,19 @@
-.live-main{
+.live-main {
   height: 100vh;
   background-color: #fff;
-  .live-tab-box{
+  .live-tab-box {
     height: 100%;
-    .body-box{
+    .body-box {
       width: 100%;
       height: calc(100vh - 44px);
-      &.shot{
+      &.shot {
         height: calc(100vh - 122px);
       }
-      .live-box-ul{
+      .live-box-ul {
         box-sizing: border-box;
         background-color: #fff;
         padding: 8px;
-        .live-one-box{
+        .live-one-box {
           display: flex;
           overflow: hidden;
           flex-direction: column;
@@ -24,42 +24,42 @@
           background-size: cover;
           background-position: center;
           box-sizing: border-box;
-          padding: .15rem;
-          &+.live-one-box{
-            margin-top: .2rem;
+          padding: 0.15rem;
+          & + .live-one-box {
+            margin-top: 0.2rem;
           }
-          .time{
+          .time {
             flex: none;
             text-align: right;
-            font-size: .2rem;
+            font-size: 0.2rem;
           }
-          .zw{
+          .zw {
             flex: 1;
           }
-          .title{
-            font-size: .32rem;
+          .title {
+            font-size: 0.32rem;
             letter-spacing: 1px;
             padding-left: 2px;
           }
-          .info{
+          .info {
             display: flex;
             font-size: 12px;
-            &>div{
+            & > div {
               flex: none;
-              padding: .05rem .15rem;
+              padding: 0.05rem 0.15rem;
             }
-            .p{
-              background-color: rgba(0,0,0,.3);
+            .p {
+              background-color: rgba(0, 0, 0, 0.3);
               border-top-right-radius: 3px;
               border-bottom-right-radius: 3px;
             }
-            .s{
+            .s {
               display: flex;
               align-items: center;
               border-top-left-radius: 3px;
               border-bottom-left-radius: 3px;
             }
-            .before{
+            .before {
               width: 6px;
               height: 6px;
               background-color: #fff;
@@ -71,18 +71,18 @@
       }
     }
   }
-  .lv2box{
+  .lv2box {
     width: 100%;
     height: 78px;
     overflow-x: auto;
     overflow-y: hidden;
     box-sizing: border-box;
     padding: 8px 0 0 0;
-    .swiper{
+    .swiper {
       display: flex;
       box-sizing: border-box;
-      padding:0 8px;
-      &>li{
+      padding: 0 8px;
+      & > li {
         width: 25vw;
         height: 70px;
         border-radius: 4px;
@@ -92,40 +92,40 @@
         align-items: center;
         justify-content: center;
         flex: none;
-        transition: all .2s;
-        &.check{
+        transition: all 0.2s;
+        &.check {
           background-color: #f2f2f2;
         }
-        &:active{
+        &:active {
           background-color: #f2f2f2;
         }
-        .logo{
+        .logo {
           width: 38px;
           height: 38px;
           border-radius: 8px;
         }
-        .name{
+        .name {
           width: 100%;
           text-align: center;
           font-size: 13px;
           margin-top: 2px;
         }
-        .much{
+        .much {
           width: 100%;
           text-align: center;
           font-size: 10px;
-          color: rgb(137,136,142);
+          color: rgb(137, 136, 142);
           margin-top: 2px;
         }
       }
     }
   }
-  .backColor{
+  .backColor {
     background-color: #fff !important;
   }
-  .am-tabs-default-bar-tab{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+  .am-tabs-default-bar-tab {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

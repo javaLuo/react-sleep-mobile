@@ -4,24 +4,22 @@
 // 所需的各种插件
 // ==================
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import P from 'prop-types';
-import './index.scss';
+import React from "react";
+import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import P from "prop-types";
+import "./index.scss";
 
 // ==================
 // 所需的所有组件
 // ==================
 
-import Main from './container/main';
-
+import Main from "./container/main";
 
 // ==================
 // 本页面所需action
 // ==================
-
 
 // ==================
 // Definition
@@ -29,16 +27,15 @@ import Main from './container/main';
 class Live extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
     return (
       <div>
-          <Switch>
-              <Route exact path={`${this.props.match.url}/`} component={Main} />
-          </Switch>
+        <Switch>
+          <Route exact path={`${this.props.match.url}/`} component={Main} />
+        </Switch>
       </div>
     );
   }
@@ -51,7 +48,7 @@ class Live extends React.Component {
 Live.propTypes = {
   location: P.any,
   history: P.any,
-  match: P.any,
+  match: P.any
 };
 
 // ==================
@@ -59,10 +56,8 @@ Live.propTypes = {
 // ==================
 
 export default connect(
-  (state) => ({
-
-  }), 
-  (dispatch) => ({
-    actions: bindActionCreators({}, dispatch),
+  state => ({}),
+  dispatch => ({
+    actions: bindActionCreators({}, dispatch)
   })
 )(Live);
