@@ -35,7 +35,9 @@ import {
   saveFreeCardInfo,
   ticketHandsel,
   createMcardList,
-  wxPay
+  wxPay,
+  getSendCount,
+  batchShare
 } from "../../../../a_action/shop-action";
 // ==================
 // Definition
@@ -90,6 +92,7 @@ class HomePageContainer extends React.Component {
         }
       ],
       nPay: 0, // 可以批量支付的数量
+      canSendNum: 0, // 可以批量赠送的数量
       loading: false, // 是否正在支付中
       wxReady: true, // 微信是否已初始化
       ticketPrice: 50, // 优惠卡的价格 以得到数据的第1个为准 没有就是50
@@ -125,10 +128,22 @@ class HomePageContainer extends React.Component {
       search
     });
     this.initWeiXinPay();
+    this.getSendCount();
   }
 
   componentWillUnmount() {
     Toast.hide();
+  }
+
+  // 获取有多少张可赠送的优惠卡
+  getSendCount() {
+    this.props.actions.getSendCount().then(res => {
+      if (res.status === 200) {
+        this.setState({
+          canSendNum: res.data
+        });
+      }
+    });
   }
 
   /**
@@ -164,7 +179,7 @@ class HomePageContainer extends React.Component {
           const temp = _.cloneDeep(this.state.data);
           let ticketPrice = this.state.ticketPrice;
           // 更新各数量
-          temp[0].total = res.data.total;
+          temp[0].total = res.data.nPay;
           temp[1].total = res.data.yPay;
           temp[2].total = res.data.yUse;
           temp[3].total = res.data.yGive;
@@ -184,11 +199,9 @@ class HomePageContainer extends React.Component {
           } else {
             for (let i = 0; i < temp.length; i++) {
               if (temp[i].type === which) {
-                temp[i].data =
-                  type === "flash"
-                    ? res.data.ticketList.result
-                    : [...temp[i].data, ...res.data.ticketList.result];
+                temp[i].data = type === "flash" ? res.data.ticketList.result : [...temp[i].data, ...res.data.ticketList.result];
                 temp[i].pageNum = pageNum;
+                temp[i].total = res.data.total;
                 break;
               }
             }
@@ -333,6 +346,7 @@ class HomePageContainer extends React.Component {
                        type: P[5] 1金卡，2紫卡，3普通卡
                        str: p[6] 金卡为公司名，紫卡为“分销版”，普通卡没有
                        cardNo: p[7] 分享的卡的No, 分享页面需要传给后台生成动态二维码
+                        count: p[8] 分享几张卡，单张就为1
                        * **/
                 const u = this.props.userinfo;
                 const dateTime = new Date().getTime();
@@ -344,9 +358,9 @@ class HomePageContainer extends React.Component {
                   obj.validEndTime.split(" ")[0]
                 )}_fff_${dateTime}_fff_${
                   obj.ticketStyle
-                }_fff_${encodeURIComponent(obj.ticketContent)}_fff_${
-                  obj.ticketNo
-                }`;
+                }_fff_${encodeURIComponent(
+                  obj.ticketContent
+                )}_fff_${encodeURIComponent(obj.ticketNo)}_fff_1`;
                 wx.onMenuShareAppMessage({
                   title: `${u.nickName}赠送您一张翼猫HRA健康风险评估优惠卡`,
                   desc:
@@ -396,9 +410,10 @@ class HomePageContainer extends React.Component {
   onStartShareMany() {
     const me = this;
     const num = this.state.modal1Num;
-    if (this.state.nPay + this.findTotalByType(1) < num) {
+    if (this.state.canSendNum < num) {
       return;
     }
+
     /**
          * 拼凑要带过去的数据
          * 用户ID_昵称_头像_有效期_分享日期_卡类型_类型信息
@@ -407,38 +422,73 @@ class HomePageContainer extends React.Component {
          head: p[2], 头像
          dateTime: p[3], 分享的日期
          num: p[4], 分享的数量
+         cardNo: p[5] 分享的卡的No, 分享页面需要传给后台生成动态二维码
+
+     * 用户ID_昵称_头像_有效期_分享日期_卡类型_类型信息
+     * userId: p[0],
+     name: p[1],
+     head: p[2],
+     date: p[3],  有效期
+     dateTime: p[4], 分享日期
+     type: P[5] 1金卡，2紫卡，3普通卡
+     str: p[6] 金卡为公司名，紫卡为“分销版”，普通卡没有
+     cardNo: p[7] 分享的卡的No, 分享页面需要传给后台生成动态二维码
+     count: p[8] 分享的数量
          * **/
     const u = this.props.userinfo;
     const dateTime = new Date().getTime();
-
-    const str = `${u.id}_fff_${encodeURIComponent(
-      u.nickName
-    )}_fff_${encodeURIComponent(u.headImg)}_fff_${dateTime}_fff_${num}`;
-    wx.onMenuShareAppMessage({
-      title: `${u.nickName}赠送您${num}张翼猫HRA健康风险评估优惠卡`,
-      desc: "请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。",
-      link: `${Config.baseURL}/gzh/?#/sharefreecard/${str}`,
-      imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
-      type: "link",
-      success: () => {
-        Toast.info("分享成功", 1);
-        me.ticketHandsel({ userId: u.id, shareType: 2, dateTime });
-      }
-    });
-    wx.onMenuShareTimeline({
-      title: `${u.nickName}赠送您${num}张翼猫HRA健康风险评估优惠卡`,
-      desc: "请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。",
-      link: `${Config.baseURL}/gzh/?#/sharefreecard/${str}`,
-      imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
-      success: () => {
-        Toast.info("分享成功", 1);
-        me.ticketHandsel({ userId: u.id, shareType: 2, dateTime });
-      }
-    });
-    this.setState({
-      shareShow: true,
-      btn1Show: false
-    });
+    let ticketNo = "";
+    // 获取待分享的userId
+    Toast.loading("请稍后...", 0);
+    this.props.actions
+      .batchShare({ sendCount: num, dateTime: dateTime })
+      .then(res => {
+        if (res.status === 200) {
+          Toast.hide();
+          ticketNo = res.data;
+          const str = `${u.id}_fff_${encodeURIComponent(
+            u.nickName
+          )}_fff_${encodeURIComponent(
+            u.headImg
+          )}_fff_0_fff_${dateTime}_fff_3_fff__fff_${encodeURIComponent(
+            ticketNo
+          )}_fff_${num}`;
+          wx.onMenuShareAppMessage({
+            title: `${u.nickName}赠送您${num}张翼猫HRA健康风险评估优惠卡`,
+            desc:
+              "请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。",
+            link: `${Config.baseURL}/gzh/?#/sharefreecard/${str}`,
+            imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
+            type: "link",
+            success: () => {
+              Toast.info("分享成功", 1);
+              me.ticketHandsel({ userId: u.id, shareType: 2, dateTime });
+            }
+          });
+          wx.onMenuShareTimeline({
+            title: `${u.nickName}赠送您${num}张翼猫HRA健康风险评估优惠卡`,
+            desc:
+              "请您在奋斗的时候不要忘记家人身体健康，关注疾病早期筛查和预防。",
+            link: `${Config.baseURL}/gzh/?#/sharefreecard/${str}`,
+            imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
+            success: () => {
+              Toast.info("分享成功", 1);
+              me.ticketHandsel({ userId: u.id, shareType: 2, dateTime });
+            }
+          });
+          this.setState({
+            shareShow: true
+          });
+        } else {
+          Toast.info(res.message, 1);
+          return;
+        }
+      })
+      .finally(() => {
+        this.setState({
+          btn1Show: false
+        });
+      });
   }
 
   /**
@@ -690,7 +740,7 @@ class HomePageContainer extends React.Component {
       // +
       num = this.state.modal1Num + 1;
     }
-    const max = this.state.nPay + this.findTotalByType(1);
+    const max = this.state.canSendNum;
     if (num > max) {
       num = max;
     }
@@ -703,18 +753,18 @@ class HomePageContainer extends React.Component {
     });
   }
 
-  // 批量2赠送数量加减
+  // 批量支付数量加减
   onModal2Num(type, e) {
     let num = 0;
     if (type === 0) {
       // -
-      num = this.state.modal1Num - 1;
+      num = this.state.modal2Num - 1;
     } else if (type === 1) {
       // 手动输入
       num = Number(e.target.value);
     } else if (type === 2) {
       // +
-      num = this.state.modal1Num + 1;
+      num = this.state.modal2Num + 1;
     }
     const max = this.state.nPay;
     if (num > max) {
@@ -728,6 +778,9 @@ class HomePageContainer extends React.Component {
       modal2Check: false
     });
   }
+
+  // 批量赠送 确定
+  batchShare() {}
 
   // 找某个类型的total
   findTotalByType(type) {
@@ -912,7 +965,7 @@ class HomePageContainer extends React.Component {
         {/** Modal1 **/}
         <div className={this.state.btn1Show ? "modal1 show" : "modal1"}>
           <div className="title">
-            可赠送的优惠卡数量：{this.state.nPay + this.findTotalByType(1)}张
+            可赠送的优惠卡数量：{this.state.canSendNum}张
           </div>
           <div className="form-box">
             <Checkbox
@@ -920,10 +973,7 @@ class HomePageContainer extends React.Component {
               onChange={e => {
                 if (e.target.checked) {
                   this.setState({
-                    modal1Num: Math.max(
-                      this.state.nPay + this.findTotalByType(1),
-                      1
-                    )
+                    modal1Num: Math.max(this.state.canSendNum, 1)
                   });
                 }
                 this.setState({
@@ -935,7 +985,7 @@ class HomePageContainer extends React.Component {
             </Checkbox>
             <div className="err">
               {(() => {
-                const max = this.state.nPay + this.findTotalByType(1);
+                const max = this.state.canSendNum;
                 if (this.state.modal1Num > max) {
                   return "超过有效数量，请重新输入";
                 }
@@ -1092,7 +1142,9 @@ export default connect(
         saveFreeCardInfo,
         ticketHandsel,
         createMcardList,
-        wxPay
+        wxPay,
+        getSendCount,
+        batchShare
       },
       dispatch
     )

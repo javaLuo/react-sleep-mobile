@@ -1045,6 +1045,26 @@ export const createMcardList = (params = {}) => async dispatch => {
   }
 };
 
+// 有多少张可以赠送的优惠卡
+export const getSendCount = (params = {}) => async dispatch => {
+  try {
+    const res = await Fetchapi.newPost("mall/ticket/can/be/send/count", params);
+    return res;
+  } catch (err) {
+    Toast.info("网络错误，请重试", 1);
+  }
+};
+
+// 批量赠送生成ticketno
+export const batchShare = (params = {}) => async dispatch => {
+  try {
+    const res = await Fetchapi.newPost("app/user/batch/share", params);
+    return res;
+  } catch (err) {
+    Toast.info("网络错误，请重试", 1);
+  }
+};
+
 // 目前有多少张待领的优惠卡
 export const hasFreeCare = (params = {}) => async dispatch => {
   try {

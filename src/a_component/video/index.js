@@ -76,11 +76,15 @@ class VideoLuo extends React.PureComponent {
   }
 
   componentWillUnmount() {
+    window.removeEventListener("scroll", this.scrollPort, false);
     this.scrollDom.destroy();
     this.scrollDom = null;
   }
 
   scrollPort = () => {
+    if (!this.videoBox) {
+      return;
+    }
     const d = this.videoBox.getBoundingClientRect();
     if (d.bottom < 0 && this.state.playing && !this.state.littleVideo) {
       // 移出去了 且 正在播放 且 没有变成小窗模式

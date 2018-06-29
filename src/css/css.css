@@ -10,7 +10,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #f3f3f3;
   -webkit-font-smoothing: antialiased; /* 平滑字体 */
   -moz-osx-font-smoothing: grayscale; /* 平滑字体 */
   -ms-touch-action: manipulation; /* 允许触摸驱动的平移和拖拽缩放 */
