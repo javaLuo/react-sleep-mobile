@@ -85,7 +85,7 @@ class HomePageContainer extends React.Component {
       this.setState({
         pay_info: pay
       });
-      console.log("当前订单信息：", pay);
+
       return pay;
     }
   }
@@ -132,7 +132,6 @@ class HomePageContainer extends React.Component {
   async startPay() {
     try {
       const s1 = await this.props.actions.wxInit(); // 1. 向后台获取timestamp,nonceStr,signature等微信JS-SDK初始化所需参数
-      console.log("第1：获取wxInit：", s1);
       if (s1.status !== 200) {
         return false;
       }
@@ -180,11 +179,11 @@ class HomePageContainer extends React.Component {
           signType: data.signType || data.signtype, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
           paySign: data.paySign || data.paysign, // 支付签名
           success: msg => {
-            console.log("支付流程完结：", msg);
+
             res(msg);
           },
           cancel: msg => {
-            console.log("支付流程取消：", msg);
+
             res(msg);
           },
           error: msg => {
@@ -223,7 +222,7 @@ class HomePageContainer extends React.Component {
         /**                                                                                                                                                                                                                                                                                          /
          * 返回的数据中，应该有一个mweb_url，跳转至此地址，需要设置回跳地址，保存个参数表示是H5回跳的
          * **/
-        console.log("H5支付统一下单返回值：", res);
+
         if (res.status === 200) {
           location.assign(
             `${res.data}&redirect_url=${encodeURIComponent(

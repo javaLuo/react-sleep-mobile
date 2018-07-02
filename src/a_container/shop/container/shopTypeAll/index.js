@@ -62,7 +62,6 @@ class HomePageContainer extends React.Component {
     } else {
       const d = _.cloneDeep(this.state.hotData);
       d.productList = this.props.homeRecommend;
-      console.log("有了没有：", d, this.props.homeRecommend);
       this.setState({
         hotData: d
       });
@@ -75,7 +74,6 @@ class HomePageContainer extends React.Component {
     if (nextP.homeRecommend !== this.props.homeRecommend) {
       const d = _.cloneDeep(this.state.hotData);
       d.productList = this.props.homeRecommend;
-      console.log("有了没有：", d);
       this.setState({
         hotData: d
       });

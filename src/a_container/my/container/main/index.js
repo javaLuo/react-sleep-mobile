@@ -296,7 +296,7 @@ class HomePageContainer extends React.Component {
   // 获取健康大使信息
   getMyAmbassador() {
     const u = this.props.userinfo;
-    console.log("这个时候没有吗？", u);
+
     if (u) {
       this.props.actions.myAmbassador({ userId: u.id });
     }

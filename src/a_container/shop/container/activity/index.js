@@ -96,17 +96,15 @@ class HomePageContainer extends React.Component {
 
   // 初始化微信JS-SDK
   initWxConfig(d2, aData) {
-    console.log("给老子触发");
     const me = this;
     if (typeof wx === "undefined") {
       console.log("weixin sdk load failed!");
       return false;
     }
-    console.log("触发");
+
     let title = aData.title;
     let info = `最新活动：${aData.title}`;
 
-    console.log("到这了没有：", d2);
     wx.config({
       debug: false,
       appId: d2.appid,

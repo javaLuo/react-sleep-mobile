@@ -1,4 +1,3 @@
-import reqwest from "reqwest";
 import $ from "jquery";
 import Config from "../config";
 import { Toast } from "antd-mobile";
@@ -8,7 +7,6 @@ export default class ApiService {
     const openId = localStorage.getItem("openId") || null;
     const params = _.cloneDeep(bodyObj);
     if (url === "app/user/get" && bodyObj && bodyObj.userId) {
-      // 如果是获取用户信息，并且传递了userID,就不要再传openId
     } else {
       params.openId = openId;
     }
@@ -33,7 +31,6 @@ export default class ApiService {
       }).then(res => {
         if (res.status === 401) {
           sessionStorage.clear();
-          // window.theHistory.push('/login');
           Toast.info(res.message, 1);
         }
         return res;
@@ -57,7 +54,6 @@ export default class ApiService {
       }).then(res => {
         if (res.status === 401) {
           sessionStorage.clear();
-          // window.theHistory.replace('/login');
           Toast.info(res.message, 1);
         }
         return res;

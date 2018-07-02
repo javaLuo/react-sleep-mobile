@@ -15,7 +15,6 @@ class StepperLuo extends React.PureComponent {
 
   // 工具 - 根据qId找出对应的data数据
   getDataByQid(id) {
-    console.log("这里是：", this.props.source, id);
     return this.props.source.find(item => Number(item.id) === Number(id)) || {};
   }
 
@@ -43,9 +42,9 @@ class StepperLuo extends React.PureComponent {
       );
     } else if (d.type === 4) {
       // 问题，输出指定分类的问题
-      console.log("应该有的：", d);
+
       const nowq = this.getDataByQid(d.qid);
-      console.log("得到了什么啊：", nowq);
+
       return (
         <div className="type4">
           <div className="head-pic">

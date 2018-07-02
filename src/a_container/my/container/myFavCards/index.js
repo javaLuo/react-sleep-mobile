@@ -7,7 +7,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Checkbox } from "antd-mobile";
-import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.scss";
@@ -179,7 +178,7 @@ class HomePageContainer extends React.Component {
           const temp = _.cloneDeep(this.state.data);
           let ticketPrice = this.state.ticketPrice;
           // 更新各数量
-          temp[0].total = res.data.nPay;
+          // temp[0].total = res.data.nPay;
           temp[1].total = res.data.yPay;
           temp[2].total = res.data.yUse;
           temp[3].total = res.data.yGive;

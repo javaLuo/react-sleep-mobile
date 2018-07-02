@@ -452,9 +452,8 @@ class HomePageContainer extends React.Component {
     }
   }
   render() {
-    const addr = this.props.orderParams.addr; // 当前选择的收货地址
+    const addr = this.props.orderParams.addr;
     const data = this.state.data;
-    console.log("D到底是什么；", data);
     return (
       <div className="flex-auto page-box confirm-pay">
         {/** 只要有非体检卡的商品，都需要收货地址 **/

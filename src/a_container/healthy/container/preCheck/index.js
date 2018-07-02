@@ -56,7 +56,7 @@ class HomePageContainer extends React.Component {
 
   // 时间选择
   onTimeChange(time) {
-    console.log("触发啊：", time);
+
     this.props.actions.savePreInfo({
       reserveTime: `${tools.dateformart(this.props.preInfo.reserveTime_Date)} ${
         time[0]
@@ -83,7 +83,7 @@ class HomePageContainer extends React.Component {
     }
     delete p.reserveTime_Date;
     delete p.reserveTime_Time;
-    console.log("预约最终的P", p);
+
     // 调用预约接口
     this.props.actions
       .mallReserveSave(tools.clearNull(p))

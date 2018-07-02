@@ -132,7 +132,6 @@ class HomePageContainer extends React.Component {
       });
       // 开始定位
       this.geolocation.getCurrentPosition((status, result) => {
-        console.log("定位用户当前坐标：", status, result);
         if (status === "complete") {
           this.props.actions.saveUserLngLat([
             result.position.lng,
@@ -293,7 +292,7 @@ class HomePageContainer extends React.Component {
       });
     });
     const areaData = this.recursionAreaData(null, data);
-    console.log("变成什么了", areaData);
+
     this.setState({
       sourceData: areaData || []
     });

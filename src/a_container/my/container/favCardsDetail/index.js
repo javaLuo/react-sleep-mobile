@@ -71,7 +71,7 @@ class Register extends React.Component {
    * **/
   initWxConfig(data) {
     const me = this;
-    console.log("DATA是个啥2", data);
+
     return new Promise((res, rej) => {
       if (typeof wx === "undefined") {
         res(false);

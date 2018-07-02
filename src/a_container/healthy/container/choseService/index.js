@@ -247,7 +247,7 @@ class HomePageContainer extends React.Component {
       });
     });
     const areaData = this.recursionAreaData(null, data);
-    console.log("变成什么了", areaData);
+
     this.setState({
       sourceData: areaData
     });

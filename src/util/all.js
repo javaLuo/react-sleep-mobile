@@ -12,8 +12,6 @@ const allobj = {
   },
   /**
    * 将标准格式字符串进行日期格式化
-   * str: 日期对象或日期字符串
-   * x: year只取年，month取年月，不填取年月日
    * **/
   dateformart(str, x = null) {
     if (!str) {

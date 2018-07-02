@@ -92,7 +92,6 @@ class HomePageContainer extends React.Component {
       .then(res => {
         console.log("返回的是什么：", res);
         if (res.status === 200) {
-          console.log("走这里：", res);
           this.initWxConfig(res.data);
         } else {
           this.onFail();
@@ -111,7 +110,7 @@ class HomePageContainer extends React.Component {
       this.onFail();
       return false;
     }
-    console.log("到这里了", data);
+
     wx.config({
       debug: false,
       appId: Config.appId,

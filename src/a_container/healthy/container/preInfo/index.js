@@ -45,7 +45,7 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
     document.title = "填写被评估者信息";
     const p = this.props.preInfo;
-    console.log("所以这是什么：", p);
+
     this.setState({
       formName: p.userName,
       formPhone: p.phone,
@@ -59,7 +59,7 @@ class HomePageContainer extends React.Component {
   UNSAFE_componentWillReceiveProps(nextP) {
     if (nextP.preInfo !== this.props.preInfo) {
       const p = nextP.preInfo;
-      console.log("所以触发了吗：", p);
+
       this.setState({
         formName: p.userName,
         formPhone: p.phone,

@@ -54,7 +54,7 @@ class HomePageContainer extends React.Component {
     this.state = {
       imgHeight: "calc(100vw * 0.43)",
       activeCount: 0,
-      stations: [], // 5个推荐的体验店
+      stations: [],
       ballData: null
     };
   }
@@ -459,7 +459,7 @@ class HomePageContainer extends React.Component {
                       <div className="pic">
                         <img
                           className="all_radius"
-                          src={item.imgs && item.imgs.split(",")[0]}
+                          src={item.coverImage && item.coverImage.split(",")[0]}
                         />
                         <div className="star">
                           {this.howManyStars(item.satisfaction)}
@@ -489,7 +489,7 @@ class HomePageContainer extends React.Component {
                       <div className="pic">
                         <img
                           className="all_radius"
-                          src={item.imgs && item.imgs.split(",")[0]}
+                          src={item.coverImage && item.coverImage.split(",")[0]}
                         />
                         <div className="star">
                           {this.howManyStars(item.satisfaction)}
@@ -524,7 +524,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-  homePics: P.array, // 首页顶部轮播图
+  homePics: P.array,
   userinfo: P.any,
   homeRecommend: P.any,
   liveHot: P.any,
@@ -539,7 +539,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
   state => ({
-    homePics: state.shop.homePics, // 首页顶部轮播图
+    homePics: state.shop.homePics,
     userinfo: state.app.userinfo,
     homeRecommend: state.n.homeRecommend,
     liveHot: state.n.liveHot,

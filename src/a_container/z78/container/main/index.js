@@ -129,13 +129,12 @@ class HomePageContainer extends React.Component {
 
   // 初始化微信JS-SDK
   initWxConfig(d2, typeId) {
-    console.log("给老子触发");
     const me = this;
     if (typeof wx === "undefined") {
       console.log("weixin sdk load failed!");
       return false;
     }
-    console.log("触发");
+
     let title = "";
     let info = "";
 
@@ -287,7 +286,6 @@ class HomePageContainer extends React.Component {
       });
     });
     const areaData = this.recursionAreaData(null, data);
-    console.log("变成什么了", areaData);
     this.setState({
       sourceData: areaData || []
     });
@@ -332,7 +330,6 @@ class HomePageContainer extends React.Component {
     });
   }
   onTypeChose(e) {
-    console.log("是个什么：", e);
     this.setState({
       form1Type: e
     });

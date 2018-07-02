@@ -117,9 +117,6 @@ class RootContainer extends React.Component {
     window.theHistory = history;
     this.getUserInfo();
     this.getHasFreeCare();
-    //Home.preload();
-    //My.preload();
-    //Healthy.preload();
   }
 
   componentDidCatch(error, info) {
@@ -148,7 +145,6 @@ class RootContainer extends React.Component {
     }
   }
 
-  // 获取有多少待领取的优惠卡
   getHasFreeCare() {
     this.props.actions.hasFreeCare();
   }
@@ -182,7 +178,6 @@ class RootContainer extends React.Component {
 
   getUserInfo() {
     if (tools.isWeixin()) {
-      // 是微信浏览器，用openID直接获取用户信息
       const openId = localStorage.getItem("openId");
       if (openId) {
         this.props.actions.getUserInfo({ openId });
@@ -190,7 +185,6 @@ class RootContainer extends React.Component {
         console.log("未获取到openId");
       }
     } else {
-      // 不是微信浏览器，表示是APP内嵌网页或普通网页打开
       const loginInfo = tools.getUserInfoByNative();
       if (loginInfo) {
         this.props.actions.login({

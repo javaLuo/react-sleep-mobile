@@ -31,7 +31,7 @@ class Jump extends React.Component {
 
   componentDidMount() {
     const me = this;
-    console.log("为什么你会被触发：");
+
     const payInfo = sessionStorage.getItem("pay-info"); // 订单信息，如果缓存中没有，就跳转到我的订单页
     const search = window.location.search || "";
     let temp = search.replace(/^\?/, "").split("&");

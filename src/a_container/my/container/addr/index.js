@@ -51,7 +51,6 @@ class HomePageContainer extends React.Component {
     document.title = "收货地址";
     this.getData();
     const p = this.props.location.pathname.split("/").pop();
-    console.log("P现在是什么：", p);
     this.setState({
       type: Number(p) || 1
     });

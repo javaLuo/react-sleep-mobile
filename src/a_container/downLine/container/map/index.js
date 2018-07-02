@@ -216,7 +216,6 @@ class HomePageContainer extends React.Component {
 
   down2() {
     let j = this.j + 1;
-    console.log("J尼玛是几：", j);
     if (j >= 4) {
       console.log("第2阶段初始化完毕");
       setTimeout(() => this.step3());
@@ -228,7 +227,6 @@ class HomePageContainer extends React.Component {
   /** 第3步，开始画路线 **/
   step3() {
     Toast.hide();
-    console.log("开始画线", this.state.userXY, this.state.downXY);
     this.transfer.search(
       this.state.userXY,
       this.state.downXY,

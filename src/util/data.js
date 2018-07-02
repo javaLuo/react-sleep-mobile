@@ -1,6 +1,3 @@
-/* 统一维护各字典表 */
-
-/** 所有路由字典表 */
 export const urls = {
   home: "首页",
   healthy: "健康管理",
