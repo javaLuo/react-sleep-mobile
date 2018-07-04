@@ -100,7 +100,7 @@ class Register extends React.Component {
       case 2:
         return <div className="foot geer">卡已使用</div>;
       case 3:
-        return <div className="foot geer">卡已禁用</div>;
+        return <div className="foot geer">卡待支付</div>; // 原已禁用
       case 4:
         return <div className="foot geer">卡已过期</div>;
       default:

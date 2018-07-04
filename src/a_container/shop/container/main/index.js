@@ -141,7 +141,7 @@ class HomePageContainer extends React.Component {
             {this.state.barPics.map((item, index) => (
               <a
                 key={index}
-                href={u ? `${item.url}&e=${u.id}` : item.url}
+                href={u && !item.url.includes("/gzh/") ? `${item.url}&e=${u.id}` : item.url}
                 style={{
                   display: "inline-block",
                   width: "100%",
