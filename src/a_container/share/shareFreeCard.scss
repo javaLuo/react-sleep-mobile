@@ -80,8 +80,20 @@
         &.b {
           background-image: url(../../assets/favcards/ka2@3x.png);
         }
-        &.no-normal {
-          background-image: url(../../assets/favcards/ka_no@3x.png) !important;
+        &.no-normal1 {
+          background-image: url(../../assets/favcards/ka1_no@3x.png) !important;
+          .i {
+            color: #fff !important;
+          }
+        }
+        &.no-normal2 {
+          background-image: url(../../assets/favcards/ka2_no@3x.png) !important;
+          .i {
+            color: #fff !important;
+          }
+        }
+        &.no-normal3 {
+          background-image: url(../../assets/favcards/ka3_no@3x.png) !important;
           .i {
             color: #fff !important;
           }
@@ -93,6 +105,7 @@
           height: 1.8rem;
         }
         .row1 {
+          height: .5rem;
           .t {
             font-size: 0.3rem;
           }
@@ -115,6 +128,7 @@
           text-align: center;
           flex: auto;
           width: 100%;
+          padding-top: 0.08rem;
         }
         .row2 {
           .t {

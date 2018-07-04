@@ -835,7 +835,16 @@ class HomePageContainer extends React.Component {
                                   "flex-jc-sb"
                                 ];
                                 if (this.checkCardStatus(item_son) !== 1) {
-                                  classNames.push("abnormal");
+                                    switch (item_son.ticketStyle) {
+                                        case 1:
+                                            classNames.push("abnormal1");
+                                            break;
+                                        case 2:
+                                            classNames.push("abnormal2");
+                                            break;
+                                        default:
+                                            classNames.push("abnormal3");
+                                    }
                                 }
                                 switch (item_son.ticketStyle) {
                                   case 1:
@@ -887,9 +896,9 @@ class HomePageContainer extends React.Component {
                                     case 1:
                                       return item_son.ticketContent;
                                     case 2:
-                                      return "乐享卡";
+                                      return "";
                                     case 3:
-                                      return "乐购卡";
+                                      return "";
                                     default:
                                       return "";
                                   }

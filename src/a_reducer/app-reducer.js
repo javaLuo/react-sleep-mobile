@@ -51,7 +51,13 @@ const saveUserLngLat = (state, action) => {
     userXY: payload
   });
 };
-
+const numTest = (state, action) => {
+  console.log("ddd来了吗23222：", action);
+  const { payload } = action;
+  return Object.assign({}, state, {
+    num: payload
+  });
+};
 // ============================================
 // reducer function
 
@@ -68,6 +74,8 @@ const reducerFn = (state = initState, action) => {
       return getAreaList(state, action);
     case "APP::saveUserLngLat":
       return saveUserLngLat(state, action);
+    case "APP::test":
+      return numTest2(state, action);
     default:
       return actDefault(state, action);
   }

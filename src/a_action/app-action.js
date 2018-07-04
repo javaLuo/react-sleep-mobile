@@ -314,3 +314,11 @@ export function saveUserLngLat(xy) {
     payload: xy
   };
 }
+
+export function numtest(xy) {
+  console.log("触发1231：",xy);
+  return {
+    type: "APP::test",
+    payload: xy
+  };
+}

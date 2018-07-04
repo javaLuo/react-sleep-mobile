@@ -133,7 +133,15 @@ class HomePageContainer extends React.Component {
               className={(() => {
                 const classNames = ["cardbox", "page-flex-col", "flex-jc-sb"];
                 if (type !== 0) {
-                  classNames.push("no-normal");
+                    switch (d.type) {
+                        case 1:
+                            classNames.push("no-normal1");
+                            break;
+                        case 2:
+                            classNames.push("no-normal2");
+                            break;
+                        default: classNames.push("no-normal3");
+                    }
                 }
                 switch (d.type) {
                   case 1:
@@ -169,9 +177,9 @@ class HomePageContainer extends React.Component {
                     case 1:
                       return d.str;
                     case 2:
-                      return "乐享卡";
+                      return "";
                     case 3:
-                      return "乐购卡";
+                      return "";
                     default:
                       return "";
                   }
