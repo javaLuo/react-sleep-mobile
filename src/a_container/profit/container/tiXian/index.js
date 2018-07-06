@@ -104,7 +104,7 @@ class HomePageContainer extends React.Component {
               "确认提现？",
               `由于提现额度限制，本次实际可提现${
                 res.data.amount
-              }万元，确认提现后，预计1-10个工作日到账，剩余可提现金额可明日再来`,
+              }万元，剩余可提现金额可明日再来。周一至周五预计1个工作内可到账（遇节假日顺延）`,
               [
                 { text: "取消", onPress: () => console.log("cancel") },
                 {
@@ -126,7 +126,7 @@ class HomePageContainer extends React.Component {
               "确认提现？",
               `您当前可提现金额为${
                 res.data.amount
-              }元，确认提现后，预计1-10个工作日到账`,
+              }元，周一至周五预计1个工作内可到账（遇节假日顺延）`,
               [
                 { text: "取消", onPress: () => console.log("cancel") },
                 {
@@ -182,7 +182,7 @@ class HomePageContainer extends React.Component {
         </div>
         <div className="info">
           * 金额低于1元时不可提现<br />
-          * 预计1-10个工作日内可到账(遇节假日顺延)<br />
+          * 周一至周五预计1个工作内可到账（遇节假日顺延）<br />
           * 同一个用户，单笔单日提现限额2万元<br />
           * 单日内提现次数不能超过3次
         </div>

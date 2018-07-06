@@ -20,6 +20,8 @@ export const login = (params = {}) => async dispatch => {
         type: "APP::getUserInfo",
         payload: res.data
       });
+    } else {
+      Toast.info(res.message, 1);
     }
     return res;
   } catch (err) {

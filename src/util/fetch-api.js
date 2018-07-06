@@ -4,7 +4,7 @@ import { Toast } from "antd-mobile";
 import _ from "lodash";
 export default class ApiService {
   static newPost(url, bodyObj = {}, type = "post", isJson) {
-    const openId = localStorage.getItem("openId") || null;
+    const openId = sessionStorage.getItem("openId") || null;
     const params = _.cloneDeep(bodyObj);
     if (url === "app/user/get" && bodyObj && bodyObj.userId) {
     } else {

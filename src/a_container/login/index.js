@@ -90,7 +90,7 @@ class Login extends React.Component {
           Toast.success("登录成功", 1);
           // 如果用户信息中有openId,就把这个openId存入localStorage
           if (res.data.openid) {
-            localStorage.setItem("openId", res.data.openid);
+            sessionStorage.setItem("openId", res.data.openid);
           }
 
           // 登录成功后，如果设置了回跳地址，就跳转到回跳地址

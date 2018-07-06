@@ -45,7 +45,7 @@ class HomePageContainer extends React.Component {
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
-    const openId = localStorage.getItem("openId");
+    const openId = sessionStorage.getItem("openId");
     if (openId) {
       this.props.actions.getUserInfo({ openId });
     }
@@ -117,7 +117,7 @@ class HomePageContainer extends React.Component {
 
   render() {
     const u = this.props.userinfo;
-    const openId = localStorage.getItem("openId");
+    const openId = sessionStorage.getItem("openId");
     return (
       <div className="page-per-info">
         {/* 下方各横块 */}

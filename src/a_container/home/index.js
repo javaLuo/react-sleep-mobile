@@ -89,6 +89,7 @@ class HomePageContainer extends React.Component {
 
     // 获取推荐服务站
     this.getGoodServiceStations();
+    console.log("历史记录表：", this.props.history);
   }
 
   // 获取热销产品

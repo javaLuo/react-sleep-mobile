@@ -42,7 +42,7 @@ class HomePageContainer extends React.Component {
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
-    const openId = localStorage.getItem("openId");
+    const openId = sessionStorage.getItem("openId");
     if (openId) {
       this.props.actions.getUserInfo({ openId });
     }
@@ -53,7 +53,7 @@ class HomePageContainer extends React.Component {
     this.props.actions.logout({ userId: this.props.userinfo.id });
     sessionStorage.removeItem("userinfo"); // 清除用户信息
     localStorage.removeItem("userlogininfo"); // 清除缓存的用户帐号和密码
-    localStorage.removeItem("openId"); // 清除保存的openId
+    sessionStorage.removeItem("openId"); // 清除保存的openId
     setTimeout(() => {
       this.props.history.replace("/login");
     });

@@ -138,10 +138,10 @@ class RootContainer extends React.Component {
   }
 
   getOpenId() {
-    const openId = localStorage.getItem("openId");
     const params = tools.makeSearch(window.location.href.split("?")[1]);
     if (params.openid) {
-      localStorage.setItem("openId", params.openid);
+      const openid = params.openid.length > 28 ? params.openid.replace("#/", "") : params.openid;
+      sessionStorage.setItem("openId", openid);
     }
   }
 
@@ -177,7 +177,7 @@ class RootContainer extends React.Component {
 
   getUserInfo() {
     if (tools.isWeixin()) {
-      const openId = localStorage.getItem("openId");
+      const openId = sessionStorage.getItem("openId");
       if (openId) {
         this.props.actions.getUserInfo({ openId });
       } else {
@@ -197,6 +197,7 @@ class RootContainer extends React.Component {
   }
 
   onEnter(Component, props) {
+    console.log("路由了：", props);
     if (!["home", "shop"].includes(props.location.pathname.split("/")[1])) {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
