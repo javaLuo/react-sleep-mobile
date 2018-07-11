@@ -142,13 +142,38 @@ class HomePageContainer extends React.Component {
                     return (
                       <li
                         key={index}
-                        className="cardbox page-flex-col flex-jc-sb"
+                        className={(()=>{
+                          const classNames = ["cardbox", "page-flex-col", "flex-jc-sb"];
+                          switch (item.ticketStyle) {
+                            case 1:
+                              classNames.push("a");
+                              break;
+                            case 2:
+                              classNames.push("b");
+                              break;
+                          }
+                          return classNames.join(" ");
+                        })()}
                         onClick={() => this.onCardClick(item)}
                       >
                         <div className="row1 flex-none page-flex-row flex-jc-sb">
                           <div>
                             <div className="t" />
                           </div>
+                        </div>
+                        <div className="row-center all_nowarp">
+                          {(() => {
+                            switch (item.ticketStyle) {
+                              case 1:
+                                return item.ticketContent;
+                              case 2:
+                                return "";
+                              case 3:
+                                return "";
+                              default:
+                                return "";
+                            }
+                          })()}
                         </div>
                         <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
                           <div>

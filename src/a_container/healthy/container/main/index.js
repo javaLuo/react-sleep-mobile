@@ -96,10 +96,10 @@ class HomePageContainer extends React.Component {
       <div className={this.state.show ? "healthy-main show" : "healthy-main"}>
         <div className="bar-list">
           <div className="bar-title">
-            翼猫健康风险评估服务<WaterWave color="#cccccc" press="down" />
+            翼猫健康风险评估服务
           </div>
           <div
-            className="item hide tran1 page-flex-row"
+            className="item page-flex-row"
             onClick={() => this.props.history.push("/healthy/mycard")}
           >
             <img className="icon" src={ImgBar1} />
@@ -109,7 +109,7 @@ class HomePageContainer extends React.Component {
             <WaterWave color="#cccccc" press="down" />
           </div>
           <div
-            className="item hide tran2 page-flex-row"
+            className="item page-flex-row"
             onClick={() => this.props.history.push("/healthy/precheck")}
           >
             <img className="icon" src={ImgBar2} />
@@ -119,7 +119,7 @@ class HomePageContainer extends React.Component {
             <WaterWave color="#cccccc" press="down" />
           </div>
           <div
-            className="item hide tran3 page-flex-row"
+            className="item page-flex-row"
             onClick={() => this.props.history.push("/healthy/mypre")}
           >
             <img className="icon" src={ImgBar3} />
@@ -129,7 +129,7 @@ class HomePageContainer extends React.Component {
             <WaterWave color="#cccccc" press="down" />
           </div>
           <div
-            className="item hide tran4 page-flex-row"
+            className="item page-flex-row"
             onClick={() => this.props.history.push("/healthy/myreport")}
           >
             <img className="icon" src={ImgBar4} />
@@ -139,11 +139,43 @@ class HomePageContainer extends React.Component {
             <WaterWave color="#cccccc" press="down" />
           </div>
           <div
-            className="item hide tran5 page-flex-row"
+            className="item page-flex-row"
             onClick={() => this.props.history.push(`/healthy/wei/${u.id}`)}
           >
             <img className="icon" src={ImgWei} />
             <div className="title">评估报告(小程序)</div>
+            <img className="arrow" src={ImgRight} />
+            <div className="line" />
+            <WaterWave color="#cccccc" press="down" />
+          </div>
+        </div>
+        <div className="bar-list" style={{marginTop: '.28rem'}}>
+          <div className="bar-title">
+            翼猫智能净水服务
+          </div>
+          <div
+            className="item page-flex-row"
+          >
+            <img className="icon" src={ImgBar1} />
+            <div className="title">我的合同</div>
+            <img className="arrow" src={ImgRight} />
+            <div className="line" />
+            <WaterWave color="#cccccc" press="down" />
+          </div>
+          <div
+            className="item page-flex-row"
+          >
+            <img className="icon" src={ImgBar1} />
+            <div className="title">我的发票</div>
+            <img className="arrow" src={ImgRight} />
+            <div className="line" />
+            <WaterWave color="#cccccc" press="down" />
+          </div>
+          <div
+            className="item page-flex-row"
+          >
+            <img className="icon" src={ImgBar1} />
+            <div className="title">我的评价</div>
             <img className="arrow" src={ImgRight} />
             <div className="line" />
             <WaterWave color="#cccccc" press="down" />

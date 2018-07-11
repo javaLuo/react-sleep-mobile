@@ -54,7 +54,6 @@ class HomePageContainer extends React.Component {
   componentDidMount() {
     document.title = "我的评估卡";
     if (!this.props.myCard.data || !this.props.myCard.data.length) {
-      console.log("你还是执行了这里：", this.props.myCard.data);
       this.getData();
     }
     this.initWeiXinPay();

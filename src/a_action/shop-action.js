@@ -414,6 +414,7 @@ export const mallCardListQuan = (params = {}) => async dispatch => {
 
 // 删除评估卡
 export const mallCardDel = (params = {}) => async dispatch => {
+  console.log("卧槽？", params);
   try {
     const res = await Fetchapi.newPost("mall/hracard/delete", params);
     return res;

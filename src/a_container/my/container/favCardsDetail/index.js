@@ -39,8 +39,6 @@ class Register extends React.Component {
     this.s4data = null;
   }
 
-  componentWillUnmount() {}
-
   componentDidMount() {
     document.title = "我的优惠卡";
     this.getStationInfoById();
@@ -300,7 +298,7 @@ class Register extends React.Component {
         <div className="other-info">优惠卡使用须知：</div>
         <div className="other-info">1.使用规则：</div>
         <div className="fav-info">
-          每个用户（e家号）每月仅限使用3张优惠卡，超出数额后，可以赠送给他人使用；
+          每个e家号用户每月限制最多使用3张，超出使用数量的优惠卡在HRA设备上无法验证通过；
         </div>
         <div className="other-info">
           2.请在“健康服务”→“预约检查”栏目中查询可以使用优惠卡的翼猫体验服务中心；
@@ -308,7 +306,7 @@ class Register extends React.Component {
         <div className="other-info">
           3.仅需支付50元材料费，即可使用该卡（此款项是代提供健康评估服务的服务中心收取）；
         </div>
-        <div className="other-info">4.优惠卡不记名、不挂失、可转增；</div>
+        <div className="other-info">4.优惠卡不记名、不挂失、可转赠；</div>
         <div className="other-info">5.请在有效期内使用</div>
         <div className="footer-zw" />
 
@@ -325,7 +323,13 @@ class Register extends React.Component {
             loading={this.state.loading}
             onClick={() => this.onPay()}
           >
-            微信支付
+            {
+              (!(
+                d.ticketType === "M" &&
+                d.ticketStatus === 3 &&
+                d.handselStatus !== 1
+              )) ? "已支付" : '微信支付'
+            }
           </Button>
         </div>
       </div>

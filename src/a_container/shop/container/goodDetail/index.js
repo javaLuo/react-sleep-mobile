@@ -11,6 +11,7 @@ import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.scss";
 import WaterWave from "water-wave";
+import FlyBall from "../../../../a_component/FlyBall";
 // ==================
 // 所需的所有组件
 // ==================
@@ -301,8 +302,11 @@ class HomePageContainer extends React.Component {
   }
 
   // 当前商品加入到购物车
-  onPushCar() {
+  onPushCar(e) {
+    e.stopPropagation();
+
     if (!this.state.data || !this.state.data.id) {
+      Toast.info("请先登录", 1);
       return;
     }
     if (this.state.data.activityType === 2) {
@@ -313,6 +317,7 @@ class HomePageContainer extends React.Component {
       Toast.info("您购物车内的商品数量过多，清理后方可加入购物车", 2);
       return;
     }
+
     const params = {
       productId: this.state.data.id,
       number: this.state.formCount || 1,
@@ -320,11 +325,14 @@ class HomePageContainer extends React.Component {
     };
     this.props.actions.pushCarInterface(tools.clearNull(params)).then(res => {
       if (res.status === 200) {
-        Toast.success("加入购物车成功", 1);
         this.props.actions.shopCartCount();
       } else {
         Toast.info(res.message, 1);
       }
+    });
+    const win = document.getElementById("gwc-btn");
+    this.setState({
+      ballData: [e.clientX, e.clientY, win.offsetLeft + 20, document.body.clientHeight-30]
     });
   }
 
@@ -338,12 +346,12 @@ class HomePageContainer extends React.Component {
       >
         <div className="title-pic">
           {/* 顶部画廊 */}
-          {
+          { d.name ?
             <VideoLuo
               videoPic={null} // null
-              videoSrc={"https://isluo.com/work/paomo/video/paomo_gem.mp4"} // d.coverVideo
+              videoSrc={d.coverVideo} // d.coverVideo
               imgList={d.productImg ? d.productImg.split(",") : []}
-            />
+            /> : null
           }
         </div>
         {/*<div style={{ height: '1500px' }}>ZW</div>*/}
@@ -484,6 +492,7 @@ class HomePageContainer extends React.Component {
           </Link>
           <div
             className="btn-normal"
+            id={"gwc-btn"}
             onClick={() => this.props.history.push("/shop/shoppingcar")}
           >
             <img src={ImgGwc} />
@@ -497,14 +506,15 @@ class HomePageContainer extends React.Component {
             </div>
             <WaterWave color="#888888" press="down" />
           </div>
-          <div className="btn-add-gwc" onClick={() => this.onPushCar()}>
-            加入购物车<WaterWave color="#cccccc" press="down" />
+          <div className="btn-add-gwc" onClick={(e) => this.onPushCar(e)}>
+            加入购物车
           </div>
           <div className="btn-submit" onClick={() => this.onSubmit()}>
             {d.activityType === 2 ? "立即申请" : "立即购买"}
             <WaterWave color="#cccccc" press="down" />
           </div>
         </div>
+        <FlyBall data={this.state.ballData} />
       </div>
     );
   }

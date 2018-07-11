@@ -60,7 +60,7 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-    document.title = "翼猫健康e家";
+    document.title = "健康e家";
     // 获取轮播图
     if (!this.props.homePics || this.props.homePics.length === 0) {
       this.props.actions.mallApList({ typeCode: "slideshow" });
@@ -89,7 +89,7 @@ class HomePageContainer extends React.Component {
 
     // 获取推荐服务站
     this.getGoodServiceStations();
-    console.log("历史记录表：", this.props.history);
+    console.log("历史记录表", this.props.history);
   }
 
   // 获取热销产品

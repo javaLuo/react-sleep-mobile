@@ -203,6 +203,8 @@ class VideoLuo extends React.PureComponent {
                     loop
                     playsInline
                     webkit-playsinline="true"
+                    x-webkit-airplay="true"
+                    playsinline="true"
                     preload="true"
                     poster={this.props.videoPic || ImgLogo}
                     src={this.props.videoSrc}

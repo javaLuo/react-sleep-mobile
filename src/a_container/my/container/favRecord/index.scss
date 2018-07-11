@@ -94,7 +94,13 @@
       border-radius: 4px;
       font-size: 12px;
       &.red {
-        background-color: #f00;
+        background-color: #ec4863;
+      }
+      &.yellow {
+        background-color: #ffad19;
+      }
+      &.black {
+        background-color: #25292e;
       }
     }
   }

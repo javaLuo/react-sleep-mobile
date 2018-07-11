@@ -303,7 +303,7 @@
         .name {
           font-size: 12px;
           line-height: 20px;
-          padding-top: 5px;
+          height: 40px;
         }
         .total {
           position: absolute;
@@ -361,10 +361,10 @@
               content: "";
               position: absolute;
               top: 0;
-              left: -10px;
+              left: -5px;
               box-sizing: border-box;
               border: solid 5px transparent;
-              border-right: solid 5px #fb7384;
+              border-top: solid 5px #fb7384;
             }
           }
         }
@@ -420,10 +420,10 @@
               content: "";
               position: absolute;
               top: 0;
-              left: -10px;
+              left: -5px;
               box-sizing: border-box;
               border: solid 5px transparent;
-              border-right: solid 5px #fb7384;
+              border-top: solid 5px #fb7384;
             }
           }
         }

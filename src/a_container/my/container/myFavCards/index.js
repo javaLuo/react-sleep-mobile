@@ -21,7 +21,7 @@ import ImgShareArr from "../../../../assets/share-arr.png";
 import Img404 from "../../../../assets/not-found.png";
 import ImgGuoQi from "../../../../assets/favcards/guoqi@3x.png";
 import ImgShiYong from "../../../../assets/favcards/shiyong@3x.png";
-import { Tabs, Toast, List, Modal, Badge } from "antd-mobile";
+import { Tabs, Toast, List, Modal, Badge, SwipeAction } from "antd-mobile";
 import Config from "../../../../config";
 
 // ==================
@@ -36,7 +36,8 @@ import {
   createMcardList,
   wxPay,
   getSendCount,
-  batchShare
+  batchShare,
+  mallCardDel
 } from "../../../../a_action/shop-action";
 // ==================
 // Definition
@@ -91,7 +92,8 @@ class HomePageContainer extends React.Component {
         }
       ],
       nPay: 0, // 可以批量支付的数量
-      canSendNum: 0, // 可以批量赠送的数量
+      canSendNum: 0, // 可以批量赠送的数量 待支付
+      canSendNum2: 0, // 可以批量赠送的数量 服了 牛逼啊 待使用
       loading: false, // 是否正在支付中
       wxReady: true, // 微信是否已初始化
       ticketPrice: 50, // 优惠卡的价格 以得到数据的第1个为准 没有就是50
@@ -102,8 +104,8 @@ class HomePageContainer extends React.Component {
       search: null,
       btn1Show: false, // 批量赠送模态框 是否显示
       btn2Show: false, // 批量支付模态框 是否显示
-      modal1Num: 1, // 批量赠送数量
-      modal2Num: 1, // 批量支付数量
+      modal1Num: "", // 批量赠送数量
+      modal2Num: "", // 批量支付数量
       modal1Check: false, // 批量赠送全选是否选中
       modal2Check: false // 批量支付全选是否选中
     };
@@ -136,10 +138,17 @@ class HomePageContainer extends React.Component {
 
   // 获取有多少张可赠送的优惠卡
   getSendCount() {
-    this.props.actions.getSendCount().then(res => {
+    this.props.actions.getSendCount({ticketStatus: 3}).then(res => {
       if (res.status === 200) {
         this.setState({
           canSendNum: res.data
+        });
+      }
+    });
+    this.props.actions.getSendCount({ticketStatus: 1}).then(res => {
+      if (res.status === 200) {
+        this.setState({
+          canSendNum2: res.data
         });
       }
     });
@@ -405,11 +414,12 @@ class HomePageContainer extends React.Component {
     }
   }
 
-  // 点击批量分享确定
+  // 点击批量赠送分享确定
   onStartShareMany() {
     const me = this;
     const num = this.state.modal1Num;
-    if (this.state.canSendNum < num) {
+    if (!num || (this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2) < num) {
+      Toast.info("请输入有效数量", 1);
       return;
     }
 
@@ -440,7 +450,7 @@ class HomePageContainer extends React.Component {
     // 获取待分享的userId
     Toast.loading("请稍后...", 0);
     this.props.actions
-      .batchShare({ sendCount: num, dateTime: dateTime })
+      .batchShare({ sendCount: num, dateTime: dateTime, ticketStatus: this.state.tabIndex === 0 ? 3 : 1 })
       .then(res => {
         if (res.status === 200) {
           Toast.hide();
@@ -545,12 +555,17 @@ class HomePageContainer extends React.Component {
   onPay() {
     const max = this.state.nPay;
     if (
-      max < this.state.modal2Num ||
-      tools.point2(this.state.modal2Num * this.state.ticketPrice) > 10000
+      (!this.state.modal2Num) ||
+      this.state.modal2Num > max
     ) {
+      Toast.info("请输入有效数量", 1);
       return;
     }
 
+    if(tools.point2(this.state.modal2Num * this.state.ticketPrice) > 10000){
+      Toast.info("您已超过最大支付金额10000.00元，请重新选择数量",1);
+      return;
+    }
     if (!this.props.userinfo || !this.props.userinfo.mobile) {
       alert("确认支付？", "您还未绑定手机号，绑定后才能进行支付", [
         { text: "取消", onPress: () => console.log("cancel") },
@@ -703,6 +718,8 @@ class HomePageContainer extends React.Component {
     if (item.type === 5) {
       // 已赠送的进入卡记录
       this.props.history.push(`/my/favrecord/${item_son.ticketNo}`);
+    } else if([2,4].includes(item.type)){ // 已使用已过期分类的不能进入详情页
+
     } else {
       this.props.actions.saveFreeCardInfo(item_son); // 保存该张卡信息，下个页面要用
       setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
@@ -731,23 +748,19 @@ class HomePageContainer extends React.Component {
     let num = 0;
     if (type === 0) {
       // -
-      num = this.state.modal1Num - 1;
+      num = Number(this.state.modal1Num) - 1 || 0;
     } else if (type === 1) {
       // 手动输入
       num = Number(e.target.value);
     } else if (type === 2) {
       // +
-      num = this.state.modal1Num + 1;
+      num = Number(this.state.modal1Num) + 1 || 1;
     }
-    const max = this.state.canSendNum;
-    if (num > max) {
-      num = max;
-    }
-    if (num <= 0) {
-      num = 1;
+    if(num<0){
+      num = 0;
     }
     this.setState({
-      modal1Num: num,
+      modal1Num: num || "",
       modal1Check: false
     });
   }
@@ -757,33 +770,62 @@ class HomePageContainer extends React.Component {
     let num = 0;
     if (type === 0) {
       // -
-      num = this.state.modal2Num - 1;
+      num = Number(this.state.modal2Num) - 1 || 0;
     } else if (type === 1) {
       // 手动输入
       num = Number(e.target.value);
     } else if (type === 2) {
       // +
-      num = this.state.modal2Num + 1;
+      num = Number(this.state.modal2Num) + 1 || 1;
     }
-    const max = this.state.nPay;
-    if (num > max) {
-      num = max;
-    }
-    if (num <= 0) {
-      num = 1;
+
+    if(num<0){
+      num = 0;
     }
     this.setState({
-      modal2Num: num,
+      modal2Num: num || "",
       modal2Check: false
     });
   }
 
-  // 批量赠送 确定
-  batchShare() {}
-
   // 找某个类型的total
   findTotalByType(type) {
     return this.state.data.find(item => item.type === type).total;
+  }
+
+  // 删除评估卡
+  onDelete(item) {
+
+    if (item.ticketNum - item.useCount > 0) {
+      Toast.info("存在未使用的卡，不可以删除哦");
+      return;
+    }
+
+    alert("确认删除优惠?", "删除后将无法再查看该优惠卡", [
+      { text: "取消", onPress: () => console.log("cancel") },
+      {
+        text: "确认",
+        onPress: () =>
+          new Promise((resolve, rej) => {
+            this.props.actions
+              .mallCardDel({
+                cardId: item.id
+              })
+              .then(res => {
+                if (res.status === 200) {
+                  Toast.success("删除成功",1);
+                  this.getData(1, this.state.pageSize, "flash", this.state.search, this.state.data[this.state.tabIndex].type);
+                } else {
+                  Toast.info(res.message || "删除失败，请重试");
+                }
+                resolve();
+              })
+              .catch(() => {
+                rej();
+              });
+          })
+      }
+    ]);
   }
 
   render() {
@@ -815,6 +857,14 @@ class HomePageContainer extends React.Component {
                   }}
                 >
                   <div className="the-ul">
+                    {
+                      item.type === 1 ? (
+                        <div className={"what-f"}>
+                          <div>优惠卡使用规则：</div>
+                          <div>每个e家号用户每月限制最多使用3张，超出使用数量的优惠卡在HRA设备上无法验证通过</div>
+                        </div>
+                      ) : null
+                    }
                     {(() => {
                       if (item.data.length === 0) {
                         return (
@@ -826,6 +876,22 @@ class HomePageContainer extends React.Component {
                       } else {
                         return item.data.map((item_son, index_son) => {
                           return (
+                            <SwipeAction
+                              style={{ backgroundColor: "transparent" }}
+                              key={index}
+                              autoClose
+                              right={[
+                                {
+                                  text: "删除",
+                                  onPress: () => this.onDelete(item_son),
+                                  style: {
+                                    backgroundColor: "transparent",
+                                    color: "#f00",
+                                    padding: "0 10px"
+                                  }
+                                }
+                              ]}
+                            >
                             <div
                               key={index_son}
                               className={(() => {
@@ -834,7 +900,7 @@ class HomePageContainer extends React.Component {
                                   "page-flex-col",
                                   "flex-jc-sb"
                                 ];
-                                if (this.checkCardStatus(item_son) !== 1) {
+                                if ([2,4].includes(item.type) && this.checkCardStatus(item_son) !== 1) { // 只有已使用、已过期才灰色，其他即使过期也不灰
                                     switch (item_son.ticketStyle) {
                                         case 1:
                                             classNames.push("abnormal1");
@@ -940,10 +1006,12 @@ class HomePageContainer extends React.Component {
                                 </div>
                               </div>
                             </div>
+                            </SwipeAction>
                           );
                         });
                       }
                     })()}
+                    <div className={"zw"} />
                   </div>
                 </Luo>
               </div>
@@ -973,19 +1041,19 @@ class HomePageContainer extends React.Component {
         {/** Modal1 **/}
         <div className={this.state.btn1Show ? "modal1 show" : "modal1"}>
           <div className="title">
-            可赠送的优惠卡数量：{this.state.canSendNum}张
+            可赠送的优惠卡数量：{this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2}张
           </div>
           <div className="form-box">
             <Checkbox
               checked={this.state.modal1Check}
               onChange={e => {
+                let k = "";
                 if (e.target.checked) {
-                  this.setState({
-                    modal1Num: Math.max(this.state.canSendNum, 1)
-                  });
+                  k = Math.max((this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2), 0);
                 }
                 this.setState({
-                  modal1Check: e.target.checked
+                  modal1Check: e.target.checked,
+                  modal1Num: k,
                 });
               }}
             >
@@ -993,7 +1061,7 @@ class HomePageContainer extends React.Component {
             </Checkbox>
             <div className="err">
               {(() => {
-                const max = this.state.canSendNum;
+                const max = this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2;
                 if (this.state.modal1Num > max) {
                   return "超过有效数量，请重新输入";
                 }
@@ -1007,6 +1075,7 @@ class HomePageContainer extends React.Component {
                 type="number"
                 pattern="[0-9]*"
                 className="input"
+                placeholder={`请输入≤${this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2}的数量`}
                 value={this.state.modal1Num}
                 onInput={e => this.onModal1Num(1, e)}
               />
@@ -1043,13 +1112,13 @@ class HomePageContainer extends React.Component {
             <Checkbox
               checked={this.state.modal2Check}
               onChange={e => {
+                let k = "";
                 if (e.target.checked) {
-                  this.setState({
-                    modal2Num: Math.max(this.state.nPay, 1)
-                  });
+                  k = Math.max(this.state.nPay, 0);
                 }
                 this.setState({
-                  modal2Check: e.target.checked
+                  modal2Check: e.target.checked,
+                  modal2Num: k
                 });
               }}
             >
@@ -1073,6 +1142,7 @@ class HomePageContainer extends React.Component {
                 type="number"
                 pattern="[0-9]*"
                 className="input"
+                placeholder={`请输入≤${this.state.nPay}的数量`}
                 value={this.state.modal2Num}
                 onInput={e => this.onModal2Num(1, e)}
               />
@@ -1081,21 +1151,21 @@ class HomePageContainer extends React.Component {
               </div>
             </div>
             <div style={{ marginTop: "5px" }}>
-              支付数量：{this.state.modal2Num}
+              支付数量：{this.state.modal2Num || 0}
             </div>
             <div>
               合计金额：<span
                 style={{
                   color:
                     tools.point2(
-                      this.state.modal2Num * this.state.ticketPrice
+                      (this.state.modal2Num || 0) * this.state.ticketPrice
                     ) > 10000
                       ? "#cc3333"
                       : "#222222"
                 }}
               >
                 {tools
-                  .point2(this.state.modal2Num * this.state.ticketPrice)
+                  .point2((this.state.modal2Num || 0) * this.state.ticketPrice)
                   .toFixed(2)}
               </span>
             </div>
@@ -1152,7 +1222,8 @@ export default connect(
         createMcardList,
         wxPay,
         getSendCount,
-        batchShare
+        batchShare,
+        mallCardDel
       },
       dispatch
     )

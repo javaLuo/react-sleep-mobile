@@ -344,11 +344,34 @@ class HomePageContainer extends React.Component {
               >
                 <div
                   key={index}
-                  className={
-                    this.checkType(item) === 1
-                      ? "cardbox page-flex-col flex-jc-sb"
-                      : "cardbox abnormal page-flex-col flex-jc-sb"
-                  }
+                  className={(() => {
+                    const classNames = [
+                      "cardbox",
+                      "page-flex-col",
+                      "flex-jc-sb"
+                    ];
+                    if (this.checkCardStatus(item) !== 1) { // 只有已使用、已过期才灰色，其他即使过期也不灰
+                      switch (item.ticketStyle) {
+                        case 1:
+                          classNames.push("abnormal1");
+                          break;
+                        case 2:
+                          classNames.push("abnormal2");
+                          break;
+                        default:
+                          classNames.push("abnormal3");
+                      }
+                    }
+                    switch (item.ticketStyle) {
+                      case 1:
+                        classNames.push("a");
+                        break;
+                      case 2:
+                        classNames.push("b");
+                        break;
+                    }
+                    return classNames.join(" ");
+                  })()}
                 >
                   <div className="row1 flex-none page-flex-row flex-jc-sb">
                     <div>
@@ -358,6 +381,20 @@ class HomePageContainer extends React.Component {
                       {item.handselStatus === 1 ? "赠送中 " : null}
                       {this.getNameByTicketStatus(item)}
                     </div>
+                  </div>
+                  <div className="row-center all_nowarp">
+                    {(() => {
+                      switch (item.ticketStyle) {
+                        case 1:
+                          return item.ticketContent;
+                        case 2:
+                          return "";
+                        case 3:
+                          return "";
+                        default:
+                          return "";
+                      }
+                    })()}
                   </div>
                   <div
                     className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end"

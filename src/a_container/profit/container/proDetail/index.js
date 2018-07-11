@@ -374,6 +374,7 @@ class HomePageContainer extends React.Component {
                     key={index}
                     onClick={() => this.onItemClick(item)}
                     extra={<span>￥{item.income}</span>}
+                    arrow={"horizontal"}
                   >
                     {item.productTypeName}
                     <Brief>{item.balanceTime}</Brief>

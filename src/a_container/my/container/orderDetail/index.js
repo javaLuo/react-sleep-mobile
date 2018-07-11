@@ -141,7 +141,7 @@ class HomePageContainer extends React.Component {
       this.props.history.push(`/my/myfavcards/fav_${obj.id}`);
     } else {
       // 普通评估卡，跳评估卡详情页
-      this.props.history.push(`/my/ordercarddetail/${obj.id}`);
+      this.props.history.push(`/my/ordercarddetail/${obj.mainOrderId}`);
     }
   }
 
@@ -227,7 +227,7 @@ class HomePageContainer extends React.Component {
             </List>
           </div>
         )}
-        {type !== 5 && addr ? (
+        {type !== 5 && addr && addr.contact? (
           <List>
             <Item
               thumb={<img src={ImgDiZhi} />}

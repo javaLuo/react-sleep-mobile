@@ -164,7 +164,7 @@ class HomePageContainer extends React.Component {
         <div className="my-list mt">
           <div className="l flex-none">可提现金额</div>
           <div className="r flex-auto money">
-            ￥{this.props.iwantnow.toFixed(2)}
+            ￥{this.props.iwantnow.toFixed(4)}
           </div>
         </div>
         {/*<div className="tixian-info">可提现金额：￥{this.props.iwantnow.toFixed(2)}，<span onClick={() => this.onAllIn()}>全部提现</span></div>*/}
