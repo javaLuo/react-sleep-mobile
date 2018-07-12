@@ -1,7 +1,7 @@
 {
-  "name": "react_sleep_mobile",
+  "name": "MLM",
   "version": "1.0.0",
-  "description": "react脚手架,最新技术",
+  "description": "hey, I know you will look this, run quicky, do you know MLM?",
   "main": "index.js",
   "scripts": {
     "dll": "webpack -p --config webpack.dll.config.js --progress --profile --colors",

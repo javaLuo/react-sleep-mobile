@@ -357,10 +357,20 @@ class HomePageContainer extends React.Component {
     sessionStorage.removeItem("pay-info");
     sessionStorage.removeItem("pay-start"); // 清除支付回跳标识
 
+    // 重新获取一下用户信息
+
     // 支付完成 跳转到支付成功页
     this.props.history.replace(
       `/shop/payresult/${this.state.pay_info.mainOrderId}`
     );
+  }
+
+  // 获取当前登录用户的相关信息
+  getUserInfo() {
+    const openId = sessionStorage.getItem("openId");
+    if (openId) {
+      this.props.actions.getUserInfo({ openId });
+    }
   }
 
   render() {

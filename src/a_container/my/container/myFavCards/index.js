@@ -122,6 +122,10 @@ class HomePageContainer extends React.Component {
     if (arr[0] === "fav") {
       // 来自我的订单优惠卡点击进入
       search = arr[1];
+      this.setState({
+        tabIndex: 1,
+      });
+      this.getData(1, this.state.pageSize, "flash", search, 1);
     }
     console.log("searh是什么：", this.props.location, search);
     this.getData(1, this.state.pageSize, "flash", search, 3);
@@ -129,7 +133,7 @@ class HomePageContainer extends React.Component {
       search
     });
     this.initWeiXinPay();
-    this.getSendCount();
+    this.getSendCount(search);
   }
 
   componentWillUnmount() {
@@ -841,6 +845,7 @@ class HomePageContainer extends React.Component {
             ),
             type: item.type
           }))}
+          page={this.state.tabIndex}
           swipeable={false}
           onChange={(tab, index) => this.onTabsChange(tab, index)}
         >
@@ -921,6 +926,14 @@ class HomePageContainer extends React.Component {
                                     break;
                                 }
                                 return classNames.join(" ");
+                              })()}
+                              style={(()=>{ // 啊，我真TMD服了
+                                if([2,4].includes(item.type) && this.checkCardStatus(item_son) !== 1 && item_son.imageUsed){
+                                  return { backgroundImage: `url(${item_son.imageUsed})` };
+                                } else if(item_son.image) {
+                                  return { backgroundImage: `url(${item_son.image})` };
+                                }
+                                return null;
                               })()}
                               onClick={() => this.onCardClick(item, item_son)}
                             >

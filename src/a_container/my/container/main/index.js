@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.scss";
+import config from '../../../../config/index';
 // ==================
 // 所需的所有组件
 // ==================
@@ -611,26 +612,14 @@ class HomePageContainer extends React.Component {
           {/*<WaterWave color="#cccccc" press="down"/>*/}
           {/*</div>*/}
           <div
-            onClick={() =>
-              window.open(
-                `http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=464&e=${
-                  this.props.userinfo.id
-                }`
-              )
-            }
+            onClick={() => window.open(`${config.baseURL}/cms/c?id=40`)}
           >
             <img src={IconYhxy} />
             <div>用户协议</div>
             <WaterWave color="#cccccc" press="down" />
           </div>
           <div
-            onClick={() =>
-              window.open(
-                `http://e.yimaokeji.com/index.php?m=book&f=read&t=mhtml&articleID=463&e=${
-                  this.props.userinfo.id
-                }`
-              )
-            }
+            onClick={() => window.open(`${config.baseURL}/cms/c?id=41`)}
           >
             <img src={IconYsxy} />
             <div>隐私协议</div>

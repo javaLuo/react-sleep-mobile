@@ -442,8 +442,7 @@ class HomePageContainer extends React.Component {
                                   ? tools.point2(
                                       v.product.productModel.price +
                                         (v.product.productModel
-                                          .openAccountFee || 0) +
-                                        (v.product.productModel.shipFee || 0)
+                                          .openAccountFee || 0)
                                     )
                                   : ""}
                               </div>

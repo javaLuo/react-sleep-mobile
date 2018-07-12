@@ -141,7 +141,16 @@ class HomePageContainer extends React.Component {
             {this.state.barPics.map((item, index) => (
               <a
                 key={index}
-                href={u && item.url && !item.url.includes("/activity") ? `${item.url}&e=${u.id}` : `${item.url}_${encodeURIComponent(item.acImg)}`}
+                href={(()=>{
+                  if(item.url && item.url.includes("#/")){ // 是自己的URL
+                    if(item.url.includes("/activity")){
+                      return `${item.url}_${encodeURIComponent(item.acImg)}`;
+                    }
+                  } else if(u){
+                    return `${item.url}&e=${u.id}`;
+                  }
+                    return item.url;
+                })()}
                 style={{
                   display: "inline-block",
                   width: "100%",

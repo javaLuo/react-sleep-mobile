@@ -311,6 +311,26 @@ class HomePageContainer extends React.Component {
       }
     ]);
   }
+
+  // 工具 - 判断当前评估卡状态（正常(待支付、待使用)1、过期2、已使用3、已赠送5）
+  checkCardStatus(item) {
+    try {
+      if (item.ticketStatus === 4) {
+        // 已过期
+        return 2;
+      } else if (item.ticketStatus === 2) {
+        // 已使用
+        return 3;
+      } else if (item.ticketStatus === 5) {
+        // 已赠送
+        return 5;
+      }
+      return 1;
+    } catch (e) {
+      return 1;
+    }
+  }
+
   render() {
     const ticket = this.state.data;
     return (
@@ -351,24 +371,7 @@ class HomePageContainer extends React.Component {
                       "flex-jc-sb"
                     ];
                     if (this.checkCardStatus(item) !== 1) { // 只有已使用、已过期才灰色，其他即使过期也不灰
-                      switch (item.ticketStyle) {
-                        case 1:
-                          classNames.push("abnormal1");
-                          break;
-                        case 2:
-                          classNames.push("abnormal2");
-                          break;
-                        default:
-                          classNames.push("abnormal3");
-                      }
-                    }
-                    switch (item.ticketStyle) {
-                      case 1:
-                        classNames.push("a");
-                        break;
-                      case 2:
-                        classNames.push("b");
-                        break;
+                      classNames.push("abnormal3");
                     }
                     return classNames.join(" ");
                   })()}
@@ -382,20 +385,7 @@ class HomePageContainer extends React.Component {
                       {this.getNameByTicketStatus(item)}
                     </div>
                   </div>
-                  <div className="row-center all_nowarp">
-                    {(() => {
-                      switch (item.ticketStyle) {
-                        case 1:
-                          return item.ticketContent;
-                        case 2:
-                          return "";
-                        case 3:
-                          return "";
-                        default:
-                          return "";
-                      }
-                    })()}
-                  </div>
+                  <div className="row-center all_nowarp" />
                   <div
                     className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end"
                     onClick={() => this.onStartShare(item, index)}

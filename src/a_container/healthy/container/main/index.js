@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.less";
+import { Toast } from 'antd-mobile';
 // ==================
 // 所需的所有组件
 // ==================
@@ -21,6 +22,9 @@ import ImgBar3 from "../../../../assets/wodeyuyue@3x.png";
 import ImgBar4 from "../../../../assets/baogao@3x.png";
 import ImgBar7 from "../../../../assets/HRA@3x.png";
 import ImgWei from "../../../../assets/wei@3x.png";
+import ImgA1 from "./assets/a1.png";
+import ImgA2 from "./assets/a2.png";
+import ImgA3 from "./assets/a3.png";
 import WaterWave from "water-wave";
 // ==================
 // 本页面所需action
@@ -90,6 +94,18 @@ class HomePageContainer extends React.Component {
     );
   }
 
+  onClickA(url) {
+    const u = this.props.userinfo;
+    if(!u || !u.id){
+      Toast.info("请先登录");
+      return;
+    }
+    if(!u.mobile){
+      this.props.history.push("/my/bindphone");
+      return;
+    }
+    window.open(`${url}${u.mobile}`);
+  }
   render() {
     const u = this.props.userinfo || {};
     return (
@@ -155,8 +171,9 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
+            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/contractList?phone=")}
           >
-            <img className="icon" src={ImgBar1} />
+            <img className="icon" src={ImgA1} />
             <div className="title">我的合同</div>
             <img className="arrow" src={ImgRight} />
             <div className="line" />
@@ -164,8 +181,9 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
+            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/openBillList?phone=")}
           >
-            <img className="icon" src={ImgBar1} />
+            <img className="icon" src={ImgA2} />
             <div className="title">我的发票</div>
             <img className="arrow" src={ImgRight} />
             <div className="line" />
@@ -173,8 +191,9 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
+            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/evaluateList?phone=")}
           >
-            <img className="icon" src={ImgBar1} />
+            <img className="icon" src={ImgA3} />
             <div className="title">我的评价</div>
             <img className="arrow" src={ImgRight} />
             <div className="line" />
