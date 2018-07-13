@@ -169,7 +169,7 @@ class HomePageContainer extends React.Component {
   render() {
     const d = this.state.data;
     return (
-      <div className="page-myfavcards">
+      <div className="page-favone">
               <div className="tabs-div">
                 {/*<Luo*/}
                   {/*id={`luo`}*/}

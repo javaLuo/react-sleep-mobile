@@ -14,7 +14,7 @@ import tools from "../../../../util/all";
 // ==================
 // 所需的所有组件
 // ==================
-import { Toast } from "antd-mobile";
+import { Toast, Modal } from "antd-mobile";
 import Img404 from "../../../../assets/not-found.png";
 import ImgRen from "../../../../assets/ren@3x.png";
 import ImgAddr from "../../../../assets/dizhi@3x.png";
@@ -28,7 +28,7 @@ import { mecReserveList } from "../../../../a_action/shop-action";
 // ==================
 // Definition
 // ==================
-
+const alert = Modal.alert;
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -103,6 +103,34 @@ class HomePageContainer extends React.Component {
         return "已预约";
     }
   }
+
+  // 取消预约
+  onCancel(item) {
+    alert("确认取消预约？", "确认后将为您取消预约", [
+      { text: "取消", onPress: () => console.log("cancel") },
+      {
+        text: "确认",
+        onPress: () =>
+          new Promise((resolve, rej) => {
+            this.props.actions
+              .balabala({ id: item.id })
+              .then(res => {
+                if (res.status === 200) {
+                  Toast.success("删除成功", 1);
+                  this.onDown();
+                } else {
+                  Toast.info(res.message);
+                }
+                resolve();
+              })
+              .catch(() => {
+                rej();
+              });
+          })
+      }
+    ]);
+  }
+
   render() {
     return (
       <div className="page-my-pre">
@@ -152,12 +180,6 @@ class HomePageContainer extends React.Component {
                             {item.station ? item.station.name : "-"}
                           </div>
                           <div className="info page-flex-row flex-ai-center">
-                            <img src={ImgRen} />
-                            <span>
-                              {item.station ? item.station.masterName : ""}
-                            </span>
-                          </div>
-                          <div className="info page-flex-row flex-ai-center">
                             <img src={ImgPhone} />
                             <a
                               href={`tel:${
@@ -175,6 +197,13 @@ class HomePageContainer extends React.Component {
                           </div>
                         </div>
                       </div>
+                      {
+                        item.ticketStatus === 1 ? (
+                          <div className={"controls"}>
+                            <div onClick={()=>this.onCancel(item)}>取消预约</div>
+                          </div>
+                        ) : null
+                      }
                     </li>
                   );
                 });

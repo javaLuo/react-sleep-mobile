@@ -138,10 +138,10 @@ class HomePageContainer extends React.Component {
     }
     if (obj.modelType === "M") {
       // 优惠卡，跳优惠卡页面
-      this.props.history.push(`/my/myfavcards/fav_${obj.id}`);
+      this.props.history.push(`/my/favone/${obj.id}`);
     } else {
       // 普通评估卡，跳评估卡详情页
-      this.props.history.push(`/my/ordercarddetail/${obj.mainOrderId}`);
+      this.props.history.push(`/my/ordercarddetail/${obj.id}`);
     }
   }
 

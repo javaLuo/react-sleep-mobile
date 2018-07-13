@@ -70,6 +70,24 @@
         }
       }
     }
+    .controls{
+      padding: .2rem;
+      display: flex;
+      justify-content: flex-end;
+      border-top: solid 1px #f3f3f3;
+      background-color: #fff;
+      &>div{
+        padding: .1rem .2rem;
+        border: solid 1px #f3f3f3;
+        color: #222;
+        font-size: .32rem;
+        border-radius: 3px;
+        transition: all 200ms;
+        &:active{
+          background-color: #ccc;
+        }
+      }
+    }
   }
   .nodata {
     text-align: center;

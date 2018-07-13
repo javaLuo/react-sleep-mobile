@@ -37,7 +37,7 @@ import {
   wxPay,
   getSendCount,
   batchShare,
-  mallCardDel
+  mallQuanDel
 } from "../../../../a_action/shop-action";
 // ==================
 // Definition
@@ -806,7 +806,7 @@ class HomePageContainer extends React.Component {
         onPress: () =>
           new Promise((resolve, rej) => {
             this.props.actions
-              .mallCardDel({
+              .mallQuanDel({
                 ticketId: item.id
               })
               .then(res => {
@@ -1233,7 +1233,7 @@ export default connect(
         wxPay,
         getSendCount,
         batchShare,
-        mallCardDel
+        mallQuanDel
       },
       dispatch
     )

@@ -32,7 +32,7 @@ import {
   wxInit,
   saveCardInfo,
   saveMyCardInfo,
-  mallCardDel,
+  mallQuanDel,
   mallCardListQuan,
   ticketHandsel
 } from "../../../../a_action/shop-action";
@@ -350,8 +350,8 @@ class HomePageContainer extends React.Component {
         onPress: () =>
           new Promise((resolve, rej) => {
             this.props.actions
-              .mallCardDel({
-                cardId: item.id
+              .mallQuanDel({
+                ticketId: item.id
               })
               .then(res => {
                 if (res.status === 200) {
@@ -534,7 +534,7 @@ export default connect(
         wxInit,
         saveCardInfo,
         saveMyCardInfo,
-        mallCardDel,
+        mallQuanDel,
         mallCardListQuan,
         ticketHandsel
       },
