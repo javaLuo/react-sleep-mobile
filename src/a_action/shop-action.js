@@ -416,7 +416,7 @@ export const mallCardListQuan = (params = {}) => async dispatch => {
 export const mallCardDel = (params = {}) => async dispatch => {
   console.log("卧槽？", params);
   try {
-    const res = await Fetchapi.newPost("mall/hracard/delete", params);
+    const res = await Fetchapi.newPost("mall/hracard/delete", params, 'post', true);
     return res;
   } catch (err) {
     Toast.info("网络错误，请重试", 1);

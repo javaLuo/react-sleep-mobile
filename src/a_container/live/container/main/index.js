@@ -287,7 +287,7 @@ class LiveContainer extends React.Component {
   onGoPlay(id) {
     // 跳转前保存所有allData到sessionStorage
     sessionStorage.setItem("live-tabnow", JSON.stringify(this.state.tabNow));
-    window.open(`${config.baseURL}/mall/live/show?liveId=${id}`);
+    window.location.href = `${config.baseURL}/mall/live/show?liveId=${id}`;
   }
 
   render() {

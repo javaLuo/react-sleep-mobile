@@ -159,7 +159,7 @@ class HomePageContainer extends React.Component {
           // 有用户信息
           str = `&e=${u.id}`;
         }
-        window.open(`http://e.yimaokeji.com/index.php?t=mhtml${str}`);
+        window.location.href = `http://e.yimaokeji.com/index.php?t=mhtml${str}`;
         break;
       // 跳视频直播
       case 3:
@@ -177,7 +177,7 @@ class HomePageContainer extends React.Component {
   }
   // 点击视频 跳转到对应视频详情页
   zbClick(id) {
-    window.open(`${config.baseURL}/mall/live/show?liveId=${id}`);
+    window.location.href = `${config.baseURL}/mall/live/show?liveId=${id}`;
   }
   // 保存当前服务站信息，并进入服务站详情页
   inputStation(data) {

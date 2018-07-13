@@ -75,7 +75,7 @@ class Register extends React.Component {
   makeType(status, index) {
     if (index === 0) {
       // 第1步，就显示个点
-      return <div className="dot" />;
+      return <div className="type-card pink">获得</div>;
     }
     switch (String(status)) {
       case "1":

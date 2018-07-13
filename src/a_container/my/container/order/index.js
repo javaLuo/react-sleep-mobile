@@ -278,7 +278,7 @@ class HomePageContainer extends React.Component {
   onLook(item) {
     if (item.modelType === "M") {
       // 优惠卡
-      this.props.history.push(`/my/myfavcards/fav_${item.id}`);
+      this.props.history.push(`/my/favone/${item.id}`);
     } else {
       // 普通卡
       this.props.history.push(`/my/ordercarddetail/${item.id}`);

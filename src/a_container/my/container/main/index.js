@@ -373,9 +373,7 @@ class HomePageContainer extends React.Component {
       // 有用户信息
       str = `&e=${u.id}`;
     }
-    window.open(
-      `http://e.yimaokeji.com/index.php?m=book&f=browse&t=mhtml&nodeID=385${str}`
-    );
+    window.location.href = `http://e.yimaokeji.com/index.php?m=book&f=browse&t=mhtml&nodeID=385${str}`;
   }
 
   // 点击绑定经销商按钮

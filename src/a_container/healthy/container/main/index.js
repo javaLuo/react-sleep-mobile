@@ -63,9 +63,7 @@ class HomePageContainer extends React.Component {
       // 有用户信息
       str = `&e=${u.id}`;
     }
-    window.open(
-      `http://e.yimaokeji.com/index.php?m=page&f=view&t=mhtml&pageID=1${str}`
-    );
+    window.location.href = `http://e.yimaokeji.com/index.php?m=page&f=view&t=mhtml&pageID=1${str}`;
   }
 
   // 健康资讯点击
@@ -76,9 +74,7 @@ class HomePageContainer extends React.Component {
       // 有用户信息
       str = `&e=${u.id}`;
     }
-    window.open(
-      `http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1${str}`
-    );
+    window.location.href = `http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=3&pageID=1${str}`;
   }
 
   // 健康新闻
@@ -89,9 +85,7 @@ class HomePageContainer extends React.Component {
       // 有用户信息
       str = `&e=${u.id}`;
     }
-    window.open(
-      `http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=11&pageID=1&${str}`
-    );
+    window.location.href = `http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=11&pageID=1&${str}`;
   }
 
   onClickA(url) {
@@ -104,7 +98,7 @@ class HomePageContainer extends React.Component {
       this.props.history.push("/my/bindphone");
       return;
     }
-    window.open(`${url}${u.mobile}`);
+    window.location.assign(`${url}${u.mobile}`);
   }
   render() {
     const u = this.props.userinfo || {};
@@ -171,7 +165,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/contractList?phone=")}
+            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/contractList?phone=")} // contractList
           >
             <img className="icon" src={ImgA1} />
             <div className="title">我的合同</div>

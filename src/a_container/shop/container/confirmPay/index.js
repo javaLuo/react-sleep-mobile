@@ -609,10 +609,7 @@ class HomePageContainer extends React.Component {
                     ? [
                         <Item
                           key="0"
-                          extra={`￥${(
-                            d.productModel.price * d.shopCart.number +
-                            d.productModel.openAccountFee
-                          ).toFixed(2)}`}
+                          extra={`￥${tools.point2(this.getAllNeedPay(data))}`}
                           align={"top"}
                           className={"this-speacl-item"}
                         >

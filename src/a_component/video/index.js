@@ -188,7 +188,7 @@ class VideoLuo extends React.PureComponent {
           >
             {this.props.videoSrc ? (
               <li
-                className={this.state.android ? "android-video-li" : null}
+                className={"android-video-li"}
                 ref={dom => (this.videoBox = dom)}
               >
                 <div
@@ -206,7 +206,7 @@ class VideoLuo extends React.PureComponent {
                     x-webkit-airplay="true"
                     playsinline="true"
                     preload="true"
-                    poster={this.props.videoPic || ImgLogo}
+
                     src={this.props.videoSrc}
                     onPause={() => this.onPause()}
                   />

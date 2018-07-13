@@ -799,13 +799,7 @@ class HomePageContainer extends React.Component {
 
   // 删除评估卡
   onDelete(item) {
-
-    if (item.ticketNum - item.useCount > 0) {
-      Toast.info("存在未使用的卡，不可以删除哦");
-      return;
-    }
-
-    alert("确认删除优惠?", "删除后将无法再查看该优惠卡", [
+    alert("确认删除优惠卡?", "删除后将无法再查看该优惠卡", [
       { text: "取消", onPress: () => console.log("cancel") },
       {
         text: "确认",
@@ -813,7 +807,7 @@ class HomePageContainer extends React.Component {
           new Promise((resolve, rej) => {
             this.props.actions
               .mallCardDel({
-                cardId: item.id
+                ticketId: item.id
               })
               .then(res => {
                 if (res.status === 200) {
@@ -885,6 +879,7 @@ class HomePageContainer extends React.Component {
                               style={{ backgroundColor: "transparent" }}
                               key={index}
                               autoClose
+                              disabled={![2,4].includes(item.type)}
                               right={[
                                 {
                                   text: "删除",
@@ -1056,6 +1051,7 @@ class HomePageContainer extends React.Component {
           <div className="title">
             可赠送的优惠卡数量：{this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2}张
           </div>
+          <div className="title-2">(赠送中、预约中的卡不可赠送)</div>
           <div className="form-box">
             <Checkbox
               checked={this.state.modal1Check}
@@ -1088,7 +1084,7 @@ class HomePageContainer extends React.Component {
                 type="number"
                 pattern="[0-9]*"
                 className="input"
-                placeholder={`请输入≤${this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2}的数量`}
+                placeholder={`请输入有效数量`}
                 value={this.state.modal1Num}
                 onInput={e => this.onModal1Num(1, e)}
               />
@@ -1121,6 +1117,7 @@ class HomePageContainer extends React.Component {
           <div className="title">
             可支付的优惠卡数量：<span>{this.state.nPay}</span>张
           </div>
+          <div className="title-2">(赠送中、预约中的卡不可支付;有效期仅剩1天的卡不可批量支付)</div>
           <div className="form-box">
             <Checkbox
               checked={this.state.modal2Check}
@@ -1155,7 +1152,7 @@ class HomePageContainer extends React.Component {
                 type="number"
                 pattern="[0-9]*"
                 className="input"
-                placeholder={`请输入≤${this.state.nPay}的数量`}
+                placeholder={`请输入有效数量`}
                 value={this.state.modal2Num}
                 onInput={e => this.onModal2Num(1, e)}
               />
