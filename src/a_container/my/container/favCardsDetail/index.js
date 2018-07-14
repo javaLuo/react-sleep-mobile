@@ -323,12 +323,15 @@ class Register extends React.Component {
             loading={this.state.loading}
             onClick={() => this.onPay()}
           >
-            {
-              (!(
-                d.ticketType === "M" &&
-                d.ticketStatus === 3 &&
-                d.handselStatus !== 1
-              )) ? "已支付" : '微信支付'
+            {(()=>{
+              // 1未使用，2已使用，3已禁用，4已过期
+              if(d.ticketType === "M") {
+                if([1,2].includes(d.ticketStatus)){
+                  return '已支付';
+                }
+              }
+              return "微信支付";
+            })()
             }
           </Button>
         </div>

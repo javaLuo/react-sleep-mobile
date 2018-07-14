@@ -748,6 +748,16 @@ export const ticketHandsel = (params = {}) => async dispatch => {
   }
 };
 
+// 修改卡的分享状态(批量分享)
+export const ticketHandselMany = (params = {}) => async dispatch => {
+  try {
+    const res = await Fetchapi.newPost("app/user/ticket/update/record/insert/batch", params);
+    return res;
+  } catch (err) {
+    Toast.info("网络错误，请重试", 1);
+  }
+};
+
 // 我的客户 - 主账号进入时调此接口,返回主账号和其所有子账号
 export const getCustomersCompany = (params = {}) => async dispatch => {
   try {
@@ -1060,6 +1070,16 @@ export const getSendCount = (params = {}) => async dispatch => {
 export const batchShare = (params = {}) => async dispatch => {
   try {
     const res = await Fetchapi.newPost("app/user/batch/share", params);
+    return res;
+  } catch (err) {
+    Toast.info("网络错误，请重试", 1);
+  }
+};
+
+// 取消预约
+export const cancelReserve = (params = {}) => async dispatch => {
+  try {
+    const res = await Fetchapi.newPost("mall/ticket/cancelReserve", params);
     return res;
   } catch (err) {
     Toast.info("网络错误，请重试", 1);

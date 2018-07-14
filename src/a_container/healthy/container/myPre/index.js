@@ -23,7 +23,7 @@ import ImgPhone from "../../../../assets/dianhua@3x.png";
 // 本页面所需action
 // ==================
 import Luo from "iscroll-luo";
-import { mecReserveList } from "../../../../a_action/shop-action";
+import { mecReserveList, cancelReserve } from "../../../../a_action/shop-action";
 
 // ==================
 // Definition
@@ -113,7 +113,7 @@ class HomePageContainer extends React.Component {
         onPress: () =>
           new Promise((resolve, rej) => {
             this.props.actions
-              .balabala({ id: item.id })
+              .cancelReserve({ ticketId: item.id })
               .then(res => {
                 if (res.status === 200) {
                   Toast.success("删除成功", 1);
@@ -233,6 +233,6 @@ HomePageContainer.propTypes = {
 export default connect(
   state => ({}),
   dispatch => ({
-    actions: bindActionCreators({ mecReserveList }, dispatch)
+    actions: bindActionCreators({ mecReserveList,cancelReserve }, dispatch)
   })
 )(HomePageContainer);

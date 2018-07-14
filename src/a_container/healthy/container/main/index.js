@@ -88,7 +88,7 @@ class HomePageContainer extends React.Component {
     window.location.href = `http://e.yimaokeji.com/index.php?m=article&f=browse&t=mhtml&categoryID=11&pageID=1&${str}`;
   }
 
-  onClickA(url) {
+  onClickA(title, url) {
     const u = this.props.userinfo;
     if(!u || !u.id){
       Toast.info("请先登录");
@@ -98,7 +98,8 @@ class HomePageContainer extends React.Component {
       this.props.history.push("/my/bindphone");
       return;
     }
-    window.location.assign(`${url}${u.mobile}`);
+    window.location.href = url+u.mobile;
+   // this.props.history.push(`/healthy/iframe/${encodeURIComponent(title)}_${encodeURIComponent(url+u.mobile)}`);
   }
   render() {
     const u = this.props.userinfo || {};
@@ -165,7 +166,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/contractList?phone=")} // contractList
+            onClick={()=>this.onClickA("我的合同","http://yimaokeji.ibestservice.com/service/contractList?phone=")} // contractList
           >
             <img className="icon" src={ImgA1} />
             <div className="title">我的合同</div>
@@ -175,7 +176,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/openBillList?phone=")}
+            onClick={()=>this.onClickA("我的发票","http://yimaokeji.ibestservice.com/service/openBillList?phone=")}
           >
             <img className="icon" src={ImgA2} />
             <div className="title">我的发票</div>
@@ -185,7 +186,7 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("http://yimaokeji.ibestservice.com/service/evaluateList?phone=")}
+            onClick={()=>this.onClickA("我的评价","http://yimaokeji.ibestservice.com/service/evaluateList?phone=")}
           >
             <img className="icon" src={ImgA3} />
             <div className="title">我的评价</div>

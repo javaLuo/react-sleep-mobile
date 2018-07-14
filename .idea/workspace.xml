@@ -14,37 +14,97 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myCard/index.js">
+      <file leaf-file-name="shop-action.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="354" column="16" lean-forward="false" selection-start-line="354" selection-start-column="16" selection-end-line="354" selection-end-column="16" />
-              <folding>
-                <element signature="e#76#102#0" expanded="true" />
-                <element signature="e#375#405#0" expanded="true" />
-                <element signature="e#878#1040#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="549">
+              <caret line="640" column="71" lean-forward="false" selection-start-line="640" selection-start-column="71" selection-end-line="640" selection-end-column="71" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shop-action.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="426" column="24" lean-forward="false" selection-start-line="426" selection-start-column="13" selection-end-line="426" selection-end-column="24" />
+            <state relative-caret-position="241">
+              <caret line="119" column="3" lean-forward="false" selection-start-line="119" selection-start-column="3" selection-end-line="119" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/activity/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="505">
+              <caret line="147" column="9" lean-forward="false" selection-start-line="147" selection-start-column="9" selection-end-line="147" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/my/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-102">
+              <caret line="45" column="66" lean-forward="false" selection-start-line="45" selection-start-column="66" selection-end-line="45" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-7480">
+              <caret line="265" column="5" lean-forward="false" selection-start-line="265" selection-start-column="5" selection-end-line="265" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="439">
+              <caret line="140" column="62" lean-forward="false" selection-start-line="140" selection-start-column="62" selection-end-line="140" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6996">
+              <caret line="326" column="36" lean-forward="false" selection-start-line="326" selection-start-column="36" selection-end-line="326" selection-end-column="36" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favRecord/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-757">
+              <caret line="64" column="16" lean-forward="false" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="811" column="28" lean-forward="true" selection-start-line="811" selection-start-column="28" selection-end-line="811" selection-end-column="28" />
+            <state relative-caret-position="509">
+              <caret line="969" column="65" lean-forward="false" selection-start-line="969" selection-start-column="52" selection-end-line="969" selection-end-column="65" />
               <folding>
-                <element signature="e#910#1097#0" expanded="true" />
+                <element signature="e#70#96#0" expanded="true" />
+                <element signature="e#392#422#0" expanded="true" />
+                <element signature="e#910#1118#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -54,24 +114,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>价格</find>
-      <find>abnormal1</find>
-      <find>checkCardStatus</find>
-      <find>catch</find>
-      <find>funde</find>
-      <find>onBindPhone</find>
-      <find>查看评估</find>
-      <find>MLM</find>
-      <find>status</find>
-      <find>findTotalByType</find>
-      <find>getData</find>
-      <find>.title</find>
-      <find>onCardClick</find>
-      <find>赠送</find>
-      <find>handselStatus</find>
-      <find>getAllNeedPay</find>
-      <find>window.open</find>
-      <find>heiheihei</find>
       <find>video-li-box</find>
       <find>ImgLogo</find>
       <find>data</find>
@@ -84,6 +126,24 @@
       <find>删除</find>
       <find>mallQuanDel</find>
       <find>mallCardDel</find>
+      <find>encode</find>
+      <find>onClickA</find>
+      <find>Iframe</find>
+      <find>info</find>
+      <find>initWxConfig</find>
+      <find>tab-box</find>
+      <find>my-carousel</find>
+      <find>onBtnClick</find>
+      <find>Many</find>
+      <find>ticketHandsel</find>
+      <find>s3data</find>
+      <find>Toast</find>
+      <find>s4data</find>
+      <find>getUserInfo</find>
+      <find>ticketStatus</find>
+      <find>queryNotUsedListTicket</find>
+      <find>getStationInfoById</find>
+      <find>getData</find>
     </findStrings>
     <replaceStrings>
       <replace>被评估这信息</replace>
@@ -134,11 +194,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/a_container/share/shareFreeCard.js" />
-        <option value="$PROJECT_DIR$/src/store/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/test/index.js" />
-        <option value="$PROJECT_DIR$/src/a_reducer/app-reducer.js" />
-        <option value="$PROJECT_DIR$/src/util/fetch-api.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/perInfo/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/userInfo/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/z78/container/main/index.js" />
@@ -149,7 +204,6 @@
         <option value="$PROJECT_DIR$/src/a_container/home/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_component/FlyBall/index.js" />
         <option value="$PROJECT_DIR$/src/a_component/loading/index.scss" />
         <option value="$PROJECT_DIR$/webpack.production.config.js" />
@@ -159,7 +213,6 @@
         <option value="$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/profit/container/tiXian/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/payChose/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/shop/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/cardVoucher/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/a_reducer/index.js" />
@@ -167,24 +220,31 @@
         <option value="$PROJECT_DIR$/src/a_container/my/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/favRecord/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/favRecord/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/live/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_component/video/index.scss" />
         <option value="$PROJECT_DIR$/src/a_component/video/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/shop/container/confirmPay/index.js" />
         <option value="$PROJECT_DIR$/public/index.ejs" />
-        <option value="$PROJECT_DIR$/src/a_container/healthy/container/main/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.scss" />
-        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/favOne.scss" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/favOne.js" />
         <option value="$PROJECT_DIR$/src/a_container/home/index.js" />
-        <option value="$PROJECT_DIR$/src/a_container/healthy/container/myPre/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/orderDetail/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/myPre/index.scss" />
         <option value="$PROJECT_DIR$/src/a_container/healthy/container/myCard/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/iframe/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/test/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/myPre/index.js" />
+        <option value="$PROJECT_DIR$/src/a_action/shop-action.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/iframe/index.less" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/shop/container/activity/index.js" />
         <option value="$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/main/index.js" />
+        <option value="$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js" />
       </list>
     </option>
   </component>
@@ -200,9 +260,9 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="15" />
-    <option name="y" value="2" />
-    <option name="width" value="1332" />
+    <option name="x" value="194" />
+    <option name="y" value="36" />
+    <option name="width" value="1736" />
     <option name="height" value="1051" />
   </component>
   <component name="ProjectView">
@@ -220,7 +280,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -237,12 +296,6 @@
               <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_action" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -267,19 +320,13 @@
               <item name="a_container" type="462c0819:PsiDirectoryNode" />
               <item name="my" type="462c0819:PsiDirectoryNode" />
               <item name="container" type="462c0819:PsiDirectoryNode" />
-              <item name="myFavCards" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="react-sleep-mobile" type="b2602c69:ProjectViewProjectNode" />
-              <item name="react-sleep-mobile" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="a_container" type="462c0819:PsiDirectoryNode" />
-              <item name="root" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -298,19 +345,19 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\myFavCards" />
-      <recent name="D:\flycat\react-sleep-mobile\src" />
-      <recent name="D:\flycat\react-sleep-mobile\public" />
-      <recent name="D:\flycat\react-sleep-mobile" />
-      <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\favRecord" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\flycat\react-sleep-mobile\src\a_container\healthy\container\main\assets" />
       <recent name="D:\flycat\react-sleep-mobile\src\a_component\loading" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets" />
       <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\favCardsDetail" />
       <recent name="D:\flycat\react-sleep-mobile\src\assets\favcards" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\healthy\container\iframe" />
+      <recent name="D:\flycat\react-sleep-mobile\src\a_container\my\container\myFavCards" />
+      <recent name="D:\flycat\react-sleep-mobile\src" />
+      <recent name="D:\flycat\react-sleep-mobile\public" />
+      <recent name="D:\flycat\react-sleep-mobile" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -680,28 +727,28 @@
       <workItem from="1531358730666" duration="1972000" />
       <workItem from="1531361517277" duration="618000" />
       <workItem from="1531374110878" duration="7273000" />
-      <workItem from="1531444695924" duration="23109000" />
+      <workItem from="1531444695924" duration="23708000" />
+      <workItem from="1531530580001" duration="19107000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2344937000" />
+    <option name="totallyTimeSpent" value="2364643000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="15" y="2" width="1332" height="1051" extended-state="0" />
-    <editor active="true" />
+    <frame x="194" y="36" width="1736" height="1051" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20440729" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15639535" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14118896" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3203769" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -721,48 +768,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/userInfo/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2497">
-          <caret line="45" column="17" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.production.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="67" column="66" lean-forward="true" selection-start-line="67" selection-start-column="66" selection-end-line="67" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_component/loading/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myCard/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="25" lean-forward="true" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/cardVoucher/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="745">
-          <caret line="61" column="20" lean-forward="false" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="88" column="51" lean-forward="false" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/profit/container/proDetail/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7898">
@@ -798,44 +803,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/payChose/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="366" column="0" lean-forward="true" selection-start-line="366" selection-start-column="0" selection-end-line="366" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/main/assets/a3.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/activity/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1702">
-          <caret line="129" column="18" lean-forward="false" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="18" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="151" column="36" lean-forward="false" selection-start-line="151" selection-start-column="36" selection-end-line="151" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/cardVoucher/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="392" column="25" lean-forward="true" selection-start-line="392" selection-start-column="25" selection-end-line="392" selection-end-column="25" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/root/index.scss">
@@ -878,26 +848,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="45" column="66" lean-forward="false" selection-start-line="45" selection-start-column="66" selection-end-line="45" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favRecord/index.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="73">
           <caret line="154" column="33" lean-forward="false" selection-start-line="154" selection-start-column="33" selection-end-line="154" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favRecord/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -920,14 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myReport/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="93" column="9" lean-forward="false" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/goodDetail/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-296">
@@ -940,15 +886,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="619" column="72" lean-forward="true" selection-start-line="619" selection-start-column="72" selection-end-line="619" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -980,34 +917,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="96" column="18" lean-forward="true" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <caret line="6" column="7" lean-forward="false" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding>
-            <element signature="e#68#94#0" expanded="false" />
-            <element signature="e#321#370#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2293">
-          <caret line="149" column="36" lean-forward="false" selection-start-line="149" selection-start-column="36" selection-end-line="149" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1032,27 +941,6 @@
         <state relative-caret-position="638">
           <caret line="181" column="23" lean-forward="false" selection-start-line="181" selection-start-column="23" selection-end-line="181" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="727">
-          <caret line="504" column="18" lean-forward="false" selection-start-line="504" selection-start-column="18" selection-end-line="504" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myPre/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="196" column="32" lean-forward="false" selection-start-line="196" selection-start-column="32" selection-end-line="196" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#75#101#0" expanded="false" />
-            <element signature="e#374#417#0" expanded="false" />
-            <element signature="e#697#727#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1110,31 +998,193 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myCard/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
+        <state relative-caret-position="0">
           <caret line="354" column="16" lean-forward="false" selection-start-line="354" selection-start-column="16" selection-end-line="354" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/payChose/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="227" column="58" lean-forward="false" selection-start-line="227" selection-start-column="40" selection-end-line="227" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/test/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="31" column="12" lean-forward="true" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
           <folding>
-            <element signature="e#76#102#0" expanded="true" />
-            <element signature="e#375#405#0" expanded="true" />
-            <element signature="e#878#1040#0" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="87" column="17" lean-forward="true" selection-start-line="87" selection-start-column="17" selection-end-line="87" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/iframe/index.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="97" column="47" lean-forward="true" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/iframe/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="34" column="7" lean-forward="true" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myPre/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#75#101#0" expanded="false" />
+            <element signature="e#374#417#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/myReport/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="75" column="27" lean-forward="false" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/home/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5536">
+          <caret line="311" column="48" lean-forward="false" selection-start-line="311" selection-start-column="48" selection-end-line="311" selection-end-column="48" />
+          <folding>
+            <element signature="e#65#91#0" expanded="false" />
+            <element signature="e#394#422#0" expanded="false" />
+            <element signature="e#1056#1188#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="119" column="3" lean-forward="false" selection-start-line="119" selection-start-column="3" selection-end-line="119" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="45" column="66" lean-forward="false" selection-start-line="45" selection-start-column="66" selection-end-line="45" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_action/shop-action.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="426" column="24" lean-forward="false" selection-start-line="426" selection-start-column="13" selection-end-line="426" selection-end-column="24" />
+        <state relative-caret-position="549">
+          <caret line="640" column="71" lean-forward="false" selection-start-line="640" selection-start-column="71" selection-end-line="640" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/a_container/my/container/myFavCards/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="811" column="28" lean-forward="true" selection-start-line="811" selection-start-column="28" selection-end-line="811" selection-end-column="28" />
+        <state relative-caret-position="509">
+          <caret line="969" column="65" lean-forward="false" selection-start-line="969" selection-start-column="52" selection-end-line="969" selection-end-column="65" />
           <folding>
-            <element signature="e#910#1097#0" expanded="true" />
+            <element signature="e#70#96#0" expanded="true" />
+            <element signature="e#392#422#0" expanded="true" />
+            <element signature="e#910#1118#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favRecord/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-757">
+          <caret line="64" column="16" lean-forward="false" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/cardVoucher/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="264" column="5" lean-forward="true" selection-start-line="264" selection-start-column="5" selection-end-line="264" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/favCardsDetail/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6996">
+          <caret line="326" column="36" lean-forward="false" selection-start-line="326" selection-start-column="36" selection-end-line="326" selection-end-column="36" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/healthy/container/choseCard/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="140" column="62" lean-forward="false" selection-start-line="140" selection-start-column="62" selection-end-line="140" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/my/container/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7480">
+          <caret line="265" column="5" lean-forward="false" selection-start-line="265" selection-start-column="5" selection-end-line="265" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/a_container/shop/container/activity/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="147" column="9" lean-forward="false" selection-start-line="147" selection-start-column="9" selection-end-line="147" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -33,6 +33,7 @@ import {
   queryListFree,
   saveFreeCardInfo,
   ticketHandsel,
+  ticketHandselMany,
   createMcardList,
   wxPay,
   getSendCount,
@@ -474,8 +475,8 @@ class HomePageContainer extends React.Component {
             imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
             type: "link",
             success: () => {
-              Toast.info("分享成功", 1);
-              me.ticketHandsel({ userId: u.id, shareType: 2, dateTime });
+              Toast.info("批量分享成功", 1);
+              me.ticketHandselMany({ userId: u.id, shareType: 4, shareNo: ticketNo,dateTime });
             }
           });
           wx.onMenuShareTimeline({
@@ -485,8 +486,8 @@ class HomePageContainer extends React.Component {
             link: `${Config.baseURL}/gzh/?#/sharefreecard/${str}`,
             imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
             success: () => {
-              Toast.info("分享成功", 1);
-              me.ticketHandsel({ userId: u.id, shareType: 2, dateTime });
+              Toast.info("批量分享成功", 1);
+              me.ticketHandselMany({ userId: u.id, shareType: 4, shareNo: ticketNo,dateTime });
             }
           });
           this.setState({
@@ -661,6 +662,8 @@ class HomePageContainer extends React.Component {
         btn2Show: false,
         modal2Num: 1
       });
+      this.s3data = null;
+      this.s4data = null;
     } else if (msg.errMsg === "chooseWXPay:cancel") {
       // 支付被取消
       this.s4data = null;
@@ -674,6 +677,15 @@ class HomePageContainer extends React.Component {
   // 分享成功后还要调个接口更改状态
   ticketHandsel(params) {
     this.props.actions.ticketHandsel(params).then(res => {
+      if (res.status === 200) {
+        this.onDown(3);
+        this.onDown(1);
+      }
+    });
+  }
+
+  ticketHandselMany(params){
+    this.props.actions.ticketHandselMany(params).then(res => {
       if (res.status === 200) {
         this.onDown(3);
         this.onDown(1);
@@ -1229,6 +1241,7 @@ export default connect(
         queryListFree,
         saveFreeCardInfo,
         ticketHandsel,
+        ticketHandselMany,
         createMcardList,
         wxPay,
         getSendCount,

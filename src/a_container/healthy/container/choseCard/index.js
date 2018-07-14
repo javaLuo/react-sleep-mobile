@@ -144,14 +144,17 @@ class HomePageContainer extends React.Component {
                         key={index}
                         className={(()=>{
                           const classNames = ["cardbox", "page-flex-col", "flex-jc-sb"];
-                          switch (item.ticketStyle) {
-                            case 1:
-                              classNames.push("a");
-                              break;
-                            case 2:
-                              classNames.push("b");
-                              break;
+                          if(item.ticketType === 'M') {
+                            switch (item.ticketStyle) {
+                              case 1:
+                                classNames.push("a");
+                                break;
+                              case 2:
+                                classNames.push("b");
+                                break;
+                            }
                           }
+
                           return classNames.join(" ");
                         })()}
                         onClick={() => this.onCardClick(item)}

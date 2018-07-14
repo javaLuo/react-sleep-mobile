@@ -119,6 +119,17 @@ class HomePageContainer extends React.Component {
     this.props.history.push(`/shop/shoptypeall/${id}`);
   }
 
+  goIn(item){
+    const u = this.props.userinfo;
+    if(item.url && item.url.includes("cms/c")){ // 是自己的活动URL
+      this.props.history.push(`/shop/activity/s_${encodeURIComponent(item.title)}_${encodeURIComponent(item.url)}_${encodeURIComponent(item.adImg)}`);
+    } else if(u){
+      window.location.href = `${item.url}&e=${u.id}`;
+    } else {
+      window.location.href = item.url;
+    }
+  }
+
   render() {
     const d = [...this.props.allProducts].sort((a, b) => a - b);
     const u = this.props.userinfo;
@@ -139,25 +150,14 @@ class HomePageContainer extends React.Component {
             swipeSpeed={35}
           >
             {this.state.barPics.map((item, index) => (
-              <a
+              <div
                 key={index}
-                href={(()=>{
-                  if(item.url && item.url.includes("#/")){ // 是自己的URL
-                    if(item.url.includes("/activity")){
-                      return `${item.url}_${encodeURIComponent(item.acImg)}`;
-                    }
-                  } else if(u){
-                    return `${item.url}&e=${u.id}`;
-                  }
-                    return item.url;
-                })()}
+                onClick={()=>this.goIn(item)}
                 style={{
                   display: "inline-block",
                   width: "100%",
                   height: this.state.imgHeight
                 }}
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 <img
                   src={item.adImg}
@@ -168,7 +168,7 @@ class HomePageContainer extends React.Component {
                     this.setState({ imgHeight: "auto" });
                   }}
                 />
-              </a>
+              </div>
             ))}
           </Carousel>
         ) : (

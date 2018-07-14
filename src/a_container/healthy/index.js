@@ -27,6 +27,7 @@ import ChoseCard from "./container/choseCard";
 import ChoseCard2 from "./container/choseCard2";
 import CardVoucher from "./container/cardVoucher";
 import Wei from "./container/wei";
+import Iframe from "./container/iframe";
 // ==================
 // 本页面所需action
 // ==================
@@ -101,6 +102,11 @@ class Healthy extends React.Component {
             exact
             path={`${this.props.match.url}/wei/:id`}
             component={Wei}
+          />
+          <Route
+            exact
+            path={`${this.props.match.url}/iframe/:id`}
+            component={Iframe}
           />
         </Switch>
       </div>

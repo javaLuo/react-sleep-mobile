@@ -77,11 +77,8 @@ class HomePageContainer extends React.Component {
 
   componentDidMount() {
     document.title = "我的e家";
-    if (!this.props.userinfo) {
-      this.getUserInfo();
-    } else {
-      this.getMyAmbassador();
-      this.getMyCustomers();
+
+    if (this.props.userinfo) {
       // 判断是否是第1次进入“我的E家”
       const user_first = localStorage.getItem("user_first");
       if (!user_first && !this.props.userinfo.mobile) {
@@ -91,6 +88,7 @@ class HomePageContainer extends React.Component {
         localStorage.setItem("user_first", "true");
       }
     }
+    this.getUserInfo();
     this.getAuditCount();
     this.getShipOrderCount();
     this.svgInit();
@@ -257,9 +255,8 @@ class HomePageContainer extends React.Component {
 
   // 获取当前登录用户的相关信息
   getUserInfo() {
-    const u = this.props.userinfo;
     const openId = sessionStorage.getItem("openId");
-    if (!u && openId) {
+    if (openId) {
       this.props.actions.getUserInfo({ openId }).then(res => {
         if (res.status === 200) {
           this.getMyAmbassador();

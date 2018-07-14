@@ -25,11 +25,15 @@ class TestContainer extends React.PureComponent {
   aclick(){
     console.log("点击了2");
   }
+  testClick() {
+    window.location.href="http://www.lanrentuku.com/";
+  }
+
   render() {
     return (
       <div className="page-test">
-        <span onClick={()=> this.aclick()}>{this.props.num}</span>
-        <img src={ImgCode} onClick={()=> this.props.actions.numtest(100)}/>
+        <span onClick={() => this.aclick()}>{this.props.num}</span>
+        <img src={ImgCode} onClick={() => this.testClick()}/>
       </div>
     );
   }

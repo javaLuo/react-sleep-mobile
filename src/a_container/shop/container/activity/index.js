@@ -41,26 +41,28 @@ class HomePageContainer extends React.Component {
       .split("/")
       .pop()
       .split("_");
-    const id = Number(p[0]);
-    this.setState({
-      shareImg: decodeURIComponent(p[1])
-    });
-    if (id) {
-      this.getData(id);
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextP) {
-    if (nextP.location !== this.props.location) {
-      const p = this.props.location.pathname
-        .split("/")
-        .pop()
-        .split("_");
+    if(p[0] === 's') { // 从商城进
+      this.setState({
+        data: {
+          title: decodeURIComponent(p[1]),
+          acUrl: decodeURIComponent(p[2])
+        },
+        shareImg: decodeURIComponent(p[3]),
+      },()=>{
+        this.props.actions.wxInit().then(res2 => {
+          if (res2.status === 200) {
+            this.initWxConfig(res2.data, this.state.data);
+          }
+        });
+      });
+    } else { // 从首页进
+      const id = Number(p[0]);
       this.setState({
         shareImg: decodeURIComponent(p[1])
       });
-      const id = Number(p[0]);
-      this.getData(id);
+      if (id) {
+        this.getData(id);
+      }
     }
   }
 
@@ -86,7 +88,7 @@ class HomePageContainer extends React.Component {
           });
           Toast.hide();
         } else {
-          Toast.info(res.message);
+          Toast.info(res.message, 1);
         }
       })
       .catch(() => {
@@ -147,7 +149,7 @@ class HomePageContainer extends React.Component {
       });
     });
     wx.error(e => {
-      Toast.info(e.errMsg, 1);
+      // Toast.info(e.errMsg, 1);
     });
   }
 
