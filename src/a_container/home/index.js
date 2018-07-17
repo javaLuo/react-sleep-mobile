@@ -466,7 +466,7 @@ class HomePageContainer extends React.Component {
                           {this.howManyStars(item.satisfaction)}
                         </div>
                         <div className="province">
-                          {item.province && item.province.replace("省", "")}
+                          {item.province && item.province.replace(/省|市/g, "")}
                         </div>
                       </div>
                       <div className="all_nowarp2 name">{`${item.city}${item.name}`}</div>

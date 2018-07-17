@@ -157,7 +157,7 @@ class HomePageContainer extends React.Component {
             <div className="addr-info">
               <img src={ImgAddr} />
               <span>
-                {d.address && `${d.province}${d.city}${d.region}${d.address}`}
+                {d.address}
               </span>
             </div>
           </div>

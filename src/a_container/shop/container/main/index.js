@@ -121,12 +121,16 @@ class HomePageContainer extends React.Component {
 
   goIn(item){
     const u = this.props.userinfo;
-    if(item.url && item.url.includes("cms/c")){ // 是自己的活动URL
+    if(item.url && item.url.includes("cms/c")){ // 是CMS的活动URL
       this.props.history.push(`/shop/activity/s_${encodeURIComponent(item.title)}_${encodeURIComponent(item.url)}_${encodeURIComponent(item.adImg)}`);
-    } else if(u){
-      window.location.href = `${item.url}&e=${u.id}`;
-    } else {
+    } else if(item.url && item.url.include("#/")){ // 是自己的URL
       window.location.href = item.url;
+    } else { // 是别人的URL
+      if(u){
+        window.location.href = `${item.url}&e=${u.id}`;
+      } else {
+        window.location.href = item.url;
+      }
     }
   }
 
