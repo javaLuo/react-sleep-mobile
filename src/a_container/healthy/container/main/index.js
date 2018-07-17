@@ -91,7 +91,6 @@ class HomePageContainer extends React.Component {
   onClickA(title, url) {
     const u = this.props.userinfo;
     if(!u || !u.id){
-      Toast.info("请先登录");
       return;
     }
     if(!u.mobile){
