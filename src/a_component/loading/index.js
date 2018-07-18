@@ -6,14 +6,14 @@ export default class Footer extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
-  static getDerivedStateFromProps(nextProps,prevState){
-    if(nextProps.error || nextProps.timedOut){
-      if(!sessionStorage.getItem('flashCache')){
-        sessionStorage.setItem("flashCache","t");
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.error || nextProps.timedOut) {
+      console.log("自动刷新：", nextProps.error, nextProps.timedOut);
+      if (!sessionStorage.getItem("flashCache")) {
+        sessionStorage.setItem("flashCache", "t");
         window.location.reload(true);
       }
     }

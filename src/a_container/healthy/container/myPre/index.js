@@ -23,7 +23,10 @@ import ImgPhone from "../../../../assets/dianhua@3x.png";
 // 本页面所需action
 // ==================
 import Luo from "iscroll-luo";
-import { mecReserveList, cancelReserve } from "../../../../a_action/shop-action";
+import {
+  mecReserveList,
+  cancelReserve
+} from "../../../../a_action/shop-action";
 
 // ==================
 // Definition
@@ -197,13 +200,13 @@ class HomePageContainer extends React.Component {
                           </div>
                         </div>
                       </div>
-                      {
-                        item.ticketStatus === 1 ? (
-                          <div className={"controls"}>
-                            <div onClick={()=>this.onCancel(item)}>取消预约</div>
+                      {item.ticketStatus === 1 ? (
+                        <div className={"controls"}>
+                          <div onClick={() => this.onCancel(item)}>
+                            取消预约
                           </div>
-                        ) : null
-                      }
+                        </div>
+                      ) : null}
                     </li>
                   );
                 });
@@ -233,6 +236,6 @@ HomePageContainer.propTypes = {
 export default connect(
   state => ({}),
   dispatch => ({
-    actions: bindActionCreators({ mecReserveList,cancelReserve }, dispatch)
+    actions: bindActionCreators({ mecReserveList, cancelReserve }, dispatch)
   })
 )(HomePageContainer);

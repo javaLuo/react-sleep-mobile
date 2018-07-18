@@ -9,7 +9,7 @@ import ImgTest from "../../assets/test/new.png";
 import anime from "animejs";
 import tools from "../../util/all";
 import ImgCode from "./code.jpg";
-import { numtest } from '../../a_action/app-action';
+import { numtest } from "../../a_action/app-action";
 class TestContainer extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -22,18 +22,18 @@ class TestContainer extends React.PureComponent {
 
   componentWillUnmount() {}
 
-  aclick(){
+  aclick() {
     console.log("点击了2");
   }
   testClick() {
-    window.location.href="http://www.lanrentuku.com/";
+    window.location.href = "http://www.lanrentuku.com/";
   }
 
   render() {
     return (
       <div className="page-test">
         <span onClick={() => this.aclick()}>{this.props.num}</span>
-        <img src={ImgCode} onClick={() => this.testClick()}/>
+        <img src={ImgCode} onClick={() => this.testClick()} />
       </div>
     );
   }
@@ -45,7 +45,7 @@ class TestContainer extends React.PureComponent {
 
 TestContainer.propTypes = {
   actions: P.any,
-  num: P.number,
+  num: P.number
 };
 
 // ==================
@@ -54,7 +54,7 @@ TestContainer.propTypes = {
 
 export default connect(
   state => ({
-    num: state.app.num,
+    num: state.app.num
   }),
   dispatch => ({
     actions: bindActionCreators({ numtest }, dispatch)

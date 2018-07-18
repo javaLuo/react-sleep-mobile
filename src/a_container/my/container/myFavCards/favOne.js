@@ -47,7 +47,7 @@ class HomePageContainer extends React.Component {
       data: [],
       pageSize: 10,
       pageNum: 1,
-      total: 0,
+      total: 0
     };
   }
 
@@ -65,7 +65,6 @@ class HomePageContainer extends React.Component {
     Toast.hide();
   }
 
-
   /**
    * 获取数据
    * @param pageNum
@@ -73,19 +72,14 @@ class HomePageContainer extends React.Component {
    * @param type flash刷新，update加载更多
    * @param search 来自我的订单优惠卡查询，会有值
    */
-  getData(
-    pageNum = 1,
-    pageSize = 10,
-    type = "flash",
-    search = null,
-  ) {
+  getData(pageNum = 1, pageSize = 10, type = "flash", search = null) {
     const u = this.props.userinfo || {};
     const params = {
       userId: u.id,
       pageNum,
       pageSize,
-      orderId: search,
-      ticketStatus: 1
+      orderId: search
+      // ticketStatus: 1
     };
 
     this.props.actions
@@ -106,7 +100,10 @@ class HomePageContainer extends React.Component {
             }
           } else {
             this.setState({
-              data: type === "flash" ? res.data.ticketList.result : [...data, ...res.data.ticketList.result],
+              data:
+                type === "flash"
+                  ? res.data.ticketList.result
+                  : [...data, ...res.data.ticketList.result]
             });
             Toast.hide();
           }
@@ -120,7 +117,7 @@ class HomePageContainer extends React.Component {
       .catch(() => {
         Toast.hide();
       });
-  };
+  }
 
   // 下拉刷新
   onDown() {
@@ -133,7 +130,7 @@ class HomePageContainer extends React.Component {
       this.state.pageNum + 1,
       this.state.pageSize,
       "update",
-      this.state.search,
+      this.state.search
     );
   }
 
@@ -158,8 +155,8 @@ class HomePageContainer extends React.Component {
 
   // 点击一张评估卡
   onCardClick(item_son) {
-    if([2,4].includes(item_son.type)) { // 已使用已过期分类的不能进入详情页,现在数据没这字段，现在数据也不能判断是否是已赠送，那反正都进详情好了
-
+    if ([2, 4].includes(item_son.type)) {
+      // 已使用已过期分类的不能进入详情页,现在数据没这字段，现在数据也不能判断是否是已赠送，那反正都进详情好了
     } else {
       this.props.actions.saveFreeCardInfo(item_son); // 保存该张卡信息，下个页面要用
       setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
@@ -170,137 +167,141 @@ class HomePageContainer extends React.Component {
     const d = this.state.data;
     return (
       <div className="page-favone">
-              <div className="tabs-div">
-                {/*<Luo*/}
-                  {/*id={`luo`}*/}
-                  {/*className="touch-none"*/}
-                  {/*onDown={() => this.onDown()}*/}
-                  {/*onUp={() => this.onUp()}*/}
-                  {/*iscrollOptions={{*/}
-                    {/*disableMouse: true*/}
-                  {/*}}*/}
-                {/*>*/}
-                  <div className="the-ul">
-                    {(() => {
-                      if (d.length === 0) {
-                        return (
-                          <div key={0} className="data-nothing">
-                            <img src={Img404} />
-                            <div>亲，这里什么也没有哦~</div>
-                          </div>
-                        );
-                      } else {
-                        return d.map((item_son, index_son) => {
-                          return (
-                            <div
-                              key={index_son}
-                              className={(() => {
-                                const classNames = [
-                                  "cardbox",
-                                  "page-flex-col",
-                                  "flex-jc-sb"
-                                ];
-                                if (this.checkCardStatus(item_son) !== 1) { // 只有已使用、已过期才灰色，其他即使过期也不灰
-                                    switch (item_son.ticketStyle) {
-                                        case 1:
-                                            classNames.push("abnormal1");
-                                            break;
-                                        case 2:
-                                            classNames.push("abnormal2");
-                                            break;
-                                        default:
-                                            classNames.push("abnormal3");
-                                    }
-                                }
-                                switch (item_son.ticketStyle) {
-                                  case 1:
-                                    classNames.push("a");
-                                    break;
-                                  case 2:
-                                    classNames.push("b");
-                                    break;
-                                }
-                                return classNames.join(" ");
-                              })()}
-                              style={(()=>{
-                                if(this.checkCardStatus(item_son) !== 1 && item_son.imageUsed){
-                                  return { backgroundImage: `url(${item_son.imageUsed})` };
-                                } else if(item_son.image) {
-                                  return { backgroundImage: `url(${item_son.image})` };
-                                }
-                                return null;
-                              })()}
-                              onClick={() => this.onCardClick(item_son)}
-                            >
-                              <div className="row1 flex-none page-flex-row flex-jc-sb">
-                                <div>
-                                  <div className="t" />
-                                </div>
-                                {(() => {
-                                  switch (item_son.type) { // 现在请求的是待使用的，元数据中没有字段表明是已过期还是已使用
-                                    case 4:
-                                      return (
-                                        <img className="tip" src={ImgGuoQi} />
-                                      ); // 已过期
-                                    case 2:
-                                      return (
-                                        <img className="tip" src={ImgShiYong} />
-                                      ); // 已使用
-                                    case 5:
-                                      return (
-                                        <div className="flex-none">
-                                          赠送记录 <img src={ImgRight} />
-                                        </div>
-                                      ); // 已赠送
-                                    default:
-                                      return (
-                                        <div className="flex-none">
-                                          {item_son.handselStatus === 1
-                                            ? "赠送中 "
-                                            : null}
-                                          <img src={ImgRight} />
-                                        </div>
-                                      );
-                                  }
-                                })()}
-                              </div>
-                              <div className="row-center all_nowarp">
-                                {(() => {
-                                  switch (item_son.ticketStyle) {
-                                    case 1:
-                                      return item_son.ticketContent;
-                                    case 2:
-                                      return "";
-                                    case 3:
-                                      return "";
-                                    default:
-                                      return "";
-                                  }
-                                })()}
-                              </div>
-                              <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
-                                <div>
-                                  <div className="t">
-                                    卡号：{tools.cardFormart(item_son.ticketNo)}
-                                  </div>
-                                  <div className="i">
-                                    有效期至：{item_son.validEndTime
-                                      ? item_son.validEndTime.split(" ")[0]
-                                      : ""}
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className="money">￥1000</div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        });
-                      }
-                    })()}
+        <div className="tabs-div">
+          {/*<Luo*/}
+          {/*id={`luo`}*/}
+          {/*className="touch-none"*/}
+          {/*onDown={() => this.onDown()}*/}
+          {/*onUp={() => this.onUp()}*/}
+          {/*iscrollOptions={{*/}
+          {/*disableMouse: true*/}
+          {/*}}*/}
+          {/*>*/}
+          <div className="the-ul">
+            {(() => {
+              if (d.length === 0) {
+                return (
+                  <div key={0} className="data-nothing">
+                    <img src={Img404} />
+                    <div>亲，这里什么也没有哦~</div>
                   </div>
-                {/*</Luo>*/}
-              </div>
+                );
+              } else {
+                return d.map((item_son, index_son) => {
+                  return (
+                    <div
+                      key={index_son}
+                      className={(() => {
+                        const classNames = [
+                          "cardbox",
+                          "page-flex-col",
+                          "flex-jc-sb"
+                        ];
+                        if (this.checkCardStatus(item_son) !== 1) {
+                          // 只有已使用、已过期才灰色，其他即使过期也不灰
+                          switch (item_son.ticketStyle) {
+                            case 1:
+                              classNames.push("abnormal1");
+                              break;
+                            case 2:
+                              classNames.push("abnormal2");
+                              break;
+                            default:
+                              classNames.push("abnormal3");
+                          }
+                        }
+                        switch (item_son.ticketStyle) {
+                          case 1:
+                            classNames.push("a");
+                            break;
+                          case 2:
+                            classNames.push("b");
+                            break;
+                        }
+                        return classNames.join(" ");
+                      })()}
+                      style={(() => {
+                        if (
+                          this.checkCardStatus(item_son) !== 1 &&
+                          item_son.imageUsed
+                        ) {
+                          return {
+                            backgroundImage: `url(${item_son.imageUsed})`
+                          };
+                        } else if (item_son.image) {
+                          return { backgroundImage: `url(${item_son.image})` };
+                        }
+                        return null;
+                      })()}
+                      onClick={() => this.onCardClick(item_son)}
+                    >
+                      <div className="row1 flex-none page-flex-row flex-jc-sb">
+                        <div>
+                          <div className="t" />
+                        </div>
+                        {(() => {
+                          switch (
+                            item_son.type // 现在请求的是待使用的，元数据中没有字段表明是已过期还是已使用
+                          ) {
+                            case 4:
+                              return <img className="tip" src={ImgGuoQi} />; // 已过期
+                            case 2:
+                              return <img className="tip" src={ImgShiYong} />; // 已使用
+                            case 5:
+                              return (
+                                <div className="flex-none">
+                                  赠送记录 <img src={ImgRight} />
+                                </div>
+                              ); // 已赠送
+                            default:
+                              return (
+                                <div className="flex-none">
+                                  {item_son.handselStatus === 1
+                                    ? "赠送中 "
+                                    : null}
+                                  <img src={ImgRight} />
+                                </div>
+                              );
+                          }
+                        })()}
+                      </div>
+                      <div className="row-center all_nowarp">
+                        {(() => {
+                          switch (item_son.ticketStyle) {
+                            case 1:
+                              return item_son.ticketContent;
+                            case 2:
+                              return "";
+                            case 3:
+                              return "";
+                            default:
+                              return "";
+                          }
+                        })()}
+                      </div>
+                      <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                        <div>
+                          <div className="t">
+                            卡号：{tools.cardFormart(item_son.ticketNo)}
+                          </div>
+                          <div className="i">
+                            有效期至：{item_son.validEndTime
+                              ? item_son.validEndTime.split(" ")[0]
+                              : ""}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="money">￥1000</div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                });
+              }
+            })()}
+          </div>
+          {/*</Luo>*/}
+        </div>
       </div>
     );
   }

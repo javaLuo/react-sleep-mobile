@@ -27,8 +27,15 @@ class HomePageContainer extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.pathname,this.props.location.pathname.split("/"),this.props.location.pathname.split("/").slice(-1));
-    const p = this.props.location.pathname.split("/").slice(-1)[0].split("_");
+    console.log(
+      this.props.location.pathname,
+      this.props.location.pathname.split("/"),
+      this.props.location.pathname.split("/").slice(-1)
+    );
+    const p = this.props.location.pathname
+      .split("/")
+      .slice(-1)[0]
+      .split("_");
     document.title = decodeURIComponent(p[0]) || "";
     this.setState({
       url: decodeURIComponent(p[1])
@@ -38,9 +45,7 @@ class HomePageContainer extends React.Component {
   render() {
     return (
       <div className="iframe-box">
-        {
-          this.state.url ? <iframe src={this.state.url}/> : null
-        }
+        {this.state.url ? <iframe src={this.state.url} /> : null}
       </div>
     );
   }
@@ -53,7 +58,7 @@ class HomePageContainer extends React.Component {
 HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
-  actions: P.any,
+  actions: P.any
 };
 
 // ==================
@@ -61,10 +66,8 @@ HomePageContainer.propTypes = {
 // ==================
 
 export default connect(
-  state => ({
-
-  }),
+  state => ({}),
   dispatch => ({
-    actions: bindActionCreators({ }, dispatch)
+    actions: bindActionCreators({}, dispatch)
   })
 )(HomePageContainer);

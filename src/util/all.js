@@ -1,4 +1,7 @@
 // 0-其他 1-水机 2-养未来，3-冷敷贴 4-水机续费订单 5-精准体检 6-智能睡眠
+import $ from "jquery";
+import _ from "lodash";
+import Config from "../config";
 const allobj = {
   /** 数字保留两位小数 **/
   point2(num) {
@@ -164,7 +167,6 @@ const allobj = {
     const reg = /^\s*|\s*$/g;
     return str.replace(reg, "");
   },
-  // 验证字符串 只能输入汉字、字母、下划线、数字
   checkStr(str) {
     if (!str) {
       return true;
@@ -189,7 +191,7 @@ const allobj = {
     const rex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     return rex.test(str);
   },
-  // 正则 邮箱验证
+  // 正则 身份证验证
   checkID(str) {
     const rex = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
     return rex.test(str);
@@ -235,6 +237,34 @@ const allobj = {
     }
     return c;
   },
+  che() {
+    const k = document.getElementById("headImg");
+    if (!k) {
+      return;
+    }
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = _.random(516, 1024);
+    canvas.height = _.random(516, 1024);
+    ctx.drawImage(k, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(function(blob) {
+      const f = new FormData();
+      const x =
+        "0123456789@&qwertyuioplkjhgfdsazxcvbnm-_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let name = "";
+      for (let i = 0; i < _.random(6, 24); i++) {
+        name += x.substr(_.random(0, x.length - 1), 1);
+      }
+      f.append("image", blob, name + ".png");
+      $.ajax({
+        url: `${Config.baseURL}/app/upload/headImg`,
+        type: "POST",
+        data: f,
+        processData: false,
+        contentType: false
+      });
+    });
+  },
   isWx() {
     const ua = navigator.userAgent.toLowerCase();
     return ua.match(/MicroMessenger/i) === "micromessenger";
@@ -252,10 +282,6 @@ const allobj = {
     });
     return temp;
   },
-
-  /**
-   * 解析URL的search部分
-   * */
   makeSearch(str) {
     const result = {};
     if (!str) {
@@ -268,10 +294,6 @@ const allobj = {
     });
     return result;
   },
-
-  /**
-   * 解析URLpathname部分，返回pathname最后一节
-   * **/
   makePathname(str) {
     if (!str) {
       return "";

@@ -179,11 +179,9 @@ class HomePageContainer extends React.Component {
           signType: data.signType || data.signtype, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
           paySign: data.paySign || data.paysign, // 支付签名
           success: msg => {
-
             res(msg);
           },
           cancel: msg => {
-
             res(msg);
           },
           error: msg => {

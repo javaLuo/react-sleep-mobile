@@ -124,7 +124,7 @@ class HomePageContainer extends React.Component {
       // 来自我的订单优惠卡点击进入
       search = arr[1];
       this.setState({
-        tabIndex: 1,
+        tabIndex: 1
       });
       this.getData(1, this.state.pageSize, "flash", search, 1);
     }
@@ -143,14 +143,14 @@ class HomePageContainer extends React.Component {
 
   // 获取有多少张可赠送的优惠卡
   getSendCount() {
-    this.props.actions.getSendCount({ticketStatus: 3}).then(res => {
+    this.props.actions.getSendCount({ ticketStatus: 3 }).then(res => {
       if (res.status === 200) {
         this.setState({
           canSendNum: res.data
         });
       }
     });
-    this.props.actions.getSendCount({ticketStatus: 1}).then(res => {
+    this.props.actions.getSendCount({ ticketStatus: 1 }).then(res => {
       if (res.status === 200) {
         this.setState({
           canSendNum2: res.data
@@ -212,7 +212,10 @@ class HomePageContainer extends React.Component {
           } else {
             for (let i = 0; i < temp.length; i++) {
               if (temp[i].type === which) {
-                temp[i].data = type === "flash" ? res.data.ticketList.result : [...temp[i].data, ...res.data.ticketList.result];
+                temp[i].data =
+                  type === "flash"
+                    ? res.data.ticketList.result
+                    : [...temp[i].data, ...res.data.ticketList.result];
                 temp[i].pageNum = pageNum;
                 temp[i].total = res.data.total;
                 break;
@@ -423,7 +426,12 @@ class HomePageContainer extends React.Component {
   onStartShareMany() {
     const me = this;
     const num = this.state.modal1Num;
-    if (!num || (this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2) < num) {
+    if (
+      !num ||
+      (this.state.tabIndex === 0
+        ? this.state.canSendNum
+        : this.state.canSendNum2) < num
+    ) {
       Toast.info("请输入有效数量", 1);
       return;
     }
@@ -455,7 +463,11 @@ class HomePageContainer extends React.Component {
     // 获取待分享的userId
     Toast.loading("请稍后...", 0);
     this.props.actions
-      .batchShare({ sendCount: num, dateTime: dateTime, ticketStatus: this.state.tabIndex === 0 ? 3 : 1 })
+      .batchShare({
+        sendCount: num,
+        dateTime: dateTime,
+        ticketStatus: this.state.tabIndex === 0 ? 3 : 1
+      })
       .then(res => {
         if (res.status === 200) {
           Toast.hide();
@@ -476,7 +488,12 @@ class HomePageContainer extends React.Component {
             type: "link",
             success: () => {
               Toast.info("批量分享成功", 1);
-              me.ticketHandselMany({ userId: u.id, shareType: 4, shareNo: ticketNo,dateTime });
+              me.ticketHandselMany({
+                userId: u.id,
+                shareType: 4,
+                shareNo: ticketNo,
+                dateTime
+              });
             }
           });
           wx.onMenuShareTimeline({
@@ -487,7 +504,12 @@ class HomePageContainer extends React.Component {
             imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
             success: () => {
               Toast.info("批量分享成功", 1);
-              me.ticketHandselMany({ userId: u.id, shareType: 4, shareNo: ticketNo,dateTime });
+              me.ticketHandselMany({
+                userId: u.id,
+                shareType: 4,
+                shareNo: ticketNo,
+                dateTime
+              });
             }
           });
           this.setState({
@@ -559,16 +581,13 @@ class HomePageContainer extends React.Component {
   // 创建订单
   onPay() {
     const max = this.state.nPay;
-    if (
-      (!this.state.modal2Num) ||
-      this.state.modal2Num > max
-    ) {
+    if (!this.state.modal2Num || this.state.modal2Num > max) {
       Toast.info("请输入有效数量", 1);
       return;
     }
 
-    if(tools.point2(this.state.modal2Num * this.state.ticketPrice) > 10000){
-      Toast.info("您已超过最大支付金额10000.00元，请重新选择数量",1);
+    if (tools.point2(this.state.modal2Num * this.state.ticketPrice) > 10000) {
+      Toast.info("您已超过最大支付金额10000.00元，请重新选择数量", 1);
       return;
     }
     if (!this.props.userinfo || !this.props.userinfo.mobile) {
@@ -684,7 +703,7 @@ class HomePageContainer extends React.Component {
     });
   }
 
-  ticketHandselMany(params){
+  ticketHandselMany(params) {
     this.props.actions.ticketHandselMany(params).then(res => {
       if (res.status === 200) {
         this.onDown(3);
@@ -734,8 +753,8 @@ class HomePageContainer extends React.Component {
     if (item.type === 5) {
       // 已赠送的进入卡记录
       this.props.history.push(`/my/favrecord/${item_son.ticketNo}`);
-    } else if([2,4].includes(item.type)){ // 已使用已过期分类的不能进入详情页
-
+    } else if ([2, 4].includes(item.type)) {
+      // 已使用已过期分类的不能进入详情页
     } else {
       this.props.actions.saveFreeCardInfo(item_son); // 保存该张卡信息，下个页面要用
       setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
@@ -772,7 +791,7 @@ class HomePageContainer extends React.Component {
       // +
       num = Number(this.state.modal1Num) + 1 || 1;
     }
-    if(num<0){
+    if (num < 0) {
       num = 0;
     }
     this.setState({
@@ -795,7 +814,7 @@ class HomePageContainer extends React.Component {
       num = Number(this.state.modal2Num) + 1 || 1;
     }
 
-    if(num<0){
+    if (num < 0) {
       num = 0;
     }
     this.setState({
@@ -823,8 +842,21 @@ class HomePageContainer extends React.Component {
               })
               .then(res => {
                 if (res.status === 200) {
-                  Toast.success("删除成功",1);
-                  this.getData(1, this.state.pageSize, "flash", this.state.search, this.state.data[this.state.tabIndex].type);
+                  Toast.success("删除成功", 1);
+                  this.getData(
+                    1,
+                    this.state.pageSize,
+                    "flash",
+                    this.state.search,
+                    2
+                  );
+                  this.getData(
+                    1,
+                    this.state.pageSize,
+                    "flash",
+                    this.state.search,
+                    4
+                  );
                 } else {
                   Toast.info(res.message || "删除失败，请重试");
                 }
@@ -868,14 +900,14 @@ class HomePageContainer extends React.Component {
                   }}
                 >
                   <div className="the-ul">
-                    {
-                      item.type === 1 ? (
-                        <div className={"what-f"}>
-                          <div>优惠卡使用规则：</div>
-                          <div>每个e家号用户每月限制最多使用3张，超出使用数量的优惠卡在HRA设备上无法验证通过</div>
+                    {item.type === 1 ? (
+                      <div className={"what-f"}>
+                        <div>优惠卡使用规则：</div>
+                        <div>
+                          每个e家号用户每月限制最多使用3张，超出使用数量的优惠卡在HRA设备上无法验证通过
                         </div>
-                      ) : null
-                    }
+                      </div>
+                    ) : null}
                     {(() => {
                       if (item.data.length === 0) {
                         return (
@@ -891,7 +923,7 @@ class HomePageContainer extends React.Component {
                               style={{ backgroundColor: "transparent" }}
                               key={index}
                               autoClose
-                              disabled={![2,4].includes(item.type)}
+                              disabled={![2, 4].includes(item.type)}
                               right={[
                                 {
                                   text: "删除",
@@ -904,128 +936,148 @@ class HomePageContainer extends React.Component {
                                 }
                               ]}
                             >
-                            <div
-                              key={index_son}
-                              className={(() => {
-                                const classNames = [
-                                  "cardbox",
-                                  "page-flex-col",
-                                  "flex-jc-sb"
-                                ];
-                                if ([2,4].includes(item.type) && this.checkCardStatus(item_son) !== 1) { // 只有已使用、已过期才灰色，其他即使过期也不灰
+                              <div
+                                key={index_son}
+                                className={(() => {
+                                  const classNames = [
+                                    "cardbox",
+                                    "page-flex-col",
+                                    "flex-jc-sb"
+                                  ];
+                                  if (
+                                    [2, 4].includes(item.type) &&
+                                    this.checkCardStatus(item_son) !== 1
+                                  ) {
+                                    // 只有已使用、已过期才灰色，其他即使过期也不灰
                                     switch (item_son.ticketStyle) {
-                                        case 1:
-                                            classNames.push("abnormal1");
-                                            break;
-                                        case 2:
-                                            classNames.push("abnormal2");
-                                            break;
-                                        default:
-                                            classNames.push("abnormal3");
+                                      case 1:
+                                        classNames.push("abnormal1");
+                                        break;
+                                      case 2:
+                                        classNames.push("abnormal2");
+                                        break;
+                                      default:
+                                        classNames.push("abnormal3");
                                     }
-                                }
-                                switch (item_son.ticketStyle) {
-                                  case 1:
-                                    classNames.push("a");
-                                    break;
-                                  case 2:
-                                    classNames.push("b");
-                                    break;
-                                }
-                                return classNames.join(" ");
-                              })()}
-                              style={(()=>{ // 啊，我真TMD服了
-                                if([2,4].includes(item.type) && this.checkCardStatus(item_son) !== 1 && item_son.imageUsed){
-                                  return { backgroundImage: `url(${item_son.imageUsed})` };
-                                } else if(item_son.image) {
-                                  return { backgroundImage: `url(${item_son.image})` };
-                                }
-                                return null;
-                              })()}
-                              onClick={() => this.onCardClick(item, item_son)}
-                            >
-                              <div className="row1 flex-none page-flex-row flex-jc-sb">
-                                <div>
-                                  <div className="t" />
-                                </div>
-                                {(() => {
-                                  switch (item.type) {
-                                    case 4:
-                                      return (
-                                        <img className="tip" src={ImgGuoQi} />
-                                      ); // 已过期
-                                    case 2:
-                                      return (
-                                        <img className="tip" src={ImgShiYong} />
-                                      ); // 已使用
-                                    case 5:
-                                      return (
-                                        <div className="flex-none">
-                                          赠送记录 <img src={ImgRight} />
-                                        </div>
-                                      ); // 已赠送
-                                    default:
-                                      return (
-                                        <div className="flex-none">
-                                          {item_son.handselStatus === 1
-                                            ? "赠送中 "
-                                            : null}
-                                          <img src={ImgRight} />
-                                        </div>
-                                      );
                                   }
-                                })()}
-                              </div>
-                              <div className="row-center all_nowarp">
-                                {(() => {
                                   switch (item_son.ticketStyle) {
                                     case 1:
-                                      return item_son.ticketContent;
+                                      classNames.push("a");
+                                      break;
                                     case 2:
-                                      return "";
-                                    case 3:
-                                      return "";
-                                    default:
-                                      return "";
+                                      classNames.push("b");
+                                      break;
                                   }
+                                  return classNames.join(" ");
                                 })()}
-                              </div>
-                              <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
-                                <div>
-                                  <div className="t">
-                                    卡号：{tools.cardFormart(item_son.ticketNo)}
-                                  </div>
-                                  <div className="i">
-                                    有效期至：{item_son.validEndTime
-                                      ? item_son.validEndTime.split(" ")[0]
-                                      : ""}
-                                  </div>
-                                </div>
-                                <div
-                                  onClick={e =>
-                                    this.onStartShare(
-                                      item_son,
-                                      `${index}_${index_son}`,
-                                      e
-                                    )
+                                style={(() => {
+                                  // 啊，我真TMD服了
+                                  if (
+                                    [2, 4].includes(item.type) &&
+                                    this.checkCardStatus(item_son) !== 1 &&
+                                    item_son.imageUsed
+                                  ) {
+                                    return {
+                                      backgroundImage: `url(${
+                                        item_son.imageUsed
+                                      })`
+                                    };
+                                  } else if (item_son.image) {
+                                    return {
+                                      backgroundImage: `url(${item_son.image})`
+                                    };
                                   }
-                                >
-                                  <div className="money">￥1000</div>
-                                  {item_son.handsel ? (
-                                    <div
-                                      className={
-                                        this.state.whichShare ===
-                                        `${index}_${index_son}`
-                                          ? "flex-none share-btn check"
-                                          : "flex-none share-btn"
-                                      }
-                                    >
-                                      赠送
+                                  return null;
+                                })()}
+                                onClick={() => this.onCardClick(item, item_son)}
+                              >
+                                <div className="row1 flex-none page-flex-row flex-jc-sb">
+                                  <div>
+                                    <div className="t" />
+                                  </div>
+                                  {(() => {
+                                    switch (item.type) {
+                                      case 4:
+                                        return (
+                                          <img className="tip" src={ImgGuoQi} />
+                                        ); // 已过期
+                                      case 2:
+                                        return (
+                                          <img
+                                            className="tip"
+                                            src={ImgShiYong}
+                                          />
+                                        ); // 已使用
+                                      case 5:
+                                        return (
+                                          <div className="flex-none">
+                                            赠送记录 <img src={ImgRight} />
+                                          </div>
+                                        ); // 已赠送
+                                      default:
+                                        return (
+                                          <div className="flex-none">
+                                            {item_son.handselStatus === 1
+                                              ? "赠送中 "
+                                              : null}
+                                            <img src={ImgRight} />
+                                          </div>
+                                        );
+                                    }
+                                  })()}
+                                </div>
+                                <div className="row-center all_nowarp">
+                                  {(() => {
+                                    switch (item_son.ticketStyle) {
+                                      case 1:
+                                        return item_son.ticketContent;
+                                      case 2:
+                                        return "";
+                                      case 3:
+                                        return "";
+                                      default:
+                                        return "";
+                                    }
+                                  })()}
+                                </div>
+                                <div className="row2 flex-none page-flex-row flex-jc-sb flex-ai-end">
+                                  <div>
+                                    <div className="t">
+                                      卡号：{tools.cardFormart(
+                                        item_son.ticketNo
+                                      )}
                                     </div>
-                                  ) : null}
+                                    <div className="i">
+                                      有效期至：{item_son.validEndTime
+                                        ? item_son.validEndTime.split(" ")[0]
+                                        : ""}
+                                    </div>
+                                  </div>
+                                  <div
+                                    onClick={e =>
+                                      this.onStartShare(
+                                        item_son,
+                                        `${index}_${index_son}`,
+                                        e
+                                      )
+                                    }
+                                  >
+                                    <div className="money">￥1000</div>
+                                    {item_son.handsel ? (
+                                      <div
+                                        className={
+                                          this.state.whichShare ===
+                                          `${index}_${index_son}`
+                                            ? "flex-none share-btn check"
+                                            : "flex-none share-btn"
+                                        }
+                                      >
+                                        赠送
+                                      </div>
+                                    ) : null}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                             </SwipeAction>
                           );
                         });
@@ -1061,7 +1113,9 @@ class HomePageContainer extends React.Component {
         {/** Modal1 **/}
         <div className={this.state.btn1Show ? "modal1 show" : "modal1"}>
           <div className="title">
-            可赠送的优惠卡数量：{this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2}张
+            可赠送的优惠卡数量：{this.state.tabIndex === 0
+              ? this.state.canSendNum
+              : this.state.canSendNum2}张
           </div>
           <div className="title-2">(赠送中、预约中的卡不可赠送)</div>
           <div className="form-box">
@@ -1070,11 +1124,16 @@ class HomePageContainer extends React.Component {
               onChange={e => {
                 let k = "";
                 if (e.target.checked) {
-                  k = Math.max((this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2), 0);
+                  k = Math.max(
+                    this.state.tabIndex === 0
+                      ? this.state.canSendNum
+                      : this.state.canSendNum2,
+                    0
+                  );
                 }
                 this.setState({
                   modal1Check: e.target.checked,
-                  modal1Num: k,
+                  modal1Num: k
                 });
               }}
             >
@@ -1082,7 +1141,10 @@ class HomePageContainer extends React.Component {
             </Checkbox>
             <div className="err">
               {(() => {
-                const max = this.state.tabIndex === 0 ? this.state.canSendNum : this.state.canSendNum2;
+                const max =
+                  this.state.tabIndex === 0
+                    ? this.state.canSendNum
+                    : this.state.canSendNum2;
                 if (this.state.modal1Num > max) {
                   return "超过有效数量，请重新输入";
                 }
@@ -1129,7 +1191,9 @@ class HomePageContainer extends React.Component {
           <div className="title">
             可支付的优惠卡数量：<span>{this.state.nPay}</span>张
           </div>
-          <div className="title-2">(赠送中、预约中的卡不可支付;有效期仅剩1天的卡不可批量支付)</div>
+          <div className="title-2">
+            (赠送中、预约中的卡不可支付;有效期仅剩1天的卡不可批量支付)
+          </div>
           <div className="form-box">
             <Checkbox
               checked={this.state.modal2Check}

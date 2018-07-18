@@ -751,7 +751,10 @@ export const ticketHandsel = (params = {}) => async dispatch => {
 // 修改卡的分享状态(批量分享)
 export const ticketHandselMany = (params = {}) => async dispatch => {
   try {
-    const res = await Fetchapi.newPost("app/user/ticket/update/record/insert/batch", params);
+    const res = await Fetchapi.newPost(
+      "app/user/ticket/update/record/insert/batch",
+      params
+    );
     return res;
   } catch (err) {
     Toast.info("网络错误，请重试", 1);

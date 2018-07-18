@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.less";
-import { Toast } from 'antd-mobile';
+import { Toast } from "antd-mobile";
 // ==================
 // 所需的所有组件
 // ==================
@@ -89,25 +89,31 @@ class HomePageContainer extends React.Component {
   }
 
   onClickA(title, url) {
-    const u = this.props.userinfo;
-    if(!u || !u.id){
-      return;
+    let u = this.props.userinfo;
+    if (!u || !u.id) {
+      let temp = sessionStorage.getItem("u");
+      if(temp){
+        u = JSON.parse(temp);
+      }
     }
-    if(!u.mobile){
+    if(!u){
+      Toast.info("尚未登录，请刷新页面");
+    }
+
+    if (!u.mobile) {
       this.props.history.push("/my/bindphone");
       return;
     }
-    window.location.href = url+u.mobile;
-   // this.props.history.push(`/healthy/iframe/${encodeURIComponent(title)}_${encodeURIComponent(url+u.mobile)}`);
+    sessionStorage.setItem("u", JSON.stringify(u));
+    window.location.href = url + u.mobile;
+    // this.props.history.push(`/healthy/iframe/${encodeURIComponent(title)}_${encodeURIComponent(url+u.mobile)}`);
   }
   render() {
     const u = this.props.userinfo || {};
     return (
       <div className={this.state.show ? "healthy-main show" : "healthy-main"}>
         <div className="bar-list">
-          <div className="bar-title">
-            翼猫健康风险评估服务
-          </div>
+          <div className="bar-title">翼猫健康风险评估服务</div>
           <div
             className="item page-flex-row"
             onClick={() => this.props.history.push("/healthy/mycard")}
@@ -159,13 +165,16 @@ class HomePageContainer extends React.Component {
             <WaterWave color="#cccccc" press="down" />
           </div>
         </div>
-        <div className="bar-list" style={{marginTop: '.28rem'}}>
-          <div className="bar-title">
-            翼猫智能净水服务
-          </div>
+        <div className="bar-list" style={{ marginTop: ".28rem" }}>
+          <div className="bar-title">翼猫智能净水服务</div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("我的合同","http://yimaokeji.ibestservice.com/service/contractList?phone=")} // contractList
+            onClick={() =>
+              this.onClickA(
+                "我的合同",
+                "http://yimaokeji.ibestservice.com/service/contractList?phone="
+              )
+            } // contractList
           >
             <img className="icon" src={ImgA1} />
             <div className="title">我的合同</div>
@@ -175,7 +184,12 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("我的发票","http://yimaokeji.ibestservice.com/service/openBillList?phone=")}
+            onClick={() =>
+              this.onClickA(
+                "我的发票",
+                "http://yimaokeji.ibestservice.com/service/openBillList?phone="
+              )
+            }
           >
             <img className="icon" src={ImgA2} />
             <div className="title">我的发票</div>
@@ -185,7 +199,12 @@ class HomePageContainer extends React.Component {
           </div>
           <div
             className="item page-flex-row"
-            onClick={()=>this.onClickA("我的评价","http://yimaokeji.ibestservice.com/service/evaluateList?phone=")}
+            onClick={() =>
+              this.onClickA(
+                "我的评价",
+                "http://yimaokeji.ibestservice.com/service/evaluateList?phone="
+              )
+            }
           >
             <img className="icon" src={ImgA3} />
             <div className="title">我的评价</div>

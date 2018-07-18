@@ -70,20 +70,20 @@
         }
       }
     }
-    .controls{
-      padding: .2rem;
+    .controls {
+      padding: 0.2rem;
       display: flex;
       justify-content: flex-end;
       border-top: solid 1px #f3f3f3;
       background-color: #fff;
-      &>div{
-        padding: .1rem .2rem;
+      & > div {
+        padding: 0.1rem 0.2rem;
         border: solid 1px #f3f3f3;
         color: #222;
-        font-size: .32rem;
+        font-size: 0.32rem;
         border-radius: 3px;
         transition: all 200ms;
-        &:active{
+        &:active {
           background-color: #ccc;
         }
       }

@@ -96,11 +96,11 @@ sub {
   text-overflow: ellipsis;
 } /* 禁止换行,末尾省略 */
 .all_nowarp2 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    -webkit-line-clamp:2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
 } /* 禁止换行，2行，末尾省略，div的高度需要正好是2行的高度 */
 .all_nowarp3 {
   display: -webkit-box;

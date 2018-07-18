@@ -469,7 +469,9 @@ class HomePageContainer extends React.Component {
                           {item.province && item.province.replace(/省|市/g, "")}
                         </div>
                       </div>
-                      <div className="all_nowarp2 name">{`${item.city}${item.name}`}</div>
+                      <div className="all_nowarp2 name">{`${item.city}${
+                        item.name
+                      }`}</div>
                     </div>
                   </li>
                 );
@@ -499,7 +501,9 @@ class HomePageContainer extends React.Component {
                           {item.province && item.province.replace("省", "")}
                         </div>
                       </div>
-                      <div className="all_nowarp2 name">{`${item.city}${item.name}`}</div>
+                      <div className="all_nowarp2 name">{`${item.city}${
+                        item.name
+                      }`}</div>
                     </div>
                   </li>
                 );

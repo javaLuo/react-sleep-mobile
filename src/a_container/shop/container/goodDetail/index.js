@@ -332,7 +332,12 @@ class HomePageContainer extends React.Component {
     });
     const win = document.getElementById("gwc-btn");
     this.setState({
-      ballData: [e.clientX, e.clientY, win.offsetLeft + 20, document.body.clientHeight-30]
+      ballData: [
+        e.clientX,
+        e.clientY,
+        win.offsetLeft + 20,
+        document.body.clientHeight - 30
+      ]
     });
   }
 
@@ -346,13 +351,13 @@ class HomePageContainer extends React.Component {
       >
         <div className="title-pic">
           {/* 顶部画廊 */}
-          { d.name ?
+          {d.name ? (
             <VideoLuo
               videoPic={null} // null
               videoSrc={d.coverVideo} // d.coverVideo
               imgList={d.productImg ? d.productImg.split(",") : []}
-            /> : null
-          }
+            />
+          ) : null}
         </div>
         {/*<div style={{ height: '1500px' }}>ZW</div>*/}
         {/* 商品信息说明 */}
@@ -506,7 +511,7 @@ class HomePageContainer extends React.Component {
             </div>
             <WaterWave color="#888888" press="down" />
           </div>
-          <div className="btn-add-gwc" onClick={(e) => this.onPushCar(e)}>
+          <div className="btn-add-gwc" onClick={e => this.onPushCar(e)}>
             加入购物车
           </div>
           <div className="btn-submit" onClick={() => this.onSubmit()}>

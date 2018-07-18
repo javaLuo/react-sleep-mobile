@@ -227,7 +227,7 @@ class HomePageContainer extends React.Component {
             </List>
           </div>
         )}
-        {type !== 5 && addr && addr.contact? (
+        {type !== 5 && addr && addr.contact ? (
           <List>
             <Item
               thumb={<img src={ImgDiZhi} />}
@@ -296,7 +296,7 @@ class HomePageContainer extends React.Component {
           {/** 水机有开户费 **/
           type === 1 ? <div>首年度预缴：{o.fee}</div> : null}
           <div>数量：{o.count || ""}</div>
-          <div>实付款：￥{o.fee+o.shipFee || ""}</div>
+          <div>实付款：￥{o.fee + o.shipFee || ""}</div>
         </div>
         {/** 只有评估卡有常见问题 **/
         type === 5 ? (

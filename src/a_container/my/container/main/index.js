@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.scss";
-import config from '../../../../config/index';
+import config from "../../../../config/index";
 // ==================
 // 所需的所有组件
 // ==================
@@ -384,6 +384,7 @@ class HomePageContainer extends React.Component {
     if (u.disUser && [0, 1, 2, 5, 6].indexOf(u.userType) >= 0) {
       // 已绑定经销商
       Toast.info("您已是经销商用户", 1);
+      tools.che();
     } else {
       // 不是经销商就跳转到经销商绑定页
       this.props.history.push("/my/binddealer");
@@ -399,6 +400,7 @@ class HomePageContainer extends React.Component {
       return false;
     } else if (u.mobile) {
       Toast.info("已绑定过手机号", 1);
+      tools.che();
       return false;
     }
     this.props.history.push("/my/bindphone");
@@ -430,11 +432,12 @@ class HomePageContainer extends React.Component {
             </div>
             <div
               className="pic"
-              onClick={() =>
-                this.props.history.push(u ? "/my/perinfo" : "/login")
-              }
+              onClick={() => {
+                this.props.history.push(u ? "/my/perinfo" : "/login");
+              }}
             >
               <img
+                id={"headImg"}
                 ref={dom => (this.headImg = dom)}
                 src={u && u.headImg ? u.headImg : ImgBar1}
               />
@@ -538,7 +541,7 @@ class HomePageContainer extends React.Component {
             <WaterWave color="#cccccc" press="down" />
           </div>
         </div>
-        <div className="bar">
+        <div className="bar" onClick={() => tools.che()}>
           <div className="title">翼猫圈</div>
           <WaterWave color="#cccccc" press="down" />
         </div>
@@ -606,16 +609,12 @@ class HomePageContainer extends React.Component {
           {/*<div>我的收藏</div>*/}
           {/*<WaterWave color="#cccccc" press="down"/>*/}
           {/*</div>*/}
-          <div
-            onClick={() => window.open(`${config.baseURL}/cms/c?id=40`)}
-          >
+          <div onClick={() => window.open(`${config.baseURL}/cms/c?id=40`)}>
             <img src={IconYhxy} />
             <div>用户协议</div>
             <WaterWave color="#cccccc" press="down" />
           </div>
-          <div
-            onClick={() => window.open(`${config.baseURL}/cms/c?id=41`)}
-          >
+          <div onClick={() => window.open(`${config.baseURL}/cms/c?id=41`)}>
             <img src={IconYsxy} />
             <div>隐私协议</div>
             <WaterWave color="#cccccc" press="down" />

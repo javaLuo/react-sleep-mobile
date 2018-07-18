@@ -41,21 +41,26 @@ class HomePageContainer extends React.Component {
       .split("/")
       .pop()
       .split("_");
-    if(p[0] === 's') { // 从商城进
-      this.setState({
-        data: {
-          title: decodeURIComponent(p[1]),
-          acUrl: decodeURIComponent(p[2])
+    if (p[0] === "s") {
+      // 从商城进
+      this.setState(
+        {
+          data: {
+            title: decodeURIComponent(p[1]),
+            acUrl: decodeURIComponent(p[2])
+          },
+          shareImg: decodeURIComponent(p[3])
         },
-        shareImg: decodeURIComponent(p[3]),
-      },()=>{
-        this.props.actions.wxInit().then(res2 => {
-          if (res2.status === 200) {
-            this.initWxConfig(res2.data, this.state.data);
-          }
-        });
-      });
-    } else { // 从首页进
+        () => {
+          this.props.actions.wxInit().then(res2 => {
+            if (res2.status === 200) {
+              this.initWxConfig(res2.data, this.state.data);
+            }
+          });
+        }
+      );
+    } else {
+      // 从首页进
       const id = Number(p[0]);
       this.setState({
         shareImg: decodeURIComponent(p[1])

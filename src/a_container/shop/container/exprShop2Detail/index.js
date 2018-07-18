@@ -156,9 +156,7 @@ class HomePageContainer extends React.Component {
             </div>
             <div className="addr-info">
               <img src={ImgAddr} />
-              <span>
-                {d.address}
-              </span>
+              <span>{d.address}</span>
             </div>
           </div>
           {d.storeArea ? (

@@ -370,7 +370,8 @@ class HomePageContainer extends React.Component {
                       "page-flex-col",
                       "flex-jc-sb"
                     ];
-                    if (this.checkCardStatus(item) !== 1) { // 只有已使用、已过期才灰色，其他即使过期也不灰
+                    if (this.checkCardStatus(item) !== 1) {
+                      // 只有已使用、已过期才灰色，其他即使过期也不灰
                       classNames.push("abnormal3");
                     }
                     return classNames.join(" ");

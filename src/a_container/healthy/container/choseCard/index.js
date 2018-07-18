@@ -142,9 +142,13 @@ class HomePageContainer extends React.Component {
                     return (
                       <li
                         key={index}
-                        className={(()=>{
-                          const classNames = ["cardbox", "page-flex-col", "flex-jc-sb"];
-                          if(item.ticketType === 'M') {
+                        className={(() => {
+                          const classNames = [
+                            "cardbox",
+                            "page-flex-col",
+                            "flex-jc-sb"
+                          ];
+                          if (item.ticketType === "M") {
                             switch (item.ticketStyle) {
                               case 1:
                                 classNames.push("a");

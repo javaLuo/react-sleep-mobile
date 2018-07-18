@@ -140,7 +140,10 @@ class RootContainer extends React.Component {
   getOpenId() {
     const params = tools.makeSearch(window.location.href.split("?")[1]);
     if (params.openid) {
-      const openid = params.openid.length > 28 ? params.openid.replace("#/", "") : params.openid;
+      const openid =
+        params.openid.length > 28
+          ? params.openid.replace("#/", "")
+          : params.openid;
       sessionStorage.setItem("openId", openid);
     }
   }
@@ -151,10 +154,7 @@ class RootContainer extends React.Component {
 
   initURL() {
     const location = window.location;
-    if (
-      location.href.indexOf("?#") < 0 &&
-      location.href.indexOf("/z/") < 0
-    ) {
+    if (location.href.indexOf("?#") < 0 && location.href.indexOf("/z/") < 0) {
       const href = location.hash.split("?")[0].replace("#", "?#");
       location.replace(href);
       return false;

@@ -206,7 +206,6 @@ class VideoLuo extends React.PureComponent {
                     x-webkit-airplay="true"
                     playsinline="true"
                     preload="true"
-
                     src={this.props.videoSrc}
                     onPause={() => this.onPause()}
                   />
