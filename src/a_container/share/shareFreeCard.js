@@ -48,7 +48,9 @@ class HomePageContainer extends React.Component {
 
   getData() {
     const path = this.props.location.pathname.split("/");
-    let p = path[path.length - 1].split("_fff_");
+    const pathLast = path[path.length - 1];
+    const splitStr = pathLast.includes("_fff_") ? "_fff_" : "_";
+    let p = path[path.length - 1].split(splitStr);
     /**
          * 单个 和 批量 统一
          * userId: p[0],
@@ -79,7 +81,7 @@ class HomePageContainer extends React.Component {
     this.props.actions
       .shareBuild({
         userId: Number(p[0]),
-        shareType: Number(p[8]) > 1 ? 4 : 2,
+        shareType: p[7].includes("LIST") ? 4 : 2,
         shareNo: decodeURIComponent(p[7]),
         dateTime: p[4]
       })

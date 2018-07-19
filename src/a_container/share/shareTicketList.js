@@ -41,9 +41,10 @@ class HomePageContainer extends React.Component {
   // 获取评估卡列表
   getData() {
     const path = this.props.location.pathname.split("/");
+    const pathLast = path[path.length - 1];
+    const splitStr = pathLast.includes("_fff_") ? "_fff_" : "_";
     let info = path[path.length - 1];
-    console.log("是个什么东西啊：", info);
-    info = info.split("_fff_");
+    info = info.split(splitStr);
     const date = info[0];
 
     let list = info[1].split("+");

@@ -32,7 +32,7 @@ import {
   wxInit,
   saveCardInfo,
   saveMyCardInfo,
-  mallQuanDel,
+  mallCardDel,
   mallCardListQuan,
   ticketHandsel
 } from "../../../../a_action/shop-action";
@@ -308,6 +308,7 @@ class HomePageContainer extends React.Component {
 
   // 下拉刷新
   onDown() {
+    console.log("触发");
     this.getData(1, this.props.myCard.pageSize, "flash");
   }
   // 上拉加载
@@ -350,8 +351,8 @@ class HomePageContainer extends React.Component {
         onPress: () =>
           new Promise((resolve, rej) => {
             this.props.actions
-              .mallQuanDel({
-                ticketId: item.id
+              .mallCardDel({
+                cardId: item.id
               })
               .then(res => {
                 if (res.status === 200) {
@@ -386,7 +387,7 @@ class HomePageContainer extends React.Component {
             onPullDownRefresh={() => this.onDown()}
             onPullUpLoadMore={() => this.onUp()}
             iscrollOptions={{
-              disableMouse: true
+              disableMouse: false,
             }}
           >
             <div className="the-ul">
@@ -411,6 +412,7 @@ class HomePageContainer extends React.Component {
                         style={{ backgroundColor: "transparent" }}
                         key={index}
                         autoClose
+                        disabled={true}
                         right={[
                           {
                             text: "删除",
@@ -534,7 +536,7 @@ export default connect(
         wxInit,
         saveCardInfo,
         saveMyCardInfo,
-        mallQuanDel,
+        mallCardDel,
         mallCardListQuan,
         ticketHandsel
       },

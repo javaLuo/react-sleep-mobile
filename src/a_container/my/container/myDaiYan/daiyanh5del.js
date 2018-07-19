@@ -132,7 +132,7 @@ class Register extends React.Component {
         title: `${u.nickName}${d1.title}`,
         desc: d1.content,
         link: `${Config.baseURL}/gzh/?#/daiyanh5share/${str}`,
-        imgUrl: d1.titleImage,
+        imgUrl: d1.titleImage || "https://isluo.com/imgs/catlogoheiheihei.png",
         type: "link",
         success: () => {
           Toast.info("分享成功", 1);

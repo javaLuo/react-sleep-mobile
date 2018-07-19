@@ -155,8 +155,10 @@ class HomePageContainer extends React.Component {
 
   // 点击一张评估卡
   onCardClick(item_son) {
-    if ([2, 4].includes(item_son.type)) {
-      // 已使用已过期分类的不能进入详情页,现在数据没这字段，现在数据也不能判断是否是已赠送，那反正都进详情好了
+    if([5].includes(item_son.ticketStatus)){ // 已赠送的进入卡的流转记录
+      this.props.history.push(`/my/favrecord/${item_son.ticketNo}`);
+    } else if ([2, 4].includes(item_son.ticketStatus)) {
+      // 已使用已过期分类的不能进入详情页
     } else {
       this.props.actions.saveFreeCardInfo(item_son); // 保存该张卡信息，下个页面要用
       setTimeout(() => this.props.history.push(`/my/favcardsdetail`), 16);
@@ -197,7 +199,7 @@ class HomePageContainer extends React.Component {
                           "page-flex-col",
                           "flex-jc-sb"
                         ];
-                        if (this.checkCardStatus(item_son) !== 1) {
+                        if ([1,2,3,4].includes(item_son.ticketStatus) && this.checkCardStatus(item_son) !== 1) { // 已赠送的不变灰色
                           // 只有已使用、已过期才灰色，其他即使过期也不灰
                           switch (item_son.ticketStyle) {
                             case 1:
@@ -241,7 +243,7 @@ class HomePageContainer extends React.Component {
                         </div>
                         {(() => {
                           switch (
-                            item_son.type // 现在请求的是待使用的，元数据中没有字段表明是已过期还是已使用
+                            item_son.ticketStatus
                           ) {
                             case 4:
                               return <img className="tip" src={ImgGuoQi} />; // 已过期

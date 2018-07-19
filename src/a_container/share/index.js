@@ -48,8 +48,10 @@ class HomePageContainer extends React.Component {
 
   getData() {
     let path = this.props.location.pathname.split("/");
+    const pathLast = path[path.length - 1];
+    const splitStr = pathLast.includes("_fff_") ? "_fff_" : "_";
     path = path[path.length - 1];
-    const p = path.split("_fff_");
+    const p = path.split(splitStr);
     /**
      * 本页面所需：
      * userId - 用户ID
