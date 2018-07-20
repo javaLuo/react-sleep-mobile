@@ -36,7 +36,8 @@ import {
   getOrdersCount,
   getLiveListCache,
   getLiveTypes,
-  pushCarInterface
+  pushCarInterface,
+  hasFreeCare
 } from "../../a_action/shop-action";
 import {
   getRecommend,
@@ -89,7 +90,10 @@ class HomePageContainer extends React.Component {
 
     // 获取推荐服务站
     this.getGoodServiceStations();
-    console.log("历史记录表", this.props.history);
+
+    // 获取是否有需要领取的优惠卡，为了显示小红点
+    this.props.actions.hasFreeCare();
+
   }
 
   // 获取热销产品
@@ -564,7 +568,8 @@ export default connect(
         getGoodServiceStations,
         inputStation,
         pushCarInterface,
-        shopCartCount
+        shopCartCount,
+        hasFreeCare
       },
       dispatch
     )

@@ -1,4 +1,4 @@
-/* 商城 - 体验活动主页 */
+/* 商城 - 购物车 */
 
 // ==================
 // 所需的各种插件
@@ -385,7 +385,7 @@ class HomePageContainer extends React.Component {
                 </div>
               );
             })
-          ) : (
+          ) : ( this.state.downData && this.state.downData.length ? null :
             <div className="data-nothing">
               <img src={Img404} />
               <div>亲，这里什么也没有哦~</div>

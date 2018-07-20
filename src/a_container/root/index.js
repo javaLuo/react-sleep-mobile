@@ -92,7 +92,7 @@ import Menu from "../../a_component/menu";
 import tools from "../../util/all";
 
 import { login, getUserInfo } from "../../a_action/app-action";
-import { hasFreeCare } from "../../a_action/shop-action";
+
 const history = createHistory();
 class RootContainer extends React.Component {
   constructor(props) {
@@ -116,7 +116,6 @@ class RootContainer extends React.Component {
   componentDidMount() {
     window.theHistory = history;
     this.getUserInfo();
-    this.getHasFreeCare();
   }
 
   componentDidCatch(error, info) {
@@ -146,10 +145,6 @@ class RootContainer extends React.Component {
           : params.openid;
       sessionStorage.setItem("openId", openid);
     }
-  }
-
-  getHasFreeCare() {
-    this.props.actions.hasFreeCare();
   }
 
   initURL() {
@@ -332,6 +327,6 @@ export default connect(
     FreeCareNum: state.shop.FreeCareNum
   }),
   dispatch => ({
-    actions: bindActionCreators({ login, getUserInfo, hasFreeCare }, dispatch)
+    actions: bindActionCreators({ login, getUserInfo }, dispatch)
   })
 )(RootContainer);
