@@ -27,7 +27,8 @@ import {
   shopStartPayOrder,
   mallOrderHraCard,
   saveOrderInfo,
-  getShipOrderCount
+  getShipOrderCount,
+  gotoOrderType
 } from "../../../../a_action/shop-action";
 
 // ==================
@@ -35,11 +36,14 @@ import {
 // ==================
 const alert = Modal.alert;
 class HomePageContainer extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, ...args) {
+    super(props, ...args);
+    props.cacheLifecycles.didCache(this.componentDidCache);
+    props.cacheLifecycles.didRecover(this.componentDidRecover);
     this.state = {
       data: [], // 所有的订单数据
       pageSize: 10,
+      tabsIndex: 0,
       fuckNum: {
         fCount: 0, // 待发货
         sCount: 0 // 待收货
@@ -92,12 +96,21 @@ class HomePageContainer extends React.Component {
     };
   }
 
+  componentDidCache = () => {
+    console.log('缓存List cached')
+  }
+
+  componentDidRecover = () => {
+    console.log('缓存List recovered')
+  }
+
   componentDidMount() {
     document.title = "我的订单";
     sessionStorage.removeItem("pay-obj");
     sessionStorage.removeItem("pay-info");
     sessionStorage.removeItem("pay-start");
-    const tabsIndex = Number(this.props.location.pathname.split("/").slice(-1));
+    const tabsIndex = this.props.orderPageNum;
+    console.log('我的订单哪一页：', tabsIndex);
     let conditions = null;
     switch (tabsIndex) {
       case 0:
@@ -116,6 +129,9 @@ class HomePageContainer extends React.Component {
         conditions = 4;
         break;
     }
+    this.setState({
+      tabsIndex,
+    });
     this.getData(conditions, 1, "flash");
     this.getShipOrderCount();
   }
@@ -359,6 +375,10 @@ class HomePageContainer extends React.Component {
     if (!t) {
       return;
     }
+    this.props.actions.gotoOrderType(index);
+    this.setState({
+      tabsIndex: index,
+    });
     if (!t.data.length || t.needUp) {
       // 如果这一页没有数据，或其他Tab之前有删除订单操作，就自动请求一次
       this.getData(t.conditions, 1, "flash");
@@ -381,6 +401,7 @@ class HomePageContainer extends React.Component {
           initialPage={Number(
             this.props.location.pathname.split("/").slice(-1)
           )}
+          page={this.state.tabsIndex}
           tabs={this.state.all.map(item => {
             let title = item.title;
             if (item.badge) {
@@ -490,7 +511,9 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-  userinfo: P.any
+  userinfo: P.any,
+  orderPageNum: P.number,
+  cacheLifecycles: P.any,
 };
 
 // ==================
@@ -499,7 +522,8 @@ HomePageContainer.propTypes = {
 
 export default connect(
   state => ({
-    userinfo: state.app.userinfo
+    userinfo: state.app.userinfo,
+    orderPageNum: state.shop.orderPageNum,
   }),
   dispatch => ({
     actions: bindActionCreators(
@@ -509,7 +533,8 @@ export default connect(
         shopStartPayOrder,
         mallOrderHraCard,
         saveOrderInfo,
-        getShipOrderCount
+        getShipOrderCount,
+        gotoOrderType,
       },
       dispatch
     )

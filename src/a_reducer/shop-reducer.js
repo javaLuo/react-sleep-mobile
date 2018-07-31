@@ -11,6 +11,8 @@ const initState = {
     // 下单流程所需
     addr: null // 所选择的收货地址信息，用于展示
   },
+  orderPageNum: 0, // 进入我的订单时，显示哪一页
+  favCardPageNum: 0, // 进入我的优惠卡时，显示哪一页
   willPayObjs: [], // 确认订单逻辑有变，全部依据此变量。从购物车选择或直接商品详情页 进入 订单确认页，都把选择的商品存入此变量
   allPayTypes: [], // 所有的支付方式，支付宝微信什么的
   allChargeTypes: [], // 所有的收费方式，包年包流量什么的
@@ -320,6 +322,19 @@ const hasFreeCare = (state, action) => {
     FreeCareNum: payload
   });
 };
+const gotoOrderType = (state, action) => {
+  const { payload } = action;
+  return Object.assign({}, state, {
+    orderPageNum: payload
+  });
+};
+
+const gotoFavCardType = (state, action) => {
+  const { payload } = action;
+  return Object.assign({}, state, {
+    favCardPageNum: payload
+  });
+};
 // ============================================
 // reducer function
 
@@ -385,6 +400,10 @@ const reducerFn = (state = initState, action) => {
       return shopCartCount(state, action);
     case "SHOP::hasFreeCare":
       return hasFreeCare(state, action);
+    case "SHOP::gotoOrderType":
+      return gotoOrderType(state, action);
+    case "SHOP::gotoFavCardType":
+      return gotoFavCardType(state, action);
     default:
       return actDefault(state, action);
   }

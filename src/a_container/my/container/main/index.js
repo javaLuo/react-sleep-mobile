@@ -51,7 +51,8 @@ import {
   getMyCustomersCount,
   getAuditCount,
   getShipOrderCount,
-  hasFreeCare
+  hasFreeCare,
+  gotoOrderType
 } from "../../../../a_action/shop-action";
 // ==================
 // Definition
@@ -411,6 +412,17 @@ class HomePageContainer extends React.Component {
     this.props.history.push("/my/addr/1"); // 1表示是普通的收货地址管理，2表示是从商品进入的选择收货地址
   }
 
+  // 跳转到我的订单
+  gotoOrder(type){
+    const u = this.props.userinfo;
+    if(!u){
+      Toast.info("请先登录", 1);
+      return false;
+    }
+    this.props.actions.gotoOrderType(type);
+    this.props.history.push("/my/order");
+  }
+
   render() {
     const u = this.props.userinfo;
     return (
@@ -478,7 +490,7 @@ class HomePageContainer extends React.Component {
         </div>
         <div
           className="bar"
-          onClick={() => this.props.history.push(u ? "/my/order/0" : "/login")}
+          onClick={() => this.gotoOrder(0)}
         >
           <div className="title">我的订单</div>
           <div className="arrow">
@@ -488,18 +500,14 @@ class HomePageContainer extends React.Component {
         </div>
         <div className="bar-box-dd">
           <div
-            onClick={() =>
-              this.props.history.push(u ? "/my/order/0" : "/login")
-            }
+            onClick={() => this.gotoOrder(0)}
           >
             <img src={IconAll} />
             <div>全部</div>
             <WaterWave color="#cccccc" press="down" />
           </div>
           <div
-            onClick={() =>
-              this.props.history.push(u ? "/my/order/1" : "/login")
-            }
+            onClick={() => this.gotoOrder(1)}
           >
             <img src={IconWaitPay} />
             <div>待付款</div>
@@ -507,9 +515,7 @@ class HomePageContainer extends React.Component {
           </div>
 
           <div
-            onClick={() =>
-              this.props.history.push(u ? "/my/order/2" : "/login")
-            }
+            onClick={() => this.gotoOrder(2)}
           >
             <img src={IconWaitSend} />
             <div>待发货</div>
@@ -519,9 +525,7 @@ class HomePageContainer extends React.Component {
             </div>
           </div>
           <div
-            onClick={() =>
-              this.props.history.push(u ? "/my/order/3" : "/login")
-            }
+            onClick={() => this.gotoOrder(3)}
           >
             <img src={IconWaitGet} />
             <div>待收货</div>
@@ -532,9 +536,7 @@ class HomePageContainer extends React.Component {
           </div>
 
           <div
-            onClick={() =>
-              this.props.history.push(u ? "/my/order/4" : "/login")
-            }
+            onClick={() => this.gotoOrder(4)}
           >
             <img src={IconDown} />
             <div>已完成</div>
@@ -657,7 +659,7 @@ export default connect(
   state => ({
     userinfo: state.app.userinfo,
     ambassador: state.app.ambassador,
-    FreeCareNum: state.shop.FreeCareNum
+    FreeCareNum: state.shop.FreeCareNum,
   }),
   dispatch => ({
     actions: bindActionCreators(
@@ -667,7 +669,8 @@ export default connect(
         getMyCustomersCount,
         getAuditCount,
         getShipOrderCount,
-        hasFreeCare
+        hasFreeCare,
+        gotoOrderType
       },
       dispatch
     )

@@ -128,10 +128,10 @@ class HomePageContainer extends React.Component {
       });
       this.getData(1, this.state.pageSize, "flash", search, 1);
     }
-    console.log("searh是什么：", this.props.location, search);
-    this.getData(1, this.state.pageSize, "flash", search, 3);
+    this.getData(1, this.state.pageSize, "flash", search, this.state.data[0].type);
     this.setState({
-      search
+      search,
+      tabIndex: 0,
     });
     this.initWeiXinPay();
     this.getSendCount(search);
@@ -246,7 +246,7 @@ class HomePageContainer extends React.Component {
   onTabsChange(tab, index) {
     const which = tab.type;
     const t = this.state.data.find(item => item.type === which);
-    console.log("来了吗：", tab, index, t, which);
+    // this.props.actions.gotoFavCardType(index);
     this.setState({
       tabIndex: index,
       btn1Show: false, // 批量赠送模态框 是否显示
@@ -315,6 +315,9 @@ class HomePageContainer extends React.Component {
           type: "link",
           success: () => {
             Toast.info("分享成功", 1);
+            this.setState({
+              shareShow: false,
+            })
           }
         });
         wx.onMenuShareTimeline({
@@ -324,6 +327,9 @@ class HomePageContainer extends React.Component {
           imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
           success: () => {
             Toast.info("分享成功", 1);
+            this.setState({
+              shareShow: false,
+            })
           }
         });
         res(true);
@@ -386,6 +392,9 @@ class HomePageContainer extends React.Component {
                   type: "link",
                   success: () => {
                     Toast.info("分享成功", 1);
+                    this.setState({
+                      shareShow: false,
+                    })
                     me.ticketHandsel({
                       userId: u.id,
                       shareType: 2,
@@ -402,6 +411,9 @@ class HomePageContainer extends React.Component {
                   imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
                   success: () => {
                     Toast.info("分享成功", 1);
+                    this.setState({
+                      shareShow: false,
+                    })
                     me.ticketHandsel({
                       userId: u.id,
                       shareType: 2,
@@ -488,6 +500,9 @@ class HomePageContainer extends React.Component {
             type: "link",
             success: () => {
               Toast.info("批量分享成功", 1);
+              this.setState({
+                shareShow: false,
+              })
               me.ticketHandselMany({
                 userId: u.id,
                 shareType: 4,
@@ -504,6 +519,9 @@ class HomePageContainer extends React.Component {
             imgUrl: "https://isluo.com/imgs/catlogoheiheihei.png",
             success: () => {
               Toast.info("批量分享成功", 1);
+              this.setState({
+                shareShow: false,
+              })
               me.ticketHandselMany({
                 userId: u.id,
                 shareType: 4,
@@ -1019,7 +1037,7 @@ class HomePageContainer extends React.Component {
                                           <div className="flex-none">
                                             {item_son.handselStatus === 1
                                               ? "赠送中 "
-                                              : null}
+                                              : (item_son.stationId ? '已预约' : null)}
                                             <img src={ImgRight} />
                                           </div>
                                         );
@@ -1287,7 +1305,7 @@ HomePageContainer.propTypes = {
   location: P.any,
   history: P.any,
   actions: P.any,
-  userinfo: P.any
+  userinfo: P.any,
 };
 
 // ==================
@@ -1296,7 +1314,7 @@ HomePageContainer.propTypes = {
 
 export default connect(
   state => ({
-    userinfo: state.app.userinfo
+    userinfo: state.app.userinfo,
   }),
   dispatch => ({
     actions: bindActionCreators(

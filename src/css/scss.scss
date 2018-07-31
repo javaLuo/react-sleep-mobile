@@ -123,3 +123,13 @@ $fontSize: 0.32rem;
 .am-toast > span {
   max-width: 80% !important;
 }
+
+.cache-hide{
+  width: 100vh;
+  height: 100vh;
+  visibility: hidden;
+  z-index: -1;
+  position: absolute;
+  top:0;
+  left:0;
+}

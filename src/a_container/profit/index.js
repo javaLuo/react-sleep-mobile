@@ -10,6 +10,7 @@ import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.scss";
 import tools from "../../util/all";
+import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 // ==================
 // 所需的所有组件
 // ==================
@@ -39,13 +40,46 @@ class Healthy extends React.Component {
   render() {
     return (
       <div>
-        <Switch>
-          <Route exact path={`${this.props.match.url}/`} component={Main} />
-          <Route
+        <CacheSwitch>
+          <CacheRoute
             exact
             path={`${this.props.match.url}/prodetail`}
             component={ProDetail}
+            behavior={cached => (cached ? {
+              style: {
+                position: 'absolute',
+                zIndex: -9999,
+                opacity: 0,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+                width: '100vw',
+              },
+              className: '__CacheRoute__cached'
+            } : {
+              className: '__CacheRoute__uncached'
+            })}
           />
+          <CacheRoute
+            exact
+            path={`${this.props.match.url}/tixianrecord`}
+            component={TixianRecord}
+            behavior={cached => (cached ? {
+              style: {
+                position: 'absolute',
+                zIndex: -9999,
+                opacity: 0,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+                width: '100vw',
+              },
+              className: '__CacheRoute__cached'
+            } : {
+              className: '__CacheRoute__uncached'
+            })}
+          />
+        </CacheSwitch>
+        <Switch>
+          <Route exact path={`${this.props.match.url}/`} component={Main} />
           <Route
             exact
             path={`${this.props.match.url}/prodetails/:id`}
@@ -65,11 +99,6 @@ class Healthy extends React.Component {
             exact
             path={`${this.props.match.url}/tixiandetail/:id`}
             component={TixianDetail}
-          />
-          <Route
-            exact
-            path={`${this.props.match.url}/tixianrecord`}
-            component={TixianRecord}
           />
         </Switch>
       </div>

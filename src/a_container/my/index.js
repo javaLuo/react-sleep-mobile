@@ -10,7 +10,7 @@ import { Switch, Route } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import P from "prop-types";
 import "./index.scss";
-
+import CacheRoute, { CacheSwitch } from "react-router-cache-route";
 // ==================
 // 所需的所有组件
 // ==================
@@ -66,6 +66,62 @@ class My extends React.Component {
   render() {
     return (
       <div>
+        <CacheSwitch>
+          <CacheRoute
+            exact
+            path={`${this.props.match.url}/order`}
+            component={Order}
+            behavior={cached => (cached ? {
+              style: {
+                position: 'absolute',
+                zIndex: -9999,
+                opacity: 0,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+                width: '100vw',
+              },
+              className: '__CacheRoute__cached'
+            } : {
+              className: '__CacheRoute__uncached'
+            })}
+          />
+          <CacheRoute
+            path={`${this.props.match.url}/myfavcards`}
+            component={MyFavCards}
+            behavior={cached => (cached ? {
+              style: {
+                position: 'absolute',
+                zIndex: -9999,
+                opacity: 0,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+                width: '100vw',
+              },
+              className: '__CacheRoute__cached'
+            } : {
+              className: '__CacheRoute__uncached'
+            })}
+          />
+          {/* 这个不能加exact,因为有两个地方要用，一个不传ID,一个传ID */}
+          <CacheRoute
+            exact
+            path={`${this.props.match.url}/ordercustomer`}
+            component={OrderCustomer}
+            behavior={cached => (cached ? {
+              style: {
+                position: 'absolute',
+                zIndex: -9999,
+                opacity: 0,
+                visibility: 'hidden',
+                pointerEvents: 'none',
+                width: '100vw',
+              },
+              className: '__CacheRoute__cached'
+            } : {
+              className: '__CacheRoute__uncached'
+            })}
+          />
+        </CacheSwitch>
         <Switch>
           <Route exact path={`${this.props.match.url}/`} component={Main} />
           <Route
@@ -82,11 +138,6 @@ class My extends React.Component {
             exact
             path={`${this.props.match.url}/authentication`}
             component={Authentication}
-          />
-          <Route
-            exact
-            path={`${this.props.match.url}/order/:id`}
-            component={Order}
           />
           <Route
             exact
@@ -174,11 +225,6 @@ class My extends React.Component {
             component={FavCardsDetail}
           />
           <Route
-            path={`${this.props.match.url}/myfavcards`}
-            component={MyFavCards}
-          />{" "}
-          {/* 这个不能加exact,因为有两个地方要用，一个不传ID,一个传ID */}
-          <Route
             exact
             path={`${this.props.match.url}/addr/:id`}
             component={Addr}
@@ -203,11 +249,7 @@ class My extends React.Component {
             path={`${this.props.match.url}/daiyanh5`}
             component={DaiYanH5}
           />
-          <Route
-            exact
-            path={`${this.props.match.url}/ordercustomer`}
-            component={OrderCustomer}
-          />
+
           <Route
             exact
             path={`${this.props.match.url}/ordercustomerdetail`}

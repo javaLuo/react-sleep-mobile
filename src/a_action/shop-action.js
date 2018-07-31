@@ -1115,3 +1115,17 @@ export function pushDingDan(params = []) {
     payload: params
   };
 }
+
+export function gotoOrderType(params = 0) {
+  return {
+    type: "SHOP::gotoOrderType",
+    payload: params
+  };
+}
+
+export function gotoFavCardType(params = 0) {
+  return {
+    type: "SHOP::gotoFavCardType",
+    payload: params
+  };
+}

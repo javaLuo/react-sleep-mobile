@@ -94,7 +94,7 @@ class HomePageContainer extends React.Component {
             thumb={<img src={ImgDingDan} />}
             multipleLine
             onClick={() =>
-              this.props.history.push(u ? "/my/order/0" : "/login")
+              this.props.history.push(u ? "/my/order" : "/login")
             }
           >
             我的订单

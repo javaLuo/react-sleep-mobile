@@ -38,7 +38,7 @@ class Jump extends React.Component {
     const t = temp.find(item => item.indexOf("code") >= 0);
     if (!t || !payInfo) {
       // 如果URL没有code, 表示是直接访问该地址。或缓存中没有订单信息，表示是支付完成后按后退按钮到此，直接进入我的订单页
-      me.props.history.replace("/my/order/0");
+      me.props.history.replace("/my/order");
       return;
     }
     const code = t.split("=")[1];

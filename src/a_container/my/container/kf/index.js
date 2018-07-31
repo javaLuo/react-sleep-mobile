@@ -190,9 +190,9 @@ class HomePageContainer extends React.Component {
             </a>
           ) : null}
 
-          <a className="btn btn2" href="tel:4001519999">
+          <a className="btn btn2" href="https://www.v5kf.com/public/chat/chat?sid=158196&entry=5&ref=link" target="_blank"  rel="noopener noreferrer">
             <img src={ImgFill2} />
-            <span>客服热线</span>
+            <span>人工咨询</span>
           </a>
         </div>
       </div>

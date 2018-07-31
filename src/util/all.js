@@ -366,10 +366,6 @@ const allobj = {
     return r;
   },
 
-  /**
-   * 通过type值返回对应的用户类型
-   * 因为多个地方用到，所以统一提取到这里
-   * */
   getNameByUserType(type) {
     switch (String(type)) {
       case "0":
@@ -408,7 +404,6 @@ const allobj = {
     }
   },
 
-  /** 算两个经纬度的距离 **/
   getFlatternDistance(lng1, lat1, lng2, lat2) {
     const f = (((lat1 + lat2) / 2) * Math.PI) / 180;
     const g = (((lat1 - lat2) / 2) * Math.PI) / 180;

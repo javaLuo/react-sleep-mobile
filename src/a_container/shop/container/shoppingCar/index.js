@@ -346,10 +346,18 @@ class HomePageContainer extends React.Component {
                                 />
                               </div>
                               <div className="infos">
-                                <div className="t all_warp">
+                                <div className="t all_warp" onClick={() =>
+                                  this.props.history.push(
+                                    `/shop/gooddetail/${listItem.id}`
+                                  )
+                                }>
                                   {listItem.name}
                                 </div>
-                                <div className="i all_warp">
+                                <div className="i all_warp" onClick={() =>
+                                  this.props.history.push(
+                                    `/shop/gooddetail/${listItem.id}`
+                                  )
+                                }>
                                   {this.getFeeTypeName(
                                     listItem.shopCart.feeType,
                                     listItem.productModel.chargeTypes
